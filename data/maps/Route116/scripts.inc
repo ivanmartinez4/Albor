@@ -49,7 +49,7 @@ Route116_EventScript_BoyfriendGruntInTunnel::
 Route116_EventScript_DevonEmployee::
 	lock
 	faceplayer
-	goto_if_set FLAG_MET_DEVON_EMPLOYEE, Route116_EventScript_TryGiveRepeatBallAgain
+	goto_if_unset FLAG_MET_DEVON_EMPLOYEE, Route116_EventScript_TryGiveRepeatBallAgain
 	msgbox Route116_Text_ThankYouTokenOfAppreciation, MSGBOX_DEFAULT
 	goto Route116_EventScript_GiveRepeatBall
 	end
@@ -66,7 +66,8 @@ Route116_EventScript_GiveRepeatBall::
 	call_if_eq VAR_FACING, DIR_EAST, Route116_EventScript_DevonEmployeeExitEast
 	removeobject VAR_LAST_TALKED
 	clearflag FLAG_HIDE_RUSTBORO_CITY_DEVON_CORP_3F_EMPLOYEE
-	setflag FLAG_RECEIVED_REPEAT_BALL
+	clearflag FLAG_HIDE_SPECIAL_BALLS_SELLER
+	setflag FLAG_MET_DEVON_EMPLOYEE
 	release
 	end
 
@@ -397,14 +398,14 @@ Route116_Text_ThankYouTokenOfAppreciation:
 	.string "For you, the most wonderful TRAINER,\n"
 	.string "I bear good news!\p"
 	.string "Recently, our company developed\n"
-	.string "a new kind of POKé BALL.\p"
+	.string "new kinds of POKé BALL.\p"
 	.string "As a token of our appreciation, this\n"
 	.string "is our gift to our wonderful TRAINER!$"
 
 Route116_Text_NewBallAvailableAtMart:
-	.string "Our new POKé BALL will be available\n"
+	.string "Our new POKé BALLS will be available\n"
 	.string "at the POKéMON MART in RUSTBORO.\p"
-	.string "Please do try it out!\n"
+	.string "Please do try them out!\n"
 	.string "Thank you and bye-bye!$"
 
 Route116_Text_BagIsJamPacked:
