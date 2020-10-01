@@ -501,8 +501,9 @@ struct SaveBlock2
     /*0x624*/ u16 contestLinkResults[CONTEST_CATEGORIES_COUNT][CONTESTANT_COUNT];
     /*0x64C*/ struct BattleFrontier frontier;
     /*0xF2C*/ bool8 autoRun;
-              u8 costumeId;
-}; // sizeof=0xF2C
+    /*0xF2D*/ u8 costumeId;
+    /*0xF2E*/ u8 rivalName[PLAYER_NAME_LENGTH + 1];
+}; // sizeof=0xF2E
 
 extern struct SaveBlock2 *gSaveBlock2Ptr;
 
