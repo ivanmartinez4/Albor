@@ -218,6 +218,7 @@ static const struct MenuAction MultichoiceList_VendingMachine[] =
 
 static const struct MenuAction MultichoiceList_MachBikeInfo[] =
 {
+    {gText_MachBikeMode},
     {gText_HowToRide},
     {gText_HowToTurn},
     {gText_SandySlopes},
@@ -226,6 +227,7 @@ static const struct MenuAction MultichoiceList_MachBikeInfo[] =
 
 static const struct MenuAction MultichoiceList_AcroBikeInfo[] =
 {
+    {gText_AcroBikeMode},
     {gText_Wheelies},
     {gText_BunnyHops},
     {gText_Jump},
