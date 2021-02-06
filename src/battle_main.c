@@ -51,6 +51,7 @@
 #include "util.h"
 #include "wild_encounter.h"
 #include "window.h"
+#include "wild_encounter.h"
 #include "constants/abilities.h"
 #include "constants/battle_config.h"
 #include "constants/battle_move_effects.h"
