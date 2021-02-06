@@ -952,6 +952,9 @@ gText_Sudowoodo_Attacked::
 gText_LegendaryFlewAway::
 	.string "The {STR_VAR_1} flew away!$"
 
+gText_CurrentFishingStreak::
+	.string "Current chain fishing streak: {STR_VAR_1}.$"
+
 	.include "data/text/pc_transfer.inc"
 	.include "data/text/questionnaire.inc"
 	.include "data/text/abnormal_weather.inc"
@@ -1000,6 +1003,14 @@ Common_EventScript_LegendaryFlewAway::
 	bufferspeciesname STR_VAR_1, VAR_0x8004
 	msgbox gText_LegendaryFlewAway, MSGBOX_DEFAULT
 	release
+	end
+
+EventScript_CheckFishingStreak::
+	lockall
+	specialvar VAR_RESULT, CheckChainFishingStreak
+	buffernumberstring 0, VAR_RESULT
+	msgbox gText_CurrentFishingStreak, MSGBOX_DEFAULT
+	releaseall
 	end
 
 	.include "data/scripts/pc_transfer.inc"
