@@ -287,13 +287,3 @@ EventScript_FailSweetScent::
 
 Text_FailSweetScent:
 	.string "Looks like there's nothing here…$"
-
-EventScript_DisableAutoRun::
-	playse SE_BOO
-	waitse
-	end
-
-EventScript_EnableAutoRun::
-	playse SE_PIN
-	waitse
-	end
