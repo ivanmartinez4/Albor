@@ -4378,3 +4378,16 @@ u8 CheckChainFishingStreak(void)
 {
     return gChainFishingStreak;
 }
+
+void SwapPlayersCostume(void)
+{
+    struct ObjectEvent *objEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
+
+    if (gSaveBlock2Ptr->costumeId == 0)
+        gSaveBlock2Ptr->costumeId = 1;
+    else
+        gSaveBlock2Ptr->costumeId = 0;
+
+    ObjectEventSetGraphicsId(objEvent, GetPlayerAvatarGraphicsIdByCurrentState());
+    ObjectEventTurn(objEvent, objEvent->movementDirection);
+}
