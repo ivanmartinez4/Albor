@@ -25,11 +25,17 @@ EventScript_DebugItemPack::
 	lockall
 	setflag FLAG_SYS_POKEMON_GET
 	setflag FLAG_SYS_POKEDEX_GET
+	setflag FLAG_SYS_B_DASH
+	setflag FLAG_RECEIVED_RUNNING_SHOES
+	setflag FLAG_RECEIVED_AMULET_COIN
+	setflag FLAG_RECEIVED_EXP_SHARE
 	special EnableNationalPokedex
 	givemon SPECIES_CHARIZARD, 100, 0
 	givemon SPECIES_BLASTOISE, 100, 0
 	givemon SPECIES_VENUSAUR, 100, 0
 	givemon SPECIES_SNORLAX, 100, 0
+	additem ITEM_AMULET_COIN, 1
+	additem ITEM_EXP_SHARE, 1
 	additem ITEM_RARE_CANDY, 99
 	additem ITEM_MASTER_BALL, 99
 	additem ITEM_HM01, 1
