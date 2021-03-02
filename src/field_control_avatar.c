@@ -85,7 +85,7 @@ void FieldClearPlayerInput(struct FieldInput *input)
     input->input_field_1_2 = FALSE;
     input->input_field_1_3 = FALSE;
     input->dpadDirection = 0;
-    input->pressedRButton = FALSE;
+    input->pressedLButton = FALSE;
 }
 
 void FieldGetPlayerInput(struct FieldInput *input, u16 newKeys, u16 heldKeys)
@@ -106,8 +106,8 @@ void FieldGetPlayerInput(struct FieldInput *input, u16 newKeys, u16 heldKeys)
                 input->pressedAButton = TRUE;
             if (newKeys & B_BUTTON)
                 input->pressedBButton = TRUE;
-            if (newKeys & R_BUTTON)
-                input->pressedRButton = TRUE;
+            if (newKeys & L_BUTTON)
+                input->pressedLButton = TRUE;
         }
 
         if (heldKeys & (DPAD_UP | DPAD_DOWN | DPAD_LEFT | DPAD_RIGHT))
@@ -195,7 +195,7 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
     if (input->pressedSelectButton && UseRegisteredKeyItemOnField() == TRUE)
         return TRUE;
     
-    if (input->pressedRButton && EnableAutoRun())
+    if (input->pressedLButton && EnableAutoRun())
         return TRUE;
 
     if (input->pressedRButton && TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_MACH_BIKE | PLAYER_AVATAR_FLAG_ACRO_BIKE))
@@ -1038,6 +1038,9 @@ static bool8 EnableAutoRun(void)
 {
     if (!FlagGet(FLAG_SYS_B_DASH))
         return FALSE;   //auto run unusable until you get running shoes
+
+    if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_MACH_BIKE | PLAYER_AVATAR_FLAG_ACRO_BIKE))
+        return FALSE;   //auto run unusable while riding a bike
 
     if (gSaveBlock2Ptr->autoRun)
     {
