@@ -20,3 +20,35 @@ EventScript_CheckFishingStreak::
 
 gText_CurrentFishingStreak::
 	.string "Current chain fishing streak: {STR_VAR_1}.$"
+
+EventScript_DebugItemPack::
+	lockall
+	setflag FLAG_SYS_POKEMON_GET
+	setflag FLAG_SYS_POKEDEX_GET
+	special EnableNationalPokedex
+	givemon SPECIES_CHARIZARD, 100, 0
+	givemon SPECIES_BLASTOISE, 100, 0
+	givemon SPECIES_VENUSAUR, 100, 0
+	givemon SPECIES_SNORLAX, 100, 0
+	additem ITEM_RARE_CANDY, 99
+	additem ITEM_MASTER_BALL, 99
+	additem ITEM_HM01, 1
+	additem ITEM_HM02, 1
+	additem ITEM_HM03, 1
+	additem ITEM_HM04, 1
+	additem ITEM_HM05, 1
+	additem ITEM_HM06, 1
+	additem ITEM_HM07, 1
+	additem ITEM_HM08, 1
+	additem ITEM_GOOD_ROD, 1
+	additem ITEM_MACH_BIKE, 1
+	setflag FLAG_BADGE01_GET
+	setflag FLAG_BADGE02_GET
+	setflag FLAG_BADGE03_GET
+	setflag FLAG_BADGE04_GET
+	setflag FLAG_BADGE05_GET
+	setflag FLAG_BADGE06_GET
+	setflag FLAG_BADGE07_GET
+	setflag FLAG_BADGE08_GET
+	releaseall
+	end
