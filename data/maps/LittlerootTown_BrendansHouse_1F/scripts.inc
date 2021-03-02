@@ -349,6 +349,11 @@ PlayersHouse_1F_Text_GotDadsBadgeHeresSomethingFromMom:
 	.string "MOM: Oh? Did DAD give you that BADGE?\p"
 	.string "Then here's something from your MOM!$"
 
+PlayersHouse_1F_Text_IAlsoBoughtYouSomeNewClothes:
+	.string "I also bought you a fresh set of\n"
+	.string "clothes. They're in the dresser\l"
+	.string "at your room upstairs.$"
+
 PlayersHouse_1F_Text_DontPushYourselfTooHard:
 	.string "Don't push yourself too hard, dear.\n"
 	.string "You can always come home.\p"

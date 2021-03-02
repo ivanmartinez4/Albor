@@ -538,3 +538,4 @@ gSpecials::
 	def_special SetTotemBoost
 	def_special CheckChainFishingStreak
 	def_special SwapPlayersCostume
+	def_special GetCurrentMap
