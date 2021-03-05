@@ -3209,57 +3209,60 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     else
         personality = Random32();
 
-    switch (otIdType)
+    //Determine original trainer ID
+    if (otIdType == OT_ID_SHINY) //Pokemon must be shiny
     {
-        case OT_ID_SHINY:
+        do
         {
-            u32 shinyValue = 0;
-            do
-            {
-                value = Random32();
+            value = Random32();
+            shinyValue = HIHALF(value) ^ LOHALF(value) ^ HIHALF(personality) ^ LOHALF(personality);
+        } while (shinyValue >= SHINY_ODDS);
+    }
+    else if (otIdType == OT_ID_RANDOM_NO_SHINY) //Pokemon cannot be shiny
+    {
+        do
+        {
+            value = Random32();
+            shinyValue = HIHALF(value) ^ LOHALF(value) ^ HIHALF(personality) ^ LOHALF(personality);
+        } while (shinyValue < SHINY_ODDS);
+    }
+    else if (otIdType == OT_ID_PRESET) //Pokemon has a preset OT ID
+    {
+        value = fixedOtId;
+    }
+    else //Player is the OT
+    {
+        u32 rolls = 0;
+        u32 shinyRolls = 0;
+        
+        value = gSaveBlock2Ptr->playerTrainerId[0]
+              | (gSaveBlock2Ptr->playerTrainerId[1] << 8)
+              | (gSaveBlock2Ptr->playerTrainerId[2] << 16)
+              | (gSaveBlock2Ptr->playerTrainerId[3] << 24);
+
+        if (CheckBagHasItem(ITEM_SHINY_CHARM, 1))
+            shinyRolls += I_SHINY_CHARM_REROLLS;
+        
+        if (gIsFishingEncounter)
+            shinyRolls += 1 + 2 * gChainFishingStreak; //1 + 2 rolls per streak count. max 41
+        
+        if (shinyRolls)
+        {
+            do {
+                personality = Random32();
                 shinyValue = HIHALF(value) ^ LOHALF(value) ^ HIHALF(personality) ^ LOHALF(personality);
-            } while (shinyValue >= SHINY_ODDS);
+                rolls++;
+            } while (shinyValue >= SHINY_ODDS && rolls < shinyRolls);
         }
-        break;
+    }
 
-        case OT_ID_RANDOM_NO_SHINY:
+    if (FlagGet(FLAG_FORCE_SHINY_ENCOUNTERS) && WILD_SINGLE_BATTLE)
+    {
+        do
         {
-            u32 shinyValue = 0;
-            do
-            {
-                value = Random32();
-                shinyValue = HIHALF(value) ^ LOHALF(value) ^ HIHALF(personality) ^ LOHALF(personality);
-            } while (shinyValue < SHINY_ODDS);
-        }
-        break;
-
-        case OT_ID_PRESET:
-        {
-            value = fixedOtId;
-        }
-        break;
-
-        default:
-        {
-            value = gSaveBlock2Ptr->playerTrainerId[0]
-                 | (gSaveBlock2Ptr->playerTrainerId[1] << 8)
-                 | (gSaveBlock2Ptr->playerTrainerId[2] << 16)
-                 | (gSaveBlock2Ptr->playerTrainerId[3] << 24);
-
-#ifdef ITEM_SHINY_CHARM
-            if (CheckBagHasItem(ITEM_SHINY_CHARM, 1))
-            {
-                u32 shinyValue;
-                u32 rolls = 0;
-                do
-                {
-                    personality = Random32();
-                    shinyValue = HIHALF(value) ^ LOHALF(value) ^ HIHALF(personality) ^ LOHALF(personality);
-                    rolls++;
-                } while (shinyValue >= SHINY_ODDS && rolls < I_SHINY_CHARM_REROLLS);
-            }
-#endif
-        }
+            personality = Random32();
+            shinyValue = HIHALF(value) ^ LOHALF(value) ^ HIHALF(personality) ^ LOHALF(personality);
+        } while (shinyValue >= SHINY_ODDS);
     }
 
     SetBoxMonData(boxMon, MON_DATA_PERSONALITY, &personality);
