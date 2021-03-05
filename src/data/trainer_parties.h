@@ -1,19 +1,20 @@
 /*
 Quick example on how to set up fully customized trainerbattles.
+
 static const struct TrainerMon sParty_Calvin1[] = {
     {
         .nickname = _("Bahamut"),
-            .ivs = BEST_IV_SPREAD,
-            .lvl = 5,
-            .species = SPECIES_CHARMANDER,
-            .heldItem = ITEM_CHARCOAL,
-            .moves = {MOVE_FLAMETHROWER, MOVE_FIRE_SPIN, MOVE_DRAGON_CLAW, MOVE_SUNNY_DAY},
+        .ivs = BEST_IV_SPREAD,
+        .lvl = 5,
+        .species = SPECIES_CHARMANDER,
+        .heldItem = ITEM_CHARCOAL,
+        .moves = {MOVE_FLAMETHROWER, MOVE_FIRE_SPIN, MOVE_DRAGON_CLAW, MOVE_SUNNY_DAY},
         .gender = MON_MALE,
-        .nature = NATURE_MODEST,
-        .ability = 0, // Blaze
+        .nature = NATURE_HARDY,
+        .ability = FIRST_ABILITY, // Blaze
         .evs = {4, 0, 0, 252, 252, 0},
         .ball = ITEM_LUXURY_BALL,
-        .shiny = TRUE,
+        .shiny = TRUE, // Doesn't work if a value bigger than NATURE_HARDY is given to the .nature field, for some reason.
         .friendship = 0,
     }
 };

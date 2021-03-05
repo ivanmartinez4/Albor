@@ -1917,9 +1917,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
         for (i = 0; i < monsCount; i++)
         {
             const struct TrainerMon *partyData = gTrainers[trainerNum].party.TrainerMon;
-            u8 fixedIV = partyData[i].iv + TRAINER_IV_MODIFIER;
-
-            fixedIV = partyData[i].iv * MAX_PER_STAT_IVS / 255;
+            u8 fixedIV = partyData[i].iv * MAX_PER_STAT_IVS / 255;
 
             for (j = 0; gTrainers[trainerNum].trainerName[j] != EOS; j++)
                 nameHash += gTrainers[trainerNum].trainerName[j];
@@ -1927,7 +1925,9 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
             // MON_MALE and NATURE_HARDY share the default values. If one is set, assume the other is also meant to be set.
             // Enforced male pokemon cannot be Hardy. All pokemon with set natures will be male unless otherwise stated.
             if ((partyData[i].nature > 0) || (partyData[i].gender > 0))
+            {
                 CreateMonWithGenderNatureLetter(&party[i], partyData[i].species, partyData[i].lvl, fixedIV, partyData[i].gender, partyData[i].nature, 0, partyData[i].shiny ? OT_ID_SHINY : OT_ID_RANDOM_NO_SHINY);
+            }
             else
             {
                 if (gTrainers[trainerNum].doubleBattle == TRUE)
@@ -1946,18 +1946,20 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
                 SetMonData(&party[i], MON_DATA_FRIENDSHIP, &friendship);
             }
             else if (partyData[i].friendship > 0)
+            {
                 SetMonData(&party[i], MON_DATA_FRIENDSHIP, &partyData[i].friendship);
+            }
 
             if (partyData[i].nickname[0] != '\0')
                 SetMonData(&party[i], MON_DATA_NICKNAME, &partyData[i].nickname);
 
-            // Should take only constants of ABILITY_SLOT_1, ABILITY_SLOT_2, or ABILITY_HIDDEN.
+            // Should take only constants of FIRST_ABILITY, SECOND_ABILITY, or HIDDEN_ABILITY.
             // If desired, implement else where undefined abilities are chosen between slots 1 and 2, a la gen IV.
             if (partyData[i].ability > 0)
             {
                 ability = partyData[i].ability;
 
-                if (partyData[i].ability == ABILITY_SLOT_1)
+                if (partyData[i].ability == FIRST_ABILITY)
                     ability = 0;
 
                 SetMonData(&party[i], MON_DATA_ABILITY_NUM, &ability);
@@ -1994,27 +1996,18 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
                 }
             }
 
-            // Check for non-constant IV spread.
-            if (partyData[i].iv == 0)
+            // Set individual values.
+            if (partyData[i].ivs > 0)
             {
                 for (j = 0; j < NUM_STATS; j++)
-                {
                     SetMonData(&party[i], MON_DATA_HP_IV + j, &partyData[i].ivs[j]);
-                }
             }
-            else if (partyData[i].iv == WORST_IVS)
+
+            // Set effort values.
+            if (partyData[i].evs > 0)
             {
                 for (j = 0; j < NUM_STATS; j++)
-                {
-                    SetMonData(&party[i], MON_DATA_HP_IV + j, 0);
-                }
-            }
-
-
-            // Set effort values regardless.  Default is 0.
-            for (j = 0; j < NUM_STATS; j++)
-            {
-                SetMonData(&party[i], MON_DATA_HP_EV + j, &partyData[i].evs[j]);
+                    SetMonData(&party[i], MON_DATA_HP_EV + j, &partyData[i].evs[j]);
             }
 
             StringCopy(trainerName, gTrainers[trainerNum].trainerName);

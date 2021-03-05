@@ -106,25 +106,16 @@
 #define BEST_IV_SPREAD_HIDDEN_POWER_STEEL    {31, 31, 31, 31, 31, 30}
 #define BEST_IV_SPREAD_HIDDEN_POWER_WATER    {31, 31, 31, 30, 30, 31}
 
-#define BEST_IV_SPREAD_SPECIAL               {31,  0, 31, 31, 31, 31}
-#define BEST_IV_SPREAD_TRICK_ROOM            {31, 31, 31,  0, 31, 31}
-#define BEST_IV_SPREAD_SPECIAL_TRICK_ROOM    {31,  0, 31,  0, 31, 31}
-
 #define BEST_IV_SPREAD BEST_IV_SPREAD_HIDDEN_POWER_DARK
-
-#define MAX_EV_SPREAD                     {252, 252, 252, 252, 252, 252}
-#define MAX_EV_SPREAD_SPECIAL             {252,   0, 252, 252, 252, 252}
-#define MAX_EV_SPREAD_TRICK_ROOM          {252, 252, 252,   0, 252, 252}
-#define MAX_EV_SPREAD_SPECIAL_TRICK_ROOM  {252,   0, 252,   0, 252, 252}
 
 #define FRIENDSHIP_FRUSTRATION   1
 #define FRIENDSHIP_RETURN      255
 
-#define WORST_IVS                1
+#define WORST_IVS                0
 
-#define ABILITY_SLOT_1 255
-#define ABILITY_SLOT_2 1
-#define ABILITY_HIDDEN 2
+#define FIRST_ABILITY  255
+#define SECOND_ABILITY   1
+#define HIDDEN_ABILITY   2
 
 // Shiny odds
 #define SHINY_ODDS 8 // Actual probability is SHINY_ODDS/65536

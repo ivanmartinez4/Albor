@@ -3077,13 +3077,13 @@ static void FillPartnerParty(u16 trainerId)
             if (partyData[i].nickname[0] != '\0')
                 SetMonData(&gPlayerParty[i + 3], MON_DATA_NICKNAME, &partyData[i].nickname);
 
-            // Should take only constants of ABILITY_SLOT_1, ABILITY_SLOT_2, or ABILITY_HIDDEN.
+            // Should take only constants of FIRST_ABILITY, SECOND_ABILITY, or HIDDEN_ABILITY.
             // If desired, implement else where undefined abilities are chosen between slots 1 and 2, a la gen IV.
             if (partyData[i].ability > 0)
             {
                 ability = partyData[i].ability;
 
-                if (partyData[i].ability == ABILITY_SLOT_1)
+                if (partyData[i].ability == FIRST_ABILITY)
                     ability = 0;
 
                 SetMonData(&gPlayerParty[i + 3], MON_DATA_ABILITY_NUM, &ability);
@@ -3109,27 +3109,20 @@ static void FillPartnerParty(u16 trainerId)
                 }
             }
 
-            // Check for non-constant IV spread.
-            if (partyData[i].iv == 0)
+            // Set individual values.
+            if (partyData[i].ivs > 0)
             {
                 for (j = 0; j < NUM_STATS; j++)
-                {
                     SetMonData(&gPlayerParty[i + 3], MON_DATA_HP_IV + j, &partyData[i].ivs[j]);
-                }
-            }
-            else if (partyData[i].iv == WORST_IVS)
-            {
-                for (j = 0; j < NUM_STATS; j++)
-                {
-                    SetMonData(&gPlayerParty[i + 3], MON_DATA_HP_IV + j, 0);
-                }
             }
 
-            // Set effort values regardless.  Default is 0.
-            for (j = 0; j < NUM_STATS; j++)
+            // Set effort values.
+            if (partyData[i].evs > 0)
             {
-                SetMonData(&gPlayerParty[i + 3], MON_DATA_HP_EV + j, &partyData[i].evs[j]);
+                for (j = 0; j < NUM_STATS; j++)
+                    SetMonData(&gPlayerParty[i + 3], MON_DATA_HP_EV + j, &partyData[i].evs[j]);
             }
+
             StringCopy(trainerName, gTrainers[trainerId - TRAINER_CUSTOM_PARTNER].trainerName);
             SetMonData(&gPlayerParty[i + 3], MON_DATA_OT_NAME, trainerName);
             CalculateMonStats(&gPlayerParty[i + 3]);
