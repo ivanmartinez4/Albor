@@ -14,11 +14,11 @@ EventScript_CheckFishingStreak::
 	lockall
 	specialvar VAR_RESULT, CheckChainFishingStreak
 	buffernumberstring 0, VAR_RESULT
-	msgbox gText_CurrentFishingStreak, MSGBOX_DEFAULT
+	msgbox EventScript_CheckFishingStreak_Text_CurrentFishingStreak, MSGBOX_DEFAULT
 	releaseall
 	end
 
-gText_CurrentFishingStreak::
+EventScript_CheckFishingStreak_Text_CurrentFishingStreak::
 	.string "Current chain fishing streak: {STR_VAR_1}.$"
 
 EventScript_DebugItemPack::
@@ -58,3 +58,12 @@ EventScript_DebugItemPack::
 	setflag FLAG_BADGE08_GET
 	releaseall
 	end
+
+EventScript_CheckSavefileSize::
+	special CheckSavefileSize
+	msgbox EventScript_Text_CheckSavefileSize
+	release
+	end
+
+EventScript_Text_CheckSavefileSize:
+	.string "SaveBlock1 size: {STR_VAR_1}/15872 bytes.\nSaveBlock2 size: {STR_VAR_2}/3968 bytes.$"
