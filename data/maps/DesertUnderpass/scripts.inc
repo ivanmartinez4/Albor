@@ -17,22 +17,17 @@ DesertUnderpass_EventScript_Fossil::
 	end
 
 DesertUnderpass_EventScript_GiveClawFossil::
+	checkitemspace ITEM_CLAW_FOSSIL, 1
+	goto_if_eq VAR_RESULT, NO, Common_EventScript_ShowBagIsFull
 	giveitem ITEM_CLAW_FOSSIL
 	removeobject LOCALID_FOSSIL
 	release
 	end
 
 DesertUnderpass_EventScript_GiveRootFossil::
+	checkitemspace ITEM_ROOT_FOSSIL, 1
+	goto_if_eq VAR_RESULT, NO, Common_EventScript_ShowBagIsFull
 	giveitem ITEM_ROOT_FOSSIL
 	removeobject LOCALID_FOSSIL
 	release
 	end
-
-@ Unused
-DesertUnderpass_Text_FoundRootFossil::
-	.string "{PLAYER} found the ROOT FOSSIL.$"
-
-@ Unused
-DesertUnderpass_Text_FoundClawFossil::
-	.string "{PLAYER} found the CLAW FOSSIL.$"
-
