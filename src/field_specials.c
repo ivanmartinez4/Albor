@@ -4408,3 +4408,39 @@ void CheckSavefileSize(void)
     ConvertIntToDecimalStringN(gStringVar1, size, STR_CONV_MODE_LEFT_ALIGN, 6);
     ConvertIntToDecimalStringN(gStringVar2, size2, STR_CONV_MODE_LEFT_ALIGN, 6);
 }
+
+// Checks the EVs of a Pokémon in gSpecialVar_0x8004 and stores them in the 6 text buffers
+void CheckMonEVs(void)
+{
+    u8 hpEV = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_HP_EV, &hpEV);
+    u8 attackEV = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_ATK_EV, &attackEV);
+    u8 defenseEV = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_DEF_EV, &defenseEV);
+    u8 speedEV = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPEED_EV, &speedEV);
+    u8 spAttackEV = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPATK_EV, &spAttackEV);
+    u8 spDefenseEV = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPDEF_EV, &spDefenseEV);
+
+    ConvertIntToDecimalStringN(gStringVar1, hpEV, STR_CONV_MODE_LEFT_ALIGN, 3);
+    ConvertIntToDecimalStringN(gStringVar2, attackEV, STR_CONV_MODE_LEFT_ALIGN, 3);
+    ConvertIntToDecimalStringN(gStringVar3, defenseEV, STR_CONV_MODE_LEFT_ALIGN, 3);
+    ConvertIntToDecimalStringN(gStringVar4, speedEV, STR_CONV_MODE_LEFT_ALIGN, 3);
+    ConvertIntToDecimalStringN(gStringVar5, spAttackEV, STR_CONV_MODE_LEFT_ALIGN, 3);
+    ConvertIntToDecimalStringN(gStringVar6, spDefenseEV, STR_CONV_MODE_LEFT_ALIGN, 3);
+}
+
+// Checks the IVs of a Pokémon in gSpecialVar_0x8004 and stores them in the 6 text buffers
+void CheckMonIVs(void)
+{
+    u8 hpIV = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_HP_IV, &hpIV);
+    u8 attackIV = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_ATK_IV, &attackIV);
+    u8 defenseIV = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_DEF_IV, &defenseIV);
+    u8 speedIV = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPEED_IV, &speedIV);
+    u8 spAttackIV = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPATK_IV, &spAttackIV);
+    u8 spDefenseIV = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPDEF_IV, &spDefenseIV);
+
+    ConvertIntToDecimalStringN(gStringVar1, hpIV, STR_CONV_MODE_LEFT_ALIGN, 3);
+    ConvertIntToDecimalStringN(gStringVar2, attackIV, STR_CONV_MODE_LEFT_ALIGN, 3);
+    ConvertIntToDecimalStringN(gStringVar3, defenseIV, STR_CONV_MODE_LEFT_ALIGN, 3);
+    ConvertIntToDecimalStringN(gStringVar4, speedIV, STR_CONV_MODE_LEFT_ALIGN, 3);
+    ConvertIntToDecimalStringN(gStringVar5, spAttackIV, STR_CONV_MODE_LEFT_ALIGN, 3);
+    ConvertIntToDecimalStringN(gStringVar6, spDefenseIV, STR_CONV_MODE_LEFT_ALIGN, 3);
+}

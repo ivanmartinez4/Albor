@@ -1,5 +1,7 @@
 @ For scripts that don't fit thematically in other .inc files
 
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
 EventScript_DisableAutoRun::
 	playse SE_BOO
 	waitse
@@ -9,6 +11,8 @@ EventScript_EnableAutoRun::
 	playse SE_PIN
 	waitse
 	end
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 EventScript_CheckFishingStreak::
 	lockall
@@ -20,6 +24,8 @@ EventScript_CheckFishingStreak::
 
 EventScript_CheckFishingStreak_Text_CurrentFishingStreak::
 	.string "Current chain fishing streak: {STR_VAR_1}.$"
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 EventScript_DebugItemPack::
 	lockall
@@ -59,6 +65,8 @@ EventScript_DebugItemPack::
 	releaseall
 	end
 
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
 EventScript_CheckSavefileSize::
 	special CheckSavefileSize
 	msgbox EventScript_Text_CheckSavefileSize
@@ -67,3 +75,112 @@ EventScript_CheckSavefileSize::
 
 EventScript_Text_CheckSavefileSize:
 	.string "SaveBlock1 size: {STR_VAR_1}/15872 bytes.\nSaveBlock2 size: {STR_VAR_2}/3968 bytes.$"
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+EventScript_CheckEVs::
+	lockall
+	faceplayer
+	special ChoosePartyMon
+	waitstate
+	compare VAR_0x8004, PARTY_SIZE
+	goto_if_ge EventScript_Cancel
+	specialvar VAR_RESULT, ScriptGetPartyMonSpecies
+	compare VAR_RESULT, SPECIES_EGG
+	goto_if_eq EventScript_CheckEVs_Egg
+	special CheckMonEVs
+	msgbox EventScript_CheckEVs_Text_Evaluation
+	msgbox EventScript_Text_ComeBackAnytime
+	releaseall
+	end
+
+EventScript_Cancel:
+	lockall
+	faceplayer
+	msgbox EventScript_Text_ComeBackAnytime
+	releaseall
+	end
+
+EventScript_CheckEVs_Egg:
+	lockall
+	faceplayer
+	msgbox EventScript_CheckEVs_Text_Egg
+	releaseall
+	end
+
+EventScript_CheckEVs_Text_Evaluation:
+	.string "Your POKéMON has: {STR_VAR_1} HP EVs,\n"
+	.string "{STR_VAR_2} ATK EVs and {STR_VAR_3} DEF EVs.\p"
+	.string "Let's see what else…\p"
+	.string "It also has: {STR_VAR_4} SPD EVs,\n"
+	.string "{STR_VAR_5} SP. ATK EVs and {STR_VAR_6} SP. DEF EVs.$"
+
+EventScript_CheckEVs_Text_Egg:
+	.string "Sorry, Pokémon Eggs don't\n"
+	.string "have EVs.$"
+
+EventScript_Text_ComeBackAnytime:
+	.string "Come back anytime.$"
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+EventScript_CheckIVs::
+	lockall
+	faceplayer
+	special ChoosePartyMon
+	waitstate
+	compare VAR_0x8004, PARTY_SIZE
+	goto_if_ge EventScript_Cancel
+	specialvar VAR_RESULT, ScriptGetPartyMonSpecies
+	compare VAR_RESULT, SPECIES_EGG
+	goto_if_eq EventScript_CheckIVs_Egg
+	special CheckMonIVs
+	msgbox EventScript_CheckIVs_Text_Evaluation
+	msgbox EventScript_Text_ComeBackAnytime
+	releaseall
+	end
+
+EventScript_CheckIVs_Egg:
+	lockall
+	faceplayer
+	msgbox EventScript_CheckIVs_Text_Egg
+	releaseall
+	end
+
+EventScript_CheckIVs_Text_Evaluation:
+	.string "Your POKéMON has: {STR_VAR_1} HP IVs,\n"
+	.string "{STR_VAR_2} ATK IVs and {STR_VAR_3} DEF IVs.\p"
+	.string "Let's see what else…\p"
+	.string "It also has: {STR_VAR_4} SPD IVs,\n"
+	.string "{STR_VAR_5} SP. ATK IVs and {STR_VAR_6} SP. DEF IVs.$"
+
+EventScript_CheckIVs_Text_Egg:
+	.string "Sorry, Pokémon Eggs don't\n"
+	.string "have IVs.$"
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+EventScript_ForceEggHatch::
+	lockall
+	faceplayer
+	special ChoosePartyMon
+	waitstate
+	compare VAR_0x8004, PARTY_SIZE
+	goto_if_eq EventScript_Text_ComeBackAnytime
+	specialvar VAR_RESULT, ScriptGetPartyMonSpecies
+	compare VAR_RESULT, SPECIES_EGG
+	goto_if_ne EventScript_ForceEggHatch_CantForceHatch
+	special EggHatch
+	waitstate
+	faceplayer @ For some reason, if I don't re-cast faceplayer the NPC is able to move around.
+	msgbox EventScript_Text_ComeBackAnytime
+	releaseall
+	end
+EventScript_ForceEggHatch_CantForceHatch:
+	lock
+	msgbox EventScript_ForcedEggHatch_Text_NotAnEgg
+	release
+	end
+
+EventScript_ForcedEggHatch_Text_NotAnEgg:
+	.string "That's not a Pokémon Egg.$"
