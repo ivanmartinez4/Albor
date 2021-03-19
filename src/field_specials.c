@@ -4437,3 +4437,8 @@ void CheckMonIVs(void)
     ConvertIntToDecimalStringN(gStringVar5, spAttackIV, STR_CONV_MODE_LEFT_ALIGN, 3);
     ConvertIntToDecimalStringN(gStringVar6, spDefenseIV, STR_CONV_MODE_LEFT_ALIGN, 3);
 }
+
+u8 GetPlayersCurrentCostume(void)
+{
+    return gSaveBlock2Ptr->costumeId;
+}

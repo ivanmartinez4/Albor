@@ -344,7 +344,14 @@ PetalburgCity_Gym_EventScript_GiveFacade2::
 	end
 
 PetalburgCity_Gym_EventScript_NormanRematch::
+	specialvar VAR_RESULT, GetPlayersCurrentCostume
+	goto_if_eq VAR_RESULT, 2, PetalburgCity_Gym_EventScript_PlayersNewClothes
 	trainerbattle_rematch_double TRAINER_NORMAN_1, PetalburgCity_Gym_Text_NormanPreRematch, PetalburgCity_Gym_Text_NormanRematchDefeat, PetalburgCity_Gym_Text_NormanRematchNeedTwoMons
+	msgbox PetalburgCity_Gym_Text_NormanPostRematch, MSGBOX_AUTOCLOSE
+	end
+
+PetalburgCity_Gym_EventScript_PlayersNewClothes:
+	trainerbattle_rematch_double TRAINER_NORMAN_1, PetalburgCity_Gym_Text_NormanPreRematchWithExtraFlavor, PetalburgCity_Gym_Text_NormanRematchDefeat, PetalburgCity_Gym_Text_NormanRematchNeedTwoMonsWithExtraFlavor
 	msgbox PetalburgCity_Gym_Text_NormanPostRematch, MSGBOX_AUTOCLOSE
 	end
 
@@ -1556,11 +1563,25 @@ PetalburgCity_Gym_Text_GymStatueCertified:
 	.string "NORMAN'S CERTIFIED TRAINERS:\n"
 	.string "{PLAYER}$"
 
+PetalburgCity_Gym_Text_NormanPreRematchWithExtraFlavor:
+	.string "DAD: {PLAYER}…\n"
+	.string "I had a feeling that you would come.\p"
+	.string "I see you're wearing the clothes I\n"
+	.string "bought you. I'm glad you liked them.\p"
+	.string "If you came here, you must be ready\n"
+	.string "to accept my challenge.\p"
+	.string "You do understand, don't you?\p"
+	.string "Inside a GYM, it doesn't matter that\n"
+	.string "we are a parent and child.\p"
+	.string "…No, because we are parent and child,\n"
+	.string "we owe it to each other to do the best\l"
+	.string "we can. Isn't that right, {PLAYER}?$"
+
 PetalburgCity_Gym_Text_NormanPreRematch:
 	.string "DAD: {PLAYER}…\n"
 	.string "I had a feeling that you would come.\p"
-	.string "I would never refuse to accept\n"
-	.string "a challenge from you.\p"
+	.string "If you came here, you must be ready\n"
+	.string "to accept my challenge.\p"
 	.string "You do understand, don't you?\p"
 	.string "Inside a GYM, it doesn't matter that\n"
 	.string "we are a parent and child.\p"
@@ -1582,8 +1603,8 @@ PetalburgCity_Gym_Text_NormanPostRematch:
 PetalburgCity_Gym_Text_NormanRematchNeedTwoMons:
 	.string "DAD: {PLAYER}…\n"
 	.string "I had a feeling that you would come.\p"
-	.string "I would never refuse to accept\n"
-	.string "a challenge from you.\p"
+	.string "If you came here, you must be ready\n"
+	.string "to accept my challenge.\p"
 	.string "You do understand, don't you?\p"
 	.string "Inside a GYM, it doesn't matter that\n"
 	.string "we are a parent and child.\p"
@@ -1593,3 +1614,18 @@ PetalburgCity_Gym_Text_NormanRematchNeedTwoMons:
 	.string "Sorry, but you'll have to come back\n"
 	.string "with at least two POKéMON.$"
 
+PetalburgCity_Gym_Text_NormanRematchNeedTwoMonsWithExtraFlavor: @ 820764A
+	.string "DAD: {PLAYER}…\n"
+	.string "I had a feeling that you would come.\p"
+	.string "I see you're wearing the clothes I\n"
+	.string "bought you. I'm glad you liked them.\p"
+	.string "If you came here, you must be ready\n"
+	.string "to accept my challenge.\p"
+	.string "You do understand, don't you?\p"
+	.string "Inside a GYM, it doesn't matter that\n"
+	.string "we are a parent and child.\p"
+	.string "Hm? Wait a second, {PLAYER}.\p"
+	.string "Do you only have one POKéMON that is\n"
+	.string "capable of battle?\p"
+	.string "Sorry, but you'll have to come back\n"
+	.string "with at least two POKéMON.$"
