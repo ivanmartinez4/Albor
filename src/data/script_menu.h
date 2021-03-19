@@ -54,6 +54,21 @@ static const struct MenuAction MultichoiceList_RegisterMenu[] =
     {gText_Cancel2},
 };
 
+static const struct MenuAction MultichoiceList_CostumeSelection1[] =
+{
+    {gText_PkmnTrainerCostume},
+    {gText_LegacyCostume},
+    {gText_Exit},
+};
+
+static const struct MenuAction MultichoiceList_CostumeSelection2[] =
+{
+    {gText_PkmnTrainerCostume},
+    {gText_LegacyCostume},
+    {gText_PokedexHolderCostume},
+    {gText_Exit},
+};
+
 static const struct MenuAction MultichoiceList_Bike[] =
 {
     {gText_Mach},
@@ -795,8 +810,8 @@ static const struct MultichoiceListStruct sMultichoiceLists[] =
     [MULTI_BASE_PC_WITH_REGISTRY]      = MULTICHOICE(MultichoiceList_BasePCWithRegistry),
     [MULTI_REGISTER_MENU]              = MULTICHOICE(MultichoiceList_RegisterMenu),
     [MULTI_SSTIDAL_LILYCOVE]           = MULTICHOICE(MultichoiceList_Exit),
-    [MULTI_UNUSED_9]                   = MULTICHOICE(MultichoiceList_Exit),
-    [MULTI_UNUSED_10]                  = MULTICHOICE(MultichoiceList_Exit),
+    [MULTI_COSTUME_SELECTION_1]        = MULTICHOICE(MultichoiceList_CostumeSelection1),
+    [MULTI_COSTUME_SELECTION_2]        = MULTICHOICE(MultichoiceList_CostumeSelection2),
     [MULTI_FRONTIER_PASS_INFO]         = MULTICHOICE(MultichoiceList_FrontierPassInfo),
     [MULTI_BIKE]                       = MULTICHOICE(MultichoiceList_Bike),
     [MULTI_STATUS_INFO]                = MULTICHOICE(MultichoiceList_StatusInfo),

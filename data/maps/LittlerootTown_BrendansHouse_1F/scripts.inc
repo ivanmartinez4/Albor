@@ -416,6 +416,12 @@ PlayersHouse_1F_Text_PortsInSlateportLilycove:
 	.string "If I recall, there are ferry ports in\n"
 	.string "SLATEPORT and LILYCOVE.$"
 
+PlayersHouse_1F_Text_IBoughtYouSomeNewClothesToo:
+	.string "By the way, I bought a present for\n"
+	.string "you, to celebrate your achievement.\p"
+	.string "I felt I had to reward you somehow.\n"
+	.string "The ELITE FOUR are no small fries.$"
+
 PlayersHouse_1F_Text_BetterGetBackToGym:
 	.string "I'd better get back to PETALBURG GYM.\p"
 	.string "MOM, thanks for looking after the house\n"
@@ -449,3 +455,15 @@ PlayersHouse_1F_Text_WhatColorDidTheySay:
 PlayersHouse_1F_Text_StillUnknownPokemon:
 	.string "MOM: Well, isn't that something!\n"
 	.string "There are still unknown POKéMON.$"
+
+PlayersHouse_1F_Text_IAlmostForgot:
+	.string "Oh! I almost forgot!\p"
+	.string "I put the present your father\n"
+	.string "bought for you in your dresser\l"
+	.string "while you were asleep.\p"
+	.string "Make sure to thank him later!$"
+
+PlayersHouse_1F_Text_OneLastThing:
+	.string "I know you're a grown up now, but\n"
+	.string "please be careful out there.\p"
+	.string "I'm always rooting for you, honey.$"

@@ -4382,14 +4382,7 @@ u8 CheckChainFishingStreak(void)
 void SwapPlayersCostume(void)
 {
     struct ObjectEvent *objEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
-
-    if (gSaveBlock2Ptr->costumeId == 0)
-        gSaveBlock2Ptr->costumeId = 1;
-    else if (gSaveBlock2Ptr->costumeId == 1)
-        gSaveBlock2Ptr->costumeId = 2;
-    else
-        gSaveBlock2Ptr->costumeId = 0;
-
+    gSaveBlock2Ptr->costumeId = VarGet(VAR_COSTUME_SELECTION);
     ObjectEventSetGraphicsId(objEvent, GetPlayerAvatarGraphicsIdByCurrentState());
     ObjectEventTurn(objEvent, objEvent->movementDirection);
     BlendPalettes(0xFFFFFFFF, 16, 0);

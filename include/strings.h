@@ -3031,4 +3031,9 @@ extern const u8 gText_PkmnForSwap[];
 extern const u8 gText_SamePkmnInPartyAlready[];
 extern const u8 gText_Cancel3[];
 
+// Costume Selection Choices
+extern const u8 gText_PkmnTrainerCostume[];
+extern const u8 gText_LegacyCostume[];
+extern const u8 gText_PokedexHolderCostume[];
+
 #endif // GUARD_STRINGS_H
