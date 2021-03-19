@@ -76,7 +76,7 @@ EventScript_CheckSavefileSize::
 	end
 
 EventScript_Text_CheckSavefileSize:
-	.string "SaveBlock1 size: {STR_VAR_1}/15872 bytes.\nSaveBlock2 size: {STR_VAR_2}/3968 bytes.$"
+	.string "SaveBlock1 size: {STR_VAR_1}/15752 bytes.\nSaveBlock2 size: {STR_VAR_2}/3884 bytes.\p{PKMN}Storage size: {STR_VAR_3}/33744 bytes.$"
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
