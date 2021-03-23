@@ -2369,3 +2369,8 @@ bool8 ScrCmd_givecustommon(struct ScriptContext *ctx)
     return FALSE;
 }
 
+bool8 ScrCmd_getgamestat(struct ScriptContext *ctx)
+{
+    gSpecialVar_Result = GetGameStat(ScriptReadByte(ctx));
+    return FALSE;
+}

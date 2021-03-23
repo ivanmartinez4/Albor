@@ -1853,6 +1853,12 @@
     customgivemon \species, \level, 0, 0, NUM_NATURES, 0xFF, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, \move1, \move2, \move3, \move4, 0
     .endm
 
+	@ Checks the value of the specified game stat.  in VAR_RESULT.
+	.macro getgamestat stat:req
+	.byte 0xe4
+	.byte \stat
+	.endm
+
 @ Supplementary
 
 	.macro goto_if_unset flag:req, dest:req
