@@ -27,7 +27,7 @@ EventScript_CheckFishingStreak_Text_CurrentFishingStreak::
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-EventScript_DebugItemPack::
+EventScript_DebugPack::
 	lockall
 	setflag FLAG_SYS_POKEMON_GET
 	setflag FLAG_SYS_POKEDEX_GET
@@ -44,6 +44,56 @@ EventScript_DebugItemPack::
 	additem ITEM_AMULET_COIN, 1
 	additem ITEM_RARE_CANDY, 99
 	additem ITEM_MASTER_BALL, 99
+	additem ITEM_TM01, 1
+	additem ITEM_TM02, 1
+	additem ITEM_TM03, 1
+	additem ITEM_TM04, 1
+	additem ITEM_TM05, 1
+	additem ITEM_TM06, 1
+	additem ITEM_TM07, 1
+	additem ITEM_TM08, 1
+	additem ITEM_TM09, 1
+	additem ITEM_TM10, 1
+	additem ITEM_TM11, 1
+	additem ITEM_TM12, 1
+	additem ITEM_TM13, 1
+	additem ITEM_TM14, 1
+	additem ITEM_TM15, 1
+	additem ITEM_TM16, 1
+	additem ITEM_TM17, 1
+	additem ITEM_TM18, 1
+	additem ITEM_TM19, 1
+	additem ITEM_TM20, 1
+	additem ITEM_TM21, 1
+	additem ITEM_TM22, 1
+	additem ITEM_TM23, 1
+	additem ITEM_TM24, 1
+	additem ITEM_TM25, 1
+	additem ITEM_TM26, 1
+	additem ITEM_TM27, 1
+	additem ITEM_TM28, 1
+	additem ITEM_TM29, 1
+	additem ITEM_TM30, 1
+	additem ITEM_TM31, 1
+	additem ITEM_TM32, 1
+	additem ITEM_TM33, 1
+	additem ITEM_TM34, 1
+	additem ITEM_TM35, 1
+	additem ITEM_TM36, 1
+	additem ITEM_TM37, 1
+	additem ITEM_TM38, 1
+	additem ITEM_TM39, 1
+	additem ITEM_TM40, 1
+	additem ITEM_TM41, 1
+	additem ITEM_TM42, 1
+	additem ITEM_TM43, 1
+	additem ITEM_TM44, 1
+	additem ITEM_TM45, 1
+	additem ITEM_TM46, 1
+	additem ITEM_TM47, 1
+	additem ITEM_TM48, 1
+	additem ITEM_TM49, 1
+	additem ITEM_TM50, 1
 	additem ITEM_HM01, 1
 	additem ITEM_HM02, 1
 	additem ITEM_HM03, 1
