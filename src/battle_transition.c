@@ -552,6 +552,8 @@ static const u8 sMugshotsTrainerPicIDsTable[MUGSHOTS_COUNT] =
     [MUGSHOT_GLACIA]   = TRAINER_PIC_ELITE_FOUR_GLACIA,
     [MUGSHOT_DRAKE]    = TRAINER_PIC_ELITE_FOUR_DRAKE,
     [MUGSHOT_CHAMPION] = TRAINER_PIC_CHAMPION_WALLACE,
+    [MUGSHOT_BRENDAN]  = TRAINER_PIC_BRENDAN,
+    [MUGSHOT_MAY]      = TRAINER_PIC_MAY,
 };
 static const s16 sMugshotsOpponentRotationScales[MUGSHOTS_COUNT][2] =
 {
@@ -560,6 +562,8 @@ static const s16 sMugshotsOpponentRotationScales[MUGSHOTS_COUNT][2] =
     [MUGSHOT_GLACIA]   = {0x1B0, 0x1B0},
     [MUGSHOT_DRAKE]    = {0x1A0, 0x1A0},
     [MUGSHOT_CHAMPION] = {0x188, 0x188},
+    [MUGSHOT_BRENDAN]  = {0x200, 0x200},
+    [MUGSHOT_MAY]      = {0x200, 0x200},
 };
 static const s16 sMugshotsOpponentCoords[MUGSHOTS_COUNT][2] =
 {
@@ -568,6 +572,8 @@ static const s16 sMugshotsOpponentCoords[MUGSHOTS_COUNT][2] =
     [MUGSHOT_GLACIA]   = {-4, 4},
     [MUGSHOT_DRAKE]    = { 0, 5},
     [MUGSHOT_CHAMPION] = {-8, 7},
+    [MUGSHOT_BRENDAN]  = { 0, 0},
+    [MUGSHOT_MAY]      = { 0, 0},
 };
 
 static const TransitionSpriteCallback sMugshotTrainerPicFuncs[] =
@@ -897,6 +903,8 @@ static const u16 sMugshotPal_Drake[] = INCBIN_U16("graphics/battle_transitions/d
 static const u16 sMugshotPal_Champion[] = INCBIN_U16("graphics/battle_transitions/wallace_bg.gbapal");
 static const u16 sMugshotPal_Brendan[] = INCBIN_U16("graphics/battle_transitions/brendan_bg.gbapal");
 static const u16 sMugshotPal_May[] = INCBIN_U16("graphics/battle_transitions/may_bg.gbapal");
+static const u16 sMugshotPal_RivalBrendan[] = INCBIN_U16("graphics/battle_transitions/rival_brendan_bg.gbapal");
+static const u16 sMugshotPal_RivalMay[] = INCBIN_U16("graphics/battle_transitions/rival_may_bg.gbapal");
 
 static const u16 *const sOpponentMugshotsPals[MUGSHOTS_COUNT] =
 {
@@ -905,6 +913,8 @@ static const u16 *const sOpponentMugshotsPals[MUGSHOTS_COUNT] =
     [MUGSHOT_GLACIA]   = sMugshotPal_Glacia,
     [MUGSHOT_DRAKE]    = sMugshotPal_Drake,
     [MUGSHOT_CHAMPION] = sMugshotPal_Champion,
+    [MUGSHOT_BRENDAN]  = sMugshotPal_RivalBrendan,
+    [MUGSHOT_MAY]      = sMugshotPal_RivalMay,
 };
 
 static const u16 *const sPlayerMugshotsPals[GENDER_COUNT] =
