@@ -8,8 +8,9 @@
 #define MUGSHOT_CHAMPION           4
 #define MUGSHOT_BRENDAN            5
 #define MUGSHOT_MAY                6
+#define MUGSHOT_WALLY              7
 
-#define MUGSHOTS_COUNT             7
+#define MUGSHOTS_COUNT             8
 
 #endif //GUARD_CONSTANTS_BATTLE_TRANSITION_H
 

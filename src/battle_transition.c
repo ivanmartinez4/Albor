@@ -554,6 +554,7 @@ static const u8 sMugshotsTrainerPicIDsTable[MUGSHOTS_COUNT] =
     [MUGSHOT_CHAMPION] = TRAINER_PIC_CHAMPION_WALLACE,
     [MUGSHOT_BRENDAN]  = TRAINER_PIC_BRENDAN,
     [MUGSHOT_MAY]      = TRAINER_PIC_MAY,
+    [MUGSHOT_WALLY]    = TRAINER_PIC_WALLY,
 };
 static const s16 sMugshotsOpponentRotationScales[MUGSHOTS_COUNT][2] =
 {
@@ -564,6 +565,7 @@ static const s16 sMugshotsOpponentRotationScales[MUGSHOTS_COUNT][2] =
     [MUGSHOT_CHAMPION] = {0x188, 0x188},
     [MUGSHOT_BRENDAN]  = {0x200, 0x200},
     [MUGSHOT_MAY]      = {0x200, 0x200},
+    [MUGSHOT_WALLY]    = {0x200, 0x200},
 };
 static const s16 sMugshotsOpponentCoords[MUGSHOTS_COUNT][2] =
 {
@@ -574,6 +576,7 @@ static const s16 sMugshotsOpponentCoords[MUGSHOTS_COUNT][2] =
     [MUGSHOT_CHAMPION] = {-8, 7},
     [MUGSHOT_BRENDAN]  = { 0, 0},
     [MUGSHOT_MAY]      = { 0, 0},
+    [MUGSHOT_WALLY]    = { 0, 0},
 };
 
 static const TransitionSpriteCallback sMugshotTrainerPicFuncs[] =
@@ -905,6 +908,7 @@ static const u16 sMugshotPal_Brendan[] = INCBIN_U16("graphics/battle_transitions
 static const u16 sMugshotPal_May[] = INCBIN_U16("graphics/battle_transitions/may_bg.gbapal");
 static const u16 sMugshotPal_RivalBrendan[] = INCBIN_U16("graphics/battle_transitions/rival_brendan_bg.gbapal");
 static const u16 sMugshotPal_RivalMay[] = INCBIN_U16("graphics/battle_transitions/rival_may_bg.gbapal");
+static const u16 sMugshotPal_Wally[] = INCBIN_U16("graphics/battle_transitions/wally.gbapal");
 
 static const u16 *const sOpponentMugshotsPals[MUGSHOTS_COUNT] =
 {
@@ -915,6 +919,7 @@ static const u16 *const sOpponentMugshotsPals[MUGSHOTS_COUNT] =
     [MUGSHOT_CHAMPION] = sMugshotPal_Champion,
     [MUGSHOT_BRENDAN]  = sMugshotPal_RivalBrendan,
     [MUGSHOT_MAY]      = sMugshotPal_RivalMay,
+    [MUGSHOT_WALLY]    = sMugshotPal_Wally,
 };
 
 static const u16 *const sPlayerMugshotsPals[GENDER_COUNT] =

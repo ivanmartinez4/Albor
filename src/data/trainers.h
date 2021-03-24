@@ -6748,6 +6748,8 @@ const struct Trainer gTrainers[] = {
 
     [TRAINER_WALLY_VR_1] =
     {
+        .hasCustomTransition = TRUE,
+        .transition = B_TRANSITION_MUGSHOT,
         .trainerClass = TRAINER_CLASS_RIVAL,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
         .trainerPic = TRAINER_PIC_WALLY,
@@ -8586,6 +8588,8 @@ const struct Trainer gTrainers[] = {
 
     [TRAINER_WALLY_VR_2] =
     {
+        .hasCustomTransition = TRUE,
+        .transition = B_TRANSITION_MUGSHOT,
         .trainerClass = TRAINER_CLASS_RIVAL,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
         .trainerPic = TRAINER_PIC_WALLY,
@@ -8599,6 +8603,8 @@ const struct Trainer gTrainers[] = {
 
     [TRAINER_WALLY_VR_3] =
     {
+        .hasCustomTransition = TRUE,
+        .transition = B_TRANSITION_MUGSHOT,
         .trainerClass = TRAINER_CLASS_RIVAL,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
         .trainerPic = TRAINER_PIC_WALLY,
@@ -8612,6 +8618,8 @@ const struct Trainer gTrainers[] = {
 
     [TRAINER_WALLY_VR_4] =
     {
+        .hasCustomTransition = TRUE,
+        .transition = B_TRANSITION_MUGSHOT,
         .trainerClass = TRAINER_CLASS_RIVAL,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
         .trainerPic = TRAINER_PIC_WALLY,
@@ -8625,6 +8633,8 @@ const struct Trainer gTrainers[] = {
 
     [TRAINER_WALLY_VR_5] =
     {
+        .hasCustomTransition = TRUE,
+        .transition = B_TRANSITION_MUGSHOT,
         .trainerClass = TRAINER_CLASS_RIVAL,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
         .trainerPic = TRAINER_PIC_WALLY,
