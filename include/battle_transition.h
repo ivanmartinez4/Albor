@@ -11,15 +11,6 @@ void GetBg0TilesDst(u16 **tilemap, u16 **tileset);
 extern const struct SpritePalette gSpritePalette_Pokeball;
 
 enum {
-    MUGSHOT_SIDNEY,
-    MUGSHOT_PHOEBE,
-    MUGSHOT_GLACIA,
-    MUGSHOT_DRAKE,
-    MUGSHOT_CHAMPION,
-    MUGSHOTS_COUNT
-};
-
-enum {
     B_TRANSITION_BLUR,
     B_TRANSITION_SWIRL,
     B_TRANSITION_SHUFFLE,
@@ -32,6 +23,7 @@ enum {
     B_TRANSITION_WHITE_BARS_FADE,
     B_TRANSITION_GRID_SQUARES,
     B_TRANSITION_ANGLED_WIPES,
+    B_TRANSITION_MUGSHOT,
     B_TRANSITION_SIDNEY,
     B_TRANSITION_PHOEBE,
     B_TRANSITION_GLACIA,
