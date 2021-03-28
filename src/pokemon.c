@@ -3193,6 +3193,45 @@ void CreateMon(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV, u8 hasFix
     CalculateMonStats(mon);
 }
 
+static u32 GenerateShinyPersonality(u32 otId)
+{
+    u32 personality;
+    u16 xored_otId = (otId & 0xFFFF) ^ (otId >> 16); // xored_otId ^ xored_personality <= 7, so xored_personality must be the same as xored_otId with the exception of the last 3 bits
+    u16 personality1 = 0, personality2 = 0;
+    u8 i;
+
+    xored_otId &= ~(7);
+    xored_otId |= (Random() % 8);
+
+    for (i = 0; i < 16; i++)
+    {
+        u16 bit = 1 << i;
+        bool8 set = Random() & 1;
+        if (xored_otId & bit) // bit is 1; 1 ^ X == 0 iff X = ; then personality 1 is 0 and personality2 is 1 or vice versa
+        {
+            if (set)
+                personality1 |= bit;
+            else
+                personality2 |= bit;
+        }
+        else // bit is 0; 0 ^ X == 0 iff X == 0; then both personalities are 0 or 1
+        {
+            if (set)
+            {
+                personality1 |= bit;
+                personality2 |= bit;
+            }
+        }
+    }
+
+    if (Random() & 1)
+        personality = (personality1) | (personality2 << 16);
+    else
+        personality = (personality2) | (personality1 << 16);
+
+    return personality;
+}
+
 void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, u8 hasFixedPersonality, u32 fixedPersonality, u8 otIdType, u32 fixedOtId)
 {
     u8 speciesName[POKEMON_NAME_LENGTH + 1];
@@ -3208,16 +3247,12 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     else
         personality = Random32();
 
-    //Determine original trainer ID
-    if (otIdType == OT_ID_SHINY) //Pokemon must be shiny
+    // Determine original trainer ID
+    if (otIdType == OT_ID_SHINY) // Pokemon must be shiny
     {
-        do
-        {
-            value = Random32();
-            shinyValue = HIHALF(value) ^ LOHALF(value) ^ HIHALF(personality) ^ LOHALF(personality);
-        } while (shinyValue >= SHINY_ODDS);
+        value = HIHALF(personality) ^ LOHALF(personality);
     }
-    else if (otIdType == OT_ID_RANDOM_NO_SHINY) //Pokemon cannot be shiny
+    else if (otIdType == OT_ID_RANDOM_NO_SHINY) // Pokemon cannot be shiny
     {
         do
         {
@@ -3225,15 +3260,15 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
             shinyValue = HIHALF(value) ^ LOHALF(value) ^ HIHALF(personality) ^ LOHALF(personality);
         } while (shinyValue < SHINY_ODDS);
     }
-    else if (otIdType == OT_ID_PRESET) //Pokemon has a preset OT ID
+    else if (otIdType == OT_ID_PRESET) // Pokemon has a preset OT ID
     {
         value = fixedOtId;
     }
-    else //Player is the OT
+    else // Player is the OT
     {
         u32 rolls = 0;
         u32 shinyRolls = 0;
-        
+
         value = gSaveBlock2Ptr->playerTrainerId[0]
               | (gSaveBlock2Ptr->playerTrainerId[1] << 8)
               | (gSaveBlock2Ptr->playerTrainerId[2] << 16)
@@ -3241,10 +3276,10 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
 
         if (CheckBagHasItem(ITEM_SHINY_CHARM, 1))
             shinyRolls += I_SHINY_CHARM_REROLLS;
-        
+
         if (gIsFishingEncounter)
-            shinyRolls += 1 + 2 * gChainFishingStreak; //1 + 2 rolls per streak count. max 41
-        
+            shinyRolls += 1 + 2 * gChainFishingStreak; // 1 + 2 rolls per streak count. max 41
+
         if (shinyRolls)
         {
             do {
@@ -3255,11 +3290,11 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
         }
     }
 
-    if (FlagGet(FLAG_FORCE_SHINY_ENCOUNTERS) && WILD_SINGLE_BATTLE)
+    if (FlagGet(FLAG_FORCE_SHINY_ENCOUNTERS))
     {
         do
         {
-            personality = Random32();
+            personality = GenerateShinyPersonality(value);
             shinyValue = HIHALF(value) ^ LOHALF(value) ^ HIHALF(personality) ^ LOHALF(personality);
         } while (shinyValue >= SHINY_ODDS);
     }
@@ -7999,7 +8034,7 @@ void CreateShinyMonWithNature(struct Pokemon *mon, u16 species, u8 level, u8 nat
               | (gSaveBlock2Ptr->playerTrainerId[1] << 8)
               | (gSaveBlock2Ptr->playerTrainerId[2] << 16)
               | (gSaveBlock2Ptr->playerTrainerId[3] << 24);
-    
+
     do
     {
         personality = Random32();
