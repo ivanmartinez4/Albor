@@ -972,7 +972,7 @@ void ItemUseOutOfBattle_EvolutionStone(u8 taskId)
 u32 CanThrowBall(void)
 {
     if (IsBattlerAlive(GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT))
-        && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT))) 
+        && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT))) // There are two present pokemon.
     {
         return 1;   // There are two present pokemon.
     }
@@ -986,6 +986,10 @@ u32 CanThrowBall(void)
         return 3;   // in semi-invulnerable state
     }
     #endif
+    else if (FlagGet(FLAG_DISABLE_BALL_THROWS))
+    {
+        return 4;
+    }
     
     return 0;   // usable 
 }
@@ -1024,6 +1028,13 @@ void ItemUseInBattle_PokeBall(u8 taskId)
             DisplayItemMessageInBattlePyramid(taskId, sText_CantThrowPokeBall_SemiInvulnerable, Task_CloseBattlePyramidBagMessage);
         break;
     #endif
+    case 4: // Not allowed
+        if (FlagGet(FLAG_DISABLE_BALL_THROWS))
+        {
+            static const u8 sText_BallsCannotBeUsed[] = _("Poké Balls cannot be used\nright now!\p");
+            DisplayItemMessage(taskId, 1, sText_BallsCannotBeUsed, CloseItemMessage);
+        }
+        break;
     }
 }
 

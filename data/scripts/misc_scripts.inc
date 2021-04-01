@@ -236,3 +236,113 @@ EventScript_ForceEggHatch_CantForceHatch:
 
 EventScript_ForcedEggHatch_Text_NotAnEgg:
 	.string "That's not a Pokémon Egg.$"
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+EventScript_DisableTrainerEncounters::
+	lockall
+	goto_if_set FLAG_DISABLE_TRAINER_ENCOUNTERS, EventScript_DisableTrainerEncountersReEnable
+	setflag FLAG_DISABLE_TRAINER_ENCOUNTERS
+	msgbox EventScript_DisableTrainerEncounters_Text_Done
+EventScript_DisableTrainerEncountersEnd:
+	releaseall
+	end
+
+EventScript_DisableTrainerEncountersReEnable:
+	clearflag FLAG_DISABLE_TRAINER_ENCOUNTERS
+	msgbox EventScript_DisableTrainerEncounters_Text_Done2
+	goto EventScript_DisableTrainerEncountersEnd
+
+EventScript_DisableTrainerEncounters_Text_Done:
+	.string "Other trainers will no longer\nbe able to see you.$"
+
+EventScript_DisableTrainerEncounters_Text_Done2:
+	.string "Other trainers will be able\nto see you again.$"
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+EventScript_DisableBallThrows::
+	lockall
+	goto_if_set FLAG_DISABLE_BALL_THROWS, EventScript_DisableBallThrowsReEnable
+	setflag FLAG_DISABLE_BALL_THROWS
+	msgbox EventScript_DisableBallThrows_Text_Done
+EventScript_DisableBallThrowsEnd:
+	releaseall
+	end
+
+EventScript_DisableBallThrowsReEnable:
+	clearflag FLAG_DISABLE_BALL_THROWS
+	msgbox EventScript_DisableBallThrows_Text_Done2
+	goto EventScript_DisableBallThrowsEnd
+
+EventScript_DisableBallThrows_Text_Done:
+	.string "You won't be able to catch\nPokémon anymore.$"
+
+EventScript_DisableBallThrows_Text_Done2:
+	.string "You'll be able to catch\nPokémon again.$"
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+EventScript_WalkThroughWalls::
+	lockall
+	goto_if_set FLAG_DISABLE_COLLISIONS, EventScript_WalkThroughWallsReEnable
+	setflag FLAG_DISABLE_COLLISIONS
+	msgbox EventScript_WalkThroughWalls_Text_Done
+EventScript_WalkThroughWallsEnd:
+	releaseall
+	end
+
+EventScript_WalkThroughWallsReEnable:
+	clearflag FLAG_DISABLE_COLLISIONS
+	msgbox EventScript_WalkThroughWalls_Text_Done2
+	goto EventScript_WalkThroughWallsEnd
+
+EventScript_WalkThroughWalls_Text_Done:
+	.string "Walk Through Walls enabled.$"
+
+EventScript_WalkThroughWalls_Text_Done2:
+	.string "Walk Through Walls disabled.$"
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+EventScript_DisableBattleBagAccess::
+	lockall
+	goto_if_set FLAG_DISABLE_BATTLE_BAG_ACCESS, EventScript_DisableBattleBagAccessReEnable
+	setflag FLAG_DISABLE_BATTLE_BAG_ACCESS
+	msgbox EventScript_DisableBattleBagAccess_Text_Done
+EventScript_DisableBattleBagAccessEnd:
+	releaseall
+	end
+
+EventScript_DisableBattleBagAccessReEnable:
+	clearflag FLAG_DISABLE_BATTLE_BAG_ACCESS
+	msgbox EventScript_DisableBattleBagAccess_Text_Done2
+	goto EventScript_DisableBattleBagAccessEnd
+
+EventScript_DisableBattleBagAccess_Text_Done:
+	.string "You can't use items\nin battle anymore.$"
+
+EventScript_DisableBattleBagAccess_Text_Done2:
+	.string "You can use items\nin battle again.$"
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+EventScript_DisableWildEncounters::
+	lockall
+	goto_if_set FLAG_DISABLE_WILD_ENCOUNTERS, EventScript_DisableWildEncountersReEnable
+	setflag FLAG_DISABLE_WILD_ENCOUNTERS
+	msgbox EventScript_DisableWildEncounters_Text_Done
+EventScript_DisableWildEncountersEnd:
+	releaseall
+	end
+
+EventScript_DisableWildEncountersReEnable:
+	clearflag FLAG_DISABLE_WILD_ENCOUNTERS
+	msgbox EventScript_DisableWildEncounters_Text_Done2
+	goto EventScript_DisableWildEncountersEnd
+
+EventScript_DisableWildEncounters_Text_Done:
+	.string "Pokéwhat?$"
+
+EventScript_DisableWildEncounters_Text_Done2:
+	.string "P. O. K. é. M. ON!\nPOKéMON!$"
