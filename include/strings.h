@@ -3074,4 +3074,12 @@ extern const u8 gText_EVO_HELD_ITEM[];
 extern const u8 gText_EVO_NONE[];
 extern const u8 gText_EVO_PreEvo[];
 
+extern const u8 gText_Sunday[];
+extern const u8 gText_Monday[];
+extern const u8 gText_Tuesday[];
+extern const u8 gText_Wednesday[];
+extern const u8 gText_Thursday[];
+extern const u8 gText_Friday[];
+extern const u8 gText_Saturday[];
+
 #endif // GUARD_STRINGS_H

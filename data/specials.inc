@@ -544,3 +544,4 @@ gSpecials::
 	def_special CheckMonIVs
 	def_special SetRivalsName
 	def_special GetPlayersCurrentCostume
+	def_special GetCurrentDayString
