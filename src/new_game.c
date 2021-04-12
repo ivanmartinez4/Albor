@@ -207,6 +207,7 @@ void NewGameInitData(void)
     gSaveBlock2Ptr->expShare = 0;
     gSaveBlock2Ptr->autoRun = FALSE;
     gSaveBlock2Ptr->costumeId = 0;
+    RtcCalcLocalTime();
 }
 
 static void ResetMiniGamesRecords(void)
