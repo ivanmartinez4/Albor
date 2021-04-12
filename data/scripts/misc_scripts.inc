@@ -346,3 +346,33 @@ EventScript_DisableWildEncounters_Text_Done:
 
 EventScript_DisableWildEncounters_Text_Done2:
 	.string "P. O. K. é. M. ON!\nPOKéMON!$"
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+EventScript_CheckTime::
+	lockall
+	gettime
+	buffernumberstring 0, VAR_0x8000
+	buffernumberstring 1, VAR_0x8001
+	buffernumberstring 2, VAR_0x8002
+	msgbox EventScript_CheckTime_Text_CurrentTime, MSGBOX_DEFAULT
+	releaseall
+	end
+
+EventScript_CheckTime_Text_CurrentTime:
+	.string "The current time is {STR_VAR_1}:{STR_VAR_2}:{STR_VAR_3}.$"
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+EventScript_CheckDate::
+	lockall
+	getdate
+	buffernumberstring 0, VAR_0x8000
+	buffernumberstring 1, VAR_0x8001
+	buffernumberstring 2, VAR_0x8002
+	msgbox EventScript_CheckTime_Text_CurrentDate, MSGBOX_DEFAULT
+	releaseall
+	end
+
+EventScript_CheckTime_Text_CurrentDate:
+	.string "Today is {STR_VAR_1}/{STR_VAR_2}/{STR_VAR_3}.$"

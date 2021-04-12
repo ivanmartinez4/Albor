@@ -1859,6 +1859,11 @@
 	.byte \stat
 	.endm
 
+	@ Sets the values of variables 0x8000, 0x8001, and 0x8002 to the current day, month and year.
+	.macro getdate
+	.byte 0xe5
+	.endm
+
 @ Supplementary
 
 	.macro goto_if_unset flag:req, dest:req

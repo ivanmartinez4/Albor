@@ -302,7 +302,7 @@ void RtcCalcLocalTime(void)
 
 void RtcInitLocalTimeOffset(s32 hour, s32 minute)
 {
-    RtcCalcLocalTimeOffset(0, hour, minute, 0, 0);
+    RtcCalcLocalTimeOffset(gLocalTime.days, hour, minute, gLocalTime.seconds, gLocalTime.dayOfWeek);
 }
 
 void RtcCalcLocalTimeOffset(s32 days, s32 hours, s32 minutes, s32 seconds, s32 dayOfWeek)

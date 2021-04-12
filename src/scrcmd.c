@@ -2375,3 +2375,21 @@ bool8 ScrCmd_getgamestat(struct ScriptContext *ctx)
     gSpecialVar_Result = GetGameStat(ScriptReadByte(ctx));
     return FALSE;
 }
+
+bool8 ScrCmd_getdate(struct ScriptContext *ctx)
+{
+    struct SiiRtcInfo rtc;
+    u8 day;
+    u8 month;
+    u16 year;
+
+    RtcGetDateTime(&rtc);
+    day = ConvertBcdToBinary(rtc.day);
+    month = ConvertBcdToBinary(rtc.month);
+    year = (u16)ConvertBcdToBinary(rtc.year);
+    year += 2000;
+    gSpecialVar_0x8000 = day;
+    gSpecialVar_0x8001 = month;
+    gSpecialVar_0x8002 = year;
+    return FALSE;
+}
