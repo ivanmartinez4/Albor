@@ -29,6 +29,8 @@
 #include "constants/mauville_old_man.h"
 #include "constants/trainer_types.h"
 #include "constants/union_room.h"
+#include "sound.h"
+#include "constants/songs.h"
 
 // this file was known as evobjmv.c in Game Freak's original source
 
@@ -7796,6 +7798,8 @@ void GroundEffect_StepOnTallGrass(struct ObjectEvent *objEvent, struct Sprite *s
     gFieldEffectArguments[5] = objEvent->mapGroup;
     gFieldEffectArguments[6] = (u8)gSaveBlock1Ptr->location.mapNum << 8 | (u8)gSaveBlock1Ptr->location.mapGroup;
     gFieldEffectArguments[7] = FALSE; // don't skip to end of anim
+    if (objEvent->active && objEvent->isPlayer)
+        PlaySE(SE_M_POISON_POWDER);
     FieldEffectStart(FLDEFF_TALL_GRASS);
 }
 
@@ -7875,6 +7879,8 @@ static void DoTracksGroundEffect_Footprints(struct ObjectEvent *objEvent, struct
     gFieldEffectArguments[2] = 149;
     gFieldEffectArguments[3] = 2;
     gFieldEffectArguments[4] = objEvent->facingDirection;
+    if (objEvent->active && objEvent->isPlayer)
+        PlaySE(SE_M_SAND_ATTACK);
     FieldEffectStart(sandFootprints_FieldEffectData[a]);
 }
 
