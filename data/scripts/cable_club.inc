@@ -5,9 +5,7 @@ CableClub_OnTransition:
 CableClub_EventScript_HideOrShowMysteryGiftMan::
 	specialvar VAR_RESULT, ShouldDistributeEonTicket
 	goto_if_eq VAR_RESULT, TRUE, CableClub_EventScript_ShowMysteryGiftMan
-	specialvar VAR_RESULT, ValidateSavedWonderCard
-	goto_if_eq VAR_RESULT, FALSE, CableClub_EventScript_HideMysteryGiftMan
-	goto CableClub_EventScript_ShowMysteryGiftMan
+	goto CableClub_EventScript_HideMysteryGiftMan
 	end
 
 CableClub_EventScript_ShowMysteryGiftMan::
