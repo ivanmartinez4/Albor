@@ -2393,3 +2393,17 @@ bool8 ScrCmd_getdate(struct ScriptContext *ctx)
     gSpecialVar_0x8002 = year;
     return FALSE;
 }
+
+bool8 ScrCmd_locktarget(struct ScriptContext *ctx)
+{
+    if (IsOverworldLinkActive())
+    {
+        return FALSE;
+    }
+    else
+    {
+        ScriptFreezeTargetObjectEvent();
+        SetupNativeScript(ctx, IsFreezePlayerFinished);
+        return TRUE;
+    }
+}

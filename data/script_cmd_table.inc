@@ -230,6 +230,7 @@ gScriptCmdTable::
 	.4byte ScrCmd_givecustommon             @ 0xe3
 	.4byte ScrCmd_getgamestat               @ 0xe4
 	.4byte ScrCmd_getdate                   @ 0xe5
+	.4byte ScrCmd_locktarget                @ 0xe6
 
 gScriptCmdTableEnd::
 	.4byte ScrCmd_nop
