@@ -545,3 +545,4 @@ gSpecials::
 	def_special SetRivalsName
 	def_special GetPlayersCurrentCostume
 	def_special GetCurrentDayString
+	def_special SetMonFriendship

@@ -4472,3 +4472,12 @@ void GetCurrentDayString(void)
         break;
     }
 }
+
+void SetMonFriendship(void)
+{
+    struct Pokemon *mon = &gPlayerParty[gSpecialVar_0x8004];
+    u8 newFriendshipVal;
+
+    newFriendshipVal = gSpecialVar_0x8005;
+    SetMonData(mon, MON_DATA_FRIENDSHIP, &newFriendshipVal);
+}
