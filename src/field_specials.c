@@ -66,6 +66,7 @@
 #include "constants/metatile_labels.h"
 #include "palette.h"
 #include "wild_encounter.h"
+#include "fldeff.h"
 
 EWRAM_DATA bool8 gBikeCyclingChallenge = FALSE;
 EWRAM_DATA u8 gBikeCollisions = 0;
@@ -1022,14 +1023,22 @@ void FieldShowRegionMap(void)
 
 void DoPCTurnOnEffect(void)
 {
-    if (FuncIsActiveTask(Task_PCTurnOnEffect) != TRUE)
+    extern struct MapPosition gPlayerFacingPosition;
+    GetXYCoordsOneStepInFrontOfPlayer(&gPlayerFacingPosition.x, &gPlayerFacingPosition.y);
+
+    if (MapGridGetMetatileIdAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y) == METATILE_BrendansMaysHouse_BrendanPC_Off
+     || MapGridGetMetatileIdAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y) == METATILE_BrendansMaysHouse_MayPC_Off
+     || MapGridGetMetatileIdAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y) == METATILE_Building_PC_Off)
     {
-        u8 taskId = CreateTask(Task_PCTurnOnEffect, 8);
-        gTasks[taskId].data[0] = 0;
-        gTasks[taskId].data[1] = taskId;
-        gTasks[taskId].data[2] = 0;
-        gTasks[taskId].data[3] = 0;
-        gTasks[taskId].data[4] = 0;
+        if (FuncIsActiveTask(Task_PCTurnOnEffect) != TRUE)
+        {
+            u8 taskId = CreateTask(Task_PCTurnOnEffect, 8);
+            gTasks[taskId].data[0] = 0;
+            gTasks[taskId].data[1] = taskId;
+            gTasks[taskId].data[2] = 0;
+            gTasks[taskId].data[3] = 0;
+            gTasks[taskId].data[4] = 0;
+        }
     }
 }
 
@@ -1124,35 +1133,39 @@ static void PCTurnOffEffect(void)
     s8 dy = 0;
     u16 tileId = 0;
     u8 playerDirection = GetPlayerFacingDirection();
-    switch (playerDirection)
+
+    extern struct MapPosition gPlayerFacingPosition;
+    GetXYCoordsOneStepInFrontOfPlayer(&gPlayerFacingPosition.x, &gPlayerFacingPosition.y);
+
+    if (MapGridGetMetatileIdAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y) == METATILE_BrendansMaysHouse_BrendanPC_On
+     || MapGridGetMetatileIdAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y) == METATILE_BrendansMaysHouse_MayPC_On
+     || MapGridGetMetatileIdAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y) == METATILE_Building_PC_On)
     {
-        case DIR_NORTH:
-            dx = 0;
-            dy = -1;
-            break;
-        case DIR_WEST:
-            dx = -1;
-            dy = -1;
-            break;
-        case DIR_EAST:
-            dx = 1;
-            dy = -1;
-            break;
+        switch (playerDirection)
+        {
+            case DIR_NORTH:
+                dx = 0;
+                dy = -1;
+                break;
+            case DIR_WEST:
+                dx = -1;
+                dy = -1;
+                break;
+            case DIR_EAST:
+                dx = 1;
+                dy = -1;
+                break;
+        }
+        
+        if (gSpecialVar_0x8004 == 0)
+            tileId = METATILE_Building_PC_Off;
+        else if (gSpecialVar_0x8004 == 1)
+            tileId = METATILE_BrendansMaysHouse_BrendanPC_Off;
+        else if (gSpecialVar_0x8004 == 2)
+            tileId = METATILE_BrendansMaysHouse_MayPC_Off;
+        MapGridSetMetatileIdAt(gSaveBlock1Ptr->pos.x + dx + 7, gSaveBlock1Ptr->pos.y + dy + 7, tileId | METATILE_COLLISION_MASK);
+        DrawWholeMapView();
     }
-    if (gSpecialVar_0x8004 == 0)
-    {
-        tileId = METATILE_Building_PC_Off;
-    }
-    else if (gSpecialVar_0x8004 == 1)
-    {
-        tileId = METATILE_BrendansMaysHouse_BrendanPC_Off;
-    }
-    else if (gSpecialVar_0x8004 == 2)
-    {
-        tileId = METATILE_BrendansMaysHouse_MayPC_Off;
-    }
-    MapGridSetMetatileIdAt(gSaveBlock1Ptr->pos.x + dx + MAP_OFFSET, gSaveBlock1Ptr->pos.y + dy + MAP_OFFSET, tileId | METATILE_COLLISION_MASK);
-    DrawWholeMapView();
 }
 
 void DoLotteryCornerComputerEffect(void)
