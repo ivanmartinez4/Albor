@@ -64,6 +64,7 @@ enum { // Util
     DEBUG_UTIL_MENU_ITEM_CHECKIVS,
     DEBUG_UTIL_MENU_ITEM_FORCEEGGHATCH,
     DEBUG_UTIL_MENU_ITEM_OPEN_PC,
+    DEBUG_UTIL_MENU_ITEM_DO_WONDER_TRADE,
 };
 enum { // Flags
     DEBUG_FLAG_MENU_ITEM_FLAGS,
@@ -169,6 +170,7 @@ static void DebugAction_Util_CheckEVs(u8);
 static void DebugAction_Util_CheckIVs(u8);
 static void DebugAction_Util_ForceEggHatch(u8);
 static void DebugAction_Util_OpenPC(u8 taskId);
+static void DebugAction_Util_DoWonderTrade(u8 taskId);
 
 static void DebugAction_Flags_Flags(u8 taskId);
 static void DebugAction_Flags_FlagsSelect(u8 taskId);
@@ -219,6 +221,7 @@ extern u8 PlayersHouse_2F_EventScript_CheckWallClock[];
 extern u8 EventScript_CheckEVs[];
 extern u8 EventScript_CheckIVs[];
 extern u8 EventScript_ForceEggHatch[];
+extern u8 EventScript_DoWonderTrade[];
 
 #define ABILITY_NAME_LENGTH 12
 extern const u8 gAbilityNames[][ABILITY_NAME_LENGTH + 1];
@@ -254,6 +257,7 @@ static const u8 gDebugText_Util_CheckEVs[] =                _("Check EVs");
 static const u8 gDebugText_Util_CheckIVs[] =                _("Check IVs");
 static const u8 gDebugText_Util_ForceEggHatch[] =           _("Force Egg Hatch");
 static const u8 gDebugText_Util_OpenPC[] =                  _("Open PC");
+static const u8 gDebugText_Util_DoWonderTrade[] =           _("Do a Wonder Trade");
 // Flags Menu
 static const u8 gDebugText_Flags_Flags[] =                _("Edit Flags");
 static const u8 gDebugText_Flags_SetPokedexFlags[] =      _("All Pokédex Flags");
@@ -364,6 +368,7 @@ static const struct ListMenuItem sDebugMenu_Items_Utilities[] =
     [DEBUG_UTIL_MENU_ITEM_CHECKIVS]         = {gDebugText_Util_CheckIVs,         DEBUG_UTIL_MENU_ITEM_CHECKIVS},
     [DEBUG_UTIL_MENU_ITEM_FORCEEGGHATCH]    = {gDebugText_Util_ForceEggHatch,    DEBUG_UTIL_MENU_ITEM_FORCEEGGHATCH},
     [DEBUG_UTIL_MENU_ITEM_OPEN_PC]          = {gDebugText_Util_OpenPC,           DEBUG_UTIL_MENU_ITEM_OPEN_PC},
+    [DEBUG_UTIL_MENU_ITEM_DO_WONDER_TRADE]  = {gDebugText_Util_DoWonderTrade,    DEBUG_UTIL_MENU_ITEM_DO_WONDER_TRADE},
 };
 static const struct ListMenuItem sDebugMenu_Items_Flags[] =
 {
@@ -422,6 +427,7 @@ static void (*const sDebugMenu_Actions_Utilities[])(u8) =
     [DEBUG_UTIL_MENU_ITEM_CHECKIVS]         = DebugAction_Util_CheckIVs,
     [DEBUG_UTIL_MENU_ITEM_FORCEEGGHATCH]    = DebugAction_Util_ForceEggHatch,
     [DEBUG_UTIL_MENU_ITEM_OPEN_PC]          = DebugAction_Util_OpenPC,
+    [DEBUG_UTIL_MENU_ITEM_DO_WONDER_TRADE]  = DebugAction_Util_DoWonderTrade,
 };
 static void (*const sDebugMenu_Actions_Flags[])(u8) =
 {
@@ -971,6 +977,12 @@ static void DebugAction_Util_OpenPC(u8 taskId)
     Debug_DestroyMenu(taskId);
     ScriptContext2_Enable();
     ScriptContext1_SetupScript(EventScript_PC);
+}
+static void DebugAction_Util_DoWonderTrade(u8 taskId)
+{
+    Debug_DestroyMenu(taskId);
+    ScriptContext2_Enable();
+    ScriptContext1_SetupScript(EventScript_DoWonderTrade);
 }
 
 // *******************************

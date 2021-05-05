@@ -547,3 +547,4 @@ gSpecials::
 	def_special GetCurrentDayString
 	def_special SetMonFriendship
 	def_special DeleteChosenPartyMon
+	def_special CreateWonderTradePokemon

@@ -147,10 +147,6 @@ EventScript_CheckEVs::
 	end
 
 EventScript_Cancel:
-	lockall
-	faceplayer
-	msgbox EventScript_Text_ComeBackAnytime
-	releaseall
 	end
 
 EventScript_CheckEVs_Egg:
@@ -403,3 +399,27 @@ EventScript_GetCurrentDay::
 
 EventScript_GetCurrentDay_Text_TodayIs:
 	.string "Today is {STR_VAR_1}.$"
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+EventScript_DoWonderTrade::
+	special ChoosePartyMon
+	waitstate
+	compare VAR_0x8004, PARTY_SIZE
+	goto_if_ge EventScript_Cancel
+	copyvar VAR_0x8005, VAR_0x8004
+	special CreateWonderTradePokemon
+	special DoInGameTradeScene
+	waitstate
+	msgbox EventScript_DoWonderTrade_Text_WannaDoAnotherWonderTrade, MSGBOX_YESNO
+	compare VAR_RESULT, YES
+	goto_if_eq EventScript_DoWonderTrade
+	msgbox EventScript_DoWonderTrade_Text_Done, MSGBOX_DEFAULT
+	closemessage
+	end
+
+EventScript_DoWonderTrade_Text_WannaDoAnotherWonderTrade:
+	.string "Do you want to do\nanother Wonder Trade?$"
+
+EventScript_DoWonderTrade_Text_Done:
+	.string "Enjoy your new Pokémon.$"
