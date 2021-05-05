@@ -376,3 +376,19 @@ EventScript_CheckDate::
 
 EventScript_CheckTime_Text_CurrentDate:
 	.string "Today is {STR_VAR_1}/{STR_VAR_2}/{STR_VAR_3}.$"
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+EventScript_DeleteMon::
+	special ChoosePartyMon
+	waitstate
+	compare VAR_0x8004, PARTY_SIZE
+	goto_if_ge EventScript_DeleteMonEnd
+	bufferpartymonnick 0, VAR_0x8004
+	special DeleteChosenPartyMon
+	msgbox EventScript_DeleteMon_Text_Poof, MSGBOX_SIGN
+EventScript_DeleteMonEnd:
+	end
+
+EventScript_DeleteMon_Text_Poof:
+	.string "Your {STR_VAR_1} has been deleted.$"

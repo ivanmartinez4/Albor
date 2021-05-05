@@ -4494,3 +4494,13 @@ void SetMonFriendship(void)
     newFriendshipVal = gSpecialVar_0x8005;
     SetMonData(mon, MON_DATA_FRIENDSHIP, &newFriendshipVal);
 }
+
+void DeleteChosenPartyMon(void)
+{
+    u16 partyIndex = VarGet(gSpecialVar_0x8004);
+    struct Pokemon *pokemon;
+
+    pokemon = &gPlayerParty[partyIndex];
+    ZeroMonData(pokemon);
+    CompactPartySlots();
+}
