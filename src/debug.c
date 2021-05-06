@@ -385,7 +385,7 @@ static const struct ListMenuItem sDebugMenu_Items_Give[] =
 {
     [DEBUG_GIVE_MENU_ITEM_ITEM]             = {gDebugText_Give_GiveItem,            DEBUG_GIVE_MENU_ITEM_ITEM},
     [DEBUG_MENU_ITEM_GIVE_ALLTMS]           = {gDebugText_Give_AllTMs,              DEBUG_MENU_ITEM_GIVE_ALLTMS},
-    [DEBUG_MENU_ITEM_GIVE_EGG]              = {gDebugText_Give_Egg,                 DEBUG_MENU_ITEM_GIVE_EGG}, 
+    [DEBUG_MENU_ITEM_GIVE_EGG]              = {gDebugText_Give_Egg,                 DEBUG_MENU_ITEM_GIVE_EGG},
     [DEBUG_GIVE_MENU_ITEM_POKEMON_SIMPLE]   = {gDebugText_Give_GivePokemonSimple,   DEBUG_GIVE_MENU_ITEM_POKEMON_SIMPLE},
     [DEBUG_GIVE_MENU_ITEM_POKEMON_COMPLEX]  = {gDebugText_Give_GivePokemonComplex,  DEBUG_GIVE_MENU_ITEM_POKEMON_COMPLEX},
     [DEBUG_GIVE_MENU_ITEM_CHEAT]            = {gDebugText_Give_GiveCHEAT,           DEBUG_GIVE_MENU_ITEM_CHEAT},
@@ -698,24 +698,6 @@ static void DebugAction_Util_HealParty(u8 taskId)
 }
 static void DebugAction_Util_Fly(u8 taskId)
 {
-    FlagSet(FLAG_VISITED_LITTLEROOT_TOWN);
-    FlagSet(FLAG_VISITED_OLDALE_TOWN);
-    FlagSet(FLAG_VISITED_DEWFORD_TOWN);
-    FlagSet(FLAG_VISITED_LAVARIDGE_TOWN);
-    FlagSet(FLAG_VISITED_FALLARBOR_TOWN);
-    FlagSet(FLAG_VISITED_VERDANTURF_TOWN);
-    FlagSet(FLAG_VISITED_PACIFIDLOG_TOWN);
-    FlagSet(FLAG_VISITED_PETALBURG_CITY);
-    FlagSet(FLAG_VISITED_SLATEPORT_CITY);
-    FlagSet(FLAG_VISITED_MAUVILLE_CITY);
-    FlagSet(FLAG_VISITED_RUSTBORO_CITY);
-    FlagSet(FLAG_VISITED_FORTREE_CITY);
-    FlagSet(FLAG_VISITED_LILYCOVE_CITY);
-    FlagSet(FLAG_VISITED_MOSSDEEP_CITY);
-    FlagSet(FLAG_VISITED_SOOTOPOLIS_CITY);
-    FlagSet(FLAG_VISITED_EVER_GRANDE_CITY);
-    FlagSet(FLAG_LANDMARK_POKEMON_LEAGUE);
-    FlagSet(FLAG_LANDMARK_BATTLE_FRONTIER);
     Debug_DestroyMenu(taskId);
     SetMainCallback2(CB2_OpenFlyMap);
 }
@@ -755,26 +737,26 @@ static void DebugAction_Util_Warp_SelectMapGroup(u8 taskId)
     if (gMain.newKeys & DPAD_ANY)
     {
         PlaySE(SE_SELECT);
-        if(gMain.newKeys & DPAD_UP)
+        if (gMain.newKeys & DPAD_UP)
         {
             gTasks[taskId].data[3] += sPowersOfTen[gTasks[taskId].data[4]];
-            if(gTasks[taskId].data[3] > MAP_GROUPS_COUNT-1)
+            if (gTasks[taskId].data[3] > MAP_GROUPS_COUNT-1)
                 gTasks[taskId].data[3] = MAP_GROUPS_COUNT-1;
         }
-        if(gMain.newKeys & DPAD_DOWN)
+        if (gMain.newKeys & DPAD_DOWN)
         {
             gTasks[taskId].data[3] -= sPowersOfTen[gTasks[taskId].data[4]];
-            if(gTasks[taskId].data[3] < 0)
+            if (gTasks[taskId].data[3] < 0)
                 gTasks[taskId].data[3] = 0;
         }
-        if(gMain.newKeys & DPAD_LEFT)
+        if (gMain.newKeys & DPAD_LEFT)
         {
-            if(gTasks[taskId].data[4] > 0)
+            if (gTasks[taskId].data[4] > 0)
                 gTasks[taskId].data[4] -= 1;
         }
-        if(gMain.newKeys & DPAD_RIGHT)
+        if (gMain.newKeys & DPAD_RIGHT)
         {
-            if(gTasks[taskId].data[4] < 2)
+            if (gTasks[taskId].data[4] < 2)
                 gTasks[taskId].data[4] += 1;
         }
 
@@ -805,7 +787,8 @@ static void DebugAction_Util_Warp_SelectMapGroup(u8 taskId)
     else if (gMain.newKeys & B_BUTTON)
     {
         PlaySE(SE_SELECT);
-        DebugAction_DestroyExtraWindow(taskId);
+        Debug_DestroyMenu(taskId);
+        Debug_ShowMainMenu();
     }
 }
 static void DebugAction_Util_Warp_SelectMap(u8 taskId)
@@ -815,26 +798,26 @@ static void DebugAction_Util_Warp_SelectMap(u8 taskId)
     if (gMain.newKeys & DPAD_ANY)
     {
         PlaySE(SE_SELECT);
-        if(gMain.newKeys & DPAD_UP)
+        if (gMain.newKeys & DPAD_UP)
         {
             gTasks[taskId].data[3] += sPowersOfTen[gTasks[taskId].data[4]];
-            if(gTasks[taskId].data[3] > max_value-1)
+            if (gTasks[taskId].data[3] > max_value-1)
                 gTasks[taskId].data[3] = max_value-1;
         }
-        if(gMain.newKeys & DPAD_DOWN)
+        if (gMain.newKeys & DPAD_DOWN)
         {
             gTasks[taskId].data[3] -= sPowersOfTen[gTasks[taskId].data[4]];
-            if(gTasks[taskId].data[3] < 0)
+            if (gTasks[taskId].data[3] < 0)
                 gTasks[taskId].data[3] = 0;
         }
-        if(gMain.newKeys & DPAD_LEFT)
+        if (gMain.newKeys & DPAD_LEFT)
         {
-            if(gTasks[taskId].data[4] > 0)
+            if (gTasks[taskId].data[4] > 0)
                 gTasks[taskId].data[4] -= 1;
         }
-        if(gMain.newKeys & DPAD_RIGHT)
+        if (gMain.newKeys & DPAD_RIGHT)
         {
-            if(gTasks[taskId].data[4] < 2)
+            if (gTasks[taskId].data[4] < 2)
                 gTasks[taskId].data[4] += 1;
         }
 
@@ -862,7 +845,8 @@ static void DebugAction_Util_Warp_SelectMap(u8 taskId)
     else if (gMain.newKeys & B_BUTTON)
     {
         PlaySE(SE_SELECT);
-        DebugAction_DestroyExtraWindow(taskId);
+        Debug_DestroyMenu(taskId);
+        Debug_ShowMainMenu();
     }
 }
 static void DebugAction_Util_Warp_SelectWarp(u8 taskId)
@@ -870,16 +854,16 @@ static void DebugAction_Util_Warp_SelectWarp(u8 taskId)
     if (gMain.newKeys & DPAD_ANY)
     {
         PlaySE(SE_SELECT);
-        if(gMain.newKeys & DPAD_UP)
+        if (gMain.newKeys & DPAD_UP)
         {
             gTasks[taskId].data[3] += sPowersOfTen[gTasks[taskId].data[4]];
-            if(gTasks[taskId].data[3] > 10)
+            if (gTasks[taskId].data[3] > 10)
                 gTasks[taskId].data[3] = 10;
         }
-        if(gMain.newKeys & DPAD_DOWN)
+        if (gMain.newKeys & DPAD_DOWN)
         {
             gTasks[taskId].data[3] -= sPowersOfTen[gTasks[taskId].data[4]];
-            if(gTasks[taskId].data[3] < 0)
+            if (gTasks[taskId].data[3] < 0)
                 gTasks[taskId].data[3] = 0;
         }
 
@@ -901,7 +885,8 @@ static void DebugAction_Util_Warp_SelectWarp(u8 taskId)
     else if (gMain.newKeys & B_BUTTON)
     {
         PlaySE(SE_SELECT);
-        DebugAction_DestroyExtraWindow(taskId);
+        Debug_DestroyMenu(taskId);
+        Debug_ShowMainMenu();
     }
 }
 
@@ -944,7 +929,7 @@ static void DebugAction_Util_Trainer_Name(u8 taskId)
 }
 static void DebugAction_Util_Trainer_Gender(u8 taskId)
 {
-    if(gSaveBlock2Ptr->playerGender == 0) // 0 Male, 1 Female
+    if (gSaveBlock2Ptr->playerGender == 0) // 0 Male, 1 Female
         gSaveBlock2Ptr->playerGender = 1;
     else
         gSaveBlock2Ptr->playerGender = 0;
@@ -953,7 +938,7 @@ static void DebugAction_Util_Trainer_Gender(u8 taskId)
 }
 static void DebugAction_Util_Trainer_Id(u8 taskId)
 {
-    u32 trainerId = (Random() << 0x10) | GetGeneratedTrainerIdLower();
+    u32 trainerId = ((Random() << 16) | Random());
     SetTrainerId(trainerId, gSaveBlock2Ptr->playerTrainerId);
     Debug_DestroyMenu(taskId);
     EnableBothScriptContexts();
@@ -1003,7 +988,7 @@ static void DebugAction_Flags_Flags(u8 taskId)
     ConvertIntToDecimalStringN(gStringVar1, 0, STR_CONV_MODE_LEADING_ZEROS, DEBUG_NUMBER_DIGITS_FLAGS);
     ConvertIntToHexStringN(gStringVar2, 0, STR_CONV_MODE_LEFT_ALIGN, 3);
     StringExpandPlaceholders(gStringVar1, gDebugText_FlagHex);
-    if(FlagGet(0) == TRUE)
+    if (FlagGet(0) == TRUE)
         StringCopyPadded(gStringVar2, gDebugText_FlagSet, CHAR_SPACE, 15);
     else
         StringCopyPadded(gStringVar2, gDebugText_FlagUnset, CHAR_SPACE, 15);
@@ -1027,36 +1012,36 @@ static void DebugAction_Flags_FlagsSelect(u8 taskId)
         return;
     }
 
-    if(gMain.newKeys & DPAD_UP)
+    if (gMain.newKeys & DPAD_UP)
     {
         PlaySE(SE_SELECT);
         gTasks[taskId].data[3] += sPowersOfTen[gTasks[taskId].data[4]];
-        if(gTasks[taskId].data[3] >= FLAGS_COUNT){
+        if (gTasks[taskId].data[3] >= FLAGS_COUNT){
             gTasks[taskId].data[3] = FLAGS_COUNT - 1;
         }
     }
-    if(gMain.newKeys & DPAD_DOWN)
+    if (gMain.newKeys & DPAD_DOWN)
     {
         PlaySE(SE_SELECT);
         gTasks[taskId].data[3] -= sPowersOfTen[gTasks[taskId].data[4]];
-        if(gTasks[taskId].data[3] < 0){
+        if (gTasks[taskId].data[3] < 0){
             gTasks[taskId].data[3] = 0;
         }
     }
-    if(gMain.newKeys & DPAD_LEFT)
+    if (gMain.newKeys & DPAD_LEFT)
     {
         PlaySE(SE_SELECT);
         gTasks[taskId].data[4] -= 1;
-        if(gTasks[taskId].data[4] < 0)
+        if (gTasks[taskId].data[4] < 0)
         {
             gTasks[taskId].data[4] = 0;
         }
     }
-    if(gMain.newKeys & DPAD_RIGHT)
+    if (gMain.newKeys & DPAD_RIGHT)
     {
         PlaySE(SE_SELECT);
         gTasks[taskId].data[4] += 1;
-        if(gTasks[taskId].data[4] > DEBUG_NUMBER_DIGITS_FLAGS-1)
+        if (gTasks[taskId].data[4] > DEBUG_NUMBER_DIGITS_FLAGS-1)
         {
             gTasks[taskId].data[4] = DEBUG_NUMBER_DIGITS_FLAGS-1;
         }
@@ -1067,7 +1052,7 @@ static void DebugAction_Flags_FlagsSelect(u8 taskId)
         ConvertIntToDecimalStringN(gStringVar1, gTasks[taskId].data[3], STR_CONV_MODE_LEADING_ZEROS, DEBUG_NUMBER_DIGITS_FLAGS);
         ConvertIntToHexStringN(gStringVar2, gTasks[taskId].data[3], STR_CONV_MODE_LEFT_ALIGN, 3);
         StringExpandPlaceholders(gStringVar1, gDebugText_FlagHex);
-        if(FlagGet(gTasks[taskId].data[3]) == TRUE)
+        if (FlagGet(gTasks[taskId].data[3]) == TRUE)
             StringCopyPadded(gStringVar2, gDebugText_FlagSet, CHAR_SPACE, 15);
         else
             StringCopyPadded(gStringVar2, gDebugText_FlagUnset, CHAR_SPACE, 15);
@@ -1090,33 +1075,39 @@ static void DebugAction_Flags_SetPokedexFlags(u8 taskId)
 }
 static void DebugAction_Flags_SwitchDex(u8 taskId)
 {
-    if(FlagGet(FLAG_SYS_POKEDEX_GET))
+    if (FlagGet(FLAG_SYS_POKEDEX_GET))
     {
         FlagClear(FLAG_SYS_POKEDEX_GET);
         PlaySE(SE_PC_OFF);
-    }else{
+    }
+    else
+    {
         FlagSet(FLAG_SYS_POKEDEX_GET);
         PlaySE(SE_PC_LOGIN);
     }
 }
 static void DebugAction_Flags_SwitchNatDex(u8 taskId)
 {
-    if(IsNationalPokedexEnabled())
+    if (IsNationalPokedexEnabled())
     {
         DisableNationalPokedex();
         PlaySE(SE_PC_OFF);
-    }else{
+    }
+    else
+    {
         EnableNationalPokedex();
         PlaySE(SE_PC_LOGIN);
     }
 }
 static void DebugAction_Flags_SwitchPokeNav(u8 taskId)
 {
-    if(FlagGet(FLAG_SYS_POKENAV_GET))
+    if (FlagGet(FLAG_SYS_POKENAV_GET))
     {
         FlagClear(FLAG_SYS_POKENAV_GET);
         PlaySE(SE_PC_OFF);
-    }else{
+    }
+    else
+    {
         FlagSet(FLAG_SYS_POKENAV_GET);
         PlaySE(SE_PC_LOGIN);
     }
@@ -1124,7 +1115,7 @@ static void DebugAction_Flags_SwitchPokeNav(u8 taskId)
 static void DebugAction_Flags_ToggleFlyFlags(u8 taskId)
 {
     // Sound effect
-    if(FlagGet(FLAG_LANDMARK_BATTLE_FRONTIER))
+    if (FlagGet(FLAG_LANDMARK_BATTLE_FRONTIER))
         PlaySE(SE_PC_OFF);
     else
         PlaySE(SE_PC_LOGIN);
@@ -1150,7 +1141,7 @@ static void DebugAction_Flags_ToggleFlyFlags(u8 taskId)
 static void DebugAction_Flags_ToggleBadgeFlags(u8 taskId)
 {
     // Sound effect
-    if(FlagGet(FLAG_BADGE08_GET))
+    if (FlagGet(FLAG_BADGE08_GET))
         PlaySE(SE_PC_OFF);
     else
         PlaySE(SE_PC_LOGIN);
@@ -1165,55 +1156,65 @@ static void DebugAction_Flags_ToggleBadgeFlags(u8 taskId)
 }
 static void DebugAction_Flags_CollisionOnOff(u8 taskId)
 {
-    if(FlagGet(FLAG_DISABLE_COLLISIONS))
+    if (FlagGet(FLAG_DISABLE_COLLISIONS))
     {
         FlagClear(FLAG_DISABLE_COLLISIONS);
         PlaySE(SE_PC_OFF);
-    }else{
+    }
+    else
+    {
         FlagSet(FLAG_DISABLE_COLLISIONS);
         PlaySE(SE_PC_LOGIN);
     }
 }
 static void DebugAction_Flags_EncounterOnOff(u8 taskId)
 {
-    if(FlagGet(FLAG_DISABLE_WILD_ENCOUNTERS))
+    if (FlagGet(FLAG_DISABLE_WILD_ENCOUNTERS))
     {
         FlagClear(FLAG_DISABLE_WILD_ENCOUNTERS);
         PlaySE(SE_PC_OFF);
-    }else{
+    }
+    else
+    {
         FlagSet(FLAG_DISABLE_WILD_ENCOUNTERS);
         PlaySE(SE_PC_LOGIN);
     }
 }
 static void DebugAction_Flags_TrainerSeeOnOff(u8 taskId)
 {
-    if(FlagGet(FLAG_DISABLE_TRAINER_ENCOUNTERS))
+    if (FlagGet(FLAG_DISABLE_TRAINER_ENCOUNTERS))
     {
         FlagClear(FLAG_DISABLE_TRAINER_ENCOUNTERS);
         PlaySE(SE_PC_OFF);
-    }else{
+    }
+    else
+    {
         FlagSet(FLAG_DISABLE_TRAINER_ENCOUNTERS);
         PlaySE(SE_PC_LOGIN);
     }
 }
 static void DebugAction_Flags_BagUseOnOff(u8 taskId)
 {
-    if(FlagGet(FLAG_DISABLE_BATTLE_BAG_ACCESS))
+    if (FlagGet(FLAG_DISABLE_BATTLE_BAG_ACCESS))
     {
         FlagClear(FLAG_DISABLE_BATTLE_BAG_ACCESS);
         PlaySE(SE_PC_OFF);
-    }else{
+    }
+    else
+    {
         FlagSet(FLAG_DISABLE_BATTLE_BAG_ACCESS);
         PlaySE(SE_PC_LOGIN);
     }
 }
 static void DebugAction_Flags_CatchingOnOff(u8 taskId)
 {
-    if(FlagGet(FLAG_DISABLE_BALL_THROWS))
+    if (FlagGet(FLAG_DISABLE_BALL_THROWS))
     {
         FlagClear(FLAG_DISABLE_BALL_THROWS);
         PlaySE(SE_PC_OFF);
-    }else{
+    }
+    else
+    {
         FlagSet(FLAG_DISABLE_BALL_THROWS);
         PlaySE(SE_PC_LOGIN);
     }
@@ -1253,32 +1254,32 @@ static void DebugAction_Vars_Vars(u8 taskId)
 
 static void DebugAction_Vars_Select(u8 taskId)
 {
-    if(gMain.newKeys & DPAD_UP)
+    if (gMain.newKeys & DPAD_UP)
     {
         gTasks[taskId].data[3] += sPowersOfTen[gTasks[taskId].data[4]];
-        if(gTasks[taskId].data[3] > VARS_END){
+        if (gTasks[taskId].data[3] > VARS_END){
             gTasks[taskId].data[3] = VARS_END;
         }
     }
-    if(gMain.newKeys & DPAD_DOWN)
+    if (gMain.newKeys & DPAD_DOWN)
     {
         gTasks[taskId].data[3] -= sPowersOfTen[gTasks[taskId].data[4]];
-        if(gTasks[taskId].data[3] < VARS_START){
+        if (gTasks[taskId].data[3] < VARS_START){
             gTasks[taskId].data[3] = VARS_START;
         }
     }
-    if(gMain.newKeys & DPAD_LEFT)
+    if (gMain.newKeys & DPAD_LEFT)
     {
         gTasks[taskId].data[4] -= 1;
-        if(gTasks[taskId].data[4] < 0)
+        if (gTasks[taskId].data[4] < 0)
         {
             gTasks[taskId].data[4] = 0;
         }
     }
-    if(gMain.newKeys & DPAD_RIGHT)
+    if (gMain.newKeys & DPAD_RIGHT)
     {
         gTasks[taskId].data[4] += 1;
-        if(gTasks[taskId].data[4] > DEBUG_NUMBER_DIGITS_VARIABLES-1)
+        if (gTasks[taskId].data[4] > DEBUG_NUMBER_DIGITS_VARIABLES-1)
         {
             gTasks[taskId].data[4] = DEBUG_NUMBER_DIGITS_VARIABLES-1;
         }
@@ -1334,35 +1335,35 @@ static void DebugAction_Vars_Select(u8 taskId)
 }
 static void DebugAction_Vars_SetValue(u8 taskId)
 {
-    if(gMain.newKeys & DPAD_UP)
+    if (gMain.newKeys & DPAD_UP)
     {
         if (gTasks[taskId].data[6] + sPowersOfTen[gTasks[taskId].data[4]] <= 32000)
             gTasks[taskId].data[6] += sPowersOfTen[gTasks[taskId].data[4]];
         else
             gTasks[taskId].data[6] = 32000-1;
-        if(gTasks[taskId].data[6] >= 32000){
+        if (gTasks[taskId].data[6] >= 32000){
             gTasks[taskId].data[6] = 32000-1;
         }
     }
-    if(gMain.newKeys & DPAD_DOWN)
+    if (gMain.newKeys & DPAD_DOWN)
     {
         gTasks[taskId].data[6] -= sPowersOfTen[gTasks[taskId].data[4]];
-        if(gTasks[taskId].data[6] < 0){
+        if (gTasks[taskId].data[6] < 0){
             gTasks[taskId].data[6] = 0;
         }
     }
-    if(gMain.newKeys & DPAD_LEFT)
+    if (gMain.newKeys & DPAD_LEFT)
     {
         gTasks[taskId].data[4] -= 1;
-        if(gTasks[taskId].data[4] < 0)
+        if (gTasks[taskId].data[4] < 0)
         {
             gTasks[taskId].data[4] = 0;
         }
     }
-    if(gMain.newKeys & DPAD_RIGHT)
+    if (gMain.newKeys & DPAD_RIGHT)
     {
         gTasks[taskId].data[4] += 1;
-        if(gTasks[taskId].data[4] > 4)
+        if (gTasks[taskId].data[4] > 4)
         {
             gTasks[taskId].data[4] = 4;
         }
@@ -1436,26 +1437,26 @@ static void DebugAction_Give_Item_SelectId(u8 taskId)
     {
         PlaySE(SE_SELECT);
 
-        if(gMain.newKeys & DPAD_UP)
+        if (gMain.newKeys & DPAD_UP)
         {
             gTasks[taskId].data[3] += sPowersOfTen[gTasks[taskId].data[4]];
-            if(gTasks[taskId].data[3] >= ITEMS_COUNT)
+            if (gTasks[taskId].data[3] >= ITEMS_COUNT)
                 gTasks[taskId].data[3] = ITEMS_COUNT - 1;
         }
-        if(gMain.newKeys & DPAD_DOWN)
+        if (gMain.newKeys & DPAD_DOWN)
         {
             gTasks[taskId].data[3] -= sPowersOfTen[gTasks[taskId].data[4]];
-            if(gTasks[taskId].data[3] < 1)
+            if (gTasks[taskId].data[3] < 1)
                 gTasks[taskId].data[3] = 1;
         }
-        if(gMain.newKeys & DPAD_LEFT)
+        if (gMain.newKeys & DPAD_LEFT)
         {
-            if(gTasks[taskId].data[4] > 0)
+            if (gTasks[taskId].data[4] > 0)
                 gTasks[taskId].data[4] -= 1;
         }
-        if(gMain.newKeys & DPAD_RIGHT)
+        if (gMain.newKeys & DPAD_RIGHT)
         {
-            if(gTasks[taskId].data[4] < DEBUG_NUMBER_DIGITS_ITEMS-1)
+            if (gTasks[taskId].data[4] < DEBUG_NUMBER_DIGITS_ITEMS-1)
                 gTasks[taskId].data[4] += 1;
         }
 
@@ -1507,26 +1508,26 @@ static void DebugAction_Give_Item_SelectQuantity(u8 taskId)
     {
         PlaySE(SE_SELECT);
 
-        if(gMain.newKeys & DPAD_UP)
+        if (gMain.newKeys & DPAD_UP)
         {
             gTasks[taskId].data[3] += sPowersOfTen[gTasks[taskId].data[4]];
-            if(gTasks[taskId].data[3] >= 100)
+            if (gTasks[taskId].data[3] >= 100)
                 gTasks[taskId].data[3] = 99;
         }
-        if(gMain.newKeys & DPAD_DOWN)
+        if (gMain.newKeys & DPAD_DOWN)
         {
             gTasks[taskId].data[3] -= sPowersOfTen[gTasks[taskId].data[4]];
-            if(gTasks[taskId].data[3] < 1)
+            if (gTasks[taskId].data[3] < 1)
                 gTasks[taskId].data[3] = 1;
         }
-        if(gMain.newKeys & DPAD_LEFT)
+        if (gMain.newKeys & DPAD_LEFT)
         {
-            if(gTasks[taskId].data[4] > 0)
+            if (gTasks[taskId].data[4] > 0)
                 gTasks[taskId].data[4] -= 1;
         }
-        if(gMain.newKeys & DPAD_RIGHT)
+        if (gMain.newKeys & DPAD_RIGHT)
         {
-            if(gTasks[taskId].data[4] < 2)
+            if (gTasks[taskId].data[4] < 2)
                 gTasks[taskId].data[4] += 1;
         }
 
@@ -1566,7 +1567,7 @@ static void DebugAction_Give_AllTMs(u8 taskId)
     u16 i;
     PlayFanfare(MUS_OBTAIN_TMHM);
     for (i = ITEM_TM01; i <= ITEM_TM50; i++)
-        if(!CheckBagHasItem(i, 1))
+        if (!CheckBagHasItem(i, 1))
             AddBagItem(i, 1);
     Debug_DestroyMenu(taskId);
     EnableBothScriptContexts();
@@ -1638,30 +1639,30 @@ static void DebugAction_Give_Egg_SelectId(u8 taskId)
     {
         PlaySE(SE_SELECT);
 
-        if(gMain.newKeys & DPAD_UP)
+        if (gMain.newKeys & DPAD_UP)
         {
             gTasks[taskId].data[3] += sPowersOfTen[gTasks[taskId].data[4]];
-            if(gTasks[taskId].data[3] > SPECIES_CELEBI && gTasks[taskId].data[3] < SPECIES_TREECKO)
+            if (gTasks[taskId].data[3] > SPECIES_CELEBI && gTasks[taskId].data[3] < SPECIES_TREECKO)
                 gTasks[taskId].data[3] = SPECIES_TREECKO;
-            if(gTasks[taskId].data[3] >= NUM_SPECIES - 1)
+            if (gTasks[taskId].data[3] >= NUM_SPECIES - 1)
                 gTasks[taskId].data[3] = NUM_SPECIES - 2;
         }
-        if(gMain.newKeys & DPAD_DOWN)
+        if (gMain.newKeys & DPAD_DOWN)
         {
             gTasks[taskId].data[3] -= sPowersOfTen[gTasks[taskId].data[4]];
-            if(gTasks[taskId].data[3] < SPECIES_TREECKO && gTasks[taskId].data[3] > SPECIES_CELEBI)
+            if (gTasks[taskId].data[3] < SPECIES_TREECKO && gTasks[taskId].data[3] > SPECIES_CELEBI)
                 gTasks[taskId].data[3] = SPECIES_CELEBI;
-            if(gTasks[taskId].data[3] < 1)
+            if (gTasks[taskId].data[3] < 1)
                 gTasks[taskId].data[3] = 1;
         }
-        if(gMain.newKeys & DPAD_LEFT)
+        if (gMain.newKeys & DPAD_LEFT)
         {
-            if(gTasks[taskId].data[4] > 0)
+            if (gTasks[taskId].data[4] > 0)
                 gTasks[taskId].data[4] -= 1;
         }
-        if(gMain.newKeys & DPAD_RIGHT)
+        if (gMain.newKeys & DPAD_RIGHT)
         {
-            if(gTasks[taskId].data[4] < DEBUG_NUMBER_DIGITS_ITEMS-1)
+            if (gTasks[taskId].data[4] < DEBUG_NUMBER_DIGITS_ITEMS-1)
                 gTasks[taskId].data[4] += 1;
         }
 
@@ -1803,30 +1804,30 @@ static void DebugAction_Give_Pokemon_SelectId(u8 taskId)
     {
         PlaySE(SE_SELECT);
 
-        if(gMain.newKeys & DPAD_UP)
+        if (gMain.newKeys & DPAD_UP)
         {
             gTasks[taskId].data[3] += sPowersOfTen[gTasks[taskId].data[4]];
-            if(gTasks[taskId].data[3] > SPECIES_CELEBI && gTasks[taskId].data[3] < SPECIES_TREECKO)
+            if (gTasks[taskId].data[3] > SPECIES_CELEBI && gTasks[taskId].data[3] < SPECIES_TREECKO)
                 gTasks[taskId].data[3] = SPECIES_TREECKO;
-            if(gTasks[taskId].data[3] >= NUM_SPECIES - 1)
+            if (gTasks[taskId].data[3] >= NUM_SPECIES - 1)
                 gTasks[taskId].data[3] = NUM_SPECIES - 2;
         }
-        if(gMain.newKeys & DPAD_DOWN)
+        if (gMain.newKeys & DPAD_DOWN)
         {
             gTasks[taskId].data[3] -= sPowersOfTen[gTasks[taskId].data[4]];
-            if(gTasks[taskId].data[3] < SPECIES_TREECKO && gTasks[taskId].data[3] > SPECIES_CELEBI)
+            if (gTasks[taskId].data[3] < SPECIES_TREECKO && gTasks[taskId].data[3] > SPECIES_CELEBI)
                 gTasks[taskId].data[3] = SPECIES_CELEBI;
-            if(gTasks[taskId].data[3] < 1)
+            if (gTasks[taskId].data[3] < 1)
                 gTasks[taskId].data[3] = 1;
         }
-        if(gMain.newKeys & DPAD_LEFT)
+        if (gMain.newKeys & DPAD_LEFT)
         {
-            if(gTasks[taskId].data[4] > 0)
+            if (gTasks[taskId].data[4] > 0)
                 gTasks[taskId].data[4] -= 1;
         }
-        if(gMain.newKeys & DPAD_RIGHT)
+        if (gMain.newKeys & DPAD_RIGHT)
         {
-            if(gTasks[taskId].data[4] < DEBUG_NUMBER_DIGITS_ITEMS-1)
+            if (gTasks[taskId].data[4] < DEBUG_NUMBER_DIGITS_ITEMS-1)
                 gTasks[taskId].data[4] += 1;
         }
 
@@ -1878,26 +1879,26 @@ static void DebugAction_Give_Pokemon_SelectLevel(u8 taskId)
     {
         PlaySE(SE_SELECT);
 
-        if(gMain.newKeys & DPAD_UP)
+        if (gMain.newKeys & DPAD_UP)
         {
             gTasks[taskId].data[3] += sPowersOfTen[gTasks[taskId].data[4]];
-            if(gTasks[taskId].data[3] > 100)
+            if (gTasks[taskId].data[3] > 100)
                 gTasks[taskId].data[3] = 100;
         }
-        if(gMain.newKeys & DPAD_DOWN)
+        if (gMain.newKeys & DPAD_DOWN)
         {
             gTasks[taskId].data[3] -= sPowersOfTen[gTasks[taskId].data[4]];
-            if(gTasks[taskId].data[3] < 1)
+            if (gTasks[taskId].data[3] < 1)
                 gTasks[taskId].data[3] = 1;
         }
-        if(gMain.newKeys & DPAD_LEFT)
+        if (gMain.newKeys & DPAD_LEFT)
         {
-            if(gTasks[taskId].data[4] > 0)
+            if (gTasks[taskId].data[4] > 0)
                 gTasks[taskId].data[4] -= 1;
         }
-        if(gMain.newKeys & DPAD_RIGHT)
+        if (gMain.newKeys & DPAD_RIGHT)
         {
-            if(gTasks[taskId].data[4] < 2)
+            if (gTasks[taskId].data[4] < 2)
                 gTasks[taskId].data[4] += 1;
         }
 
@@ -1950,20 +1951,20 @@ static void DebugAction_Give_Pokemon_SelectShiny(u8 taskId)
     {
         PlaySE(SE_SELECT);
 
-        if(gMain.newKeys & DPAD_UP)
+        if (gMain.newKeys & DPAD_UP)
         {
             gTasks[taskId].data[3] += sPowersOfTen[gTasks[taskId].data[4]];
-            if(gTasks[taskId].data[3] > 1)
+            if (gTasks[taskId].data[3] > 1)
                 gTasks[taskId].data[3] = 1;
         }
-        if(gMain.newKeys & DPAD_DOWN)
+        if (gMain.newKeys & DPAD_DOWN)
         {
             gTasks[taskId].data[3] -= sPowersOfTen[gTasks[taskId].data[4]];
-            if(gTasks[taskId].data[3] < 0)
+            if (gTasks[taskId].data[3] < 0)
                 gTasks[taskId].data[3] = 0;
         }
 
-        if(gTasks[taskId].data[3] == 1)
+        if (gTasks[taskId].data[3] == 1)
             StringCopyPadded(gStringVar2, gDebugText_FlagSet, CHAR_SPACE, 15);
         else
             StringCopyPadded(gStringVar2, gDebugText_FlagUnset, CHAR_SPACE, 15);
@@ -2001,16 +2002,16 @@ static void DebugAction_Give_Pokemon_SelectNature(u8 taskId)
     {
         PlaySE(SE_SELECT);
 
-        if(gMain.newKeys & DPAD_UP)
+        if (gMain.newKeys & DPAD_UP)
         {
             gTasks[taskId].data[3] += sPowersOfTen[gTasks[taskId].data[4]];
-            if(gTasks[taskId].data[3] > NUM_NATURES-1)
+            if (gTasks[taskId].data[3] > NUM_NATURES-1)
                 gTasks[taskId].data[3] = NUM_NATURES-1;
         }
-        if(gMain.newKeys & DPAD_DOWN)
+        if (gMain.newKeys & DPAD_DOWN)
         {
             gTasks[taskId].data[3] -= sPowersOfTen[gTasks[taskId].data[4]];
-            if(gTasks[taskId].data[3] < 0)
+            if (gTasks[taskId].data[3] < 0)
                 gTasks[taskId].data[3] = 0;
         }
 
@@ -2060,16 +2061,16 @@ static void DebugAction_Give_Pokemon_SelectAbility(u8 taskId)
     {
         PlaySE(SE_SELECT);
 
-        if(gMain.newKeys & DPAD_UP)
+        if (gMain.newKeys & DPAD_UP)
         {
             gTasks[taskId].data[3] += sPowersOfTen[gTasks[taskId].data[4]];
-            if(gTasks[taskId].data[3] > abilityCount)
+            if (gTasks[taskId].data[3] > abilityCount)
                 gTasks[taskId].data[3] = abilityCount;
         }
-        if(gMain.newKeys & DPAD_DOWN)
+        if (gMain.newKeys & DPAD_DOWN)
         {
             gTasks[taskId].data[3] -= sPowersOfTen[gTasks[taskId].data[4]];
-            if(gTasks[taskId].data[3] < 0)
+            if (gTasks[taskId].data[3] < 0)
                 gTasks[taskId].data[3] = 0;
         }
 
@@ -2109,26 +2110,26 @@ static void DebugAction_Give_Pokemon_SelectIVs(u8 taskId)
     {
         PlaySE(SE_SELECT);
 
-        if(gMain.newKeys & DPAD_UP)
+        if (gMain.newKeys & DPAD_UP)
         {
             gTasks[taskId].data[3] += sPowersOfTen[gTasks[taskId].data[4]];
-            if(gTasks[taskId].data[3] > 31)
+            if (gTasks[taskId].data[3] > 31)
                 gTasks[taskId].data[3] = 31;
         }
-        if(gMain.newKeys & DPAD_DOWN)
+        if (gMain.newKeys & DPAD_DOWN)
         {
             gTasks[taskId].data[3] -= sPowersOfTen[gTasks[taskId].data[4]];
-            if(gTasks[taskId].data[3] < 0)
+            if (gTasks[taskId].data[3] < 0)
                 gTasks[taskId].data[3] = 0;
         }
-        if(gMain.newKeys & DPAD_LEFT)
+        if (gMain.newKeys & DPAD_LEFT)
         {
-            if(gTasks[taskId].data[4] > 0)
+            if (gTasks[taskId].data[4] > 0)
                 gTasks[taskId].data[4] -= 1;
         }
-        if(gMain.newKeys & DPAD_RIGHT)
+        if (gMain.newKeys & DPAD_RIGHT)
         {
-            if(gTasks[taskId].data[4] < 2)
+            if (gTasks[taskId].data[4] < 2)
                 gTasks[taskId].data[4] += 1;
         }
 
@@ -2248,26 +2249,26 @@ static void DebugAction_Give_Pokemon_Move(u8 taskId)
     {
         PlaySE(SE_SELECT);
 
-        if(gMain.newKeys & DPAD_UP)
+        if (gMain.newKeys & DPAD_UP)
         {
             gTasks[taskId].data[3] += sPowersOfTen[gTasks[taskId].data[4]];
-            if(gTasks[taskId].data[3] > MOVES_COUNT)
+            if (gTasks[taskId].data[3] > MOVES_COUNT)
                 gTasks[taskId].data[3] = MOVES_COUNT;
         }
-        if(gMain.newKeys & DPAD_DOWN)
+        if (gMain.newKeys & DPAD_DOWN)
         {
             gTasks[taskId].data[3] -= sPowersOfTen[gTasks[taskId].data[4]];
-            if(gTasks[taskId].data[3] < 0)
+            if (gTasks[taskId].data[3] < 0)
                 gTasks[taskId].data[3] = 0;
         }
-        if(gMain.newKeys & DPAD_LEFT)
+        if (gMain.newKeys & DPAD_LEFT)
         {
-            if(gTasks[taskId].data[4] > 0)
+            if (gTasks[taskId].data[4] > 0)
                 gTasks[taskId].data[4] -= 1;
         }
-        if(gMain.newKeys & DPAD_RIGHT)
+        if (gMain.newKeys & DPAD_RIGHT)
         {
-            if(gTasks[taskId].data[4] < 3)
+            if (gTasks[taskId].data[4] < 3)
                 gTasks[taskId].data[4] += 1;
         }
 
@@ -2481,7 +2482,7 @@ static void DebugAction_Give_Pokemon_ComplexCreateMon(u8 taskId) //https://githu
     }
 
     //Pokedex entry
-    nationalDexNum = SpeciesToNationalPokedexNum(species); 
+    nationalDexNum = SpeciesToNationalPokedexNum(species);
     switch(sentToPc)
     {
     case MON_GIVEN_TO_PARTY:
