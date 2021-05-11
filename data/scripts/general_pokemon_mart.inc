@@ -79,6 +79,7 @@ Oldale_Poke_Mart::
 	release
 	end
 
+	.align 2
 Badge8:
 	.2byte ITEM_POKE_BALL
 	.2byte ITEM_GREAT_BALL
@@ -108,6 +109,7 @@ Badge8:
 	release
 	end
 
+	.align 2
 Badge7:
 	.2byte ITEM_POKE_BALL
 	.2byte ITEM_GREAT_BALL
@@ -136,6 +138,7 @@ Badge7:
 	release
 	end
 
+	.align 2
 Badge5:
 	.2byte ITEM_POKE_BALL
 	.2byte ITEM_GREAT_BALL
@@ -163,6 +166,7 @@ Badge5:
 	release
 	end
 
+	.align 2
 Badge3:
 	.2byte ITEM_POKE_BALL
 	.2byte ITEM_GREAT_BALL
@@ -190,6 +194,7 @@ Badge3:
 	release
 	end
 
+	.align 2
 Badge2:
 	.2byte ITEM_POKE_BALL
 	.2byte ITEM_GREAT_BALL
@@ -211,6 +216,7 @@ Badge2:
 	release
 	end
 
+	.align 2
 Badge1:
 	.2byte ITEM_POKE_BALL
 	.2byte ITEM_GREAT_BALL
@@ -230,6 +236,7 @@ Badge1:
 	release
 	end
 
+	.align 2
 NoBadge:
 	.2byte ITEM_POKE_BALL
 	.2byte ITEM_POTION
@@ -240,6 +247,7 @@ NoBadge:
 	release
 	end
 
+	.align 2
 Oldale:
 	.2byte ITEM_POTION
 	.2byte ITEM_ANTIDOTE
@@ -249,6 +257,7 @@ Oldale:
 	release
 	end
 
+	.align 2
 RustboroSpecial:
 	.2byte ITEM_REPEAT_BALL
 	.2byte ITEM_TIMER_BALL
