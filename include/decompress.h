@@ -26,4 +26,7 @@ void LoadSpecialPokePic(const struct CompressedSpriteSheet *src, void *dest, s32
 
 u32 GetDecompressedDataSize(const u32 *ptr);
 
+void LoadCompressedEggSpritePalette(const struct CompressedSpritePalette *src1, const struct CompressedSpritePalette *src2);
+void LoadCompressedEggHatchSpritePalette(const struct CompressedSpritePalette *src1, const struct CompressedSpritePalette *src2);
+
 #endif // GUARD_DECOMPRESS_H
