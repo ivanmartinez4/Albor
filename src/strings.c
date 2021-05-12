@@ -1879,3 +1879,5 @@ const u8 gText_Friday[]    = _("Friday");
 const u8 gText_Saturday[]  = _("Saturday");
 
 const u8 gText_ShinyStar[] = _("{STAR}");
+
+const u8 gText_CurrentTime[] = _(" {STR_VAR_1}:{STR_VAR_2}");

@@ -131,6 +131,17 @@ static void SetInitialFansOfPlayer(void);
 static u16 PlayerGainRandomTrainerFan(void);
 static void BufferFanClubTrainerName_(struct LinkBattleRecords *linkRecords, u8 a, u8 b);
 
+static const u8 *const sDayOfWeekTable[] =
+{
+    gText_Sunday,
+    gText_Monday,
+    gText_Tuesday,
+    gText_Wednesday,
+    gText_Thursday,
+    gText_Friday,
+    gText_Saturday
+};
+
 void Special_ShowDiploma(void)
 {
     SetMainCallback2(CB2_ShowDiploma);
@@ -1156,7 +1167,7 @@ static void PCTurnOffEffect(void)
                 dy = -1;
                 break;
         }
-        
+
         if (gSpecialVar_0x8004 == 0)
             tileId = METATILE_Building_PC_Off;
         else if (gSpecialVar_0x8004 == 1)
@@ -4458,32 +4469,9 @@ u8 GetPlayersCurrentCostume(void)
     return gSaveBlock2Ptr->costumeId;
 }
 
-void GetCurrentDayString(void)
+const u8 *GetCurrentDayString(u8 dayOfWeek)
 {
-    switch (gLocalTime.dayOfWeek)
-    {
-    case 0:
-        StringCopy(gStringVar7, gText_Sunday);
-        break;
-    case 1:
-        StringCopy(gStringVar7, gText_Monday);
-        break;
-    case 2:
-        StringCopy(gStringVar7, gText_Tuesday);
-        break;
-    case 3:
-        StringCopy(gStringVar7, gText_Wednesday);
-        break;
-    case 4:
-        StringCopy(gStringVar7, gText_Thursday);
-        break;
-    case 5:
-        StringCopy(gStringVar7, gText_Friday);
-        break;
-    case 6:
-        StringCopy(gStringVar7, gText_Saturday);
-        break;
-    }
+    return sDayOfWeekTable[dayOfWeek];
 }
 
 void SetMonFriendship(void)

@@ -323,6 +323,7 @@ extern const u8 gText_MaleSymbol[];
 extern const u8 gText_FemaleSymbol[];
 
 extern const u8 gText_SelectorArrow3[];
+extern const u8 gText_EmptySpace[];
 extern const u8 gText_YesNo[];
 
 // main menu/birch speech text
@@ -3085,5 +3086,7 @@ extern const u8 gText_Friday[];
 extern const u8 gText_Saturday[];
 
 extern const u8 gText_ShinyStar[];
+
+extern const u8 gText_CurrentTime[];
 
 #endif // GUARD_STRINGS_H
