@@ -129,6 +129,17 @@ static void SetInitialFansOfPlayer(void);
 static u16 PlayerGainRandomTrainerFan(void);
 static void BufferFanClubTrainerName_(struct LinkBattleRecords *, u8, u8);
 
+static const u8 *const sDayOfWeekTable[] =
+{
+    gText_Sunday,
+    gText_Monday,
+    gText_Tuesday,
+    gText_Wednesday,
+    gText_Thursday,
+    gText_Friday,
+    gText_Saturday
+};
+
 void Special_ShowDiploma(void)
 {
     SetMainCallback2(CB2_ShowDiploma);
@@ -4191,6 +4202,10 @@ u8 Script_TryGainNewFanFromCounter(void)
     return TryGainNewFanFromCounter(gSpecialVar_0x8004);
 }
 
+const u8 *GetCurrentDayString(u8 dayOfWeek)
+{
+    return sDayOfWeekTable[dayOfWeek];
+}
 
  #include "save.h" // <-- SECTOR_DATA_SIZE is defined there.
  void CheckSaveBlock1Size(void)
