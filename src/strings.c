@@ -1877,3 +1877,5 @@ const u8 gText_Wednesday[] = _("Wednesday");
 const u8 gText_Thursday[]  = _("Thursday");
 const u8 gText_Friday[]    = _("Friday");
 const u8 gText_Saturday[]  = _("Saturday");
+
+const u8 gText_ShinyStar[] = _("{STAR}");
