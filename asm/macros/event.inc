@@ -1869,6 +1869,12 @@
 	.byte 0xe6
 	.endm
 
+	@ Stores a text string for the current day of the week in the chosen buffer.
+	.macro getcurrentday out:req
+	.byte 0xe7
+	.byte \out
+	.endm
+
 @ Supplementary
 
 	.macro goto_if_unset flag:req, dest:req

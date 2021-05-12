@@ -2407,3 +2407,11 @@ bool8 ScrCmd_locktarget(struct ScriptContext *ctx)
         return TRUE;
     }
 }
+
+bool8 ScrCmd_getcurrentday(struct ScriptContext *ctx)
+{
+    u8 stringVarIndex = ScriptReadByte(ctx);
+
+    StringCopy(sScriptStringVars[stringVarIndex], GetCurrentDayString(gLocalTime.dayOfWeek));
+    return FALSE;
+}

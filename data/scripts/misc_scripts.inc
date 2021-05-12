@@ -392,3 +392,14 @@ EventScript_DeleteMonEnd:
 
 EventScript_DeleteMon_Text_Poof:
 	.string "Your {STR_VAR_1} has been deleted.$"
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+EventScript_GetCurrentDay::
+	getcurrentday 0
+	msgbox EventScript_GetCurrentDay_Text_TodayIs
+	closemessage
+	end
+
+EventScript_GetCurrentDay_Text_TodayIs:
+	.string "Today is {STR_VAR_1}.$"
