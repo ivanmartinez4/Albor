@@ -1877,7 +1877,8 @@ const u8 gText_Wednesday[] = _("Wednesday");
 const u8 gText_Thursday[]  = _("Thursday");
 const u8 gText_Friday[]    = _("Friday");
 const u8 gText_Saturday[]  = _("Saturday");
+const u8 gText_CurrentTime[] = _(" {STR_VAR_1}:{STR_VAR_2}");
 
 const u8 gText_ShinyStar[] = _("{STAR}");
-
-const u8 gText_CurrentTime[] = _(" {STR_VAR_1}:{STR_VAR_2}");
+const u8 gText_ShinyStarMale[] = _("{COLOR DYNAMIC_COLOR2}{STAR}");
+const u8 gText_ShinyStarFemale[] = _("{COLOR DYNAMIC_COLOR1}{STAR}");

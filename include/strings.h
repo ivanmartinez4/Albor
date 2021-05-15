@@ -3084,9 +3084,10 @@ extern const u8 gText_Wednesday[];
 extern const u8 gText_Thursday[];
 extern const u8 gText_Friday[];
 extern const u8 gText_Saturday[];
+extern const u8 gText_CurrentTime[];
 
 extern const u8 gText_ShinyStar[];
-
-extern const u8 gText_CurrentTime[];
+extern const u8 gText_ShinyStarMale[];
+extern const u8 gText_ShinyStarFemale[];
 
 #endif // GUARD_STRINGS_H
