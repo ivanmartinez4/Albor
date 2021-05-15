@@ -14,7 +14,7 @@ static const struct TrainerMon sParty_Calvin1[] = {
         .ability = FIRST_ABILITY, // Blaze
         .evs = {4, 0, 0, 252, 252, 0},
         .ball = ITEM_LUXURY_BALL,
-        .shiny = TRUE, // Doesn't work if a value bigger than NATURE_HARDY is given to the .nature field, for some reason.
+        .shiny = TRUE,
         .friendship = 0,
     }
 };

@@ -108,12 +108,9 @@
 
 #define BEST_IV_SPREAD BEST_IV_SPREAD_HIDDEN_POWER_DARK
 
-#define FRIENDSHIP_FRUSTRATION   1
-#define FRIENDSHIP_RETURN      255
-
 #define WORST_IVS                0
 
-#define FIRST_ABILITY  255
+#define FIRST_ABILITY    3
 #define SECOND_ABILITY   1
 #define HIDDEN_ABILITY   2
 
