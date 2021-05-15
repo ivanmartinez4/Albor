@@ -3290,7 +3290,7 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
         }
     }
 
-    if (FlagGet(FLAG_FORCE_SHINY_ENCOUNTERS))
+    if (FlagGet(FLAG_FORCE_SHINIES))
     {
         do
         {

@@ -1226,14 +1226,14 @@ static void DebugAction_Flags_CatchingOnOff(u8 taskId)
 }
 static void DebugAction_Flags_ShiniesOnOff(u8 taskId)
 {
-    if (FlagGet(FLAG_FORCE_SHINY_ENCOUNTERS))
+    if (FlagGet(FLAG_FORCE_SHINIES))
     {
-        FlagClear(FLAG_FORCE_SHINY_ENCOUNTERS);
+        FlagClear(FLAG_FORCE_SHINIES);
         PlaySE(SE_PC_OFF);
     }
     else
     {
-        FlagSet(FLAG_FORCE_SHINY_ENCOUNTERS);
+        FlagSet(FLAG_FORCE_SHINIES);
         PlaySE(SE_PC_LOGIN);
     }
 }
