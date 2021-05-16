@@ -20,11 +20,7 @@ CableClub_Text_RecordCornerUsingLinkCable::
 	.string "You can use the RECORD CORNER with\n"
 	.string "others using a GBA Game Link cable.$"
 
-@ Unused
-CableClub_Text_CloseThisMenu:
-	.string "Close this menu.$"
-
-CableClub_Text_NeedTwoMonsForDoubleBattle:
+CableClub_Text_NeedTwoMonsForDoubleBattle: 
 	.string "For a DOUBLE BATTLE, you must\n"
 	.string "have at least two POKéMON.$"
 
@@ -54,12 +50,7 @@ gText_AwaitingLinkup::
 	.string "Awaiting linkup…\n"
 	.string "… … B Button: Cancel$"
 
-@ Unused
-CableClub_Text_OkayToSaveProgress::
-	.string "Your progress must be saved before\n"
-	.string "linking. Is it okay to save?$"
-
-CableClub_Text_PleaseEnter:
+CableClub_Text_PleaseEnter: 
 	.string "Please enter.$"
 
 CableClub_Text_DirectYouToYourRoom:
@@ -177,15 +168,7 @@ CableClub_Text_ParticipantsStepUpToCounter:
 	.string "Participants are asked to step up\n"
 	.string "to the reception counter.$"
 
-@ Unused
-CableClub_Text_Hello:
-	.string "Hello!$"
-
-@ Unused
-CableClub_Text_PleaseWait:
-	.string "Please wait.$"
-
-CableClub_Text_YouMayTradeHere::
+CableClub_Text_YouMayTradeHere:: 
 	.string "You may trade your POKéMON here\n"
 	.string "with another TRAINER.$"
 
@@ -201,23 +184,10 @@ CableClub_Text_CanMixRecords::
 	.string "The records of two to four players\n"
 	.string "can be mixed together.$"
 
-@ Unused
-CableClub_Text_GuideToVariousServices:
-	.string "A guide to the WIRELESS CLUB's\n"
-	.string "various services.$"
-
-CableClub_Text_CancelSelectedItem::
+CableClub_Text_CancelSelectedItem:: 
 	.string "Cancels the selected MENU item.$"
 
-@ Unused
-CableClub_Text_WhichBattleMode:
-	.string "Which battle mode would you like?$"
-
-@ Unused
-CableClub_Text_ReturnsToPreviousStep:
-	.string "Returns to the previous step.$"
-
-CableClub_Text_NeedBerryForBerryCrush:
+CableClub_Text_NeedBerryForBerryCrush: 
 	.string "To use the BERRY CRUSH service,\n"
 	.string "you must have at least one BERRY.$"
 
@@ -236,12 +206,7 @@ CableClub_Text_UnionRoomAdapterNotConnected:
 	.string "Adapter is not connected properly.\p"
 	.string "Please do come again.$"
 
-@ Unused
-CableClub_Text_OhExcuseMe:
-	.string "Oh…\n"
-	.string "Excuse me!$"
-
-CableClub_Text_PlayerIsWaiting:
+CableClub_Text_PlayerIsWaiting: 
 	.string "It appears as if {STR_VAR_1} is playing\n"
 	.string "right now.\l"
 	.string "Go for it!$"
@@ -302,12 +267,7 @@ MossdeepCity_GameCorner_1F_Text_AllGoodToGo:
 	.string "Okay, you're all good to go.\n"
 	.string "Don't let the others beat you!$"
 
-@ Unused
-MossdeepCity_GameCorner_1F_Text_LeavingDoComeAgain:
-	.string "Are you leaving now?\n"
-	.string "Do come again!$"
-
-MossdeepCity_GameCorner_1F_Text_ExplainRequiredMon:
+MossdeepCity_GameCorner_1F_Text_ExplainRequiredMon: 
 	.string "It doesn't look like you have any\n"
 	.string "POKéMON that you can enter…\p"
 	.string "Would you like me to explain what\n"
@@ -326,12 +286,7 @@ MossdeepCity_GameCorner_1F_Text_OnlyDodrioAllowed:
 	.string "DODRIO BERRY-PICKING is a game that \n"
 	.string "only DODRIO may enter.$"
 
-@ Unused
-MossdeepCity_GameCorner_1F_Text_RetryPlease:
-	.string "Could you retry this from the start\n"
-	.string "again, please?$"
-
-CableClub_Text_WelcomeWhichDirectCornerRoom:
+CableClub_Text_WelcomeWhichDirectCornerRoom: 
 	.string "Welcome to the POKéMON WIRELESS\n"
 	.string "CLUB DIRECT CORNER.\p"
 	.string "You may interact directly with\n"
@@ -427,13 +382,11 @@ CableClub_Text_FirstTimeRightThisWay:
 CableClub_Text_ExplainWirelessClubFirstTime:
 	.string "On the top floor, there are two\n"
 	.string "rooms.\p"
-	.string "First, the room on the left.\n"
-	.string "It's the UNION ROOM.\p"
+	.string "First, the desk on the left.\n"
+	.string "That's the WONDER CORNER.\p"
 	.string "You may link up with TRAINERS\n"
-	.string "around you who have also entered\l"
-	.string "the UNION ROOM.\p"
-	.string "With them, you may do things like\n"
-	.string "chat, battle, and trade.\p"
+	.string "from other parts of the world\l"
+	.string "and do trades anonymously.\p"
 	.string "Second, the room on the right is\n"
 	.string "the DIRECT CORNER.\p"
 	.string "You may trade or battle POKéMON\n"

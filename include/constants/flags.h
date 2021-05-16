@@ -47,7 +47,7 @@
 #define FLAG_DISABLE_COLLISIONS          0x23
 #define FLAG_DISABLE_BATTLE_BAG_ACCESS   0x24
 #define FLAG_DISABLE_WILD_ENCOUNTERS     0x25
-#define FLAG_UNUSED_0x026                0x26
+#define FLAG_WONDER_TRADE_EXPLAINED      0x26
 #define FLAG_UNUSED_0x027                0x27
 #define FLAG_UNUSED_0x028                0x28
 #define FLAG_UNUSED_0x029                0x29
