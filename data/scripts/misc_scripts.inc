@@ -214,14 +214,12 @@ EventScript_ForceEggHatch::
 	special ChoosePartyMon
 	waitstate
 	compare VAR_0x8004, PARTY_SIZE
-	goto_if_eq EventScript_Text_ComeBackAnytime
+	goto_if_eq EventScript_Cancel
 	specialvar VAR_RESULT, ScriptGetPartyMonSpecies
 	compare VAR_RESULT, SPECIES_EGG
 	goto_if_ne EventScript_ForceEggHatch_CantForceHatch
 	special EggHatch
 	waitstate
-	faceplayer @ For some reason, if I don't re-cast faceplayer the NPC is able to move around.
-	msgbox EventScript_Text_ComeBackAnytime
 	releaseall
 	end
 EventScript_ForceEggHatch_CantForceHatch:
