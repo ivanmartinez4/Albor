@@ -1876,7 +1876,6 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
         for (i = 0; i < monsCount; i++)
         {
             const struct TrainerMon *partyData = gTrainers[trainerNum].party.TrainerMon;
-            u8 fixedIV = partyData[i].iv * MAX_PER_STAT_IVS / 255;
 
             for (j = 0; gTrainers[trainerNum].trainerName[j] != EOS; j++)
                 nameHash += gTrainers[trainerNum].trainerName[j];
@@ -1902,9 +1901,9 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
             // MON_MALE and NATURE_HARDY share the default values. If one is set, assume the other is also meant to be set.
             // Enforced male pokemon cannot be Hardy. All pokemon with set natures will be male unless otherwise stated.
             if (partyData[i].nature > 0)
-                CreateMonWithGenderNatureLetter(&party[i], partyData[i].species, partyData[i].lvl, fixedIV, gender, partyData[i].nature, 0, partyData[i].shiny ? OT_ID_SHINY : OT_ID_RANDOM_NO_SHINY);
+                CreateMonWithGenderNatureLetter(&party[i], partyData[i].species, partyData[i].lvl, 0, gender, partyData[i].nature, 0, partyData[i].shiny ? OT_ID_SHINY : OT_ID_RANDOM_NO_SHINY);
             else
-                CreateMon(&party[i], partyData[i].species, partyData[i].lvl, fixedIV, TRUE, personalityValue, partyData[i].shiny ? OT_ID_SHINY : OT_ID_RANDOM_NO_SHINY, 0);
+                CreateMon(&party[i], partyData[i].species, partyData[i].lvl, 0, TRUE, personalityValue, partyData[i].shiny ? OT_ID_SHINY : OT_ID_RANDOM_NO_SHINY, 0);
 
             if (partyData[i].friendship > 0)
             {

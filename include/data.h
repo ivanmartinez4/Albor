@@ -27,7 +27,6 @@ struct MonCoords
 
 struct TrainerMon
 {
-    u8 iv;
     u8 nickname[POKEMON_NAME_LENGTH + 1];
     u8 ivs[NUM_STATS];
     u8 evs[NUM_STATS];
