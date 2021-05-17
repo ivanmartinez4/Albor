@@ -7154,20 +7154,6 @@ static const struct SpriteSheet sSlotMachineSpriteSheets[22] =
 
 static const u8 *const sReelBackground_Tilemap = gSlotMachineReelBackground_Tilemap;
 
-static const u16 sUnused[] =
-{
-    0x6F7B,
-    0x6968,
-    0x36AB,
-    0x7FFF,
-    0x5750,
-    0x7EC0,
-    0x02BA,
-    0x02BA,
-    0x01FD,
-    0x01FD,
-};
-
 // The Bet 2 and 3 match line palettes are duplicated unnecessarily
 static const u16 sMiddleRowLit_Pal[] = {RGB(17, 28, 31)};
 static const u16 sTopRowLit_Pal[]  = {RGB(31, 29, 16)};

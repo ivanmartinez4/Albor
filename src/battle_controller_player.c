@@ -191,9 +191,6 @@ static const u8 sCostumeBackPics[COSTUME_COUNT][GENDER_COUNT] =
     [COSTUME_2]       = {TRAINER_BACK_PIC_ADVENTURES_BRENDAN, TRAINER_BACK_PIC_ADVENTURES_MAY},
 };
 
-// unknown unused data
-static const u8 sUnused[] = {0x48, 0x48, 0x20, 0x5a, 0x50, 0x50, 0x50, 0x58};
-
 void BattleControllerDummy(void)
 {
 }

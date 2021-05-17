@@ -167,9 +167,6 @@ static void (*const sOpponentBufferCommands[CONTROLLER_CMDS_COUNT])(void) =
     [CONTROLLER_TERMINATOR_NOP]           = OpponentCmdEnd
 };
 
-// unknown unused data
-static const u8 sUnused[] = {0xB0, 0xB0, 0xC8, 0x98, 0x28, 0x28, 0x28, 0x20};
-
 static void OpponentDummy(void)
 {
 }

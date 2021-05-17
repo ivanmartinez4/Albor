@@ -130,8 +130,6 @@ static const struct CompressedSpriteSheet sSpriteSheet_ClockHand =
     sHand_Gfx, 0x2000, GFXTAG_WALL_CLOCK_HAND
 };
 
-static const u8 sUnused[8] = {0};
-
 static const struct SpritePalette sSpritePalettes_Clock[] =
 {
     {
