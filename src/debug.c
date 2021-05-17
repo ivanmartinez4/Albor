@@ -38,6 +38,7 @@
 #include "constants/songs.h"
 #include "constants/species.h"
 #include "field_specials.h"
+#include "money.h"
 
 // *******************************
 // Enums
@@ -90,6 +91,7 @@ enum { // Give
     DEBUG_MENU_ITEM_GIVE_EGG,
     DEBUG_GIVE_MENU_ITEM_POKEMON_SIMPLE,
     DEBUG_GIVE_MENU_ITEM_POKEMON_COMPLEX,
+    DEBUG_MENU_ITEM_GIVE_MAXMONEY,
     DEBUG_GIVE_MENU_ITEM_CHEAT,
 };
 
@@ -208,6 +210,7 @@ static void DebugAction_Give_Pokemon_SelectAbility(u8 taskId);
 static void DebugAction_Give_Pokemon_SelectIVs(u8 taskId);
 static void DebugAction_Give_Pokemon_ComplexCreateMon(u8 taskId);
 static void DebugAction_Give_Pokemon_Move(u8 taskId);
+static void DebugAction_Give_MaxMoney(u8 taskId);
 static void DebugAction_Give_CHEAT(u8 taskId);
 
 static void DebugTask_HandleMenuInput(u8 taskId, void (*HandleInput)(u8));
@@ -305,6 +308,7 @@ static const u8 gDebugText_PokemonMove_0[] =            _("Move 0: {STR_VAR_3}  
 static const u8 gDebugText_PokemonMove_1[] =            _("Move 1: {STR_VAR_3}                   \n{STR_VAR_1}           \n          \n{STR_VAR_2}");
 static const u8 gDebugText_PokemonMove_2[] =            _("Move 2: {STR_VAR_3}                   \n{STR_VAR_1}           \n          \n{STR_VAR_2}");
 static const u8 gDebugText_PokemonMove_3[] =            _("Move 3: {STR_VAR_3}                   \n{STR_VAR_1}           \n          \n{STR_VAR_2}");
+static const u8 gDebugText_Give_MaxMoney[] =            _("Give Max. Money");
 static const u8 gDebugText_Give_GiveCHEAT[] =           _("CHEAT start");
 
 static const u8 digitInidicator_1[] =               _("{LEFT_ARROW}+1{RIGHT_ARROW}        ");
@@ -397,6 +401,7 @@ static const struct ListMenuItem sDebugMenu_Items_Give[] =
     [DEBUG_MENU_ITEM_GIVE_EGG]              = {gDebugText_Give_Egg,                 DEBUG_MENU_ITEM_GIVE_EGG},
     [DEBUG_GIVE_MENU_ITEM_POKEMON_SIMPLE]   = {gDebugText_Give_GivePokemonSimple,   DEBUG_GIVE_MENU_ITEM_POKEMON_SIMPLE},
     [DEBUG_GIVE_MENU_ITEM_POKEMON_COMPLEX]  = {gDebugText_Give_GivePokemonComplex,  DEBUG_GIVE_MENU_ITEM_POKEMON_COMPLEX},
+    [DEBUG_MENU_ITEM_GIVE_MAXMONEY]         = {gDebugText_Give_MaxMoney,            DEBUG_MENU_ITEM_GIVE_MAXMONEY},
     [DEBUG_GIVE_MENU_ITEM_CHEAT]            = {gDebugText_Give_GiveCHEAT,           DEBUG_GIVE_MENU_ITEM_CHEAT},
 };
 
@@ -456,6 +461,7 @@ static void (*const sDebugMenu_Actions_Give[])(u8) =
     [DEBUG_MENU_ITEM_GIVE_EGG]              = DebugAction_Give_Egg,
     [DEBUG_GIVE_MENU_ITEM_POKEMON_SIMPLE]   = DebugAction_Give_PokemonSimple,
     [DEBUG_GIVE_MENU_ITEM_POKEMON_COMPLEX]  = DebugAction_Give_PokemonComplex,
+    [DEBUG_MENU_ITEM_GIVE_MAXMONEY]         = DebugAction_Give_MaxMoney,
     [DEBUG_GIVE_MENU_ITEM_CHEAT]            = DebugAction_Give_CHEAT,
 };
 
@@ -2526,6 +2532,14 @@ static void DebugAction_Give_Pokemon_ComplexCreateMon(u8 taskId) //https://githu
 
     Free(sDebugMonData); //Frees EWRAM of MonData Struct
     DebugAction_DestroyExtraWindow(taskId); //return sentToPc;
+}
+
+static void DebugAction_Give_MaxMoney(u8 taskId)
+{
+    Debug_DestroyMenu(taskId);
+    AddMoney(&gSaveBlock1Ptr->money, 999999);
+    PlaySE(SE_SHOP);
+    EnableBothScriptContexts();
 }
 
 static void DebugAction_Give_CHEAT(u8 taskId)
