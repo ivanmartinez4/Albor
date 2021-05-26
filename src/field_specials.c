@@ -4492,3 +4492,96 @@ void DeleteChosenPartyMon(void)
     ZeroMonData(pokemon);
     CompactPartySlots();
 }
+
+static const u8 sText_ColorDarkGreyShadowLightGrey[] = _("{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}");
+static const u8 sText_StatsHP[] =    _("HP: ");
+static const u8 sText_StatsAtk[] =   _("ATK: ");
+static const u8 sText_StatsDef[] =   _("DEF: ");
+static const u8 sText_StatsSpAtk[] = _("SAT: ");
+static const u8 sText_StatsSpDef[] = _("SDF: ");
+static const u8 sText_StatsSpeed[] = _("SPE: ");
+static const u8 sText_StatsIv[] = _(", IV:");
+static const u8 sText_StatsEv[] = _(", EV:");
+
+void BufferChosenMonStats(void)
+{
+    u8 sTextBuffer1[64];
+    u8 sTextBuffer2[64];
+    u8 sTextBuffer3[64];
+    u8 sTextBuffer4[64];
+    u8 slot = gSpecialVar_0x8004;
+
+    StringCopy(sTextBuffer1, sText_ColorDarkGreyShadowLightGrey);
+    StringAppend(sTextBuffer1, sText_StatsHP);
+    ConvertIntToDecimalStringN(sTextBuffer2, GetMonData(&gPlayerParty[slot], MON_DATA_MAX_HP, NULL), STR_CONV_MODE_RIGHT_ALIGN, 4);
+    StringAppend(sTextBuffer1, gText_EmptySpace); // Padding for alignment reasons
+    StringAppend(sTextBuffer1, gText_EmptySpace); // Padding for alignment reasons
+    StringAppend(sTextBuffer1, sTextBuffer2);
+    StringAppend(sTextBuffer1, sText_StatsIv);
+    ConvertIntToDecimalStringN(sTextBuffer3, GetMonData(&gPlayerParty[slot], MON_DATA_HP_IV, NULL), STR_CONV_MODE_RIGHT_ALIGN, 4);
+    StringAppend(sTextBuffer1, sTextBuffer3);
+    StringAppend(sTextBuffer1, sText_StatsEv);
+    ConvertIntToDecimalStringN(sTextBuffer4, GetMonData(&gPlayerParty[slot], MON_DATA_HP_EV, NULL), STR_CONV_MODE_RIGHT_ALIGN, 4);
+    StringAppend(sTextBuffer1, sTextBuffer4);
+    StringCopy(gStringVar1, sTextBuffer1);
+
+    StringCopy(sTextBuffer1, sText_ColorDarkGreyShadowLightGrey);
+    StringAppend(sTextBuffer1, sText_StatsAtk);
+    ConvertIntToDecimalStringN(sTextBuffer2, GetMonData(&gPlayerParty[slot], MON_DATA_ATK, NULL), STR_CONV_MODE_RIGHT_ALIGN, 4);
+    StringAppend(sTextBuffer1, sTextBuffer2);
+    StringAppend(sTextBuffer1, sText_StatsIv);
+    ConvertIntToDecimalStringN(sTextBuffer3, GetMonData(&gPlayerParty[slot], MON_DATA_ATK_IV, NULL), STR_CONV_MODE_RIGHT_ALIGN, 4);
+    StringAppend(sTextBuffer1, sTextBuffer3);
+    StringAppend(sTextBuffer1, sText_StatsEv);
+    ConvertIntToDecimalStringN(sTextBuffer4, GetMonData(&gPlayerParty[slot], MON_DATA_ATK_EV, NULL), STR_CONV_MODE_RIGHT_ALIGN, 4);
+    StringAppend(sTextBuffer1, sTextBuffer4);
+    StringCopy(gStringVar2, sTextBuffer1);
+
+    StringCopy(sTextBuffer1, sText_ColorDarkGreyShadowLightGrey);
+    StringAppend(sTextBuffer1, sText_StatsDef);
+    ConvertIntToDecimalStringN(sTextBuffer2, GetMonData(&gPlayerParty[slot], MON_DATA_DEF, NULL), STR_CONV_MODE_RIGHT_ALIGN, 4);
+    StringAppend(sTextBuffer1, sTextBuffer2);
+    StringAppend(sTextBuffer1, sText_StatsIv);
+    ConvertIntToDecimalStringN(sTextBuffer3, GetMonData(&gPlayerParty[slot], MON_DATA_DEF_IV, NULL), STR_CONV_MODE_RIGHT_ALIGN, 4);
+    StringAppend(sTextBuffer1, sTextBuffer3);
+    StringAppend(sTextBuffer1, sText_StatsEv);
+    ConvertIntToDecimalStringN(sTextBuffer4, GetMonData(&gPlayerParty[slot], MON_DATA_DEF_EV, NULL), STR_CONV_MODE_RIGHT_ALIGN, 4);
+    StringAppend(sTextBuffer1, sTextBuffer4);
+    StringCopy(gStringVar3, sTextBuffer1);
+
+    StringCopy(sTextBuffer1, sText_ColorDarkGreyShadowLightGrey);
+    StringAppend(sTextBuffer1, sText_StatsSpAtk);
+    ConvertIntToDecimalStringN(sTextBuffer2, GetMonData(&gPlayerParty[slot], MON_DATA_SPATK, NULL), STR_CONV_MODE_RIGHT_ALIGN, 4);
+    StringAppend(sTextBuffer1, sTextBuffer2);
+    StringAppend(sTextBuffer1, sText_StatsIv);
+    ConvertIntToDecimalStringN(sTextBuffer3, GetMonData(&gPlayerParty[slot], MON_DATA_SPATK_IV, NULL), STR_CONV_MODE_RIGHT_ALIGN, 4);
+    StringAppend(sTextBuffer1, sTextBuffer3);
+    StringAppend(sTextBuffer1, sText_StatsEv);
+    ConvertIntToDecimalStringN(sTextBuffer4, GetMonData(&gPlayerParty[slot], MON_DATA_SPATK_EV, NULL), STR_CONV_MODE_RIGHT_ALIGN, 4);
+    StringAppend(sTextBuffer1, sTextBuffer4);
+    StringCopy(gStringVar4, sTextBuffer1);
+
+    StringCopy(sTextBuffer1, sText_ColorDarkGreyShadowLightGrey);
+    StringAppend(sTextBuffer1, sText_StatsSpDef);
+    ConvertIntToDecimalStringN(sTextBuffer2, GetMonData(&gPlayerParty[slot], MON_DATA_SPDEF, NULL), STR_CONV_MODE_RIGHT_ALIGN, 4);
+    StringAppend(sTextBuffer1, sTextBuffer2);
+    StringAppend(sTextBuffer1, sText_StatsIv);
+    ConvertIntToDecimalStringN(sTextBuffer3, GetMonData(&gPlayerParty[slot], MON_DATA_SPDEF_IV, NULL), STR_CONV_MODE_RIGHT_ALIGN, 4);
+    StringAppend(sTextBuffer1, sTextBuffer3);
+    StringAppend(sTextBuffer1, sText_StatsEv);
+    ConvertIntToDecimalStringN(sTextBuffer4, GetMonData(&gPlayerParty[slot], MON_DATA_SPDEF_EV, NULL), STR_CONV_MODE_RIGHT_ALIGN, 4);
+    StringAppend(sTextBuffer1, sTextBuffer4);
+    StringCopy(gStringVar5, sTextBuffer1);
+
+    StringCopy(sTextBuffer1, sText_ColorDarkGreyShadowLightGrey);
+    StringAppend(sTextBuffer1, sText_StatsSpeed);
+    ConvertIntToDecimalStringN(sTextBuffer2, GetMonData(&gPlayerParty[slot], MON_DATA_SPEED, NULL), STR_CONV_MODE_RIGHT_ALIGN, 4);
+    StringAppend(sTextBuffer1, sTextBuffer2);
+    StringAppend(sTextBuffer1, sText_StatsIv);
+    ConvertIntToDecimalStringN(sTextBuffer3, GetMonData(&gPlayerParty[slot], MON_DATA_SPEED_IV, NULL), STR_CONV_MODE_RIGHT_ALIGN, 4);
+    StringAppend(sTextBuffer1, sTextBuffer3);
+    StringAppend(sTextBuffer1, sText_StatsEv);
+    ConvertIntToDecimalStringN(sTextBuffer4, GetMonData(&gPlayerParty[slot], MON_DATA_SPEED_EV, NULL), STR_CONV_MODE_RIGHT_ALIGN, 4);
+    StringAppend(sTextBuffer1, sTextBuffer4);
+    StringCopy(gStringVar6, sTextBuffer1);
+}

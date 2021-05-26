@@ -232,6 +232,8 @@ gScriptCmdTable::
 	.4byte ScrCmd_getdate                   @ 0xe5
 	.4byte ScrCmd_locktarget                @ 0xe6
 	.4byte ScrCmd_getcurrentday             @ 0xe7
+	.4byte ScrCmd_drawinfobox               @ 0xe8
+	.4byte ScrCmd_removeinfobox             @ 0xe9
 
 gScriptCmdTableEnd::
 	.4byte ScrCmd_nop

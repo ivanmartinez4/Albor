@@ -421,3 +421,24 @@ EventScript_DoWonderTrade_Text_WannaDoAnotherWonderTrade:
 
 EventScript_DoWonderTrade_Text_Done:
 	.string "Enjoy your new Pokémon.$"
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+PokemonDataInfoBox::
+	special ChoosePartyMon
+	waitstate
+	compare VAR_0x8004, PARTY_SIZE
+	goto_if_ge EventScript_Cancel
+	specialvar VAR_RESULT, ScriptGetPartyMonSpecies
+	compare VAR_RESULT, SPECIES_EGG
+	goto_if_eq EventScript_Cancel
+	special BufferChosenMonStats
+	drawinfobox INFOBOX_POKEMON_DATA
+	bufferpartymonnick 0, VAR_0x8004
+	msgbox EventScript_PokemonDataInfoBox_Text_ChosenMonStats
+	removeinfobox
+	release
+	end
+
+EventScript_PokemonDataInfoBox_Text_ChosenMonStats:
+	.string "Stats of {STR_VAR_1}$"

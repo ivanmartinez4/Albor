@@ -49,6 +49,7 @@
 #include "tv.h"
 #include "window.h"
 #include "constants/event_objects.h"
+#include "infobox.h"
 
 typedef u16 (*SpecialFunc)(void);
 typedef void (*NativeFunc)(void);
@@ -2413,5 +2414,18 @@ bool8 ScrCmd_getcurrentday(struct ScriptContext *ctx)
     u8 stringVarIndex = ScriptReadByte(ctx);
 
     StringCopy(sScriptStringVars[stringVarIndex], GetCurrentDayString(gLocalTime.dayOfWeek));
+    return FALSE;
+}
+
+bool8 ScrCmd_drawinfobox(struct ScriptContext *ctx)
+{
+    u8 number = ScriptReadByte(ctx);
+    PrintInfoBox(number);
+    return FALSE;
+};
+
+bool8 ScrCmd_removeinfobox(struct ScriptContext *ctx)
+{
+    RemoveInfoBox();
     return FALSE;
 }
