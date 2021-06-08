@@ -39,6 +39,8 @@
 #include "constants/species.h"
 #include "field_specials.h"
 #include "money.h"
+#include "field_weather.h"
+#include "palette.h"
 
 // *******************************
 // Enums
@@ -66,6 +68,7 @@ enum { // Util
     DEBUG_UTIL_MENU_ITEM_FORCEEGGHATCH,
     DEBUG_UTIL_MENU_ITEM_OPEN_PC,
     DEBUG_UTIL_MENU_ITEM_DO_WONDER_TRADE,
+    DEBUG_UTIL_MENU_ITEM_CHANGE_COSTUME,
 };
 enum { // Flags
     DEBUG_FLAG_MENU_ITEM_FLAGS,
@@ -153,6 +156,8 @@ static void DebugTask_HandleMenuInput_Utilities(u8);
 static void DebugTask_HandleMenuInput_Flags(u8);
 static void DebugTask_HandleMenuInput_Vars(u8);
 static void DebugTask_HandleMenuInput_Give(u8);
+static void DebugTask_ChangeCostume_Execute(u8 taskId);
+static void DebugTask_ChangeCostume_End(u8 taskId);
 
 static void DebugAction_Util_HealParty(u8 taskId);
 static void DebugAction_Util_Fly(u8 taskId);
@@ -173,6 +178,7 @@ static void DebugAction_Util_CheckIVs(u8);
 static void DebugAction_Util_ForceEggHatch(u8);
 static void DebugAction_Util_OpenPC(u8 taskId);
 static void DebugAction_Util_DoWonderTrade(u8 taskId);
+static void DebugAction_Util_ChangeCostume(u8 taskId);
 
 static void DebugAction_Flags_Flags(u8 taskId);
 static void DebugAction_Flags_FlagsSelect(u8 taskId);
@@ -261,6 +267,7 @@ static const u8 gDebugText_Util_CheckIVs[] =                _("Check IVs");
 static const u8 gDebugText_Util_ForceEggHatch[] =           _("Force Egg Hatch");
 static const u8 gDebugText_Util_OpenPC[] =                  _("Open PC");
 static const u8 gDebugText_Util_DoWonderTrade[] =           _("Do a Wonder Trade");
+static const u8 gDebugText_Util_ChangeCostume[] =           _("Change Costume");
 // Flags Menu
 static const u8 gDebugText_Flags_Flags[] =                _("Edit Flags");
 static const u8 gDebugText_Flags_SetPokedexFlags[] =      _("All Pokédex Flags");
@@ -373,6 +380,7 @@ static const struct ListMenuItem sDebugMenu_Items_Utilities[] =
     [DEBUG_UTIL_MENU_ITEM_FORCEEGGHATCH]    = {gDebugText_Util_ForceEggHatch,    DEBUG_UTIL_MENU_ITEM_FORCEEGGHATCH},
     [DEBUG_UTIL_MENU_ITEM_OPEN_PC]          = {gDebugText_Util_OpenPC,           DEBUG_UTIL_MENU_ITEM_OPEN_PC},
     [DEBUG_UTIL_MENU_ITEM_DO_WONDER_TRADE]  = {gDebugText_Util_DoWonderTrade,    DEBUG_UTIL_MENU_ITEM_DO_WONDER_TRADE},
+    [DEBUG_UTIL_MENU_ITEM_CHANGE_COSTUME]   = {gDebugText_Util_ChangeCostume,    DEBUG_UTIL_MENU_ITEM_CHANGE_COSTUME},
 };
 static const struct ListMenuItem sDebugMenu_Items_Flags[] =
 {
@@ -433,6 +441,7 @@ static void (*const sDebugMenu_Actions_Utilities[])(u8) =
     [DEBUG_UTIL_MENU_ITEM_FORCEEGGHATCH]    = DebugAction_Util_ForceEggHatch,
     [DEBUG_UTIL_MENU_ITEM_OPEN_PC]          = DebugAction_Util_OpenPC,
     [DEBUG_UTIL_MENU_ITEM_DO_WONDER_TRADE]  = DebugAction_Util_DoWonderTrade,
+    [DEBUG_UTIL_MENU_ITEM_CHANGE_COSTUME]   = DebugAction_Util_ChangeCostume,
 };
 static void (*const sDebugMenu_Actions_Flags[])(u8) =
 {
@@ -989,6 +998,35 @@ static void DebugAction_Util_DoWonderTrade(u8 taskId)
     Debug_DestroyMenu(taskId);
     ScriptContext2_Enable();
     ScriptContext1_SetupScript(EventScript_DoWonderTrade);
+}
+static void DebugAction_Util_ChangeCostume(u8 taskId)
+{
+    if (gSaveBlock2Ptr->costumeId == 0)
+        VarSet(VAR_COSTUME_SELECTION, 1);
+    else if (gSaveBlock2Ptr->costumeId == 1)
+        VarSet(VAR_COSTUME_SELECTION, 2);
+    else
+        VarSet(VAR_COSTUME_SELECTION, 0);
+
+    FadeScreen(FADE_TO_BLACK, 0);
+    gTasks[taskId].func = DebugTask_ChangeCostume_Execute;
+}
+static void DebugTask_ChangeCostume_Execute(u8 taskId)
+{
+    if (!gPaletteFade.active)
+    {
+        SwapPlayersCostume();
+        gTasks[taskId].func = DebugTask_ChangeCostume_End;
+    }
+}
+static void DebugTask_ChangeCostume_End(u8 taskId)
+{
+    if (!gPaletteFade.active)
+    {
+        FadeInFromBlack();
+        Debug_DestroyMenu(taskId);
+        EnableBothScriptContexts();
+    }
 }
 
 // *******************************

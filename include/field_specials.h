@@ -32,5 +32,6 @@ void ResetFanClub(void);
 bool8 ShouldShowBoxWasFullMessage(void);
 void SetPCBoxToSendMon(u8 boxId);
 const u8 *GetCurrentDayString(u8 dayOfWeek);
+void SwapPlayersCostume(void);
 
 #endif // GUARD_FIELD_SPECIALS_H
