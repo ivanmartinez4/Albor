@@ -145,7 +145,34 @@ LittlerootTown_ProfessorBirchsLab_EventScript_AgreeToSeeRival::
 LittlerootTown_ProfessorBirchsLab_EventScript_DeclineSeeingRival::
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_DontBeThatWay, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, YES, LittlerootTown_ProfessorBirchsLab_EventScript_AgreeToSeeRival
-	goto_if_eq VAR_RESULT, NO, LittlerootTown_ProfessorBirchsLab_EventScript_DeclineSeeingRival
+	goto_if_eq VAR_RESULT, NO, LittlerootTown_ProfessorBirchsLab_EventScript_DeclineSeeingRival2
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_DeclineSeeingRival2::
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_DontBeThatWay2, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, LittlerootTown_ProfessorBirchsLab_EventScript_AgreeToSeeRival
+	goto_if_eq VAR_RESULT, NO, LittlerootTown_ProfessorBirchsLab_EventScript_DeclineSeeingRival3
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_DeclineSeeingRival3::
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_DontBeThatWay3, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, LittlerootTown_ProfessorBirchsLab_EventScript_AgreeToSeeRival
+	goto_if_eq VAR_RESULT, NO, LittlerootTown_ProfessorBirchsLab_EventScript_BadEnd1
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_BadEnd1:
+	closemessage
+	delay 30
+	fadescreenspeed FADE_TO_BLACK, 16
+	special Script_FadeOutMapMusic
+	waitstate
+	playse SE_FAILURE
+	waitse
+	delay 60
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_BadEnd1, MSGBOX_DEFAULT
+	closemessage
+	delay 180
+	special DoSoftReset
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_GivePokedexEvent::
@@ -725,6 +752,23 @@ LittlerootTown_ProfessorBirchsLab_Text_GetRivalToTeachYou:
 LittlerootTown_ProfessorBirchsLab_Text_DontBeThatWay:
 	.string "PROF. BIRCH: Oh, don't be that way.\n"
 	.string "You should go meet my kid.$"
+
+LittlerootTown_ProfessorBirchsLab_Text_DontBeThatWay2::
+	.string "PROF. BIRCH: Are you sure?\p"
+	.string "I think you really should\n"
+	.string "go meet my kid, {PLAYER}.$"
+
+LittlerootTown_ProfessorBirchsLab_Text_DontBeThatWay3::
+	.string "PROF. BIRCH: I'm serious, {PLAYER}.\p"
+	.string "I'm confident you can learn a lot\n"
+	.string "from my kid, so please?$"
+
+LittlerootTown_ProfessorBirchsLab_Text_BadEnd1::
+	.string "And so, the adventure of {PLAYER}\n"
+	.string "came to an end rather prematurely.\p"
+	.string "As {PLAYER} chose not to learn the\n"
+	.string "basics of being a POKéMON TRAINER,\l"
+	.string "{PLAYER} was unable to become one.$"
 
 LittlerootTown_ProfessorBirchsLab_Text_BirchRivalGoneHome:
 	.string "PROF. BIRCH: {RIVAL}?\n"
