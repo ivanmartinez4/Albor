@@ -3227,6 +3227,7 @@ static void Task_StartSendOutAnim(u8 taskId)
             gBattleResources->bufferA[gActiveBattler][1] = gBattlerPartyIndexes[gActiveBattler];
             StartSendOutAnim(gActiveBattler, FALSE);
         }
+        PlaySE12WithPanning(SE_BALL_THROW, 0);
         gBattlerControllerFuncs[gActiveBattler] = Intro_TryShinyAnimShowHealthbox;
         gActiveBattler = savedActiveBattler;
         DestroyTask(taskId);
