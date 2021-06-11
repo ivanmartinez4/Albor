@@ -1882,3 +1882,7 @@ const u8 gText_CurrentTime[] = _(" {STR_VAR_1}:{STR_VAR_2}");
 const u8 gText_ShinyStar[] = _("{STAR}");
 const u8 gText_ShinyStarMale[] = _("{COLOR DYNAMIC_COLOR2}{STAR}");
 const u8 gText_ShinyStarFemale[] = _("{COLOR DYNAMIC_COLOR1}{STAR}");
+
+const u8 gMenuText_Move[] = _("MOVE");
+const u8 gText_MoveItemWhere[] = _("Move item to where?");
+const u8 gText_XsYAndXsYWereSwapped[] = _("{STR_VAR_1}'s {STR_VAR_2} and\n{STR_VAR_3}'s {STR_VAR_4} were swapped!{PAUSE_UNTIL_PRESS}");
