@@ -315,6 +315,9 @@ static void CreateWildMon(u16 species, u8 level)
         return;
     }
 
+    if (VarGet(VAR_CURRENTLY_CHAINED_SPECIES) != GetMonData(&gEnemyParty[0], MON_DATA_SPECIES) && (Random() % 99) < 85)
+        species = VarGet(VAR_CURRENTLY_CHAINED_SPECIES);
+
     CreateMonWithNature(&gEnemyParty[0], species, level, USE_RANDOM_IVS, PickWildMonNature());
 }
 
