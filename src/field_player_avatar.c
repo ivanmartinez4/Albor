@@ -694,16 +694,21 @@ static void PlayerNotOnBikeMoving(u8 direction, u16 heldKeys)
         }
     }
 
-    if (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_SURFING)
+    if (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_SURFING || gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_UNDERWATER)
     {
-        if (heldKeys & B_BUTTON)
+        if (heldKeys & B_BUTTON && gSaveBlock2Ptr->autoRun == TRUE)
+            PlayerWalkFast(direction); // same speed as running
+        else if (heldKeys & B_BUTTON || gSaveBlock2Ptr->autoRun == TRUE)
             PlayerWalkFaster(direction); // same speed as the Mach Bike
         else
-            PlayerWalkFast(direction); // same speed as running
+            PlayerWalkFast(direction);
         return;
     }
 
-    if (!(gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_UNDERWATER) && (heldKeys & B_BUTTON || gSaveBlock2Ptr->autoRun) && FlagGet(FLAG_SYS_B_DASH)
+    if (!(gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_SURFING)
+     && !(gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_UNDERWATER)
+     && (heldKeys & B_BUTTON || gSaveBlock2Ptr->autoRun)
+     && FlagGet(FLAG_SYS_B_DASH)
      && IsRunningDisallowed(gObjectEvents[gPlayerAvatar.objectEventId].currentMetatileBehavior) == 0)
     {
         if (heldKeys & B_BUTTON && gSaveBlock2Ptr->autoRun == TRUE)
