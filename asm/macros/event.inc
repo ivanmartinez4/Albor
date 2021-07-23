@@ -2172,3 +2172,11 @@
 	.macro totemboost_evas2 battler:req
 	settotemboost \battler, 0, 0, 0, 0, 0, 0, 2
 	.endm
+
+	@ Modifies the status of the Pokémon at the party slot stored in the var 0x8004.
+	.macro changemonstatus status:req
+	special ChoosePartyMon
+	waitstate
+	setvar VAR_TEMP_6, \status
+	special ChangeMonStatus
+	.endm
