@@ -176,8 +176,8 @@ PetalburgCity_Gym_EventScript_BeginWallyTutorial::
 	call_if_eq VAR_0x8008, 3, PetalburgCity_Gym_EventScript_WallyFacePlayer
 	msgbox PetalburgCity_Gym_Text_WouldYouReallyComeWithMe, MSGBOX_DEFAULT
 	closemessage
-	setflag FLAG_DONT_TRANSITION_MUSIC
 	playbgm MUS_FOLLOW_ME, FALSE
+	setflag FLAG_DONT_TRANSITION_MUSIC
 	call_if_eq VAR_0x8008, 0, PetalburgCity_Gym_EventScript_ExitGymWithWallySouth
 	call_if_eq VAR_0x8008, 1, PetalburgCity_Gym_EventScript_ExitGymWithWallyNorth
 	call_if_eq VAR_0x8008, 2, PetalburgCity_Gym_EventScript_ExitGymWithWallyWest
@@ -450,8 +450,8 @@ PetalburgCity_Gym_EventScript_WallysDadArrives::
 	call_if_eq VAR_0x8008, 3, PetalburgCity_Gym_EventScript_WallysDadFaceNormanWest
 	msgbox PetalburgCity_Gym_Text_LetMeBorrowPlayer, MSGBOX_DEFAULT
 	closemessage
-	setflag FLAG_DONT_TRANSITION_MUSIC
 	playbgm MUS_FOLLOW_ME, FALSE
+	setflag FLAG_DONT_TRANSITION_MUSIC
 	call_if_eq VAR_0x8008, 1, PetalburgCity_Gym_EventScript_ExitGymWithWallysDadNorth
 	call_if_eq VAR_0x8008, 2, PetalburgCity_Gym_EventScript_ExitGymWithWallysDadEast
 	call_if_eq VAR_0x8008, 3, PetalburgCity_Gym_EventScript_ExitGymWithWallysDadWest

@@ -43,6 +43,7 @@ PetalburgCity_EventScript_WallyTutorial::
 	applymovement OBJ_EVENT_ID_PLAYER, PetalburgCity_Movement_WallyTutorialPlayer
 	waitmovement 0
 	msgbox Route102_Text_WatchMeCatchPokemon, MSGBOX_DEFAULT
+	clearflag FLAG_DONT_TRANSITION_MUSIC
 	special StartWallyTutorialBattle
 	waitstate
 	msgbox Route102_Text_WallyIDidIt, MSGBOX_DEFAULT
