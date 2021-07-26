@@ -167,7 +167,7 @@
 #define FLAG_MR_BRINEY_SAILING_INTRO         0x93
 #define FLAG_DOCK_REJECTED_DEVON_GOODS       0x94
 #define FLAG_DELIVERED_DEVON_GOODS           0x95
-#define FLAG_RECEIVED_CONTEST_PASS           0x96 // Unused, leftover from R/S
+#define FLAG_MYSTERY_GIFT_DONE               0x96 // Originally Unused, leftover from R/S
 #define FLAG_RECEIVED_CASTFORM               0x97
 #define FLAG_RECEIVED_SUPER_ROD              0x98
 #define FLAG_RUSTBORO_NPC_TRADE_COMPLETED    0x99
@@ -518,23 +518,23 @@
 #define FLAG_UNUSED_0x1E2                    0x1E2 // Unused Flag
 #define FLAG_UNUSED_0x1E3                    0x1E3 // Unused Flag
 
-// Mystery Gift Flags (Unknown)
-#define FLAG_MYSTERY_GIFT_DONE               0x1E4
-#define FLAG_MYSTERY_GIFT_1                  0x1E5
-#define FLAG_MYSTERY_GIFT_2                  0x1E6
-#define FLAG_MYSTERY_GIFT_3                  0x1E7
-#define FLAG_MYSTERY_GIFT_4                  0x1E8
-#define FLAG_MYSTERY_GIFT_5                  0x1E9
-#define FLAG_MYSTERY_GIFT_6                  0x1EA
-#define FLAG_MYSTERY_GIFT_7                  0x1EB
-#define FLAG_MYSTERY_GIFT_8                  0x1EC
-#define FLAG_MYSTERY_GIFT_9                  0x1ED
-#define FLAG_MYSTERY_GIFT_10                 0x1EE
-#define FLAG_MYSTERY_GIFT_11                 0x1EF
-#define FLAG_MYSTERY_GIFT_12                 0x1F0
-#define FLAG_MYSTERY_GIFT_13                 0x1F1
-#define FLAG_MYSTERY_GIFT_14                 0x1F2
-#define FLAG_MYSTERY_GIFT_15                 0x1F3
+// Formerly Mystery Gift Flags
+#define FLAG_UNUSED_0x1E4         0x1E4
+#define FLAG_UNUSED_0x1E5         0x1E5
+#define FLAG_UNUSED_0x1E6         0x1E6
+#define FLAG_UNUSED_0x1E7         0x1E7
+#define FLAG_UNUSED_0x1E8         0x1E8
+#define FLAG_UNUSED_0x1E9         0x1E9
+#define FLAG_UNUSED_0x1EA         0x1EA
+#define FLAG_UNUSED_0x1EB         0x1EB
+#define FLAG_UNUSED_0x1EC         0x1EC
+#define FLAG_UNUSED_0x1ED         0x1ED
+#define FLAG_UNUSED_0x1EE         0x1EE
+#define FLAG_UNUSED_0x1EF         0x1EF
+#define FLAG_UNUSED_0x1F0         0x1F0
+#define FLAG_UNUSED_0x1F1         0x1F1
+#define FLAG_UNUSED_0x1F2         0x1F2
+#define FLAG_UNUSED_0x1F3         0x1F3
 
 // Hidden Items
 #define FLAG_HIDDEN_ITEMS_START                                                         0x1F4
