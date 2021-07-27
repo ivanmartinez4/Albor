@@ -539,7 +539,6 @@ gSpecials::
 	def_special CheckChainFishingStreak
 	def_special SwapPlayersCostume
 	def_special GetCurrentMap
-	def_special CheckSavefileSize
 	def_special CheckMonEVs
 	def_special CheckMonIVs
 	def_special SetRivalsName
