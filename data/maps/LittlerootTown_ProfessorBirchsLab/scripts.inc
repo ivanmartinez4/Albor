@@ -25,6 +25,8 @@ LittlerootTown_ProfessorBirchsLab_MapScripts::
 	@ 3: Received starter in lab
 	@ 4: Defeated rival on Route 103
 	@ 5: Received pokedex
+	@ 6: Received National Dex, but haven't defeated rival in Route 103 (postgame)
+	@ 7: Refused rival's rematch challenge
 
 LittlerootTown_ProfessorBirchsLab_OnTransition:
 	call Common_EventScript_SetupRivalGfxId
@@ -59,6 +61,7 @@ LittlerootTown_ProfessorBirchsLab_OnWarp:
 	map_script_2 VAR_BIRCH_LAB_STATE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_SetPlayerPosForReceiveStarter
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 1, LittlerootTown_ProfessorBirchsLab_EventScript_SetObjectPosForDexUpgrade
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_SetObjectPosForDexUpgrade
+	map_script_2 VAR_BIRCH_LAB_STATE, 6, LittlerootTown_ProfessorBirchsLab_EventScript_End
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_AddRivalObject
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 6, LittlerootTown_ProfessorBirchsLab_EventScript_AddRivalObject
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_SetObjectPosForJohtoStarters
@@ -67,6 +70,9 @@ LittlerootTown_ProfessorBirchsLab_OnWarp:
 
 LittlerootTown_ProfessorBirchsLab_EventScript_SetPlayerPosForReceiveStarter::
 	turnobject OBJ_EVENT_ID_PLAYER, DIR_NORTH
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_End:
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_SetObjectPosForDexUpgrade::
@@ -231,6 +237,16 @@ LittlerootTown_ProfessorBirchsLab_EventScript_UpgradeToNationalDex::
 	special EnableNationalPokedex
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_GrassyPatchWaiting2, MSGBOX_DEFAULT
 	closemessage
+	applymovement LOCALID_RIVAL, Common_Movement_FacePlayer
+	waitmovement 0
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_NeitherIsMine, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_RIVAL, LittlerootTown_ProfessorBirchsLab_Movement_RivalLeavesTheLab
+	waitmovement 0
+	removeobject LOCALID_RIVAL
+	setvar VAR_BIRCH_LAB_STATE, 6
+	clearflag FLAG_HIDE_ROUTE_103_RIVAL
+	setvar VAR_ROUTE103_STATE, 1
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCH
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_RIVAL
 	setvar VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 2
@@ -279,6 +295,15 @@ LittlerootTown_ProfessorBirchsLab_Movement_BirchReturnPokedex:
 	walk_up
 	walk_left
 	walk_in_place_faster_down
+	step_end
+
+LittlerootTown_ProfessorBirchsLab_Movement_RivalLeavesTheLab:
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
 	step_end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_ChooseJohtoStarter::
@@ -497,6 +522,7 @@ LittlerootTown_ProfessorBirchsLab_EventScript_ReceivedJohtoStarter::
 LittlerootTown_ProfessorBirchsLab_EventScript_Birch::
 	lock
 	faceplayer
+	goto_if_eq VAR_ROUTE103_STATE, 1, LittlerootTown_ProfessorBirchsLab_EventScript_RivalIsWaiting
 	goto_if_eq VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 5, LittlerootTown_ProfessorBirchsLab_EventScript_CanHaveAnyOneOfRarePokemon
 	goto_if_eq VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_GrassyPatchWaiting
 	goto_if_unset FLAG_HAS_MATCH_CALL, LittlerootTown_ProfessorBirchsLab_EventScript_TryRatePokedexOrRegister
@@ -511,6 +537,21 @@ LittlerootTown_ProfessorBirchsLab_EventScript_CanHaveAnyOneOfRarePokemon::
 
 LittlerootTown_ProfessorBirchsLab_EventScript_GrassyPatchWaiting::
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_GrassyPatchWaiting2, MSGBOX_DEFAULT
+	release
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_RivalIsWaiting::
+	checkplayergender
+	goto_if_eq VAR_RESULT, MALE, LittlerootTown_ProfessorBirchsLab_EventScript_FemaleRivalIsWaiting
+	goto LittlerootTown_ProfessorBirchsLab_EventScript_MaleRivalIsWaiting
+
+LittlerootTown_ProfessorBirchsLab_EventScript_FemaleRivalIsWaiting:
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_FemaleRivalIsWaiting, MSGBOX_DEFAULT
+	release
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_MaleRivalIsWaiting:
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_MaleRivalIsWaiting, MSGBOX_DEFAULT
 	release
 	end
 
@@ -656,6 +697,7 @@ LittlerootTown_ProfessorBirchsLab_EventScript_BrendanHaveYouGoneToBattleFrontier
 	return
 
 LittlerootTown_ProfessorBirchsLab_EventScript_RivalTakeBreakFromFieldwork::
+	goto_if_unset FLAG_DEFEATED_RIVAL_POSTGAME, LittlerootTown_ProfessorBirchsLab_EventScript_RivalRematch
 	checkplayergender
 	call_if_eq VAR_RESULT, MALE, LittlerootTown_ProfessorBirchsLab_EventScript_MayTakeBreakFromFieldwork
 	call_if_eq VAR_RESULT, FEMALE, LittlerootTown_ProfessorBirchsLab_EventScript_BrendanTakeBreakFromFieldwork
@@ -663,11 +705,134 @@ LittlerootTown_ProfessorBirchsLab_EventScript_RivalTakeBreakFromFieldwork::
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_MayTakeBreakFromFieldwork::
+	call_if_ge VAR_TEMP_2, 1, LittlerootTown_ProfessorBirchsLab_EventScript_MayPostBattleDialogue
+	call_if_lt VAR_TEMP_2, 1, LittlerootTown_ProfessorBirchsLab_EventScript_MayTakeBreakFromFieldwork2
+	return
+
+LittlerootTown_ProfessorBirchsLab_EventScript_MayPostBattleDialogue:
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_PlayerDefeatedRivalPostBattleDialogue, MSGBOX_DEFAULT
+	return
+
+LittlerootTown_ProfessorBirchsLab_EventScript_MayTakeBreakFromFieldwork2::
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_MayTakeBreakFromFieldwork, MSGBOX_DEFAULT
 	return
 
-LittlerootTown_ProfessorBirchsLab_EventScript_BrendanTakeBreakFromFieldwork::
+LittlerootTown_ProfessorBirchsLab_EventScript_BrendanTakeBreakFromFieldwork:
+	call_if_ge VAR_TEMP_2, 1, LittlerootTown_ProfessorBirchsLab_EventScript_BrendanPostBattleDialogue
+	call_if_lt VAR_TEMP_2, 1, LittlerootTown_ProfessorBirchsLab_EventScript_BrendanTakeBreakFromFieldwork2
+	return
+
+LittlerootTown_ProfessorBirchsLab_EventScript_BrendanPostBattleDialogue:
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_PlayerDefeatedRivalPostBattleDialogue, MSGBOX_DEFAULT
+	return
+
+LittlerootTown_ProfessorBirchsLab_EventScript_BrendanTakeBreakFromFieldwork2:
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_BrendanTakeBreakFromFieldwork, MSGBOX_DEFAULT
+	return
+
+LittlerootTown_ProfessorBirchsLab_EventScript_RivalRematch:
+	checkplayergender
+	goto_if_eq VAR_RESULT, MALE, LittlerootTown_ProfessorBirchsLab_EventScript_FemaleRivalRematch2
+	goto_if_eq VAR_RESULT, FEMALE, LittlerootTown_ProfessorBirchsLab_EventScript_MaleRivalRematch2
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_FemaleRivalRematch2:
+	goto_if_eq VAR_BIRCH_LAB_STATE, 7, LittlerootTown_ProfessorBirchsLab_EventScript_FemaleRivalRematch3
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_FemaleRivalIsBored, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, LittlerootTown_ProfessorBirchsLab_EventScript_ProceedWithFemaleRivalRematch
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_FemaleRivalIsBored2, MSGBOX_DEFAULT
+	setvar VAR_BIRCH_LAB_STATE, 7
+	release
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_FemaleRivalRematch3:
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_FemaleRivalWantsToFight, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, LittlerootTown_ProfessorBirchsLab_EventScript_ProceedWithFemaleRivalRematch
+	release
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_ProceedWithFemaleRivalRematch:
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_FemaleRivalRematchBegins, MSGBOX_DEFAULT
+	switch VAR_STARTER_MON
+	case 0, LittlerootTown_ProfessorBirchsLab_EventScript_StartMayBattleTreeckoPostgame
+	case 1, LittlerootTown_ProfessorBirchsLab_EventScript_StartMayBattleTorchicPostgame
+	case 2, LittlerootTown_ProfessorBirchsLab_EventScript_StartMayBattleMudkipPostgame
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_StartMayBattleTreeckoPostgame::
+	setvar VAR_MUGSHOT_ID, MUGSHOT_MAY
+	trainerbattle_no_intro TRAINER_MAY_POSTGAME_TREECKO, LittlerootTown_ProfessorBirchsLab_Text_FemaleRivalDefeatedPostgame
+	call LittlerootTown_ProfessorBirchsLab_EventScript_PlayerDefeatedRival
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_StartMayBattleTorchicPostgame::
+	setvar VAR_MUGSHOT_ID, MUGSHOT_MAY
+	trainerbattle_no_intro TRAINER_MAY_POSTGAME_TORCHIC, LittlerootTown_ProfessorBirchsLab_Text_FemaleRivalDefeatedPostgame
+	call LittlerootTown_ProfessorBirchsLab_EventScript_PlayerDefeatedRival
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_StartMayBattleMudkipPostgame::
+	setvar VAR_MUGSHOT_ID, MUGSHOT_MAY
+	trainerbattle_no_intro TRAINER_MAY_POSTGAME_MUDKIP, LittlerootTown_ProfessorBirchsLab_Text_FemaleRivalDefeatedPostgame
+	call LittlerootTown_ProfessorBirchsLab_EventScript_PlayerDefeatedRival
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_PlayerDefeatedRival:
+	checkplayergender
+	call_if_eq VAR_RESULT, FEMALE, LittlerootTown_ProfessorBirchsLab_EventScript_PlayerDefeatedMaleRival
+	call_if_eq VAR_RESULT, MALE, LittlerootTown_ProfessorBirchsLab_EventScript_PlayerDefeatedFemaleRival
+	closemessage
+	setflag FLAG_DEFEATED_RIVAL_POSTGAME
+	setvar VAR_TEMP_2, 1
+	return
+
+LittlerootTown_ProfessorBirchsLab_EventScript_PlayerDefeatedFemaleRival:
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_PlayerDefeatedFemaleRival, MSGBOX_DEFAULT
+	return
+
+LittlerootTown_ProfessorBirchsLab_EventScript_MaleRivalRematch2:
+	goto_if_eq VAR_BIRCH_LAB_STATE, 7, LittlerootTown_ProfessorBirchsLab_EventScript_MaleRivalRematch3
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_MaleRivalIsBored, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, LittlerootTown_ProfessorBirchsLab_EventScript_ProceedWithMaleRivalRematch
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_MaleRivalIsBored2, MSGBOX_DEFAULT
+	setvar VAR_BIRCH_LAB_STATE, 7
+	release
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_MaleRivalRematch3:
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_MaleRivalWantsToFight, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, LittlerootTown_ProfessorBirchsLab_EventScript_ProceedWithMaleRivalRematch
+	release
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_ProceedWithMaleRivalRematch:
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_MaleRivalRematchBegins, MSGBOX_DEFAULT
+	switch VAR_STARTER_MON
+	case 0, LittlerootTown_ProfessorBirchsLab_EventScript_StartBrendanBattleTreeckoPostgame
+	case 1, LittlerootTown_ProfessorBirchsLab_EventScript_StartBrendanBattleTorchicPostgame
+	case 2, LittlerootTown_ProfessorBirchsLab_EventScript_StartBrendanBattleMudkipPostgame
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_StartBrendanBattleTreeckoPostgame::
+	setvar VAR_MUGSHOT_ID, MUGSHOT_BRENDAN
+	trainerbattle_no_intro TRAINER_BRENDAN_POSTGAME_TREECKO, LittlerootTown_ProfessorBirchsLab_Text_MaleRivalDefeatedPostgame
+	call LittlerootTown_ProfessorBirchsLab_EventScript_PlayerDefeatedRival
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_StartBrendanBattleTorchicPostgame::
+	setvar VAR_MUGSHOT_ID, MUGSHOT_BRENDAN
+	trainerbattle_no_intro TRAINER_BRENDAN_POSTGAME_TORCHIC, LittlerootTown_ProfessorBirchsLab_Text_MaleRivalDefeatedPostgame
+	call LittlerootTown_ProfessorBirchsLab_EventScript_PlayerDefeatedRival
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_StartBrendanBattleMudkipPostgame::
+	setvar VAR_MUGSHOT_ID, MUGSHOT_BRENDAN
+	trainerbattle_no_intro TRAINER_BRENDAN_POSTGAME_MUDKIP, LittlerootTown_ProfessorBirchsLab_Text_MaleRivalDefeatedPostgame
+	call LittlerootTown_ProfessorBirchsLab_EventScript_PlayerDefeatedRival
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_PlayerDefeatedMaleRival:
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_PlayerDefeatedMaleRival, MSGBOX_DEFAULT
 	return
 
 LittlerootTown_ProfessorBirchsLab_EventScript_PC::
@@ -913,17 +1078,36 @@ LittlerootTown_ProfessorBirchsLab_Text_GrassyPatchWaiting2:
 	.string "Somewhere, there is a grassy patch\n"
 	.string "that's waiting for you!$"
 
+LittlerootTown_ProfessorBirchsLab_Text_MaleRivalIsWaiting:
+	.string "PROF. BIRCH: I wonder what is it that\n"
+	.string "{RIVAL} wants. It sounded serious.\p"
+	.string "Unless I misheard, he asked you to\n"
+	.string "meet him in ROUTE 103.$"
+
+LittlerootTown_ProfessorBirchsLab_Text_FemaleRivalIsWaiting:
+	.string "PROF. BIRCH: I wonder what is it that\n"
+	.string "{RIVAL} wants. It sounded serious.\p"
+	.string "Unless I misheard, she asked you to\n"
+	.string "meet her in ROUTE 103.$"
+
+LittlerootTown_ProfessorBirchsLab_Text_NeitherIsMine:
+	.string "And neither is mine!\p"
+	.string "Say, {PLAYER}, would you meet up\n"
+	.string "with me in ROUTE 103 later?\p"
+	.string "There's something I want to do,\n"
+	.string "but I'll need your help.\p"
+	.string "See you there!$"
+
 LittlerootTown_ProfessorBirchsLab_Text_MayTakeBreakFromFieldwork:
-	.string "{RIVAL}: I think I'll take a short break\n"
-	.string "from fieldwork.\p"
-	.string "I think I'll help the PROF here for\n"
-	.string "a while.$"
+	.string "{RIVAL}: Hey {PLAYER}!\p"
+	.string "I'm helping to sort out all the\n"
+	.string "data I got during our journey.$"
 
 LittlerootTown_ProfessorBirchsLab_Text_BrendanTakeBreakFromFieldwork:
-	.string "{RIVAL}: For the time being,\n"
-	.string "I'm taking a break from fieldwork.\p"
-	.string "I'll be helping out the PROF here\n"
-	.string "for a while.$"
+	.string "{RIVAL}: Hey {PLAYER}.\p"
+	.string "I'm helping to sort out all the\n"
+	.string "data I got during our journey.\p"
+	.string "You know? This isn't half bad.$"
 
 LittlerootTown_ProfessorBirchsLab_Text_CompletedDexChoosePokemon:
 	.string "PROF. BIRCH: Oh, {PLAYER}{KUN}!\n"
@@ -1043,3 +1227,66 @@ LittlerootTown_ProfessorBirchsLab_Text_ScottAboardSSTidalCall:
 	.string "we meet. I'll be waiting!\p"
 	.string "… … … … … …\n"
 	.string "… … … … … Click!$"
+
+LittlerootTown_ProfessorBirchsLab_Text_FemaleRivalIsBored:
+	.string "{RIVAL}: Hey {PLAYER}!\n"
+	.string "How have you been?\p"
+	.string "I've been busy helping my dad\n"
+	.string "with his investigations.\p"
+	.string "Say, do you want to have\n"
+	.string "a quick battle?\p"
+	.string "I'm a bit bored and there's\n"
+	.string "nothing to do right now, so…$"
+
+LittlerootTown_ProfessorBirchsLab_Text_FemaleRivalIsBored2:
+	.string "Oh, okay then. I'll be here in\n"
+	.string "case you change your mind.$"
+
+LittlerootTown_ProfessorBirchsLab_Text_FemaleRivalWantsToFight:
+	.string "{RIVAL}: Hey {PLAYER}!\n"
+	.string "Had a change of mind?$"
+
+LittlerootTown_ProfessorBirchsLab_Text_FemaleRivalRematchBegins:
+	.string "Alright! Let's get to it!\n"
+	.string "Don't hold anything back!$"
+
+LittlerootTown_ProfessorBirchsLab_Text_FemaleRivalDefeatedPostgame:
+	.string "You're still in good shape!$"
+
+LittlerootTown_ProfessorBirchsLab_Text_PlayerDefeatedFemaleRival:
+	.string "Thanks {PLAYER}, that was fun!\n"
+	.string "Let's battle again sometime.$"
+
+LittlerootTown_ProfessorBirchsLab_Text_MaleRivalIsBored:
+	.string "{RIVAL}: Hi {PLAYER},\n"
+	.string "how you've been?\p"
+	.string "I've been busy helping DAD\n"
+	.string "with his investigations.\p"
+	.string "Say, do you want to have\n"
+	.string "a quick battle?\p"
+	.string "I'm bored and there's nothing\n"
+	.string "to do in here right now, so…$"
+
+LittlerootTown_ProfessorBirchsLab_Text_MaleRivalIsBored2:
+	.string "Fine. If you change your mind,\n"
+	.string "you know where to find me.$"
+
+LittlerootTown_ProfessorBirchsLab_Text_MaleRivalWantsToFight:
+	.string "{RIVAL}: Hey, had a change of mind?$"
+
+LittlerootTown_ProfessorBirchsLab_Text_MaleRivalRematchBegins:
+	.string "Alright! Let's do this!\n"
+	.string "Don't hold yourself back!$"
+
+LittlerootTown_ProfessorBirchsLab_Text_MaleRivalDefeatedPostgame:
+	.string "Just as I thought, you're\n"
+	.string "not too shabby!$"
+
+LittlerootTown_ProfessorBirchsLab_Text_PlayerDefeatedMaleRival:
+	.string "Darn it, I lost.\n"
+	.string "That was fun though!\p"
+	.string "Let's battle again sometime.$"
+
+LittlerootTown_ProfessorBirchsLab_Text_PlayerDefeatedRivalPostBattleDialogue:
+	.string "That was fun!\n"
+	.string "Let's do it again sometime.$"

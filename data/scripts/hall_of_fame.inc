@@ -22,6 +22,9 @@ EverGrandeCity_HallOfFame_EventScript_SetGameClearFlags::
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_RIVAL_BEDROOM
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_RIVAL_BEDROOM
 	call_if_eq VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 0, EverGrandeCity_HallOfFame_EventScript_ReadyDexUpgradeEvent
+	addvar VAR_POKEMON_LEAGUE_RUNS_COUNTER, 1
+	call_if_set FLAG_DEFEATED_RIVAL_POSTGAME, EverGrandeCity_HallOfFame_EventScript_Birch_LabState
+	clearflag FLAG_DEFEATED_RIVAL_POSTGAME
 	return
 
 EverGrandeCity_HallOfFame_EventScript_ResetDefeatedEventLegendaries::
@@ -48,4 +51,8 @@ EverGrandeCity_HallOfFame_EventScript_ReadyReceiveSSTicketEvent::
 
 EverGrandeCity_HallOfFame_EventScript_ReadyDexUpgradeEvent::
 	setvar VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 1
+	return
+
+EverGrandeCity_HallOfFame_EventScript_Birch_LabState:
+	setvar VAR_BIRCH_LAB_STATE, 6
 	return

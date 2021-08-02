@@ -39,11 +39,26 @@ ProfBirch_EventScript_RatePokedexOrRegister::
 	goto_if_unset FLAG_ENABLE_PROF_BIRCH_MATCH_CALL, EventScript_RegisterProfBirch
 
 ProfBirch_EventScript_AskRatePokedex::
-	msgbox gBirchDexRatingText_AreYouCurious, MSGBOX_YESNO
+	call_if_eq VAR_TEMP_2, 1, ProfBirch_EventScript_AreYouCuriousAlt
+	call_if_gt VAR_TEMP_2, 1, ProfBirch_EventScript_AreYouCurious2
+	call_if_lt VAR_TEMP_2, 1, ProfBirch_EventScript_AreYouCurious
 	goto_if_eq VAR_RESULT, NO, ProfBirch_EventScript_DeclineRating
 	call ProfBirch_EventScript_RatePokedex
 	release
 	end
+
+ProfBirch_EventScript_AreYouCuriousAlt:
+	msgbox gBirchDexRatingText_AreYouCuriousAlt, MSGBOX_YESNO
+	setvar VAR_TEMP_2, 2
+	return
+
+ProfBirch_EventScript_AreYouCurious2:
+	msgbox gBirchDexRatingText_AreYouCurious2, MSGBOX_YESNO
+	return
+
+ProfBirch_EventScript_AreYouCurious:
+	msgbox gBirchDexRatingText_AreYouCurious, MSGBOX_YESNO
+	return
 
 ProfBirch_EventScript_DeclineRating::
 	msgbox gBirchDexRatingText_Cancel, MSGBOX_DEFAULT

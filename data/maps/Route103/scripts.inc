@@ -5,6 +5,10 @@ Route103_MapScripts::
 	map_script MAP_SCRIPT_ON_LOAD, Route103_OnLoad
 	.byte 0
 
+	@ State descriptions for VAR_ROUTE103_STATE
+	@ 1: Player is on their way to meet rival on Route 103 (postgame)
+	@ 2: Defeated rival on Route 103 (postgame)
+
 Route103_OnTransition:
 	call Common_EventScript_SetupRivalGfxId
 	call ProfBirch_EventScript_UpdateLocation
@@ -27,6 +31,7 @@ Route103_EventScript_Rival::
 	end
 
 Route103_EventScript_RivalMay::
+	goto_if_eq VAR_BIRCH_LAB_STATE, 6, Route103_EventScript_RivalMayPostGame
 	msgbox Route103_Text_MayRoute103Pokemon, MSGBOX_DEFAULT
 	closemessage
 	playbgm MUS_ENCOUNTER_MAY, TRUE
@@ -44,6 +49,7 @@ Route103_EventScript_RivalMay::
 	end
 
 Route103_EventScript_RivalBrendan::
+	goto_if_eq VAR_BIRCH_LAB_STATE, 6, Route103_EventScript_RivalBrendanPostGame
 	msgbox Route103_Text_BrendanRoute103Pokemon, MSGBOX_DEFAULT
 	closemessage
 	playbgm MUS_ENCOUNTER_BRENDAN, TRUE
@@ -145,12 +151,21 @@ Route103_EventScript_RivalExitFacingSouth::
 	end
 
 Route103_EventScript_RivalEnd::
+	goto_if_eq VAR_ROUTE103_STATE, 2, Route103_EventScript_RivalEndPostgame
 	removeobject LOCALID_RIVAL
 	setvar VAR_BIRCH_LAB_STATE, 4
 	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_RIVAL
 	setflag FLAG_DEFEATED_RIVAL_ROUTE103
 	setvar VAR_OLDALE_RIVAL_STATE, 1
 	clearflag FLAG_HIDE_OLDALE_TOWN_RIVAL
+	savebgm MUS_DUMMY
+	fadedefaultbgm
+	releaseall
+	end
+
+Route103_EventScript_RivalEndPostgame:
+	removeobject LOCALID_RIVAL
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_RIVAL
 	savebgm MUS_DUMMY
 	fadedefaultbgm
 	releaseall
@@ -294,6 +309,90 @@ Route103_EventScript_Isabelle::
 	msgbox Route103_Text_IsabellePostBattle, MSGBOX_AUTOCLOSE
 	end
 
+Route103_EventScript_RivalMayPostGame:
+	msgbox Route103_Text_MayRoute103Postgame, MSGBOX_DEFAULT
+	closemessage
+	playbgm MUS_ENCOUNTER_MAY, TRUE
+	applymovement LOCALID_RIVAL, Common_Movement_FacePlayer
+	waitmovement 0
+	applymovement LOCALID_RIVAL, Common_Movement_ExclamationMark
+	waitmovement 0
+	applymovement LOCALID_RIVAL, Common_Movement_Delay48
+	waitmovement 0
+	msgbox Route103_Text_MayLetsBattlePostgame, MSGBOX_DEFAULT
+	switch VAR_STARTER_MON
+	case 0, Route103_EventScript_StartMayBattleTreeckoPostgame
+	case 1, Route103_EventScript_StartMayBattleTorchicPostgame
+	case 2, Route103_EventScript_StartMayBattleMudkipPostgame
+	end
+
+Route103_EventScript_RivalBrendanPostGame:
+	msgbox Route103_Text_BrendanRoute103Postgame, MSGBOX_DEFAULT
+	closemessage
+	playbgm MUS_ENCOUNTER_BRENDAN, TRUE
+	applymovement LOCALID_RIVAL, Common_Movement_FacePlayer
+	waitmovement 0
+	applymovement LOCALID_RIVAL, Common_Movement_ExclamationMark
+	waitmovement 0
+	applymovement LOCALID_RIVAL, Common_Movement_Delay48
+	waitmovement 0
+	msgbox Route103_Text_BrendanLetsBattlePostgame, MSGBOX_DEFAULT
+	switch VAR_STARTER_MON
+	case 0, Route103_EventScript_StartBrendanBattleTreeckoPostgame
+	case 1, Route103_EventScript_StartBrendanBattleTorchicPostgame
+	case 2, Route103_EventScript_StartBrendanBattleMudkipPostgame
+	end
+
+Route103_EventScript_StartMayBattleTreeckoPostgame::
+	setvar VAR_MUGSHOT_ID, MUGSHOT_MAY
+	trainerbattle_no_intro TRAINER_MAY_POSTGAME_TREECKO, Route103_Text_MayDefeatedPostgame
+	goto Route103_EventScript_AfterMayBattlePostgame
+	end
+
+Route103_EventScript_StartMayBattleTorchicPostgame::
+	setvar VAR_MUGSHOT_ID, MUGSHOT_MAY
+	trainerbattle_no_intro TRAINER_MAY_POSTGAME_TORCHIC, Route103_Text_MayDefeatedPostgame
+	goto Route103_EventScript_AfterMayBattlePostgame
+	end
+
+Route103_EventScript_StartMayBattleMudkipPostgame::
+	setvar VAR_MUGSHOT_ID, MUGSHOT_MAY
+	trainerbattle_no_intro TRAINER_MAY_POSTGAME_MUDKIP, Route103_Text_MayDefeatedPostgame
+	goto Route103_EventScript_AfterMayBattlePostgame
+	end
+
+Route103_EventScript_AfterMayBattlePostgame::
+	msgbox Route103_Text_MayTimeToHeadBackForGood, MSGBOX_DEFAULT
+	setvar VAR_ROUTE103_STATE, 2
+	setflag FLAG_DEFEATED_RIVAL_POSTGAME
+	goto Route103_EventScript_RivalExit
+	end
+
+Route103_EventScript_StartBrendanBattleTreeckoPostgame::
+	setvar VAR_MUGSHOT_ID, MUGSHOT_BRENDAN
+	trainerbattle_no_intro TRAINER_BRENDAN_POSTGAME_TREECKO, Route103_Text_BrendanDefeatedPostgame
+	goto Route103_EventScript_AfterBrendanBattlePostgame
+	end
+
+Route103_EventScript_StartBrendanBattleTorchicPostgame::
+	setvar VAR_MUGSHOT_ID, MUGSHOT_BRENDAN
+	trainerbattle_no_intro TRAINER_BRENDAN_POSTGAME_TORCHIC, Route103_Text_BrendanDefeatedPostgame
+	goto Route103_EventScript_AfterBrendanBattlePostgame
+	end
+
+Route103_EventScript_StartBrendanBattleMudkipPostgame::
+	setvar VAR_MUGSHOT_ID, MUGSHOT_BRENDAN
+	trainerbattle_no_intro TRAINER_BRENDAN_POSTGAME_MUDKIP, Route103_Text_BrendanDefeatedPostgame
+	goto Route103_EventScript_AfterBrendanBattlePostgame
+	end
+
+Route103_EventScript_AfterBrendanBattlePostgame::
+	msgbox Route103_Text_BrendanTimeToHeadBackForGood, MSGBOX_DEFAULT
+	setvar VAR_ROUTE103_STATE, 2
+	setflag FLAG_DEFEATED_RIVAL_POSTGAME
+	goto Route103_EventScript_RivalExit
+	end
+
 Route103_Text_MayRoute103Pokemon:
 	.string "{RIVAL}: Let's see… The POKéMON found\n"
 	.string "on ROUTE 103 include…$"
@@ -359,3 +458,87 @@ Route103_Text_RouteSign:
 	.string "ROUTE 103\n"
 	.string "{DOWN_ARROW} OLDALE TOWN$"
 
+Route103_Text_MayRoute103Postgame:
+	.string "{RIVAL}: How strange… this POKéMON\n"
+	.string "shouldn't normally appear here…$"
+
+Route103_Text_MayLetsBattlePostgame:
+	.string "Oh, {PLAYER}, you're here!\p"
+	.string "I'm sorry. I was distracted,\n"
+	.string "looking at this KRICKETOT.\p"
+	.string "It is strange to see one here\n"
+	.string "in the HOENN Region, isn't it?\p"
+	.string "Nevermind that. I told you there\n"
+	.string "was something I had to ask of you.\p"
+	.string "Can we have a POKéMON battle?\n"
+	.string "It's been so long since our last.\p"
+	.string "I'd like to learn how much have we\n"
+	.string "grown up during our journeys.\p"
+	.string "You better not hold yourself back!$"
+
+Route103_Text_MayDefeatedPostgame:
+	.string "I guess that's that.\n"
+	.string "You're something else, {PLAYER}!\p"
+	.string "Truly, you live up to your title\n"
+	.string "as HOENN's Champion.$"
+
+Route103_Text_MayTimeToHeadBackForGood:
+	.string "Thank you, {PLAYER}. That was a\n"
+	.string "great battle. I have no regrets.\p"
+	.string "It feels like a lot of time passed\n"
+	.string "since we fought here, in ROUTE 103.\p"
+	.string "You were just starting as a POKéMON\n"
+	.string "TRAINER, remember?\p"
+	.string "We've been through many adventures\n"
+	.string "and conquered many challenges.\p"
+	.string "I had a lot of fun in my journey,\n"
+	.string "and it's partly thanks to you.\p"
+	.string "I think I'm ready to take a good\n"
+	.string "break. DAD needs help with his\l"
+	.string "work in the LAB too.\p"
+	.string "If you feel tired, don't hesitate\n"
+	.string "to stop by LITTLEROOT TOWN!\p"
+	.string "You're always welcomed in the LAB,\n"
+	.string "and I'm sure that your mother would\l"
+	.string "appreciate it too!$"
+
+Route103_Text_BrendanRoute103Postgame:
+	.string "{RIVAL}: Huh? That's weird… this one\n"
+	.string "shouldn't appear here, right…?$"
+
+Route103_Text_BrendanLetsBattlePostgame:
+	.string "Oh, hey {PLAYER}. What's up?\n"
+	.string "Sorry. I was distracted.\p"
+	.string "It's weird to see a PACHIRISU\n"
+	.string "here in HOENN, don't you think?\p"
+	.string "Whatever. I told you there was\n"
+	.string "something I had to ask of you.\p"
+	.string "I'll go straight to the point:\n"
+	.string "Let's have a POKéMON battle!\p"
+	.string "I want to learn how much did we\n"
+	.string "grow up to this point.\p"
+	.string "You better get ready, because I\n"
+	.string "won't hold anything back!$"
+
+Route103_Text_BrendanDefeatedPostgame:
+	.string "Wow! That was amazing!\n"
+	.string "You really live up to your title!$"
+
+Route103_Text_BrendanTimeToHeadBackForGood:
+	.string "Thanks, {PLAYER}. That was a\n"
+	.string "great battle. I've no regrets.\p"
+	.string "It's been long since since we first\n"
+	.string "fought here, in ROUTE 103.\p"
+	.string "DAD wanted me to teach you the\n"
+	.string "basics of being a POKéMON TRAINER.\p"
+	.string "We've been through a lot since\n"
+	.string "then and faced many challenges.\p"
+	.string "I had a lot of fun in my journey,\n"
+	.string "and it's partly thanks to you.\p"
+	.string "I think I'm ready to take a good\n"
+	.string "break now.\p"
+	.string "I'm sure DAD would appreciate\n"
+	.string "the extra hands too.\p"
+	.string "If you feel tired, don't hesitate\n"
+	.string "to stop by LITTLEROOT TOWN!\p"
+	.string "You're always welcomed in the LAB!$"
