@@ -208,7 +208,7 @@ static const struct WindowTemplate sSaveInfoWindowTemplate = {
     .bg = 0,
     .tilemapLeft = 1,
     .tilemapTop = 1,
-    .width = 14,
+    .width = 15,
     .height = 10,
     .paletteNum = 15,
     .baseBlock = 8
@@ -439,7 +439,7 @@ static void RemoveExtraStartMenuWindows(void)
     if (FlagGet(FLAG_SET_WALL_CLOCK))
     {
         ClearStdWindowAndFrameToTransparent(sCurrentTimeWindowId, FALSE);
-        CopyWindowToVram(sCurrentTimeWindowId, 2);
+        CopyWindowToVram(sCurrentTimeWindowId, COPYWIN_GFX);
         RemoveWindow(sCurrentTimeWindowId);
         FlagClear(FLAG_TEMP_5);
     }
@@ -1366,9 +1366,10 @@ static void ShowSaveInfoWindow(void)
     u32 yOffset;
 
     if (!FlagGet(FLAG_SYS_POKEDEX_GET))
-    {
         saveInfoWindow.height -= 2;
-    }
+
+    if (!gSaveBlock2Ptr->savedYear)
+        saveInfoWindow.height -= 2;
 
     sSaveInfoWindowId = AddWindow(&saveInfoWindow);
     DrawStdWindowFrame(sSaveInfoWindowId, FALSE);
@@ -1377,27 +1378,18 @@ static void ShowSaveInfoWindow(void)
     color = TEXT_COLOR_RED;  // Red when female, blue when male.
 
     if (gender == MALE)
-    {
         color = TEXT_COLOR_BLUE;
-    }
 
     // Print region name
     yOffset = 1;
     BufferSaveMenuText(SAVE_MENU_LOCATION, gStringVar7, TEXT_COLOR_GREEN);
     AddTextPrinterParameterized(sSaveInfoWindowId, FONT_NORMAL, gStringVar7, 0, yOffset, TEXT_SKIP_DRAW, NULL);
 
-    // Print player name
-    yOffset += 16;
-    AddTextPrinterParameterized(sSaveInfoWindowId, FONT_NORMAL, gText_SavingPlayer, 0, yOffset, TEXT_SKIP_DRAW, NULL);
-    BufferSaveMenuText(SAVE_MENU_NAME, gStringVar7, color);
-    xOffset = GetStringRightAlignXOffset(FONT_NORMAL, gStringVar7, 0x70);
-    PrintPlayerNameOnWindow(sSaveInfoWindowId, gStringVar7, xOffset, yOffset);
-
     // Print badge count
     yOffset += 16;
     AddTextPrinterParameterized(sSaveInfoWindowId, FONT_NORMAL, gText_SavingBadges, 0, yOffset, TEXT_SKIP_DRAW, NULL);
     BufferSaveMenuText(SAVE_MENU_BADGES, gStringVar7, color);
-    xOffset = GetStringRightAlignXOffset(FONT_NORMAL, gStringVar7, 0x70);
+    xOffset = GetStringRightAlignXOffset(FONT_NORMAL, gStringVar7, 120);
     AddTextPrinterParameterized(sSaveInfoWindowId, FONT_NORMAL, gStringVar7, xOffset, yOffset, TEXT_SKIP_DRAW, NULL);
 
     if (FlagGet(FLAG_SYS_POKEDEX_GET) == TRUE)
@@ -1406,7 +1398,7 @@ static void ShowSaveInfoWindow(void)
         yOffset += 16;
         AddTextPrinterParameterized(sSaveInfoWindowId, FONT_NORMAL, gText_SavingPokedex, 0, yOffset, TEXT_SKIP_DRAW, NULL);
         BufferSaveMenuText(SAVE_MENU_CAUGHT, gStringVar7, color);
-        xOffset = GetStringRightAlignXOffset(FONT_NORMAL, gStringVar7, 0x70);
+        xOffset = GetStringRightAlignXOffset(FONT_NORMAL, gStringVar7, 120);
         AddTextPrinterParameterized(sSaveInfoWindowId, FONT_NORMAL, gStringVar7, xOffset, yOffset, TEXT_SKIP_DRAW, NULL);
     }
 
@@ -1414,10 +1406,17 @@ static void ShowSaveInfoWindow(void)
     yOffset += 16;
     AddTextPrinterParameterized(sSaveInfoWindowId, FONT_NORMAL, gText_SavingTime, 0, yOffset, TEXT_SKIP_DRAW, NULL);
     BufferSaveMenuText(SAVE_MENU_PLAY_TIME, gStringVar7, color);
-    xOffset = GetStringRightAlignXOffset(FONT_NORMAL, gStringVar7, 0x70);
+    xOffset = GetStringRightAlignXOffset(FONT_NORMAL, gStringVar7, 120);
     AddTextPrinterParameterized(sSaveInfoWindowId, FONT_NORMAL, gStringVar7, xOffset, yOffset, TEXT_SKIP_DRAW, NULL);
 
-    CopyWindowToVram(sSaveInfoWindowId, COPYWIN_GFX);
+    // Print last save date
+    yOffset += 16;
+    AddTextPrinterParameterized(sSaveInfoWindowId, FONT_NORMAL, gText_SavingDate, 0, yOffset, TEXT_SKIP_DRAW, NULL);
+    BufferSaveMenuText(SAVE_MENU_LAST_DATE, gStringVar7, color);
+    xOffset = GetStringRightAlignXOffset(FONT_NORMAL, gStringVar7, 120);
+    AddTextPrinterParameterized(sSaveInfoWindowId, FONT_NORMAL, gStringVar7, xOffset, yOffset, TEXT_SKIP_DRAW, NULL);
+
+    CopyWindowToVram(sSaveInfoWindowId, 2);
 }
 
 static void RemoveSaveInfoWindow(void)
@@ -1476,8 +1475,8 @@ static void ShowCurrentTimeWindow(void)
     ConvertIntToDecimalStringN(gStringVar1, gLocalTime.hours, STR_CONV_MODE_LEADING_ZEROS, 2);
     ConvertIntToDecimalStringN(gStringVar2, gLocalTime.minutes, STR_CONV_MODE_LEADING_ZEROS, 2);
     StringExpandPlaceholders(gStringVar7, gText_CurrentTime);
-    AddTextPrinterParameterized(sCurrentTimeWindowId, 7, gStringVar7, 0, 1, 0xFF, NULL);
-    CopyWindowToVram(sCurrentTimeWindowId, 2);
+    AddTextPrinterParameterized(sCurrentTimeWindowId, FONT_NARROW, gStringVar7, 0, 1, TEXT_SKIP_DRAW, NULL);
+    CopyWindowToVram(sCurrentTimeWindowId, COPYWIN_GFX);
 }
 
 void UpdateClockDisplay(void)
@@ -1488,6 +1487,6 @@ void UpdateClockDisplay(void)
     ConvertIntToDecimalStringN(gStringVar1, gLocalTime.hours, STR_CONV_MODE_LEADING_ZEROS, 2);
     ConvertIntToDecimalStringN(gStringVar2, gLocalTime.minutes, STR_CONV_MODE_LEADING_ZEROS, 2);
     StringExpandPlaceholders(gStringVar7, gText_CurrentTime);
-    AddTextPrinterParameterized(sCurrentTimeWindowId, 7, gStringVar7, 0, 1, 0xFF, NULL);
-    CopyWindowToVram(sCurrentTimeWindowId, 2);
+    AddTextPrinterParameterized(sCurrentTimeWindowId, FONT_NARROW, gStringVar7, 0, 1, TEXT_SKIP_DRAW, NULL);
+    CopyWindowToVram(sCurrentTimeWindowId, COPYWIN_GFX);
 }
