@@ -179,7 +179,6 @@ extern const u8 gText_EmptyString2[];
 extern const u8 gText_Confirm3[];
 extern const u8 gText_Cancel4[];
 extern const u8 gText_IsThisTheCorrectTime[];
-extern const u8 gText_PkmnFainted3[];
 extern const u8 gText_Coins[];
 extern const u8 gText_Silver[];
 extern const u8 gText_Gold[];
@@ -253,7 +252,6 @@ extern const u8 gText_MenuPokenav[];
 extern const u8 gText_MenuPlayer[];
 extern const u8 gText_MenuSave[];
 extern const u8 gText_MenuOption[];
-extern const u8 gText_MenuDebug[];
 extern const u8 gText_MenuExit[];
 extern const u8 gText_MenuRetire[];
 extern const u8 gText_MenuRest[];
@@ -287,7 +285,6 @@ extern const u8 gText_SavingDontTurnOffPower[];
 extern const u8 gText_SavingBadges[];
 extern const u8 gText_SavingPokedex[];
 extern const u8 gText_SavingTime[];
-extern const u8 gText_SavingDate[];
 
 // Battle pyramid menu texts
 extern const u8 gText_BattlePyramidConfirmRest[];
@@ -297,7 +294,6 @@ extern const u8 gText_BattlePyramidConfirmRetire[];
 extern const u8 gText_TextSpeedSlow[];
 extern const u8 gText_TextSpeedMid[];
 extern const u8 gText_TextSpeedFast[];
-extern const u8 gText_TextSpeedInstant[];
 extern const u8 gText_BattleSceneOn[];
 extern const u8 gText_BattleSceneOff[];
 extern const u8 gText_BattleStyleShift[];
@@ -1021,12 +1017,9 @@ extern const u8 gText_ThankYouIllSendItHome[];
 extern const u8 gText_ThanksIllSendItHome[];
 extern const u8 gText_SpaceForVar1Full[];
 extern const u8 gText_ThrowInPremierBall[];
-extern const u8 gText_ThrowInPremierBalls[];
 extern const u8 gText_ShopBuy[];
 extern const u8 gText_ShopSell[];
 extern const u8 gText_ShopQuit[];
-extern const u8 gText_SoldOut[];
-extern const u8 gText_SoldOut2[];
 
 extern const u8 gText_OhABite[];
 extern const u8 gText_PokemonOnHook[];
@@ -1180,11 +1173,9 @@ extern const u8 gText_DexSearchTypeNone[];
 extern const u8 gText_FreshWaterAndPrice[];
 extern const u8 gText_SodaPopAndPrice[];
 extern const u8 gText_LemonadeAndPrice[];
-extern const u8 gText_MachBikeMode[];
 extern const u8 gText_HowToRide[];
 extern const u8 gText_HowToTurn[];
 extern const u8 gText_SandySlopes[];
-extern const u8 gText_AcroBikeMode[];
 extern const u8 gText_Wheelies[];
 extern const u8 gText_BunnyHops[];
 extern const u8 gText_Jump[];
@@ -2863,10 +2854,6 @@ extern const u8 gText_Symbols[];
 extern const u8 gText_Register2[];
 extern const u8 gText_Exit2[];
 
-// Exp. Share
-extern const u8 gText_ExpShareOn[];
-extern const u8 gText_ExpShareOff[];
-
 // Dodrio Berry Picking
 extern const u8 gText_BerryPickingRecords[];
 extern const u8 gText_BerriesPicked[];
@@ -3034,7 +3021,27 @@ extern const u8 gText_PkmnForSwap[];
 extern const u8 gText_SamePkmnInPartyAlready[];
 extern const u8 gText_Cancel3[];
 
-// Costume Selection Choices
+// Custom text strings start here
+
+// Gen. 6 Exp Share
+extern const u8 gText_ExpShareOn[];
+extern const u8 gText_ExpShareOff[];
+
+// 1HP overworld poison survival
+extern const u8 gText_PkmnFainted3[];
+
+// New Ryder's Bike event in Mauville City
+extern const u8 gText_MachBikeMode[];
+extern const u8 gText_AcroBikeMode[];
+
+// Instant text speed
+extern const u8 gText_TextSpeedInstant[];
+
+// One time purchasable TMs/HMs
+extern const u8 gText_SoldOut[];
+extern const u8 gText_SoldOut2[];
+
+// Costumes
 extern const u8 gText_PkmnTrainerCostume[];
 extern const u8 gText_LegacyCostume[];
 extern const u8 gText_PokedexHolderCostume[];
@@ -3077,6 +3084,7 @@ extern const u8 gText_EVO_HELD_ITEM[];
 extern const u8 gText_EVO_NONE[];
 extern const u8 gText_EVO_PreEvo[];
 
+// Days of the week
 extern const u8 gText_Sunday[];
 extern const u8 gText_Monday[];
 extern const u8 gText_Tuesday[];
@@ -3084,16 +3092,30 @@ extern const u8 gText_Wednesday[];
 extern const u8 gText_Thursday[];
 extern const u8 gText_Friday[];
 extern const u8 gText_Saturday[];
-extern const u8 gText_CurrentTime[];
 
+// LGPE styled Premier Ball promo
+extern const u8 gText_ThrowInPremierBalls[];
+
+// Debug menu
+extern const u8 gText_MenuDebug[];
+
+// Star mark for shinies in the summary screen and the battle interface
 extern const u8 gText_ShinyStar[];
 extern const u8 gText_ShinyStarMale[];
 extern const u8 gText_ShinyStarFemale[];
 
+// Start menu clock
+extern const u8 gText_CurrentTime[];
+
+// Held item party screen management
 extern const u8 gMenuText_Move[];
 extern const u8 gText_MoveItemWhere[];
 extern const u8 gText_XsYAndXsYWereSwapped[];
 
+// Nicknaming from party screen
 extern const u8 gText_Nickname[];
+
+// Last save date when saving the game
+extern const u8 gText_SavingDate[];
 
 #endif // GUARD_STRINGS_H
