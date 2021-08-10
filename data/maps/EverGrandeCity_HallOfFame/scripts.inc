@@ -50,29 +50,37 @@ EverGrandeCity_HallOfFame_EventScript_EnterHallOfFame::
 	goto_if_eq VAR_RESULT, FEMALE, EverGrandeCity_HallOfFame_EventScript_GameClearFemale
 	end
 
-@ The value of VAR_RESULT in this script determines if the credits should be skipped.
 EverGrandeCity_HallOfFame_EventScript_GameClearMale::
 	setrespawn HEAL_LOCATION_LITTLEROOT_TOWN_BRENDANS_HOUSE_2F
 	fadescreenspeed FADE_TO_BLACK, 24
-	msgbox EverGrandeCity_HallOfFame_Text_SkipCredits, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, NO, EverGrandeCity_HallOfFame_EventScript_GameClearMale2
+	call_if_ge VAR_POKEMON_LEAGUE_RUNS_COUNTER, 1, EverGrandeCity_HallOfFame_EventScript_SkipCreditsMale
 EverGrandeCity_HallOfFame_EventScript_GameClearMale2:
 	special GameClear
 	waitstate
 	releaseall
 	end
 
-@ The value of VAR_RESULT in this script determines if the credits should be skipped.
+@ The value of VAR_RESULT will determine if the credits should be skipped
+EverGrandeCity_HallOfFame_EventScript_SkipCreditsMale:
+	msgbox EverGrandeCity_HallOfFame_Text_SkipCredits, MSGBOX_YESNO 
+	goto_if_eq VAR_RESULT, NO, EverGrandeCity_HallOfFame_EventScript_GameClearMale2
+	goto EverGrandeCity_HallOfFame_EventScript_GameClearMale2
+
 EverGrandeCity_HallOfFame_EventScript_GameClearFemale::
 	setrespawn HEAL_LOCATION_LITTLEROOT_TOWN_MAYS_HOUSE_2F
 	fadescreenspeed FADE_TO_BLACK, 24
-	msgbox EverGrandeCity_HallOfFame_Text_SkipCredits, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, NO, EverGrandeCity_HallOfFame_EventScript_GameClearFemale2
+	call_if_ge VAR_POKEMON_LEAGUE_RUNS_COUNTER, 1, EverGrandeCity_HallOfFame_EventScript_SkipCreditsFemale
 EverGrandeCity_HallOfFame_EventScript_GameClearFemale2:
 	special GameClear
 	waitstate
 	releaseall
 	end
+
+@ The value of VAR_RESULT will determine if the credits should be skipped
+EverGrandeCity_HallOfFame_EventScript_SkipCreditsFemale:
+	msgbox EverGrandeCity_HallOfFame_Text_SkipCredits, MSGBOX_YESNO 
+	goto_if_eq VAR_RESULT, NO, EverGrandeCity_HallOfFame_EventScript_GameClearFemale2
+	goto EverGrandeCity_HallOfFame_EventScript_GameClearFemale2
 
 EverGrandeCity_HallOfFame_Movement_WalkIntoHallOfFame1:
 	walk_up
