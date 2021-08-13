@@ -1582,7 +1582,16 @@ static void CancelItemSwap(u8 taskId)
     gTasks[taskId].func = Task_BagMenu_HandleInput;
 }
 
-static void OpenContextMenu(u8 taskId)
+static bool8 IsUnregisterableKeyItem(u16 item)
+{
+    if (ItemId_GetPocket(item) == POCKET_KEY_ITEMS
+     && ItemId_GetFieldFunc(item) == ItemUseOutOfBattle_CannotUse)
+        return TRUE;
+    else
+        return FALSE;
+}
+
+static void OpenContextMenu(u8 unused)
 {
     switch (gBagPosition.location)
     {
@@ -1678,6 +1687,11 @@ static void OpenContextMenu(u8 taskId)
                 {
                     if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_MACH_BIKE | PLAYER_AVATAR_FLAG_ACRO_BIKE))
                         gBagMenu->contextMenuItemsBuffer[0] = ACTION_WALK;
+                }
+                if (IsUnregisterableKeyItem(gSpecialVar_ItemId))
+                {
+                    gBagMenu->contextMenuNumItems = 2;
+                    gBagMenu->contextMenuItemsBuffer[1] = ACTION_CANCEL;
                 }
                 break;
             case BALLS_POCKET:
