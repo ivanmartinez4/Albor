@@ -437,7 +437,7 @@ static u8 EggHatchCreateMonSprite(u8 useAlt, u8 switchID, u8 pokeID, u16* specie
             HandleLoadSpecialPokePic(&gMonFrontPicTable[species],
                                      gMonSpritesGfxPtr->sprites.ptr[(useAlt * 2) + B_POSITION_OPPONENT_LEFT],
                                      species, pid);
-            LoadCompressedSpritePalette(GetMonSpritePalStruct(mon));
+            LoadCompressedUniqueSpritePalette(GetMonSpritePalStruct(mon), species, pid, IsMonShiny(mon));
             *speciesLoc = species;
         }
         break;
