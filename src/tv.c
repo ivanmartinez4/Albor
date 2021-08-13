@@ -53,7 +53,6 @@
 
 enum {
     TVGROUP_NONE,
-    TVGROUP_UNUSED,
     TVGROUP_NORMAL,
     TVGROUP_RECORD_MIX,
     TVGROUP_OUTBREAK,
@@ -3238,19 +3237,6 @@ static void GetNicknameSubstring(u8 varIdx, u8 whichPosition, u8 charParam, u16 
     StringCopy(gTVStringVarPtrs[varIdx], buff);
 }
 
-// Unused script special
-bool8 IsTVShowAlreadyInQueue(void)
-{
-    u8 i;
-
-    for (i = 0; i < NUM_NORMAL_TVSHOW_SLOTS; i++)
-    {
-        if (gSaveBlock1Ptr->tvShows[i].common.kind == gSpecialVar_0x8004)
-            return TRUE;
-    }
-    return FALSE;
-}
-
 bool8 TryPutNameRaterShowOnTheAir(void)
 {
     GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_NICKNAME, gStringVar1);
@@ -3930,72 +3916,6 @@ if (IsStringJapanese(strptr)) \
 else \
 { \
     (langptr) = langfix; \
-}
-
-// Unused
-static void TranslateShowNames(TVShow *show, u32 language)
-{
-    int i;
-    TVShow **shows;
-
-    shows = calloc(11, sizeof(TVShow *));
-    for (i = 0; i < LAST_TVSHOW_IDX; i++)
-    {
-        switch (show[i].common.kind)
-        {
-        case TVSHOW_FAN_CLUB_LETTER:
-        case TVSHOW_RECENT_HAPPENINGS: // NOTE: These two shows are assumed to have the same struct layout
-            shows[0] = &show[i];
-            SetStrLanguage(shows[0]->fanclubLetter.playerName, shows[0]->fanclubLetter.language, language);
-            break;
-        case TVSHOW_PKMN_FAN_CLUB_OPINIONS:
-            shows[1] = &show[i];
-            SetStrLanguage(shows[1]->fanclubOpinions.playerName, shows[1]->fanclubOpinions.language, language);
-            SetStrLanguage(shows[1]->fanclubOpinions.nickname, shows[1]->fanclubOpinions.pokemonNameLanguage, language);
-            break;
-        case TVSHOW_POKEMON_TODAY_CAUGHT:
-            shows[6] = &show[i];
-            SetStrLanguage(shows[6]->pokemonToday.playerName, shows[6]->pokemonToday.language, language);
-            SetStrLanguage(shows[6]->pokemonToday.nickname, shows[6]->pokemonToday.language2, language);
-            break;
-        case TVSHOW_SMART_SHOPPER:
-            shows[7] = &show[i];
-            SetStrLanguage(shows[7]->smartshopperShow.playerName, shows[7]->smartshopperShow.language, language);
-            break;
-        case TVSHOW_BRAVO_TRAINER_BATTLE_TOWER_PROFILE:
-            shows[5] = &show[i];
-            SetStrLanguage(shows[5]->bravoTrainerTower.trainerName, shows[5]->bravoTrainerTower.language, language);
-            SetStrLanguage(shows[5]->bravoTrainerTower.pokemonName, shows[5]->bravoTrainerTower.pokemonNameLanguage, language);
-            break;
-        case TVSHOW_BRAVO_TRAINER_POKEMON_PROFILE:
-            shows[4] = &show[i];
-            SetStrLanguage(shows[4]->bravoTrainer.playerName, shows[4]->bravoTrainer.language, language);
-            SetStrLanguage(shows[4]->bravoTrainer.pokemonNickname, shows[4]->bravoTrainer.pokemonNameLanguage, language);
-            break;
-        case TVSHOW_NAME_RATER_SHOW:
-            shows[3] = &show[i];
-            SetStrLanguage(shows[3]->nameRaterShow.trainerName, shows[3]->nameRaterShow.language, language);
-            SetStrLanguage(shows[3]->nameRaterShow.pokemonName, shows[3]->nameRaterShow.pokemonNameLanguage, language);
-            break;
-        case TVSHOW_POKEMON_TODAY_FAILED:
-            shows[2] = &show[i];
-            SetStrLanguage(shows[2]->pokemonTodayFailed.playerName, shows[2]->pokemonTodayFailed.language, language);
-            break;
-        case TVSHOW_FISHING_ADVICE:
-            shows[8] = &show[i];
-            SetStrLanguage(shows[8]->pokemonAngler.playerName, shows[8]->pokemonAngler.language, language);
-            break;
-        case TVSHOW_WORLD_OF_MASTERS:
-            shows[9] = &show[i];
-            SetStrLanguage(shows[9]->worldOfMasters.playerName, shows[9]->worldOfMasters.language, language);
-            break;
-        case TVSHOW_MASS_OUTBREAK:
-            shows[10] = &show[i];
-            shows[10]->massOutbreak.language = language;
-            break;
-        }
-    }
-    free(shows);
 }
 
 void SanitizeTVShowsForRuby(TVShow *shows)

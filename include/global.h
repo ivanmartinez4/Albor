@@ -184,11 +184,16 @@ struct Pokedex
 {
     /*0x00*/ u8 order;
     /*0x01*/ u8 mode;
-    /*0x02*/ u8 nationalMagic; // must equal 0xDA in order to have National mode
-    /*0x03*/ u8 unknown2;
     /*0x04*/ u32 unownPersonality; // set when you first see Unown
     /*0x08*/ u32 spindaPersonality; // set when you first see Spinda
-    /*0x0C*/ u32 unknown3;
+};
+
+struct PokemonJumpRecords
+{
+    u16 jumpsInRow;
+    u16 excellentsInRow;
+    u16 gamesWithMaxPlayers;
+    u32 bestJumpScore;
 };
 
 struct BerryPickingResults
@@ -216,7 +221,6 @@ struct BerryCrush
 {
     u16 pressingSpeeds[4]; // For the record with each possible group size, 2-5 players
     u32 berryPowderAmount;
-    u32 unk;
 };
 
 struct ApprenticeMon
@@ -295,7 +299,6 @@ struct BattleTowerInterview
     u8 opponentLanguage;
 };
 
-// For displaying party information on the player's Battle Dome tourney page
 struct DomeMonData
 {
     u16 moves[MAX_MON_MOVES];
@@ -393,7 +396,6 @@ struct BattleFrontier
     /*0xEE0*/ u8 trainerFlags;
     /*0xEE1*/ u8 opponentNames[FRONTIER_LVL_MODE_COUNT][PLAYER_NAME_LENGTH + 1];
     /*0xEF1*/ u8 opponentTrainerIds[FRONTIER_LVL_MODE_COUNT][TRAINER_ID_LENGTH];
-    /*0xEF9*/ u8 unk_EF9:7; // Never read
     /*0xEF9*/ u8 savedGame:1;
     /*0xEFC*/ struct DomeMonData domePlayerPartyData[FRONTIER_PARTY_SIZE];
 };
@@ -766,13 +768,11 @@ struct SaveTrainerHill
 {
     /*0x3D64*/ u32 timer;
     /*0x3D68*/ u32 bestTime;
-    /*0x3D6C*/ u8 unk_3D6C;
     /*0x3D6E*/ u16 receivedPrize:1;
     /*0x3D6E*/ u16 checkedFinalTime:1;
     /*0x3D6E*/ u16 spokeToOwner:1;
     /*0x3D6E*/ u16 hasLost:1;
     /*0x3D6E*/ u16 maybeECardScanDuringChallenge:1;
-    /*0x3D6E*/ u16 field_3D6E_0f:1;
     /*0x3D6E*/ u16 tag:2;
 };
 
