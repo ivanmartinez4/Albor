@@ -36,6 +36,7 @@
 static void MainCB2(void);
 static void Task_TitleScreenPhase1(u8);
 static void Task_TitleScreenPhase2(u8);
+static void Task_TitleScreenPlayCry(u8);
 static void Task_TitleScreenPhase3(u8);
 static void CB2_GoToMainMenu(void);
 static void CB2_GoToClearSaveDataScreen(void);
@@ -703,7 +704,7 @@ static void Task_TitleScreenPhase2(u8 taskId)
         CreatePressStartBanner(START_BANNER_X, 108);
         CreateCopyrightBanner(START_BANNER_X, 148);
         gTasks[taskId].data[4] = 0;
-        gTasks[taskId].func = Task_TitleScreenPhase3;
+        gTasks[taskId].func = Task_TitleScreenPlayCry;
     }
 
     if (!(gTasks[taskId].tCounter & 3) && gTasks[taskId].data[2] != 0)
@@ -716,11 +717,18 @@ static void Task_TitleScreenPhase2(u8 taskId)
     SetGpuReg(REG_OFFSET_BG2Y_L, yPos);
     SetGpuReg(REG_OFFSET_BG2Y_H, yPos / 0x10000);
 
-    // Play Rayquaza's cry
-    PlayCry_Normal(SPECIES_RAYQUAZA, 0);
-
     gTasks[taskId].data[5] = 15;
     gTasks[taskId].data[6] = 6;
+}
+
+static void Task_TitleScreenPlayCry(u8 taskId)
+{
+    if (!gPaletteFade.active)
+    {
+        // Play Rayquaza's cry
+        PlayCry_Normal(SPECIES_RAYQUAZA, 0);
+        gTasks[taskId].func = Task_TitleScreenPhase3;
+    }
 }
 
 // Show Rayquaza silhouette and process main title screen input
