@@ -337,6 +337,7 @@ MossdeepCity_SpaceCenter_2F_EventScript_StevenFacePlayerWest::
 	return
 
 MossdeepCity_SpaceCenter_2F_EventScript_MaxieTrainer::
+	setvar VAR_MUGSHOT_ID, MUGSHOT_MAXIE
 	trainerbattle TRAINER_BATTLE_SET_TRAINER_A, TRAINER_MAXIE_MOSSDEEP, 0, MossdeepCity_SpaceCenter_2F_Text_JustWantToExpandLand, MossdeepCity_SpaceCenter_2F_Text_JustWantToExpandLand
 	end
 
