@@ -1256,7 +1256,6 @@ EventScript_CloseMossdeepGameCornerBarrier::
 	return
 
 CableClub_OnResume:
-	special InitUnionRoom
 	end
 
 MossdeepCity_GameCorner_1F_EventScript_InfoMan2::
