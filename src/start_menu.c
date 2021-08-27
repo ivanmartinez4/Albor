@@ -168,7 +168,9 @@ static const struct MenuAction sStartMenuItems[] =
     {gText_MenuPlayer, {.u8_void = StartMenuPlayerNameCallback}},
     {gText_MenuSave, {.u8_void = StartMenuSaveCallback}},
     {gText_MenuOption, {.u8_void = StartMenuOptionCallback}},
+#ifdef DEBUG_MODE_ENABLED
     {gText_MenuDebug, {.u8_void = StartMenuDebugCallback}},
+#endif
     {gText_MenuExit, {.u8_void = StartMenuExitCallback}},
     {gText_MenuRetire, {.u8_void = StartMenuSafariZoneRetireCallback}},
     {gText_MenuPlayer, {.u8_void = StartMenuLinkModePlayerNameCallback}},
@@ -322,8 +324,10 @@ static void BuildNormalStartMenu(void)
     AddStartMenuAction(MENU_ACTION_SAVE);
     AddStartMenuAction(MENU_ACTION_OPTION);
 
+#ifdef DEBUG_MODE_ENABLED
     if (FlagGet(FLAG_SYS_ENABLE_DEBUG_MENU) == TRUE)
         AddStartMenuAction(MENU_ACTION_DEBUG);
+#endif
 
     AddStartMenuAction(MENU_ACTION_EXIT);
 }
@@ -609,34 +613,29 @@ static bool8 HandleStartMenuInput(void)
     if (JOY_NEW(A_BUTTON))
     {
         PlaySE(SE_SELECT);
-        if (sStartMenuItems[sCurrentStartMenuActions[sStartMenuCursorPos]].func.u8_void == StartMenuPokedexCallback)
-        {
-            if (GetNationalPokedexCount(FLAG_GET_SEEN) == 0)
-                return FALSE;
-        }
-
         gMenuCallback = sStartMenuItems[sCurrentStartMenuActions[sStartMenuCursorPos]].func.u8_void;
-
-        if (gMenuCallback != StartMenuSaveCallback
-         && gMenuCallback != StartMenuExitCallback
-         && gMenuCallback != StartMenuSafariZoneRetireCallback
-         && gMenuCallback != StartMenuBattlePyramidRetireCallback)
+        if (gMenuCallback == StartMenuPokemonCallback && CalculatePlayerPartyCount() == 0)
         {
-            if (gMenuCallback == StartMenuDebugCallback)
-            {
-                PlayerFreeze();
-                StopPlayerAvatar();
-                ClearStdWindowAndFrame(GetStartMenuWindowId(), TRUE);
-                RemoveStartMenuWindow();
-                ScriptContext2_Enable();
-            }
-            else
-            {
-                FadeScreen(FADE_TO_BLACK, 0);
-            }
+            RemoveExtraStartMenuWindows();
+            HideStartMenu();
+            ScriptContext1_SetupScript(EventScript_ThereIsNoPokemon);
+            return TRUE;
         }
-
-        return FALSE;
+    #ifdef DEBUG_MODE_ENABLED
+        else if (gMenuCallback == StartMenuDebugCallback)
+        {
+            PlayerFreeze();
+            StopPlayerAvatar();
+            ClearStdWindowAndFrame(GetStartMenuWindowId(), TRUE);
+            RemoveStartMenuWindow();
+            ScriptContext2_Enable();
+            return FALSE;
+        }
+    #endif
+        else
+        {
+            return FALSE;
+        }
     }
 
     if (JOY_NEW(START_BUTTON | B_BUTTON))
@@ -646,7 +645,8 @@ static bool8 HandleStartMenuInput(void)
         return TRUE;
     }
 
-    if (JOY_NEW(L_BUTTON) && JOY_NEW(R_BUTTON))
+#ifdef DEBUG_MODE_ENABLED
+    if (JOY_NEW(UNLOCK_DEBUG_MENU_COMBO) == UNLOCK_DEBUG_MENU_COMBO)
     {
         if (!FlagGet(FLAG_SYS_ENABLE_DEBUG_MENU))
             FlagSet(FLAG_SYS_ENABLE_DEBUG_MENU);
@@ -656,6 +656,7 @@ static bool8 HandleStartMenuInput(void)
         RemoveStartMenuWindow();
         InitStartMenu();
     }
+#endif
 
     return FALSE;
 }
@@ -770,10 +771,12 @@ static bool8 StartMenuOptionCallback(void)
 
 static bool8 StartMenuDebugCallback(void)
 {
+#ifdef DEBUG_MODE_ENABLED
     PlaySE(SE_WIN_OPEN);
     Debug_ShowMainMenu();
 
     return TRUE;
+#endif
 }
 
 static bool8 StartMenuExitCallback(void)
