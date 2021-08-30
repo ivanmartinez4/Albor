@@ -550,3 +550,4 @@ gSpecials::
 	def_special DoSoftReset
 	def_special ChangeMonStatus
 	def_special CheckMonStatus
+	def_special GetPlayerCostumeId

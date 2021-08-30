@@ -7666,30 +7666,30 @@ u16 GetTrainerFrontSpriteBasedOnPlayerCostumeAndGender(u8 costumeId, u8 playerGe
     {
         switch (costumeId)
         {
-            case DEFAULT_COSTUME:
-                trainerPic = TRAINER_PIC_MAY;
-                break;
-            case COSTUME_1:
-                trainerPic = TRAINER_PIC_RS_MAY;
-                break;
-            case COSTUME_2:
-                trainerPic = TRAINER_PIC_ADVENTURES_MAY;
-                break;
+        case DEFAULT_COSTUME:
+            trainerPic = TRAINER_PIC_MAY;
+            break;
+        case LEGACY_COSTUME:
+            trainerPic = TRAINER_PIC_RS_MAY;
+            break;
+        case ADVENTURES_COSTUME:
+            trainerPic = TRAINER_PIC_ADVENTURES_MAY;
+            break;
         }
     }
     else
     {
         switch (costumeId)
         {
-            case DEFAULT_COSTUME:
-                trainerPic = TRAINER_PIC_BRENDAN;
-                break;
-            case COSTUME_1:
-                trainerPic = TRAINER_PIC_RS_BRENDAN;
-                break;
-            case COSTUME_2:
-                trainerPic = TRAINER_PIC_ADVENTURES_BRENDAN;
-                break;
+        case DEFAULT_COSTUME:
+            trainerPic = TRAINER_PIC_BRENDAN;
+            break;
+        case LEGACY_COSTUME:
+            trainerPic = TRAINER_PIC_RS_BRENDAN;
+            break;
+        case ADVENTURES_COSTUME:
+            trainerPic = TRAINER_PIC_ADVENTURES_BRENDAN;
+            break;
         }
     }
 

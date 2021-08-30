@@ -244,7 +244,7 @@ static const u16 sRivalAvatarGfxIds[][2] =
 
 static const u16 sPlayerAvatarGfxIds[COSTUME_COUNT][PLAYER_AVATAR_STATE_COUNT][GENDER_COUNT] = 
 {
-    [DEFAULT_COSTUME] = 
+    [DEFAULT_COSTUME] =
     {
         {OBJ_EVENT_GFX_BRENDAN_NORMAL,     OBJ_EVENT_GFX_MAY_NORMAL},
         {OBJ_EVENT_GFX_BRENDAN_MACH_BIKE,  OBJ_EVENT_GFX_MAY_MACH_BIKE},
@@ -255,7 +255,7 @@ static const u16 sPlayerAvatarGfxIds[COSTUME_COUNT][PLAYER_AVATAR_STATE_COUNT][G
         {OBJ_EVENT_GFX_BRENDAN_FISHING,    OBJ_EVENT_GFX_MAY_FISHING},
         {OBJ_EVENT_GFX_BRENDAN_WATERING,   OBJ_EVENT_GFX_MAY_WATERING},
     },
-    [COSTUME_1] = 
+    [LEGACY_COSTUME] =
     {
         {OBJ_EVENT_GFX_LINK_RS_BRENDAN,       OBJ_EVENT_GFX_LINK_RS_MAY},
         {OBJ_EVENT_GFX_RS_BRENDAN_MACH_BIKE,  OBJ_EVENT_GFX_RS_MAY_MACH_BIKE},
@@ -266,7 +266,7 @@ static const u16 sPlayerAvatarGfxIds[COSTUME_COUNT][PLAYER_AVATAR_STATE_COUNT][G
         {OBJ_EVENT_GFX_RS_BRENDAN_FISHING,    OBJ_EVENT_GFX_RS_MAY_FISHING},
         {OBJ_EVENT_GFX_RS_BRENDAN_WATERING,   OBJ_EVENT_GFX_RS_MAY_WATERING},
     },
-    [COSTUME_2] = 
+    [ADVENTURES_COSTUME] =
     {
         {OBJ_EVENT_GFX_ADVENTURES_BRENDAN,            OBJ_EVENT_GFX_ADVENTURES_MAY},
         {OBJ_EVENT_GFX_ADVENTURES_BRENDAN_MACH_BIKE,  OBJ_EVENT_GFX_ADVENTURES_MAY_MACH_BIKE},
@@ -285,7 +285,7 @@ static const u16 sRSAvatarGfxIds[] = {OBJ_EVENT_GFX_LINK_RS_BRENDAN, OBJ_EVENT_G
 
 static const u16 sPlayerAvatarGfxToStateFlag[COSTUME_COUNT][2][5][2] =
 {
-    [DEFAULT_COSTUME] = 
+    [DEFAULT_COSTUME] =
     {
         [MALE] =
         {
@@ -304,7 +304,7 @@ static const u16 sPlayerAvatarGfxToStateFlag[COSTUME_COUNT][2][5][2] =
             {OBJ_EVENT_GFX_MAY_UNDERWATER,     PLAYER_AVATAR_FLAG_UNDERWATER},
         },
     },
-    [COSTUME_1] = 
+    [LEGACY_COSTUME] =
     {
         [MALE] =
         {
@@ -323,7 +323,7 @@ static const u16 sPlayerAvatarGfxToStateFlag[COSTUME_COUNT][2][5][2] =
             {OBJ_EVENT_GFX_RS_MAY_UNDERWATER,     PLAYER_AVATAR_FLAG_UNDERWATER},
         },
     },
-    [COSTUME_2] = 
+    [ADVENTURES_COSTUME] =
     {
         [MALE] =
         {

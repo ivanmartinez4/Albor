@@ -1412,11 +1412,11 @@ static void DebugAction_Util_DoWonderTrade(u8 taskId)
 static void DebugAction_Util_ChangeCostume(u8 taskId)
 {
     if (gSaveBlock2Ptr->costumeId == 0)
-        VarSet(VAR_COSTUME_SELECTION, 1);
+        VarSet(VAR_TEMP_1, 1);
     else if (gSaveBlock2Ptr->costumeId == 1)
-        VarSet(VAR_COSTUME_SELECTION, 2);
+        VarSet(VAR_TEMP_1, 2);
     else
-        VarSet(VAR_COSTUME_SELECTION, 0);
+        VarSet(VAR_TEMP_1, 0);
 
     FadeScreen(FADE_TO_BLACK, 0);
     gTasks[taskId].func = DebugTask_ChangeCostume_Execute;

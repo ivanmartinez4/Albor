@@ -143,9 +143,9 @@
 
 #define MAX_CHAIN_FISHING_STREAK    20
 
-#define DEFAULT_COSTUME 0
-#define COSTUME_1       1
-#define COSTUME_2       2
-#define COSTUME_COUNT   3
+#define DEFAULT_COSTUME    0
+#define LEGACY_COSTUME     1
+#define ADVENTURES_COSTUME 2
+#define COSTUME_COUNT      3
 
 #endif // GUARD_CONSTANTS_GLOBAL_H

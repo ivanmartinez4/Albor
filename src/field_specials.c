@@ -4406,7 +4406,7 @@ u8 CheckChainFishingStreak(void)
 void SwapPlayersCostume(void)
 {
     struct ObjectEvent *objEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
-    gSaveBlock2Ptr->costumeId = VarGet(VAR_COSTUME_SELECTION);
+    gSaveBlock2Ptr->costumeId = VarGet(VAR_TEMP_1);
     ObjectEventSetGraphicsId(objEvent, GetPlayerAvatarGraphicsIdByCurrentState());
     ObjectEventTurn(objEvent, objEvent->movementDirection);
     BlendPalettes(0xFFFFFFFF, 16, 0);
@@ -4606,4 +4606,9 @@ void ChangeMonStatus(void)
 u16 CheckMonStatus(void)
 {
     return GetMonAilment(&gPlayerParty[gSpecialVar_0x8004]);
+}
+
+u16 GetPlayerCostumeId(void)
+{
+    return GetPlayerAvatarGraphicsIdByStateIdAndGender(PLAYER_AVATAR_STATE_NORMAL, gSaveBlock2Ptr->playerGender);
 }
