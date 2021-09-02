@@ -657,7 +657,7 @@ const struct MonCoords gMonFrontPicCoords[] =
     [SPECIES_GYARADOS] =
     {
         .size = MON_COORDS_SIZE(64, 64),
-        .y_offset = 2,
+        .y_offset = 0,
     },
     [SPECIES_LAPRAS] =
     {
@@ -757,7 +757,7 @@ const struct MonCoords gMonFrontPicCoords[] =
     [SPECIES_MEWTWO] =
     {
         .size = MON_COORDS_SIZE(64, 64),
-        .y_offset = 0,
+        .y_offset = 1,
     },
     [SPECIES_MEW] =
     {
