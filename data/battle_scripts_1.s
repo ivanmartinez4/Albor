@@ -5940,15 +5940,6 @@ BattleScript_LocalBattleLost::
 	jumpifbattletype BATTLE_TYPE_TRAINER_HILL, BattleScript_LocalBattleLostPrintTrainersWinText
 	jumpifbattletype BATTLE_TYPE_EREADER_TRAINER, BattleScript_LocalBattleLostEnd
 	jumpifhalfword CMP_EQUAL, gTrainerBattleOpponent_A, TRAINER_SECRET_BASE, BattleScript_LocalBattleLostEnd
-BattleScript_LostNoWhiteoutBattle::
-	printstring STRINGID_PLAYERWHITEOUT3
-	printstring STRINGID_TRAINER1PKMNCOMEBACK
-	returnatktoball
-	waitstate
-	trainerslidein BS_ATTACKER
-	waitstate
-	printstring STRINGID_TRAINER1WINTEXT
-	end2
 BattleScript_LocalBattleLostPrintWhiteOut::
 	printstring STRINGID_PLAYERWHITEOUT
 	waitmessage B_WAIT_TIME_LONG
@@ -5976,6 +5967,15 @@ BattleScript_LocalBattleLostDoTrainer2WinText::
 	waitstate
 	printstring STRINGID_TRAINER2WINTEXT
 BattleScript_LocalBattleLostEnd_::
+	end2
+BattleScript_LostNoWhiteoutBattle::
+	printstring STRINGID_PLAYERWHITEOUT3
+	printstring STRINGID_TRAINER1PKMNCOMEBACK
+	returnatktoball
+	waitstate
+	trainerslidein BS_ATTACKER
+	waitstate
+	printstring STRINGID_TRAINER1WINTEXT
 	end2
 
 BattleScript_FrontierLinkBattleLost::
