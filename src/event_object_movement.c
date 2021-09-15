@@ -165,6 +165,10 @@ static u8 DoJumpSpecialSpriteMovement(struct Sprite *sprite);
 static void CreateLevitateMovementTask(struct ObjectEvent *);
 static void DestroyLevitateMovementTask(u8);
 static bool8 NpcTakeStep(struct Sprite *sprite);
+static void SetObjectTemplateFlagIfTemporary(struct ObjectEventTemplate *template);
+static bool8 IsTreeOrRockOffScreenPostWalkTransition(struct ObjectEventTemplate *template, s16 x, s16 y);
+static bool8 IsConnectionTreeOrRockOnScreen(struct ObjectEventTemplate *template, s16 x, s16 y);
+static bool8 ShouldTreeOrRockObjectBeCreated(struct ObjectEventTemplate *template, bool8 inConnection, s16 x, s16 y);
 
 static const struct SpriteFrameImage sPicTable_PechaBerryTree[];
 
@@ -1265,15 +1269,37 @@ static u8 InitObjectEventStateFromTemplate(struct ObjectEventTemplate *template,
 {
     struct ObjectEvent *objectEvent;
     u8 objectEventId;
+    bool8 inConnection = FALSE;
     s16 x;
     s16 y;
+    s16 cloneX = 0;
+    s16 cloneY = 0;
 
-    if (GetAvailableObjectEventId(template->localId, mapNum, mapGroup, &objectEventId))
+    if (template->inConnection == 0xFF)
+    {
+        inConnection = TRUE;
+        mapNum = template->trainerType;
+        mapGroup = template->trainerRange_berryTreeId;
+        cloneX = template->x;
+        cloneY = template->y;
+        template = &Overworld_GetMapHeaderByGroupAndId(mapGroup, mapNum)->events->objectEvents[template->elevation - 1];
+    }
+
+    if (GetAvailableObjectEventId(template->localId, mapNum, mapGroup, &objectEventId)
+     || !ShouldTreeOrRockObjectBeCreated(template, inConnection, cloneX, cloneY))
         return OBJECT_EVENTS_COUNT;
     objectEvent = &gObjectEvents[objectEventId];
     ClearObjectEvent(objectEvent);
-    x = template->x + MAP_OFFSET;
-    y = template->y + MAP_OFFSET;
+    if (inConnection)
+    {
+        x = cloneX + 7;
+        y = cloneY + 7;
+    }
+    else
+    {
+        x = template->x + 7;
+        y = template->y + 7;
+    }
     objectEvent->active = TRUE;
     objectEvent->triggerGroundEffectsOnMove = TRUE;
     objectEvent->graphicsId = template->graphicsId;
@@ -1292,7 +1318,6 @@ static u8 InitObjectEventStateFromTemplate(struct ObjectEventTemplate *template,
     objectEvent->rangeX = template->movementRangeX;
     objectEvent->rangeY = template->movementRangeY;
     objectEvent->trainerType = template->trainerType;
-    objectEvent->mapNum = mapNum;
     objectEvent->trainerRange_berryTreeId = template->trainerRange_berryTreeId;
     objectEvent->previousMovementDirection = gInitialMovementTypeFacingDirections[template->movementType];
     SetObjectEventDirection(objectEvent, objectEvent->previousMovementDirection);
@@ -1330,6 +1355,100 @@ u8 Unref_TryInitLocalObjectEvent(u8 localId)
         }
     }
     return OBJECT_EVENTS_COUNT;
+}
+
+static bool8 ShouldTreeOrRockObjectBeCreated(struct ObjectEventTemplate *template, bool8 inConnection, s16 x, s16 y)
+{
+    if (inConnection && !IsConnectionTreeOrRockOnScreen(template, x, y))
+        return FALSE;
+    else if (!IsTreeOrRockOffScreenPostWalkTransition(template, x, y))
+        return FALSE;
+    return TRUE;
+}
+
+#define CONNECTION_OBJECT_RADIUS_X 8
+#define CONNECTION_OBJECT_RADIUS_Y 6
+
+static bool8 IsConnectionTreeOrRockOnScreen(struct ObjectEventTemplate *template, s16 x, s16 y)
+{
+    if (template->graphicsId == OBJ_EVENT_GFX_CUTTABLE_TREE
+     || template->graphicsId == OBJ_EVENT_GFX_BREAKABLE_ROCK)
+    {
+        // if player is to left of object
+        if (gSaveBlock1Ptr->pos.x < x)
+        {
+            if (gSaveBlock1Ptr->pos.x + CONNECTION_OBJECT_RADIUS_X < x)
+                return TRUE;
+
+            if (gSaveBlock1Ptr->pos.y - CONNECTION_OBJECT_RADIUS_Y <= y
+             && gSaveBlock1Ptr->pos.y + CONNECTION_OBJECT_RADIUS_Y >= y)
+                return FALSE;
+        }
+        else 
+        {
+            if (gSaveBlock1Ptr->pos.x - CONNECTION_OBJECT_RADIUS_X > x)
+                return TRUE;
+
+            if (gSaveBlock1Ptr->pos.y - CONNECTION_OBJECT_RADIUS_Y <= y
+             && gSaveBlock1Ptr->pos.y + CONNECTION_OBJECT_RADIUS_Y >= y)
+                return FALSE;
+        }
+    }
+    return TRUE;
+}
+
+// If object is tree or rock, and is on screen when player is on edge of map,
+// then set its template flag so it isn't shown.
+// These would have a clone anyway so this should be okay.
+static bool8 IsTreeOrRockOffScreenPostWalkTransition(struct ObjectEventTemplate *template, s16 x, s16 y)
+{
+    s32 width, height;
+
+    if (!IsMapTypeOutdoors(GetCurrentMapType()))
+        return TRUE;
+
+    width = gBackupMapLayout.width - 16;
+    height = gBackupMapLayout.height - 15;
+
+    if (template->graphicsId != OBJ_EVENT_GFX_CUTTABLE_TREE
+     && template->graphicsId != OBJ_EVENT_GFX_BREAKABLE_ROCK)
+        return TRUE;
+
+    // player is at left edge of map and object is within sight to right
+    if ((gSaveBlock1Ptr->pos.x == 0) && (x <= CONNECTION_OBJECT_RADIUS_X))
+    {
+        SetObjectTemplateFlagIfTemporary(template);
+        return FALSE;
+    }
+
+    // player is at right edge of map and object is within sight to left
+    if ((gSaveBlock1Ptr->pos.x == width) && (x >= (width - CONNECTION_OBJECT_RADIUS_X)))
+    {
+        SetObjectTemplateFlagIfTemporary(template);
+        return FALSE;
+    }
+
+    // player is at top edge of map and object is within sight below
+    if ((gSaveBlock1Ptr->pos.y == 0) && (y <= CONNECTION_OBJECT_RADIUS_Y))
+    {
+        SetObjectTemplateFlagIfTemporary(template);
+        return FALSE;
+    }
+
+    // player is at bottom edge of map and object is within sight above
+    if ((gSaveBlock1Ptr->pos.y == height) && (y >= (height - CONNECTION_OBJECT_RADIUS_Y)))
+    {
+        SetObjectTemplateFlagIfTemporary(template);
+        return FALSE;
+    }
+    
+    return TRUE;
+}
+
+static void SetObjectTemplateFlagIfTemporary(struct ObjectEventTemplate *template)
+{
+    if (template->flagId >= FLAG_TEMP_11 && template->flagId <= FLAG_TEMP_1F)
+        FlagSet(template->flagId);
 }
 
 static bool8 GetAvailableObjectEventId(u16 localId, u8 mapNum, u8 mapGroup, u8 *objectEventId)
@@ -1494,6 +1613,7 @@ u8 SpawnSpecialObjectEventParameterized(u16 graphicsId, u8 movementBehavior, u8 
     y -= MAP_OFFSET;
     objectEventTemplate.localId = localId;
     objectEventTemplate.graphicsId = graphicsId;
+    objectEventTemplate.inConnection = 0;
     objectEventTemplate.x = x;
     objectEventTemplate.y = y;
     objectEventTemplate.elevation = z;
