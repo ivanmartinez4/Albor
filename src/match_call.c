@@ -1833,15 +1833,18 @@ static const u16 sBadgeFlags[NUM_BADGES] =
     FLAG_BADGE08_GET,
 };
 
-static int GetNumOwnedBadges(void)
+int GetNumOwnedBadges(void)
 {
-    u32 i;
+    int i;
 
     for (i = 0; i < NUM_BADGES; i++)
     {
         if (!FlagGet(sBadgeFlags[i]))
             break;
     }
+
+    // Store the number of badges in the 1st string buffer
+    ConvertIntToDecimalStringN(gStringVar1, i, STR_CONV_MODE_LEFT_ALIGN, 1);
 
     return i;
 }

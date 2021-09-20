@@ -335,7 +335,7 @@ const u8 gText_Shift[] = _("SHIFT");
 const u8 gText_SendOut[] = _("SEND OUT");
 const u8 gText_Switch2[] = _("Switch");
 const u8 gText_Summary5[] = _("Summary");
-const u8 gText_Enter[] = _("ENTER");
+const u8 gText_Enter[] = _("Enter");
 const u8 gText_NoEntry[] = _("NO ENTRY");
 const u8 gText_Take2[] = _("Take");
 const u8 gText_Read2[] = _("Read");
@@ -568,7 +568,7 @@ const u8 gText_Glacia[] = _("GLACIA");
 const u8 gText_Petalburg[] = _("PETALBURG");
 const u8 gText_Slateport[] = _("SLATEPORT");
 const u8 gText_Dewford[] = _("DEWFORD");
-const u8 gText_Enter2[] = _("ENTER");
+const u8 gText_Enter2[] = _("Enter");
 const u8 gText_Info2[] = _("INFO");
 const u8 gText_WhatsAContest[] = _("What's a CONTEST?");
 const u8 gText_TypesOfContests[] = _("Types of CONTESTS");
@@ -1794,3 +1794,7 @@ const u8 gText_Nickname[] = _("Nickname");
 
 // Last save date when saving the game
 const u8 gText_SavingDate[] = _("LAST SAVE");
+
+// Route 118 event
+const u8 gText_Badge[] = _("badge");
+const u8 gText_Badges[] = _("badges");

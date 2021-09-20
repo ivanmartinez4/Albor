@@ -551,3 +551,4 @@ gSpecials::
 	def_special CheckMonStatus
 	def_special GetPlayerCostumeId
 	def_special HeadbuttWildEncounter
+	def_special GetNumOwnedBadges

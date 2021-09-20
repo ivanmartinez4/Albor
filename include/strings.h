@@ -3119,4 +3119,8 @@ extern const u8 gText_Nickname[];
 // Last save date when saving the game
 extern const u8 gText_SavingDate[];
 
+// Route 118 event
+extern const u8 gText_Badge[];
+extern const u8 gText_Badges[];
+
 #endif // GUARD_STRINGS_H

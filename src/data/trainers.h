@@ -6699,7 +6699,7 @@ const struct Trainer gTrainers[] = {
     {
         .trainerClass = TRAINER_CLASS_MAGMA_ADMIN,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MAGMA,
-        .trainerPic = TRAINER_PIC_MAGMA_ADMIN,
+        .trainerPic = TRAINER_PIC_MAGMA_ADMIN_M,
         .trainerName = _("TABITHA"),
         .items = {},
         .doubleBattle = FALSE,
@@ -7786,7 +7786,7 @@ const struct Trainer gTrainers[] = {
     {
         .trainerClass = TRAINER_CLASS_MAGMA_ADMIN,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MAGMA,
-        .trainerPic = TRAINER_PIC_MAGMA_ADMIN,
+        .trainerPic = TRAINER_PIC_MAGMA_ADMIN_M,
         .trainerName = _("TABITHA"),
         .items = {},
         .doubleBattle = FALSE,
@@ -9528,7 +9528,7 @@ const struct Trainer gTrainers[] = {
     {
         .trainerClass = TRAINER_CLASS_MAGMA_ADMIN,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MAGMA,
-        .trainerPic = TRAINER_PIC_MAGMA_ADMIN,
+        .trainerPic = TRAINER_PIC_MAGMA_ADMIN_M,
         .trainerName = _("TABITHA"),
         .items = {},
         .doubleBattle = FALSE,
@@ -10956,5 +10956,31 @@ const struct Trainer gTrainers[] = {
         .aiFlags = AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_TRY_TO_FAINT | AI_FLAG_CHECK_VIABILITY,
         .partySize = ARRAY_COUNT(sParty_ChampionSteven),
         .party = {.TrainerMon = sParty_ChampionSteven},
+    },
+
+    [TRAINER_COURTNEY_SOUTHERN_ISLAND] =
+    {
+        .trainerClass = TRAINER_CLASS_MAGMA_ADMIN,
+        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MAGMA,
+        .trainerPic = TRAINER_PIC_MAGMA_ADMIN_F,
+        .trainerName = _("COURTNEY"),
+        .items = {ITEM_SUPER_POTION, ITEM_SUPER_POTION, ITEM_POTION, ITEM_POTION},
+        .doubleBattle = FALSE,
+        .aiFlags = AI_FLAG_CHECK_BAD_MOVE,
+        .partySize = ARRAY_COUNT(sParty_CourtneySouthernIsland),
+        .party = {.TrainerMon = sParty_CourtneySouthernIsland},
+    },
+
+    [TRAINER_TABITHA_SOUTHERN_ISLAND] =
+    {
+        .trainerClass = TRAINER_CLASS_MAGMA_ADMIN,
+        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MAGMA,
+        .trainerPic = TRAINER_PIC_MAGMA_ADMIN_M,
+        .trainerName = _("TABITHA"),
+        .items = {ITEM_SUPER_POTION, ITEM_SUPER_POTION, ITEM_SUPER_POTION, ITEM_SUPER_POTION},
+        .doubleBattle = FALSE,
+        .aiFlags = AI_FLAG_CHECK_BAD_MOVE,
+        .partySize = ARRAY_COUNT(sParty_TabithaSouthernIsland),
+        .party = {.TrainerMon = sParty_TabithaSouthernIsland},
     },
 };
