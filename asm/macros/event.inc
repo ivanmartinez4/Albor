@@ -2208,3 +2208,17 @@
 	setvar VAR_TEMP_6, \status
 	special ChangeMonStatus
 	.endm
+
+	@ Call \dest if the Player has specified item.
+	.macro call_if_has_item item:req, amount:req, dest:req
+	checkitem \item, \amount
+	compare VAR_RESULT, TRUE
+	call_if TRUE, \dest
+	.endm
+
+	@ Go to \dest if the Player has specified item.
+	.macro goto_if_has_item item:req, amount:req, dest:req
+	checkitem \item, \amount
+	compare VAR_RESULT, TRUE
+	goto_if TRUE, \dest
+	.endm
