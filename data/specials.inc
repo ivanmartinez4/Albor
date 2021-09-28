@@ -552,3 +552,7 @@ gSpecials::
 	def_special GetPlayerCostumeId
 	def_special HeadbuttWildEncounter
 	def_special GetNumOwnedBadges
+	def_special GetSeenMon
+	def_special GetCaughtMon
+	def_special SetSeenMon
+	def_special SetCaughtMon
