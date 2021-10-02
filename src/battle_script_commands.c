@@ -9260,11 +9260,11 @@ static void Cmd_various(void)
         return;
     }
     case VARIOUS_JUMP_IF_SET:
-        if (FlagGet(gBattlescriptCurrInstr[0]))
-            gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
+        if (FlagGet(T1_READ_16(gBattlescriptCurrInstr + 3)))
+            gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 5);
         else
-            gBattlescriptCurrInstr += 7;
-        break;
+            gBattlescriptCurrInstr += 9;
+        return;
     } // End of switch (gBattlescriptCurrInstr[2])
 
     gBattlescriptCurrInstr += 3;
