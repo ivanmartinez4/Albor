@@ -21,6 +21,7 @@
 #include "graphics.h"
 #include "constants/rgb.h"
 #include "constants/songs.h"
+#include "random.h"
 
 #define VERSION_BANNER_RIGHT_TILEOFFSET 64
 #define VERSION_BANNER_LEFT_X 98
@@ -57,7 +58,11 @@ static const u32 sTitleScreenRayquazaTilemap[] = INCBIN_U32("graphics/title_scre
 static const u32 sTitleScreenLogoShineGfx[] = INCBIN_U32("graphics/title_screen/logo_shine.4bpp.lz");
 static const u32 sTitleScreenCloudsGfx[] = INCBIN_U32("graphics/title_screen/clouds.4bpp.lz");
 
+static const u32 sTitleScreenMegaRayquazaGfx[] = INCBIN_U32("graphics/title_screen/mega_rayquaza.4bpp.lz");
+static const u32 sTitleScreenMegaRayquazaTilemap[] = INCBIN_U32("graphics/title_screen/mega_rayquaza.bin.lz");
 
+// EWRAM data
+EWRAM_DATA bool8 sMegaRayquazaTitlescreen = FALSE;
 
 // Used to blend "Emerald Version" as it passes over over the Pokémon banner.
 // Also used by the intro to blend the Game Freak name/logo in and out as they appear and disappear
@@ -548,8 +553,17 @@ void CB2_InitTitleScreen(void)
         LZ77UnCompVram(gTitleScreenPokemonLogoTilemap, (void *)(BG_SCREEN_ADDR(9)));
         LoadPalette(gTitleScreenBgPalettes, 0, 0x1E0);
         // bg3
-        LZ77UnCompVram(sTitleScreenRayquazaGfx, (void *)(BG_CHAR_ADDR(2)));
-        LZ77UnCompVram(sTitleScreenRayquazaTilemap, (void *)(BG_SCREEN_ADDR(26)));
+        if ((Random() % 64) == 0) // 1/64 chance to see a Mega Rayquaza in the titlescreen, sprited by BG#8374
+        {
+            LZ77UnCompVram(sTitleScreenMegaRayquazaGfx, (void *)(BG_CHAR_ADDR(2)));
+            LZ77UnCompVram(sTitleScreenMegaRayquazaTilemap, (void *)(BG_SCREEN_ADDR(26)));
+            sMegaRayquazaTitlescreen = TRUE;
+        }
+        else
+        {
+            LZ77UnCompVram(sTitleScreenRayquazaGfx, (void *)(BG_CHAR_ADDR(2)));
+            LZ77UnCompVram(sTitleScreenRayquazaTilemap, (void *)(BG_SCREEN_ADDR(26)));
+        }
         // bg1
         LZ77UnCompVram(sTitleScreenCloudsGfx, (void *)(BG_CHAR_ADDR(3)));
         LZ77UnCompVram(gTitleScreenCloudsTilemap, (void *)(BG_SCREEN_ADDR(27)));
@@ -726,7 +740,10 @@ static void Task_TitleScreenPlayCry(u8 taskId)
     if (!gPaletteFade.active)
     {
         // Play Rayquaza's cry
-        PlayCry_Normal(SPECIES_RAYQUAZA, 0);
+        if (!sMegaRayquazaTitlescreen)
+            PlayCry_Normal(SPECIES_RAYQUAZA, 0);
+        else
+            PlayCry_Normal(SPECIES_RAYQUAZA_MEGA, 0);
         gTasks[taskId].func = Task_TitleScreenPhase3;
     }
 }
