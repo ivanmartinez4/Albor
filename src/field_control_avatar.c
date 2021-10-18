@@ -193,7 +193,7 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
     if (input->pressedLButton && EnableAutoRun())
         return TRUE;
 
-    if (input->pressedRButton && TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_MACH_BIKE | PLAYER_AVATAR_FLAG_ACRO_BIKE))
+    if (input->pressedLButton && TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_MACH_BIKE | PLAYER_AVATAR_FLAG_ACRO_BIKE))
     {
         ObjectEventClearHeldMovementIfActive(&gObjectEvents[gPlayerAvatar.objectEventId]);
         if (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_MACH_BIKE)
