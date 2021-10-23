@@ -81,7 +81,7 @@ EventScript_PkmnCenterNurse_TakeAndHealPkmn::
 	return
 
 EventScript_PkmnCenterNurse_CheckPokerus::
-    specialvar VAR_RESULT, IsPokerusInParty
+	specialvar VAR_RESULT, IsPokerusInParty
 	call_if_eq VAR_RESULT, TRUE, EventScript_PkmnCenterNurse_ExplainPokerus
 	return
 
