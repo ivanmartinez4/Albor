@@ -908,9 +908,9 @@ gText_DoorOpenedFarAway::
 gText_BigHoleInTheWall::
 	.string "There is a big hole in the wall.$"
 
-gText_SorryWirelessClubAdjustments::
+gText_SorryCableClubAdjustments::
 	.string "I'm terribly sorry.\n"
-	.string "The POKéMON WIRELESS CLUB is\l"
+	.string "The POKéMON CABLE CLUB is\l"
 	.string "undergoing adjustments now.$"
 
 gText_UndergoingAdjustments::
@@ -955,7 +955,7 @@ EventScript_CableClub_SetVarResult0::
 
 EventScript_WonderTradeManager::
 	lock
-	goto_if_unset FLAG_SYS_POKEDEX_GET, CableClub_EventScript_WirelessClubAdjustements
+	goto_if_unset FLAG_SYS_POKEDEX_GET, CableClub_EventScript_CableClubAdjustements
 	goto_if_unset FLAG_BADGE02_GET, EventScript_WonderTradeManager_Adjustements
 	goto_if_set FLAG_WONDER_TRADE_EXPLAINED, EventScript_WonderTradeManager_MovingOnPreamble
 	msgbox EventScript_WonderTradeManager_Text_1, MSGBOX_YESNO
@@ -1027,8 +1027,20 @@ EventScript_WonderTradeManager_Text_7:
 EventScript_DoWonderTrade_Text_WannaPerformAnotherWonderTrade:
 	.string "Do you want to perform\nanother WONDER TRADE?$"
 
-Common_EventScript_WirelessClubAttendant:: 
-	call CableClub_EventScript_WirelessClubAttendant
+Common_EventScript_CableClubAttendant::
+	lock
+	faceplayer
+	goto_if_lt VAR_CABLE_CLUB_TUTORIAL_STATE, 2, CableClub_EventScript_CableClubAdjustements
+	msgbox CableClub_Text_AskAboutLinking, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq CableClub_EventScript_DontAskAboutLinking
+	msgbox CableClub_Text_ExplainCableClubFirstTime, MSGBOX_DEFAULT
+	release
+	end
+
+CableClub_EventScript_DontAskAboutLinking::
+	msgbox CableClub_Text_HopeYouEnjoyCableClub, MSGBOX_DEFAULT
+	release
 	end
 
 Common_EventScript_DirectCornerAttendant::

@@ -160,7 +160,7 @@ CableClub_EventScript_Tutorial::
 	applymovement OBJ_EVENT_ID_PLAYER, CableClub_Movement_PlayerApproachCounter
 	waitmovement 0
 	delay 30
-	msgbox CableClub_Text_ExplainWirelessClubFirstTime, MSGBOX_DEFAULT
+	msgbox CableClub_Text_ExplainCableClubFirstTime, MSGBOX_DEFAULT
 	setvar VAR_CABLE_CLUB_TUTORIAL_STATE, 2
 	releaseall
 	end
@@ -519,8 +519,8 @@ CableClub_EventScript_AbortLinkForeignGame::
 	release
 	end
 
-CableClub_EventScript_WirelessClubAdjustements::
-	msgbox gText_SorryWirelessClubAdjustments, MSGBOX_DEFAULT
+CableClub_EventScript_CableClubAdjustements::
+	msgbox gText_SorryCableClubAdjustments, MSGBOX_DEFAULT
 	release
 	end
 
@@ -778,88 +778,20 @@ EventScript_DoLinkRoomExit::
 	waitstate
 	end
 
-CableClub_EventScript_WirelessClubAttendant::
+CableClub_EventScript_CableClubAttendant::
 	lock
 	faceplayer
-	goto_if_unset FLAG_SYS_POKEDEX_GET, CableClub_EventScript_WirelessClubAdjustements
-	msgbox CableClub_Text_AskAboutLinking, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, NO, CableClub_EventScript_DontAskAboutLinking
-	msgbox CableClub_Text_ExplainWirelessClub, MSGBOX_DEFAULT
-	release
-	return
-
-CableClub_EventScript_DontAskAboutLinking::
-	msgbox CableClub_Text_HopeYouEnjoyWirelessSystem, MSGBOX_DEFAULT
-	release
+	goto CableClub_EventScript_CableClubAdjustements
 	return
 
 CableClub_EventScript_DirectCornerAttendant::
 	lock
 	faceplayer
 	setvar VAR_FRONTIER_FACILITY, FACILITY_MULTI_OR_EREADER  @ Set preemptively for multi battles, ignored otherwise
-	goto_if_unset FLAG_SYS_POKEDEX_GET, CableClub_EventScript_WirelessClubAdjustements
+	goto_if_unset FLAG_SYS_POKEDEX_GET, CableClub_EventScript_CableClubAdjustements
 	specialvar VAR_RESULT, IsBadEggInParty
 	goto_if_eq VAR_RESULT, TRUE, CableClub_EventScript_AbortLinkPlayerHasBadEgg
-	specialvar VAR_RESULT, IsWirelessAdapterConnected
-	goto_if_eq VAR_RESULT, FALSE, CableClub_EventScript_WelcomeToCableClub
-	message CableClub_Text_WelcomeWhichDirectCornerRoom
-	waitmessage
-	delay 28
-	goto CableClub_EventScript_DirectCornerSelectService
-	end
-
-CableClub_EventScript_DirectCornerSelectService::
-	checkitem ITEM_POWDER_JAR
-	goto_if_eq VAR_RESULT, FALSE, CableClub_EventScript_DirectCornerNoBerry
-	goto_if_set FLAG_VISITED_MAUVILLE_CITY, CableClub_EventScript_DirectCornerSelectAllServices
-	multichoice 0, 0, MULTI_WIRELESS_NO_RECORD, FALSE
-	switch VAR_RESULT
-	case 0, CableClub_EventScript_WirelessTrade
-	case 1, CableClub_EventScript_WirelessBattleSelect
-	case 2, CableClub_EventScript_WirelessBerryCrush
-	case 3, CableClub_EventScript_AbortLink
-	case MULTI_B_PRESSED, CableClub_EventScript_AbortLink
-	end
-
-CableClub_EventScript_DirectCornerSelectAllServices::
-	multichoice 0, 0, MULTI_WIRELESS_ALL_SERVICES, FALSE
-	switch VAR_RESULT
-	case 0, CableClub_EventScript_WirelessTrade
-	case 1, CableClub_EventScript_WirelessBattleSelect
-	case 2, CableClub_EventScript_WirelessRecordMix
-	case 3, CableClub_EventScript_WirelessBerryCrush
-	case 4, CableClub_EventScript_AbortLink
-	case MULTI_B_PRESSED, CableClub_EventScript_AbortLink
-	end
-
-CableClub_EventScript_DirectCornerNoBerry::
-	goto_if_set FLAG_VISITED_MAUVILLE_CITY, CableClub_EventScript_DirectCornerHasRecordMix
-	multichoice 0, 0, MULTI_WIRELESS_NO_RECORD_BERRY, FALSE
-	switch VAR_RESULT
-	case 0, CableClub_EventScript_WirelessTrade
-	case 1, CableClub_EventScript_WirelessBattleSelect
-	case 2, CableClub_EventScript_AbortLink
-	case MULTI_B_PRESSED, CableClub_EventScript_AbortLink
-	end
-
-CableClub_EventScript_DirectCornerHasRecordMix::
-	multichoice 0, 0, MULTI_WIRELESS_NO_BERRY, FALSE
-	switch VAR_RESULT
-	case 0, CableClub_EventScript_WirelessTrade
-	case 1, CableClub_EventScript_WirelessBattleSelect
-	case 2, CableClub_EventScript_WirelessRecordMix
-	case 3, CableClub_EventScript_AbortLink
-	case MULTI_B_PRESSED, CableClub_EventScript_AbortLink
-	end
-
-CableClub_EventScript_WirelessTrade::
-	msgbox CableClub_Text_TradePokemon, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, NO, CableClub_EventScript_AbortLink
-	call CableClub_EventScript_CheckPartyTradeRequirements
-	goto_if_eq VAR_RESULT, 0, CableClub_EventScript_AbortLink
-	setvar VAR_0x8004, LINK_GROUP_TRADE
-	goto CableClub_EventScript_SaveAndChooseLinkLeader
-	end
+	goto CableClub_EventScript_WelcomeToCableClub
 
 CableClub_EventScript_WirelessBattleSelect::
 	message CableClub_Text_PlayWhichBattleMode
@@ -899,27 +831,6 @@ CableClub_EventScript_WirelessMultiBattle::
 CableClub_EventScript_WirelessBattleInfo::
 	msgbox CableClub_Text_ExplainBattleModes, MSGBOX_DEFAULT
 	goto CableClub_EventScript_WirelessBattleSelect
-	end
-
-CableClub_EventScript_WirelessRecordMix::
-	msgbox CableClub_Text_AccessRecordCorner, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, NO, CableClub_EventScript_AbortLink
-	setvar VAR_0x8004, LINK_GROUP_RECORD_CORNER
-	goto CableClub_EventScript_SaveAndChooseLinkLeader
-	end
-
-CableClub_EventScript_WirelessBerryCrush::
-	msgbox CableClub_Text_UseBerryCrush, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, NO, CableClub_EventScript_AbortLink
-	special HasAtLeastOneBerry
-	goto_if_eq VAR_RESULT, FALSE, CableClub_EventScript_NeedBerryForBerryCrush
-	setvar VAR_0x8004, LINK_GROUP_BERRY_CRUSH
-	goto CableClub_EventScript_SaveAndChooseLinkLeader
-	end
-
-CableClub_EventScript_NeedBerryForBerryCrush::
-	msgbox CableClub_Text_NeedBerryForBerryCrush, MSGBOX_DEFAULT
-	goto CableClub_EventScript_DirectCornerSelectService
 	end
 
 CableClub_EventScript_SaveAndChooseLinkLeader::
