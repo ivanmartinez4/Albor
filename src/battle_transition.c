@@ -2426,6 +2426,7 @@ static bool8 Mugshot_FadeToBlack(struct Task *task)
 static bool8 Mugshot_End(struct Task *task)
 {
     DmaStop(0);
+    SetVBlankCallback(VBlankCB_Battle); // Needed to display Brawly's battle transition correctly
     FadeScreenBlack();
     DestroyTask(FindTaskIdByFunc(task->func));
     return FALSE;
