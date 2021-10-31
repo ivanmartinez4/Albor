@@ -460,7 +460,6 @@ struct SaveBlock2
     /*0x18*/ struct Pokedex pokedex;
     /*0x98*/ struct Time localTimeOffset;
     /*0xA0*/ struct Time lastBerryTreeUpdate;
-    /*0xAC*/ u32 encryptionKey;
     /*0xB0*/ struct PlayersApprentice playerApprentice;
     /*0xDC*/ struct Apprentice apprentices[APPRENTICE_COUNT];
     /*0x1EC*/ struct BerryCrush berryCrush;
