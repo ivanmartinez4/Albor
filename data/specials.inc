@@ -552,3 +552,4 @@ gSpecials::
 	def_special SetSeenMon
 	def_special SetCaughtMon
 	def_special GiveSpecialEgg
+	def_special ChooseItemFromBag
