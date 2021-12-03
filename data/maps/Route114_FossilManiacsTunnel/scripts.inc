@@ -36,11 +36,14 @@ Route114_FossilManiacsTunnel_EventScript_ManiacMentionCaveIn::
 Route114_FossilManiacsTunnel_EventScript_FossilManiac::
 	lock
 	faceplayer
-	goto_if_set FLAG_RECEIVED_REVIVED_FOSSIL_MON, Route114_FossilManiacsTunnel_EventScript_PlayerRevivedFossil
-	checkitem ITEM_ROOT_FOSSIL
-	goto_if_eq VAR_RESULT, TRUE, Route114_FossilManiacsTunnel_EventScript_PlayerHasFossil
-	checkitem ITEM_CLAW_FOSSIL
-	goto_if_eq VAR_RESULT, TRUE, Route114_FossilManiacsTunnel_EventScript_PlayerHasFossil
+	specialvar VAR_RESULT, HasCaughtFossilMon
+	goto_if_eq VAR_RESULT, TRUE, Route114_FossilManiacsTunnel_EventScript_PlayerRevivedFossil
+	checkitem ITEM_ROOT_FOSSIL, 1
+	compare VAR_RESULT, TRUE
+	goto_if_eq Route114_FossilManiacsTunnel_EventScript_PlayerHasFossil
+	checkitem ITEM_CLAW_FOSSIL, 1
+	compare VAR_RESULT, TRUE
+	goto_if_eq Route114_FossilManiacsTunnel_EventScript_PlayerHasFossil
 	msgbox Route114_FossilManiacsTunnel_Text_LookInDesertForFossils, MSGBOX_DEFAULT
 	release
 	end
@@ -78,7 +81,9 @@ Route114_FossilManiacsTunnel_Text_DevonCorpRevivingFossils:
 	.string "do anything like that…$"
 
 Route114_FossilManiacsTunnel_Text_FossilsAreWonderful:
-	.string "FOSSILS are so… Wonderful…\n"
+	.string "You revived a FOSSIL, didn't you?\p"
+	.string "That's nice…"
+	.string "FOSSILS are so… wonderful…\n"
 	.string "It's so dreamy…$"
 
 Route114_FossilManiacsTunnel_Text_NotSafeThatWay:

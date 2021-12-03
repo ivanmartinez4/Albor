@@ -1119,3 +1119,4 @@ Common_EventScript_LegendaryFlewAway::
 	.include "data/scripts/misc_scripts.inc"
 
 	.include "data/maps/Route103North/scripts.inc"
+	.include "data/scripts/fossils.inc"
