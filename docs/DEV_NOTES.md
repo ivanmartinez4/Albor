@@ -1,0 +1,199 @@
+## About this document
+
+I'll use it to list whatever ideas I come up with. My intention is to implement each of these things whenever I can or feel like doing them.
+
+I wrote this... I don't know, sometime ago, but I never thought about storing it all here until now.
+
+## List of features incorporated in this branch and credits
+
+* Allow the Player to run inside buildings
+* Better WaitForVBlank *(credits: DizzyEgg)*
+* Evolution moves *(credits: UltimaSoul and Zeturic/Sagiri)*
+* Gen. 4 OW poison survival *(credits: Blurose)*
+* Gen. 6 Exp. Share *(credits: Blurose)*
+* Reusable Repels *(credits: DizzyEgg)*
+* Nature based stat colors in the summary screen *(credits: DizzyEgg)*
+* Made Pokémon Eggs hatch at Lv. 1
+* Show Hidden Power type in the summary screen *(credits: Gabrielle/Jirachii)*
+
+## To Do
+
+### High Priority
+#### That means things that I should do as fast as possible.
+
+* Finish the dusk time palettes for the Day/Night system and merge it.
+* Tweak Chain Capture
+  * Reduce 10% chance to find 6x31 after 60 captures to 5% instead.
+  * Don't break the chain if the Player moves to another map.
+* Complete the features and credits list.
+* Incorporate some further optimizations to the BoxPokemon struct, based on [Deokishisu's research](https://gist.github.com/Deokishisu/64be4b69cf476c1db03dee8b36cb7b4d)**
+  * Namely:
+    * -Get rid of `isEgg`.
+    * -Get rid of `abilityNum`.
+
+### Low Priority
+#### That means things that I should do someday.
+* Merge ExpoSeed's fork of the Dynamic Overworld Palettes when the 2 glaring issues it has are fixed.
+* Find out why is the registered items menu opening without having any items registered on it sometimes.
+  * Actually find out if it happens at all anymore. I think that I fixed it, but I think that I fixed it 2 or 3 times too :rofl:
+* Do some `TRAINER_CLASS_PKMN_TRAINER` changes after the next RHH merge.
+  * Rename `TRAINER_CLASS_PKMN_TRAINER_1` and `TRAINER_CLASS_PKMN_TRAINER_2` to `TRAINER_CLASS_UNUSED_1` and `TRAINER_CLASS_UNUSED_2` respectively.
+  * Rename `TRAINER_CLASS_RIVAL` to `TRAINER_CLASS_PKMN_TRAINER`
+  * Change GetBattleBGM's feedback for that TC.
+  * Set the TC of `TRAINER_JAZMYN` to `TRAINER_CLASS_COOLTRAINER` and rename `TRAINER_CLASS_COOLTRAINER_2` to `TRAINER_CLASS_UNUSED_3`.
+* Make Birch give the Player a Johto starter for defeating the Rival in Route 103 *(postgame)* instead of doing it for completing the Hoenn dex.
+  * Add a Sinnoh starter as the new reward for completing the Hoenn dex.
+* Tweak the metatile behavior of all the chair tiles, not just the ones in the Player's rooms, so the Player can't walk through the back of the chairs anymore.
+* Let the Player get the Red and Blue Orbs by taking Groudon and Kyogre to Mt. Pyre's Summit or something.
+* Put the Arceus Plates in Hoenn, their locations based on ORAS.
+* Put the Mega Stones in Hoenn, their locations also based on ORAS.
+  * The Kingdratite would be located in Route 103 *(North)* or in the empty spot accessible with Dive at Route 124, below an item ball with a Blue Shard.
+  * The Flygonite will be located in the desert at Route 110.
+  * The Butterfrite will be located in the back of the Pretty Petal Flower Shop.
+* Add Mega Kingdra, and the Kingdratite in Route 103 *(North)* after the next RHH Master merge.
+* Add Mega Flygon and the Flygonite after the next RHH Master merge.
+* Add Mega Butterfree and the Butterfrite after the next RHH Master merge.
+* Add Armored Mewtwo *(the original one, not the edgy atrocity from GO or the 3D Remake of the first Ashnime movie)*.
+  * A scientist in Devon Corp. will notice when the Player has a Mewtwo in their party and will let the Player use the latest invention they made, a robotic suits.
+  * BST of Armored Mewtwo: 106 HP / 100 Atk / 115 Def / 110 Spd / 134 Sp. Atk / 114 Sp. Def
+  * New Ability, Repel Armor: Reduces damage from physical moves by 25%, and cannot be ignored just like Prism Armor.
+* Implement Snag Balls.
+  * Acquisition: Only 5 will be available. A Cipher Grunt will drop them after being defeated in Faraway Island.
+  * Snag Balls will act as regular Poké Balls, but will also let the Player catch a trainer's Pokémon.
+  * Snag Balls can't be used on rivals, gym leaders, E4 members and other special trainers.
+  * If a Snag Ball is used against a trainer, that trainer will be scared and disappear never to be seen again.
+* Make the encounters at Altering Cave vary with the day of the week, and also add post NatDex encounters to it.
+* Add Regigigas somewhere. Maybe inside a chamber at Shoal Cave's ice room, unlockable when the Player takes the 3 Regis there.
+* Add postgame NatDex encounter tables for all the maps.
+  * I should probably make the RS exclusives obtainable before that, like Roselia, Meditite or Zangoose.
+* Add Headbutt encounter tables for all the maps.
+* Modify the parties of Brawly and Winona based on the Player's badges, without adding entirely new trainerbattle entries for them.
+  * If I ever manage to do this, I should dynamically modify the parties of the Trick House trainers too.
+  * Also the parties of the trainers at the Cycling Road.
+  * And the parties of the trainers in the nortern side of Route 115.
+* Add custom balls for the Team Aqua and Team Magma Grunts using [BomberGoomba's sprites](https://whackahack.com/foro/threads/sprites-de-objetos-de-mochila-fanmade-anime-y-tcg.65678/).
+  * Edit gTrainerBallTable afterward. Common grunts should use regular Aqua/Magma Balls, Admins should use Super Aqua/Magma Balls and the leaders should use Master Balls.
+* Make Latios/Latias available in Southern Island after the Player catches Latias/Latios during the postgame.
+  * They'll drop 1 Soul Dew right after the battle.
+* Make every Gen. 1, 2 and 4 Pokémon obtainable somehow.
+* Remove every Gen. 5+ species minus Hoopa.
+* Restore the beta design of Rusturf Tunnel and maybe add an event or two around that area.
+* Change the encounters of the Battle Frontier's Artisan Cave. Will probably put some high leveled and evolved Pokémon for EV training purposes.
+  * Make a chamber in there where Red will be fought once per league run.
+  * Make it so using Wish in the overworld with a Smeargle will open a small chamber with Jirachi in it.
+* Make the Kanto starters obtainable
+  * Add a battle against Leaf once, somewhere in either Pacifidlog Town or Sootopolis.
+  * Add a battle with Oak once. A homage to the never performed battle against him in Gen. 1.
+  * Red and Leaf will leave behind a Charmander and a Squirtle Egg after defeat *(once)*.
+  * Oak will give the Player a Bulbasaur if they win *(also once)*.
+* Add foreshadowing for the above in Lanette's and Birch's PCs after the Player gets their 7th badge.
+* Make it so after the Player has gotten the Kanto starters, the legendary dogs will start to roam around Hoenn *(Bulbasaur=Entei, Squirtle=Raikou, Charmander=Suicune)*.
+* Allow Rayquaza to learn Dragon Ascent at Lv 80.
+* Let the Player obtain the Old Sea Map, Aurora Ticket and Eon Tickets somehow.
+* Write a small event where Celebi spawns and challenges the Player at Navel Rock, if they caught Ho-Oh and Lugia.
+* Allow to find Kanto and Johto 'mons in the wild after getting the NatDex or maybe integrate my Kanto project in here somehow. I don't know.
+* Add hidden grottoes.
+* Change light radius when using Flash in dark caves to 0, just like in FRLG.
+* Add a battle with the legendary birds after the Sootopolis City cutscene.
+  * Moltres will be in Fiery Path.
+  * Zapdos will be in New Mauville, and facing it will be required to stop the generator as Wattson requests.
+    * As a result, I should change Wattson's dialogue at Mauville City a little, probably.
+  * Articuno will be in a new ice room at Granite Cave.
+* Slightly edit the events related to Mt. Chimney's Meteorite.
+  * Cozmo will still ask the Player for a trade and will still give them the TM27 Return.
+  * However, they'll also tell the Player that they've found a molten rock they don't need. This rock will allow the Player to meet Heatran in Scorched Slab.
+* Swap checked flag in EventScript_Dresser *(FLAG_RECEIVED_AMULET_COIN -> FLAG_BADGE05_GET)*.
+* Add Xaman's TM Case.
+  * Try to add an equivalent to hold the Mega Stones.
+* Add extra pockets based on the official games'.
+  * Follow SwSh's lead when it comes to the management of the items for each pocket.
+* Mess a bit with the battle interface. Come on Lunos, you can't keep using vanilla's health and text boxes forever.
+* Make an offline version of the battle house from RS' Mossdeep City.
+  * Maybe 2; one to replace Mossdeep City's minigame house and one to replace Sootopolis' battle house.
+  * The houses would present a challenge of 9 battles, and a 10th with a special guest selected randomly.
+  * There would be a different special guest for each house, and they would always give a reward to the Player, also chosen randomly.
+* Add Cresselia to the cave in Route 103 North. It'll drop the Lunar Wing if caught or defeated.
+* Let the Player visit a lore-wise nightmare replica of Newmoon Island through Rustboro City's Walda using the Lunar Wing, where Darkrai will be able to be caught.
+* Fit Courtney better into the plot, and maybe add some callbacks to the Mega Event in some places such as the battle in Mossdeep City or the battle with Champion Steven
+* Add a battle with Ultima *(Pokémon Adventures)* right after the Spiritomb event, during the postgame.
+  * Before the battle, she will tell the Player more about Spiritomb.
+  * She will give a Johto starter egg to the Player. Totodile's by default, but it'll depend on whether the Player has already gotten one from Birch or not.
+* Make the legendaries respawn once every time the Player completes the Pokémon League until they're caught, just like in the newer official games.
+* After the next RHH merge, rename the Mega Ring back to Mega Bracelet.
+* Try to get rid of Mails entirely.
+* Modify the gym statues' text to mention the rivals as they defeat each gym just like in other games.
+* Remove the Match Call and port the VS Seeker from Pokefirered.
+  * MAYBE implement Ghoulslash's DexNav and replace the access to the Match Call with an access to the DexNav.
+* Throw in a random chance to find strong Pokémon in the wild.
+  * You'd basically have a certain chance to find a Pokémon that is X levels higher depending on your badge count.
+* Print the party's icon sprites in the Trainer Card, kinda like in FRLG.
+* Add a post game battle outside of the Winstrate House
+  * It'd be a rematch with all family members, this time ending in a battle against Ace Trainer Vito.
+  * From there on, Vito would be located at Route 111. Walking near the Trainer Hill's entrnace.
+* Maybe make Lanette give the Player a Togepi Egg after they unlock the NatDex.
+* Update some of the shops at the Battle Frontier. Put the Power Items, Bottle Caps and things like that.
+* Put the Dome and Helix Fossils in the spot where the Claw and Root Fossils used to be in RS.
+  * In the same manner, the one that is left alone would drown in sand and later appear in the Desert Underpass.
+* Put a Pokémaniac either in the Granite Cave or the Victory Road, selling either the Armor or the Skull Fossils at random.
+  * The other one would also be found at Desert Underpass afterward.
+* Add a variable to the BattleStruct struct for Rest.
+  * The variable would be cleared at CANCELLER_ASLEEP and for as long as it's set, it'd heal 1/16 of the Pokémon's max HP. 
+* Raise the levels of the swimmers located between the western and eastern parts of Route 103.
+* Tweak Route 110's map
+  * Do a very small change to the piece of land at Route 110 where there's a Rare Candy inside an item ball, so the Player can surf in a straight line back and forth.
+  * Add a special at the gateway building connecting Route 110 with the Cycling Road, to put the Player in the bike if they have one, when they pass in front of the manager automatically,
+  * Remove the wild grass tiles that are located in the lower diagonals from the rival's initial position to avoid the mugshot palette issue.
+* Revamp the encounters at New Mauville, both species and levels wise.
+  * Also change the static Voltorb encounters with Electrode instead.
+* Modify the levels of the static Electrode at Team Aqua's Hideout.
+* Rework IsGrassTypeInParty to make it more dynamic.
+* Add some daily events like those in FRLG or DPPt.
+  * An NPC that asks you to show them X or Y Pokémon for a reward.
+  * An NPC that asks you to show them a Pokémon of X or Y level for a reward.
+  * An NPC that asks you to show them a Pokémon with X or Y nature for a reward.
+* Modify the encounters at Team Magma's Hideout. It's all steamy and close to a volcano, but the only Fire type Pokémon in here is Torkoal.
+* Bad End 3: Wally kills the wild Ralts at Route 102 accidentally.
+* Make the Move Reminder offer services for free after the Player has given 10 Heart Scales to them, just like in BDSP.
+* Add high level encounters on the Sky Tower (second visit).
+* Allow the player to use Fly in the Abandoned Ship at Route 108, because there's no reason not to.
+* Change the held items of Chinchou, Clamperl, Corsola and Relicanth back to the Yellow, Blue, Red and Green Shards.
+  * Put Gorebyss and Huntail in some of the fishing tables. 
+  * I should change the Scanner reward after that. Following ORAS' lead, I should make Capt. Stern give the Mystic Ticket.
+* Change the dialogue of the ruinmaniac at Route 120 based on the value of FLAG_REGI_DOORS_OPENED.
+* Add a debug option to make use of the special I added to change a Pokémon's status because why not.
+* Add FLAG_DONT_TRANSITION_MUSIC to the list of debug flag toggles.
+* Rethink the new values for the bag pocket counts in `include/constants/global.h`.
+* Add some extra dialogue to the Player's mother's script explaining about the auto run toggle.
+  * It's all in the details.
+* Tweak the Poké Ball prices.
+  * No, I won't make them as ridiculously cheap as LGPE, but some could be cheapened just a tiny bit, like the Great Balls and Ultra Balls.
+* Swap the spaces at data/scripts/pkmn_center_nurse.inc with tabs.
+* Don't hide the map name popup at Rustboro City, because there isn't a reason to do so.
+  * Inconsequential, but change the given values to VAR_RUSTBORO_CITY_STATE in some scripts, so it'll go from 6 to 7 instead of 8.
+* Add a KANTOOOO reference after the tag battle with Steven in Mossdeep.
+  * Steven, being the son of Devon Corp's President, should probably know about Master Balls because the project was kickstarted by the Silph Corp from Kanto's Saffron City.
+* After the Player becomes the Champion and defeats their rival for the last time, they'll be clueless about getting the Pokémon League to open again. I should fix that.
+  * Maybe I should have the rival mention the president of Devon and Steven in some manner, and work my way from there.
+* In retrospect, I'm not happy with having the Player repeat the Pokémon League challenge to access the 6th rival battle in Birch's Lab.
+  * Maybe I should allow the Player to face the Rival once per day if FLAG_IS_CHAMPION is set.
+* Insert new emotes.
+  * Change the exclamation mark emote in Steven's post battle dialogue at Meteor Falls with an ellipsis emote instead.
+* Apply the following commits and tweak stuff as needed: [83c8a58](https://github.com/BuffelSaft/pokeemerald/commit/e83c8a58), [eb8606d6](https://github.com/BuffelSaft/pokeemerald/commit/eb8606d6), [e4b25c91](https://github.com/BuffelSaft/pokeemerald/commit/e4b25c91), [c66c1e03](https://github.com/BuffelSaft/pokeemerald/commit/c66c1e03).
+* Set the palette of the Item Balls in the overworld to yellow if they contain a TM, just like in the newer games.
+* Reduce the speed at which the start menu's clock is updated.
+* Consider implementing multiple `gPartyMenuPokeball_Gfx`, each based on the type of ball that the Pokémon in question was caught with.
+  * Inspired by [Lucidious89's script for Pokémon Essentials](https://www.pokecommunity.com/showthread.php?t=356862).
+* Do a bit of summary screen reworking
+  * Show EV and IV in the 2nd page of the summary screen, alongside stat points. [Example](pics/stats.jpg).
+
+## Misc. Notes
+
+### BDSP Item Pockets Notes:
+* Medicine: Potions, Antidotes, Old Gateau, Revives, Ethers and any equivalents.
+* Poké Balls: Self explanatory.
+* Battle Items: X Attack, Dire Hit, etc.
+* Berries: Self explanatory.
+* Other Items: Shards, Plates, Evo Stones, Held Items and others such as the Escape Rope.
+* TMs: Self explanatory.
+* Treasures: Fossils, Mushrooms, and other sellables such as Stardust.
+* Key Items: Self explanatory.
