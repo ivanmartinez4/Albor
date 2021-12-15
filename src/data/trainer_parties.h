@@ -3427,7 +3427,6 @@ static const struct TrainerMon sParty_Juan1[] = {
         .species = SPECIES_MILOTIC,
         .heldItem = ITEM_CHESTO_BERRY,
         .moves = {MOVE_SCALD, MOVE_ICE_BEAM, MOVE_AQUA_RING, MOVE_RECOVER},
-        .shiny = TRUE,
     },
 };
 
@@ -4236,7 +4235,8 @@ static const struct TrainerMon sParty_Wallace[] = {
         .lvl = 58,
         .species = SPECIES_MILOTIC,
         .heldItem = ITEM_SITRUS_BERRY,
-        .moves = {MOVE_RECOVER, MOVE_SURF, MOVE_ICE_BEAM, MOVE_TOXIC}
+        .moves = {MOVE_RECOVER, MOVE_SURF, MOVE_ICE_BEAM, MOVE_TOXIC},
+        .shiny = TRUE
     }
 };
 
@@ -9945,7 +9945,6 @@ static const struct TrainerMon sParty_Juan2[] = {
         .species = SPECIES_MILOTIC,
         .heldItem = ITEM_CHESTO_BERRY,
         .moves = {MOVE_SCALD, MOVE_ICE_BEAM, MOVE_AQUA_RING, MOVE_RECOVER},
-        .shiny = TRUE
     },
 };
 
