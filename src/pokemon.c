@@ -4309,14 +4309,6 @@ u32 GetBoxMonData(struct BoxPokemon *boxMon, s32 field, u8 *data)
     struct PokemonSubstruct2 *substruct2 = NULL;
     struct PokemonSubstruct3 *substruct3 = NULL;
 
-    if (field > MON_DATA_ENCRYPT_SEPARATOR)
-    {
-        substruct0 = &(GetSubstruct(boxMon, 0)->type0);
-        substruct1 = &(GetSubstruct(boxMon, 1)->type1);
-        substruct2 = &(GetSubstruct(boxMon, 2)->type2);
-        substruct3 = &(GetSubstruct(boxMon, 3)->type3);
-    }
-
     switch (field)
     {
     case MON_DATA_PERSONALITY:
@@ -4393,9 +4385,6 @@ u32 GetBoxMonData(struct BoxPokemon *boxMon, s32 field, u8 *data)
         break;
     case MON_DATA_CHECKSUM:
         retVal = boxMon->checksum;
-        break;
-    case MON_DATA_ENCRYPT_SEPARATOR:
-        retVal = boxMon->unused1E;
         break;
     case MON_DATA_SPECIES:
         retVal = boxMon->isBadEgg ? SPECIES_EGG : substruct0->species;
@@ -4700,14 +4689,6 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
     struct PokemonSubstruct2 *substruct2 = NULL;
     struct PokemonSubstruct3 *substruct3 = NULL;
 
-    if (field > MON_DATA_ENCRYPT_SEPARATOR)
-    {
-        substruct0 = &(GetSubstruct(boxMon, 0)->type0);
-        substruct1 = &(GetSubstruct(boxMon, 1)->type1);
-        substruct2 = &(GetSubstruct(boxMon, 2)->type2);
-        substruct3 = &(GetSubstruct(boxMon, 3)->type3);
-    }
-
     switch (field)
     {
     case MON_DATA_PERSONALITY:
@@ -4747,9 +4728,6 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
         break;
     case MON_DATA_CHECKSUM:
         SET16(boxMon->checksum);
-        break;
-    case MON_DATA_ENCRYPT_SEPARATOR:
-        SET16(boxMon->unused1E);
         break;
     case MON_DATA_SPECIES:
     {
