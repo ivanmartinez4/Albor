@@ -2716,7 +2716,9 @@ static const u8 sBagMenuSortItems[] =
 static const u8 sBagMenuSortKeyItems[] =
 {
     ACTION_BY_NAME,
+    ACTION_DUMMY, // Filler to use ITEMWIN_2x2
     ACTION_CANCEL,
+    ACTION_DUMMY, // Filler to use ITEMWIN_2x2
 };
 
 static const u8 sBagMenuSortPokeBalls[] =
@@ -3195,11 +3197,11 @@ static void AddBagSortSubMenu(void)
     BagMenu_Print(1, 1, gStringVar4, 3, 1, 0, 0, 0, 0);
 
     if (gBagMenu->contextMenuNumItems == 2)
-        PrintContextMenuItems(BagMenu_AddWindow(1));
+        PrintContextMenuItems(BagMenu_AddWindow(ITEMWIN_1x2));
     else if (gBagMenu->contextMenuNumItems == 4)
-        PrintContextMenuItemGrid(BagMenu_AddWindow(2), 2, 2);
+        PrintContextMenuItemGrid(BagMenu_AddWindow(ITEMWIN_2x2), 2, 2);
     else
-        PrintContextMenuItemGrid(BagMenu_AddWindow(3), 2, 3);
+        PrintContextMenuItemGrid(BagMenu_AddWindow(ITEMWIN_2x3), 2, 3);
 }
 
 static void Task_LoadBagSortOptions(u8 taskId)
