@@ -1605,7 +1605,10 @@ void PrintMenuTable(u8 windowId, u8 itemCount, const struct MenuAction *menuActi
     u32 i;
 
     for (i = 0; i < itemCount; i++)
-        AddTextPrinterParameterized(windowId, 1, menuActions[i].text, 8, (i * 16) + 1, TEXT_SKIP_DRAW, NULL);
+    {
+        StringExpandPlaceholders(gStringVar7, menuActions[i].text);
+        AddTextPrinterParameterized(windowId, 1, gStringVar7, 8, (i * 16) + 1, TEXT_SKIP_DRAW, NULL);
+    }
 
     CopyWindowToVram(windowId, COPYWIN_GFX);
 }
