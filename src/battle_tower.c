@@ -76,7 +76,6 @@ static void FillFactoryFrontierTrainerParty(u16 trainerId, u8 firstMonId);
 static void FillFactoryTentTrainerParty(u16 trainerId, u8 firstMonId);
 static u8 GetFrontierTrainerFixedIvs(u16 trainerId);
 static void FillPartnerParty(u16 trainerId);
-static void SetEReaderTrainerChecksum(struct BattleTowerEReaderTrainer *ereaderTrainer);
 static u8 SetTentPtrsGetLevel(void);
 
 // Const rom data.
@@ -969,9 +968,6 @@ static void SetTowerData(void)
 
 static void SetTowerBattleWon(void)
 {
-    if (gTrainerBattleOpponent_A == TRAINER_EREADER)
-        ClearEReaderTrainer(&gSaveBlock2Ptr->frontier.ereaderTrainer);
-
     // towerNumWins is never read outside this conditional
     if (gSaveBlock2Ptr->frontier.towerNumWins < MAX_STREAK)
         gSaveBlock2Ptr->frontier.towerNumWins++;
@@ -1167,11 +1163,7 @@ void SetBattleFacilityTrainerGfxId(u16 trainerId, u8 tempVarId)
     u8 trainerObjectGfxId;
 
     SetFacilityPtrsGetLevel();
-    if (trainerId == TRAINER_EREADER)
-    {
-        facilityClass = gSaveBlock2Ptr->frontier.ereaderTrainer.facilityClass;
-    }
-    else if (trainerId == TRAINER_FRONTIER_BRAIN)
+    if (trainerId == TRAINER_FRONTIER_BRAIN)
     {
         SetFrontierBrainObjEventGfx_2();
         return;
@@ -1264,11 +1256,7 @@ u8 GetBattleFacilityTrainerGfxId(u16 trainerId)
     u8 trainerObjectGfxId;
 
     SetFacilityPtrsGetLevel();
-    if (trainerId == TRAINER_EREADER)
-    {
-        facilityClass = gSaveBlock2Ptr->frontier.ereaderTrainer.facilityClass;
-    }
-    else if (trainerId < FRONTIER_TRAINERS_COUNT)
+    if (trainerId < FRONTIER_TRAINERS_COUNT)
     {
         facilityClass = gFacilityTrainers[trainerId].facilityClass;
     }
@@ -1406,12 +1394,7 @@ void PutNewBattleTowerRecord(struct EmeraldBattleTowerRecord *newRecordEm)
 u8 GetFrontierTrainerFrontSpriteId(u16 trainerId)
 {
     SetFacilityPtrsGetLevel();
-
-    if (trainerId == TRAINER_EREADER)
-    {
-        return gFacilityClassToPicIndex[gSaveBlock2Ptr->frontier.ereaderTrainer.facilityClass];
-    }
-    else if (trainerId == TRAINER_FRONTIER_BRAIN)
+    if (trainerId == TRAINER_FRONTIER_BRAIN)
     {
         return GetFrontierBrainTrainerPicIndex();
     }
@@ -1439,22 +1422,13 @@ u8 GetFrontierOpponentClass(u16 trainerId)
 {
     u8 trainerClass = 0;
     SetFacilityPtrsGetLevel();
-
-    if (trainerId == TRAINER_EREADER)
-    {
-        trainerClass = gFacilityClassToTrainerClass[gSaveBlock2Ptr->frontier.ereaderTrainer.facilityClass];
-    }
-    else if (trainerId == TRAINER_FRONTIER_BRAIN)
+    if (trainerId == TRAINER_FRONTIER_BRAIN)
     {
         return GetFrontierBrainTrainerClass();
     }
     else if (trainerId == TRAINER_STEVEN_PARTNER)
     {
         trainerClass = gTrainers[TRAINER_STEVEN].trainerClass;
-    }
-    else if (trainerId >= TRAINER_CUSTOM_PARTNER)
-    {
-        trainerClass = gTrainers[trainerId - TRAINER_CUSTOM_PARTNER].trainerClass;
     }
     else if (trainerId < FRONTIER_TRAINERS_COUNT)
     {
@@ -1493,7 +1467,7 @@ static u8 GetFrontierTrainerFacilityClass(u16 trainerId)
 
     if (trainerId == TRAINER_EREADER)
     {
-        facilityClass = gSaveBlock2Ptr->frontier.ereaderTrainer.facilityClass;
+        facilityClass = 0;
     }
     else if (trainerId < FRONTIER_TRAINERS_COUNT)
     {
@@ -1522,12 +1496,7 @@ void GetFrontierTrainerName(u8 *dst, u16 trainerId)
     s32 i = 0;
     SetFacilityPtrsGetLevel();
 
-    if (trainerId == TRAINER_EREADER)
-    {
-        for (i = 0; i < PLAYER_NAME_LENGTH; i++)
-            dst[i] = gSaveBlock2Ptr->frontier.ereaderTrainer.name[i];
-    }
-    else if (trainerId == TRAINER_FRONTIER_BRAIN)
+    if (trainerId == TRAINER_FRONTIER_BRAIN)
     {
         CopyFrontierBrainTrainerName(dst);
         return;
@@ -1536,11 +1505,6 @@ void GetFrontierTrainerName(u8 *dst, u16 trainerId)
     {
         for (i = 0; i < PLAYER_NAME_LENGTH; i++)
             dst[i] = gTrainers[TRAINER_STEVEN].trainerName[i];
-    }
-    else if (trainerId >= TRAINER_CUSTOM_PARTNER)
-    {
-        for (i = 0; gTrainers[trainerId - TRAINER_CUSTOM_PARTNER].trainerName[i] != EOS; i++)
-            dst[i] = gTrainers[trainerId - TRAINER_CUSTOM_PARTNER].trainerName[i];
     }
     else if (trainerId < FRONTIER_TRAINERS_COUNT)
     {
@@ -1591,7 +1555,7 @@ static bool8 IsFrontierTrainerFemale(u16 trainerId)
     SetFacilityPtrsGetLevel();
     if (trainerId == TRAINER_EREADER)
     {
-        facilityClass = gSaveBlock2Ptr->frontier.ereaderTrainer.facilityClass;
+        facilityClass = 0;
     }
     else if (trainerId == TRAINER_FRONTIER_BRAIN)
     {
@@ -1660,8 +1624,6 @@ static void FillTrainerParty(u16 trainerId, u8 firstMonId, u8 monCount)
     }
     else if (trainerId == TRAINER_EREADER)
     {
-        for (i = firstMonId; i < firstMonId + 3; i++)
-            CreateBattleTowerMon(&gEnemyParty[i], &gSaveBlock2Ptr->frontier.ereaderTrainer.party[i - firstMonId]);
         return;
     }
     else if (trainerId == TRAINER_FRONTIER_BRAIN)
@@ -1847,8 +1809,6 @@ static void FillFactoryFrontierTrainerParty(u16 trainerId, u8 firstMonId)
     }
     else if (trainerId == TRAINER_EREADER)
     {
-        for (i = firstMonId; i < firstMonId + 3; i++)
-            CreateBattleTowerMon(&gEnemyParty[i], &gSaveBlock2Ptr->frontier.ereaderTrainer.party[i - firstMonId]);
         return;
     }
     else if (trainerId == TRAINER_FRONTIER_BRAIN)
@@ -1942,9 +1902,7 @@ static void GetOpponentIntroSpeech(void)
     else
         trainerId = gTrainerBattleOpponent_A;
 
-    if (trainerId == TRAINER_EREADER)
-        FrontierSpeechToString(gSaveBlock2Ptr->frontier.ereaderTrainer.greeting);
-    else if (trainerId < FRONTIER_TRAINERS_COUNT)
+    if (trainerId < FRONTIER_TRAINERS_COUNT)
         FrontierSpeechToString(gFacilityTrainers[trainerId].speechBefore);
     else if (trainerId < TRAINER_RECORD_MIXING_APPRENTICE)
         FrontierSpeechToString(gSaveBlock2Ptr->frontier.towerRecords[trainerId - TRAINER_RECORD_MIXING_FRIEND].greeting);
@@ -2054,14 +2012,6 @@ void DoSpecialTrainerBattle(void)
         BattleTransition_StartOnField(GetSpecialBattleTransition(B_TRANSITION_GROUP_SECRET_BASE));
         break;
     case SPECIAL_BATTLE_EREADER:
-        ZeroEnemyPartyMons();
-        for (i = 0; i < 3; i++)
-            CreateBattleTowerMon(&gEnemyParty[i], &gSaveBlock2Ptr->frontier.ereaderTrainer.party[i]);
-        gBattleTypeFlags = BATTLE_TYPE_TRAINER | BATTLE_TYPE_EREADER_TRAINER;
-        gTrainerBattleOpponent_A = 0;
-        CreateTask(Task_StartBattleAfterTransition, 1);
-        PlayMapChosenOrBattleBGM(0);
-        BattleTransition_StartOnField(GetSpecialBattleTransition(B_TRANSITION_GROUP_E_READER));
         break;
     case SPECIAL_BATTLE_DOME:
         gBattleTypeFlags = BATTLE_TYPE_TRAINER | BATTLE_TYPE_DOME;
@@ -2860,121 +2810,34 @@ static void AwardBattleTowerRibbons(void)
 // trainer with the player's current data.
 static void FillEReaderTrainerWithPlayerData(void)
 {
-    struct BattleTowerEReaderTrainer *ereaderTrainer = &gSaveBlock2Ptr->frontier.ereaderTrainer;
-    s32 i, j;
-
-    if (gSaveBlock2Ptr->playerGender != MALE)
-    {
-        ereaderTrainer->facilityClass = gTowerFemaleFacilityClasses[(gSaveBlock2Ptr->playerTrainerId[0] + gSaveBlock2Ptr->playerTrainerId[1]
-                                                        + gSaveBlock2Ptr->playerTrainerId[2] + gSaveBlock2Ptr->playerTrainerId[3]) % ARRAY_COUNT(gTowerFemaleFacilityClasses)];
-    }
-    else
-    {
-        ereaderTrainer->facilityClass = gTowerMaleFacilityClasses[(gSaveBlock2Ptr->playerTrainerId[0] + gSaveBlock2Ptr->playerTrainerId[1]
-                                                        + gSaveBlock2Ptr->playerTrainerId[2] + gSaveBlock2Ptr->playerTrainerId[3]) % ARRAY_COUNT(gTowerMaleFacilityClasses)];
-    }
-
-    CopyTrainerId(ereaderTrainer->trainerId, gSaveBlock2Ptr->playerTrainerId);
-    StringCopy_PlayerName(ereaderTrainer->name, gSaveBlock2Ptr->playerName);
-
-    ereaderTrainer->winStreak = 1;
-
-    j = 7;
-    for (i = 0; i < 6; i++)
-    {
-        ereaderTrainer->greeting[i] = gSaveBlock1Ptr->easyChatBattleStart[i];
-        ereaderTrainer->farewellPlayerLost[i] = j;
-        ereaderTrainer->farewellPlayerWon[i] = j + 6;
-        j++;
-    }
-
-    for (i = 0; i < 3; i++)
-        ConvertPokemonToBattleTowerPokemon(&gPlayerParty[i], &ereaderTrainer->party[i]);
-
-    SetEReaderTrainerChecksum(ereaderTrainer);
 }
 
 u8 GetEreaderTrainerFrontSpriteId(void)
 {
-    return gFacilityClassToPicIndex[gSaveBlock2Ptr->frontier.ereaderTrainer.facilityClass];
+    return 0;
 }
 
 u8 GetEreaderTrainerClassId(void)
 {
-    return gFacilityClassToTrainerClass[gSaveBlock2Ptr->frontier.ereaderTrainer.facilityClass];
+    return 0;
 }
 
 void GetEreaderTrainerName(u8 *dst)
 {
-    s32 i;
-
-    for (i = 0; i < 5; i++)
-        dst[i] = gSaveBlock2Ptr->frontier.ereaderTrainer.name[i];
-
-    dst[i] = EOS;
 }
 
 // Checks if the saved E-Reader trainer is valid.
 void ValidateEReaderTrainer(void)
 {
-    u32 i;
-    u32 checksum;
-    struct BattleTowerEReaderTrainer *ereaderTrainer;
-
     gSpecialVar_Result = FALSE;
-    ereaderTrainer = &gSaveBlock2Ptr->frontier.ereaderTrainer;
-
-    checksum = 0;
-    for (i = 0; i < (sizeof(struct BattleTowerEReaderTrainer) - 4) / 4; i++) // - 4, because of the last field being the checksum itself.
-        checksum |= ((u32 *)ereaderTrainer)[i];
-
-    if (checksum == 0)
-    {
-        gSpecialVar_Result = TRUE;
-        return;
-    }
-
-    checksum = 0;
-    for (i = 0; i < (sizeof(struct BattleTowerEReaderTrainer) - 4) / 4; i++) // - 4, because of the last field being the checksum itself.
-        checksum += ((u32 *)ereaderTrainer)[i];
-
-    if (gSaveBlock2Ptr->frontier.ereaderTrainer.checksum != checksum)
-    {
-        ClearEReaderTrainer(&gSaveBlock2Ptr->frontier.ereaderTrainer);
-        gSpecialVar_Result = TRUE;
-    }
-}
-
-static void SetEReaderTrainerChecksum(struct BattleTowerEReaderTrainer *ereaderTrainer)
-{
-    s32 i;
-
-    ereaderTrainer->checksum = 0;
-    for (i = 0; i < (sizeof(struct BattleTowerEReaderTrainer) - 4) / 4; i++) // - 4, because of the last field being the checksum itself.
-        ereaderTrainer->checksum += ((u32 *)ereaderTrainer)[i];
-}
-
-void ClearEReaderTrainer(struct BattleTowerEReaderTrainer *ereaderTrainer)
-{
-    u32 i;
-
-    for (i = 0; i < (sizeof(struct BattleTowerEReaderTrainer)) / 4; i++)
-        ((u32 *)ereaderTrainer)[i] = 0;
 }
 
 void CopyEReaderTrainerGreeting(void)
 {
-    FrontierSpeechToString(gSaveBlock2Ptr->frontier.ereaderTrainer.greeting);
 }
 
 static void CopyEReaderTrainerFarewellMessage(void)
 {
-    if (gBattleOutcome == B_OUTCOME_DREW)
-        gStringVar7[0] = EOS;
-    else if (gBattleOutcome == B_OUTCOME_WON)
-        FrontierSpeechToString(gSaveBlock2Ptr->frontier.ereaderTrainer.farewellPlayerWon);
-    else
-        FrontierSpeechToString(gSaveBlock2Ptr->frontier.ereaderTrainer.farewellPlayerLost);
 }
 
 void TryHideBattleTowerReporter(void)

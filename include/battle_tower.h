@@ -71,7 +71,6 @@ u8 GetEreaderTrainerFrontSpriteId(void);
 u8 GetEreaderTrainerClassId(void);
 void GetEreaderTrainerName(u8 *dst);
 void ValidateEReaderTrainer(void);
-void ClearEReaderTrainer(struct BattleTowerEReaderTrainer *ereaderTrainer);
 void CopyEReaderTrainerGreeting(void);
 void TryHideBattleTowerReporter(void);
 bool32 RubyBattleTowerRecordToEmerald(struct RSBattleTowerRecord *src, struct EmeraldBattleTowerRecord *dst);

@@ -4094,40 +4094,19 @@ static bool32 RecvPacket_MemberStateToMember(struct PokemonJump_Player *player, 
 
 static struct PokemonJumpRecords *GetPokeJumpRecords(void)
 {
-    return &gSaveBlock2Ptr->pokeJump;
 }
 
 void ResetPokemonJumpRecords(void)
 {
-    struct PokemonJumpRecords *records = GetPokeJumpRecords();
-    records->jumpsInRow = 0;
-    records->bestJumpScore = 0;
-    records->excellentsInRow = 0;
-    records->gamesWithMaxPlayers = 0;
-    records->unused2 = 0;
-    records->unused1 = 0;
 }
 
 static bool32 TryUpdateRecords(u32 jumpScore, u16 jumpsInRow, u16 excellentsInRow)
 {
-    struct PokemonJumpRecords *records = GetPokeJumpRecords();
-    bool32 newRecord = FALSE;
-
-    if (records->bestJumpScore < jumpScore && jumpScore <= MAX_JUMP_SCORE)
-        records->bestJumpScore = jumpScore, newRecord = TRUE;
-    if (records->jumpsInRow < jumpsInRow && jumpsInRow <= MAX_JUMPS)
-        records->jumpsInRow = jumpsInRow, newRecord = TRUE;
-    if (records->excellentsInRow < excellentsInRow && excellentsInRow <= MAX_JUMPS)
-        records->excellentsInRow = excellentsInRow, newRecord = TRUE;
-
-    return newRecord;
+    return FALSE;
 }
 
 static void IncrementGamesWithMaxPlayers(void)
 {
-    struct PokemonJumpRecords *records = GetPokeJumpRecords();
-    if (records->gamesWithMaxPlayers < 9999)
-        records->gamesWithMaxPlayers++;
 }
 
 void ShowPokemonJumpRecords(void)
@@ -4207,26 +4186,6 @@ static void Task_ShowPokemonJumpRecords(u8 taskId)
 
 static void PrintRecordsText(u16 windowId, int width)
 {
-    int i, x;
-    int recordNums[3];
-    struct PokemonJumpRecords *records = GetPokeJumpRecords();
-    recordNums[0] = records->jumpsInRow;
-    recordNums[1] = records->bestJumpScore;
-    recordNums[2] = records->excellentsInRow;
-
-    LoadUserWindowBorderGfx_(windowId, 0x21D, 0xD0);
-    DrawTextBorderOuter(windowId, 0x21D, 0xD);
-    FillWindowPixelBuffer(windowId, PIXEL_FILL(1));
-    AddTextPrinterParameterized(windowId, FONT_NORMAL, gText_PkmnJumpRecords, GetStringCenterAlignXOffset(FONT_NORMAL, gText_PkmnJumpRecords, width * 8), 1, TEXT_SKIP_DRAW, NULL);
-    for (i = 0; i < ARRAY_COUNT(sRecordsTexts); i++)
-    {
-        AddTextPrinterParameterized(windowId, FONT_NORMAL, sRecordsTexts[i], 0, 25 + (i * 16), TEXT_SKIP_DRAW, NULL);
-        ConvertIntToDecimalStringN(gStringVar1, recordNums[i], STR_CONV_MODE_LEFT_ALIGN, 5);
-        TruncateToFirstWordOnly(gStringVar1);
-        x = (width * 8) - GetStringWidth(FONT_NORMAL, gStringVar1, 0);
-        AddTextPrinterParameterized(windowId, FONT_NORMAL, gStringVar1, x, 25 + (i * 16), TEXT_SKIP_DRAW, NULL);
-    }
-    PutWindowTilemap(windowId);
 }
 
 static void TruncateToFirstWordOnly(u8 *str)

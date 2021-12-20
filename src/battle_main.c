@@ -677,33 +677,17 @@ static void SetPlayerBerryDataInBattleStruct(void)
     s32 i;
     struct BattleStruct *battleStruct = gBattleStruct;
     struct BattleEnigmaBerry *battleBerry = &battleStruct->multiBuffer.linkBattlerHeader.battleEnigmaBerry;
-
-    if (IsEnigmaBerryValid() == TRUE)
-    {
-        for (i = 0; i < BERRY_NAME_LENGTH; i++)
-            battleBerry->name[i] = gSaveBlock1Ptr->enigmaBerry.berry.name[i];
-        battleBerry->name[i] = EOS;
-
-        for (i = 0; i < BERRY_ITEM_EFFECT_COUNT; i++)
-            battleBerry->itemEffect[i] = gSaveBlock1Ptr->enigmaBerry.itemEffect[i];
-
-        battleBerry->holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
-        battleBerry->holdEffectParam = gSaveBlock1Ptr->enigmaBerry.holdEffectParam;
-    }
-    else
-    {
-        const struct Berry *berryData = GetBerryInfo(ItemIdToBerryType(ITEM_ENIGMA_BERRY_E_READER));
-
-        for (i = 0; i < BERRY_NAME_LENGTH; i++)
-            battleBerry->name[i] = berryData->name[i];
-        battleBerry->name[i] = EOS;
-
-        for (i = 0; i < BERRY_ITEM_EFFECT_COUNT; i++)
-            battleBerry->itemEffect[i] = 0;
-
-        battleBerry->holdEffect = HOLD_EFFECT_NONE;
-        battleBerry->holdEffectParam = 0;
-    }
+    const struct Berry *berryData = GetBerryInfo(ItemIdToBerryType(ITEM_ENIGMA_BERRY_E_READER));
+    
+    for (i = 0; i < BERRY_NAME_LENGTH; i++)
+        battleBerry->name[i] = berryData->name[i];
+    battleBerry->name[i] = EOS;
+    
+    for (i = 0; i < BERRY_ITEM_EFFECT_COUNT; i++)
+        battleBerry->itemEffect[i] = 0;
+    
+    battleBerry->holdEffect = HOLD_EFFECT_NONE;
+    battleBerry->holdEffectParam = 0;
 }
 
 static void SetAllPlayersBerryData(void)
@@ -713,50 +697,26 @@ static void SetAllPlayersBerryData(void)
 
     if (!(gBattleTypeFlags & BATTLE_TYPE_LINK))
     {
-        if (IsEnigmaBerryValid() == TRUE)
+        const struct Berry *berryData = GetBerryInfo(ItemIdToBerryType(ITEM_ENIGMA_BERRY_E_READER));
+        
+        for (i = 0; i < BERRY_NAME_LENGTH; i++)
         {
-            for (i = 0; i < BERRY_NAME_LENGTH; i++)
-            {
-                gEnigmaBerries[0].name[i] = gSaveBlock1Ptr->enigmaBerry.berry.name[i];
-                gEnigmaBerries[2].name[i] = gSaveBlock1Ptr->enigmaBerry.berry.name[i];
-            }
-            gEnigmaBerries[0].name[i] = EOS;
-            gEnigmaBerries[2].name[i] = EOS;
-
-            for (i = 0; i < BERRY_ITEM_EFFECT_COUNT; i++)
-            {
-                gEnigmaBerries[0].itemEffect[i] = gSaveBlock1Ptr->enigmaBerry.itemEffect[i];
-                gEnigmaBerries[2].itemEffect[i] = gSaveBlock1Ptr->enigmaBerry.itemEffect[i];
-            }
-
-            gEnigmaBerries[0].holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
-            gEnigmaBerries[2].holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
-            gEnigmaBerries[0].holdEffectParam = gSaveBlock1Ptr->enigmaBerry.holdEffectParam;
-            gEnigmaBerries[2].holdEffectParam = gSaveBlock1Ptr->enigmaBerry.holdEffectParam;
+            gEnigmaBerries[0].name[i] = berryData->name[i];
+            gEnigmaBerries[2].name[i] = berryData->name[i];
         }
-        else
+        gEnigmaBerries[0].name[i] = EOS;
+        gEnigmaBerries[2].name[i] = EOS;
+        
+        for (i = 0; i < BERRY_ITEM_EFFECT_COUNT; i++)
         {
-            const struct Berry *berryData = GetBerryInfo(ItemIdToBerryType(ITEM_ENIGMA_BERRY_E_READER));
-
-            for (i = 0; i < BERRY_NAME_LENGTH; i++)
-            {
-                gEnigmaBerries[0].name[i] = berryData->name[i];
-                gEnigmaBerries[2].name[i] = berryData->name[i];
-            }
-            gEnigmaBerries[0].name[i] = EOS;
-            gEnigmaBerries[2].name[i] = EOS;
-
-            for (i = 0; i < BERRY_ITEM_EFFECT_COUNT; i++)
-            {
-                gEnigmaBerries[0].itemEffect[i] = 0;
-                gEnigmaBerries[2].itemEffect[i] = 0;
-            }
-
-            gEnigmaBerries[0].holdEffect = 0;
-            gEnigmaBerries[2].holdEffect = 0;
-            gEnigmaBerries[0].holdEffectParam = 0;
-            gEnigmaBerries[2].holdEffectParam = 0;
+            gEnigmaBerries[0].itemEffect[i] = 0;
+            gEnigmaBerries[2].itemEffect[i] = 0;
         }
+        
+        gEnigmaBerries[0].holdEffect = 0;
+        gEnigmaBerries[2].holdEffect = 0;
+        gEnigmaBerries[0].holdEffectParam = 0;
+        gEnigmaBerries[2].holdEffectParam = 0;
     }
     else
     {
