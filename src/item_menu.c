@@ -1288,6 +1288,7 @@ static void Task_BagMenu_HandleInput(u8 taskId)
                 BagMenu_PrintCursor(tListTaskId, COLORID_GRAY_CURSOR);
                 ListMenuGetScrollAndRow(data[0], scrollPos, cursorPos);
                 gTasks[taskId].func = Task_LoadBagSortOptions;
+                return;
             }
             else
             {
@@ -2716,9 +2717,7 @@ static const u8 sBagMenuSortItems[] =
 static const u8 sBagMenuSortKeyItems[] =
 {
     ACTION_BY_NAME,
-    ACTION_DUMMY, // Filler to use ITEMWIN_2x2
     ACTION_CANCEL,
-    ACTION_DUMMY, // Filler to use ITEMWIN_2x2
 };
 
 static const u8 sBagMenuSortPokeBalls[] =
@@ -3207,7 +3206,10 @@ static void AddBagSortSubMenu(void)
 static void Task_LoadBagSortOptions(u8 taskId)
 {
     AddBagSortSubMenu();
-    gTasks[taskId].func = Task_ItemContext_MultipleRows;
+    if (gBagMenu->contextMenuNumItems <= 2)
+        gTasks[taskId].func = Task_ItemContext_SingleRow;
+    else
+        gTasks[taskId].func = Task_ItemContext_MultipleRows;
 }
 
 #define tSortType data[2]
