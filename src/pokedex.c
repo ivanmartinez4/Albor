@@ -305,6 +305,7 @@ static void PrintInfoScreenTextSmall(const u8* str, u8 left, u8 top);
 static u8 PrintEvolutionTargetSpeciesAndMethod(u8 taskId, u16 species, u8 depth, u8 depth_i);
 static u8 PrintPreEvolutions(u8 taskId, u16 species);
 static void Task_LoadEvoScreenWaitForFade(u8 taskId);
+static void Task_LoadCryScreenWaitForFade(u8 taskId);
 
 // const rom data
 #include "data/pokemon/pokedex_orders.h"
@@ -3675,6 +3676,48 @@ static void Task_HandleCryScreenInput(u8 taskId)
             }
             return;
         }
+        if ((JOY_NEW(DPAD_UP) || JOY_NEW(DPAD_DOWN)) && !IsCryPlaying())
+        {
+            // Scroll up/down if the current page isn't Bulbasaur's/NATIONAL_DEX_COUNT's
+            if (JOY_NEW(DPAD_UP))
+            {
+                int i;
+                for (i = sPokedexListItem->dexNum - 1; i > NATIONAL_DEX_NONE; i--)
+                {
+                    if (GetSetPokedexFlag(NationalPokedexNumToSpecies(i), FLAG_GET_SEEN))
+                    {
+                        sPokedexListItem->dexNum = i;
+                        gTasks[taskId].func = Task_LoadCryScreenWaitForFade;
+                        PlaySE(SE_DEX_SCROLL);
+                        break;
+                    }
+                }
+            }
+            else if (JOY_NEW(DPAD_DOWN))
+            {
+                int i;
+                for (i = sPokedexListItem->dexNum + 1; i < NATIONAL_DEX_COUNT; i++)
+                {
+                    if (GetSetPokedexFlag(NationalPokedexNumToSpecies(i), FLAG_GET_SEEN))
+                    {
+                        sPokedexListItem->dexNum = i;
+                        gTasks[taskId].func = Task_LoadCryScreenWaitForFade;
+                        PlaySE(SE_DEX_SCROLL);
+                        break;
+                    }
+                }
+            }
+            return;
+        }
+    }
+}
+
+static void Task_LoadCryScreenWaitForFade(u8 taskId)
+{
+    if (!gPaletteFade.active)
+    {
+        FreeAndDestroyMonPicSprite(gTasks[taskId].tMonSpriteId);
+        gTasks[taskId].func = Task_LoadCryScreen;
     }
 }
 
