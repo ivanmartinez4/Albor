@@ -3070,6 +3070,8 @@ extern const u8 gText_EVO_SPECIFIC_MON_IN_PARTY[];
 extern const u8 gText_EVO_LEVEL_DARK_TYPE_MON_IN_PARTY[];
 extern const u8 gText_EVO_TRADE_SPECIFIC_MON[];
 extern const u8 gText_EVO_SPECIFIC_MAP[];
+extern const u8 gText_EVO_HELD_ITEM[];
 extern const u8 gText_EVO_NONE[];
+extern const u8 gText_EVO_PreEvo[];
 
 #endif // GUARD_STRINGS_H
