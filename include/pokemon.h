@@ -460,5 +460,9 @@ u16 MonTryLearningNewMoveEvolution(struct Pokemon *mon, bool8 firstMove);
 void CreateShinyMonWithNature(struct Pokemon *mon, u16 species, u8 level, u8 nature);
 u8 SendMonToPC(struct Pokemon* mon);
 u16 GetTrainerFrontSpriteBasedOnPlayerCostumeAndGender(u8 costumeId, u8 playerGender);
+u16 IsOpponentKantoSpecies(void);
+u16 IsOpponentJohtoSpecies(void);
+u16 IsOpponentHoennSpecies(void);
+u16 IsOpponentSinnohSpecies(void);
 
 #endif // GUARD_POKEMON_H

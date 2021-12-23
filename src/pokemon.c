@@ -7160,6 +7160,30 @@ void ClearBattleMonForms(void)
         gBattleMonForms[i] = 0;
 }
 
+u16 IsOpponentKantoSpecies(void)
+{
+    return (GET_BASE_SPECIES_ID(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES, 0)) >= SPECIES_BULBASAUR
+         && GET_BASE_SPECIES_ID(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES, 0)) <= SPECIES_MEW);
+}
+
+u16 IsOpponentJohtoSpecies(void)
+{
+    return (GET_BASE_SPECIES_ID(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES, 0)) >= SPECIES_CHIKORITA
+         && GET_BASE_SPECIES_ID(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES, 0)) <= SPECIES_CELEBI);
+}
+
+u16 IsOpponentHoennSpecies(void)
+{
+    return (GET_BASE_SPECIES_ID(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES, 0)) >= SPECIES_TREECKO
+         && GET_BASE_SPECIES_ID(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES, 0)) <= SPECIES_DEOXYS);
+}
+
+u16 IsOpponentSinnohSpecies(void)
+{
+    return (GET_BASE_SPECIES_ID(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES, 0)) >= SPECIES_TURTWIG
+         && GET_BASE_SPECIES_ID(GetMonData(&gEnemyParty[0], MON_DATA_SPECIES, 0)) <= SPECIES_ARCEUS);
+}
+
 u16 GetBattleBGM(void)
 {
     if (gBattleTypeFlags & BATTLE_TYPE_KYOGRE_GROUDON)
@@ -7214,7 +7238,18 @@ u16 GetBattleBGM(void)
         }
     }
     else if (GetCurrentRegionMapSectionId() == MAPSEC_SAFARI_ZONE)
-        return MUS_RG_VS_WILD;
+    {
+        if (IsOpponentKantoSpecies())
+            return HG_SEQ_GS_VS_NORAPOKE_KANTO;
+        else if (IsOpponentJohtoSpecies())
+            return HG_SEQ_GS_VS_NORAPOKE;
+        else if (IsOpponentHoennSpecies())
+            return MUS_VS_WILD;
+        else if (IsOpponentSinnohSpecies())
+            return DP_SEQ_BA_POKE;
+        else
+            return MUS_VS_WILD;
+    }
     else
         return MUS_VS_WILD;
 }
