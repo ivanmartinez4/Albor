@@ -1007,7 +1007,9 @@ static void BagMenu_ItemPrintCallback(u8 windowId, u32 itemIndex, u8 y)
             offset = GetStringRightAlignXOffset(FONT_NARROW, gStringVar7, 119);
             BagMenu_Print(windowId, FONT_NARROW, gStringVar7, offset, y, 0, 0, TEXT_SKIP_DRAW, COLORID_NORMAL);
         }
-        else if (gBagPosition.pocket != KEYITEMS_POCKET && ItemId_GetImportance(itemId) == FALSE)
+        else if (gBagPosition.pocket != KEYITEMS_POCKET
+              && gBagPosition.pocket != TMHM_POCKET
+              && ItemId_GetImportance(itemId) == FALSE)
         {
             // Print item quantity
             ConvertIntToDecimalStringN(gStringVar1, itemQuantity, STR_CONV_MODE_RIGHT_ALIGN, BAG_ITEM_CAPACITY_DIGITS);
@@ -1979,7 +1981,8 @@ static void ItemMenu_Give(u8 taskId)
     {
         DisplayItemMessage(taskId, FONT_NORMAL, gText_CantWriteMail, HandleErrorMessage);
     }
-    else if (!ItemId_GetImportance(gSpecialVar_ItemId))
+    else if (!ItemId_GetImportance(gSpecialVar_ItemId)
+          && ItemId_GetPocket(gSpecialVar_ItemId) != POCKET_TM_HM)
     {
         if (CalculatePlayerPartyCount() == 0)
         {
@@ -2121,7 +2124,7 @@ static void Task_ItemContext_Sell(u8 taskId)
 {
     s16* data = gTasks[taskId].data;
 
-    if (ItemId_GetPrice(gSpecialVar_ItemId) == 0)
+    if (ItemId_GetPrice(gSpecialVar_ItemId) == 0 || ItemId_GetPocket(gSpecialVar_ItemId) == POCKET_TM_HM)
     {
         CopyItemName(gSpecialVar_ItemId, gStringVar2);
         StringExpandPlaceholders(gStringVar7, gText_CantBuyKeyItem);
