@@ -154,6 +154,9 @@
 
 #define HOLD_EFFECT_CHOICE(holdEffect)((holdEffect == HOLD_EFFECT_CHOICE_BAND || holdEffect == HOLD_EFFECT_CHOICE_SCARF || holdEffect == HOLD_EFFECT_CHOICE_SPECS))
 
+// Custom hold effects
+#define HOLD_EFFECT_ODD_KEYSTONE        200
+
 // Terrain seed params
 #define HOLD_EFFECT_PARAM_ELECTRIC_TERRAIN  0
 #define HOLD_EFFECT_PARAM_GRASSY_TERRAIN    1

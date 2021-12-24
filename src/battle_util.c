@@ -8662,6 +8662,10 @@ static u32 CalcDefenseStat(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, 
             MulModifier(&modifier, UQ_4_12(1.5));
         break;
 #endif
+    case HOLD_EFFECT_ODD_KEYSTONE:
+        if (gBattleMons[battlerDef].species == SPECIES_SPIRITOMB)
+            MulModifier(&modifier, UQ_4_12(1.5));
+        break;
     }
 
     // sandstorm sp.def boost for rock types
