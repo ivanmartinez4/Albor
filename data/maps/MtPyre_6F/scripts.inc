@@ -32,8 +32,7 @@ MtPyre_6F_EventScript_Spiritomb::
 	goto_if_set FLAG_SPIRITOMB_EVENT_END, MtPyre_6F_EventScript_Spiritomb4
 	goto_if_set FLAG_SPIRITOMB_EVENT_IN_PROGRESS, MtPyre_6F_EventScript_Spiritomb3Take2
 	checkitem ITEM_ODD_KEYSTONE, 1
-	compare VAR_RESULT, TRUE
-	goto_if_eq MtPyre_6F_EventScript_Spiritomb2
+	goto_if_eq VAR_RESULT, TRUE, MtPyre_6F_EventScript_Spiritomb2
 	msgbox MtPyre_6F_Text_WhiteTombstone_WhiteTombstone, MSGBOX_DEFAULT
 MtPyre_6F_EventScript_SpiritombEnd:
 	release
@@ -41,8 +40,7 @@ MtPyre_6F_EventScript_SpiritombEnd:
 
 MtPyre_6F_EventScript_Spiritomb2:
 	msgbox MtPyre_6F_Text_WhiteTombstone_WhiteTombstonePresence, MSGBOX_YESNO
-	compare VAR_RESULT, YES
-	goto_if_eq MtPyre_6F_EventScript_Spiritomb3
+	goto_if_eq VAR_RESULT, YES, MtPyre_6F_EventScript_Spiritomb3
 	release
 	end
 
@@ -70,11 +68,8 @@ MtPyre_6F_EventScript_Spiritomb3Take2:
 	setcustomwildbattle SPECIES_SPIRITOMB, 50, ITEM_ODD_KEYSTONE, NATURE_BOLD, 0, 0, 0, 0, 0, 0, 0, 15, 15, 15, 15, 15, 15, MOVE_CURSE, MOVE_HYPNOSIS, MOVE_DREAM_EATER, MOVE_NASTY_PLOT, 0
 	dowildbattle
 	specialvar VAR_RESULT, GetBattleOutcome
-	compare VAR_RESULT, B_OUTCOME_RAN
-	goto_if_eq MtPyre_6F_EventScript_SpiritombEnd
-	specialvar VAR_RESULT, GetBattleOutcome
-	compare VAR_RESULT, B_OUTCOME_PLAYER_TELEPORTED
-	goto_if_eq MtPyre_6F_EventScript_SpiritombEnd
+	goto_if_eq VAR_RESULT, B_OUTCOME_RAN, MtPyre_6F_EventScript_SpiritombEnd
+	goto_if_eq VAR_RESULT, B_OUTCOME_PLAYER_TELEPORTED, MtPyre_6F_EventScript_SpiritombEnd
 	msgbox MtPyre_6F_Text_WhiteTombstone_WhiteTombstonePresenceDisappeared, MSGBOX_DEFAULT
 	setflag FLAG_SPIRITOMB_EVENT_END
 	release

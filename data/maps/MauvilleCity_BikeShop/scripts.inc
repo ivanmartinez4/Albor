@@ -9,10 +9,8 @@ MauvilleCity_BikeShop_EventScript_Rydel::
 	msgbox MauvilleCity_BikeShop_Text_RydelGreeting, MSGBOX_DEFAULT
 MauvilleCity_BikeShop_EventScript_SkipGreeting:
 	msgbox MauvilleCity_BikeShop_Text_DidYouComeFromFarAway, MSGBOX_YESNO
-	compare VAR_RESULT, YES
-	goto_if_eq MauvilleCity_BikeShop_EventScript_YesFar
-	compare VAR_RESULT, NO
-	goto_if_eq MauvilleCity_BikeShop_EventScript_NotFar
+	goto_if_eq VAR_RESULT, YES, MauvilleCity_BikeShop_EventScript_YesFar
+	goto_if_eq VAR_RESULT, NO, MauvilleCity_BikeShop_EventScript_NotFar
 	release
 	end
 

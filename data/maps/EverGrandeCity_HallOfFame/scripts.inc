@@ -50,24 +50,24 @@ EverGrandeCity_HallOfFame_EventScript_EnterHallOfFame::
 	goto_if_eq VAR_RESULT, FEMALE, EverGrandeCity_HallOfFame_EventScript_GameClearFemale
 	end
 
+@ The value of VAR_RESULT in this script determines if the credits should be skipped.
 EverGrandeCity_HallOfFame_EventScript_GameClearMale::
 	setrespawn HEAL_LOCATION_LITTLEROOT_TOWN_BRENDANS_HOUSE_2F
 	fadescreenspeed FADE_TO_BLACK, 24
 	msgbox EverGrandeCity_HallOfFame_Text_SkipCredits, MSGBOX_YESNO
-	compare VAR_RESULT, NO @ The value of VAR_RESULT will determine if the credits should be skipped
-	goto_if_eq EverGrandeCity_HallOfFame_EventScript_GameClearMale2
+	goto_if_eq VAR_RESULT, NO, EverGrandeCity_HallOfFame_EventScript_GameClearMale2
 EverGrandeCity_HallOfFame_EventScript_GameClearMale2:
 	special GameClear
 	waitstate
 	releaseall
 	end
 
+@ The value of VAR_RESULT in this script determines if the credits should be skipped.
 EverGrandeCity_HallOfFame_EventScript_GameClearFemale::
 	setrespawn HEAL_LOCATION_LITTLEROOT_TOWN_MAYS_HOUSE_2F
 	fadescreenspeed FADE_TO_BLACK, 24
 	msgbox EverGrandeCity_HallOfFame_Text_SkipCredits, MSGBOX_YESNO
-	compare VAR_RESULT, NO @ The value of VAR_RESULT will determine if the credits should be skipped
-	goto_if_eq EverGrandeCity_HallOfFame_EventScript_GameClearFemale2
+	goto_if_eq VAR_RESULT, NO, EverGrandeCity_HallOfFame_EventScript_GameClearFemale2
 EverGrandeCity_HallOfFame_EventScript_GameClearFemale2:
 	special GameClear
 	waitstate
