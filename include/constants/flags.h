@@ -97,7 +97,7 @@
 #define FLAG_LEGENDARIES_IN_SOOTOPOLIS                      0x53
 
 #define FLAG_HIDE_MOSSDEEP_CITY_SPACE_CENTER_2F_MASTER_BALL 0x54  // Originally Unused Flag
-#define FLAG_UNUSED_0x055                                   0x55  // Unused Flag
+#define FLAG_HIDE_METEOR_FALLS_STEVEN                       0x55  // Originally Unused Flag
 
 #define FLAG_HIDE_CONTEST_POKE_BALL                         0x56  // Always set after new game, object it hides is added directly
 #define FLAG_MET_RIVAL_MOM                                  0x57
@@ -1380,8 +1380,8 @@
 #define FLAG_IS_CHAMPION                            (SYSTEM_FLAGS + 0x1F) // Seems to be related to linking.
 #define FLAG_NURSE_UNION_ROOM_REMINDER              (SYSTEM_FLAGS + 0x20)
 
-#define FLAG_UNUSED_0x881                           (SYSTEM_FLAGS + 0x21) // Unused Flag
-#define FLAG_UNUSED_0x882                           (SYSTEM_FLAGS + 0x22) // Unused Flag
+#define FLAG_CANT_REACH_BY_MATCH_CALL               (SYSTEM_FLAGS + 0x21) // Originally Unused Flag
+#define FLAG_IS_CHAMPION_AGAIN                      (SYSTEM_FLAGS + 0x22) // Originally Unused Flag
 #define FLAG_UNUSED_0x883                           (SYSTEM_FLAGS + 0x23) // Unused Flag
 #define FLAG_UNUSED_0x884                           (SYSTEM_FLAGS + 0x24) // Unused Flag
 #define FLAG_UNUSED_0x885                           (SYSTEM_FLAGS + 0x25) // Unused Flag

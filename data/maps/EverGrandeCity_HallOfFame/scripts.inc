@@ -1,4 +1,4 @@
-.set LOCALID_WALLACE, 1
+.set LOCALID_CHAMPION, 1
 
 EverGrandeCity_HallOfFame_MapScripts::
 	map_script MAP_SCRIPT_ON_FRAME_TABLE, EverGrandeCity_HallOfFame_OnFrame
@@ -19,24 +19,25 @@ EverGrandeCity_HallOfFame_OnFrame:
 
 EverGrandeCity_HallOfFame_EventScript_EnterHallOfFame::
 	lockall
-	applymovement LOCALID_WALLACE, EverGrandeCity_HallOfFame_Movement_WalkIntoHallOfFame1
+	goto_if_ge VAR_POKEMON_LEAGUE_RUNS_COUNTER, 1, EverGrandeCity_HallOfFame_EventScript_EnterHallOfFameAgain
+	applymovement LOCALID_CHAMPION, EverGrandeCity_HallOfFame_Movement_WalkIntoHallOfFame1
 	applymovement OBJ_EVENT_ID_PLAYER, EverGrandeCity_HallOfFame_Movement_WalkIntoHallOfFame1
 	waitmovement 0
-	applymovement LOCALID_WALLACE, Common_Movement_WalkInPlaceFasterRight
+	applymovement LOCALID_CHAMPION, Common_Movement_WalkInPlaceFasterRight
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
 	waitmovement 0
 	msgbox EverGrandeCity_HallOfFame_Text_HereWeHonorLeagueChampions, MSGBOX_DEFAULT
 	closemessage
-	applymovement LOCALID_WALLACE, EverGrandeCity_HallOfFame_Movement_WalkIntoHallOfFame2
+	applymovement LOCALID_CHAMPION, EverGrandeCity_HallOfFame_Movement_WalkIntoHallOfFame2
 	applymovement OBJ_EVENT_ID_PLAYER, EverGrandeCity_HallOfFame_Movement_WalkIntoHallOfFame2
 	waitmovement 0
 	delay 20
-	applymovement LOCALID_WALLACE, Common_Movement_WalkInPlaceFasterRight
+	applymovement LOCALID_CHAMPION, Common_Movement_WalkInPlaceFasterRight
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
 	waitmovement 0
 	msgbox EverGrandeCity_HallOfFame_Text_LetsRecordYouAndYourPartnersNames, MSGBOX_DEFAULT
 	closemessage
-	applymovement LOCALID_WALLACE, Common_Movement_WalkInPlaceFasterUp
+	applymovement LOCALID_CHAMPION, Common_Movement_WalkInPlaceFasterUp
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp
 	waitmovement 0
 	delay 20
@@ -48,6 +49,40 @@ EverGrandeCity_HallOfFame_EventScript_EnterHallOfFame::
 	checkplayergender
 	goto_if_eq VAR_RESULT, MALE, EverGrandeCity_HallOfFame_EventScript_GameClearMale
 	goto_if_eq VAR_RESULT, FEMALE, EverGrandeCity_HallOfFame_EventScript_GameClearFemale
+	end
+
+EverGrandeCity_HallOfFame_EventScript_EnterHallOfFameAgain:
+	applymovement LOCALID_CHAMPION, EverGrandeCity_HallOfFame_Movement_WalkIntoHallOfFame1
+	applymovement OBJ_EVENT_ID_PLAYER, EverGrandeCity_HallOfFame_Movement_WalkIntoHallOfFame1
+	waitmovement 0
+	applymovement LOCALID_CHAMPION, Common_Movement_WalkInPlaceFasterRight
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
+	waitmovement 0
+	msgbox EverGrandeCity_HallOfFame_Text_YouKnowWhatWeDoHere, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_CHAMPION, EverGrandeCity_HallOfFame_Movement_WalkIntoHallOfFame2
+	applymovement OBJ_EVENT_ID_PLAYER, EverGrandeCity_HallOfFame_Movement_WalkIntoHallOfFame2
+	waitmovement 0
+	delay 20
+	applymovement LOCALID_CHAMPION, Common_Movement_WalkInPlaceFasterRight
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
+	waitmovement 0
+	msgbox EverGrandeCity_HallOfFame_Text_LetsRecordYouAndYourPartnersNames, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_CHAMPION, Common_Movement_WalkInPlaceFasterUp
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp
+	waitmovement 0
+	delay 20
+	dofieldeffect FLDEFF_HALL_OF_FAME_RECORD
+	waitfieldeffect FLDEFF_HALL_OF_FAME_RECORD
+	delay 40
+	setvar VAR_TEMP_1, 1
+	call EverGrandeCity_HallOfFame_EventScript_SetGameClearFlags
+	checkplayergender
+	compare VAR_RESULT, MALE
+	goto_if_eq EverGrandeCity_HallOfFame_EventScript_GameClearMale
+	compare VAR_RESULT, FEMALE
+	goto_if_eq EverGrandeCity_HallOfFame_EventScript_GameClearFemale
 	end
 
 EverGrandeCity_HallOfFame_EventScript_GameClearMale::
@@ -108,11 +143,18 @@ EverGrandeCity_HallOfFame_Text_HereWeHonorLeagueChampions:
 	.string "are honored.$"
 
 EverGrandeCity_HallOfFame_Text_LetsRecordYouAndYourPartnersNames:
-	.string "WALLACE: Come on, let's record your\n"
+	.string "Come on, let's record your\n"
 	.string "name as a TRAINER who triumphed over\l"
 	.string "the POKéMON LEAGUE, and the names of\l"
 	.string "the partners who battled with you.$"
 
 EverGrandeCity_HallOfFame_Text_SkipCredits:
     .string "Skip the credits scene?$"
+
+EverGrandeCity_HallOfFame_Text_YouKnowWhatWeDoHere:
+	.string "STEVEN: As you already know, here\n"
+	.string "we keep records of POKéMON that\l"
+	.string "prevailed through the challenge\l"
+	.string "imposed by the POKéMON LEAGUE\l"
+	.string "and came out victorious.$"
 

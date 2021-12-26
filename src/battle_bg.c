@@ -25,6 +25,7 @@
 #include "constants/songs.h"
 #include "constants/trainers.h"
 #include "constants/battle_anim.h"
+#include "event_data.h"
 
 struct BattleBackground
 {
@@ -798,9 +799,18 @@ void DrawMainBattleBackground(void)
             }
             else if (trainerClass == TRAINER_CLASS_CHAMPION)
             {
-                LZDecompressVram(gBattleTerrainTiles_Stadium, (void*)(BG_CHAR_ADDR(2)));
-                LZDecompressVram(gBattleTerrainTilemap_Stadium, (void*)(BG_SCREEN_ADDR(26)));
-                LoadCompressedPalette(gBattleTerrainPalette_StadiumWallace, 0x20, 0x60);
+                if (!VarGet(VAR_POKEMON_LEAGUE_RUNS_COUNTER))
+                {
+                    LZDecompressVram(gBattleTerrainTiles_Stadium, (void*)(BG_CHAR_ADDR(2)));
+                    LZDecompressVram(gBattleTerrainTilemap_Stadium, (void*)(BG_SCREEN_ADDR(26)));
+                    LoadCompressedPalette(gBattleTerrainPalette_StadiumWallace, 0x20, 0x60);
+                }
+                else
+                {
+                    LZDecompressVram(gBattleTerrainTiles_Stadium, (void*)(BG_CHAR_ADDR(2)));
+                    LZDecompressVram(gBattleTerrainTilemap_Stadium, (void*)(BG_SCREEN_ADDR(26)));
+                    LoadCompressedPalette(gBattleTerrainPalette_StadiumSteven, 0x20, 0x60);
+                }
                 return;
             }
         }
@@ -1192,8 +1202,15 @@ void DrawBattleEntryBackground(void)
             }
             else if (trainerClass == TRAINER_CLASS_CHAMPION)
             {
-                LZDecompressVram(gBattleTerrainAnimTiles_Building, (void*)(BG_CHAR_ADDR(1)));
-                LZDecompressVram(gBattleTerrainAnimTilemap_Building, (void*)(BG_SCREEN_ADDR(28)));
+                if (!VarGet(VAR_POKEMON_LEAGUE_RUNS_COUNTER))
+                {
+                    LZDecompressVram(gBattleTerrainAnimTiles_Building, (void*)(BG_CHAR_ADDR(1)));
+                    LZDecompressVram(gBattleTerrainAnimTilemap_Building, (void*)(BG_SCREEN_ADDR(28)));
+                }
+                else
+                {
+                    LoadCompressedPalette(gBattleTerrainPalette_StadiumSteven, 0x20, 0x60);
+                }
                 return;
             }
         }
