@@ -207,3 +207,32 @@ u32 BattlePalace_TryEscapeStatus(u8 battlerId)
 
     return effect;
 }
+
+u8 GetCurrentMaxLevel(void)
+{
+    int i;
+
+    static const struct
+    {
+        u16 flag;
+        u8 lvlcap;
+    } sLevelCaps[] =
+    {
+        {FLAG_IS_CHAMPION, 100},
+        {FLAG_BADGE08_GET, 48}, // Level of Juan's strongest Pokémon
+        {FLAG_BADGE07_GET, 42}, // Level of Tate and Liza's strongest Pokémon
+        {FLAG_BADGE06_GET, 33}, // Level of Winona's strongest Pokémon
+        {FLAG_BADGE05_GET, 31}, // Level of Norman's strongest Pokémon
+        {FLAG_BADGE04_GET, 29}, // Level of Flannery's strongest Pokémon
+        {FLAG_BADGE03_GET, 24}, // Level of Wattson's strongest Pokémon
+        {FLAG_BADGE02_GET, 19}, // Level of Brawly's strongest Pokémon
+        {FLAG_BADGE02_GET, 15}, // Level of Roxanne's strongest Pokémon
+    };
+
+    for (i = 0; i < NELEMS(sLevelCaps); i++)
+    {
+        if (FlagGet(sLevelCaps[i].flag))
+            return sLevelCaps[i].lvlcap;
+    }
+    return 8;
+}

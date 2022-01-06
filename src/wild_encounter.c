@@ -25,6 +25,7 @@
 #include "constants/weather.h"
 #include "constants/metatile_behaviors.h"
 #include "rtc.h"
+#include "battle_util.h"
 
 extern const u8 EventScript_RepelWoreOff[];
 
@@ -932,28 +933,49 @@ bool8 TryDoDoubleWildBattle(void)
     return FALSE;
 }
 
+static const u16 sCommonHeadbuttSpecies[] =
+{
+    SPECIES_WURMPLE,
+    SPECIES_TAILLOW,
+};
+
+static const u16 sUncommonHeadbuttSpecies[] =
+{
+    SPECIES_SEEDOT,
+    SPECIES_SHROOMISH,
+};
+
+static const u16 sRareHeadbuttSpecies[] =
+{
+    SPECIES_SLAKOTH,
+};
+
 void HeadbuttWildEncounter(void)
 {
     u16 headerId = GetCurrentMapWildMonHeaderId();
+    u32 species = 0, level = 1, random = Random() % 175;
+
+    switch (random)
+    {
+    case 166 ... 175:
+        species = sRareHeadbuttSpecies[Random() % NELEMS(sRareHeadbuttSpecies)];
+        break;
+    case 151 ... 165:
+        species = sUncommonHeadbuttSpecies[Random() % NELEMS(sUncommonHeadbuttSpecies)];
+        break;
+    default:
+        species = sCommonHeadbuttSpecies[Random() % NELEMS(sCommonHeadbuttSpecies)];
+        break;
+    }
 
     if (headerId != 0xFFFF)
     {
-        const struct WildPokemonInfo *wildPokemonInfo = gWildMonHeaders[headerId].headbuttMonsInfo;
-
-        if (wildPokemonInfo == NULL)
-        {
-            gSpecialVar_Result = FALSE;
-        }
-        else if (DoWildEncounterRateTest(wildPokemonInfo->encounterRate, 1) == TRUE
-         && TryGenerateWildMon(wildPokemonInfo, 2, WILD_CHECK_REPEL | WILD_CHECK_KEEN_EYE) == TRUE)
-        {
-            BattleSetup_StartWildBattle();
-            gSpecialVar_Result = TRUE;
-        }
-        else
-        {
-            gSpecialVar_Result = FALSE;
-        }
+        level = Random() % GetCurrentMaxLevel();
+        if (level == 0)
+            level = 1;
+        CreateWildMon(species, level);
+        BattleSetup_StartWildBattle();
+        gSpecialVar_Result = TRUE;
     }
     else
     {
