@@ -609,8 +609,10 @@
 #define STRINGID_CANTESCAPEBECAUSEOFCURRENTMOVE       606
 #define STRINGID_NEUTRALIZINGGASENTERS                607
 #define STRINGID_NEUTRALIZINGGASOVER                  608
+#define STRINGID_TRAINER1PKMNCOMEBACK                 609
+#define STRINGID_PLAYERWHITEOUT3                      610
 
-#define BATTLESTRINGS_COUNT                           609
+#define BATTLESTRINGS_COUNT                           611
 
 // The below IDs are all indexes into battle message tables,
 // used to determine which of a set of messages to print.
