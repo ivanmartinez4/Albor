@@ -1520,7 +1520,7 @@ void ShowEasyChatScreen(void)
         words = gSaveBlock2Ptr->apprentices[0].speechWon;
         break;
     case EASY_CHAT_TYPE_QUESTIONNAIRE:
-        words = GetQuestionnaireWordsPtr();
+        words = gSaveBlock1Ptr->questionnaireWords;
         break;
     default:
         return;
@@ -2276,7 +2276,10 @@ static void SaveCurrentPhrase(void)
 {
     int i;
     for (i = 0; i < sEasyChatScreen->maxWords; i++)
+    {
         sEasyChatScreen->savedPhrase[i] = sEasyChatScreen->currentPhrase[i];
+        gSaveBlock1Ptr->questionnaireWords[i] = sEasyChatScreen->currentPhrase[i];
+    }
 }
 
 static void ResetCurrentPhrase(void)

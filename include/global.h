@@ -893,6 +893,7 @@ struct SaveBlock1
     /*0x3???*/ LilycoveLady lilycoveLady;
     /*0x3???*/ struct SaveTrainerHill trainerHill;
     /*0x3???*/ struct WaldaPhrase waldaPhrase;
+    /*0x3???*/ u16 questionnaireWords[NUM_QUESTIONNAIRE_WORDS];
     // sizeof: 0x3???
 };
 

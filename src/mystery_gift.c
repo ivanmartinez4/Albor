@@ -47,6 +47,7 @@ struct WonderNewsMetadata *GetSavedWonderNewsMetadata(void)
 
 u16 *GetQuestionnaireWordsPtr(void)
 {
+    return gSaveBlock1Ptr->questionnaireWords;
 }
 
 // Equivalent to ClearSavedWonderCardAndRelated, but nothing else to clear
