@@ -117,7 +117,7 @@
 #define FLAG_HIDE_MEGA_EVENT_STEVEN                         0x65 // Originally a leftover from the RS version of Mossdeep City's Gym.
 #define FLAG_HIDE_MEGA_EVENT_LATIAS                         0x66 // Originally a leftover from the RS version of Mossdeep City's Gym.
 #define FLAG_HIDE_MEGA_EVENT_MAGMA_GRUNTS                   0x67 // Originally a leftover from the RS version of Mossdeep City's Gym.
-#define FLAG_UNUSED_0x68                                    0x68 // Unused Flag
+#define FLAG_OBTAINED_PICHU_EGG                             0x68 // Originally Unused Flag
 #define FLAG_OCEANIC_MUSEUM_MET_REPORTER                    0x69
 #define FLAG_RECEIVED_HM04                                  0x6A
 #define FLAG_RECEIVED_HM06                                  0x6B

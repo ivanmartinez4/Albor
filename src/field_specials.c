@@ -68,6 +68,8 @@
 #include "wild_encounter.h"
 #include "fldeff.h"
 #include "pokedex.h"
+#include "daycare.h"
+#include "constants/daycare.h"
 
 EWRAM_DATA bool8 gBikeCyclingChallenge = FALSE;
 EWRAM_DATA u8 gBikeCollisions = 0;
@@ -3695,34 +3697,6 @@ void Unused_SetWeatherSunny(void)
 // All mart employees have a local id of 1, so function always returns 1
 u32 GetMartEmployeeObjectEventId(void)
 {
-    static const u8 sPokeMarts[][3] =
-    {
-        { MAP_GROUP(OLDALE_TOWN_MART),     MAP_NUM(OLDALE_TOWN_MART),     LOCALID_OLDALE_MART_CLERK },
-        { MAP_GROUP(LAVARIDGE_TOWN_MART),  MAP_NUM(LAVARIDGE_TOWN_MART),  LOCALID_LAVARIDGE_MART_CLERK },
-        { MAP_GROUP(FALLARBOR_TOWN_MART),  MAP_NUM(FALLARBOR_TOWN_MART),  LOCALID_FALLARBOR_MART_CLERK },
-        { MAP_GROUP(VERDANTURF_TOWN_MART), MAP_NUM(VERDANTURF_TOWN_MART), LOCALID_VERDANTURF_MART_CLERK },
-        { MAP_GROUP(PETALBURG_CITY_MART),  MAP_NUM(PETALBURG_CITY_MART),  LOCALID_PETALBURG_MART_CLERK },
-        { MAP_GROUP(SLATEPORT_CITY_MART),  MAP_NUM(SLATEPORT_CITY_MART),  LOCALID_SLATEPORT_MART_CLERK },
-        { MAP_GROUP(MAUVILLE_CITY_MART),   MAP_NUM(MAUVILLE_CITY_MART),   LOCALID_MAUVILLE_MART_CLERK },
-        { MAP_GROUP(RUSTBORO_CITY_MART),   MAP_NUM(RUSTBORO_CITY_MART),   LOCALID_RUSTBORO_MART_CLERK },
-        { MAP_GROUP(FORTREE_CITY_MART),    MAP_NUM(FORTREE_CITY_MART),    LOCALID_FORTREE_MART_CLERK },
-        { MAP_GROUP(MOSSDEEP_CITY_MART),   MAP_NUM(MOSSDEEP_CITY_MART),   LOCALID_MOSSDEEP_MART_CLERK },
-        { MAP_GROUP(SOOTOPOLIS_CITY_MART), MAP_NUM(SOOTOPOLIS_CITY_MART), LOCALID_SOOTOPOLIS_MART_CLERK },
-        { MAP_GROUP(BATTLE_FRONTIER_MART), MAP_NUM(BATTLE_FRONTIER_MART), LOCALID_BATTLE_FRONTIER_MART_CLERK }
-    };
-
-    u8 i;
-    for (i = 0; i < ARRAY_COUNT(sPokeMarts); i++)
-    {
-        if (gSaveBlock1Ptr->location.mapGroup == sPokeMarts[i][0])
-        {
-            if (gSaveBlock1Ptr->location.mapNum == sPokeMarts[i][1])
-            {
-                return sPokeMarts[i][2];
-            }
-        }
-    }
-    return 1;
 }
 
 bool32 IsTrainerRegistered(void)
@@ -4633,4 +4607,36 @@ bool8 SetCaughtMon(void)
 {
     GetSetPokedexFlag(SpeciesToNationalPokedexNum(VarGet(VAR_TEMP_1)), FLAG_SET_SEEN);
     GetSetPokedexFlag(SpeciesToNationalPokedexNum(VarGet(VAR_TEMP_1)), FLAG_SET_CAUGHT);
+}
+
+u8 GiveSpecialEgg(void)
+{
+    int monData = 0, i = 0;
+
+    for (i = 0; i < PARTY_SIZE + 1; i++)
+    {
+        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES2, NULL) == SPECIES_NONE)
+        {
+            CreateEgg(&gPlayerParty[i], VarGet(VAR_TEMP_1), FALSE);
+            monData = VarGet(VAR_TEMP_2);
+            SetMonData(&gPlayerParty[i], MON_DATA_MET_LOCATION, &monData);
+            monData = VarGet(VAR_TEMP_3);
+            SetMonData(&gPlayerParty[i], MON_DATA_MOVE1, &monData);
+            monData = VarGet(VAR_TEMP_4);
+            SetMonData(&gPlayerParty[i], MON_DATA_MOVE2, &monData);
+            monData = VarGet(VAR_TEMP_5);
+            SetMonData(&gPlayerParty[i], MON_DATA_MOVE3, &monData);
+            monData = VarGet(VAR_TEMP_6);
+            SetMonData(&gPlayerParty[i], MON_DATA_MOVE4, &monData);
+            MonRestorePP(&gPlayerParty[i]);
+            break;
+        }
+    }
+
+    if (i >= PARTY_SIZE)
+        return SendMonToPC(&gPlayerParty[i]);
+    
+    CopyMon(&gPlayerParty[i], &gPlayerParty[i], sizeof(&gPlayerParty[i]));
+    gPlayerPartyCount = i + 1;
+    return MON_GIVEN_TO_PARTY;
 }

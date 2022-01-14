@@ -1033,6 +1033,18 @@
 	.2byte \species
 	.endm
 
+	@ Gives the player an Egg with the specified parameters.
+	@ VAR_RESULT will be set to MON_GIVEN_TO_PARTY, MON_GIVEN_TO_PC, or MON_CANT_GIVE depending on the outcome.
+	.macro givespecialegg species:req, location:req, move1:req, move2:req, move3:req, move4:req
+	setvar VAR_TEMP_1, \species
+	setvar VAR_TEMP_2, \location
+	setvar VAR_TEMP_3, \move1
+	setvar VAR_TEMP_4, \move2
+	setvar VAR_TEMP_5, \move3
+	setvar VAR_TEMP_6, \move4
+	specialvar VAR_RESULT, GiveSpecialEgg
+	.endm
+
 	@ Replaces the move at 'slot' of the Pokémon in the player's party at 'partyIndex' with the specified move.
 	@ If a value greater than PARTY_SIZE is given for partyIndex it will use the last Pokémon in the party instead.
 	@ Note that this means in vanilla a value equal to PARTY_SIZE for partyIndex will go out of bounds.

@@ -1578,7 +1578,7 @@ bool8 ScrCmd_bufferleadmonspeciesname(struct ScriptContext *ctx)
 bool8 ScrCmd_bufferpartymonnick(struct ScriptContext *ctx)
 {
     u8 stringVarIndex = ScriptReadByte(ctx);
-    u16 partyIndex = VarGet(ScriptReadHalfword(ctx));
+    u8 partyIndex = ScriptReadByte(ctx);
 
     GetMonData(&gPlayerParty[partyIndex], MON_DATA_NICKNAME, sScriptStringVars[stringVarIndex]);
     StringGet_Nickname(sScriptStringVars[stringVarIndex]);
@@ -1710,7 +1710,7 @@ bool8 ScrCmd_giveegg(struct ScriptContext *ctx)
 
 bool8 ScrCmd_setmonmove(struct ScriptContext *ctx)
 {
-    u8 partyIndex = ScriptReadByte(ctx);
+    u8 partyIndex = VarGet(ScriptReadHalfword(ctx));
     u8 slot = ScriptReadByte(ctx);
     u16 move = ScriptReadHalfword(ctx);
 

@@ -56,6 +56,7 @@
 #include "constants/weather.h"
 #include "constants/battle_transition.h"
 #include "constants/infobox.h"
+#include "constants/region_map_sections.h"
 	.include "asm/macros.inc"
 	.include "asm/macros/event.inc"
 	.include "constants/constants.inc"
@@ -947,7 +948,6 @@ gText_LegendaryFlewAway::
 	.string "The {STR_VAR_1} flew away!$"
 
 	.include "data/text/pc_transfer.inc"
-	.include "data/text/questionnaire.inc"
 	.include "data/text/abnormal_weather.inc"
 
 EventScript_SelectWithoutRegisteredItem::
