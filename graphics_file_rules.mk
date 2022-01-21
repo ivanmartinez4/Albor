@@ -112,9 +112,6 @@ $(TILESETGFXDIR)/secondary/pokemon_school/tiles.4bpp: %.4bpp: %.png
 $(TILESETGFXDIR)/secondary/pokemon_fan_club/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 319
 
-$(TILESETGFXDIR)/secondary/unused_1/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 17
-
 $(TILESETGFXDIR)/secondary/meteor_falls/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 460
 
@@ -132,24 +129,6 @@ $(TILESETGFXDIR)/secondary/pretty_petal_flower_shop/tiles.4bpp: %.4bpp: %.png
 
 $(TILESETGFXDIR)/secondary/pokemon_day_care/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 355
-
-$(TILESETGFXDIR)/secondary/secret_base/brown_cave/unused_tiles.4bpp: $(TILESETGFXDIR)/secondary/secret_base/brown_cave/tiles.png
-	$(GFX) $< $@ -num_tiles 82
-
-$(TILESETGFXDIR)/secondary/secret_base/tree/unused_tiles.4bpp: $(TILESETGFXDIR)/secondary/secret_base/tree/tiles.png
-	$(GFX) $< $@ -num_tiles 82
-
-$(TILESETGFXDIR)/secondary/secret_base/shrub/unused_tiles.4bpp: $(TILESETGFXDIR)/secondary/secret_base/shrub/tiles.png
-	$(GFX) $< $@ -num_tiles 82
-
-$(TILESETGFXDIR)/secondary/secret_base/blue_cave/unused_tiles.4bpp: $(TILESETGFXDIR)/secondary/secret_base/blue_cave/tiles.png
-	$(GFX) $< $@ -num_tiles 82
-
-$(TILESETGFXDIR)/secondary/secret_base/yellow_cave/unused_tiles.4bpp: $(TILESETGFXDIR)/secondary/secret_base/yellow_cave/tiles.png
-	$(GFX) $< $@ -num_tiles 82
-
-$(TILESETGFXDIR)/secondary/secret_base/red_cave/unused_tiles.4bpp: $(TILESETGFXDIR)/secondary/secret_base/red_cave/tiles.png
-	$(GFX) $< $@ -num_tiles 82
 
 $(TILESETGFXDIR)/secondary/secret_base/brown_cave/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 83
@@ -189,9 +168,6 @@ $(TILESETGFXDIR)/secondary/generic_building/tiles.4bpp: %.4bpp: %.png
 
 $(TILESETGFXDIR)/secondary/mauville_game_corner/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 469
-
-$(TILESETGFXDIR)/secondary/unused_2/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 150
 
 $(TILESETGFXDIR)/secondary/rustboro_gym/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 60

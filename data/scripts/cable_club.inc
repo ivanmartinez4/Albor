@@ -24,7 +24,6 @@ CableClub_OnLoad:
 	goto_if_eq VAR_CABLE_CLUB_STATE, USING_MULTI_BATTLE, CableClub_EventScript_OnLoadFromColosseum
 	goto_if_eq VAR_CABLE_CLUB_STATE, USING_TRADE_CENTER, CableClub_EventScript_OnLoadFromTradeCenter
 	goto_if_eq VAR_CABLE_CLUB_STATE, USING_RECORD_CORNER, CableClub_EventScript_OnLoadFromRecordCorner
-	goto_if_eq VAR_CABLE_CLUB_STATE, USING_UNION_ROOM, CableClub_EventScript_OnLoadFromUnionRoom
 	goto_if_eq VAR_CABLE_CLUB_STATE, USING_BERRY_CRUSH, CableClub_EventScript_OnLoadFromBerryCrush
 	goto_if_eq VAR_CABLE_CLUB_STATE, USING_MINIGAME, CableClub_EventScript_OnLoadFromGameCorner
 	end
@@ -39,10 +38,6 @@ CableClub_EventScript_OnLoadFromTradeCenter::
 
 CableClub_EventScript_OnLoadFromRecordCorner::
 	call CableClub_EventScript_OpenDirectCornerBarrier
-	end
-
-CableClub_EventScript_OnLoadFromUnionRoom::
-	call CableClub_EventScript_OpenUnionRoomBarrier
 	end
 
 CableClub_EventScript_OnLoadFromBerryCrush::
@@ -60,7 +55,6 @@ CableClub_OnFrame:
 	map_script_2 VAR_CABLE_CLUB_STATE, USING_MULTI_BATTLE, CableClub_EventScript_ExitLinkRoom
 	map_script_2 VAR_CABLE_CLUB_STATE, USING_TRADE_CENTER, CableClub_EventScript_ExitTradeCenter
 	map_script_2 VAR_CABLE_CLUB_STATE, USING_RECORD_CORNER, CableClub_EventScript_ExitRecordCorner
-	map_script_2 VAR_CABLE_CLUB_STATE, USING_UNION_ROOM, CableClub_EventScript_ExitUnionRoom
 	map_script_2 VAR_CABLE_CLUB_STATE, USING_BERRY_CRUSH, CableClub_EventScript_ExitLinkRoom
 	map_script_2 VAR_CABLE_CLUB_STATE, USING_MINIGAME, CableClub_EventScript_ExitMinigameRoom
 	.2byte 0
@@ -137,26 +131,6 @@ CableClub_EventScript_PlayerExitRecordCorner::
 	applymovement VAR_0x8007, Movement_AttendantFaceDown
 	waitmovement 0
 CableClub_EventScript_ExitRecordCornerRet::
-	return
-
-CableClub_EventScript_ExitUnionRoom::
-	lockall
-	call CableClub_EventScript_PlayerExitUnionRoom
-	call CableClub_EventScript_CloseUnionRoomBarrier
-	special DrawWholeMapView
-	playse SE_CLICK
-	erasebox 0, 0, 29, 19
-	releaseall
-	end
-
-CableClub_EventScript_PlayerExitUnionRoom::
-	setvar VAR_CABLE_CLUB_STATE, 0
-	goto_if_eq VAR_0x8007, 0, CableClub_EventScript_PlayerExitLinkRoom
-	applymovement OBJ_EVENT_ID_PLAYER, Movement_PlayerFaceAttendantRight
-	waitmovement 0
-	applymovement VAR_0x8007, Movement_AttendantFaceLeft
-	waitmovement 0
-	call CableClub_EventScript_TrainerCardDataOverwritten
 	return
 
 CableClub_EventScript_TrainerCardDataOverwritten::
@@ -804,92 +778,6 @@ EventScript_DoLinkRoomExit::
 	waitstate
 	end
 
-CableClub_EventScript_UnionRoomAttendant::
-	lock
-	faceplayer
-	setvar VAR_FRONTIER_FACILITY, FACILITY_UNION_ROOM
-	goto_if_unset FLAG_SYS_POKEDEX_GET, CableClub_EventScript_WirelessClubAdjustements
-	specialvar VAR_RESULT, IsBadEggInParty
-	goto_if_eq VAR_RESULT, TRUE, CableClub_EventScript_AbortLinkPlayerHasBadEgg
-	copyvar VAR_0x8007, VAR_LAST_TALKED
-	specialvar VAR_RESULT, IsWirelessAdapterConnected
-	goto_if_eq VAR_RESULT, FALSE, CableClub_EventScript_UnionRoomAdapterNotConnected
-	message CableClub_Text_WelcomeUnionRoomEnter
-	waitmessage
-	goto CableClub_EventScript_UnionRoomSelect
-	end
-
-CableClub_EventScript_UnionRoomSelect::
-	multichoice 17, 6, MULTI_YESNOINFO, FALSE
-	switch VAR_RESULT
-	case 0, CableClub_EventScript_EnterUnionRoom
-	case 1, CableClub_EventScript_AbortLink
-	case 2, CableClub_EventScript_UnionRoomInfo
-	case MULTI_B_PRESSED, CableClub_EventScript_AbortLink
-	end
-
-CableClub_EventScript_UnionRoomInfo::
-	message CableClub_Text_UnionRoomInfo
-	waitmessage
-	goto CableClub_EventScript_UnionRoomSelect
-	end
-
-CableClub_EventScript_EnterUnionRoom::
-	call CableClub_EventScript_CheckPartyUnionRoomRequirements
-	goto_if_eq VAR_RESULT, 0, CableClub_EventScript_AbortLink
-	call Common_EventScript_SaveGame
-	goto_if_eq VAR_RESULT, 0, CableClub_EventScript_AbortLink
-	msgbox CableClub_Text_EnjoyUnionRoom, MSGBOX_DEFAULT
-	closemessage
-	special HealPlayerParty
-	setvar VAR_0x8004, USING_UNION_ROOM
-	copyvar VAR_CABLE_CLUB_STATE, VAR_0x8004
-	call CableClub_EventScript_OpenUnionRoomBarrier
-	special DrawWholeMapView
-	playse SE_CLICK
-	delay 60
-	applymovement VAR_LAST_TALKED, Movement_AttendantFaceLeft
-	waitmovement 0
-	applymovement OBJ_EVENT_ID_PLAYER, Movement_PlayerApproachLinkRoomLeft
-	waitmovement 0
-	opendoor 5, 1
-	waitdooranim
-	applymovement OBJ_EVENT_ID_PLAYER, Movement_PlayerEnterLinkRoom
-	waitmovement 0
-	hideobjectat OBJ_EVENT_ID_PLAYER, 0
-	closedoor 5, 1
-	waitdooranim
-	special Script_ResetUnionRoomTrade
-	special SetCableClubWarp
-	warpspinenter MAP_UNION_ROOM, 7, 11
-	waitstate
-	special RunUnionRoom
-	waitstate
-	end
-
-CableClub_EventScript_CheckPartyUnionRoomRequirements::
-	specialvar VAR_RESULT, CountPartyNonEggMons
-	goto_if_lt VAR_RESULT, 2, CableClub_EventScript_NeedTwoMonsForUnionRoom
-	specialvar VAR_RESULT, DoesPartyHaveEnigmaBerry
-	goto_if_eq VAR_RESULT, TRUE, CableClub_EventScript_NoEnigmaBerryInUnionRoom
-	setvar VAR_RESULT, 1
-	return
-
-CableClub_EventScript_NeedTwoMonsForUnionRoom::
-	msgbox CableClub_Text_NeedTwoMonsForUnionRoom, MSGBOX_DEFAULT
-	goto EventScript_CableClub_SetVarResult0
-	end
-
-CableClub_EventScript_NoEnigmaBerryInUnionRoom::
-	msgbox CableClub_Text_NoEnigmaBerryInUnionRoom, MSGBOX_DEFAULT
-	goto EventScript_CableClub_SetVarResult0
-	end
-
-CableClub_EventScript_UnionRoomAdapterNotConnected::
-	msgbox CableClub_Text_UnionRoomAdapterNotConnected, MSGBOX_DEFAULT
-	release
-	return
-
 CableClub_EventScript_WirelessClubAttendant::
 	lock
 	faceplayer
@@ -1179,16 +1067,6 @@ CableClub_EventScript_AdapterNotConnected::
 	msgbox CableClub_Text_AdapterNotConnected, MSGBOX_DEFAULT
 	releaseall
 	end
-
-CableClub_EventScript_OpenUnionRoomBarrier::
-	setmetatile 5, 2, METATILE_PokemonCenter_Floor_ShadowTop_Alt, FALSE
-	setmetatile 5, 3, METATILE_PokemonCenter_Floor_Plain_Alt, FALSE
-	return
-
-CableClub_EventScript_CloseUnionRoomBarrier::
-	setmetatile 5, 2, METATILE_PokemonCenter_Floor_ShadowTop, TRUE
-	setmetatile 5, 3, METATILE_PokemonCenter_CounterBarrier, TRUE
-	return
 
 CableClub_EventScript_OpenDirectCornerBarrier::
 	setmetatile 9, 2, METATILE_PokemonCenter_Floor_ShadowTop_Alt, FALSE

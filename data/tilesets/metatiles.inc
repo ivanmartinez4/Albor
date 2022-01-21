@@ -175,14 +175,6 @@ gMetatileAttributes_PokemonFanClub::
 	.incbin "data/tilesets/secondary/pokemon_fan_club/metatile_attributes.bin"
 
 	.align 1
-gMetatiles_Unused1::
-	.incbin "data/tilesets/secondary/unused_1/metatiles.bin"
-
-	.align 1
-gMetatileAttributes_Unused1::
-	.incbin "data/tilesets/secondary/unused_1/metatile_attributes.bin"
-
-	.align 1
 gMetatiles_MeteorFalls::
 	.incbin "data/tilesets/secondary/meteor_falls/metatiles.bin"
 
@@ -325,14 +317,6 @@ gMetatiles_MauvilleGameCorner::
 	.align 1
 gMetatileAttributes_MauvilleGameCorner::
 	.incbin "data/tilesets/secondary/mauville_game_corner/metatile_attributes.bin"
-
-	.align 1
-gMetatiles_Unused2::
-	.incbin "data/tilesets/secondary/unused_2/metatiles.bin"
-
-	.align 1
-gMetatileAttributes_Unused2::
-	.incbin "data/tilesets/secondary/unused_2/metatile_attributes.bin"
 
 	.align 1
 gMetatiles_RustboroGym::
