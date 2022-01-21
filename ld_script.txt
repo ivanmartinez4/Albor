@@ -689,7 +689,6 @@ SECTIONS {
         src/text_input_strings.o(.rodata);
         src/fonts.o(.rodata);
         src/mystery_event_msg.o(.rodata);
-        data/mystery_gift.o(.rodata);
         src/debug.o(.rodata);
         src/wonder_trade.o(.rodata);
         src/infobox.o(.rodata);
