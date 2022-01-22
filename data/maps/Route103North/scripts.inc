@@ -97,12 +97,20 @@ Route103North_EventScript_StartBrendanBattleMudkip::
 
 Route103North_EventScript_AfterMayBattle::
 	msgbox Route103_Text_MayTimeToHeadBack, MSGBOX_DEFAULT
+	msgbox Route103_Text_MayLetMeHealIt, MSGBOX_DEFAULT
+	closemessage
+	call Common_EventScript_OutOfCenterPartyHeal
+	msgbox Route103_Text_MayTimeToHeadBack2, MSGBOX_DEFAULT
 	clearflag FLAG_DISABLE_MONEY_REWARD
 	goto Route103North_EventScript_RivalExit
 	end
 
 Route103North_EventScript_AfterBrendanBattle::
 	msgbox Route103_Text_BrendanTimeToHeadBack, MSGBOX_DEFAULT
+	msgbox Route103_Text_BrendanLetMeHealItUp, MSGBOX_DEFAULT
+	closemessage
+	call Common_EventScript_OutOfCenterPartyHeal
+	msgbox Route103_Text_BrendanTimeToHeadBack2, MSGBOX_DEFAULT
 	clearflag FLAG_DISABLE_MONEY_REWARD
 	goto Route103North_EventScript_RivalExit
 	end
@@ -301,9 +309,15 @@ Route103_Text_MayTimeToHeadBack:
 	.string "I mean, you just got that POKéMON,\n"
 	.string "but it already likes you.\p"
 	.string "You might be able to befriend any\n"
-	.string "kind of POKéMON easily.\p"
+	.string "kind of POKéMON easily.$"
+
+Route103_Text_MayLetMeHealIt:
+	.string "Let me heal it for you.$"
+
+Route103_Text_MayTimeToHeadBack2:
 	.string "Well, it's time to head back to\n"
-	.string "the LAB.$"
+	.string "the LAB.\p"
+	.string "See you there, {PLAYER}!$"
 
 Route103_Text_BrendanRoute103Pokemon:
 	.string "{RIVAL}: Okay, so it's this one and\n"
@@ -330,9 +344,16 @@ Route103_Text_BrendanTimeToHeadBack:
 	.string "out for you now.\p"
 	.string "Look, your POKéMON already likes you,\n"
 	.string "even though you just got it.\p"
-	.string "{PLAYER}, I get the feeling that you\n"
-	.string "could befriend any POKéMON with ease.\p"
-	.string "We should head back to the LAB.$"
+	.string "I feel that you could befriend\n"
+	.string "any POKéMON with ease, {PLAYER}.$"
+
+Route103_Text_BrendanLetMeHealItUp:
+	.string "Here, let me heal it up.$"
+
+Route103_Text_BrendanTimeToHeadBack2:
+	.string "Alright then, I think we should\n"
+	.string "head back to the LAB now.\p"
+	.string "See you there.$"
 
 Route103_Text_MayRoute103Postgame:
 	.string "{RIVAL}: How strange… that POKéMON\n"
