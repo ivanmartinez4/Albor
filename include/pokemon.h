@@ -9,14 +9,14 @@
 
 #define GET_BASE_SPECIES_ID(speciesId) (GetFormSpeciesId(speciesId, 0))
 
-struct BoxPokemon
+struct __attribute__((packed, aligned(2))) BoxPokemon
 {
     // Words 1 & 2: PID + Trainer ID
     u32 personality;
     u32 otId;
 
     // Words 3-5: Pokémon nickname (12 chars)
-    u8 nickname[12];
+    u8 nickname[POKEMON_NAME_LENGTH];
 
     // Word 6: Species + Experience points (used to derive level)
     u32 species:11;
@@ -28,7 +28,6 @@ struct BoxPokemon
     u32 language:3;
     u32 gender:1;
     u32 friendship:8;
-
     u32 move3:10;
     u32 move4:10;
     u32 pokerus:4;
@@ -39,18 +38,13 @@ struct BoxPokemon
     u8 attackEV;
     u8 defenseEV;
     u8 speedEV;
-
     u8 spAttackEV;
     u8 spDefenseEV;
-
-    // Contest garbage (6 bytes)
     u8 cool;
     u8 beauty;
-
     u8 cute;
     u8 smart;
     u8 tough;
-    u8 sheen;
 
     // Word 12: miscellaneous data; item, formId, Egg and origin data
     u32 heldItem:10;
@@ -58,7 +52,7 @@ struct BoxPokemon
     u32 isEgg:1;
     u32 metLevel:7;
     u32 metGame:3;
-    u16 pokeball:5; //31 balls
+    u16 pokeball:5; // 31 balls
     u32 otGender:1;
 
     // Words 13 & 14: Trainer name + met location
@@ -85,11 +79,6 @@ struct BoxPokemon
     u32 victoryRibbon:1;
     u32 artistRibbon:1;
     u32 effortRibbon:1;
-    u32 countryRibbon:1; // distributed during Pokémon Festa '04 and '05 to tournament winners
-    u32 nationalRibbon:1;
-    u32 earthRibbon:1;
-    u32 worldRibbon:1; // distributed during Pokémon Festa '04 and '05 to tournament winners
-    u32 eventLegal:1;
     u32 markings:4;
 
     // Word 17: Date Met
@@ -301,11 +290,8 @@ void CreateBattleTowerMon_HandleLevel(struct Pokemon *mon, struct BattleTowerPok
 void CreateApprenticeMon(struct Pokemon *mon, const struct Apprentice *src, u8 monId);
 void CreateMonWithEVSpreadNatureOTID(struct Pokemon *mon, u16 species, u8 level, u8 nature, u8 fixedIV, u8 evSpread, u32 otId);
 void ConvertPokemonToBattleTowerPokemon(struct Pokemon *mon, struct BattleTowerPokemon *dest);
-void CreateEventLegalMon(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV, u8 hasFixedPersonality, u32 fixedPersonality, u8 otIdType, u32 fixedOtId);
-bool8 ShouldIgnoreDeoxysForm(u8 caseId, u8 battlerId);
 u16 GetUnionRoomTrainerPic(void);
 u16 GetUnionRoomTrainerClass(void);
-void CreateEventLegalEnemyMon(void);
 void CalculateMonStats(struct Pokemon *mon);
 void BoxMonToMon(const struct BoxPokemon *src, struct Pokemon *dest);
 u8 GetLevelFromMonExp(struct Pokemon *mon);
