@@ -1034,3 +1034,8 @@ u8 CountUsedKeyItemSlots(void)
     }
     return usedSlots;
 }
+
+u8 ItemId_GetFlingPower(u16 itemId)
+{
+    return gItems[SanitizeItemId(itemId)].flingPower;
+}
