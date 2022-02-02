@@ -188,29 +188,6 @@ struct Pokedex
     /*0x08*/ u32 spindaPersonality; // set when you first see Spinda
 };
 
-struct PokemonJumpRecords
-{
-    u16 jumpsInRow;
-    u16 excellentsInRow;
-    u16 gamesWithMaxPlayers;
-    u32 bestJumpScore;
-};
-
-struct BerryPickingResults
-{
-    u32 bestScore;
-    u16 berriesPicked;
-    u16 berriesPickedInRow;
-    u8 field_8;
-    u8 field_9;
-    u8 field_A;
-    u8 field_B;
-    u8 field_C;
-    u8 field_D;
-    u8 field_E;
-    u8 field_F;
-};
-
 struct PyramidBag
 {
     u16 itemId[FRONTIER_LVL_MODE_COUNT][PYRAMID_BAG_ITEMS_COUNT];
@@ -464,7 +441,6 @@ struct SaveBlock2
     /*0xB0*/ struct PlayersApprentice playerApprentice;
     /*0xDC*/ struct Apprentice apprentices[APPRENTICE_COUNT];
     /*0x1EC*/ struct BerryCrush berryCrush;
-    /*0x20C*/ struct BerryPickingResults berryPick;
     /*0x624*/ u16 contestLinkResults[CONTEST_CATEGORIES_COUNT][CONTESTANT_COUNT];
     /*0x64C*/ struct BattleFrontier frontier;
               bool8 autoRun;
