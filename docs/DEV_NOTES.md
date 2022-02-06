@@ -22,6 +22,7 @@ I wrote this... I don't know, sometime ago, but I never thought about storing it
 #### That means things that I should do as fast as possible.
 
 * Finish the dusk time palettes for the Day/Night system and merge it.
+  * But before that I should try to merge Merrrp's branch which also includes a dynamic overworld palette system, overworld shadows and following Pokémon.
 * Tweak Chain Capture
   * Reduce 10% chance to find 6x31 after 60 captures to 5% instead.
   * Don't break the chain if the Player moves to another map.
@@ -112,14 +113,13 @@ I wrote this... I don't know, sometime ago, but I never thought about storing it
   * Maybe 2; one to replace Mossdeep City's minigame house and one to replace Sootopolis' battle house.
   * The houses would present a challenge of 9 battles, and a 10th with a special guest selected randomly.
   * There would be a different special guest for each house, and they would always give a reward to the Player, also chosen randomly.
-* Add Cresselia to the cave in Route 103 North. It'll drop the Lunar Wing if caught or defeated.
+* Turn the cave in Route 103 North into something similar to BW2's Cave of Being. The Lake Guardians will be there.
+  * Just like in DPPtBDSP, Mesprit will be a roamer.
+* Implement Crescent Isle. The Player will board the S.S. Tidal to go there and catch Cresselia. It'll drop the Lunar Wing if caught or defeated.
 * Let the Player visit a lore-wise nightmare replica of Newmoon Island through Rustboro City's Walda using the Lunar Wing, where Darkrai will be able to be caught.
 * Fit Courtney better into the plot, and maybe add some callbacks to the Mega Event in some places such as the battle in Mossdeep City or the battle with Champion Steven
-* Add a battle with Ultima *(Pokémon Adventures)* right after the Spiritomb event, during the postgame.
-  * Before the battle, she will tell the Player more about Spiritomb.
-  * She will give a Johto starter egg to the Player. Totodile's by default, but it'll depend on whether the Player has already gotten one from Birch or not.
 * Make the legendaries respawn once every time the Player completes the Pokémon League until they're caught, just like in the newer official games.
-* After the next RHH merge, rename the Mega Ring back to Mega Bracelet.
+* Rename the Mega Ring back to Mega Bracelet.
 * Try to get rid of Mails entirely.
 * Modify the gym statues' text to mention the rivals as they defeat each gym just like in other games.
 * Remove the Match Call and port the VS Seeker from Pokefirered.
@@ -185,6 +185,10 @@ I wrote this... I don't know, sometime ago, but I never thought about storing it
   * Inspired by [Lucidious89's script for Pokémon Essentials](https://www.pokecommunity.com/showthread.php?t=356862).
 * Do a bit of summary screen reworking
   * Show EV and IV in the 2nd page of the summary screen, alongside stat points. [Example](pics/stats.jpg).
+* Instead of opening a prompt to run away, [move the cursor over to "Run" when B is pressed in battle](https://github.com/Deokishisu/FRLG-Plus/commit/6d55b702ab147806e3e78a0aba6d6c1c9e917f29).
+* Allow to release Bad Eggs from the PC.
+* Update some Pokémon's base held items taking inspiration from Legends Arceus.
+* Make the Apricorns obtainable and cook something similar to the fossil selection to craft Apricorn Balls, perhaps in Rustboro.
 
 ## Misc. Notes
 
