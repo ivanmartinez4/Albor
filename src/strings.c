@@ -1818,3 +1818,6 @@ const u8 gText_Month_December[] = _("Dec.");
 const u8 gText_BattleTypeEffectiveness[] = _("BATTLE TYPE EFF.");
 const u8 gText_OptionMenuHide[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}HIDE");
 const u8 gText_OptionMenuShow[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}SHOW");
+
+// Relearning moves from the party screen
+const u8 gText_Moves_Menu[] = _("Change Moves");

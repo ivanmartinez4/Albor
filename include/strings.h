@@ -3143,4 +3143,7 @@ extern const u8 gText_BattleTypeEffectiveness[];
 extern const u8 gText_OptionMenuHide[];
 extern const u8 gText_OptionMenuShow[];
 
+// Relearning moves from the party screen
+extern const u8 gText_Moves_Menu[];
+
 #endif // GUARD_STRINGS_H
