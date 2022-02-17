@@ -185,7 +185,6 @@ I wrote this... I don't know, sometime ago, but I never thought about storing it
   * Inspired by [Lucidious89's script for Pokémon Essentials](https://www.pokecommunity.com/showthread.php?t=356862).
 * Do a bit of summary screen reworking
   * Show EV and IV in the 2nd page of the summary screen, alongside stat points. [Example](pics/stats.jpg).
-* Instead of opening a prompt to run away, [move the cursor over to "Run" when B is pressed in battle](https://github.com/Deokishisu/FRLG-Plus/commit/6d55b702ab147806e3e78a0aba6d6c1c9e917f29).
 * Allow to release Bad Eggs from the PC.
 * Update some Pokémon's base held items taking inspiration from Legends Arceus.
 * Make the Apricorns obtainable and cook something similar to the fossil selection to craft Apricorn Balls, perhaps in Rustboro.
