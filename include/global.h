@@ -433,8 +433,7 @@ struct SaveBlock2
              u16 optionsBattleStyle:1; // OPTIONS_BATTLE_STYLE_[SHIFT/SET]
              u16 optionsBattleSceneOff:1; // whether battle animations are disabled
              u16 regionMapZoom:1; // whether the map is zoomed in
-             u16 expShare:1;
-             u16 optionsBattleTypeEffectiveness:1; // OPTIONS_TYPE_EFFECTIVENESS_[HIDE/SHOW]
+             u16 optionsBattleTypeEff:1; // OPTIONS_BATTLE_TYPE_EFFECTIVENESS_[HIDE/SHOW]
     /*0x18*/ struct Pokedex pokedex;
     /*0x98*/ struct Time localTimeOffset;
     /*0xA0*/ struct Time lastBerryTreeUpdate;
@@ -443,6 +442,7 @@ struct SaveBlock2
     /*0x1EC*/ struct BerryCrush berryCrush;
     /*0x624*/ u16 contestLinkResults[CONTEST_CATEGORIES_COUNT][CONTESTANT_COUNT];
     /*0x64C*/ struct BattleFrontier frontier;
+              u16 expShare:1;
               bool8 autoRun;
               u8 costumeId;
               u8 rivalName[PLAYER_NAME_LENGTH + 1];

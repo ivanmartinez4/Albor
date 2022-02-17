@@ -95,7 +95,7 @@ static void SetDefaultOptions(void)
     gSaveBlock2Ptr->optionsBattleStyle = OPTIONS_BATTLE_STYLE_SET;
     gSaveBlock2Ptr->optionsBattleSceneOff = FALSE;
     gSaveBlock2Ptr->regionMapZoom = FALSE;
-    gSaveBlock2Ptr->optionsBattleTypeEffectiveness = OPTIONS_BATTLE_TYPE_EFFECTIVENESS_HIDE;
+    gSaveBlock2Ptr->optionsBattleTypeEff = OPTIONS_BATTLE_TYPE_EFFECTIVENESS_HIDE;
 }
 
 static void ClearPokedexFlags(void)
@@ -202,9 +202,9 @@ void NewGameInitData(void)
     WipeTrainerNameRecords();
     ResetTrainerHillResults();
     ResetContestLinkResults();
-    gSaveBlock2Ptr->expShare = 0;
+    gSaveBlock2Ptr->expShare = FALSE;
     gSaveBlock2Ptr->autoRun = FALSE;
-    gSaveBlock2Ptr->costumeId = 0;
+    gSaveBlock2Ptr->costumeId = DEFAULT_COSTUME;
     RtcCalcLocalTime();
 }
 
