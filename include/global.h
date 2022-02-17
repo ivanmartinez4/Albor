@@ -434,6 +434,7 @@ struct SaveBlock2
              u16 optionsBattleSceneOff:1; // whether battle animations are disabled
              u16 regionMapZoom:1; // whether the map is zoomed in
              u16 optionsBattleTypeEff:1; // OPTIONS_BATTLE_TYPE_EFFECTIVENESS_[HIDE/SHOW]
+             u16 optionsQuickLoadOff:1; // OPTIONS_QUICK_LOAD[ON/OFF]
     /*0x18*/ struct Pokedex pokedex;
     /*0x98*/ struct Time localTimeOffset;
     /*0xA0*/ struct Time lastBerryTreeUpdate;

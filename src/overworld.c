@@ -1705,50 +1705,53 @@ void CB2_ContinueSavedGame(void)
 {
     u8 trainerHillMapId;
 
-    FieldClearVBlankHBlankCallbacks();
-    StopMapMusic();
-    ResetSafariZoneFlag_();
-    if (gSaveFileStatus == SAVE_STATUS_ERROR)
-        ResetWinStreaks();
-
-    LoadSaveblockMapHeader();
-    ClearDiveAndHoleWarps();
-    trainerHillMapId = GetCurrentTrainerHillMapId();
-    if (gMapHeader.mapLayoutId == LAYOUT_BATTLE_FRONTIER_BATTLE_PYRAMID_FLOOR)
-        LoadBattlePyramidFloorObjectEventScripts();
-    else if (trainerHillMapId != 0 && trainerHillMapId != TRAINER_HILL_ENTRANCE)
-        LoadTrainerHillFloorObjectEventScripts();
-    else
-        LoadSaveblockObjEventScripts();
-
-    UnfreezeObjectEvents();
-    DoTimeBasedEvents();
-    UpdateMiscOverworldStates();
-    if (gMapHeader.mapLayoutId == LAYOUT_BATTLE_FRONTIER_BATTLE_PYRAMID_FLOOR)
-        InitBattlePyramidMap(TRUE);
-    else if (trainerHillMapId != 0)
-        InitTrainerHillMap();
-    else
-        InitMapFromSavedGame();
-
-    PlayTimeCounter_Start();
-    ScriptContext1_Init();
-    ScriptContext2_Disable();
-    InitMatchCallCounters();
-    if (UseContinueGameWarp() == TRUE)
+    if (++gMain.state == 60)
     {
-        ClearContinueGameWarpStatus();
-        SetWarpDestinationToContinueGameWarp();
-        WarpIntoMap();
-        TryPutTodaysRivalTrainerOnAir();
-        SetMainCallback2(CB2_LoadMap);
-    }
-    else
-    {
-        TryPutTodaysRivalTrainerOnAir();
-        gFieldCallback = FieldCB_FadeTryShowMapPopup;
-        SetMainCallback1(CB1_Overworld);
-        CB2_ReturnToField();
+        FieldClearVBlankHBlankCallbacks();
+        StopMapMusic();
+        ResetSafariZoneFlag_();
+        if (gSaveFileStatus == SAVE_STATUS_ERROR)
+            ResetWinStreaks();
+
+        LoadSaveblockMapHeader();
+        ClearDiveAndHoleWarps();
+        trainerHillMapId = GetCurrentTrainerHillMapId();
+        if (gMapHeader.mapLayoutId == LAYOUT_BATTLE_FRONTIER_BATTLE_PYRAMID_FLOOR)
+            LoadBattlePyramidFloorObjectEventScripts();
+        else if (trainerHillMapId != 0 && trainerHillMapId != TRAINER_HILL_ENTRANCE)
+            LoadTrainerHillFloorObjectEventScripts();
+        else
+            LoadSaveblockObjEventScripts();
+
+        UnfreezeObjectEvents();
+        DoTimeBasedEvents();
+        UpdateMiscOverworldStates();
+        if (gMapHeader.mapLayoutId == LAYOUT_BATTLE_FRONTIER_BATTLE_PYRAMID_FLOOR)
+            InitBattlePyramidMap(TRUE);
+        else if (trainerHillMapId != 0)
+            InitTrainerHillMap();
+        else
+            InitMapFromSavedGame();
+
+        PlayTimeCounter_Start();
+        ScriptContext1_Init();
+        ScriptContext2_Disable();
+        InitMatchCallCounters();
+        if (UseContinueGameWarp() == TRUE)
+        {
+            ClearContinueGameWarpStatus();
+            SetWarpDestinationToContinueGameWarp();
+            WarpIntoMap();
+            TryPutTodaysRivalTrainerOnAir();
+            SetMainCallback2(CB2_LoadMap);
+        }
+        else
+        {
+            TryPutTodaysRivalTrainerOnAir();
+            gFieldCallback = FieldCB_FadeTryShowMapPopup;
+            SetMainCallback1(CB1_Overworld);
+            CB2_ReturnToField();
+        }
     }
 }
 

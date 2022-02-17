@@ -22,6 +22,7 @@
 #include "constants/rgb.h"
 #include "constants/songs.h"
 #include "random.h"
+#include "overworld.h"
 
 #define VERSION_BANNER_RIGHT_TILEOFFSET 64
 #define VERSION_BANNER_LEFT_X 98
@@ -756,7 +757,10 @@ static void Task_TitleScreenPhase3(u8 taskId)
         if (IsCryFinished())
         {
             FadeOutBGM(4);
-            BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 0x10, RGB_WHITEALPHA);
+            if (!gSaveBlock2Ptr->optionsQuickLoadOff)
+                BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 0x10, RGB_BLACK);
+            else
+                BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 0x10, RGB_WHITEALPHA);
             SetMainCallback2(CB2_GoToMainMenu);
         }
     }
@@ -793,7 +797,17 @@ static void Task_TitleScreenPhase3(u8 taskId)
 static void CB2_GoToMainMenu(void)
 {
     if (!UpdatePaletteFade())
-        SetMainCallback2(CB2_InitMainMenu);
+    {
+        if (!gSaveBlock2Ptr->optionsQuickLoadOff)
+        {
+            gMain.state = 0;
+            SetMainCallback2(CB2_ContinueSavedGame);
+        }
+        else
+        {
+            SetMainCallback2(CB2_InitMainMenu);
+        }
+    }
 }
 
 static void CB2_GoToCopyrightScreen(void)

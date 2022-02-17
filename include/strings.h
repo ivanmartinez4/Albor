@@ -3142,6 +3142,7 @@ extern const u8 gText_Month_December[];
 extern const u8 gText_BattleTypeEffectiveness[];
 extern const u8 gText_OptionMenuHide[];
 extern const u8 gText_OptionMenuShow[];
+extern const u8 gText_QuickLoad[];
 
 // Relearning moves from the party screen
 extern const u8 gText_Moves_Menu[];
