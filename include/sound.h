@@ -3,6 +3,8 @@
 
 #include "constants/sound.h"
 
+extern bool8 gDisableMusic;
+
 void InitMapMusic(void);
 void MapMusicMain(void);
 void ResetMapMusic(void);

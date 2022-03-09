@@ -16,6 +16,7 @@
 #include "gba/m4a_internal.h"
 #include "constants/rgb.h"
 #include "malloc.h"
+#include "sound.h"
 
 // Menu items
 enum
@@ -63,6 +64,7 @@ static void DrawChoices_ButtonMode(int selection, int y);
 static void DrawChoices_FrameType(int selection, int y);
 static void DrawChoices_QuickLoad(int selection, int y);
 static void DrawChoices_Options_Four(const u8 *const *const strings, int selection, int y);
+static int ProcessInput_Sound(int selection);
 static int ProcessInput_FrameType(int selection);
 static int ProcessInput_TwoOptions(int selection);
 static int ProcessInput_ThreeOptions(int selection);
@@ -81,7 +83,7 @@ struct
     [MENUITEM_BATTLESCENE]   = {DrawChoices_BattleScene,   ProcessInput_TwoOptions},
     [MENUITEM_BATTLESTYLE]   = {DrawChoices_BattleStyle,   ProcessInput_TwoOptions},
     [MENUITEM_BATTLETYPEEFF] = {DrawChoices_BattleTypeEff, ProcessInput_TwoOptions},
-    [MENUITEM_SOUND]         = {DrawChoices_Sound,         ProcessInput_TwoOptions},
+    [MENUITEM_SOUND]         = {DrawChoices_Sound,         ProcessInput_Sound},
     [MENUITEM_BUTTONMODE]    = {DrawChoices_ButtonMode,    ProcessInput_ThreeOptions},
     [MENUITEM_FRAMETYPE]     = {DrawChoices_FrameType,     ProcessInput_FrameType},
     [MENUITEM_QUICKLOAD]     = {DrawChoices_QuickLoad,     ProcessInput_TwoOptions},
@@ -587,12 +589,13 @@ static void DrawChoices_BattleTypeEff(int selection, int y)
 
 static void DrawChoices_Sound(int selection, int y)
 {
-    u8 styles[2] = {0};
+    u8 styles[3] = {0};
+    int xMid = GetMiddleX(gText_SoundMono, gText_SoundStereo, gText_OptionMenuOff);
 
     styles[selection] = 1;
-
     DrawOptionMenuChoice(gText_SoundMono, 104, y, styles[0]);
-    DrawOptionMenuChoice(gText_SoundStereo, GetStringRightAlignXOffset(FONT_NORMAL, gText_SoundStereo, 198), y, styles[1]);
+    DrawOptionMenuChoice(gText_SoundStereo, xMid, y, styles[1]);
+    DrawOptionMenuChoice(gText_OptionMenuOff, GetStringRightAlignXOffset(1, gText_OptionMenuOff, 198), y, styles[2]);
 }
 
 static void DrawChoices_ButtonMode(int selection, int y)
@@ -604,6 +607,27 @@ static void DrawChoices_ButtonMode(int selection, int y)
     DrawOptionMenuChoice(gText_ButtonTypeNormal, 104, y, styles[0]);
     DrawOptionMenuChoice(gText_ButtonTypeLR, xMid, y, styles[1]);
     DrawOptionMenuChoice(gText_ButtonTypeLEqualsA, GetStringRightAlignXOffset(1, gText_ButtonTypeLEqualsA, 198), y, styles[2]);
+}
+
+static int ProcessInput_Sound(int selection)
+{
+    int previous = selection;
+
+    selection = ProcessInput_ThreeOptions(selection);
+    if (selection == 0 || selection == 1)
+    {
+        gDisableMusic = FALSE;
+        SetPokemonCryStereo(selection);
+        if (previous == 2)
+            PlayNewMapMusic(GetCurrentMapMusic());
+    }
+    else
+    {
+        PlayBGM(0);
+        gDisableMusic = TRUE;
+    }
+
+    return selection;
 }
 
 static int ProcessInput_FrameType(int selection)
