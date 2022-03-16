@@ -190,13 +190,6 @@ static void (*const sPlayerBufferCommands[CONTROLLER_CMDS_COUNT])(void) =
     [CONTROLLER_TERMINATOR_NOP]           = PlayerCmdEnd
 };
 
-static const u8 sCostumeBackPics[COSTUME_COUNT][GENDER_COUNT] = 
-{
-    [DEFAULT_COSTUME]    = {TRAINER_BACK_PIC_BRENDAN, TRAINER_BACK_PIC_MAY},
-    [LEGACY_COSTUME]     = {TRAINER_BACK_PIC_RUBY_SAPPHIRE_BRENDAN, TRAINER_BACK_PIC_RUBY_SAPPHIRE_MAY},
-    [ADVENTURES_COSTUME] = {TRAINER_BACK_PIC_ADVENTURES_BRENDAN, TRAINER_BACK_PIC_ADVENTURES_MAY},
-};
-
 #define X UQ_4_12
 static const u16 sTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
 {
@@ -2757,7 +2750,7 @@ static void PlayerHandleDrawTrainerPic(void)
     // Use the back pic in any other scenario.
     else
     {
-        trainerPicId = sCostumeBackPics[gSaveBlock2Ptr->costumeId][gSaveBlock2Ptr->playerGender];
+        trainerPicId = gCostumeBackPics[gSaveBlock2Ptr->costumeId][gSaveBlock2Ptr->playerGender];
         position = GetBattlerPosition(gActiveBattler);
         LoadPalette(gTrainerBackPicPaletteTable[trainerPicId].data, 0x100 + 16 * gActiveBattler, 0x20);
         SetMultiuseSpriteTemplateToTrainerBack(trainerPicId, GetBattlerPosition(gActiveBattler));
@@ -3398,7 +3391,7 @@ static void PlayerHandleIntroTrainerBallThrow(void)
     StartSpriteAnim(&gSprites[gBattlerSpriteIds[gActiveBattler]], 1);
 
     paletteNum = AllocSpritePalette(0xD6F8);
-    LoadPalette(gTrainerBackPicPaletteTable[sCostumeBackPics[gSaveBlock2Ptr->costumeId][gSaveBlock2Ptr->playerGender]].data, 0x100 + paletteNum * 16, 32);
+    LoadPalette(gTrainerBackPicPaletteTable[gCostumeBackPics[gSaveBlock2Ptr->costumeId][gSaveBlock2Ptr->playerGender]].data, 0x100 + paletteNum * 16, 32);
     gSprites[gBattlerSpriteIds[gActiveBattler]].oam.paletteNum = paletteNum;
 
     taskId = CreateTask(Task_StartSendOutAnim, 5);

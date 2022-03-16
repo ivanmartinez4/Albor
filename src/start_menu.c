@@ -335,6 +335,10 @@ static void BuildSafariZoneStartMenu(void)
     AddStartMenuAction(MENU_ACTION_POKEMON);
     AddStartMenuAction(MENU_ACTION_BAG);
     AddStartMenuAction(MENU_ACTION_PLAYER);
+#ifdef DEBUG_MODE_ENABLED
+    if (FlagGet(FLAG_SYS_ENABLE_DEBUG_MENU))
+        AddStartMenuAction(MENU_ACTION_DEBUG);
+#endif
     AddStartMenuAction(MENU_ACTION_OPTION);
     AddStartMenuAction(MENU_ACTION_EXIT);
 }

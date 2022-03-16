@@ -307,3 +307,10 @@ const struct SpritePalette gTrainerFrontPicPaletteTable[] =
     TRAINER_PAL(WALLY_2, gTrainerPalette_Wally2),
     TRAINER_PAL(WALLY_3, gTrainerPalette_Wally3),
 };
+
+const u8 gCostumeFrontPics[COSTUME_COUNT][GENDER_COUNT] = 
+{
+    [DEFAULT_COSTUME]    = {TRAINER_PIC_BRENDAN, TRAINER_PIC_MAY},
+    [LEGACY_COSTUME]     = {TRAINER_PIC_RS_BRENDAN, TRAINER_PIC_RS_MAY},
+    [ADVENTURES_COSTUME] = {TRAINER_PIC_ADVENTURES_BRENDAN, TRAINER_PIC_ADVENTURES_MAY},
+};
