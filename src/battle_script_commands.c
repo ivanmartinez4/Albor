@@ -12987,6 +12987,9 @@ static void Cmd_pickup(void)
     u16 species, heldItem;
     u16 ability;
     u8 lvlDivBy10;
+    u8 nickname[POKEMON_NAME_LENGTH * 2];
+    u32 index = 0;
+    u32 pickedUpItems = 0;
 
     if (InBattlePike())
     {
@@ -13012,6 +13015,8 @@ static void Cmd_pickup(void)
             {
                 heldItem = GetBattlePyramidPickupItemId();
                 SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
+                pickedUpItems++;
+                index = i;
             }
             #if (defined ITEM_HONEY)
             else if (ability == ABILITY_HONEY_GATHER
@@ -13023,6 +13028,8 @@ static void Cmd_pickup(void)
                 {
                     heldItem = ITEM_HONEY;
                     SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
+                    pickedUpItems++;
+                    index = i;
                 }
             }
             #endif
@@ -13057,11 +13064,15 @@ static void Cmd_pickup(void)
                     if (sPickupProbabilities[j] > rand)
                     {
                         SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &sPickupItems[lvlDivBy10 + j]);
+                        pickedUpItems++;
+                        index = i;
                         break;
                     }
                     else if (rand == 99 || rand == 98)
                     {
                         SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &sRarePickupItems[lvlDivBy10 + (99 - rand)]);
+                        pickedUpItems++;
+                        index = i;
                         break;
                     }
                 }
@@ -13076,13 +13087,39 @@ static void Cmd_pickup(void)
                 {
                     heldItem = ITEM_HONEY;
                     SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
+                    pickedUpItems++;
+                    index = i;
                 }
             }
             #endif
         }
     }
 
-    gBattlescriptCurrInstr++;
+    if (pickedUpItems == 1) // only one Pokemon has picked something up, print solo message
+    {
+        static const u8 sText_LowercaseA[] = _("a");
+        static const u8 sText_LowercaseAn[] = _("an");
+
+        GetMonData(&gPlayerParty[index], MON_DATA_NICKNAME, nickname);
+        StringCopy_Nickname(gBattleTextBuff1, nickname);
+
+        if (IsFirstLetterVowelSound(ItemId_GetName(GetMonData(&gPlayerParty[index], MON_DATA_HELD_ITEM))))
+            StringCopy(gBattleTextBuff2, sText_LowercaseAn);
+        else
+            StringCopy(gBattleTextBuff2, sText_LowercaseA);
+        CopyItemName(GetMonData(&gPlayerParty[index], MON_DATA_HELD_ITEM), gBattleTextBuff3);
+        BattleScriptPush(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = BattleScript_PickedUpItemSolo;
+    }
+    else if (pickedUpItems > 1) // multiple Pokemon have picked something up, print multi message
+    {
+        BattleScriptPush(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = BattleScript_PickedUpItem;
+    }
+    else
+    {
+        ++gBattlescriptCurrInstr;
+    }
 }
 
 static void Cmd_docastformchangeanimation(void)

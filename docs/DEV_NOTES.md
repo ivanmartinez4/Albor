@@ -124,6 +124,7 @@ I wrote this... I don't know, sometime ago, but I never thought about storing it
 * Modify the gym statues' text to mention the rivals as they defeat each gym just like in other games.
 * Remove the Match Call and port the VS Seeker from Pokefirered.
   * MAYBE implement Ghoulslash's DexNav and replace the access to the Match Call with an access to the DexNav.
+  * [This commit](https://github.com/Artrios/pokeemerald/commit/d25bfdcbafd26e1dec3058445074264c3bdbdef4) can be used as a reference point.
 * Throw in a random chance to find strong Pokémon in the wild.
   * You'd basically have a certain chance to find a Pokémon that is X levels higher depending on your badge count.
 * Print the party's icon sprites in the Trainer Card, kinda like in FRLG.

@@ -797,3 +797,30 @@ void StripExtCtrlCodes(u8 *str)
     }
     str[destIndex] = EOS;
 }
+
+bool32 IsFirstLetterVowelSound(const u8 *str)
+{
+    return (
+            str[0] == CHAR_A
+            || str[0] == CHAR_E
+            || (str[0] == CHAR_I && (str[1] != CHAR_a || str[1] != CHAR_A)) // Iapapa Berry
+            || (str[0] == CHAR_i && (str[1] != CHAR_a || str[1] != CHAR_A)) // Iapapa Berry
+            || str[0] == CHAR_O
+            || str[0] == CHAR_a
+            || str[0] == CHAR_e
+            || str[0] == CHAR_o
+            || (str[0] == CHAR_U && (str[1] == CHAR_l || str[1] == CHAR_L)) // Ultra Ball
+            || (str[0] == CHAR_u && (str[1] == CHAR_l || str[1] == CHAR_L)) // Ultra Ball
+            || (str[0] == CHAR_E && (str[1] == CHAR_p || str[1] == CHAR_P)) // Energy Powder
+            || (str[0] == CHAR_e && (str[1] == CHAR_p || str[1] == CHAR_P)) // Energy Powder
+            || (str[0] == CHAR_E && (str[1] == CHAR_r || str[1] == CHAR_R)) // Energy Root
+            || (str[0] == CHAR_e && (str[1] == CHAR_r || str[1] == CHAR_R)) // Energy Root
+            || (str[0] == CHAR_H && (str[1] == CHAR_p || str[1] == CHAR_P)) // HP Up
+            || (str[0] == CHAR_h && (str[1] == CHAR_p || str[1] == CHAR_P)) // HP Up
+            || ((str[0] == CHAR_X || str[0] == CHAR_x) && str[1] == CHAR_SPACE) // X Items
+            || (str[0] == CHAR_U && (str[1] == CHAR_p || str[1] == CHAR_P)) // Upgrade
+            || (str[0] == CHAR_u && (str[1] == CHAR_p || str[1] == CHAR_P)) // Upgrade
+            || (str[0] == CHAR_U && (str[1] == CHAR_l || str[1] == CHAR_L)) // Ultranecrozium Z
+            || (str[0] == CHAR_u && (str[1] == CHAR_l || str[1] == CHAR_L)) // Ultranecrozium Z
+         );
+}

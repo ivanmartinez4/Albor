@@ -613,8 +613,10 @@
 #define STRINGID_PKMNTOOKTARGETHIGH                   609
 #define STRINGID_TRAINER1PKMNCOMEBACK                 610
 #define STRINGID_PLAYERWHITEOUT3                      611
+#define STRINGID_PICKUP                               612
+#define STRINGID_PICKUPSOLO                           613
 
-#define BATTLESTRINGS_COUNT                           612
+#define BATTLESTRINGS_COUNT                           614
 
 // The below IDs are all indexes into battle message tables,
 // used to determine which of a set of messages to print.

@@ -6004,6 +6004,16 @@ BattleScript_PayDayMoneyAndPickUpItems::
 	pickup
 	end2
 
+BattleScript_PickedUpItem::
+	printstring STRINGID_PICKUP
+	waitmessage 0x40
+	return
+
+BattleScript_PickedUpItemSolo::
+	printstring STRINGID_PICKUPSOLO
+	waitmessage 0x40
+	return
+
 BattleScript_LocalBattleLost::
 	jumpifhalfword CMP_EQUAL, gTrainerBattleMode, TRAINER_BATTLE_NO_WHITEOUT, BattleScript_LostNoWhiteoutBattle
 	jumpifhalfword CMP_EQUAL, gTrainerBattleMode, TRAINER_BATTLE_NO_WHITEOUT_NO_INTRO, BattleScript_LostNoWhiteoutBattle

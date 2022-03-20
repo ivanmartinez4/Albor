@@ -416,5 +416,7 @@ extern const u8 BattleScript_BothCanNoLongerEscape[];
 extern const u8 BattleScript_OctolockEndTurn[];
 extern const u8 BattleScript_NeutralizingGasExits[];
 extern const u8 BattleScript_MagicianActivates[];
+extern const u8 BattleScript_PickedUpItem[];
+extern const u8 BattleScript_PickedUpItemSolo[];
 
 #endif // GUARD_BATTLE_SCRIPTS_H

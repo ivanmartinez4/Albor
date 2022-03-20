@@ -735,9 +735,13 @@ static const u8 sText_NeutralizingGasEnters[] = _("Neutralizing Gas filled the a
 static const u8 sText_NeutralizingGasOver[] = _("The effects of Neutralizing\nGas wore off!");
 static const u8 sText_Trainer1PkmnComeBack[] = _("{B_TRAINER1_NAME}: {B_OPPONENT_MON1_NAME}, come back!");
 static const u8 sText_PlayerWhiteout3[] = _("{B_PLAYER_NAME} lost the battle!\p");
+static const u8 sText_MonPickedUpItem[] = _("Your POKéMON picked\nup some items!");
+static const u8 sText_MonPickedUpItemSolo[] = _("{B_BUFF1} picked up {B_BUFF2} {B_BUFF3}!");
 
 const u8 *const gBattleStringsTable[BATTLESTRINGS_COUNT] =
 {
+    [STRINGID_PICKUPSOLO - 12] = sText_MonPickedUpItemSolo,
+    [STRINGID_PICKUP - 12] = sText_MonPickedUpItem,
     [STRINGID_PLAYERWHITEOUT3 - 12] = sText_PlayerWhiteout3,
     [STRINGID_TRAINER1PKMNCOMEBACK - 12] = sText_Trainer1PkmnComeBack,
     [STRINGID_NEUTRALIZINGGASOVER - 12] = sText_NeutralizingGasOver,
