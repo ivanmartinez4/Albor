@@ -465,3 +465,16 @@ Script_Text_NoStreak:
 
 Script_CatchingStreak_Text_Status:
 	.string "Current chain: {STR_VAR_5} {STR_VAR_4}.$"
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+EventScript_RoamerCue::
+	lockall
+	fadeoutbgm 2
+	playse SE_SHINY
+	delay 60
+	playse SE_SHINY
+	fadeinbgm 2
+	delay 90
+	releaseall
+	end
