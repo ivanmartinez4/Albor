@@ -420,14 +420,13 @@ Script_PokemonDataInfoBox::
 	goto_if_eq VAR_RESULT, SPECIES_EGG, DebugScript_Cancel
 	special BufferChosenMonStats
 	drawinfobox INFOBOX_POKEMON_DATA
-	bufferpartymonnick STR_VAR_1, VAR_0x8004
 	msgbox PokemonDataInfoBox_Text_ChosenMonStats
 	removeinfobox
 	release
 	end
 
 PokemonDataInfoBox_Text_ChosenMonStats:
-	.string "Stats of {STR_VAR_1}$"
+	.string "Stats of {CHOSEN_MON_NICKNAME}!$"
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 

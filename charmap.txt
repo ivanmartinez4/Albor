@@ -329,24 +329,25 @@ TALL_PLUS   = FC 0C FB
 STRING = FD
 
 @ string placeholders
-PLAYER    = FD 01
-STR_VAR_1 = FD 02
-STR_VAR_2 = FD 03
-STR_VAR_3 = FD 04
-STR_VAR_4 = FD 05
-STR_VAR_5 = FD 06
-STR_VAR_6 = FD 07
-KUN       = FD 08
-RIVAL     = FD 09
+PLAYER               = FD 01
+STR_VAR_1            = FD 02
+STR_VAR_2            = FD 03
+STR_VAR_3            = FD 04
+STR_VAR_4            = FD 05
+STR_VAR_5            = FD 06
+STR_VAR_6            = FD 07
+KUN                  = FD 08
+RIVAL                = FD 09
 @ version-dependent strings (originally made for Ruby/Sapphire differences)
 @ Emerald uses the Sapphire strings (except for VERSION).
-VERSION   = FD 0A @ "EMERALD"
-AQUA      = FD 0B
-MAGMA     = FD 0C
-ARCHIE    = FD 0D
-MAXIE     = FD 0E
-KYOGRE    = FD 0F
-GROUDON   = FD 10
+VERSION              = FD 0A @ "EMERALD"
+AQUA                 = FD 0B
+MAGMA                = FD 0C
+ARCHIE               = FD 0D
+MAXIE                = FD 0E
+KYOGRE               = FD 0F
+GROUDON              = FD 10
+CHOSEN_MON_NICKNAME  = FD 11
 
 @ battle string placeholders
 
