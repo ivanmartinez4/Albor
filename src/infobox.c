@@ -9,8 +9,9 @@
 #include "string_util.h"
 #include "strings.h"
 #include "constants/infobox.h"
+#include "international_string_util.h"
 
-EWRAM_DATA static u8 sPrintWindowId = 1;
+EWRAM_DATA static u8 sPrintWindowId = 0;
 
 #define BOXLIST(name) {name, ARRAY_COUNT(name)}
 
@@ -26,9 +27,9 @@ struct InfoBoxListStruct
 };
 
 // Strings for infoboxes
-static const u8 sText_DisplayHpStat[] = _("{STR_VAR_1}");
-static const u8 sText_DisplayAtkStat[] = _("{STR_VAR_2}");
-static const u8 sText_DisplayDefStat[] = _("{STR_VAR_3}");
+static const u8 sText_DisplayHpStat[]    = _("{STR_VAR_1}");
+static const u8 sText_DisplayAtkStat[]   = _("{STR_VAR_2}");
+static const u8 sText_DisplayDefStat[]   = _("{STR_VAR_3}");
 static const u8 sText_DisplaySpAtkStat[] = _("{STR_VAR_4}");
 static const u8 sText_DisplaySpDefStat[] = _("{STR_VAR_5}");
 static const u8 sText_DisplaySpeedStat[] = _("{STR_VAR_6}");
@@ -58,7 +59,7 @@ void PrintInfoTable(u8 windowId, u8 itemCount, const struct InfoBox *strs)
     for (i = 0; i < itemCount; i++)
     {
         StringExpandPlaceholders(gStringVar7, strs[i].text);
-        AddTextPrinterParameterized(windowId, 1, gStringVar7, 4, (i * 16) + 1, 0xFF, NULL);
+        AddTextPrinterParameterized(windowId, FONT_NORMAL, gStringVar7, GetStringCenterAlignXOffset(FONT_NORMAL, gStringVar7, 224), (i * 16) + 1, TEXT_SKIP_DRAW, NULL);
     }
 
     CopyWindowToVram(windowId, 2);

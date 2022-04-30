@@ -133,22 +133,16 @@ DebugScript_CheckEVs::
 	lockall
 	faceplayer
 	getpartysize
-	compare VAR_RESULT, 0
-	goto_if_eq EventScript_ThereIsNoPokemon
+	goto_if_eq VAR_RESULT, 0, EventScript_ThereIsNoPokemon
 	special ChoosePartyMon
 	waitstate
-	compare VAR_0x8004, PARTY_SIZE
-	goto_if_ge DebugScript_Cancel
+	goto_if_ge VAR_0x8004, PARTY_SIZE, DebugScript_Cancel
 	specialvar VAR_RESULT, ScriptGetPartyMonSpecies
-	compare VAR_RESULT, SPECIES_EGG
-	goto_if_eq DebugScript_CheckEVs_Egg
+	goto_if_eq VAR_RESULT, SPECIES_EGG, DebugScript_CheckEVs_Egg
 	special CheckMonEVs
 	msgbox DebugScript_CheckEVs_Text_Evaluation
 	msgbox DebugScript_Text_ComeBackAnytime
 	releaseall
-	end
-
-DebugScript_Cancel:
 	end
 
 DebugScript_CheckEVs_Egg:
@@ -178,15 +172,12 @@ DebugScript_CheckIVs::
 	lockall
 	faceplayer
 	getpartysize
-	compare VAR_RESULT, 0
-	goto_if_eq EventScript_ThereIsNoPokemon
+	goto_if_eq VAR_RESULT, 0, EventScript_ThereIsNoPokemon
 	special ChoosePartyMon
 	waitstate
-	compare VAR_0x8004, PARTY_SIZE
-	goto_if_ge DebugScript_Cancel
+	goto_if_ge VAR_0x8004, PARTY_SIZE, DebugScript_Cancel
 	specialvar VAR_RESULT, ScriptGetPartyMonSpecies
-	compare VAR_RESULT, SPECIES_EGG
-	goto_if_eq DebugScript_CheckIVs_Egg
+	goto_if_eq VAR_RESULT, SPECIES_EGG, DebugScript_CheckIVs_Egg
 	special CheckMonIVs
 	msgbox DebugScript_CheckIVs_Text_Evaluation
 	msgbox DebugScript_Text_ComeBackAnytime
@@ -224,23 +215,20 @@ DebugScript_ForceEggHatch::
 	lockall
 	faceplayer
 	getpartysize
-	compare VAR_RESULT, 0
-	goto_if_eq EventScript_ThereIsNoPokemon
+	goto_if_eq VAR_RESULT, 0, EventScript_ThereIsNoPokemon
 	special ChoosePartyMon
 	waitstate
-	compare VAR_0x8004, PARTY_SIZE
-	goto_if_eq DebugScript_Cancel
+	goto_if_ge VAR_0x8004, PARTY_SIZE, DebugScript_Cancel
 	specialvar VAR_RESULT, ScriptGetPartyMonSpecies
-	compare VAR_RESULT, SPECIES_EGG
-	goto_if_ne DebugScript_ForceEggHatch_CantForceHatch
+	goto_if_ne VAR_RESULT, SPECIES_EGG, DebugScript_ForceEggHatch_CantForceHatch
 	special EggHatch
 	waitstate
 	releaseall
 	end
+
 DebugScript_ForceEggHatch_CantForceHatch:
-	lock
 	msgbox DebugScript_ForcedEggHatch_Text_NotAnEgg
-	release
+	releaseall
 	end
 
 DebugScript_ForcedEggHatch_Text_NotAnEgg:
@@ -376,8 +364,7 @@ DebugScript_CheckTime_Text_CurrentDate:
 DebugScript_DeleteMon::
 	special ChoosePartyMon
 	waitstate
-	compare VAR_0x8004, PARTY_SIZE
-	goto_if_ge DebugScript_DeleteMonEnd
+	goto_if_ge VAR_0x8004, PARTY_SIZE, DebugScript_DeleteMonEnd
 	bufferpartymonnick 0, VAR_0x8004
 	special DeleteChosenPartyMon
 	msgbox DebugScript_DeleteMon_Text_Poof, MSGBOX_SIGN
@@ -403,19 +390,16 @@ DebugScript_GetCurrentDay_Text_TodayIs:
 DebugScript_DoWonderTrade::
 	lockall
 	getpartysize
-	compare VAR_RESULT, 0
-	goto_if_eq EventScript_ThereIsNoPokemon
+	goto_if_eq VAR_RESULT, 0, EventScript_ThereIsNoPokemon
 	special ChoosePartyMon
 	waitstate
-	compare VAR_0x8004, PARTY_SIZE
-	goto_if_ge DebugScript_Cancel
+	goto_if_ge VAR_0x8004, PARTY_SIZE, DebugScript_Cancel
 	copyvar VAR_0x8005, VAR_0x8004
 	special CreateWonderTradePokemon
 	special DoInGameTradeScene
 	waitstate
 	msgbox DebugScript_DoWonderTrade_Text_WannaDoAnotherWonderTrade, MSGBOX_YESNO
-	compare VAR_RESULT, YES
-	goto_if_eq DebugScript_DoWonderTrade
+	goto_if_eq VAR_RESULT, YES, DebugScript_DoWonderTrade
 	msgbox DebugScript_DoWonderTrade_Text_Done, MSGBOX_DEFAULT
 	releaseall
 	end
@@ -431,14 +415,12 @@ DebugScript_DoWonderTrade_Text_Done:
 Script_PokemonDataInfoBox::
 	special ChoosePartyMon
 	waitstate
-	compare VAR_0x8004, PARTY_SIZE
-	goto_if_ge DebugScript_Cancel
+	goto_if_ge VAR_0x8004, PARTY_SIZE, DebugScript_Cancel
 	specialvar VAR_RESULT, ScriptGetPartyMonSpecies
-	compare VAR_RESULT, SPECIES_EGG
-	goto_if_eq DebugScript_Cancel
+	goto_if_eq VAR_RESULT, SPECIES_EGG, DebugScript_Cancel
 	special BufferChosenMonStats
 	drawinfobox INFOBOX_POKEMON_DATA
-	bufferpartymonnick 0, VAR_0x8004
+	bufferpartymonnick STR_VAR_1, VAR_0x8004
 	msgbox PokemonDataInfoBox_Text_ChosenMonStats
 	removeinfobox
 	release
@@ -450,8 +432,7 @@ PokemonDataInfoBox_Text_ChosenMonStats:
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 DebugScript_CatchingStreak::
-	compare VAR_WILD_POKEMON_CHAIN_COUNT, 0
-	goto_if_eq Script_NoStreak
+	goto_if_eq VAR_WILD_POKEMON_CHAIN_COUNT, 0, Script_NoStreak
 	buffernumberstring 4, VAR_WILD_POKEMON_CHAIN_COUNT
 	msgbox Script_CatchingStreak_Text_Status, MSGBOX_NPC
 	end
@@ -477,4 +458,9 @@ EventScript_RoamerCue::
 	fadeinbgm 2
 	delay 90
 	releaseall
+	end
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+DebugScript_Cancel:
 	end

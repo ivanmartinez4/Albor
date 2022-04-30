@@ -2405,8 +2405,7 @@ bool8 ScrCmd_getcurrentday(struct ScriptContext *ctx)
 
 bool8 ScrCmd_drawinfobox(struct ScriptContext *ctx)
 {
-    u8 number = ScriptReadByte(ctx);
-    PrintInfoBox(number);
+    PrintInfoBox(ScriptReadByte(ctx));
     return FALSE;
 };
 

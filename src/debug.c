@@ -75,8 +75,7 @@ enum { // Util
     DEBUG_UTIL_MENU_ITEM_RIVAL_NAME,
     DEBUG_UTIL_MENU_ITEM_TRAINER_GENDER,
     DEBUG_UTIL_MENU_ITEM_TRAINER_ID,
-    DEBUG_UTIL_MENU_ITEM_CHECKEVS,
-    DEBUG_UTIL_MENU_ITEM_CHECKIVS,
+    DEBUG_UTIL_MENU_ITEM_CHECKSTATS,
     DEBUG_UTIL_MENU_ITEM_FORCEEGGHATCH,
     DEBUG_UTIL_MENU_ITEM_OPEN_PC,
     DEBUG_UTIL_MENU_ITEM_DO_WONDER_TRADE,
@@ -256,8 +255,7 @@ static void DebugAction_Util_Trainer_Name(u8);
 static void DebugAction_Util_Rival_Name(u8);
 static void DebugAction_Util_Trainer_Gender(u8);
 static void DebugAction_Util_Trainer_Id(u8);
-static void DebugAction_Util_CheckEVs(u8);
-static void DebugAction_Util_CheckIVs(u8);
+static void DebugAction_Util_CheckStats(u8);
 static void DebugAction_Util_ForceEggHatch(u8);
 static void DebugAction_Util_OpenPC(u8 taskId);
 static void DebugAction_Util_DoWonderTrade(u8 taskId);
@@ -372,8 +370,7 @@ extern u8 DebugScript_DebugPack[];
 extern u8 PlayersHouse_2F_EventScript_SetWallClock[];
 extern u8 PlayersHouse_2F_EventScript_CheckWallClock[];
 //extern u8 EventScript_GetCurrentDay[];
-extern u8 DebugScript_CheckEVs[];
-extern u8 DebugScript_CheckIVs[];
+extern u8 Script_PokemonDataInfoBox[];
 extern u8 DebugScript_ForceEggHatch[];
 extern u8 DebugScript_DoWonderTrade[];
 extern u8 DebugScript_CatchingStreak[];
@@ -412,8 +409,7 @@ static const u8 sDebugText_Util_Trainer_Name[] =            _("Trainer name");
 static const u8 sDebugText_Util_Rival_Name[] =              _("Rival name");
 static const u8 sDebugText_Util_Trainer_Gender[] =          _("Change Gender");
 static const u8 sDebugText_Util_Trainer_Id[] =              _("New Trainer Id");
-static const u8 sDebugText_Util_CheckEVs[] =                _("Check EVs");
-static const u8 sDebugText_Util_CheckIVs[] =                _("Check IVs");
+static const u8 sDebugText_Util_CheckStats[] =              _("Check Stats");
 static const u8 sDebugText_Util_ForceEggHatch[] =           _("Force Egg Hatch");
 static const u8 sDebugText_Util_OpenPC[] =                  _("Open PC");
 static const u8 sDebugText_Util_DoWonderTrade[] =           _("Do a Wonder Trade");
@@ -591,8 +587,7 @@ static const struct ListMenuItem sDebugMenu_Items_Utilities[] =
     [DEBUG_UTIL_MENU_ITEM_RIVAL_NAME]             = {sDebugText_Util_Rival_Name,          DEBUG_UTIL_MENU_ITEM_RIVAL_NAME},
     [DEBUG_UTIL_MENU_ITEM_TRAINER_GENDER]         = {sDebugText_Util_Trainer_Gender,      DEBUG_UTIL_MENU_ITEM_TRAINER_GENDER},
     [DEBUG_UTIL_MENU_ITEM_TRAINER_ID]             = {sDebugText_Util_Trainer_Id,          DEBUG_UTIL_MENU_ITEM_TRAINER_ID},
-    [DEBUG_UTIL_MENU_ITEM_CHECKEVS]               = {sDebugText_Util_CheckEVs,            DEBUG_UTIL_MENU_ITEM_CHECKEVS},
-    [DEBUG_UTIL_MENU_ITEM_CHECKIVS]               = {sDebugText_Util_CheckIVs,            DEBUG_UTIL_MENU_ITEM_CHECKIVS},
+    [DEBUG_UTIL_MENU_ITEM_CHECKSTATS]             = {sDebugText_Util_CheckStats,          DEBUG_UTIL_MENU_ITEM_CHECKSTATS},
     [DEBUG_UTIL_MENU_ITEM_FORCEEGGHATCH]          = {sDebugText_Util_ForceEggHatch,       DEBUG_UTIL_MENU_ITEM_FORCEEGGHATCH},
     [DEBUG_UTIL_MENU_ITEM_OPEN_PC]                = {sDebugText_Util_OpenPC,              DEBUG_UTIL_MENU_ITEM_OPEN_PC},
     [DEBUG_UTIL_MENU_ITEM_DO_WONDER_TRADE]        = {sDebugText_Util_DoWonderTrade,       DEBUG_UTIL_MENU_ITEM_DO_WONDER_TRADE},
@@ -721,8 +716,7 @@ static void (*const sDebugMenu_Actions_Utilities[])(u8) =
     [DEBUG_UTIL_MENU_ITEM_RIVAL_NAME]             = DebugAction_Util_Rival_Name,
     [DEBUG_UTIL_MENU_ITEM_TRAINER_GENDER]         = DebugAction_Util_Trainer_Gender,
     [DEBUG_UTIL_MENU_ITEM_TRAINER_ID]             = DebugAction_Util_Trainer_Id,
-    [DEBUG_UTIL_MENU_ITEM_CHECKEVS]               = DebugAction_Util_CheckEVs,
-    [DEBUG_UTIL_MENU_ITEM_CHECKIVS]               = DebugAction_Util_CheckIVs,
+    [DEBUG_UTIL_MENU_ITEM_CHECKSTATS]             = DebugAction_Util_CheckStats,
     [DEBUG_UTIL_MENU_ITEM_FORCEEGGHATCH]          = DebugAction_Util_ForceEggHatch,
     [DEBUG_UTIL_MENU_ITEM_OPEN_PC]                = DebugAction_Util_OpenPC,
     [DEBUG_UTIL_MENU_ITEM_DO_WONDER_TRADE]        = DebugAction_Util_DoWonderTrade,
@@ -1462,17 +1456,11 @@ static void DebugAction_Util_Trainer_Id(u8 taskId)
     Debug_DestroyMenu(taskId);
     EnableBothScriptContexts();
 }
-static void DebugAction_Util_CheckEVs(u8 taskId)
+static void DebugAction_Util_CheckStats(u8 taskId)
 {
     Debug_DestroyMenu(taskId);
     ScriptContext2_Enable();
-    ScriptContext1_SetupScript(DebugScript_CheckEVs);
-}
-static void DebugAction_Util_CheckIVs(u8 taskId)
-{
-    Debug_DestroyMenu(taskId);
-    ScriptContext2_Enable();
-    ScriptContext1_SetupScript(DebugScript_CheckIVs);
+    ScriptContext1_SetupScript(Script_PokemonDataInfoBox);
 }
 static void DebugAction_Util_ForceEggHatch(u8 taskId)
 {
