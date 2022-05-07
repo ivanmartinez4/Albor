@@ -436,7 +436,7 @@
       "y": 53,
       "elevation": 3,
       "var": "VAR_RUSTBORO_CITY_STATE",
-      "var_value": "7",
+      "var_value": "6",
       "script": "RustboroCity_EventScript_RivalTrigger0"
     },
     {
@@ -445,7 +445,7 @@
       "y": 53,
       "elevation": 3,
       "var": "VAR_RUSTBORO_CITY_STATE",
-      "var_value": "7",
+      "var_value": "6",
       "script": "RustboroCity_EventScript_RivalTrigger1"
     },
     {
@@ -454,7 +454,7 @@
       "y": 53,
       "elevation": 3,
       "var": "VAR_RUSTBORO_CITY_STATE",
-      "var_value": "7",
+      "var_value": "6",
       "script": "RustboroCity_EventScript_RivalTrigger2"
     },
     {
@@ -463,7 +463,7 @@
       "y": 53,
       "elevation": 3,
       "var": "VAR_RUSTBORO_CITY_STATE",
-      "var_value": "7",
+      "var_value": "6",
       "script": "RustboroCity_EventScript_RivalTrigger3"
     },
     {
@@ -472,7 +472,7 @@
       "y": 53,
       "elevation": 3,
       "var": "VAR_RUSTBORO_CITY_STATE",
-      "var_value": "7",
+      "var_value": "6",
       "script": "RustboroCity_EventScript_RivalTrigger4"
     },
     {
@@ -481,7 +481,7 @@
       "y": 53,
       "elevation": 3,
       "var": "VAR_RUSTBORO_CITY_STATE",
-      "var_value": "7",
+      "var_value": "6",
       "script": "RustboroCity_EventScript_RivalTrigger5"
     },
     {
@@ -490,7 +490,7 @@
       "y": 53,
       "elevation": 3,
       "var": "VAR_RUSTBORO_CITY_STATE",
-      "var_value": "7",
+      "var_value": "6",
       "script": "RustboroCity_EventScript_RivalTrigger6"
     },
     {
@@ -499,7 +499,7 @@
       "y": 53,
       "elevation": 3,
       "var": "VAR_RUSTBORO_CITY_STATE",
-      "var_value": "7",
+      "var_value": "6",
       "script": "RustboroCity_EventScript_RivalTrigger7"
     }
   ],
