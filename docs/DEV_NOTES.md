@@ -74,6 +74,7 @@ I wrote this... I don't know, sometime ago, but I never thought about storing it
   * And the parties of the trainers in the nortern side of Route 115.
 * Add custom balls for the Team Aqua and Team Magma Grunts using [BomberGoomba's sprites](https://whackahack.com/foro/threads/sprites-de-objetos-de-mochila-fanmade-anime-y-tcg.65678/).
   * Edit gTrainerBallTable afterward. Common grunts should use regular Aqua/Magma Balls, Admins should use Super Aqua/Magma Balls and the leaders should use Master Balls.
+  * Reminder: Potential battle sprites for [the Aqua Ball](https://github.com/Doesnty/goodruby/blob/master/graphics/interface/ball/aqua.png) and [the Magma Ball](https://github.com/Doesnty/goodruby/blob/master/graphics/interface/ball/magma.png), Credits: Divatastic and Doesnt.
 * Make Latios/Latias available in Southern Island after the Player catches Latias/Latios during the postgame.
   * They'll drop 1 Soul Dew right after the battle.
 * Make every Gen. 1, 2 and 4 Pokémon obtainable somehow.
