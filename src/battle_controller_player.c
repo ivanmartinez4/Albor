@@ -478,7 +478,7 @@ static void HandleInputChooseTarget(void)
                     i++;
                     break;
                 }
-                if (gSaveBlock2Ptr->optionsBattleTypeEff)
+                if (gSaveBlock2Ptr->optionsBattleType)
                     MoveSelectionDisplayMoveTypeDoubles(GetBattlerPosition(gMultiUsePlayerCursor));
 
                 if (gAbsentBattlerFlags & gBitTable[gMultiUsePlayerCursor])
@@ -529,7 +529,7 @@ static void HandleInputChooseTarget(void)
                     i++;
                     break;
                 }
-                if (gSaveBlock2Ptr->optionsBattleTypeEff)
+                if (gSaveBlock2Ptr->optionsBattleType)
                     MoveSelectionDisplayMoveTypeDoubles(GetBattlerPosition(gMultiUsePlayerCursor));
 
                 if (gAbsentBattlerFlags & gBitTable[gMultiUsePlayerCursor])
@@ -1921,7 +1921,7 @@ static void MoveSelectionDisplayMoveType(void)
         StringCopy(txtPtr, gTypeNames[gBattleMoves[moveInfo->moves[gMoveSelectionCursor[gActiveBattler]]].type]);
     }
 
-    if (!gSaveBlock2Ptr->optionsBattleTypeEff)
+    if (!gSaveBlock2Ptr->optionsBattleType)
         BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_MOVE_TYPE);
     else
         BattlePutTextOnWindow(gDisplayedStringBattle, TypeEffectiveness(moveInfo, 1));

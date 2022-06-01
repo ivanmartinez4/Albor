@@ -24,7 +24,7 @@ enum
     MENUITEM_TEXTSPEED,
     MENUITEM_BATTLESCENE,
     MENUITEM_BATTLESTYLE,
-    MENUITEM_BATTLETYPEEFF,
+    MENUITEM_BATTLETYPE,
     MENUITEM_SOUND,
     MENUITEM_BUTTONMODE,
     MENUITEM_FRAMETYPE,
@@ -58,7 +58,7 @@ static void HighlightOptionMenuItem(int cursor);
 static void DrawChoices_TextSpeed(int selection, int y);
 static void DrawChoices_BattleScene(int selection, int y);
 static void DrawChoices_BattleStyle(int selection, int y);
-static void DrawChoices_BattleTypeEff(int selection, int y);
+static void DrawChoices_BattleType(int selection, int y);
 static void DrawChoices_Sound(int selection, int y);
 static void DrawChoices_ButtonMode(int selection, int y);
 static void DrawChoices_FrameType(int selection, int y);
@@ -82,7 +82,7 @@ struct
     [MENUITEM_TEXTSPEED]     = {DrawChoices_TextSpeed,     ProcessInput_FourOptions},
     [MENUITEM_BATTLESCENE]   = {DrawChoices_BattleScene,   ProcessInput_TwoOptions},
     [MENUITEM_BATTLESTYLE]   = {DrawChoices_BattleStyle,   ProcessInput_TwoOptions},
-    [MENUITEM_BATTLETYPEEFF] = {DrawChoices_BattleTypeEff, ProcessInput_TwoOptions},
+    [MENUITEM_BATTLETYPE]    = {DrawChoices_BattleType,    ProcessInput_TwoOptions},
     [MENUITEM_SOUND]         = {DrawChoices_Sound,         ProcessInput_Sound},
     [MENUITEM_BUTTONMODE]    = {DrawChoices_ButtonMode,    ProcessInput_ThreeOptions},
     [MENUITEM_FRAMETYPE]     = {DrawChoices_FrameType,     ProcessInput_FrameType},
@@ -102,7 +102,7 @@ static const u8 *const sOptionMenuItemsNames[MENUITEM_COUNT] =
     [MENUITEM_TEXTSPEED]     = gText_TextSpeed,
     [MENUITEM_BATTLESCENE]   = gText_BattleScene,
     [MENUITEM_BATTLESTYLE]   = gText_BattleStyle,
-    [MENUITEM_BATTLETYPEEFF] = gText_BattleTypeEffectiveness,
+    [MENUITEM_BATTLETYPE]    = gText_BattleType,
     [MENUITEM_SOUND]         = gText_Sound,
     [MENUITEM_BUTTONMODE]    = gText_ButtonMode,
     [MENUITEM_FRAMETYPE]     = gText_Frame,
@@ -255,7 +255,7 @@ void CB2_InitOptionMenu(void)
         sOptions->sel[MENUITEM_TEXTSPEED]     = gSaveBlock2Ptr->optionsTextSpeed;
         sOptions->sel[MENUITEM_BATTLESCENE]   = gSaveBlock2Ptr->optionsBattleSceneOff;
         sOptions->sel[MENUITEM_BATTLESTYLE]   = gSaveBlock2Ptr->optionsBattleStyle;
-        sOptions->sel[MENUITEM_BATTLETYPEEFF] = gSaveBlock2Ptr->optionsBattleTypeEff;
+        sOptions->sel[MENUITEM_BATTLETYPE]    = gSaveBlock2Ptr->optionsBattleType;
         sOptions->sel[MENUITEM_SOUND]         = gSaveBlock2Ptr->optionsSound;
         sOptions->sel[MENUITEM_BUTTONMODE]    = gSaveBlock2Ptr->optionsButtonMode;
         sOptions->sel[MENUITEM_FRAMETYPE]     = gSaveBlock2Ptr->optionsWindowFrameType;
@@ -426,7 +426,7 @@ static void Task_OptionMenuSave(u8 taskId)
     gSaveBlock2Ptr->optionsTextSpeed       = sOptions->sel[MENUITEM_TEXTSPEED];
     gSaveBlock2Ptr->optionsBattleSceneOff  = sOptions->sel[MENUITEM_BATTLESCENE];
     gSaveBlock2Ptr->optionsBattleStyle     = sOptions->sel[MENUITEM_BATTLESTYLE];
-    gSaveBlock2Ptr->optionsBattleTypeEff   = sOptions->sel[MENUITEM_BATTLETYPEEFF];
+    gSaveBlock2Ptr->optionsBattleType      = sOptions->sel[MENUITEM_BATTLETYPE];
     gSaveBlock2Ptr->optionsSound           = sOptions->sel[MENUITEM_SOUND];
     gSaveBlock2Ptr->optionsButtonMode      = sOptions->sel[MENUITEM_BUTTONMODE];
     gSaveBlock2Ptr->optionsWindowFrameType = sOptions->sel[MENUITEM_FRAMETYPE];
@@ -586,7 +586,7 @@ static void DrawChoices_BattleStyle(int selection, int y)
     DrawOptionMenuChoice(gText_BattleStyleSet, GetStringRightAlignXOffset(FONT_NORMAL, gText_BattleStyleSet, 198), y, styles[1]);
 }
 
-static void DrawChoices_BattleTypeEff(int selection, int y)
+static void DrawChoices_BattleType(int selection, int y)
 {
     u8 styles[2] = {0};
 

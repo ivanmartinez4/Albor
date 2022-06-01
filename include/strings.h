@@ -3139,7 +3139,7 @@ extern const u8 gText_Month_November[];
 extern const u8 gText_Month_December[];
 
 // New Options for the Options Menu
-extern const u8 gText_BattleTypeEffectiveness[];
+extern const u8 gText_BattleType[];
 extern const u8 gText_OptionMenuHide[];
 extern const u8 gText_OptionMenuShow[];
 extern const u8 gText_QuickLoad[];
