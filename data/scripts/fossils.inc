@@ -83,9 +83,9 @@ FossilScript_GiveFossil::
 
 FossilScript_GiveFossilMon::
 	msgbox FossilScript_Text_FossilizedMonBroughtBackToLife, MSGBOX_DEFAULT
-	givemon VAR_TEMP_1, 5, ITEM_NONE
-	goto_if_eq VAR_RESULT, 0, FossilScript_ReceiveFossilMonParty
-	goto_if_eq VAR_RESULT, 1, FossilScript_ReceiveFossilMonPC
+	givemon VAR_TEMP_1, 5
+	goto_if_eq VAR_RESULT, MON_GIVEN_TO_PARTY, FossilScript_ReceiveFossilMonParty
+	goto_if_eq VAR_RESULT, MON_GIVEN_TO_PC, FossilScript_ReceiveFossilMonPC
 	goto Common_EventScript_NoMoreRoomForPokemon
 	end
 

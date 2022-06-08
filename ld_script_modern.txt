@@ -56,7 +56,7 @@ SECTIONS {
     script_data :
     ALIGN(4)
     {
-		data/*.o(script_data);
+        data/*.o(script_data);
     } =0
 
     lib_text :
@@ -110,10 +110,10 @@ SECTIONS {
         src/libisagbprn.o(.rodata);
     } =0
 
-    other_data :
+    multiboot_data :
     ALIGN(4)
     {
-        data/ereader_link_data.o(.rodata);
+        data/multiboot_ereader.o(.rodata);
     } =0
 
     gfx_data :

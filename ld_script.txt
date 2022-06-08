@@ -207,7 +207,7 @@ SECTIONS {
         src/slot_machine.o(.text);
         src/contest_painting.o(.text);
         src/battle_ai_main.o(.text);
-		src/battle_ai_util.o(.text);
+        src/battle_ai_util.o(.text);
         src/trader.o(.text);
         src/starter_choose.o(.text);
         src/wallclock.o(.text);
@@ -584,7 +584,7 @@ SECTIONS {
         src/slot_machine.o(.rodata);
         src/contest_painting.o(.rodata);
         src/battle_ai_main.o(.rodata);
-		src/battle_ai_util.o(.rodata);
+        src/battle_ai_util.o(.rodata);
         src/trader.o(.rodata);
         src/starter_choose.o(.rodata);
         src/wallclock.o(.rodata);
@@ -1632,10 +1632,10 @@ SECTIONS {
         src/libisagbprn.o(.rodata);
     } =0
 
-    other_data :
+    multiboot_data :
     ALIGN(4)
     {
-        data/ereader_link_data.o(.rodata);
+        data/multiboot_ereader.o(.rodata);
     } =0
 
     gfx_data  :
