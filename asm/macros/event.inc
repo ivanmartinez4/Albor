@@ -2145,14 +2145,6 @@
 	closebraillemessage
 	.endm
 
-	@ Creates an "event legal" Pokémon for an encounter
-	.macro seteventmon species:req, level:req, item=ITEM_NONE
-	setvar VAR_0x8004, \species
-	setvar VAR_0x8005, \level
-	setvar VAR_0x8006, \item
-	special CreateEventLegalEnemyMon
-	.endm
-
 	@ Set up a totem boost for the next battle.
 	@ 'battler' is the position of the mon you want to gain a boost. see B_POSITION_xx in include/constants/battle.h.
 	@ The rest of the arguments are the stat change values to each stat.
@@ -2213,6 +2205,20 @@
 	.macro totemboost_evas2 battler:req
 	settotemboost \battler, 0, 0, 0, 0, 0, 0, 2
 	.endm
+
+	@ Attempts to trigger a special evolution method in the overworld.
+	@ There may be other conditions required which are coded for in GetEvolutionTargetSpecies.
+	@ EX: tryspecialevo EVO_WATER_SCROLL, FALSE, FALSE triggers Kubfu's EVO_WATER_SCROLL evolution
+	@ 	  method, cannot be cancelled in the evolution scene, and will only evolve one Kubfu if there
+	@	  are multiple in the player's party.
+	.macro tryspecialevo evoMethod:req, canStopEvo=TRUE, tryMultiple=TRUE
+	setvar VAR_0x8000, \evoMethod
+	setvar VAR_0x8001, \canStopEvo
+	setvar VAR_0x8002, \tryMultiple
+	special TrySpecialOverworldEvo
+	.endm
+
+@ Custom macros start here
 
 	@ Modifies the status of the Pokémon at the party slot stored in the var 0x8004.
 	.macro changemonstatus status:req
@@ -2311,4 +2317,3 @@
 	fadescreen FADE_TO_BLACK
 	special ChooseItemFromBag
 	waitstate
-	.endm

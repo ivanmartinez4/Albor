@@ -525,6 +525,7 @@ gSpecials::
 	def_special CloseDeptStoreElevatorWindow
 	def_special TrySetBattleTowerLinkType
 	def_special SetTotemBoost
+	def_special TrySpecialOverworldEvo
 	def_special CheckChainFishingStreak
 	def_special SwapPlayersCostume
 	def_special GetCurrentMap
