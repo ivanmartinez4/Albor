@@ -3,6 +3,9 @@
 
 #include "characters.h"
 
+#define TEXT_STRING(arg)   \
+(const u8[]) _(arg)        \
+
 #define NUM_TEXT_PRINTERS 32
 
 // Given as a text speed when all the text should be

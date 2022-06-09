@@ -48,6 +48,7 @@
 #include "daycare.h"
 #include "constants/daycare.h"
 #include "debug.h"
+#include "rtc.h"
 
 #ifdef DEBUG_MODE_ENABLED
 
@@ -1418,11 +1419,22 @@ static void DebugAction_Util_SetWallClock(u8 taskId)
 }
 static void DebugAction_Util_CheckWeekDay(u8 taskId)
 {
-    //GetCurrentDayString();
-    //Debug_DestroyMenu(taskId);
-    //ScriptContext2_Enable();
-    //ScriptContext1_SetupScript(EventScript_GetCurrentDay);
-    //EnableBothScriptContexts();
+    struct SiiRtcInfo rtc;
+    u8 day;
+    u8 month;
+    u16 year;
+
+    RtcGetDateTime(&rtc);
+    day = ConvertBcdToBinary(rtc.day);
+    month = ConvertBcdToBinary(rtc.month);
+    year = (u16)ConvertBcdToBinary(rtc.year);
+    year += 2000;
+    StringCopy(gStringVar1, GetCurrentDayString(gLocalTime.dayOfWeek));
+    ConvertIntToDecimalStringN(gStringVar2, day, STR_CONV_MODE_LEADING_ZEROS, 2);
+    ConvertIntToDecimalStringN(gStringVar3, month, STR_CONV_MODE_LEADING_ZEROS, 2);
+    ConvertIntToDecimalStringN(gStringVar4, year, STR_CONV_MODE_LEFT_ALIGN, 4);
+    ShowFieldMessage(TEXT_STRING("Today is {STR_VAR_1} {STR_VAR_2}/{STR_VAR_3}/{STR_VAR_4}."));
+    Debug_DestroyMenu(taskId);
 }
 static void DebugAction_Util_WatchCredits(u8 taskId)
 {
