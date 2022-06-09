@@ -20,6 +20,7 @@
 #include "field_weather.h"
 #include "constants/weather.h"
 #endif
+#include "rtc.h"
 
 extern struct Evolution gEvolutionTable[][EVOS_PER_MON];
 
@@ -188,6 +189,8 @@ void CreateWonderTradePokemon(u8 whichPlayerMon)
             _("ERROR"), FEMALE, playerSpecies
         }
     };
+    struct SiiRtcInfo rtc;
+    u16 value;
 
     genderOT = getWonderTradeOT(nameOT);
     inGameTrade = &gIngameTrades[0];
@@ -270,6 +273,16 @@ void CreateWonderTradePokemon(u8 whichPlayerMon)
     SetMonData(pokemon, MON_DATA_TOUGH, &inGameTrade->stats[4]);
     SetMonData(pokemon, MON_DATA_MET_LOCATION, &metLocation);
     SetMonData(pokemon, MON_DATA_OT_GENDER, &genderOT);
+
+    // Date Met
+    RtcGetDateTime(&rtc);
+    value = ConvertBcdToBinary(rtc.day);
+    SetMonData(pokemon, MON_DATA_DAY_MET, &value);
+    value = ConvertBcdToBinary(rtc.month);
+    SetMonData(pokemon, MON_DATA_MONTH_MET, &value);
+    value = ConvertBcdToBinary(rtc.year);
+    SetMonData(pokemon, MON_DATA_YEAR_MET, &value);
+
     CalculateMonStats(&gEnemyParty[0]);
 }
 

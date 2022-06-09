@@ -50,6 +50,7 @@
 #include "constants/rgb.h"
 #include "constants/songs.h"
 #include "constants/union_room.h"
+#include "rtc.h"
 
 // The following tags are offsets from GFXTAG_MENU_TEXT
 // They're looped over in CB2_CreateTradeMenu and CB2_ReturnToTradeMenu
@@ -4450,6 +4451,8 @@ static void _CreateInGameTradePokemon(u8 whichPlayerMon, u8 whichInGameTrade)
     u8 metLocation = METLOC_IN_GAME_TRADE;
     u8 isMail;
     struct Pokemon *pokemon = &gEnemyParty[0];
+    struct SiiRtcInfo rtc;
+    u16 value;
 
     CreateMon(pokemon, inGameTrade->species, level, USE_RANDOM_IVS, TRUE, inGameTrade->personality, OT_ID_PRESET, inGameTrade->otId);
 
@@ -4485,6 +4488,16 @@ static void _CreateInGameTradePokemon(u8 whichPlayerMon, u8 whichInGameTrade)
             SetMonData(pokemon, MON_DATA_HELD_ITEM, &inGameTrade->heldItem);
         }
     }
+
+    // Date Met
+    RtcGetDateTime(&rtc);
+    value = ConvertBcdToBinary(rtc.day);
+    SetMonData(pokemon, MON_DATA_DAY_MET, &value);
+    value = ConvertBcdToBinary(rtc.month);
+    SetMonData(pokemon, MON_DATA_MONTH_MET, &value);
+    value = ConvertBcdToBinary(rtc.year);
+    SetMonData(pokemon, MON_DATA_YEAR_MET, &value);
+
     CalculateMonStats(&gEnemyParty[0]);
 }
 
@@ -4771,7 +4784,7 @@ static void CheckPartnersMonForRibbons(void)
 {
     u8 i;
     u8 numRibbons = 0;
-    for (i = 0; i < 12; i ++)
+    for (i = 0; i < (MON_DATA_EFFORT_RIBBON - MON_DATA_CHAMPION_RIBBON); i ++)
     {
         numRibbons += GetMonData(&gEnemyParty[gSelectedTradeMonPositions[TRADE_PARTNER] % PARTY_SIZE], MON_DATA_CHAMPION_RIBBON + i);
     }

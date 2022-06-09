@@ -166,9 +166,9 @@ static EWRAM_DATA struct PokemonSummaryScreenData
         u8 sanity; // 0x35
         u8 OTName[17]; // 0x36
         u32 OTID; // 0x48
-        u8 dayMet;
-        u8 monthMet;
-        u8 yearMet;
+        u32 dayMet; // 0x4C
+        u32 monthMet; // 0x50
+        u32 yearMet; // 0x54
     } summary;
     u16 bgTilemapBuffers[PSS_PAGE_COUNT][2][0x400];
     u8 mode;
