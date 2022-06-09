@@ -61,7 +61,6 @@ struct SpeciesItem
 static void Task_PlayMapChosenOrBattleBGM(u8 taskId);
 static u16 GiveMoveToBoxMon(struct BoxPokemon *boxMon, u16 move);
 static bool8 ShouldSkipFriendshipChange(void);
-static u8 SendMonToPC(struct Pokemon* mon);
 static void ShuffleStatArray(u8* statArray);
 void TrySpecialOverworldEvo();
 
@@ -6043,8 +6042,6 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 mode, u16 evolutionItem, s
         partnerHeldItem = GetMonData(tradePartner, MON_DATA_HELD_ITEM, 0);
         
         if (partnerHeldItem == ITEM_ENIGMA_BERRY)
-            partnerHoldEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
-        else
             partnerHoldEffect = ItemId_GetHoldEffect(partnerHeldItem);
     }
     else

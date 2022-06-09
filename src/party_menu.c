@@ -1564,8 +1564,6 @@ static void UpdatePartySelectionSingleLayout(s8 *slotPtr, s8 movementDir)
             {
                 if (*slotPtr+1 < gPlayerPartyCount)
                     (*slotPtr)++;
-                // else
-                //     *slotPtr = sPartyMenuInternal->lastSelectedSlot;
             }
             break;
         case MENU_DIR_LEFT:
@@ -1573,8 +1571,6 @@ static void UpdatePartySelectionSingleLayout(s8 *slotPtr, s8 movementDir)
             {
                 if (*slotPtr-1 >= 0 && *slotPtr%2 == 1)
                     (*slotPtr)--;
-                // sPartyMenuInternal->lastSelectedSlot = *slotPtr;
-                // *slotPtr = 0;
             }
             break;
         }
@@ -2078,7 +2074,7 @@ static void CreateCancelConfirmWindows(bool8 chooseHalf)
             AddTextPrinterParameterized4(confirmWindowId, FONT_SMALL, mainOffset, 1, 0, 0, sFontColorTable[0], TEXT_SKIP_DRAW, gMenuText_Confirm);
             PutWindowTilemap(confirmWindowId);
             CopyWindowToVram(confirmWindowId, COPYWIN_GFX);
-            cancelWindowId = AddWindow(&sMultiCancelButtonWindowTemplate);
+            cancelWindowId = AddWindow(&sMultiCancelButtonWindowTemplate_equal);
             offset = 0;
         }
         else if (gPartyMenu.layout == PARTY_LAYOUT_SINGLE)
@@ -2160,7 +2156,10 @@ static void BlitBitmapToPartyWindow_RightColumn(u8 windowId, u8 x, u8 y, u8 widt
 
 static void DrawEmptySlot(u8 windowId)
 {
-    BlitBitmapToPartyWindow(windowId, sSlotTilemap_WideEmpty, 18, 0, 0, 18, 3);
+    if (gPartyMenu.layout == PARTY_LAYOUT_SINGLE) //Custom party menu
+        BlitBitmapToPartyWindow(windowId, sEqualEmptySlotTileNums, 14, 0, 0, 14, 5);//
+    else
+        BlitBitmapToPartyWindow(windowId, sSlotTilemap_WideEmpty, 18, 0, 0, 18, 3);
 }
 
 // Custom party menu
@@ -2171,6 +2170,7 @@ static void BlitBitmapToPartyWindow_Equal(u8 windowId, u8 x, u8 y, u8 width, u8 
         width = 14;
         height = 5;
     }
+
     if (isEgg == FALSE)
         BlitBitmapToPartyWindow(windowId, sEqualMainSlotTileNums, 14, x, y, width, height);
     else
@@ -2295,21 +2295,17 @@ static void DisplayPartyPokemonLevelCheck(struct Pokemon *mon, struct PartyMenuB
 {
     if (GetMonData(mon, MON_DATA_SPECIES) != SPECIES_NONE)
     {
-        u8 ailment = GetMonAilment(mon);
-        if (ailment == AILMENT_NONE || ailment == AILMENT_PKRS)
+        if (c != 0)
         {
-            if (c != 0)
-            {
-                menuBox->infoRects->blitFunc(menuBox->windowId,
-                                             menuBox->infoRects->dimensions[4] >> 3,
-                                             (menuBox->infoRects->dimensions[5] >> 3) + 1,
-                                             menuBox->infoRects->dimensions[6] >> 3,
-                                             menuBox->infoRects->dimensions[7] >> 3,
-                                             FALSE);
-            }
-            if (c != 2)
-                DisplayPartyPokemonLevel(GetMonData(mon, MON_DATA_LEVEL), menuBox);
+            menuBox->infoRects->blitFunc(menuBox->windowId,
+                                         menuBox->infoRects->dimensions[4] >> 3,
+                                         (menuBox->infoRects->dimensions[5] >> 3) + 1,
+                                         menuBox->infoRects->dimensions[6] >> 3,
+                                         menuBox->infoRects->dimensions[7] >> 3,
+                                         FALSE);
         }
+        if (c != 2)
+            DisplayPartyPokemonLevel(GetMonData(mon, MON_DATA_LEVEL), menuBox);
     }
 }
 
@@ -2902,9 +2898,8 @@ static void SwitchSelectedMons(u8 taskId)
         tSlot2Height = GetWindowAttribute(windowIds[1], WINDOW_HEIGHT);
         tSlot2BaseBlock = GetWindowAttribute(windowIds[1], WINDOW_BASE_BLOCK);  // Custom party menu
         tSlot2Offset = 0;
-        if (gPartyMenu.layout == PARTY_LAYOUT_SINGLE && (tSlot2BaseBlock == 0x63 || tSlot2BaseBlock == 0xEF || tSlot2BaseBlock == 0x17B)) // Custom party menu
-            tSlot2SlideDir = -1;
-        else if (tSlot2Width == 10)
+        if ((gPartyMenu.layout == PARTY_LAYOUT_SINGLE && (tSlot2BaseBlock == 0x63 || tSlot2BaseBlock == 0xEF || tSlot2BaseBlock == 0x17B))
+         || tSlot2Width == 10) // Custom party menu
             tSlot2SlideDir = -1;
         else
             tSlot2SlideDir = 1;
@@ -5411,8 +5406,7 @@ static void UseSacredAsh(u8 taskId)
 
     PlaySE(SE_USE_ITEM);
     SetPartyMonAilmentGfx(mon, &sPartyMenuBoxes[gPartyMenu.slotId]);
-    if (gSprites[sPartyMenuBoxes[gPartyMenu.slotId].statusSpriteId].invisible)
-        DisplayPartyPokemonLevelCheck(mon, &sPartyMenuBoxes[gPartyMenu.slotId], 1);
+    DisplayPartyPokemonLevelCheck(mon, &sPartyMenuBoxes[gPartyMenu.slotId], 1);
     AnimatePartySlot(sPartyMenuInternal->tLastSlotUsed, 0);
     AnimatePartySlot(gPartyMenu.slotId, 1);
     PartyMenuModifyHP(taskId, gPartyMenu.slotId, 1, GetMonData(mon, MON_DATA_HP) - hp, Task_SacredAshDisplayHPRestored);
