@@ -39,6 +39,7 @@
 #define sABILITY_OVERWRITE           (gBattleScripting + 0x34) // abilityPopupOverwrite
 #define sSWITCH_CASE                 (gBattleScripting + 0x36) // switchCase
 #define sBERRY_OVERRIDE              (gBattleScripting + 0x37) // overrideBerryRequirements
+#define sSTICKY_WEB_STAT_DROP        (gBattleScripting + 0x38) // stickyWebStatDrop
 
 // Array entries for battle communication
 #define MULTIUSE_STATE          0
@@ -239,6 +240,8 @@
 #define VARIOUS_SAVE_BATTLER_ITEM                   149
 #define VARIOUS_RESTORE_BATTLER_ITEM                150
 #define VARIOUS_BATTLER_ITEM_TO_LAST_USED_ITEM      151
+#define VARIOUS_SET_BEAK_BLAST                      152
+#define VARIOUS_SWAP_SIDE_STATUSES                  153
 
 // Cmd_manipulatedamage
 #define DMG_CHANGE_SIGN            0
