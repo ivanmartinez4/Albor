@@ -1494,9 +1494,9 @@ static void DebugAction_Util_DoWonderTrade(u8 taskId)
 }
 static void DebugAction_Util_ChangeCostume(u8 taskId)
 {
-    if (gSaveBlock2Ptr->costumeId == 0)
+    if (gSaveBlock2Ptr->playerCostume == 0)
         VarSet(VAR_TEMP_1, 1);
-    else if (gSaveBlock2Ptr->costumeId == 1)
+    else if (gSaveBlock2Ptr->playerCostume == 1)
         VarSet(VAR_TEMP_1, 2);
     else
         VarSet(VAR_TEMP_1, 0);

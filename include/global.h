@@ -448,7 +448,7 @@ struct SaveBlock2
     /*0x624*/ u16 contestLinkResults[CONTEST_CATEGORIES_COUNT][CONTESTANT_COUNT];
     /*0x64C*/ struct BattleFrontier frontier;
               bool8 autoRun;
-              u8 costumeId;
+              u8 playerCostume;
               u8 rivalName[PLAYER_NAME_LENGTH + 1];
               u8 savedDay;
               u8 savedMonth;

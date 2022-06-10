@@ -4212,7 +4212,7 @@ u8 CheckChainFishingStreak(void)
 void SwapPlayersCostume(void)
 {
     struct ObjectEvent *objEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
-    gSaveBlock2Ptr->costumeId = VarGet(VAR_TEMP_1);
+    gSaveBlock2Ptr->playerCostume = VarGet(VAR_TEMP_1);
     ObjectEventSetGraphicsId(objEvent, GetPlayerAvatarGraphicsIdByCurrentState());
     ObjectEventTurn(objEvent, objEvent->movementDirection);
     BlendPalettes(0xFFFFFFFF, 16, 0);
@@ -4261,7 +4261,7 @@ void CheckMonIVs(void)
 
 u8 GetPlayersCurrentCostume(void)
 {
-    return gSaveBlock2Ptr->costumeId;
+    return gSaveBlock2Ptr->playerCostume;
 }
 
 const u8 *GetCurrentDayString(u8 dayOfWeek)

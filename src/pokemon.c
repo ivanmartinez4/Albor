@@ -7797,13 +7797,13 @@ u16 PlayerGenderToFrontTrainerPicId(u8 playerGender)
         return FacilityClassToPicIndex(FACILITY_CLASS_BRENDAN);
 }
 
-u16 GetTrainerFrontSpriteBasedOnPlayerCostumeAndGender(u8 costumeId, u8 playerGender)
+u16 GetTrainerFrontSpriteBasedOnPlayerCostumeAndGender(u8 playerCostume, u8 playerGender)
 {
     u16 trainerPic;
 
     if (playerGender != MALE)
     {
-        switch (costumeId)
+        switch (playerCostume)
         {
         case DEFAULT_COSTUME:
             trainerPic = TRAINER_PIC_MAY;
@@ -7818,7 +7818,7 @@ u16 GetTrainerFrontSpriteBasedOnPlayerCostumeAndGender(u8 costumeId, u8 playerGe
     }
     else
     {
-        switch (costumeId)
+        switch (playerCostume)
         {
         case DEFAULT_COSTUME:
             trainerPic = TRAINER_PIC_BRENDAN;

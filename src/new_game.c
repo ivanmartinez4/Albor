@@ -204,7 +204,7 @@ void NewGameInitData(void)
     ResetTrainerHillResults();
     ResetContestLinkResults();
     gSaveBlock2Ptr->autoRun = FALSE;
-    gSaveBlock2Ptr->costumeId = DEFAULT_COSTUME;
+    gSaveBlock2Ptr->playerCostume = DEFAULT_COSTUME;
     RtcCalcLocalTime();
 }
 
