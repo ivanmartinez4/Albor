@@ -243,11 +243,11 @@ void CreateWonderTradePokemon(u8 whichPlayerMon)
 #ifdef POKEMON_EXPANSION
     // 10% chance of giving the in coming Pokémon their HA, if they have one
     // Uncomment if your copy of the pokemon_expansion is up-to-date.
-    //if (gBaseStats[species].abilities[2] != ABILITY_NONE && (Random() % 99) < 10)
-    //{
-    //    abilityNum = 2;
-    //    SetMonData(pokemon, MON_DATA_ABILITY_NUM, &abilityNum);
-    //}
+    if (gBaseStats[species].abilities[2] != ABILITY_NONE && (Random() % 99) < 10)
+    {
+        abilityNum = 2;
+        SetMonData(pokemon, MON_DATA_ABILITY_NUM, &abilityNum);
+    }
 
     // Uncomment if your copy of the pokemon_expansion is not up-to-date.
     //if (gBaseStats[species].abilityHidden != ABILITY_NONE && (Random() % 99) < 10)
@@ -298,6 +298,7 @@ u16 determineEvolution(struct Pokemon *mon)
     u16 eeveelution = Random() % 8;
     u16 alcrememe = Random() % 9;
     u16 currentMap;
+    u16 currHeldItem = GetMonData(&gEnemyParty[0], MON_DATA_HELD_ITEM);
 
     if (species == SPECIES_NINCADA && level >= 20)
     {
@@ -362,8 +363,7 @@ u16 determineEvolution(struct Pokemon *mon)
                 targetSpecies = gEvolutionTable[species][i].targetSpecies;
             else if (species == SPECIES_MEOWTH_ALOLAN && level >= 28)
                 targetSpecies = gEvolutionTable[species][i].targetSpecies;
-            else if ((species == SPECIES_GOLBAT || species == SPECIES_CHANSEY
-                   || species == SPECIES_MUNCHLAX) && level >= 35)
+            else if ((species == SPECIES_GOLBAT || species == SPECIES_CHANSEY || species == SPECIES_MUNCHLAX) && level >= 35)
                 targetSpecies = gEvolutionTable[species][i].targetSpecies;
             break;
         case EVO_LEVEL:
@@ -373,19 +373,6 @@ u16 determineEvolution(struct Pokemon *mon)
                     targetSpecies = SPECIES_SLOWBRO;
                 else
                     targetSpecies = SPECIES_SLOWKING;
-            }
-            else if (species == SPECIES_TOXEL && level >= 30)
-            {
-                if (GetNature(mon) == NATURE_HARDY || GetNature(mon) == NATURE_BRAVE
-                 || GetNature(mon) == NATURE_ADAMANT || GetNature(mon) == NATURE_NAUGHTY
-                 || GetNature(mon) == NATURE_DOCILE || GetNature(mon) == NATURE_IMPISH
-                 || GetNature(mon) == NATURE_LAX || GetNature(mon) == NATURE_HASTY
-                 || GetNature(mon) == NATURE_JOLLY || GetNature(mon) == NATURE_NAIVE
-                 || GetNature(mon) == NATURE_RASH || GetNature(mon) == NATURE_SASSY
-                 || GetNature(mon) == NATURE_QUIRKY)
-                    targetSpecies = SPECIES_TOXTRICITY;
-                else
-                    targetSpecies = SPECIES_TOXTRICITY_LOW_KEY;
             }
             else if (gEvolutionTable[species][i].param <= level)
             {
@@ -538,8 +525,7 @@ u16 determineEvolution(struct Pokemon *mon)
                 for (j = 0; j < PARTY_SIZE; j++)
                 {
                     u16 currSpecies = GetMonData(&gPlayerParty[j], MON_DATA_SPECIES, NULL);
-                    if (gBaseStats[currSpecies].type1 == TYPE_DARK
-                     || gBaseStats[currSpecies].type2 == TYPE_DARK)
+                    if (gBaseStats[currSpecies].type1 == TYPE_DARK || gBaseStats[currSpecies].type2 == TYPE_DARK)
                     {
                         targetSpecies = gEvolutionTable[species][i].targetSpecies;
                         break;
@@ -573,9 +559,68 @@ u16 determineEvolution(struct Pokemon *mon)
             break;
         case EVO_TRADE_ITEM:
             {
-                u16 currHeldItem = GetMonData(&gEnemyParty[0], MON_DATA_HELD_ITEM);
                 if (gEvolutionTable[species][i].param == currHeldItem)
                     targetSpecies = gEvolutionTable[species][i].targetSpecies;
+            }
+            break;
+        case EVO_LEVEL_NATURE_AMPED:
+            if (gEvolutionTable[species][i].param <= level)
+            {
+                u8 nature = GetNature(mon);
+                switch (nature)
+                {
+                case NATURE_HARDY:
+                case NATURE_BRAVE:
+                case NATURE_ADAMANT:
+                case NATURE_NAUGHTY:
+                case NATURE_DOCILE:
+                case NATURE_IMPISH:
+                case NATURE_LAX:
+                case NATURE_HASTY:
+                case NATURE_JOLLY:
+                case NATURE_NAIVE:
+                case NATURE_RASH:
+                case NATURE_SASSY:
+                case NATURE_QUIRKY:
+                    targetSpecies = gEvolutionTable[species][i].targetSpecies;
+                }
+            }
+            break;
+        case EVO_LEVEL_NATURE_LOW_KEY:
+            if (gEvolutionTable[species][i].param <= level)
+            {
+                u8 nature = GetNature(mon);
+                switch (nature)
+                {
+                case NATURE_LONELY:
+                case NATURE_BOLD:
+                case NATURE_RELAXED:
+                case NATURE_TIMID:
+                case NATURE_SERIOUS:
+                case NATURE_MODEST:
+                case NATURE_MILD:
+                case NATURE_QUIET:
+                case NATURE_BASHFUL:
+                case NATURE_CALM:
+                case NATURE_GENTLE:
+                case NATURE_CAREFUL:
+                    targetSpecies = gEvolutionTable[species][i].targetSpecies;
+                }
+            }
+            break;
+        case EVO_HELD_ITEM: // Custom
+            if (gEvolutionTable[species][i].param == currHeldItem)
+                targetSpecies = gEvolutionTable[species][i].targetSpecies;
+            break;
+        case EVO_CRITICAL_HITS:
+        case EVO_SCRIPT_TRIGGER_DMG:
+        case EVO_DARK_SCROLL:
+        case EVO_WATER_SCROLL:
+            // These 4 are all strictly battle and overworld event related, so let's just do a coin toss, lol.
+            if ((Random() % 2) == 0)
+            {
+                targetSpecies = gEvolutionTable[species][i].targetSpecies;
+                return targetSpecies;
             }
             break;
         }
@@ -844,7 +889,9 @@ static const u16 returnValidSpecies(u16 input)
         SPECIES_TOGEPI,
         SPECIES_NATU,
         SPECIES_MAREEP,
+    #ifndef POKEMON_EXPANSION
         SPECIES_SUDOWOODO,
+    #endif
         SPECIES_HOPPIP,
         SPECIES_AIPOM,
         SPECIES_SUNKERN,
