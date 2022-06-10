@@ -203,7 +203,6 @@ void NewGameInitData(void)
     WipeTrainerNameRecords();
     ResetTrainerHillResults();
     ResetContestLinkResults();
-    gSaveBlock2Ptr->expShare = FALSE;
     gSaveBlock2Ptr->autoRun = FALSE;
     gSaveBlock2Ptr->costumeId = DEFAULT_COSTUME;
     RtcCalcLocalTime();

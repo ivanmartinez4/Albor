@@ -447,7 +447,6 @@ struct SaveBlock2
     /*0x1EC*/ struct BerryCrush berryCrush;
     /*0x624*/ u16 contestLinkResults[CONTEST_CATEGORIES_COUNT][CONTESTANT_COUNT];
     /*0x64C*/ struct BattleFrontier frontier;
-              u16 expShare:1;
               bool8 autoRun;
               u8 costumeId;
               u8 rivalName[PLAYER_NAME_LENGTH + 1];
