@@ -2685,30 +2685,7 @@ static void DoSwitchOutAnimation(void)
 static void PlayerHandleDrawTrainerPic(void)
 {
     s16 xPos, yPos;
-    u32 trainerPicId;
-    u8 position;
-
-    if (gBattleTypeFlags & BATTLE_TYPE_LINK)
-    {
-        if ((gLinkPlayers[GetMultiplayerId()].version & 0xFF) == VERSION_FIRE_RED
-            || (gLinkPlayers[GetMultiplayerId()].version & 0xFF) == VERSION_LEAF_GREEN)
-        {
-            trainerPicId = gLinkPlayers[GetMultiplayerId()].gender + TRAINER_BACK_PIC_RED;
-        }
-        else if ((gLinkPlayers[GetMultiplayerId()].version & 0xFF) == VERSION_RUBY
-                 || (gLinkPlayers[GetMultiplayerId()].version & 0xFF) == VERSION_SAPPHIRE)
-        {
-            trainerPicId = gLinkPlayers[GetMultiplayerId()].gender + TRAINER_BACK_PIC_RUBY_SAPPHIRE_BRENDAN;
-        }
-        else
-        {
-            trainerPicId = gLinkPlayers[GetMultiplayerId()].gender + TRAINER_BACK_PIC_BRENDAN;
-        }
-    }
-    else
-    {
-        trainerPicId = gSaveBlock2Ptr->playerGender;
-    }
+    u32 trainerPicId = gCostumeBackPics[gSaveBlock2Ptr->playerCostume][gSaveBlock2Ptr->playerGender];
 
     if (gBattleTypeFlags & BATTLE_TYPE_MULTI)
     {
@@ -2718,26 +2695,18 @@ static void PlayerHandleDrawTrainerPic(void)
             xPos = 32;
 
         if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER && gPartnerTrainerId != TRAINER_STEVEN_PARTNER && gPartnerTrainerId < TRAINER_CUSTOM_PARTNER)
-        {
             xPos = 90;
-            yPos = (8 - gTrainerFrontPicCoords[trainerPicId].size) * 4 + 80;
-        }
-        else
-        {
-            yPos = (8 - gTrainerBackPicCoords[trainerPicId].size) * 4 + 80;
-        }
-
     }
     else
     {
         xPos = 80;
-        yPos = (8 - gTrainerBackPicCoords[trainerPicId].size) * 4 + 80;
     }
+    yPos = 80;
 
     // Use front pic table for any tag battles unless your partner is Steven.
     if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER && gPartnerTrainerId != TRAINER_STEVEN_PARTNER && gPartnerTrainerId < TRAINER_CUSTOM_PARTNER)
     {
-        trainerPicId = GetTrainerFrontSpriteBasedOnPlayerCostumeAndGender(gSaveBlock2Ptr->playerCostume, gSaveBlock2Ptr->playerGender);
+        trainerPicId = gCostumeFrontPics[gSaveBlock2Ptr->playerCostume][gSaveBlock2Ptr->playerGender];
         DecompressTrainerFrontPic(trainerPicId, gActiveBattler);
         SetMultiuseSpriteTemplateToTrainerFront(trainerPicId, GetBattlerPosition(gActiveBattler));
         gBattlerSpriteIds[gActiveBattler] = CreateSprite(&gMultiuseSpriteTemplate, xPos, yPos, GetBattlerSpriteSubpriority(gActiveBattler));
@@ -2753,9 +2722,7 @@ static void PlayerHandleDrawTrainerPic(void)
     // Use the back pic in any other scenario.
     else
     {
-        trainerPicId = gCostumeBackPics[gSaveBlock2Ptr->playerCostume][gSaveBlock2Ptr->playerGender];
-        position = GetBattlerPosition(gActiveBattler);
-        LoadPalette(gTrainerBackPicPaletteTable[trainerPicId].data, 0x100 + 16 * gActiveBattler, 0x20);
+        LoadPalette(gTrainerBackPicPaletteTable[trainerPicId].data, 0x100 + 16 * gActiveBattler, 32);
         SetMultiuseSpriteTemplateToTrainerBack(trainerPicId, GetBattlerPosition(gActiveBattler));
         gBattlerSpriteIds[gActiveBattler] = CreateSprite(&gMultiuseSpriteTemplate, xPos, yPos, GetBattlerSpriteSubpriority(gActiveBattler));
 
