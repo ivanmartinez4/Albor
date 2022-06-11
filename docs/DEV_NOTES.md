@@ -190,6 +190,14 @@ I wrote this... I don't know, sometime ago, but I never thought about storing it
 * Allow to release Bad Eggs from the PC.
 * Update some Pokémon's base held items taking inspiration from Legends Arceus.
 * Make the Apricorns obtainable and cook something similar to the fossil selection to craft Apricorn Balls, perhaps in Rustboro.
+* Maybe incorporate Wally into the story somehow? I don't know, but I want him to feel at least a tiny little bit more relevant. That gap between Mauville City and Victory Road is just ridiculous.
+* Buff certain trainers
+  * The swimmers in Route 103, who have Lv15 Pokémon despite not being fightable until you get the 5th badge.
+  * Jennifer in Route 120. She has a Milotic in RS that used to give me issues when I rushed through it with Torchic. Other important trainers use that though, so let's give her a Gyarados.
+* Take some inspiration from ORAS for some things, like the Float Stone's location.
+* Buff the encounters at Sky Pillar after the conflict in Sootopolis is solved.
+* When a Gym Leader rematch is ready to happen, make said gym's trainers battle the Player again.
+* Make the Cave of Origin available in the postgame. It'll be the place to rematch Wallace after the league.
 
 ## Misc. Notes
 
