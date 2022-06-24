@@ -91,10 +91,10 @@ enum { // Flags
     DEBUG_FLAG_MENU_ITEM_FLAGS,
     DEBUG_FLAG_MENU_ITEM_BADGES,
     DEBUG_FLAG_MENU_ITEM_POKEDEXFLAGS,
-    DEBUG_FLAG_MENU_ITEM_POKEDEXONOFF,
-    DEBUG_FLAG_MENU_ITEM_NATDEXONOFF,
-    DEBUG_FLAG_MENU_ITEM_POKEMONONOFF,
-    DEBUG_FLAG_MENU_ITEM_POKENAVONOFF,
+    DEBUG_FLAG_MENU_ITEM_POKEDEX_ONOFF,
+    DEBUG_FLAG_MENU_ITEM_NATDEX_ONOFF,
+    DEBUG_FLAG_MENU_ITEM_POKEMON_ONOFF,
+    DEBUG_FLAG_MENU_ITEM_POKENAV_ONOFF,
     DEBUG_FLAG_MENU_ITEM_FLYANYWHERE,
     DEBUG_FLAG_MENU_ITEM_COLLISION_ONOFF,
     DEBUG_FLAG_MENU_ITEM_ENCOUNTER_ONOFF,
@@ -106,6 +106,7 @@ enum { // Flags
     DEBUG_FLAG_MENU_ITEM_EXPERIENCE_ONOFF,
     DEBUG_FLAG_MENU_ITEM_SHINY_HUE_SHIFT_ONOFF,
     DEBUG_FLAG_MENU_ITEM_RUNNING_SHOES_ONOFF,
+    DEBUG_FLAG_MENU_ITEM_MAP_TRANSITION_MUSIC_ONOFF,
 };
 enum { // Vars
     DEBUG_VARS_MENU_ITEM_VARS,
@@ -175,7 +176,7 @@ enum { // Badges
 
 // *******************************
 // Constants
-#define DEBUG_MAIN_MENU_WIDTH 16
+#define DEBUG_MAIN_MENU_WIDTH 20
 #define DEBUG_MAIN_MENU_HEIGHT 8
 
 #define DEBUG_NUMBER_DISPLAY_WIDTH 10
@@ -272,10 +273,10 @@ static void DebugAction_Flags_FlagsSelect(u8 taskId);
 
 static void DebugAction_Flags_SetPokedexFlags(u8);
 static void DebugAction_Flags_Badges(u8 taskId);
-static void DebugAction_Flags_SwitchDex(u8);
-static void DebugAction_Flags_SwitchNatDex(u8);
-static void DebugAction_Flags_SwitchPokemon(u8);
-static void DebugAction_Flags_SwitchPokeNav(u8);
+static void DebugAction_Flags_DexOnOff(u8);
+static void DebugAction_Flags_NatDexOnOff(u8);
+static void DebugAction_Flags_PokemonOnOff(u8);
+static void DebugAction_Flags_PokeNavOnOff(u8);
 static void DebugAction_Flags_ToggleFlyFlags(u8);
 static void DebugAction_Flags_CollisionOnOff(u8);
 static void DebugAction_Flags_EncounterOnOff(u8);
@@ -286,7 +287,8 @@ static void DebugAction_Flags_ShiniesOnOff(u8);
 static void DebugAction_Flags_EscapingOnOff(u8);
 static void DebugAction_Flags_ExperienceOnOff(u8);
 static void DebugAction_Flags_ShinyHueShiftOnOff(u8);
-static void DebugAction_Flags_SwitchRunningShoes(u8);
+static void DebugAction_Flags_RunningShoesOnOff(u8);
+static void DebugAction_Flags_MapTransitionMusicOnOff(u8);
 
 static void DebugAction_Vars_Vars(u8 taskId);
 static void DebugAction_Vars_Select(u8 taskId);
@@ -370,7 +372,6 @@ extern u8 DebugScript_CheckSavefileSize[];
 extern u8 DebugScript_DebugPack[];
 extern u8 PlayersHouse_2F_EventScript_SetWallClock[];
 extern u8 PlayersHouse_2F_EventScript_CheckWallClock[];
-//extern u8 EventScript_GetCurrentDay[];
 extern u8 Script_PokemonDataInfoBox[];
 extern u8 DebugScript_ForceEggHatch[];
 extern u8 DebugScript_DoWonderTrade[];
@@ -386,68 +387,69 @@ extern const u8 gAbilityNames[][ABILITY_NAME_LENGTH + 1];
 
 // Text
 // Main Menu
-static const u8 sDebugText_Utilities[] =        _("Utilities");
-static const u8 sDebugText_Flags[] =            _("Flags");
-static const u8 sDebugText_Vars[] =             _("Variables");
-static const u8 sDebugText_Give[] =             _("Give X");
-static const u8 sDebugText_Sound[] =            _("Sound");
-static const u8 sDebugText_Cancel[] =           _("Cancel");
+static const u8 sDebugText_Utilities[] = _("Utilities");
+static const u8 sDebugText_Flags[] =     _("Flags");
+static const u8 sDebugText_Vars[] =      _("Variables");
+static const u8 sDebugText_Give[] =      _("Give X");
+static const u8 sDebugText_Sound[] =     _("Sound");
+static const u8 sDebugText_Cancel[] =    _("Cancel");
 // Util Menu
-static const u8 sDebugText_Util_HealParty[] =               _("Heal Party");
-static const u8 sDebugText_Util_Fly[] =                     _("Fly to map");
-static const u8 sDebugText_Util_PresetWarp[] =              _("Preset Warp");
-static const u8 sDebugText_Util_WarpToMap[] =               _("Warp to map warp");
-static const u8 sDebugText_Util_WarpToMap_SelectMapGroup[] =_("Group: {STR_VAR_1}          \n                 \n\n{STR_VAR_3}     ");
-static const u8 sDebugText_Util_WarpToMap_SelectMap[] =     _("Map: {STR_VAR_1}            \nMapSec:          \n{STR_VAR_2}                       \n{STR_VAR_3}     ");
-static const u8 sDebugText_Util_WarpToMap_SelectWarp[] =    _("Warp:             \n{STR_VAR_1}                \n                                  \n{STR_VAR_3}     ");
-static const u8 sDebugText_Util_WarpToMap_SelMax[] =        _("{STR_VAR_1} / {STR_VAR_2}");
-static const u8 sDebugText_Util_SaveSpace[] =               _("Savefile Size Data");
-static const u8 sDebugText_Util_CheckWallClock[] =          _("Check Wall Clock");
-static const u8 sDebugText_Util_SetWallClock[] =            _("Set Wall Clock");
-static const u8 sDebugText_Util_CheckWeekDay[] =            _("Check Week Day");
-static const u8 sDebugText_Util_WatchCredits[] =            _("Watch Credits");
-static const u8 sDebugText_Util_Trainer_Name[] =            _("Trainer name");
-static const u8 sDebugText_Util_Rival_Name[] =              _("Rival name");
-static const u8 sDebugText_Util_Trainer_Gender[] =          _("Change Gender");
-static const u8 sDebugText_Util_Trainer_Id[] =              _("New Trainer Id");
-static const u8 sDebugText_Util_CheckStats[] =              _("Check Stats");
-static const u8 sDebugText_Util_ForceEggHatch[] =           _("Force Egg Hatch");
-static const u8 sDebugText_Util_OpenPC[] =                  _("Open PC");
-static const u8 sDebugText_Util_DoWonderTrade[] =           _("Do a Wonder Trade");
-static const u8 sDebugText_Util_ChangeCostume[] =           _("Change Costume");
-static const u8 sDebugText_Util_CatchChainStatus[] =        _("Catch Chain Status");
-static const u8 sDebugText_Util_CreateDaycareEgg[] =        _("Create Daycare Egg");
-static const u8 sDebugText_Util_ClearBag[] =                _("Clear Bag");
-static const u8 sDebugText_Util_DeletePokemon[] =           _("Delete Pokémon");
-static const u8 sDebugText_Util_ClearParty[] =              _("Clear Party");
+static const u8 sDebugText_Util_HealParty[] =                _("Heal Party");
+static const u8 sDebugText_Util_Fly[] =                      _("Fly to map");
+static const u8 sDebugText_Util_PresetWarp[] =               _("Preset Warp");
+static const u8 sDebugText_Util_WarpToMap[] =                _("Warp to map warp");
+static const u8 sDebugText_Util_WarpToMap_SelectMapGroup[] = _("Group: {STR_VAR_1}          \n                 \n\n{STR_VAR_3}     ");
+static const u8 sDebugText_Util_WarpToMap_SelectMap[] =      _("Map: {STR_VAR_1}            \nMapSec:          \n{STR_VAR_2}                       \n{STR_VAR_3}     ");
+static const u8 sDebugText_Util_WarpToMap_SelectWarp[] =     _("Warp:             \n{STR_VAR_1}                \n                                  \n{STR_VAR_3}     ");
+static const u8 sDebugText_Util_WarpToMap_SelMax[] =         _("{STR_VAR_1} / {STR_VAR_2}");
+static const u8 sDebugText_Util_SaveSpace[] =                _("Savefile Size Data");
+static const u8 sDebugText_Util_CheckWallClock[] =           _("Check Wall Clock");
+static const u8 sDebugText_Util_SetWallClock[] =             _("Set Wall Clock");
+static const u8 sDebugText_Util_CheckWeekDay[] =             _("Check Week Day");
+static const u8 sDebugText_Util_WatchCredits[] =             _("Watch Credits");
+static const u8 sDebugText_Util_Trainer_Name[] =             _("Trainer name");
+static const u8 sDebugText_Util_Rival_Name[] =               _("Rival name");
+static const u8 sDebugText_Util_Trainer_Gender[] =           _("Change Gender");
+static const u8 sDebugText_Util_Trainer_Id[] =               _("New Trainer Id");
+static const u8 sDebugText_Util_CheckStats[] =               _("Check Stats");
+static const u8 sDebugText_Util_ForceEggHatch[] =            _("Force Egg Hatch");
+static const u8 sDebugText_Util_OpenPC[] =                   _("Open PC");
+static const u8 sDebugText_Util_DoWonderTrade[] =            _("Do a Wonder Trade");
+static const u8 sDebugText_Util_ChangeCostume[] =            _("Change Costume");
+static const u8 sDebugText_Util_CatchChainStatus[] =         _("Catch Chain Status");
+static const u8 sDebugText_Util_CreateDaycareEgg[] =         _("Create Daycare Egg");
+static const u8 sDebugText_Util_ClearBag[] =                 _("Clear Bag");
+static const u8 sDebugText_Util_DeletePokemon[] =            _("Delete Pokémon");
+static const u8 sDebugText_Util_ClearParty[] =               _("Clear Party");
 // Flags Menu
-static const u8 sDebugText_Flags_Flags[] =                _("Edit Flags");
-static const u8 sDebugText_Flags_Badges[] =               _("Toggle Badges");
-static const u8 sDebugText_Flags_SetPokedexFlags[] =      _("All Pokédex Flags");
-static const u8 sDebugText_Flags_SwitchDex[] =            _("Pokédex ON/OFF");
-static const u8 sDebugText_Flags_SwitchNationalDex[] =    _("NatDex ON/OFF");
-static const u8 sDebugText_Flags_SwitchPokemon[] =        _("Pokémon ON/OFF");
-static const u8 sDebugText_Flags_SwitchPokeNav[] =        _("PokéNav ON/OFF");
-static const u8 sDebugText_Flags_ToggleFlyFlags[] =       _("Fly Flags ON/OFF");
-static const u8 sDebugText_Flags_SwitchCollision[] =      _("Collision ON/OFF");
-static const u8 sDebugText_Flags_SwitchEncounter[] =      _("Encounter ON/OFF");
-static const u8 sDebugText_Flags_SwitchTrainerSee[] =     _("TrainerSee ON/OFF");
-static const u8 sDebugText_Flags_SwitchBagUse[] =         _("BagUse ON/OFF");
-static const u8 sDebugText_Flags_SwitchCatching[] =       _("Catching ON/OFF");
-static const u8 sDebugText_Flags_SwitchShinies[] =        _("Shiny enc. ON/OFF");
-static const u8 sDebugText_Flags_SwitchEscaping[] =       _("Escaping ON/OFF");
-static const u8 sDebugText_Flags_SwitchExperience[] =     _("Experience ON/OFF");
-static const u8 sDebugText_Flags_SwitchShinyHueShift[] =  _("Shiny Hue Shift ON/OFF");
-static const u8 sDebugText_Flags_SwitchRunningShoes[] =   _("Running Shoes ON/OFF");
-static const u8 sDebugText_Flag[] =                       _("Flag: {STR_VAR_1}   \n{STR_VAR_2}                   \n{STR_VAR_3}");
-static const u8 sDebugText_FlagHex[] =                    _("{STR_VAR_1}           \n0x{STR_VAR_2}             ");
-static const u8 sDebugText_FlagSet[] =                    _("TRUE");
-static const u8 sDebugText_FlagUnset[] =                  _("FALSE");
+static const u8 sDebugText_Flags_Flags[] =                   _("Edit Flags");
+static const u8 sDebugText_Flags_Badges[] =                  _("Toggle Badges");
+static const u8 sDebugText_Flags_SetPokedexFlags[] =         _("All Pokédex Flags");
+static const u8 sDebugText_Flags_DexOnOff[] =                _("Pokédex ON/OFF");
+static const u8 sDebugText_Flags_NationalDexOnOff[] =        _("NatDex ON/OFF");
+static const u8 sDebugText_Flags_PokemonOnOff[] =            _("Pokémon ON/OFF");
+static const u8 sDebugText_Flags_PokeNavOnOff[] =            _("PokéNav ON/OFF");
+static const u8 sDebugText_Flags_ToggleFlyFlags[] =          _("Fly Flags ON/OFF");
+static const u8 sDebugText_Flags_CollisionOnOff[] =          _("Collision ON/OFF");
+static const u8 sDebugText_Flags_EncounterOnOff[] =          _("Encounter ON/OFF");
+static const u8 sDebugText_Flags_TrainerSeeOnOff[] =         _("TrainerSee ON/OFF");
+static const u8 sDebugText_Flags_BagUseOnOff[] =             _("BagUse ON/OFF");
+static const u8 sDebugText_Flags_CatchingOnOff[] =           _("Catching ON/OFF");
+static const u8 sDebugText_Flags_ShiniesOnOff[] =            _("Shiny enc. ON/OFF");
+static const u8 sDebugText_Flags_EscapingOnOff[] =           _("Escaping ON/OFF");
+static const u8 sDebugText_Flags_ExperienceOnOff[] =         _("Experience ON/OFF");
+static const u8 sDebugText_Flags_ShinyHueShiftOnOff[] =      _("Shiny Hue Shift ON/OFF");
+static const u8 sDebugText_Flags_RunningShoesOnOff[] =       _("Running Shoes ON/OFF");
+static const u8 sDebugText_Flags_MapTransitionMusicOnOff[] = _("Map Transition Music ON/OFF");
+static const u8 sDebugText_Flag[] =                          _("Flag: {STR_VAR_1}   \n{STR_VAR_2}                   \n{STR_VAR_3}");
+static const u8 sDebugText_FlagHex[] =                       _("{STR_VAR_1}           \n0x{STR_VAR_2}             ");
+static const u8 sDebugText_FlagSet[] =                       _("TRUE");
+static const u8 sDebugText_FlagUnset[] =                     _("FALSE");
 // Variables Menu
-static const u8 sDebugText_Vars_Vars[] =             _("Edit Vars");
-static const u8 sDebugText_VariableHex[] =           _("{STR_VAR_1}           \n0x{STR_VAR_2}             ");
-static const u8 sDebugText_Variable[] =              _("Var: {STR_VAR_1}             \nVal: {STR_VAR_3}             \n{STR_VAR_2}");
-static const u8 sDebugText_VariableValueSet[] =      _("Var: {STR_VAR_1}             \nVal: {STR_VAR_3}             \n{STR_VAR_2}");
+static const u8 sDebugText_Vars_Vars[] =        _("Edit Vars");
+static const u8 sDebugText_VariableHex[] =      _("{STR_VAR_1}           \n0x{STR_VAR_2}             ");
+static const u8 sDebugText_Variable[] =         _("Var: {STR_VAR_1}             \nVal: {STR_VAR_3}             \n{STR_VAR_2}");
+static const u8 sDebugText_VariableValueSet[] = _("Var: {STR_VAR_1}             \nVal: {STR_VAR_3}             \n{STR_VAR_2}");
 // Give Menu
 static const u8 sDebugText_Give_GiveItem[] =            _("Give Item");
 static const u8 sDebugText_ItemQuantity[] =             _("Quantity:       \n{STR_VAR_1}    \n\n{STR_VAR_2}");
@@ -482,11 +484,11 @@ static const u8 sDebugText_Give_FillKeyItemsPocket[] =  _("Fill Key Items Pocket
 static const u8 sDebugText_Give_MaxCoins[] =            _("Give Max. Coins");
 static const u8 sDebugText_Give_GiveDebugPack[] =       _("Debug Pack");
 // Sound Mneu
-static const u8 sDebugText_Sound_SE[] =                 _("Effects");
-static const u8 sDebugText_Sound_SE_ID[] =              _("Sound Id: {STR_VAR_3}\n{STR_VAR_1}    \n{STR_VAR_2}");
-static const u8 sDebugText_Sound_MUS[] =                _("Music");
-static const u8 sDebugText_Sound_MUS_ID[] =             _("Music Id: {STR_VAR_3}\n{STR_VAR_1}    \n{STR_VAR_2}");
-static const u8 sDebugText_Sound_Empty[] =              _("");
+static const u8 sDebugText_Sound_SE[] =     _("Effects");
+static const u8 sDebugText_Sound_SE_ID[] =  _("Sound Id: {STR_VAR_3}\n{STR_VAR_1}    \n{STR_VAR_2}");
+static const u8 sDebugText_Sound_MUS[] =    _("Music");
+static const u8 sDebugText_Sound_MUS_ID[] = _("Music Id: {STR_VAR_3}\n{STR_VAR_1}    \n{STR_VAR_2}");
+static const u8 sDebugText_Sound_Empty[] =  _("");
 // Preset Warps
 static const u8 sDebugText_Map_LittlerootTown[]      = _("Littleroot Town");
 static const u8 sDebugText_Map_OldaleTown[]          = _("Oldale Town");
@@ -518,24 +520,24 @@ static const u8 sDebugText_Map_BattlePalace[]        = _("Battle Palace");
 static const u8 sDebugText_Map_BattlePyramid[]       = _("Battle Pyramid");
 static const u8 sDebugText_Map_BattleTower[]         = _("Battle Tower");
 // Badges
-static const u8 sDebugText_Flags_AllBadges[]       = _("All badges ON/OFF");
-static const u8 sDebugText_Flags_FirstBadge[]      = _("First (Rustboro City)");
-static const u8 sDebugText_Flags_SecondBadge[]     = _("Second (Dewford Town)");
-static const u8 sDebugText_Flags_ThirdBadge[]      = _("Third (Mauville City)");
-static const u8 sDebugText_Flags_FourthBadge[]     = _("Fourth (Lavaridge Town)");
-static const u8 sDebugText_Flags_FifthBadge[]      = _("Fifth (Petalburg City)");
-static const u8 sDebugText_Flags_SixthBadge[]      = _("Sixth (Fortree City)");
-static const u8 sDebugText_Flags_SeventhBadge[]    = _("Seventh (Mossdeep City)");
-static const u8 sDebugText_Flags_EighthBadge[]     = _("Eighth (Sootopolis City)");
+static const u8 sDebugText_Flags_AllBadges[]    = _("All badges ON/OFF");
+static const u8 sDebugText_Flags_FirstBadge[]   = _("First (Rustboro City)");
+static const u8 sDebugText_Flags_SecondBadge[]  = _("Second (Dewford Town)");
+static const u8 sDebugText_Flags_ThirdBadge[]   = _("Third (Mauville City)");
+static const u8 sDebugText_Flags_FourthBadge[]  = _("Fourth (Lavaridge Town)");
+static const u8 sDebugText_Flags_FifthBadge[]   = _("Fifth (Petalburg City)");
+static const u8 sDebugText_Flags_SixthBadge[]   = _("Sixth (Fortree City)");
+static const u8 sDebugText_Flags_SeventhBadge[] = _("Seventh (Mossdeep City)");
+static const u8 sDebugText_Flags_EighthBadge[]  = _("Eighth (Sootopolis City)");
 
-static const u8 digitInidicator_1[] =               _("{LEFT_ARROW}+1{RIGHT_ARROW}        ");
-static const u8 digitInidicator_10[] =              _("{LEFT_ARROW}+10{RIGHT_ARROW}       ");
-static const u8 digitInidicator_100[] =             _("{LEFT_ARROW}+100{RIGHT_ARROW}      ");
-static const u8 digitInidicator_1000[] =            _("{LEFT_ARROW}+1000{RIGHT_ARROW}     ");
-static const u8 digitInidicator_10000[] =           _("{LEFT_ARROW}+10000{RIGHT_ARROW}    ");
-static const u8 digitInidicator_100000[] =          _("{LEFT_ARROW}+100000{RIGHT_ARROW}   ");
-static const u8 digitInidicator_1000000[] =         _("{LEFT_ARROW}+1000000{RIGHT_ARROW}  ");
-static const u8 digitInidicator_10000000[] =        _("{LEFT_ARROW}+10000000{RIGHT_ARROW} ");
+static const u8 digitInidicator_1[] =        _("{LEFT_ARROW}+1{RIGHT_ARROW}        ");
+static const u8 digitInidicator_10[] =       _("{LEFT_ARROW}+10{RIGHT_ARROW}       ");
+static const u8 digitInidicator_100[] =      _("{LEFT_ARROW}+100{RIGHT_ARROW}      ");
+static const u8 digitInidicator_1000[] =     _("{LEFT_ARROW}+1000{RIGHT_ARROW}     ");
+static const u8 digitInidicator_10000[] =    _("{LEFT_ARROW}+10000{RIGHT_ARROW}    ");
+static const u8 digitInidicator_100000[] =   _("{LEFT_ARROW}+100000{RIGHT_ARROW}   ");
+static const u8 digitInidicator_1000000[] =  _("{LEFT_ARROW}+1000000{RIGHT_ARROW}  ");
+static const u8 digitInidicator_10000000[] = _("{LEFT_ARROW}+10000000{RIGHT_ARROW} ");
 const u8 * const gText_DigitIndicator[] =
 {
     digitInidicator_1,
@@ -565,64 +567,65 @@ static const s32 sPowersOfTen[] =
 // List Menu Items
 static const struct ListMenuItem sDebugMenu_Items_Main[] =
 {
-    [DEBUG_MENU_ITEM_UTILITIES]     = {sDebugText_Utilities,    DEBUG_MENU_ITEM_UTILITIES},
-    [DEBUG_MENU_ITEM_FLAGS]         = {sDebugText_Flags,        DEBUG_MENU_ITEM_FLAGS},
-    [DEBUG_MENU_ITEM_VARS]          = {sDebugText_Vars,         DEBUG_MENU_ITEM_VARS},
-    [DEBUG_MENU_ITEM_GIVE]          = {sDebugText_Give,         DEBUG_MENU_ITEM_GIVE},
-    [DEBUG_MENU_ITEM_SOUND]         = {sDebugText_Sound,        DEBUG_MENU_ITEM_SOUND},
-    [DEBUG_MENU_ITEM_CANCEL]        = {sDebugText_Cancel,       DEBUG_MENU_ITEM_CANCEL}
+    [DEBUG_MENU_ITEM_UTILITIES] = {sDebugText_Utilities, DEBUG_MENU_ITEM_UTILITIES},
+    [DEBUG_MENU_ITEM_FLAGS]     = {sDebugText_Flags,     DEBUG_MENU_ITEM_FLAGS},
+    [DEBUG_MENU_ITEM_VARS]      = {sDebugText_Vars,      DEBUG_MENU_ITEM_VARS},
+    [DEBUG_MENU_ITEM_GIVE]      = {sDebugText_Give,      DEBUG_MENU_ITEM_GIVE},
+    [DEBUG_MENU_ITEM_SOUND]     = {sDebugText_Sound,     DEBUG_MENU_ITEM_SOUND},
+    [DEBUG_MENU_ITEM_CANCEL]    = {sDebugText_Cancel,    DEBUG_MENU_ITEM_CANCEL}
 };
 
 static const struct ListMenuItem sDebugMenu_Items_Utilities[] =
 {
-    [DEBUG_UTIL_MENU_ITEM_HEAL_PARTY]             = {sDebugText_Util_HealParty,           DEBUG_UTIL_MENU_ITEM_HEAL_PARTY},
-    [DEBUG_UTIL_MENU_ITEM_FLY]                    = {sDebugText_Util_Fly,                 DEBUG_UTIL_MENU_ITEM_FLY},
-    [DEBUG_UTIL_MENU_ITEM_WARP]                   = {sDebugText_Util_WarpToMap,           DEBUG_UTIL_MENU_ITEM_WARP},
-    [DEBUG_UTIL_MENU_ITEM_PRESETWARP]             = {sDebugText_Util_PresetWarp,          DEBUG_UTIL_MENU_ITEM_PRESETWARP},
-    [DEBUG_UTIL_MENU_ITEM_SAVESPACE]              = {sDebugText_Util_SaveSpace,           DEBUG_UTIL_MENU_ITEM_SAVESPACE},
-    [DEBUG_UTIL_MENU_ITEM_CHECKWALLCLOCK]         = {sDebugText_Util_CheckWallClock,      DEBUG_UTIL_MENU_ITEM_CHECKWALLCLOCK},
-    [DEBUG_UTIL_MENU_ITEM_SETWALLCLOCK]           = {sDebugText_Util_SetWallClock,        DEBUG_UTIL_MENU_ITEM_SETWALLCLOCK},
-    [DEBUG_UTIL_MENU_ITEM_CHECKWEEKDAY]           = {sDebugText_Util_CheckWeekDay,        DEBUG_UTIL_MENU_ITEM_CHECKWEEKDAY},
-    [DEBUG_UTIL_MENU_ITEM_WATCHCREDITS]           = {sDebugText_Util_WatchCredits,        DEBUG_UTIL_MENU_ITEM_WATCHCREDITS},
-    [DEBUG_UTIL_MENU_ITEM_TRAINER_NAME]           = {sDebugText_Util_Trainer_Name,        DEBUG_UTIL_MENU_ITEM_TRAINER_NAME},
-    [DEBUG_UTIL_MENU_ITEM_RIVAL_NAME]             = {sDebugText_Util_Rival_Name,          DEBUG_UTIL_MENU_ITEM_RIVAL_NAME},
-    [DEBUG_UTIL_MENU_ITEM_TRAINER_GENDER]         = {sDebugText_Util_Trainer_Gender,      DEBUG_UTIL_MENU_ITEM_TRAINER_GENDER},
-    [DEBUG_UTIL_MENU_ITEM_TRAINER_ID]             = {sDebugText_Util_Trainer_Id,          DEBUG_UTIL_MENU_ITEM_TRAINER_ID},
-    [DEBUG_UTIL_MENU_ITEM_CHECKSTATS]             = {sDebugText_Util_CheckStats,          DEBUG_UTIL_MENU_ITEM_CHECKSTATS},
-    [DEBUG_UTIL_MENU_ITEM_FORCEEGGHATCH]          = {sDebugText_Util_ForceEggHatch,       DEBUG_UTIL_MENU_ITEM_FORCEEGGHATCH},
-    [DEBUG_UTIL_MENU_ITEM_OPEN_PC]                = {sDebugText_Util_OpenPC,              DEBUG_UTIL_MENU_ITEM_OPEN_PC},
-    [DEBUG_UTIL_MENU_ITEM_DO_WONDER_TRADE]        = {sDebugText_Util_DoWonderTrade,       DEBUG_UTIL_MENU_ITEM_DO_WONDER_TRADE},
-    [DEBUG_UTIL_MENU_ITEM_CHANGE_COSTUME]         = {sDebugText_Util_ChangeCostume,       DEBUG_UTIL_MENU_ITEM_CHANGE_COSTUME},
-    [DEBUG_UTIL_MENU_ITEM_CATCH_CHAIN_STATUS]     = {sDebugText_Util_CatchChainStatus,    DEBUG_UTIL_MENU_ITEM_CATCH_CHAIN_STATUS},
-    [DEBUG_UTIL_MENU_ITEM_CREATE_DAYCARE_EGG]     = {sDebugText_Util_CreateDaycareEgg,    DEBUG_UTIL_MENU_ITEM_CREATE_DAYCARE_EGG},
-    [DEBUG_UTIL_MENU_ITEM_CLEAR_BAG]              = {sDebugText_Util_ClearBag,            DEBUG_UTIL_MENU_ITEM_CLEAR_BAG},
-    [DEBUG_UTIL_MENU_ITEM_DELETE_POKEMON]         = {sDebugText_Util_DeletePokemon,       DEBUG_UTIL_MENU_ITEM_DELETE_POKEMON},
-    [DEBUG_UTIL_MENU_ITEM_CLEAR_PARTY]            = {sDebugText_Util_ClearParty,          DEBUG_UTIL_MENU_ITEM_CLEAR_PARTY},
+    [DEBUG_UTIL_MENU_ITEM_HEAL_PARTY]         = {sDebugText_Util_HealParty,        DEBUG_UTIL_MENU_ITEM_HEAL_PARTY},
+    [DEBUG_UTIL_MENU_ITEM_FLY]                = {sDebugText_Util_Fly,              DEBUG_UTIL_MENU_ITEM_FLY},
+    [DEBUG_UTIL_MENU_ITEM_WARP]               = {sDebugText_Util_WarpToMap,        DEBUG_UTIL_MENU_ITEM_WARP},
+    [DEBUG_UTIL_MENU_ITEM_PRESETWARP]         = {sDebugText_Util_PresetWarp,       DEBUG_UTIL_MENU_ITEM_PRESETWARP},
+    [DEBUG_UTIL_MENU_ITEM_SAVESPACE]          = {sDebugText_Util_SaveSpace,        DEBUG_UTIL_MENU_ITEM_SAVESPACE},
+    [DEBUG_UTIL_MENU_ITEM_CHECKWALLCLOCK]     = {sDebugText_Util_CheckWallClock,   DEBUG_UTIL_MENU_ITEM_CHECKWALLCLOCK},
+    [DEBUG_UTIL_MENU_ITEM_SETWALLCLOCK]       = {sDebugText_Util_SetWallClock,     DEBUG_UTIL_MENU_ITEM_SETWALLCLOCK},
+    [DEBUG_UTIL_MENU_ITEM_CHECKWEEKDAY]       = {sDebugText_Util_CheckWeekDay,     DEBUG_UTIL_MENU_ITEM_CHECKWEEKDAY},
+    [DEBUG_UTIL_MENU_ITEM_WATCHCREDITS]       = {sDebugText_Util_WatchCredits,     DEBUG_UTIL_MENU_ITEM_WATCHCREDITS},
+    [DEBUG_UTIL_MENU_ITEM_TRAINER_NAME]       = {sDebugText_Util_Trainer_Name,     DEBUG_UTIL_MENU_ITEM_TRAINER_NAME},
+    [DEBUG_UTIL_MENU_ITEM_RIVAL_NAME]         = {sDebugText_Util_Rival_Name,       DEBUG_UTIL_MENU_ITEM_RIVAL_NAME},
+    [DEBUG_UTIL_MENU_ITEM_TRAINER_GENDER]     = {sDebugText_Util_Trainer_Gender,   DEBUG_UTIL_MENU_ITEM_TRAINER_GENDER},
+    [DEBUG_UTIL_MENU_ITEM_TRAINER_ID]         = {sDebugText_Util_Trainer_Id,       DEBUG_UTIL_MENU_ITEM_TRAINER_ID},
+    [DEBUG_UTIL_MENU_ITEM_CHECKSTATS]         = {sDebugText_Util_CheckStats,       DEBUG_UTIL_MENU_ITEM_CHECKSTATS},
+    [DEBUG_UTIL_MENU_ITEM_FORCEEGGHATCH]      = {sDebugText_Util_ForceEggHatch,    DEBUG_UTIL_MENU_ITEM_FORCEEGGHATCH},
+    [DEBUG_UTIL_MENU_ITEM_OPEN_PC]            = {sDebugText_Util_OpenPC,           DEBUG_UTIL_MENU_ITEM_OPEN_PC},
+    [DEBUG_UTIL_MENU_ITEM_DO_WONDER_TRADE]    = {sDebugText_Util_DoWonderTrade,    DEBUG_UTIL_MENU_ITEM_DO_WONDER_TRADE},
+    [DEBUG_UTIL_MENU_ITEM_CHANGE_COSTUME]     = {sDebugText_Util_ChangeCostume,    DEBUG_UTIL_MENU_ITEM_CHANGE_COSTUME},
+    [DEBUG_UTIL_MENU_ITEM_CATCH_CHAIN_STATUS] = {sDebugText_Util_CatchChainStatus, DEBUG_UTIL_MENU_ITEM_CATCH_CHAIN_STATUS},
+    [DEBUG_UTIL_MENU_ITEM_CREATE_DAYCARE_EGG] = {sDebugText_Util_CreateDaycareEgg, DEBUG_UTIL_MENU_ITEM_CREATE_DAYCARE_EGG},
+    [DEBUG_UTIL_MENU_ITEM_CLEAR_BAG]          = {sDebugText_Util_ClearBag,         DEBUG_UTIL_MENU_ITEM_CLEAR_BAG},
+    [DEBUG_UTIL_MENU_ITEM_DELETE_POKEMON]     = {sDebugText_Util_DeletePokemon,    DEBUG_UTIL_MENU_ITEM_DELETE_POKEMON},
+    [DEBUG_UTIL_MENU_ITEM_CLEAR_PARTY]        = {sDebugText_Util_ClearParty,       DEBUG_UTIL_MENU_ITEM_CLEAR_PARTY},
 };
 static const struct ListMenuItem sDebugMenu_Items_Flags[] =
 {
-    [DEBUG_FLAG_MENU_ITEM_FLAGS]                 = {sDebugText_Flags_Flags,               DEBUG_FLAG_MENU_ITEM_FLAGS},
-    [DEBUG_FLAG_MENU_ITEM_BADGES]                = {sDebugText_Flags_Badges,              DEBUG_FLAG_MENU_ITEM_BADGES},
-    [DEBUG_FLAG_MENU_ITEM_POKEDEXFLAGS]          = {sDebugText_Flags_SetPokedexFlags,     DEBUG_FLAG_MENU_ITEM_POKEDEXFLAGS},
-    [DEBUG_FLAG_MENU_ITEM_POKEDEXONOFF]          = {sDebugText_Flags_SwitchDex,           DEBUG_FLAG_MENU_ITEM_POKEDEXONOFF},
-    [DEBUG_FLAG_MENU_ITEM_NATDEXONOFF]           = {sDebugText_Flags_SwitchNationalDex,   DEBUG_FLAG_MENU_ITEM_NATDEXONOFF},
-    [DEBUG_FLAG_MENU_ITEM_POKEMONONOFF]          = {sDebugText_Flags_SwitchPokemon,       DEBUG_FLAG_MENU_ITEM_POKEMONONOFF},
-    [DEBUG_FLAG_MENU_ITEM_POKENAVONOFF]          = {sDebugText_Flags_SwitchPokeNav,       DEBUG_FLAG_MENU_ITEM_POKENAVONOFF},
-    [DEBUG_FLAG_MENU_ITEM_FLYANYWHERE]           = {sDebugText_Flags_ToggleFlyFlags,      DEBUG_FLAG_MENU_ITEM_FLYANYWHERE},
-    [DEBUG_FLAG_MENU_ITEM_COLLISION_ONOFF]       = {sDebugText_Flags_SwitchCollision,     DEBUG_FLAG_MENU_ITEM_COLLISION_ONOFF},
-    [DEBUG_FLAG_MENU_ITEM_ENCOUNTER_ONOFF]       = {sDebugText_Flags_SwitchEncounter,     DEBUG_FLAG_MENU_ITEM_ENCOUNTER_ONOFF},
-    [DEBUG_FLAG_MENU_ITEM_TRAINER_SEE_ONOFF]     = {sDebugText_Flags_SwitchTrainerSee,    DEBUG_FLAG_MENU_ITEM_TRAINER_SEE_ONOFF},
-    [DEBUG_FLAG_MENU_ITEM_BAG_USE_ONOFF]         = {sDebugText_Flags_SwitchBagUse,        DEBUG_FLAG_MENU_ITEM_BAG_USE_ONOFF},
-    [DEBUG_FLAG_MENU_ITEM_CATCHING_ONOFF]        = {sDebugText_Flags_SwitchCatching,      DEBUG_FLAG_MENU_ITEM_CATCHING_ONOFF},
-    [DEBUG_FLAG_MENU_ITEM_SHINIES_ONOFF]         = {sDebugText_Flags_SwitchShinies,       DEBUG_FLAG_MENU_ITEM_SHINIES_ONOFF},
-    [DEBUG_FLAG_MENU_ITEM_ESCAPING_ONOFF]        = {sDebugText_Flags_SwitchEscaping,      DEBUG_FLAG_MENU_ITEM_ESCAPING_ONOFF},
-    [DEBUG_FLAG_MENU_ITEM_EXPERIENCE_ONOFF]      = {sDebugText_Flags_SwitchExperience,    DEBUG_FLAG_MENU_ITEM_EXPERIENCE_ONOFF},
-    [DEBUG_FLAG_MENU_ITEM_SHINY_HUE_SHIFT_ONOFF] = {sDebugText_Flags_SwitchShinyHueShift, DEBUG_FLAG_MENU_ITEM_SHINY_HUE_SHIFT_ONOFF},
-    [DEBUG_FLAG_MENU_ITEM_RUNNING_SHOES_ONOFF]   = {sDebugText_Flags_SwitchRunningShoes,  DEBUG_FLAG_MENU_ITEM_RUNNING_SHOES_ONOFF},
+    [DEBUG_FLAG_MENU_ITEM_FLAGS]                      = {sDebugText_Flags_Flags,                   DEBUG_FLAG_MENU_ITEM_FLAGS},
+    [DEBUG_FLAG_MENU_ITEM_BADGES]                     = {sDebugText_Flags_Badges,                  DEBUG_FLAG_MENU_ITEM_BADGES},
+    [DEBUG_FLAG_MENU_ITEM_POKEDEXFLAGS]               = {sDebugText_Flags_SetPokedexFlags,         DEBUG_FLAG_MENU_ITEM_POKEDEXFLAGS},
+    [DEBUG_FLAG_MENU_ITEM_POKEDEX_ONOFF]              = {sDebugText_Flags_DexOnOff,                DEBUG_FLAG_MENU_ITEM_POKEDEX_ONOFF},
+    [DEBUG_FLAG_MENU_ITEM_NATDEX_ONOFF]               = {sDebugText_Flags_NationalDexOnOff,        DEBUG_FLAG_MENU_ITEM_NATDEX_ONOFF},
+    [DEBUG_FLAG_MENU_ITEM_POKEMON_ONOFF]              = {sDebugText_Flags_PokemonOnOff,            DEBUG_FLAG_MENU_ITEM_POKEMON_ONOFF},
+    [DEBUG_FLAG_MENU_ITEM_POKENAV_ONOFF]              = {sDebugText_Flags_PokeNavOnOff,            DEBUG_FLAG_MENU_ITEM_POKENAV_ONOFF},
+    [DEBUG_FLAG_MENU_ITEM_FLYANYWHERE]                = {sDebugText_Flags_ToggleFlyFlags,          DEBUG_FLAG_MENU_ITEM_FLYANYWHERE},
+    [DEBUG_FLAG_MENU_ITEM_COLLISION_ONOFF]            = {sDebugText_Flags_CollisionOnOff,          DEBUG_FLAG_MENU_ITEM_COLLISION_ONOFF},
+    [DEBUG_FLAG_MENU_ITEM_ENCOUNTER_ONOFF]            = {sDebugText_Flags_EncounterOnOff,          DEBUG_FLAG_MENU_ITEM_ENCOUNTER_ONOFF},
+    [DEBUG_FLAG_MENU_ITEM_TRAINER_SEE_ONOFF]          = {sDebugText_Flags_TrainerSeeOnOff,         DEBUG_FLAG_MENU_ITEM_TRAINER_SEE_ONOFF},
+    [DEBUG_FLAG_MENU_ITEM_BAG_USE_ONOFF]              = {sDebugText_Flags_BagUseOnOff,             DEBUG_FLAG_MENU_ITEM_BAG_USE_ONOFF},
+    [DEBUG_FLAG_MENU_ITEM_CATCHING_ONOFF]             = {sDebugText_Flags_CatchingOnOff,           DEBUG_FLAG_MENU_ITEM_CATCHING_ONOFF},
+    [DEBUG_FLAG_MENU_ITEM_SHINIES_ONOFF]              = {sDebugText_Flags_ShiniesOnOff,            DEBUG_FLAG_MENU_ITEM_SHINIES_ONOFF},
+    [DEBUG_FLAG_MENU_ITEM_ESCAPING_ONOFF]             = {sDebugText_Flags_EscapingOnOff,           DEBUG_FLAG_MENU_ITEM_ESCAPING_ONOFF},
+    [DEBUG_FLAG_MENU_ITEM_EXPERIENCE_ONOFF]           = {sDebugText_Flags_ExperienceOnOff,         DEBUG_FLAG_MENU_ITEM_EXPERIENCE_ONOFF},
+    [DEBUG_FLAG_MENU_ITEM_SHINY_HUE_SHIFT_ONOFF]      = {sDebugText_Flags_ShinyHueShiftOnOff,      DEBUG_FLAG_MENU_ITEM_SHINY_HUE_SHIFT_ONOFF},
+    [DEBUG_FLAG_MENU_ITEM_RUNNING_SHOES_ONOFF]        = {sDebugText_Flags_RunningShoesOnOff,       DEBUG_FLAG_MENU_ITEM_RUNNING_SHOES_ONOFF},
+    [DEBUG_FLAG_MENU_ITEM_MAP_TRANSITION_MUSIC_ONOFF] = {sDebugText_Flags_MapTransitionMusicOnOff, DEBUG_FLAG_MENU_ITEM_MAP_TRANSITION_MUSIC_ONOFF},
 };
 static const struct ListMenuItem sDebugMenu_Items_Vars[] =
 {
-    [DEBUG_VARS_MENU_ITEM_VARS]   = {sDebugText_Vars_Vars,       DEBUG_FLAG_MENU_ITEM_FLAGS},
+    [DEBUG_VARS_MENU_ITEM_VARS] = {sDebugText_Vars_Vars, DEBUG_FLAG_MENU_ITEM_FLAGS},
 };
 static const struct ListMenuItem sDebugMenu_Items_Give[] =
 {
@@ -643,8 +646,8 @@ static const struct ListMenuItem sDebugMenu_Items_Give[] =
 };
 static const struct ListMenuItem sDebugMenu_Items_Sound[] =
 {
-    [DEBUG_SOUND_MENU_ITEM_SE]            = {sDebugText_Sound_SE,         DEBUG_SOUND_MENU_ITEM_SE},
-    [DEBUG_SOUND_MENU_ITEM_MUS]           = {sDebugText_Sound_MUS,        DEBUG_SOUND_MENU_ITEM_MUS},
+    [DEBUG_SOUND_MENU_ITEM_SE]  = {sDebugText_Sound_SE,  DEBUG_SOUND_MENU_ITEM_SE},
+    [DEBUG_SOUND_MENU_ITEM_MUS] = {sDebugText_Sound_MUS, DEBUG_SOUND_MENU_ITEM_MUS},
 };
 static const struct ListMenuItem sDebugMenu_Items_Utillities_PresetWarp[] =
 {
@@ -695,59 +698,60 @@ static const struct ListMenuItem sDebugMenu_Items_Flags_Badges[] =
 // Menu Actions
 static void (*const sDebugMenu_Actions_Main[])(u8) =
 {
-    [DEBUG_MENU_ITEM_UTILITIES]     = DebugAction_OpenUtilitiesMenu,
-    [DEBUG_MENU_ITEM_FLAGS]         = DebugAction_OpenFlagsMenu,
-    [DEBUG_MENU_ITEM_VARS]          = DebugAction_OpenVariablesMenu,
-    [DEBUG_MENU_ITEM_GIVE]          = DebugAction_OpenGiveMenu,
-    [DEBUG_MENU_ITEM_SOUND]         = DebugAction_OpenSoundMenu,
-    [DEBUG_MENU_ITEM_CANCEL]        = DebugAction_Cancel
+    [DEBUG_MENU_ITEM_UTILITIES] = DebugAction_OpenUtilitiesMenu,
+    [DEBUG_MENU_ITEM_FLAGS]     = DebugAction_OpenFlagsMenu,
+    [DEBUG_MENU_ITEM_VARS]      = DebugAction_OpenVariablesMenu,
+    [DEBUG_MENU_ITEM_GIVE]      = DebugAction_OpenGiveMenu,
+    [DEBUG_MENU_ITEM_SOUND]     = DebugAction_OpenSoundMenu,
+    [DEBUG_MENU_ITEM_CANCEL]    = DebugAction_Cancel
 };
 static void (*const sDebugMenu_Actions_Utilities[])(u8) =
 {
-    [DEBUG_UTIL_MENU_ITEM_HEAL_PARTY]             = DebugAction_Util_HealParty,
-    [DEBUG_UTIL_MENU_ITEM_FLY]                    = DebugAction_Util_Fly,
-    [DEBUG_UTIL_MENU_ITEM_WARP]                   = DebugAction_Util_Warp_Warp,
-    [DEBUG_UTIL_MENU_ITEM_PRESETWARP]             = DebugAction_Util_Warp_PresetWarp,
-    [DEBUG_UTIL_MENU_ITEM_SAVESPACE]              = DebugAction_Util_CheckSaveSpace,
-    [DEBUG_UTIL_MENU_ITEM_CHECKWALLCLOCK]         = DebugAction_Util_CheckWallClock,
-    [DEBUG_UTIL_MENU_ITEM_SETWALLCLOCK]           = DebugAction_Util_SetWallClock,
-    [DEBUG_UTIL_MENU_ITEM_CHECKWEEKDAY]           = DebugAction_Util_CheckWeekDay,
-    [DEBUG_UTIL_MENU_ITEM_WATCHCREDITS]           = DebugAction_Util_WatchCredits,
-    [DEBUG_UTIL_MENU_ITEM_TRAINER_NAME]           = DebugAction_Util_Trainer_Name,
-    [DEBUG_UTIL_MENU_ITEM_RIVAL_NAME]             = DebugAction_Util_Rival_Name,
-    [DEBUG_UTIL_MENU_ITEM_TRAINER_GENDER]         = DebugAction_Util_Trainer_Gender,
-    [DEBUG_UTIL_MENU_ITEM_TRAINER_ID]             = DebugAction_Util_Trainer_Id,
-    [DEBUG_UTIL_MENU_ITEM_CHECKSTATS]             = DebugAction_Util_CheckStats,
-    [DEBUG_UTIL_MENU_ITEM_FORCEEGGHATCH]          = DebugAction_Util_ForceEggHatch,
-    [DEBUG_UTIL_MENU_ITEM_OPEN_PC]                = DebugAction_Util_OpenPC,
-    [DEBUG_UTIL_MENU_ITEM_DO_WONDER_TRADE]        = DebugAction_Util_DoWonderTrade,
-    [DEBUG_UTIL_MENU_ITEM_CHANGE_COSTUME]         = DebugAction_Util_ChangeCostume,
-    [DEBUG_UTIL_MENU_ITEM_CATCH_CHAIN_STATUS]     = DebugAction_Util_CatchChainStatus,
-    [DEBUG_UTIL_MENU_ITEM_CREATE_DAYCARE_EGG]     = DebugAction_Util_CreateDaycareEgg,
-    [DEBUG_UTIL_MENU_ITEM_CLEAR_BAG]              = DebugAction_Util_ClearBag,
-    [DEBUG_UTIL_MENU_ITEM_DELETE_POKEMON]         = DebugAction_Util_DeletePokemon,
-    [DEBUG_UTIL_MENU_ITEM_CLEAR_PARTY]            = DebugAction_Util_ClearParty,
+    [DEBUG_UTIL_MENU_ITEM_HEAL_PARTY]         = DebugAction_Util_HealParty,
+    [DEBUG_UTIL_MENU_ITEM_FLY]                = DebugAction_Util_Fly,
+    [DEBUG_UTIL_MENU_ITEM_WARP]               = DebugAction_Util_Warp_Warp,
+    [DEBUG_UTIL_MENU_ITEM_PRESETWARP]         = DebugAction_Util_Warp_PresetWarp,
+    [DEBUG_UTIL_MENU_ITEM_SAVESPACE]          = DebugAction_Util_CheckSaveSpace,
+    [DEBUG_UTIL_MENU_ITEM_CHECKWALLCLOCK]     = DebugAction_Util_CheckWallClock,
+    [DEBUG_UTIL_MENU_ITEM_SETWALLCLOCK]       = DebugAction_Util_SetWallClock,
+    [DEBUG_UTIL_MENU_ITEM_CHECKWEEKDAY]       = DebugAction_Util_CheckWeekDay,
+    [DEBUG_UTIL_MENU_ITEM_WATCHCREDITS]       = DebugAction_Util_WatchCredits,
+    [DEBUG_UTIL_MENU_ITEM_TRAINER_NAME]       = DebugAction_Util_Trainer_Name,
+    [DEBUG_UTIL_MENU_ITEM_RIVAL_NAME]         = DebugAction_Util_Rival_Name,
+    [DEBUG_UTIL_MENU_ITEM_TRAINER_GENDER]     = DebugAction_Util_Trainer_Gender,
+    [DEBUG_UTIL_MENU_ITEM_TRAINER_ID]         = DebugAction_Util_Trainer_Id,
+    [DEBUG_UTIL_MENU_ITEM_CHECKSTATS]         = DebugAction_Util_CheckStats,
+    [DEBUG_UTIL_MENU_ITEM_FORCEEGGHATCH]      = DebugAction_Util_ForceEggHatch,
+    [DEBUG_UTIL_MENU_ITEM_OPEN_PC]            = DebugAction_Util_OpenPC,
+    [DEBUG_UTIL_MENU_ITEM_DO_WONDER_TRADE]    = DebugAction_Util_DoWonderTrade,
+    [DEBUG_UTIL_MENU_ITEM_CHANGE_COSTUME]     = DebugAction_Util_ChangeCostume,
+    [DEBUG_UTIL_MENU_ITEM_CATCH_CHAIN_STATUS] = DebugAction_Util_CatchChainStatus,
+    [DEBUG_UTIL_MENU_ITEM_CREATE_DAYCARE_EGG] = DebugAction_Util_CreateDaycareEgg,
+    [DEBUG_UTIL_MENU_ITEM_CLEAR_BAG]          = DebugAction_Util_ClearBag,
+    [DEBUG_UTIL_MENU_ITEM_DELETE_POKEMON]     = DebugAction_Util_DeletePokemon,
+    [DEBUG_UTIL_MENU_ITEM_CLEAR_PARTY]        = DebugAction_Util_ClearParty,
 };
 static void (*const sDebugMenu_Actions_Flags[])(u8) =
 {
-    [DEBUG_FLAG_MENU_ITEM_FLAGS]                 = DebugAction_Flags_Flags,
-    [DEBUG_FLAG_MENU_ITEM_BADGES]                = DebugAction_Flags_Badges,
-    [DEBUG_FLAG_MENU_ITEM_POKEDEXFLAGS]          = DebugAction_Flags_SetPokedexFlags,
-    [DEBUG_FLAG_MENU_ITEM_POKEDEXONOFF]          = DebugAction_Flags_SwitchDex,
-    [DEBUG_FLAG_MENU_ITEM_NATDEXONOFF]           = DebugAction_Flags_SwitchNatDex,
-    [DEBUG_FLAG_MENU_ITEM_POKEMONONOFF]          = DebugAction_Flags_SwitchPokemon,
-    [DEBUG_FLAG_MENU_ITEM_POKENAVONOFF]          = DebugAction_Flags_SwitchPokeNav,
-    [DEBUG_FLAG_MENU_ITEM_FLYANYWHERE]           = DebugAction_Flags_ToggleFlyFlags,
-    [DEBUG_FLAG_MENU_ITEM_COLLISION_ONOFF]       = DebugAction_Flags_CollisionOnOff,
-    [DEBUG_FLAG_MENU_ITEM_ENCOUNTER_ONOFF]       = DebugAction_Flags_EncounterOnOff,
-    [DEBUG_FLAG_MENU_ITEM_TRAINER_SEE_ONOFF]     = DebugAction_Flags_TrainerSeeOnOff,
-    [DEBUG_FLAG_MENU_ITEM_BAG_USE_ONOFF]         = DebugAction_Flags_BagUseOnOff,
-    [DEBUG_FLAG_MENU_ITEM_CATCHING_ONOFF]        = DebugAction_Flags_CatchingOnOff,
-    [DEBUG_FLAG_MENU_ITEM_SHINIES_ONOFF]         = DebugAction_Flags_ShiniesOnOff,
-    [DEBUG_FLAG_MENU_ITEM_ESCAPING_ONOFF]        = DebugAction_Flags_EscapingOnOff,
-    [DEBUG_FLAG_MENU_ITEM_EXPERIENCE_ONOFF]      = DebugAction_Flags_ExperienceOnOff,
-    [DEBUG_FLAG_MENU_ITEM_SHINY_HUE_SHIFT_ONOFF] = DebugAction_Flags_ShinyHueShiftOnOff,
-    [DEBUG_FLAG_MENU_ITEM_RUNNING_SHOES_ONOFF]   = DebugAction_Flags_SwitchRunningShoes,
+    [DEBUG_FLAG_MENU_ITEM_FLAGS]                      = DebugAction_Flags_Flags,
+    [DEBUG_FLAG_MENU_ITEM_BADGES]                     = DebugAction_Flags_Badges,
+    [DEBUG_FLAG_MENU_ITEM_POKEDEXFLAGS]               = DebugAction_Flags_SetPokedexFlags,
+    [DEBUG_FLAG_MENU_ITEM_POKEDEX_ONOFF]              = DebugAction_Flags_DexOnOff,
+    [DEBUG_FLAG_MENU_ITEM_NATDEX_ONOFF]               = DebugAction_Flags_NatDexOnOff,
+    [DEBUG_FLAG_MENU_ITEM_POKEMON_ONOFF]              = DebugAction_Flags_PokemonOnOff,
+    [DEBUG_FLAG_MENU_ITEM_POKENAV_ONOFF]              = DebugAction_Flags_PokeNavOnOff,
+    [DEBUG_FLAG_MENU_ITEM_FLYANYWHERE]                = DebugAction_Flags_ToggleFlyFlags,
+    [DEBUG_FLAG_MENU_ITEM_COLLISION_ONOFF]            = DebugAction_Flags_CollisionOnOff,
+    [DEBUG_FLAG_MENU_ITEM_ENCOUNTER_ONOFF]            = DebugAction_Flags_EncounterOnOff,
+    [DEBUG_FLAG_MENU_ITEM_TRAINER_SEE_ONOFF]          = DebugAction_Flags_TrainerSeeOnOff,
+    [DEBUG_FLAG_MENU_ITEM_BAG_USE_ONOFF]              = DebugAction_Flags_BagUseOnOff,
+    [DEBUG_FLAG_MENU_ITEM_CATCHING_ONOFF]             = DebugAction_Flags_CatchingOnOff,
+    [DEBUG_FLAG_MENU_ITEM_SHINIES_ONOFF]              = DebugAction_Flags_ShiniesOnOff,
+    [DEBUG_FLAG_MENU_ITEM_ESCAPING_ONOFF]             = DebugAction_Flags_EscapingOnOff,
+    [DEBUG_FLAG_MENU_ITEM_EXPERIENCE_ONOFF]           = DebugAction_Flags_ExperienceOnOff,
+    [DEBUG_FLAG_MENU_ITEM_SHINY_HUE_SHIFT_ONOFF]      = DebugAction_Flags_ShinyHueShiftOnOff,
+    [DEBUG_FLAG_MENU_ITEM_RUNNING_SHOES_ONOFF]        = DebugAction_Flags_RunningShoesOnOff,
+    [DEBUG_FLAG_MENU_ITEM_MAP_TRANSITION_MUSIC_ONOFF] = DebugAction_Flags_MapTransitionMusicOnOff,
 };
 static void (*const sDebugMenu_Actions_Vars[])(u8) =
 {
@@ -772,8 +776,8 @@ static void (*const sDebugMenu_Actions_Give[])(u8) =
 };
 static void (*const sDebugMenu_Actions_Sound[])(u8) =
 {
-    [DEBUG_SOUND_MENU_ITEM_SE]      = DebugAction_Sound_SE,
-    [DEBUG_SOUND_MENU_ITEM_MUS]     = DebugAction_Sound_MUS,
+    [DEBUG_SOUND_MENU_ITEM_SE]  = DebugAction_Sound_SE,
+    [DEBUG_SOUND_MENU_ITEM_MUS] = DebugAction_Sound_MUS,
 };
 static void (*const sDebugMenu_Actions_PresetWarp[])(u8) =
 {
@@ -835,7 +839,7 @@ static const struct WindowTemplate sDebugMenuWindowTemplate =
 static const struct WindowTemplate sDebugNumberDisplayWindowTemplate =
 {
     .bg = 0,
-    .tilemapLeft = 3 + DEBUG_MAIN_MENU_WIDTH,
+    .tilemapLeft = DEBUG_MAIN_MENU_WIDTH - 1,
     .tilemapTop = 1,
     .width = DEBUG_NUMBER_DISPLAY_WIDTH,
     .height = 2 * DEBUG_NUMBER_DISPLAY_HEIGHT,
@@ -1723,7 +1727,7 @@ static void DebugAction_Flags_SetPokedexFlags(u8 taskId)
     Debug_DestroyMenu(taskId);
     EnableBothScriptContexts();
 }
-static void DebugAction_Flags_SwitchDex(u8 taskId)
+static void DebugAction_Flags_DexOnOff(u8 taskId)
 {
     if (FlagGet(FLAG_SYS_POKEDEX_GET))
     {
@@ -1736,7 +1740,7 @@ static void DebugAction_Flags_SwitchDex(u8 taskId)
         PlaySE(SE_PC_LOGIN);
     }
 }
-static void DebugAction_Flags_SwitchNatDex(u8 taskId)
+static void DebugAction_Flags_NatDexOnOff(u8 taskId)
 {
     if (IsNationalPokedexEnabled())
     {
@@ -1749,7 +1753,7 @@ static void DebugAction_Flags_SwitchNatDex(u8 taskId)
         PlaySE(SE_PC_LOGIN);
     }
 }
-static void DebugAction_Flags_SwitchPokemon(u8 taskId)
+static void DebugAction_Flags_PokemonOnOff(u8 taskId)
 {
     if (FlagGet(FLAG_SYS_POKEMON_GET))
     {
@@ -1762,7 +1766,7 @@ static void DebugAction_Flags_SwitchPokemon(u8 taskId)
         PlaySE(SE_PC_LOGIN);
     }
 }
-static void DebugAction_Flags_SwitchPokeNav(u8 taskId)
+static void DebugAction_Flags_PokeNavOnOff(u8 taskId)
 {
     if (FlagGet(FLAG_SYS_POKENAV_GET))
     {
@@ -1918,7 +1922,7 @@ static void DebugAction_Flags_ShinyHueShiftOnOff(u8 taskId)
         PlaySE(SE_PC_LOGIN);
     }
 }
-static void DebugAction_Flags_SwitchRunningShoes(u8 taskId)
+static void DebugAction_Flags_RunningShoesOnOff(u8 taskId)
 {
     if (FlagGet(FLAG_SYS_B_DASH))
     {
@@ -1928,6 +1932,19 @@ static void DebugAction_Flags_SwitchRunningShoes(u8 taskId)
     else
     {
         FlagSet(FLAG_SYS_B_DASH);
+        PlaySE(SE_PC_LOGIN);
+    }
+}
+static void DebugAction_Flags_MapTransitionMusicOnOff(u8 taskId)
+{
+    if (FlagGet(FLAG_DONT_TRANSITION_MUSIC))
+    {
+        FlagClear(FLAG_DONT_TRANSITION_MUSIC);
+        PlaySE(SE_PC_OFF);
+    }
+    else
+    {
+        FlagSet(FLAG_DONT_TRANSITION_MUSIC);
         PlaySE(SE_PC_LOGIN);
     }
 }
