@@ -1595,10 +1595,17 @@
 	.2byte \box
 	.endm
 
-	@ Used only in FireRed/LeafGreen, does nothing in Emerald.
-	.macro textcolor color:req
+	@ Buffers up to 6 supplied text strings for use with MULTI_DYNAMIC_X.
+	@ This allows you to create custom menus at runtime using only stuff you can edit within the same script.
+	@ Prevents having to create whole new const menu stuffs in other files.
+	.macro bufferdynamicmulti, ptr1=gText_EmptyTextString, ptr2=gText_EmptyTextString, ptr3=gText_EmptyTextString, ptr4=gText_EmptyTextString, ptr5=gText_EmptyTextString, ptr6=gText_EmptyTextString
 	.byte 0xc7
-	.byte \color
+	.4byte \ptr1
+	.4byte \ptr2
+	.4byte \ptr3
+	.4byte \ptr4
+	.4byte \ptr5
+	.4byte \ptr6
 	.endm
 
 	@ Used only in FireRed/LeafGreen, does nothing in Emerald.

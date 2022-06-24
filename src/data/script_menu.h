@@ -771,6 +771,46 @@ static const struct MenuAction MultichoiceList_FallarborTentRules[] =
     {gText_Exit},
 };
 
+static const struct MenuAction MultichoiceList_Dynamic2[] =
+{
+    {TEXT_STRING("{STR_VAR_1}")},
+    {TEXT_STRING("{STR_VAR_2}")},
+};
+
+static const struct MenuAction MultichoiceList_Dynamic3[] =
+{
+    {TEXT_STRING("{STR_VAR_1}")},
+    {TEXT_STRING("{STR_VAR_2}")},
+    {TEXT_STRING("{STR_VAR_3}")},
+};
+
+static const struct MenuAction MultichoiceList_Dynamic4[] =
+{
+    {TEXT_STRING("{STR_VAR_1}")},
+    {TEXT_STRING("{STR_VAR_2}")},
+    {TEXT_STRING("{STR_VAR_3}")},
+    {TEXT_STRING("{STR_VAR_4}")},
+};
+
+static const struct MenuAction MultichoiceList_Dynamic5[] =
+{
+    {TEXT_STRING("{STR_VAR_1}")},
+    {TEXT_STRING("{STR_VAR_2}")},
+    {TEXT_STRING("{STR_VAR_3}")},
+    {TEXT_STRING("{STR_VAR_4}")},
+    {TEXT_STRING("{STR_VAR_5}")},
+};
+
+static const struct MenuAction MultichoiceList_Dynamic6[] =
+{
+    {TEXT_STRING("{STR_VAR_1}")},
+    {TEXT_STRING("{STR_VAR_2}")},
+    {TEXT_STRING("{STR_VAR_3}")},
+    {TEXT_STRING("{STR_VAR_4}")},
+    {TEXT_STRING("{STR_VAR_5}")},
+    {TEXT_STRING("{STR_VAR_6}")},
+};
+
 static const struct MenuAction MultichoiceList_TagMatchType[] =
 {
     {gText_NormalTagMatch},
@@ -905,7 +945,11 @@ static const struct MultichoiceListStruct sMultichoiceLists[] =
     [MULTI_BATTLE_TOWER_FEELINGS]      = MULTICHOICE(MultichoiceList_BattleTowerFeelings),
     [MULTI_SLATEPORT_TENT_RULES]       = MULTICHOICE(MultichoiceList_SlateportTentRules),
     [MULTI_FALLARBOR_TENT_RULES]       = MULTICHOICE(MultichoiceList_FallarborTentRules),
-    [MULTI_TAG_MATCH_TYPE]             = MULTICHOICE(MultichoiceList_TagMatchType),
+    [MULTI_DYNAMIC_2]                  = MULTICHOICE(MultichoiceList_Dynamic2),
+    [MULTI_DYNAMIC_3]                  = MULTICHOICE(MultichoiceList_Dynamic3),
+    [MULTI_DYNAMIC_4]                  = MULTICHOICE(MultichoiceList_Dynamic4),
+    [MULTI_DYNAMIC_5]                  = MULTICHOICE(MultichoiceList_Dynamic5),
+    [MULTI_DYNAMIC_6]                  = MULTICHOICE(MultichoiceList_Dynamic6),
 };
 
 const u8 *const gStdStrings[] =
