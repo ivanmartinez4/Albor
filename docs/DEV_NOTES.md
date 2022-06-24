@@ -162,8 +162,6 @@ I wrote this... I don't know, sometime ago, but I never thought about storing it
   * Put Gorebyss and Huntail in some of the fishing tables. 
   * I should change the Scanner reward after that. Following ORAS' lead, I should make Capt. Stern give the Mystic Ticket.
 * Change the dialogue of the ruinmaniac at Route 120 based on the value of FLAG_REGI_DOORS_OPENED.
-* Add a debug option to make use of the special I added to change a Pokémon's status because why not.
-* Add FLAG_DONT_TRANSITION_MUSIC to the list of debug flag toggles.
 * Rethink the new values for the bag pocket counts in `include/constants/global.h`.
 * Add some extra dialogue to the Player's mother's script explaining about the auto run toggle.
   * It's all in the details.
