@@ -463,3 +463,66 @@ EventScript_RoamerCue::
 
 DebugScript_Cancel:
 	end
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+DebugScript_GiveStatusAilment::
+	lockall
+	getpartysize
+	goto_if_eq VAR_RESULT, 0, EventScript_ThereIsNoPokemon
+	special ChoosePartyMon
+	waitstate
+	goto_if_ge VAR_0x8004, PARTY_SIZE, DebugScript_Cancel
+	specialvar VAR_RESULT, ScriptGetPartyMonSpecies
+	goto_if_eq VAR_RESULT, SPECIES_EGG, DebugScript_GiveStatusAilment_Egg
+	bufferdynamicmulti GiveStatusAilment_Text_Poison, GiveStatusAilment_Text_Paralysis, GiveStatusAilment_Text_Sleep, GiveStatusAilment_Text_Freeze, GiveStatusAilment_Text_Burn
+    multichoice 0, 0, MULTI_DYNAMIC_5, TRUE
+	switch VAR_RESULT
+	case 0, DebugScript_GiveStatusAilment_Poison
+	case 1, DebugScript_GiveStatusAilment_Paralysis
+	case 2, DebugScript_GiveStatusAilment_Sleep
+	case 3, DebugScript_GiveStatusAilment_Freeze
+	case 4, DebugScript_GiveStatusAilment_Burn
+DebugScript_GiveStatusAilment_Poison:
+	changemonstatus STATUS1_POISON, FALSE
+	releaseall
+	end
+DebugScript_GiveStatusAilment_Paralysis:
+	changemonstatus STATUS1_PARALYSIS, FALSE
+	releaseall
+	end
+DebugScript_GiveStatusAilment_Sleep:
+	changemonstatus STATUS1_SLEEP, FALSE
+	releaseall
+	end
+DebugScript_GiveStatusAilment_Freeze:
+	changemonstatus STATUS1_FREEZE, FALSE
+	releaseall
+	end
+DebugScript_GiveStatusAilment_Burn:
+	changemonstatus STATUS1_BURN, FALSE
+	releaseall
+	end
+
+DebugScript_GiveStatusAilment_Egg:
+	msgbox GiveStatusAilment_Text_Egg
+	releaseall
+	end
+
+GiveStatusAilment_Text_Egg:
+	.string "You can't give status ailments\nto a POKéMON EGG.$"
+
+GiveStatusAilment_Text_Poison:
+	.string "Poison$"
+
+GiveStatusAilment_Text_Paralysis:
+	.string "Paralysis$"
+
+GiveStatusAilment_Text_Sleep:
+	.string "Sleep$"
+
+GiveStatusAilment_Text_Freeze:
+	.string "Freeze$"
+
+GiveStatusAilment_Text_Burn:
+	.string "Burn$"

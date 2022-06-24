@@ -2228,9 +2228,11 @@
 @ Custom macros start here
 
 	@ Modifies the status of the Pokémon at the party slot stored in the var 0x8004.
-	.macro changemonstatus status:req
+	.macro changemonstatus status:req partyScr=FALSE
+.if \partyScr == TRUE
 	special ChoosePartyMon
 	waitstate
+.endif
 	setvar VAR_TEMP_6, \status
 	special ChangeMonStatus
 	.endm

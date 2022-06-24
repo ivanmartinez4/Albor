@@ -86,6 +86,7 @@ enum { // Util
     DEBUG_UTIL_MENU_ITEM_CLEAR_BAG,
     DEBUG_UTIL_MENU_ITEM_DELETE_POKEMON,
     DEBUG_UTIL_MENU_ITEM_CLEAR_PARTY,
+    DEBUG_UTIL_MENU_ITEM_GIVE_STATUS_AILMENT,
 };
 enum { // Flags
     DEBUG_FLAG_MENU_ITEM_FLAGS,
@@ -267,6 +268,7 @@ static void DebugAction_Util_CreateDaycareEgg(u8 taskId);
 static void DebugAction_Util_ClearBag(u8 taskId);
 static void DebugAction_Util_DeletePokemon(u8 taskId);
 static void DebugAction_Util_ClearParty(u8 taskId);
+static void DebugAction_Util_GiveStatusAilment(u8 taskId);
 
 static void DebugAction_Flags_Flags(u8 taskId);
 static void DebugAction_Flags_FlagsSelect(u8 taskId);
@@ -377,6 +379,7 @@ extern u8 DebugScript_ForceEggHatch[];
 extern u8 DebugScript_DoWonderTrade[];
 extern u8 DebugScript_CatchingStreak[];
 extern u8 DebugScript_DeleteMon[];
+extern u8 DebugScript_GiveStatusAilment[];
 
 #define ABILITY_NAME_LENGTH 16
 extern const u8 gAbilityNames[][ABILITY_NAME_LENGTH + 1];
@@ -421,6 +424,7 @@ static const u8 sDebugText_Util_CreateDaycareEgg[] =         _("Create Daycare E
 static const u8 sDebugText_Util_ClearBag[] =                 _("Clear Bag");
 static const u8 sDebugText_Util_DeletePokemon[] =            _("Delete Pokémon");
 static const u8 sDebugText_Util_ClearParty[] =               _("Clear Party");
+static const u8 sDebugText_Util_GiveStatusAilment[] =        _("Give Status Ailment");
 // Flags Menu
 static const u8 sDebugText_Flags_Flags[] =                   _("Edit Flags");
 static const u8 sDebugText_Flags_Badges[] =                  _("Toggle Badges");
@@ -577,29 +581,30 @@ static const struct ListMenuItem sDebugMenu_Items_Main[] =
 
 static const struct ListMenuItem sDebugMenu_Items_Utilities[] =
 {
-    [DEBUG_UTIL_MENU_ITEM_HEAL_PARTY]         = {sDebugText_Util_HealParty,        DEBUG_UTIL_MENU_ITEM_HEAL_PARTY},
-    [DEBUG_UTIL_MENU_ITEM_FLY]                = {sDebugText_Util_Fly,              DEBUG_UTIL_MENU_ITEM_FLY},
-    [DEBUG_UTIL_MENU_ITEM_WARP]               = {sDebugText_Util_WarpToMap,        DEBUG_UTIL_MENU_ITEM_WARP},
-    [DEBUG_UTIL_MENU_ITEM_PRESETWARP]         = {sDebugText_Util_PresetWarp,       DEBUG_UTIL_MENU_ITEM_PRESETWARP},
-    [DEBUG_UTIL_MENU_ITEM_SAVESPACE]          = {sDebugText_Util_SaveSpace,        DEBUG_UTIL_MENU_ITEM_SAVESPACE},
-    [DEBUG_UTIL_MENU_ITEM_CHECKWALLCLOCK]     = {sDebugText_Util_CheckWallClock,   DEBUG_UTIL_MENU_ITEM_CHECKWALLCLOCK},
-    [DEBUG_UTIL_MENU_ITEM_SETWALLCLOCK]       = {sDebugText_Util_SetWallClock,     DEBUG_UTIL_MENU_ITEM_SETWALLCLOCK},
-    [DEBUG_UTIL_MENU_ITEM_CHECKWEEKDAY]       = {sDebugText_Util_CheckWeekDay,     DEBUG_UTIL_MENU_ITEM_CHECKWEEKDAY},
-    [DEBUG_UTIL_MENU_ITEM_WATCHCREDITS]       = {sDebugText_Util_WatchCredits,     DEBUG_UTIL_MENU_ITEM_WATCHCREDITS},
-    [DEBUG_UTIL_MENU_ITEM_TRAINER_NAME]       = {sDebugText_Util_Trainer_Name,     DEBUG_UTIL_MENU_ITEM_TRAINER_NAME},
-    [DEBUG_UTIL_MENU_ITEM_RIVAL_NAME]         = {sDebugText_Util_Rival_Name,       DEBUG_UTIL_MENU_ITEM_RIVAL_NAME},
-    [DEBUG_UTIL_MENU_ITEM_TRAINER_GENDER]     = {sDebugText_Util_Trainer_Gender,   DEBUG_UTIL_MENU_ITEM_TRAINER_GENDER},
-    [DEBUG_UTIL_MENU_ITEM_TRAINER_ID]         = {sDebugText_Util_Trainer_Id,       DEBUG_UTIL_MENU_ITEM_TRAINER_ID},
-    [DEBUG_UTIL_MENU_ITEM_CHECKSTATS]         = {sDebugText_Util_CheckStats,       DEBUG_UTIL_MENU_ITEM_CHECKSTATS},
-    [DEBUG_UTIL_MENU_ITEM_FORCEEGGHATCH]      = {sDebugText_Util_ForceEggHatch,    DEBUG_UTIL_MENU_ITEM_FORCEEGGHATCH},
-    [DEBUG_UTIL_MENU_ITEM_OPEN_PC]            = {sDebugText_Util_OpenPC,           DEBUG_UTIL_MENU_ITEM_OPEN_PC},
-    [DEBUG_UTIL_MENU_ITEM_DO_WONDER_TRADE]    = {sDebugText_Util_DoWonderTrade,    DEBUG_UTIL_MENU_ITEM_DO_WONDER_TRADE},
-    [DEBUG_UTIL_MENU_ITEM_CHANGE_COSTUME]     = {sDebugText_Util_ChangeCostume,    DEBUG_UTIL_MENU_ITEM_CHANGE_COSTUME},
-    [DEBUG_UTIL_MENU_ITEM_CATCH_CHAIN_STATUS] = {sDebugText_Util_CatchChainStatus, DEBUG_UTIL_MENU_ITEM_CATCH_CHAIN_STATUS},
-    [DEBUG_UTIL_MENU_ITEM_CREATE_DAYCARE_EGG] = {sDebugText_Util_CreateDaycareEgg, DEBUG_UTIL_MENU_ITEM_CREATE_DAYCARE_EGG},
-    [DEBUG_UTIL_MENU_ITEM_CLEAR_BAG]          = {sDebugText_Util_ClearBag,         DEBUG_UTIL_MENU_ITEM_CLEAR_BAG},
-    [DEBUG_UTIL_MENU_ITEM_DELETE_POKEMON]     = {sDebugText_Util_DeletePokemon,    DEBUG_UTIL_MENU_ITEM_DELETE_POKEMON},
-    [DEBUG_UTIL_MENU_ITEM_CLEAR_PARTY]        = {sDebugText_Util_ClearParty,       DEBUG_UTIL_MENU_ITEM_CLEAR_PARTY},
+    [DEBUG_UTIL_MENU_ITEM_HEAL_PARTY]          = {sDebugText_Util_HealParty,         DEBUG_UTIL_MENU_ITEM_HEAL_PARTY},
+    [DEBUG_UTIL_MENU_ITEM_FLY]                 = {sDebugText_Util_Fly,               DEBUG_UTIL_MENU_ITEM_FLY},
+    [DEBUG_UTIL_MENU_ITEM_WARP]                = {sDebugText_Util_WarpToMap,         DEBUG_UTIL_MENU_ITEM_WARP},
+    [DEBUG_UTIL_MENU_ITEM_PRESETWARP]          = {sDebugText_Util_PresetWarp,        DEBUG_UTIL_MENU_ITEM_PRESETWARP},
+    [DEBUG_UTIL_MENU_ITEM_SAVESPACE]           = {sDebugText_Util_SaveSpace,         DEBUG_UTIL_MENU_ITEM_SAVESPACE},
+    [DEBUG_UTIL_MENU_ITEM_CHECKWALLCLOCK]      = {sDebugText_Util_CheckWallClock,    DEBUG_UTIL_MENU_ITEM_CHECKWALLCLOCK},
+    [DEBUG_UTIL_MENU_ITEM_SETWALLCLOCK]        = {sDebugText_Util_SetWallClock,      DEBUG_UTIL_MENU_ITEM_SETWALLCLOCK},
+    [DEBUG_UTIL_MENU_ITEM_CHECKWEEKDAY]        = {sDebugText_Util_CheckWeekDay,      DEBUG_UTIL_MENU_ITEM_CHECKWEEKDAY},
+    [DEBUG_UTIL_MENU_ITEM_WATCHCREDITS]        = {sDebugText_Util_WatchCredits,      DEBUG_UTIL_MENU_ITEM_WATCHCREDITS},
+    [DEBUG_UTIL_MENU_ITEM_TRAINER_NAME]        = {sDebugText_Util_Trainer_Name,      DEBUG_UTIL_MENU_ITEM_TRAINER_NAME},
+    [DEBUG_UTIL_MENU_ITEM_RIVAL_NAME]          = {sDebugText_Util_Rival_Name,        DEBUG_UTIL_MENU_ITEM_RIVAL_NAME},
+    [DEBUG_UTIL_MENU_ITEM_TRAINER_GENDER]      = {sDebugText_Util_Trainer_Gender,    DEBUG_UTIL_MENU_ITEM_TRAINER_GENDER},
+    [DEBUG_UTIL_MENU_ITEM_TRAINER_ID]          = {sDebugText_Util_Trainer_Id,        DEBUG_UTIL_MENU_ITEM_TRAINER_ID},
+    [DEBUG_UTIL_MENU_ITEM_CHECKSTATS]          = {sDebugText_Util_CheckStats,        DEBUG_UTIL_MENU_ITEM_CHECKSTATS},
+    [DEBUG_UTIL_MENU_ITEM_FORCEEGGHATCH]       = {sDebugText_Util_ForceEggHatch,     DEBUG_UTIL_MENU_ITEM_FORCEEGGHATCH},
+    [DEBUG_UTIL_MENU_ITEM_OPEN_PC]             = {sDebugText_Util_OpenPC,            DEBUG_UTIL_MENU_ITEM_OPEN_PC},
+    [DEBUG_UTIL_MENU_ITEM_DO_WONDER_TRADE]     = {sDebugText_Util_DoWonderTrade,     DEBUG_UTIL_MENU_ITEM_DO_WONDER_TRADE},
+    [DEBUG_UTIL_MENU_ITEM_CHANGE_COSTUME]      = {sDebugText_Util_ChangeCostume,     DEBUG_UTIL_MENU_ITEM_CHANGE_COSTUME},
+    [DEBUG_UTIL_MENU_ITEM_CATCH_CHAIN_STATUS]  = {sDebugText_Util_CatchChainStatus,  DEBUG_UTIL_MENU_ITEM_CATCH_CHAIN_STATUS},
+    [DEBUG_UTIL_MENU_ITEM_CREATE_DAYCARE_EGG]  = {sDebugText_Util_CreateDaycareEgg,  DEBUG_UTIL_MENU_ITEM_CREATE_DAYCARE_EGG},
+    [DEBUG_UTIL_MENU_ITEM_CLEAR_BAG]           = {sDebugText_Util_ClearBag,          DEBUG_UTIL_MENU_ITEM_CLEAR_BAG},
+    [DEBUG_UTIL_MENU_ITEM_DELETE_POKEMON]      = {sDebugText_Util_DeletePokemon,     DEBUG_UTIL_MENU_ITEM_DELETE_POKEMON},
+    [DEBUG_UTIL_MENU_ITEM_CLEAR_PARTY]         = {sDebugText_Util_ClearParty,        DEBUG_UTIL_MENU_ITEM_CLEAR_PARTY},
+    [DEBUG_UTIL_MENU_ITEM_GIVE_STATUS_AILMENT] = {sDebugText_Util_GiveStatusAilment, DEBUG_UTIL_MENU_ITEM_GIVE_STATUS_AILMENT},
 };
 static const struct ListMenuItem sDebugMenu_Items_Flags[] =
 {
@@ -707,29 +712,30 @@ static void (*const sDebugMenu_Actions_Main[])(u8) =
 };
 static void (*const sDebugMenu_Actions_Utilities[])(u8) =
 {
-    [DEBUG_UTIL_MENU_ITEM_HEAL_PARTY]         = DebugAction_Util_HealParty,
-    [DEBUG_UTIL_MENU_ITEM_FLY]                = DebugAction_Util_Fly,
-    [DEBUG_UTIL_MENU_ITEM_WARP]               = DebugAction_Util_Warp_Warp,
-    [DEBUG_UTIL_MENU_ITEM_PRESETWARP]         = DebugAction_Util_Warp_PresetWarp,
-    [DEBUG_UTIL_MENU_ITEM_SAVESPACE]          = DebugAction_Util_CheckSaveSpace,
-    [DEBUG_UTIL_MENU_ITEM_CHECKWALLCLOCK]     = DebugAction_Util_CheckWallClock,
-    [DEBUG_UTIL_MENU_ITEM_SETWALLCLOCK]       = DebugAction_Util_SetWallClock,
-    [DEBUG_UTIL_MENU_ITEM_CHECKWEEKDAY]       = DebugAction_Util_CheckWeekDay,
-    [DEBUG_UTIL_MENU_ITEM_WATCHCREDITS]       = DebugAction_Util_WatchCredits,
-    [DEBUG_UTIL_MENU_ITEM_TRAINER_NAME]       = DebugAction_Util_Trainer_Name,
-    [DEBUG_UTIL_MENU_ITEM_RIVAL_NAME]         = DebugAction_Util_Rival_Name,
-    [DEBUG_UTIL_MENU_ITEM_TRAINER_GENDER]     = DebugAction_Util_Trainer_Gender,
-    [DEBUG_UTIL_MENU_ITEM_TRAINER_ID]         = DebugAction_Util_Trainer_Id,
-    [DEBUG_UTIL_MENU_ITEM_CHECKSTATS]         = DebugAction_Util_CheckStats,
-    [DEBUG_UTIL_MENU_ITEM_FORCEEGGHATCH]      = DebugAction_Util_ForceEggHatch,
-    [DEBUG_UTIL_MENU_ITEM_OPEN_PC]            = DebugAction_Util_OpenPC,
-    [DEBUG_UTIL_MENU_ITEM_DO_WONDER_TRADE]    = DebugAction_Util_DoWonderTrade,
-    [DEBUG_UTIL_MENU_ITEM_CHANGE_COSTUME]     = DebugAction_Util_ChangeCostume,
-    [DEBUG_UTIL_MENU_ITEM_CATCH_CHAIN_STATUS] = DebugAction_Util_CatchChainStatus,
-    [DEBUG_UTIL_MENU_ITEM_CREATE_DAYCARE_EGG] = DebugAction_Util_CreateDaycareEgg,
-    [DEBUG_UTIL_MENU_ITEM_CLEAR_BAG]          = DebugAction_Util_ClearBag,
-    [DEBUG_UTIL_MENU_ITEM_DELETE_POKEMON]     = DebugAction_Util_DeletePokemon,
-    [DEBUG_UTIL_MENU_ITEM_CLEAR_PARTY]        = DebugAction_Util_ClearParty,
+    [DEBUG_UTIL_MENU_ITEM_HEAL_PARTY]          = DebugAction_Util_HealParty,
+    [DEBUG_UTIL_MENU_ITEM_FLY]                 = DebugAction_Util_Fly,
+    [DEBUG_UTIL_MENU_ITEM_WARP]                = DebugAction_Util_Warp_Warp,
+    [DEBUG_UTIL_MENU_ITEM_PRESETWARP]          = DebugAction_Util_Warp_PresetWarp,
+    [DEBUG_UTIL_MENU_ITEM_SAVESPACE]           = DebugAction_Util_CheckSaveSpace,
+    [DEBUG_UTIL_MENU_ITEM_CHECKWALLCLOCK]      = DebugAction_Util_CheckWallClock,
+    [DEBUG_UTIL_MENU_ITEM_SETWALLCLOCK]        = DebugAction_Util_SetWallClock,
+    [DEBUG_UTIL_MENU_ITEM_CHECKWEEKDAY]        = DebugAction_Util_CheckWeekDay,
+    [DEBUG_UTIL_MENU_ITEM_WATCHCREDITS]        = DebugAction_Util_WatchCredits,
+    [DEBUG_UTIL_MENU_ITEM_TRAINER_NAME]        = DebugAction_Util_Trainer_Name,
+    [DEBUG_UTIL_MENU_ITEM_RIVAL_NAME]          = DebugAction_Util_Rival_Name,
+    [DEBUG_UTIL_MENU_ITEM_TRAINER_GENDER]      = DebugAction_Util_Trainer_Gender,
+    [DEBUG_UTIL_MENU_ITEM_TRAINER_ID]          = DebugAction_Util_Trainer_Id,
+    [DEBUG_UTIL_MENU_ITEM_CHECKSTATS]          = DebugAction_Util_CheckStats,
+    [DEBUG_UTIL_MENU_ITEM_FORCEEGGHATCH]       = DebugAction_Util_ForceEggHatch,
+    [DEBUG_UTIL_MENU_ITEM_OPEN_PC]             = DebugAction_Util_OpenPC,
+    [DEBUG_UTIL_MENU_ITEM_DO_WONDER_TRADE]     = DebugAction_Util_DoWonderTrade,
+    [DEBUG_UTIL_MENU_ITEM_CHANGE_COSTUME]      = DebugAction_Util_ChangeCostume,
+    [DEBUG_UTIL_MENU_ITEM_CATCH_CHAIN_STATUS]  = DebugAction_Util_CatchChainStatus,
+    [DEBUG_UTIL_MENU_ITEM_CREATE_DAYCARE_EGG]  = DebugAction_Util_CreateDaycareEgg,
+    [DEBUG_UTIL_MENU_ITEM_CLEAR_BAG]           = DebugAction_Util_ClearBag,
+    [DEBUG_UTIL_MENU_ITEM_DELETE_POKEMON]      = DebugAction_Util_DeletePokemon,
+    [DEBUG_UTIL_MENU_ITEM_CLEAR_PARTY]         = DebugAction_Util_ClearParty,
+    [DEBUG_UTIL_MENU_ITEM_GIVE_STATUS_AILMENT] = DebugAction_Util_GiveStatusAilment,
 };
 static void (*const sDebugMenu_Actions_Flags[])(u8) =
 {
@@ -1559,6 +1565,12 @@ static void DebugAction_Util_ClearParty(u8 taskId)
     ZeroPlayerPartyMons();
     Debug_DestroyMenu(taskId);
     EnableBothScriptContexts();
+}
+static void DebugAction_Util_GiveStatusAilment(u8 taskId)
+{
+    Debug_DestroyMenu(taskId);
+    ScriptContext2_Enable();
+    ScriptContext1_SetupScript(DebugScript_GiveStatusAilment);
 }
 
 // *******************************
