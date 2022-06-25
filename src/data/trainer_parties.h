@@ -6380,10 +6380,10 @@ static const struct TrainerMon sParty_WallyVR1[] = {
     }
 };
 
-static const struct TrainerMon sParty_BrendanRoute103Mudkip[] = {
+static const struct TrainerMon sParty_RivalRoute103[] = {
     {
         .lvl = 5,
-        .species = SPECIES_TREECKO,
+        .species = SPECIES_DYNAMIC,
     }
 };
 
@@ -6423,13 +6423,6 @@ static const struct TrainerMon sParty_BrendanRoute119Mudkip[] = {
     }
 };
 
-static const struct TrainerMon sParty_BrendanRoute103Treecko[] = {
-    {
-        .lvl = 5,
-        .species = SPECIES_TORCHIC,
-    }
-};
-
 static const struct TrainerMon sParty_BrendanRoute110Treecko[] = {
     {
         .ivs = {6, 6, 6, 6, 6, 6},
@@ -6463,13 +6456,6 @@ static const struct TrainerMon sParty_BrendanRoute119Treecko[] = {
         .ivs = {18, 18, 18, 18, 18, 18},
         .lvl = 31,
         .species = SPECIES_COMBUSKEN,
-    }
-};
-
-static const struct TrainerMon sParty_BrendanRoute103Torchic[] = {
-    {
-        .lvl = 5,
-        .species = SPECIES_MUDKIP,
     }
 };
 
@@ -6509,13 +6495,6 @@ static const struct TrainerMon sParty_BrendanRoute119Torchic[] = {
     }
 };
 
-static const struct TrainerMon sParty_MayRoute103Mudkip[] = {
-    {
-        .lvl = 5,
-        .species = SPECIES_TREECKO,
-    }
-};
-
 static const struct TrainerMon sParty_MayRoute110Mudkip[] = {
     {
         .ivs = {6, 6, 6, 6, 6, 6},
@@ -6552,13 +6531,6 @@ static const struct TrainerMon sParty_MayRoute119Mudkip[] = {
     }
 };
 
-static const struct TrainerMon sParty_MayRoute103Treecko[] = {
-    {
-        .lvl = 5,
-        .species = SPECIES_TORCHIC,
-    }
-};
-
 static const struct TrainerMon sParty_MayRoute110Treecko[] = {
     {
         .ivs = {6, 6, 6, 6, 6, 6},
@@ -6592,13 +6564,6 @@ static const struct TrainerMon sParty_MayRoute119Treecko[] = {
         .ivs = {18, 18, 18, 18, 18, 18},
         .lvl = 31,
         .species = SPECIES_COMBUSKEN,
-    }
-};
-
-static const struct TrainerMon sParty_MayRoute103Torchic[] = {
-    {
-        .lvl = 5,
-        .species = SPECIES_MUDKIP,
     }
 };
 

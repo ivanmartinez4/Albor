@@ -360,6 +360,16 @@ u16 GetStarterPokemon(u16 chosenStarterId)
     return sStarterMon[chosenStarterId];
 }
 
+u16 GetRivalStarterPokemon(void)
+{
+    if (VarGet(VAR_STARTER_MON) == 0)
+        return SPECIES_TORCHIC;
+    else if (VarGet(VAR_STARTER_MON) == 1)
+        return SPECIES_MUDKIP;
+    else
+        return SPECIES_TREECKO;
+}
+
 static void VblankCB_StarterChoose(void)
 {
     LoadOam();

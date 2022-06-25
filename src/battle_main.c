@@ -64,6 +64,8 @@
 #include "constants/songs.h"
 #include "constants/trainers.h"
 #include "cable_club.h"
+#include "starter_choose.h"
+#include "wonder_trade.h"
 
 extern struct Evolution gEvolutionTable[][EVOS_PER_MON];
 
@@ -1856,6 +1858,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
     u8 nickname[POKEMON_NAME_LENGTH + 1];
     u8 trainerName[(PLAYER_NAME_LENGTH * 3) + 1];
     u8 ability, gender, friendship;
+    u16 species;
 
     if (trainerNum == TRAINER_SECRET_BASE)
         return 0;
@@ -1904,12 +1907,41 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
             else if (partyData[i].gender == TRAINER_MON_FEMALE)
                 gender = MON_FEMALE;
 
+            if (partyData[i].species == SPECIES_DYNAMIC)
+            {
+                if (trainerNum == TRAINER_BRENDAN_ROUTE_103 || trainerNum == TRAINER_MAY_ROUTE_103)
+                    species = GetRivalStarterPokemon();
+                else
+                    species = (Random() % (FORMS_START + 1));
+            }
+            else
+            {
+                species = partyData[i].species;
+            }
+
             // MON_MALE and NATURE_HARDY share the default values. If one is set, assume the other is also meant to be set.
             // Enforced male pokemon cannot be Hardy. All pokemon with set natures will be male unless otherwise stated.
             if (partyData[i].nature > 0)
-                CreateMonWithGenderNatureLetter(&party[i], partyData[i].species, partyData[i].lvl, 0, gender, partyData[i].nature, 0, partyData[i].shiny ? OT_ID_SHINY : OT_ID_RANDOM_NO_SHINY);
+                CreateMonWithGenderNatureLetter(&party[i], species, partyData[i].lvl, 0, gender, partyData[i].nature, 0, partyData[i].shiny ? OT_ID_SHINY : OT_ID_RANDOM_NO_SHINY);
             else
-                CreateMon(&party[i], partyData[i].species, partyData[i].lvl, 0, TRUE, personalityValue, partyData[i].shiny ? OT_ID_SHINY : OT_ID_RANDOM_NO_SHINY, 0);
+                CreateMon(&party[i], species, partyData[i].lvl, 0, TRUE, personalityValue, partyData[i].shiny ? OT_ID_SHINY : OT_ID_RANDOM_NO_SHINY, 0);
+
+            // Adjust species post creation
+            if (partyData[i].species == SPECIES_DYNAMIC && partyData[i].cantEvolve == FALSE)
+            {
+                // 1st pass
+                species = ShouldEvolve(&party[i]);
+                if (partyData[i].nature > 0)
+                    CreateMonWithGenderNatureLetter(&party[i], species, partyData[i].lvl, 0, gender, partyData[i].nature, 0, partyData[i].shiny ? OT_ID_SHINY : OT_ID_RANDOM_NO_SHINY);
+                else
+                    CreateMon(&party[i], species, partyData[i].lvl, 0, TRUE, personalityValue, partyData[i].shiny ? OT_ID_SHINY : OT_ID_RANDOM_NO_SHINY, 0);
+                // 2nd pass, 3rd evos
+                species = ShouldEvolve(&party[i]);
+                if (partyData[i].nature > 0)
+                    CreateMonWithGenderNatureLetter(&party[i], species, partyData[i].lvl, 0, gender, partyData[i].nature, 0, partyData[i].shiny ? OT_ID_SHINY : OT_ID_RANDOM_NO_SHINY);
+                else
+                    CreateMon(&party[i], species, partyData[i].lvl, 0, TRUE, personalityValue, partyData[i].shiny ? OT_ID_SHINY : OT_ID_RANDOM_NO_SHINY, 0);
+            }
 
             if (partyData[i].friendship > 0)
             {

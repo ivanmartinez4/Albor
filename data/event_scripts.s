@@ -985,7 +985,7 @@ EventScript_PerformWonderTrade_:
 	compare VAR_0x8004, PARTY_SIZE
 	goto_if_ge EventScript_WonderTradeEnd
 	copyvar VAR_0x8005, VAR_0x8004
-	special CreateWonderTradePokemon
+	callnative CreateWonderTradePokemon
 	special DoInGameTradeScene
 	waitstate
 	msgbox EventScript_DoWonderTrade_Text_WannaPerformAnotherWonderTrade, MSGBOX_YESNO

@@ -6774,7 +6774,7 @@ const struct Trainer gTrainers[] = {
         .party = {.TrainerMon = sParty_WallyVR1},
     },
 
-    [TRAINER_BRENDAN_ROUTE_103_MUDKIP] =
+    [TRAINER_BRENDAN_ROUTE_103] =
     {
         .hasCustomTransition = TRUE,
         .trainerClass = TRAINER_CLASS_RIVAL,
@@ -6784,8 +6784,8 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_TRY_TO_FAINT | AI_FLAG_CHECK_VIABILITY,
-        .partySize = ARRAY_COUNT(sParty_BrendanRoute103Mudkip),
-        .party = {.TrainerMon = sParty_BrendanRoute103Mudkip},
+        .partySize = ARRAY_COUNT(sParty_RivalRoute103),
+        .party = {.TrainerMon = sParty_RivalRoute103},
     },
 
     [TRAINER_BRENDAN_ROUTE_110_MUDKIP] =
@@ -6816,20 +6816,6 @@ const struct Trainer gTrainers[] = {
         .party = {.TrainerMon = sParty_BrendanRoute119Mudkip},
     },
 
-    [TRAINER_BRENDAN_ROUTE_103_TREECKO] =
-    {
-        .hasCustomTransition = TRUE,
-        .trainerClass = TRAINER_CLASS_RIVAL,
-        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
-        .trainerPic = TRAINER_PIC_BRENDAN,
-        .trainerName = _("{B_RIVAL_NAME}"),
-        .items = {},
-        .doubleBattle = FALSE,
-        .aiFlags = AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_TRY_TO_FAINT | AI_FLAG_SETUP_FIRST_TURN,
-        .partySize = ARRAY_COUNT(sParty_BrendanRoute103Treecko),
-        .party = {.TrainerMon = sParty_BrendanRoute103Treecko},
-    },
-
     [TRAINER_BRENDAN_ROUTE_110_TREECKO] =
     {
         .hasCustomTransition = TRUE,
@@ -6856,20 +6842,6 @@ const struct Trainer gTrainers[] = {
         .aiFlags = AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_TRY_TO_FAINT | AI_FLAG_CHECK_VIABILITY,
         .partySize = ARRAY_COUNT(sParty_BrendanRoute119Treecko),
         .party = {.TrainerMon = sParty_BrendanRoute119Treecko},
-    },
-
-    [TRAINER_BRENDAN_ROUTE_103_TORCHIC] =
-    {
-        .hasCustomTransition = TRUE,
-        .trainerClass = TRAINER_CLASS_RIVAL,
-        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
-        .trainerPic = TRAINER_PIC_BRENDAN,
-        .trainerName = _("{B_RIVAL_NAME}"),
-        .items = {},
-        .doubleBattle = FALSE,
-        .aiFlags = AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_TRY_TO_FAINT | AI_FLAG_CHECK_VIABILITY,
-        .partySize = ARRAY_COUNT(sParty_BrendanRoute103Torchic),
-        .party = {.TrainerMon = sParty_BrendanRoute103Torchic},
     },
 
     [TRAINER_BRENDAN_ROUTE_110_TORCHIC] =
@@ -6900,7 +6872,7 @@ const struct Trainer gTrainers[] = {
         .party = {.TrainerMon = sParty_BrendanRoute119Torchic},
     },
 
-    [TRAINER_MAY_ROUTE_103_MUDKIP] =
+    [TRAINER_MAY_ROUTE_103] =
     {
         .hasCustomTransition = TRUE,
         .trainerClass = TRAINER_CLASS_RIVAL,
@@ -6910,8 +6882,8 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_TRY_TO_FAINT | AI_FLAG_CHECK_VIABILITY,
-        .partySize = ARRAY_COUNT(sParty_MayRoute103Mudkip),
-        .party = {.TrainerMon = sParty_MayRoute103Mudkip},
+        .partySize = ARRAY_COUNT(sParty_RivalRoute103),
+        .party = {.TrainerMon = sParty_RivalRoute103},
     },
 
     [TRAINER_MAY_ROUTE_110_MUDKIP] =
@@ -6942,20 +6914,6 @@ const struct Trainer gTrainers[] = {
         .party = {.TrainerMon = sParty_MayRoute119Mudkip},
     },
 
-    [TRAINER_MAY_ROUTE_103_TREECKO] =
-    {
-        .hasCustomTransition = TRUE,
-        .trainerClass = TRAINER_CLASS_RIVAL,
-        .encounterMusic_gender = F_TRAINER_FEMALE | TRAINER_ENCOUNTER_MUSIC_FEMALE,
-        .trainerPic = TRAINER_PIC_MAY,
-        .trainerName = _("{B_RIVAL_NAME}"),
-        .items = {},
-        .doubleBattle = FALSE,
-        .aiFlags = AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_TRY_TO_FAINT | AI_FLAG_CHECK_VIABILITY,
-        .partySize = ARRAY_COUNT(sParty_MayRoute103Treecko),
-        .party = {.TrainerMon = sParty_MayRoute103Treecko},
-    },
-
     [TRAINER_MAY_ROUTE_110_TREECKO] =
     {
         .hasCustomTransition = TRUE,
@@ -6982,20 +6940,6 @@ const struct Trainer gTrainers[] = {
         .aiFlags = AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_TRY_TO_FAINT | AI_FLAG_CHECK_VIABILITY,
         .partySize = ARRAY_COUNT(sParty_MayRoute119Treecko),
         .party = {.TrainerMon = sParty_MayRoute119Treecko},
-    },
-
-    [TRAINER_MAY_ROUTE_103_TORCHIC] =
-    {
-        .hasCustomTransition = TRUE,
-        .trainerClass = TRAINER_CLASS_RIVAL,
-        .encounterMusic_gender = F_TRAINER_FEMALE | TRAINER_ENCOUNTER_MUSIC_FEMALE,
-        .trainerPic = TRAINER_PIC_MAY,
-        .trainerName = _("{B_RIVAL_NAME}"),
-        .items = {},
-        .doubleBattle = FALSE,
-        .aiFlags = AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_TRY_TO_FAINT | AI_FLAG_CHECK_VIABILITY,
-        .partySize = ARRAY_COUNT(sParty_MayRoute103Torchic),
-        .party = {.TrainerMon = sParty_MayRoute103Torchic},
     },
 
     [TRAINER_MAY_ROUTE_110_TORCHIC] =

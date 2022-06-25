@@ -35,6 +35,7 @@
 #include "constants/trainers.h"
 #include "constants/event_objects.h"
 #include "constants/moves.h"
+#include "wonder_trade.h"
 
 // EWRAM vars.
 EWRAM_DATA const struct BattleFrontierTrainer *gFacilityTrainers = NULL;
@@ -2803,6 +2804,8 @@ static void FillPartnerParty(u16 trainerId)
     u16 monId;
     u32 otID;
     u8 trainerName[(PLAYER_NAME_LENGTH * 3) + 1];
+    u16 species;
+
     SetFacilityPtrsGetLevel();
 
     if (trainerId >= TRAINER_CUSTOM_PARTNER)
@@ -2839,6 +2842,23 @@ static void FillPartnerParty(u16 trainerId)
             else
             {
                 CreateMon(&gPlayerParty[i + 3], partyData[i].species, partyData[i].lvl, 0, TRUE, personalityValue, partyData[i].shiny ? OT_ID_SHINY : OT_ID_RANDOM_NO_SHINY, 0);
+            }
+
+            // Adjust species post creation
+            if (partyData[i].species == SPECIES_DYNAMIC && partyData[i].cantEvolve == FALSE)
+            {
+                // 1st pass
+                species = ShouldEvolve(&gPlayerParty[i + 3]);
+                if (partyData[i].nature > 0)
+                    CreateMonWithGenderNatureLetter(&gPlayerParty[i + 3], species, partyData[i].lvl, 0, gender, partyData[i].nature, 0, partyData[i].shiny ? OT_ID_SHINY : OT_ID_RANDOM_NO_SHINY);
+                else
+                    CreateMon(&gPlayerParty[i + 3], species, partyData[i].lvl, 0, TRUE, personalityValue, partyData[i].shiny ? OT_ID_SHINY : OT_ID_RANDOM_NO_SHINY, 0);
+                // 2nd pass, 3rd evos
+                species = ShouldEvolve(&gPlayerParty[i + 3]);
+                if (partyData[i].nature > 0)
+                    CreateMonWithGenderNatureLetter(&gPlayerParty[i + 3], species, partyData[i].lvl, 0, gender, partyData[i].nature, 0, partyData[i].shiny ? OT_ID_SHINY : OT_ID_RANDOM_NO_SHINY);
+                else
+                    CreateMon(&gPlayerParty[i + 3], species, partyData[i].lvl, 0, TRUE, personalityValue, partyData[i].shiny ? OT_ID_SHINY : OT_ID_RANDOM_NO_SHINY, 0);
             }
 
             if (partyData[i].friendship > 0)

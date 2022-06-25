@@ -15,12 +15,11 @@
 #include "constants/hold_effects.h"
 #include "mail.h"
 #include "constants/pokemon.h"
-#ifdef POKEMON_EXPANSION
 #include "party_menu.h"
 #include "field_weather.h"
 #include "constants/weather.h"
-#endif
 #include "rtc.h"
+#include "wonder_trade.h"
 
 extern struct Evolution gEvolutionTable[][EVOS_PER_MON];
 
@@ -39,99 +38,19 @@ struct InGameTrade {
     /*0x38*/ u16 playerSpecies;
 };
 
-#ifndef POKEMON_EXPANSION
-// This is a list of items that were not used in vanilla.
-// Feel free to delete it and remove the check that uses it.
-static const u16 sInvalidItem[] = {
-    [ITEM_034] = 1,
-    [ITEM_035] = 1,
-    [ITEM_036] = 1,
-    [ITEM_037] = 1,
-    [ITEM_038] = 1,
-    [ITEM_039] = 1,
-    [ITEM_03A] = 1,
-    [ITEM_03B] = 1,
-    [ITEM_03C] = 1,
-    [ITEM_03D] = 1,
-    [ITEM_03E] = 1,
-    [ITEM_048] = 1,
-    [ITEM_052] = 1,
-    [ITEM_057] = 1,
-    [ITEM_058] = 1,
-    [ITEM_059] = 1,
-    [ITEM_05A] = 1,
-    [ITEM_05B] = 1,
-    [ITEM_05C] = 1,
-    [ITEM_063] = 1,
-    [ITEM_064] = 1,
-    [ITEM_065] = 1,
-    [ITEM_066] = 1,
-    [ITEM_069] = 1,
-    [ITEM_070] = 1,
-    [ITEM_071] = 1,
-    [ITEM_072] = 1,
-    [ITEM_073] = 1,
-    [ITEM_074] = 1,
-    [ITEM_075] = 1,
-    [ITEM_076] = 1,
-    [ITEM_077] = 1,
-    [ITEM_078] = 1,
-    [ITEM_0B0] = 1,
-    [ITEM_0B1] = 1,
-    [ITEM_0B2] = 1,
-    [ITEM_0E2] = 1,
-    [ITEM_0E3] = 1,
-    [ITEM_0E4] = 1,
-    [ITEM_0E5] = 1,
-    [ITEM_0E6] = 1,
-    [ITEM_0E7] = 1,
-    [ITEM_0E8] = 1,
-    [ITEM_0E9] = 1,
-    [ITEM_0EA] = 1,
-    [ITEM_0EB] = 1,
-    [ITEM_0EC] = 1,
-    [ITEM_0ED] = 1,
-    [ITEM_0EE] = 1,
-    [ITEM_0EF] = 1,
-    [ITEM_0F0] = 1,
-    [ITEM_0F1] = 1,
-    [ITEM_0F2] = 1,
-    [ITEM_0F3] = 1,
-    [ITEM_0F4] = 1,
-    [ITEM_0F5] = 1,
-    [ITEM_0F6] = 1,
-    [ITEM_0F7] = 1,
-    [ITEM_0F8] = 1,
-    [ITEM_0F9] = 1,
-    [ITEM_0FA] = 1,
-    [ITEM_0FB] = 1,
-    [ITEM_0FC] = 1,
-    [ITEM_0FD] = 1,
-    [ITEM_10B] = 1,
-    [ITEM_15B] = 1,
-    [ITEM_15C] = 1,
-};
-#endif
-
 static u16 PickRandomSpecies(void);
-void CreateWonderTradePokemon(u8 whichPlayerMon);
 static const u16 returnValidSpecies(u16 input);
-u16 ShouldEvolve(struct Pokemon *);
-u8 getWonderTradeOT(u8 *name);
-u16 GetValidWonderTradeItem(u16 item);
+static u8 getWonderTradeOT(u8 *name);
+static u16 GetValidWonderTradeItem(u16 item);
 
 static u16 PickRandomSpecies() // picks only base forms
 {
-#ifdef POKEMON_EXPANSION
     u16 species = Random() % 423;
-#else
-    u16 species = Random() % 180;
-#endif
     species = returnValidSpecies(species);
     return species;
 }
 
-u8 getWonderTradeOT(u8 *name)
+static u8 getWonderTradeOT(u8 *name)
 {
     u8 randGender = (Random() % 2); // 0 for male, 1 for female
     u8 numOTNames = 250;
@@ -158,7 +77,7 @@ u8 getWonderTradeOT(u8 *name)
     return randGender;
 }
 
-void CreateWonderTradePokemon(u8 whichPlayerMon)
+void CreateWonderTradePokemon(void)
 {
     struct InGameTrade *inGameTrade;
     struct Pokemon *pokemon = &gEnemyParty[0];
@@ -167,9 +86,7 @@ void CreateWonderTradePokemon(u8 whichPlayerMon)
     u8 name[POKEMON_NAME_LENGTH + 1];
     u8 nameOT[8];
     u8 genderOT;
-#ifdef POKEMON_EXPANSION
     u8 abilityNum;
-#endif
     u8 level = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_LEVEL); // gets level of player's selected Pokemon
     u16 playerSpecies = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPECIES); // gets species of player's selected Pokemon
     u32 OTID = ((Random() << 16) | Random());
@@ -240,22 +157,12 @@ void CreateWonderTradePokemon(u8 whichPlayerMon)
         }
     }
 
-#ifdef POKEMON_EXPANSION
     // 10% chance of giving the in coming Pokémon their HA, if they have one
-    // Uncomment if your copy of the pokemon_expansion is up-to-date.
     if (gBaseStats[species].abilities[2] != ABILITY_NONE && (Random() % 99) < 10)
     {
         abilityNum = 2;
         SetMonData(pokemon, MON_DATA_ABILITY_NUM, &abilityNum);
     }
-
-    // Uncomment if your copy of the pokemon_expansion is not up-to-date.
-    //if (gBaseStats[species].abilityHidden != ABILITY_NONE && (Random() % 99) < 10)
-    //{
-    //    abilityNum = 2;
-    //    SetMonData(pokemon, MON_DATA_ABILITY_NUM, &abilityNum);
-    //}
-#endif
 
     SetMonData(pokemon, MON_DATA_HELD_ITEM, &heldItem);
     SetMonData(pokemon, MON_DATA_HP_IV, &inGameTrade->ivs[0]);
@@ -286,7 +193,6 @@ void CreateWonderTradePokemon(u8 whichPlayerMon)
     CalculateMonStats(&gEnemyParty[0]);
 }
 
-#ifdef POKEMON_EXPANSION
 u16 ShouldEvolve(struct Pokemon *mon)
 {
     int i, j;
@@ -631,178 +537,6 @@ u16 ShouldEvolve(struct Pokemon *mon)
     else
         return targetSpecies;
 }
-#else
-u16 ShouldEvolve(struct Pokemon *mon)
-{
-    int i;
-    u16 targetSpecies = 0;
-    u16 species = GetMonData(mon, MON_DATA_SPECIES, 0);
-    u32 personality = GetMonData(mon, MON_DATA_PERSONALITY, 0);
-    u16 upperPersonality = personality >> 16;
-    u8 level = GetMonData(mon, MON_DATA_LEVEL, 0);
-    u16 eeveelution = Random() % 5;
-
-    if (species == SPECIES_EEVEE || species == SPECIES_NINCADA)
-    {
-        if (species == SPECIES_NINCADA && level >= 20)
-        {
-            if ((Random() % 2) == 0)
-                targetSpecies = SPECIES_NINJASK;
-            else
-                targetSpecies = SPECIES_SHEDINJA;
-            return targetSpecies;
-        }
-        else if (species == SPECIES_EEVEE && level >= 25)
-        {
-            if (eeveelution == 0)
-                targetSpecies = SPECIES_VAPOREON;
-            else if (eeveelution == 1)
-                targetSpecies = SPECIES_JOLTEON;
-            else if (eeveelution == 2)
-                targetSpecies = SPECIES_FLAREON;
-            else if (eeveelution == 3)
-                targetSpecies = SPECIES_ESPEON;
-            else if (eeveelution == 4)
-                targetSpecies = SPECIES_UMBREON;
-            return targetSpecies;
-        }
-    }
-
-    for (i = 0; i < 5; i++)
-    {
-        switch (gEvolutionTable[species][i].method)
-        {
-        case EVO_FRIENDSHIP:
-            if ((species == SPECIES_PICHU || species == SPECIES_CLEFFA || species == SPECIES_IGGLYBUFF
-              || species == SPECIES_TOGEPI || species == SPECIES_AZURILL) && level >= 16)
-                targetSpecies = gEvolutionTable[species][i].targetSpecies;
-            else if ((species == SPECIES_GOLBAT || species == SPECIES_CHANSEY) && level >= 35)
-                targetSpecies = gEvolutionTable[species][i].targetSpecies;
-            break;
-        case EVO_LEVEL:
-            if (species == SPECIES_SLOWPOKE && level >= 37)
-            {
-                if ((Random() % 2) == 0)
-                    targetSpecies = SPECIES_SLOWBRO;
-                else
-                    targetSpecies = SPECIES_SLOWKING;
-            }
-            else if (gEvolutionTable[species][i].param <= level)
-            {
-                targetSpecies = gEvolutionTable[species][i].targetSpecies;
-            }
-            break;
-        case EVO_LEVEL_ATK_GT_DEF:
-            if (gEvolutionTable[species][i].param <= level)
-            {
-                if (GetMonData(mon, MON_DATA_ATK, 0) > GetMonData(mon, MON_DATA_DEF, 0))
-                    targetSpecies = gEvolutionTable[species][i].targetSpecies;
-            }
-            break;
-        case EVO_LEVEL_ATK_EQ_DEF:
-            if (gEvolutionTable[species][i].param <= level)
-            {
-                if (GetMonData(mon, MON_DATA_ATK, 0) == GetMonData(mon, MON_DATA_DEF, 0))
-                    targetSpecies = gEvolutionTable[species][i].targetSpecies;
-            }
-            break;
-        case EVO_LEVEL_ATK_LT_DEF:
-            if (gEvolutionTable[species][i].param <= level)
-            {
-                if (GetMonData(mon, MON_DATA_ATK, 0) < GetMonData(mon, MON_DATA_DEF, 0))
-                    targetSpecies = gEvolutionTable[species][i].targetSpecies;
-            }
-            break;
-        case EVO_LEVEL_SILCOON:
-            if (gEvolutionTable[species][i].param <= level && (upperPersonality % 10) <= 4)
-                targetSpecies = gEvolutionTable[species][i].targetSpecies;
-            break;
-        case EVO_LEVEL_CASCOON:
-            if (gEvolutionTable[species][i].param <= level && (upperPersonality % 10) > 4)
-                targetSpecies = gEvolutionTable[species][i].targetSpecies;
-            break;
-        case EVO_BEAUTY:
-            if (level >= 30)
-                targetSpecies = gEvolutionTable[species][i].targetSpecies;
-            break;
-        case EVO_ITEM:
-            if (species == SPECIES_GLOOM && level >= 36)
-            {
-                if ((Random() % 2) == 0)
-                    targetSpecies = SPECIES_VILEPLUME;
-                else
-                    targetSpecies = SPECIES_BELLOSSOM;
-            }
-            else if (species == SPECIES_WEEPINBELL && level >= 36)
-            {
-                targetSpecies = gEvolutionTable[species][i].targetSpecies;
-            }
-            else if ((species == SPECIES_VULPIX || species == SPECIES_GROWLITHE) && level >= 32)
-            {
-                targetSpecies = gEvolutionTable[species][i].targetSpecies;
-            }
-            else if ((species == SPECIES_SHELLDER || species == SPECIES_STARYU) && level >= 43)
-            {
-                targetSpecies = gEvolutionTable[species][i].targetSpecies;
-            }
-            else if ((species == SPECIES_NIDORINA || species == SPECIES_NIDORINO || species == SPECIES_EXEGGCUTE) && level >= 26)
-            {
-                targetSpecies = gEvolutionTable[species][i].targetSpecies;
-            }
-            else if ((species == SPECIES_JIGGLYPUFF || species == SPECIES_CLEFAIRY || species == SPECIES_SKITTY) && level >= 38)
-            {
-                targetSpecies = gEvolutionTable[species][i].targetSpecies;
-            }
-            else if ((species == SPECIES_LOMBRE || species == SPECIES_NUZLEAF) && level >= 38)
-            {
-                targetSpecies = gEvolutionTable[species][i].targetSpecies;
-            }
-            else if (species == SPECIES_POLIWHIRL && level >= 44)
-            {
-                if ((Random() % 2) == 0)
-                    targetSpecies = SPECIES_POLIWRATH;
-                else
-                    targetSpecies = SPECIES_POLITOED;
-            }
-            else if (species == SPECIES_PIKACHU && level >= 27)
-            {
-                targetSpecies = gEvolutionTable[species][i].targetSpecies;
-            }
-            else if (species == SPECIES_SUNKERN && level >= 15)
-            {
-                targetSpecies = gEvolutionTable[species][i].targetSpecies;
-            }
-            break;
-        case EVO_TRADE_ITEM:
-            if ((species == SPECIES_ONIX || species == SPECIES_SEADRA) && level >= 40)
-            {
-                targetSpecies = gEvolutionTable[species][i].targetSpecies;
-            }
-            else if (species == SPECIES_SCYTHER && level >= 26)
-            {
-                targetSpecies = gEvolutionTable[species][i].targetSpecies;
-            }
-            else if (species == SPECIES_PORYGON && level >= 21)
-            {
-                targetSpecies = gEvolutionTable[species][i].targetSpecies;
-            }
-            else if (species == SPECIES_CLAMPERL && level >= 22)
-            {
-                if ((Random() % 2) == 0)
-                    targetSpecies = SPECIES_HUNTAIL;
-                else
-                    targetSpecies = SPECIES_GOREBYSS;
-            }
-            break;
-        }
-    }
-
-    if (targetSpecies == 0)
-        return species;
-    else
-        return targetSpecies;
-}
-#endif
 
 static const u16 returnValidSpecies(u16 input)
 {
@@ -872,9 +606,6 @@ static const u16 returnValidSpecies(u16 input)
         SPECIES_OMANYTE,
         SPECIES_KABUTO,
         SPECIES_AERODACTYL,
-    #ifndef POKEMON_EXPANSION
-        SPECIES_SNORLAX,
-    #endif
         SPECIES_DRATINI,
         SPECIES_CHIKORITA,
         SPECIES_TOTODILE,
@@ -889,9 +620,6 @@ static const u16 returnValidSpecies(u16 input)
         SPECIES_TOGEPI,
         SPECIES_NATU,
         SPECIES_MAREEP,
-    #ifndef POKEMON_EXPANSION
-        SPECIES_SUDOWOODO,
-    #endif
         SPECIES_HOPPIP,
         SPECIES_AIPOM,
         SPECIES_SUNKERN,
@@ -992,7 +720,6 @@ static const u16 returnValidSpecies(u16 input)
         SPECIES_BAGON,
         SPECIES_BELDUM,
         SPECIES_CHIMECHO,
-    #ifdef POKEMON_EXPANSION
         SPECIES_TURTWIG,
         SPECIES_CHIMCHAR,
         SPECIES_PIPLUP,
@@ -1236,13 +963,11 @@ static const u16 returnValidSpecies(u16 input)
         SPECIES_MINIOR_METEOR_INDIGO,
         SPECIES_MINIOR_METEOR_VIOLET,
         SPECIES_SINISTEA_ANTIQUE,
-    #endif
     };
     return species[input];
 }
 
-#if defined ITEM_EXPANSION && defined POKEMON_EXPANSION
-bool32 IsMegaPreEvolution(u16 species, u16 heldStone, bool32 found)
+static bool32 IsMegaPreEvolution(u16 species, u16 heldStone, bool32 found)
 {
     u8 i;
 
@@ -1260,7 +985,7 @@ bool32 IsMegaPreEvolution(u16 species, u16 heldStone, bool32 found)
 }
 
 // Generate an item randomly for a Wonder Trade in coming Pokémon to hold, with a few exceptions
-u16 GetValidWonderTradeItem(u16 item)
+static u16 GetValidWonderTradeItem(u16 item)
 {
     u16 species = GetMonData(&gEnemyParty[0], MON_DATA_SPECIES);
     int i;
@@ -1321,34 +1046,3 @@ u16 GetValidWonderTradeItem(u16 item)
 
     return item;
 }
-#else
-u16 GetValidWonderTradeItem(u16 item)
-{
-    int i;
-    u16 species = GetMonData(&gEnemyParty[0], MON_DATA_SPECIES);
-
-    ROLL:
-        item = Random() % ITEMS_COUNT;
-
-    if (item == ITEM_NONE || item == ITEM_ENIGMA_BERRY)
-        goto ROLL;
-    else if (IS_ITEM_MAIL(item))
-        goto ROLL;
-    else if (ItemId_GetPocket(item) == POCKET_KEY_ITEMS)
-        goto ROLL;
-    else if (item >= ITEM_HM01 && item <= ITEM_HM08)
-        goto ROLL;
-    else if (item == ITEM_THICK_CLUB && (species != SPECIES_CUBONE || species != SPECIES_MAROWAK))
-        goto ROLL;
-    else if (item == ITEM_LIGHT_BALL && species != SPECIES_PIKACHU)
-        goto ROLL;
-    else if ((item == ITEM_DEEP_SEA_SCALE || item == ITEM_DEEP_SEA_TOOTH) && species != SPECIES_CLAMPERL)
-        goto ROLL;
-    else if (item == ITEM_METAL_POWDER && species != SPECIES_DITTO)
-        goto ROLL;
-    else if (sInvalidItem[item])
-        goto ROLL;
-
-    return item;
-}
-#endif

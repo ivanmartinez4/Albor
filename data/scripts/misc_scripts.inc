@@ -395,7 +395,7 @@ DebugScript_DoWonderTrade::
 	waitstate
 	goto_if_ge VAR_0x8004, PARTY_SIZE, DebugScript_Cancel
 	copyvar VAR_0x8005, VAR_0x8004
-	special CreateWonderTradePokemon
+	callnative CreateWonderTradePokemon
 	special DoInGameTradeScene
 	waitstate
 	msgbox DebugScript_DoWonderTrade_Text_WannaDoAnotherWonderTrade, MSGBOX_YESNO
