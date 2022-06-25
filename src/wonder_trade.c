@@ -116,7 +116,7 @@ static const u16 sInvalidItem[] = {
 static u16 PickRandomSpecies(void);
 void CreateWonderTradePokemon(u8 whichPlayerMon);
 static const u16 returnValidSpecies(u16 input);
-u16 determineEvolution(struct Pokemon *);
+u16 ShouldEvolve(struct Pokemon *);
 u8 getWonderTradeOT(u8 *name);
 u16 GetValidWonderTradeItem(u16 item);
 
@@ -198,14 +198,14 @@ void CreateWonderTradePokemon(u8 whichPlayerMon)
 
     if (chanceToEvolve >= 200) // evolves to highest stage
     {
-        species = determineEvolution(pokemon);
+        species = ShouldEvolve(pokemon);
         CreateMon(pokemon, species, level, 0, FALSE, 0, TRUE, (Random() << 16) | Random());
-        species = determineEvolution(pokemon);
+        species = ShouldEvolve(pokemon);
         CreateMon(pokemon, species, level, 0, FALSE, 0, TRUE, (Random() << 16) | Random());
     }
     else if (chanceToEvolve >= 100 && chanceToEvolve < 200) // evolves once
     {
-        species = determineEvolution(pokemon);
+        species = ShouldEvolve(pokemon);
         CreateMon(pokemon, species, level, 0, FALSE, 0, TRUE, (Random() << 16) | Random());
     }
 
@@ -287,7 +287,7 @@ void CreateWonderTradePokemon(u8 whichPlayerMon)
 }
 
 #ifdef POKEMON_EXPANSION
-u16 determineEvolution(struct Pokemon *mon)
+u16 ShouldEvolve(struct Pokemon *mon)
 {
     int i, j;
     u16 targetSpecies = 0;
@@ -632,7 +632,7 @@ u16 determineEvolution(struct Pokemon *mon)
         return targetSpecies;
 }
 #else
-u16 determineEvolution(struct Pokemon *mon)
+u16 ShouldEvolve(struct Pokemon *mon)
 {
     int i;
     u16 targetSpecies = 0;
