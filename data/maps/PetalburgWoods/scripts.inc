@@ -299,7 +299,7 @@ PetalburgWoods_EventScript_James::
 PetalburgWoods_EventScript_TryRegisterJames::
 	special PlayerFaceTrainerAfterBattle
 	waitmovement 0
-	goto_if_set FLAG_HAS_MATCH_CALL, PetalburgWoods_EventScript_RegisterJames
+	goto_if_set FLAG_SYS_POKENAV_GET, PetalburgWoods_EventScript_RegisterJames
 	release
 	end
 
@@ -310,7 +310,7 @@ PetalburgWoods_EventScript_RegisterJames::
 	end
 
 PetalburgWoods_EventScript_TryRegisterJames2::
-	goto_if_set FLAG_HAS_MATCH_CALL, PetalburgWoods_EventScript_RegisterJames2
+	goto_if_set FLAG_SYS_POKENAV_GET, PetalburgWoods_EventScript_RegisterJames2
 	msgbox PetalburgWoods_Text_PeopleRespectYou, MSGBOX_DEFAULT
 	release
 	end

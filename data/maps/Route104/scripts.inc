@@ -855,7 +855,7 @@ Route104_EventScript_Haley::
 Route104_EventScript_TryRegisterHaleyAfterBattle::
 	special PlayerFaceTrainerAfterBattle
 	waitmovement 0
-	goto_if_set FLAG_HAS_MATCH_CALL, Route104_EventScript_RegisterHaleyAfterBattle
+	goto_if_set FLAG_SYS_POKENAV_GET, Route104_EventScript_RegisterHaleyAfterBattle
 	release
 	end
 
@@ -866,7 +866,7 @@ Route104_EventScript_RegisterHaleyAfterBattle::
 	end
 
 Route104_EventScript_TryRegisterHaley::
-	goto_if_set FLAG_HAS_MATCH_CALL, Route104_EventScript_RegisterHaley
+	goto_if_set FLAG_SYS_POKENAV_GET, Route104_EventScript_RegisterHaley
 	msgbox Route104_Text_HaleyPostBattle, MSGBOX_DEFAULT
 	release
 	end
@@ -896,7 +896,7 @@ Route104_EventScript_Winston::
 Route104_EventScript_TryRegisterWinstonAfterBattle::
 	special PlayerFaceTrainerAfterBattle
 	waitmovement 0
-	goto_if_set FLAG_HAS_MATCH_CALL, Route104_EventScript_RegisterWinstonAfterBattle
+	goto_if_set FLAG_SYS_POKENAV_GET, Route104_EventScript_RegisterWinstonAfterBattle
 	release
 	end
 
@@ -907,7 +907,7 @@ Route104_EventScript_RegisterWinstonAfterBattle::
 	end
 
 Route104_EventScript_TryRegisterWinston::
-	goto_if_set FLAG_HAS_MATCH_CALL, Route104_EventScript_RegisterWinston
+	goto_if_set FLAG_SYS_POKENAV_GET, Route104_EventScript_RegisterWinston
 	msgbox Route104_Text_WinstonPostBattle, MSGBOX_DEFAULT
 	release
 	end
@@ -937,7 +937,7 @@ Route104_EventScript_Cindy::
 Route104_EventScript_TryRegisterCindyAfterBattle::
 	special PlayerFaceTrainerAfterBattle
 	waitmovement 0
-	goto_if_set FLAG_HAS_MATCH_CALL, Route104_EventScript_RegisterCindyAfterBattle
+	goto_if_set FLAG_SYS_POKENAV_GET, Route104_EventScript_RegisterCindyAfterBattle
 	release
 	end
 
@@ -948,7 +948,7 @@ Route104_EventScript_RegisterCindyAfterBattle::
 	end
 
 Route104_EventScript_TryRegisterCindy::
-	goto_if_set FLAG_HAS_MATCH_CALL, Route104_EventScript_RegisterCindy
+	goto_if_set FLAG_SYS_POKENAV_GET, Route104_EventScript_RegisterCindy
 	msgbox Route104_Text_CindyPostBattle, MSGBOX_DEFAULT
 	release
 	end

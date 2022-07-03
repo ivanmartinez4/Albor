@@ -322,7 +322,7 @@
 #define FLAG_MET_FANCLUB_YOUNGER_BROTHER                    0x12C
 #define FLAG_RIVAL_LEFT_FOR_ROUTE103                        0x12D
 #define FLAG_OMIT_DIVE_FROM_STEVEN_LETTER                   0x12E
-#define FLAG_HAS_MATCH_CALL                                 0x12F
+#define FLAG_UNUSED_0x12F                                   0x12F
 #define FLAG_UNUSED_0x130                                   0x130 // Originally used to unlock the Match Call
 #define FLAG_REGISTERED_STEVEN_POKENAV                      0x131
 #define FLAG_ENABLE_NORMAN_MATCH_CALL                       0x132
