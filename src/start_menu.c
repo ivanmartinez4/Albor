@@ -137,7 +137,7 @@ static void Task_SaveAfterLinkBattle(u8 taskId);
 static void Task_WaitForBattleTowerLinkSave(u8 taskId);
 static bool8 FieldCB_ReturnToFieldStartMenu(void);
 
-static const struct WindowTemplate sSafariBallsWindowTemplate = {0, 1, 1, 9, 4, 0xF, 8};
+static const struct WindowTemplate sSafariBallsWindowTemplate = {0, 1, 15, 9, 4, 0xF, 8};
 
 static const u8* const sPyramidFloorNames[] =
 {
@@ -334,6 +334,8 @@ static void BuildSafariZoneStartMenu(void)
     AddStartMenuAction(MENU_ACTION_POKEDEX);
     AddStartMenuAction(MENU_ACTION_POKEMON);
     AddStartMenuAction(MENU_ACTION_BAG);
+    if (FlagGet(FLAG_SYS_POKENAV_GET))
+        AddStartMenuAction(MENU_ACTION_POKENAV);
     AddStartMenuAction(MENU_ACTION_PLAYER);
 #ifdef DEBUG_MODE_ENABLED
     if (FlagGet(FLAG_SYS_ENABLE_DEBUG_MENU))
