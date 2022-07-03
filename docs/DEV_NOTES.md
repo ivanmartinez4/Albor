@@ -27,21 +27,12 @@ I wrote this... I don't know, sometime ago, but I never thought about storing it
   * Reduce 10% chance to find 6x31 after 60 captures to 5% instead.
   * Don't break the chain if the Player moves to another map.
 * Complete the features and credits list.
-* Incorporate some further optimizations to the BoxPokemon struct, based on [Deokishisu's research](https://gist.github.com/Deokishisu/64be4b69cf476c1db03dee8b36cb7b4d)**
-  * Namely:
-    * -Get rid of `isEgg`.
-    * -Get rid of `abilityNum`.
 
 ### Low Priority
 #### That means things that I should do someday.
 * Merge ExpoSeed's fork of the Dynamic Overworld Palettes when the 2 glaring issues it has are fixed.
-* Find out why is the registered items menu opening without having any items registered on it sometimes.
-  * Actually find out if it happens at all anymore. I think that I fixed it, but I think that I fixed it 2 or 3 times too :rofl:
-* Do some `TRAINER_CLASS_PKMN_TRAINER` changes after the next RHH merge.
-  * Rename `TRAINER_CLASS_PKMN_TRAINER_1` and `TRAINER_CLASS_PKMN_TRAINER_2` to `TRAINER_CLASS_UNUSED_1` and `TRAINER_CLASS_UNUSED_2` respectively.
-  * Rename `TRAINER_CLASS_RIVAL` to `TRAINER_CLASS_PKMN_TRAINER`
-  * Change GetBattleBGM's feedback for that TC.
-  * Set the TC of `TRAINER_JAZMYN` to `TRAINER_CLASS_COOLTRAINER` and rename `TRAINER_CLASS_COOLTRAINER_2` to `TRAINER_CLASS_UNUSED_3`.
+* Re-implement TheXaman's Registered Items Menu
+  * Remove all the logic for L and R buttons. The menu should be opened when you press the Select key if the Player has 2 or more items registered.
 * Make Birch give the Player a Johto starter for defeating the Rival in Route 103 *(postgame)* instead of doing it for completing the Hoenn dex.
   * Add a Sinnoh starter as the new reward for completing the Hoenn dex.
 * Tweak the metatile behavior of all the chair tiles, not just the ones in the Player's rooms, so the Player can't walk through the back of the chairs anymore.
@@ -107,8 +98,7 @@ I wrote this... I don't know, sometime ago, but I never thought about storing it
 * Swap checked flag in EventScript_Dresser *(FLAG_RECEIVED_AMULET_COIN -> FLAG_BADGE05_GET)*.
 * Add Xaman's TM Case.
   * Try to add an equivalent to hold the Mega Stones.
-* Add extra pockets based on the official games'.
-  * Follow SwSh's lead when it comes to the management of the items for each pocket.
+* Add extra bag pockets inspired by the official games.
 * Mess a bit with the battle interface. Come on Lunos, you can't keep using vanilla's health and text boxes forever.
 * Make an offline version of the battle house from RS' Mossdeep City.
   * Maybe 2; one to replace Mossdeep City's minigame house and one to replace Sootopolis' battle house.
