@@ -3272,23 +3272,13 @@ static void DebugAction_Give_FillPCBoxes(u8 taskId)
 
     personality = Random32();
 
-    CreateBoxMon(&boxMon,
-                 SPECIES_MAGIKARP,
-                 100,
-                 32,
-                 personality,
-                 0,
-                 OT_ID_PLAYER_ID,
-                 0);
-
+    CreateBoxMon(&boxMon, SPECIES_MAGIKARP, 100, 32, personality, 0, OT_ID_PLAYER_ID, 0);
     for (boxId = 0; boxId < TOTAL_BOXES_COUNT; boxId++)
     {
         for (boxPosition = 0; boxPosition < IN_BOX_COUNT; boxPosition++)
         {
             if (!GetBoxMonData(&gPokemonStoragePtr->boxes[boxId][boxPosition], MON_DATA_SANITY_HAS_SPECIES))
-            {
                 gPokemonStoragePtr->boxes[boxId][boxPosition] = boxMon;
-            }
         }
     }
     Debug_DestroyMenu(taskId);
@@ -3303,8 +3293,8 @@ static void DebugAction_Give_FillPCItemStorage(u8 taskId)
     for (itemId = 1; itemId < ITEMS_COUNT; itemId++)
     {
         usedSlots = CountUsedPCItemSlots();
-        if (!CheckPCHasItem(itemId, 1))
-            AddPCItem(itemId, 1);
+        if (!CheckPCHasItem(itemId, MAX_PC_ITEM_CAPACITY))
+            AddPCItem(itemId, MAX_PC_ITEM_CAPACITY);
         if (usedSlots == PC_ITEMS_COUNT)
             break;
     }
@@ -3322,8 +3312,8 @@ static void DebugAction_Give_FillItemsPocket(u8 taskId)
         if (ItemId_GetPocket(itemId) != POCKET_ITEMS)
             continue;
         usedSlots = CountUsedBagItemSlots();
-        if (CheckBagHasSpace(itemId, 1))
-            AddBagItem(itemId, 1);
+        if (CheckBagHasSpace(itemId, MAX_BAG_ITEM_CAPACITY))
+            AddBagItem(itemId, MAX_BAG_ITEM_CAPACITY);
         if (usedSlots == BAG_ITEMS_COUNT)
             break;
     }
@@ -3341,8 +3331,8 @@ static void DebugAction_Give_FillPokeBallsPocket(u8 taskId)
         if (ItemId_GetPocket(itemId) != POCKET_POKE_BALLS)
             continue;
         usedSlots = CountUsedPokeBallItemSlots();
-        if (CheckBagHasSpace(itemId, 1))
-            AddBagItem(itemId, 1);
+        if (CheckBagHasSpace(itemId, MAX_BAG_ITEM_CAPACITY))
+            AddBagItem(itemId, MAX_BAG_ITEM_CAPACITY);
         if (usedSlots == BAG_POKEBALLS_COUNT)
             break;
     }
@@ -3360,8 +3350,8 @@ static void DebugAction_Give_FillBerriesPocket(u8 taskId)
         if (ItemId_GetPocket(itemId) != POCKET_BERRIES)
             continue;
         usedSlots = CountUsedBerryItemSlots();
-        if (CheckBagHasSpace(itemId, 1))
-            AddBagItem(itemId, 1);
+        if (CheckBagHasSpace(itemId, MAX_BERRY_CAPACITY))
+            AddBagItem(itemId, MAX_BERRY_CAPACITY);
         if (usedSlots == BAG_BERRIES_COUNT)
             break;
     }
