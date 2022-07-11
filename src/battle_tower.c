@@ -2823,26 +2823,34 @@ static void FillPartnerParty(u16 trainerId)
             for (j = 0; gTrainers[trainerId - TRAINER_CUSTOM_PARTNER].trainerName[j] != EOS; j++)
                 nameHash += gTrainers[trainerId - TRAINER_CUSTOM_PARTNER].trainerName[j];
 
-            if (gTrainers[trainerId - TRAINER_CUSTOM_PARTNER].doubleBattle == TRUE)
-                personalityValue = 0x80;
-
-            if ((gTrainers[trainerId - TRAINER_CUSTOM_PARTNER].encounterMusic_gender & 0x80) || (partyData[i].gender == TRAINER_MON_MALE))
+            if (!partyData[i].gender)
             {
-                personalityValue = 0x78;
-                gender = MON_MALE;
+                if (gTrainers[trainerId - TRAINER_CUSTOM_PARTNER].doubleBattle == TRUE)
+                    personalityValue = 0x80;
+                else if (gTrainers[trainerId - TRAINER_CUSTOM_PARTNER].encounterMusic_gender & F_TRAINER_FEMALE)
+                    personalityValue = 0x78; // Use personality more likely to result in a female Pokémon
+                else
+                    personalityValue = 0x88; // Use personality more likely to result in a male Pokémon
             }
-            else if ((gTrainers[trainerId - TRAINER_CUSTOM_PARTNER].doubleBattle == FALSE) || (partyData[i].gender == TRAINER_MON_FEMALE))
-            {
-                personalityValue = 0x88;
-                gender = MON_FEMALE;
-            }
-
-            if (partyData[i].nature > 0)
-                CreateMonWithGenderNatureLetter(&gPlayerParty[i + 3], partyData[i].species, partyData[i].lvl, 0, gender, partyData[i].nature, 0, partyData[i].shiny ? OT_ID_SHINY : OT_ID_RANDOM_NO_SHINY);
             else
             {
-                CreateMon(&gPlayerParty[i + 3], partyData[i].species, partyData[i].lvl, 0, TRUE, personalityValue, partyData[i].shiny ? OT_ID_SHINY : OT_ID_RANDOM_NO_SHINY, 0);
+                if (partyData[i].gender == TRAINER_MON_MALE)
+                    gender = MON_MALE;
+                else if (partyData[i].gender == TRAINER_MON_FEMALE)
+                    gender = MON_FEMALE;
+                else
+                    gender = GetGenderFromSpeciesAndPersonality(species, personalityValue);
             }
+
+            if (partyData[i].species == SPECIES_DYNAMIC)
+                species = (Random() % (FORMS_START + 1));
+            else
+                species = partyData[i].species;
+
+            if ((partyData[i].nature > 0 && partyData[i].nature <= (NUM_NATURES - 1) && partyData[i].gender > 0))
+                CreateMonWithGenderNatureLetter(&gPlayerParty[i + 3], species, partyData[i].lvl, 0, gender, partyData[i].nature, 0, partyData[i].shiny ? OT_ID_SHINY : OT_ID_RANDOM_NO_SHINY);
+            else
+                CreateMon(&gPlayerParty[i + 3], species, partyData[i].lvl, 0, TRUE, personalityValue, partyData[i].shiny ? OT_ID_SHINY : OT_ID_RANDOM_NO_SHINY, 0);
 
             // Adjust species post creation
             if (partyData[i].species == SPECIES_DYNAMIC && partyData[i].cantEvolve == FALSE)

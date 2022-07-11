@@ -9,7 +9,7 @@ static const struct TrainerMon sParty_Calvin1[] = {
         .species = SPECIES_CHARMANDER,
         .heldItem = ITEM_CHARCOAL,
         .moves = {MOVE_FLAMETHROWER, MOVE_FIRE_SPIN, MOVE_DRAGON_CLAW, MOVE_SUNNY_DAY},
-        .gender = MON_MALE,
+        .gender = TRAINER_MON_MALE,
         .nature = NATURE_HARDY,
         .ability = FIRST_ABILITY, // Blaze
         .evs = {4, 0, 0, 252, 252, 0},
@@ -10847,7 +10847,7 @@ static const struct TrainerMon sParty_MayPostgameMudkip[] = {
         .species = SPECIES_SWELLOW,
         .heldItem = ITEM_SHARP_BEAK,
         .moves = {MOVE_BOOMBURST, MOVE_BRAVE_BIRD, MOVE_FOCUS_ENERGY, MOVE_AGILITY},
-        .gender = MON_MALE,
+        .gender = TRAINER_MON_MALE,
     },
     {
         .lvl = 66,
@@ -10863,7 +10863,7 @@ static const struct TrainerMon sParty_MayPostgameMudkip[] = {
         .lvl = 67,
         .species = SPECIES_SHARPEDO,
         .heldItem = ITEM_RAZOR_FANG,
-        .gender = MON_MALE,
+        .gender = TRAINER_MON_MALE,
     },
     {
         .lvl = 69,
@@ -10883,7 +10883,7 @@ static const struct TrainerMon sParty_MayPostgameTreecko[] = {
         .species = SPECIES_SWELLOW,
         .heldItem = ITEM_SHARP_BEAK,
         .moves = {MOVE_BOOMBURST, MOVE_BRAVE_BIRD, MOVE_FOCUS_ENERGY, MOVE_AGILITY},
-        .gender = MON_MALE,
+        .gender = TRAINER_MON_MALE,
     },
     {
         .lvl = 66,
@@ -10894,7 +10894,7 @@ static const struct TrainerMon sParty_MayPostgameTreecko[] = {
         .lvl = 67,
         .species = SPECIES_SHARPEDO,
         .heldItem = ITEM_RAZOR_FANG,
-        .gender = MON_MALE,
+        .gender = TRAINER_MON_MALE,
     },
     {
         .lvl = 67,
@@ -10920,7 +10920,7 @@ static const struct TrainerMon sParty_MayPostgameTorchic[] = {
         .species = SPECIES_SWELLOW,
         .heldItem = ITEM_SHARP_BEAK,
         .moves = {MOVE_BOOMBURST, MOVE_BRAVE_BIRD, MOVE_FOCUS_ENERGY, MOVE_AGILITY},
-        .gender = MON_MALE,
+        .gender = TRAINER_MON_MALE,
     },
     {
         .lvl = 66,
