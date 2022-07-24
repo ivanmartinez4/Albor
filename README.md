@@ -1,28 +1,29 @@
-# pokeemerald Expansion
+# Pokémon Clear Emerald
 
-## What is the pokeemerald Expansion?
+## What is this?
 
-The pokeemerald Expansion is a collection of feature branches that can be integrated into existing [pokeemerald](https://github.com/pret/pokeemerald) projects.
+It is a romhack that uses pokeemerald-expansion for recreate the experience of Hoenn with a lot ot QoL, graphical changes and balance/difficult tweaks, with the goal to make an entertainment but challenging adventure.
 
-## What feature branches are included?
+## What is new?
 
-- **[Battle Engine Upgrade](../tree/battle_engine):** Upgrades the battle engine in pokeemerald to newer Generation games' standards. It also adds newer moves and abilities.
-- **[Pokémon Expansion](../tree/pokemon_expansion):** Adds Pokémon from newer Generations and makes them available in the National Dex. It also updates base stats and other Pokémon info.
-- **[Item Expansion](../tree/item_expansion):** Adds items from newer Generations and also updates item effects for field use.
-- **[master](../tree/master):** Combines the above branches into one single branch for the sake of convenience. Note that this branch is only updated once in a while, so you must merge manually if you want the latest features.
+-A brand new battle engine with modern standards.
 
-## Who maintains the project?
+-A lot of custom shinies.
 
-The project was originally started by DizzyEgg alongside other contributors.
+-DNS system.
 
-The project has now gotten larger and DizzyEgg is now maintaining the project as part of the ROM Hacking Hideout community. Some members of this community are taking on larger roles to help maintain the project.
+-Pokémon's good-looking icons.
 
-## Can I contribute even if I'm not a member of ROM Hacking Hideout?
+-Following Pokémon.
 
-Yes! Contributions are welcome via Pull Requests and they will be reviewed by maintainers. Please note that PRs to master are not accepted, as master is only intended to be a merged branch.
+-Balance stats with emphasis on weaker pokémon.
 
-## What is ROM Hacking Hideout?
+-Decapitalization.
 
-A Discord-based ROM hacking community that has many members who hack using the disassembly and decompilation projects for Pokémon. Quite a few contributors to the original feature branches by DizzyEgg were members of ROM Hacking Hideout. You can call it RHH for short!
+## Credits:
 
-[Click here to join the RHH Discord Server!](https://discord.gg/6CzjAG6GZk)
+-Pret's team for pokeemerald.
+
+-Rh-hideout's team for pokeemerald-expansion.
+
+-Aarant for follower's system, DNS system and icons.
