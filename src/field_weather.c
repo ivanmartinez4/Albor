@@ -138,15 +138,15 @@ static const u8 sBasePaletteGammaTypes[32] =
     // sprite palettes
     GAMMA_ALT,
     GAMMA_NORMAL,
-    GAMMA_ALT,
-    GAMMA_ALT,
-    GAMMA_ALT,
-    GAMMA_ALT,
     GAMMA_NORMAL,
     GAMMA_NORMAL,
     GAMMA_NORMAL,
     GAMMA_NORMAL,
-    GAMMA_ALT,
+    GAMMA_NORMAL,
+    GAMMA_NORMAL,
+    GAMMA_NORMAL,
+    GAMMA_NORMAL,
+    GAMMA_NORMAL,
     GAMMA_NORMAL,
     GAMMA_NORMAL,
     GAMMA_NORMAL,
@@ -254,6 +254,7 @@ static void Task_WeatherMain(u8 taskId)
 
 static void None_Init(void)
 {
+    Weather_SetBlendCoeffs(8, 12); // Indoor shadows
     gWeatherPtr->gammaTargetIndex = 0;
     gWeatherPtr->gammaStepDelay = 0;
 }

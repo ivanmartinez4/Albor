@@ -437,7 +437,7 @@ static void Cmd_hpthresholds2(void);
 static void Cmd_useitemonopponent(void);
 static void Cmd_various(void);
 static void Cmd_setprotectlike(void);
-static void Cmd_faintifabilitynotdamp(void);
+static void Cmd_tryexplosion(void);
 static void Cmd_setatkhptozero(void);
 static void Cmd_jumpifnexttargetvalid(void);
 static void Cmd_tryhealhalfhealth(void);
@@ -518,7 +518,7 @@ static void Cmd_setsemiinvulnerablebit(void);
 static void Cmd_clearsemiinvulnerablebit(void);
 static void Cmd_setminimize(void);
 static void Cmd_sethail(void);
-static void Cmd_jumpifattackandspecialattackcannotfall(void);
+static void Cmd_trymemento(void);
 static void Cmd_setforcedtarget(void);
 static void Cmd_setcharge(void);
 static void Cmd_callterrainattack(void);
@@ -696,7 +696,7 @@ void (* const gBattleScriptingCommandsTable[])(void) =
     Cmd_useitemonopponent,                       //0x75
     Cmd_various,                                 //0x76
     Cmd_setprotectlike,                          //0x77
-    Cmd_faintifabilitynotdamp,                   //0x78
+    Cmd_tryexplosion,                            //0x78
     Cmd_setatkhptozero,                          //0x79
     Cmd_jumpifnexttargetvalid,                   //0x7A
     Cmd_tryhealhalfhealth,                       //0x7B
@@ -777,7 +777,7 @@ void (* const gBattleScriptingCommandsTable[])(void) =
     Cmd_clearsemiinvulnerablebit,                //0xC6
     Cmd_setminimize,                             //0xC7
     Cmd_sethail,                                 //0xC8
-    Cmd_jumpifattackandspecialattackcannotfall,  //0xC9
+    Cmd_trymemento,                              //0xC9
     Cmd_setforcedtarget,                         //0xCA
     Cmd_setcharge,                               //0xCB
     Cmd_callterrainattack,                       //0xCC
@@ -2062,6 +2062,62 @@ END:
             gBattlescriptCurrInstr = BattleScript_AttackWeakenedByStrongWinds;
         }
     }
+}
+
+s32 GetTypeEffectiveness(struct Pokemon *mon, u8 moveType) {
+    u16 species = GetMonData(mon, MON_DATA_SPECIES);
+    u8 type1 = gBaseStats[species].type1;
+    u8 type2 = gBaseStats[species].type2;
+    s32 i = 0;
+    u8 multiplier;
+    s32 flags = 0;
+    if (GetMonAbility(mon) == ABILITY_LEVITATE && moveType == TYPE_GROUND)
+        return MOVE_RESULT_NOT_VERY_EFFECTIVE;
+    while (TYPE_EFFECT_ATK_TYPE(i) != TYPE_ENDTABLE) {
+        if (TYPE_EFFECT_ATK_TYPE(i) == TYPE_FORESIGHT) {
+            i += 3;
+            continue;
+        }
+        else if (TYPE_EFFECT_ATK_TYPE(i) == moveType) {
+            // check type1
+            if (TYPE_EFFECT_DEF_TYPE(i) == type1)
+                multiplier = TYPE_EFFECT_MULTIPLIER(i);
+            else if (TYPE_EFFECT_DEF_TYPE(i) == type2 && type1 != type2)
+                multiplier = TYPE_EFFECT_MULTIPLIER(i);
+            else {
+                i += 3;
+                continue;
+            }
+            switch (multiplier)
+            {
+            case TYPE_MUL_NO_EFFECT:
+                flags |= MOVE_RESULT_DOESNT_AFFECT_FOE;
+                flags &= ~MOVE_RESULT_NOT_VERY_EFFECTIVE;
+                flags &= ~MOVE_RESULT_SUPER_EFFECTIVE;
+                break;
+            case TYPE_MUL_NOT_EFFECTIVE:
+                if (!(flags & MOVE_RESULT_NO_EFFECT))
+                {
+                    if (flags & MOVE_RESULT_SUPER_EFFECTIVE)
+                        flags &= ~MOVE_RESULT_SUPER_EFFECTIVE;
+                    else
+                        flags |= MOVE_RESULT_NOT_VERY_EFFECTIVE;
+                }
+                break;
+            case TYPE_MUL_SUPER_EFFECTIVE:
+                if (!(flags & MOVE_RESULT_NO_EFFECT))
+                {
+                    if (flags & MOVE_RESULT_NOT_VERY_EFFECTIVE)
+                        flags &= ~MOVE_RESULT_NOT_VERY_EFFECTIVE;
+                    else
+                        flags |= MOVE_RESULT_SUPER_EFFECTIVE;
+                }
+                break;
+            }
+        }
+        i += 3;
+    }
+    return flags;
 }
 
 static void Cmd_multihitresultmessage(void)
@@ -9748,7 +9804,7 @@ static void Cmd_setprotectlike(void)
     gBattlescriptCurrInstr++;
 }
 
-static void Cmd_faintifabilitynotdamp(void)
+static void Cmd_tryexplosion(void)
 {
     if (gBattleControllerExecFlags)
         return;
@@ -12453,7 +12509,7 @@ static void Cmd_sethail(void)
     gBattlescriptCurrInstr++;
 }
 
-static void Cmd_jumpifattackandspecialattackcannotfall(void) // memento
+static void Cmd_trymemento(void)
 {
     #if B_MEMENTO_FAIL == GEN_3
     if (gBattleMons[gBattlerTarget].statStages[STAT_ATK] == MIN_STAT_STAGE
@@ -12466,10 +12522,12 @@ static void Cmd_jumpifattackandspecialattackcannotfall(void) // memento
       || DoesSubstituteBlockMove(gBattlerAttacker, gBattlerTarget, gCurrentMove))
     #endif
     {
+        // Failed, unprotected target already has minimum Attack and Special Attack.
         gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
     }
     else
     {
+        // Success, drop user's HP bar to 0
         gActiveBattler = gBattlerAttacker;
         gBattleMoveDamage = gBattleMons[gActiveBattler].hp;
         BtlController_EmitHealthBarUpdate(BUFFER_A, INSTANT_HP_BAR_DROP);
