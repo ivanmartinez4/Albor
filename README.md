@@ -4,7 +4,7 @@
 
 It is a romhack that uses pokeemerald-expansion for recreate the experience of Hoenn with a lot ot QoL, graphical changes and balance/difficult tweaks, with the goal to make an entertainment but challenging adventure.
 
-## What is new?:
+## What is new?
 
 -A brand new battle engine with modern standards.
 
