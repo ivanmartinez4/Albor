@@ -22,6 +22,7 @@ void FreeMonIconPalette(u16 species);
 void FreeAndDestroyMonIconSprite(struct Sprite *sprite);
 u8 CreateMonIcon(u16 species, void (*callback)(struct Sprite *), s16 x, s16 y, u8 subpriority, u32 personality);
 u8 CreateMonIconCustom(u16 species, void (*callback)(struct Sprite *), s16 x, s16 y, u8 subpriority, u32 personality, bool8 isFemale, bool8 isShiny);
+u8 SetMonIconPalette(struct Pokemon *, struct Sprite *, u8);
 u8 UpdateMonIconFrame(struct Sprite *sprite);
 void LoadMonIconPalette(u16 species);
 void SpriteCB_MonIcon(struct Sprite *sprite);

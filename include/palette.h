@@ -65,6 +65,7 @@ extern u16 gPlttBufferUnfaded[PLTT_BUFFER_SIZE];
 extern u16 gPlttBufferFaded[PLTT_BUFFER_SIZE];
 
 void LoadCompressedPalette(const u32 *, u16, u16);
+void LoadCompressedPaletteFast(const u32 *src, u16 offset, u16 size);
 void LoadPalette(const void *, u16, u16);
 void LoadPaletteFast(const void *src, u16 offset, u16 size);
 void FillPalette(u16, u16, u16);
