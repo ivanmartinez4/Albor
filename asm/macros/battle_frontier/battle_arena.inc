@@ -4,7 +4,7 @@
 	special CallBattleArenaFunction
 	.endm
 
-	@ Unused. Get the value of some ARENA_DATA_*. See GetArenaData for the data types that can be retrieved
+	@ Get the value of some ARENA_DATA_*. See GetArenaData for the data types that can be retrieved
 	.macro arena_get data:req
 	setvar VAR_0x8004, BATTLE_ARENA_FUNC_GET_DATA
 	setvar VAR_0x8005, \data
@@ -27,18 +27,6 @@
 	.macro arena_save challengeStatus:req
 	setvar VAR_0x8004, BATTLE_ARENA_FUNC_SAVE
 	setvar VAR_0x8005, \challengeStatus
-	special CallBattleArenaFunction
-	.endm
-
-	@ Unused. Set the prize item to give from one of two lists of possible prizes, depending on streak.
-	.macro arena_setprize
-	setvar VAR_0x8004, BATTLE_ARENA_FUNC_SET_PRIZE
-	special CallBattleArenaFunction
-	.endm
-
-	@ Unused. Give the set prize item to the player. TRUE if room in Bag for prize, FALSE otherwise
-	.macro arena_giveprize
-	setvar VAR_0x8004, BATTLE_ARENA_FUNC_GIVE_PRIZE
 	special CallBattleArenaFunction
 	.endm
 

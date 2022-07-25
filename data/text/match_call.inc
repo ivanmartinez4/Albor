@@ -2845,11 +2845,6 @@ MatchCall_Text_BirchRegisterCall: @ 82B5F52
 MatchCall_Text_RegisteredBirch: @ 82B603A
 	.string "Registered Prof. Birch\n"
 	.string "in the Pokénav.$"
-	
-MatchCall_Text_UnusedProfBirch:
-	.string "Prof. Birch: When one has both\n"
-	.string "the Pokédex and Pokénav, studying\l"
-	.string "Pokémon becomes more fun, eh?$"
 
 MatchCall_Text_MrStone1:: @ 82B60C0
 	.string "Mr. Stone: Oh? {PLAYER}{KUN}!\p"

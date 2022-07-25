@@ -25,12 +25,6 @@
 	special CallBattlePalaceFunction
 	.endm
 
-	@ Unused. Choose and set the opponent gfx id. The equivalent macro from Battle Tower is used instead
-	.macro palace_setopponent
-	setvar VAR_0x8004, BATTLE_PALACE_FUNC_SET_OPPONENT
-	special CallBattlePalaceFunction
-	.endm
-
 	@ Buffer the opponents intro speech to gStringVar4. Also used by Battle Arena and Factory
 	.macro palace_getopponentintro
 	setvar VAR_0x8004, BATTLE_PALACE_FUNC_GET_OPPONENT_INTRO
@@ -48,16 +42,4 @@
 	setvar VAR_0x8004, BATTLE_PALACE_FUNC_SAVE
 	setvar VAR_0x8005, \challengeStatus
 	special CallBattlePalaceFunction
-	.endm
-
-	@ Unused. Set the prize item to give from one of two lists of possible prizes, depending on streak.
-	.macro palace_setprize
-	setvar VAR_0x8004, BATTLE_PALACE_FUNC_SET_PRIZE
-	special CallBattleArenaFunction
-	.endm
-
-	@ Unused. Give the set prize item to the player. TRUE if room in Bag for prize, FALSE otherwise
-	.macro palace_giveprize
-	setvar VAR_0x8004, BATTLE_PALACE_FUNC_GIVE_PRIZE
-	special CallBattleArenaFunction
 	.endm

@@ -12,20 +12,6 @@
 	special CallVerdanturfTentFunction
 	.endm
 
-	@ Unused. Set the prize item to be given
-	.macro verdanturftent_setprize unusedArg:req, itemId:req
-	setvar VAR_0x8004, VERDANTURF_TENT_FUNC_SET_PRIZE
-	setvar VAR_0x8005, \unusedArg
-	setvar VAR_0x8006, \itemId
-	special CallVerdanturfTentFunction
-	.endm
-
-	@ Unused. Set the opponent trainer and gfx. SetNextBattleTentOpponent is used through tower_setopponent instead
-	.macro verdanturftent_setopponentgfx
-	setvar VAR_0x8004, VERDANTURF_TENT_FUNC_SET_OPPONENT_GFX
-	special CallVerdanturfTentFunction
-	.endm
-
 	@ Buffers the opponents intro speech to STR_VAR_4. Despite being a Verdanturf Tent function, it serves the same purpose for all 3 tents.
 	.macro battletent_getopponentintro
 	setvar VAR_0x8004, VERDANTURF_TENT_FUNC_GET_OPPONENT_INTRO
@@ -66,14 +52,6 @@
 	special CallFallarborTentFunction
 	.endm
 
-	@ Unused. Set the prize item to be given
-	.macro fallarbortent_setprize unusedArg:req, itemId:req
-	setvar VAR_0x8004, FALLARBOR_TENT_FUNC_SET_PRIZE
-	setvar VAR_0x8005, \unusedArg
-	setvar VAR_0x8006, \itemId
-	special CallFallarborTentFunction
-	.endm
-
 	@ Save the game and set the challenge status
 	.macro fallarbortent_save challengeStatus:req
 	setvar VAR_0x8004, FALLARBOR_TENT_FUNC_SAVE
@@ -111,14 +89,6 @@
 	@ Get the current prize item id
 	.macro slateporttent_getprize
 	setvar VAR_0x8004, SLATEPORT_TENT_FUNC_GET_PRIZE
-	special CallSlateportTentFunction
-	.endm
-
-	@ Unused. Set the prize item to be given
-	.macro slateporttent_setprize unusedArg:req, itemId:req
-	setvar VAR_0x8004, SLATEPORT_TENT_FUNC_SET_PRIZE
-	setvar VAR_0x8005, \unusedArg
-	setvar VAR_0x8006, \itemId
 	special CallSlateportTentFunction
 	.endm
 

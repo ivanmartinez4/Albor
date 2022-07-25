@@ -47,86 +47,6 @@ gContestAI_ScriptsTable::
 	.4byte AI_Nothing           @ CONTEST_AI_DUMMY_24
 	.4byte AI_Nothing           @ CONTEST_AI_DUMMY_25
 
-
-@ Unused. Encourages improving condition on the 1st appeal, or startling mons if the users turn is later
-AI_CheckTiming:
-	if_appeal_num_not_eq 0, AI_CheckTiming_SkipCondition
-	if_effect_not_eq CONTEST_EFFECT_IMPROVE_CONDITION_PREVENT_NERVOUSNESS, AI_CheckTiming_SkipCondition
-	score +10
-AI_CheckTiming_SkipCondition:
-	call AI_CheckTiming_TryStartle
-	end
-AI_CheckTiming_TryStartle:
-	if_user_order_more_than MON_2, AI_CheckTiming_End
-	if_effect_type_not_eq CONTEST_EFFECT_TYPE_STARTLE_MON, AI_CheckTiming_End
-	if_effect_type_not_eq CONTEST_EFFECT_TYPE_STARTLE_MONS, AI_CheckTiming_End
-	score +10
-AI_CheckTiming_End:
-	end
-
-@ Unused, doesnt make much sense
-@ Encourages using an avoid being startled move
-@ The various appeal and turn checks are pointless, it will always encourage these moves
-AI_AvoidStartle:
-	if_appeal_num_eq 0, AI_AvoidStartle_1stAppeal
-	if_appeal_num_eq 1, AI_AvoidStartle_2ndAppeal
-	if_appeal_num_eq 2, AI_AvoidStartle_3rdAppeal
-	if_appeal_num_eq 3, AI_AvoidStartle_4thAppeal
-	if_last_appeal      AI_AvoidStartle_LastAppeal
-	end
-AI_AvoidStartle_1stAppeal:
-	if_user_order_not_eq MON_1, AI_AvoidStartle_EncourageIfAvoidMove
-	if_user_order_not_eq MON_2, AI_AvoidStartle_EncourageIfAvoidMove2
-	if_user_order_not_eq MON_3, AI_AvoidStartle_EncourageIfAvoidMove
-	if_user_order_not_eq MON_4, AI_AvoidStartle_EncourageIfAvoidMove
-	end
-AI_AvoidStartle_EncourageIfAvoidMove:
-	if_effect_type_eq CONTEST_EFFECT_TYPE_AVOID_STARTLE, AI_AvoidStartle_Encourage
-	end
-AI_AvoidStartle_EncourageIfAvoidMove2:
-	if_effect_type_eq CONTEST_EFFECT_TYPE_AVOID_STARTLE, AI_AvoidStartle_Encourage
-	end
-AI_AvoidStartle_EncourageIfAvoidMove3:
-	if_effect_type_eq CONTEST_EFFECT_TYPE_AVOID_STARTLE, AI_AvoidStartle_Encourage
-	end
-AI_AvoidStartle_2ndAppeal:
-	if_user_order_not_eq MON_1, AI_AvoidStartle_EncourageIfAvoidMove
-	if_user_order_not_eq MON_2, AI_AvoidStartle_EncourageIfAvoidMove
-	if_user_order_not_eq MON_3, AI_AvoidStartle_EncourageIfAvoidMove
-	if_user_order_not_eq MON_4, AI_AvoidStartle_EncourageIfAvoidMove
-	end
-AI_AvoidStartle_3rdAppeal:
-	if_user_order_not_eq MON_1, AI_AvoidStartle_EncourageIfAvoidMove
-	if_user_order_not_eq MON_2, AI_AvoidStartle_EncourageIfAvoidMove
-	if_user_order_not_eq MON_3, AI_AvoidStartle_EncourageIfAvoidMove
-	if_user_order_not_eq MON_4, AI_AvoidStartle_EncourageIfAvoidMove
-	end
-AI_AvoidStartle_4thAppeal:
-	if_user_order_not_eq MON_1, AI_AvoidStartle_EncourageIfAvoidMove
-	if_user_order_not_eq MON_2, AI_AvoidStartle_EncourageIfAvoidMove
-	if_user_order_not_eq MON_3, AI_AvoidStartle_EncourageIfAvoidMove
-	if_user_order_not_eq MON_4, AI_AvoidStartle_EncourageIfAvoidMove
-	end
-AI_AvoidStartle_LastAppeal:
-	if_user_order_not_eq MON_1, AI_AvoidStartle_EncourageIfAvoidMove
-	if_user_order_not_eq MON_2, AI_AvoidStartle_EncourageIfAvoidMove
-	if_user_order_not_eq MON_3, AI_AvoidStartle_EncourageIfAvoidMove
-	if_user_order_not_eq MON_4, AI_AvoidStartle_EncourageIfAvoidMove
-	end
-AI_AvoidStartle_Encourage:
-	score +10
-	end
-AI_AvoidStartle_End:
-	end
-
-@ Unused
-AI_PreferMostAppealingMove:
-	if_most_appealing_move AI_PreferMostAppealingMove_Encourage
-	end
-AI_PreferMostAppealingMove_Encourage:
-	score +10
-	end
-
 @ Discourages using the same move multiple times if it would get boring
 AI_CheckBoring:
 	if_effect_eq CONTEST_EFFECT_REPETITION_NOT_BORING, AI_CheckBoring_NotBoring
@@ -316,19 +236,6 @@ AI_CGM_RepetitionNotBoring:
 	if_user_order_not_eq MON_4, AI_CGM_End
 	if_random_less_than 50, AI_CGM_End
 	score +15
-	end
-
-AI_CGM_Unused:
-	if_last_appeal AI_CGM_Unused_LastAppeal
-	if_random_less_than 220, AI_CGM_Unused_Discourage
-	score +10
-	end
-AI_CGM_Unused_LastAppeal:
-	if_random_less_than 20, AI_CGM_End
-	score +15
-	end
-AI_CGM_Unused_Discourage:
-	score -20
 	end
 
 @ Enourages improving condition, esp if user has moves better with good condition or on 1st appeal

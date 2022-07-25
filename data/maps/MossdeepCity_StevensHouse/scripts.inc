@@ -144,12 +144,6 @@ MossdeepCity_StevensHouse_EventScript_Letter::
 	releaseall
 	end
 
-@ Unused, leftover from RS
-MossdeepCity_StevensHouse_EventScript_DiveItemBall::
-	finditem ITEM_HM08
-	setflag FLAG_RECEIVED_HM08
-	end
-
 MossdeepCity_StevensHouse_Text_YouveEarnedHMDive:
 	.string "Steven: {PLAYER}{KUN}…\p"
 	.string "As you can see, there's not much here,\n"

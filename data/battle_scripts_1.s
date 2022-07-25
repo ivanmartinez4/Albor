@@ -9324,16 +9324,6 @@ BattleScript_ArenaTurnBeginning::
 	volumeup
 	end2
 
-@ Unused
-BattleScript_ArenaNothingDecided::
-	playse SE_DING_DONG
-	arenadrawreftextbox
-	arenajudgmentstring B_MSG_REF_NOTHING_IS_DECIDED
-	arenawaitmessage B_MSG_REF_NOTHING_IS_DECIDED
-	pause B_WAIT_TIME_LONG
-	arenaerasereftextbox
-	end2
-
 BattleScript_ArenaDoJudgment::
 	makevisible BS_PLAYER1
 	waitstate

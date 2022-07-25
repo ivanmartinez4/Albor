@@ -58,10 +58,6 @@ Roulette_Text_KeepPlaying::
 Roulette_Text_BoardWillBeCleared::
 	.string "The Roulette board will be cleared.$"
 
-@ Unused
-Roulette_Text_YouDontHaveACoinCase::
-	.string "You don't have a Coin Case.$"
-
 Roulette_Text_CoinCaseIsFull::
 	.string "Your Coin Case is full!\n"
 	.string "Coins can be exchanged for prizes.$"

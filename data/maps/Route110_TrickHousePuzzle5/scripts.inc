@@ -199,13 +199,6 @@ Route110_TrickHousePuzzle5_EventScript_Mechadoll4Trigger4::
 	goto Route110_TrickHousePuzzle5_EventScript_Mechadoll4Activate
 	end
 
-@ Unused
-Route110_TrickHousePuzzle5_EventScript_Mechadoll4Trigger5::
-	lockall
-	setvar VAR_TEMP_9, 5
-	goto Route110_TrickHousePuzzle5_EventScript_Mechadoll4Activate
-	end
-
 Route110_TrickHousePuzzle5_EventScript_Mechadoll5Trigger0::
 	lockall
 	setvar VAR_TEMP_9, 0

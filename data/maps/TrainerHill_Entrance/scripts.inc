@@ -16,10 +16,6 @@ TrainerHill_Entrance_OnTransition:
 	getplayerxy VAR_TEMP_D, VAR_RESULT
 	end
 
-@ Unused
-TrainerHill_Entrance_OnWarp:
-	end
-
 TrainerHill_Entrance_OnResume:
 	trainerhill_resumetimer
 	setvar VAR_TEMP_0, 0
@@ -207,11 +203,6 @@ TrainerHill_Entrance_Movement_PushPlayerBackFromCounter:
 	walk_down
 	step_end
 
-@ Unused
-TrainerHill_Entrance_Movement_FaceUp:
-	face_up
-	step_end
-
 TrainerHill_Entrance_Movement_PlayerExitElevator:
 	walk_down
 	walk_down
@@ -370,13 +361,6 @@ TrainerHill_Entrance_Text_ExplainTrainerHill:
 	.string "neither Exp. Points nor money will\l"
 	.string "be awarded.$"
 
-@ Unused
-TrainerHill_Entrance_Text_NeedAtLeastTwoPokemon:
-	.string "Oh, I'm sorry, but you appear to have\n"
-	.string "only one Pokémon with you.\p"
-	.string "You will need at least two Pokémon\n"
-	.string "to enter this event.$"
-
 TrainerHill_Roof_Text_YouFinallyCameBravo:
 	.string "Hm! Hm!\p"
 	.string "You finally came!\n"
@@ -419,13 +403,6 @@ TrainerHill_Roof_Text_ArriveZippierNextTime:
 	.string "Then, I should be pleased to form\n"
 	.string "a tag team with you!\p"
 	.string "Until we meet again, amigo!$"
-
-@ Unused
-TrainerHill_Roof_Text_BuiltTrainerHillToFindPartner:
-	.string "I had the Trainer Hill built for but\n"
-	.string "one reason and one only!\p"
-	.string "To find the most suitable partner\n"
-	.string "with whom I may form a tag team!$"
 
 TrainerHill_Entrance_Text_ChallengeTime:
 	.string "{STR_VAR_1} min. {STR_VAR_2}.{STR_VAR_3} sec.$"

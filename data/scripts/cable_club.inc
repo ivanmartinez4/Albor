@@ -250,11 +250,6 @@ CableClub_EventScript_WelcomeToCableClub::
 	goto CableClub_EventScript_SelectCableClubRoom
 	end
 
-CableClub_EventScript_UnusedWelcomeToCableClub::
-	msgbox CableClub_Text_WhichService, MSGBOX_DEFAULT
-	goto CableClub_EventScript_SelectCableClubRoom
-	end
-
 CableClub_EventScript_SelectCableClubRoom::
 	setvar VAR_0x8004, 0
 	goto_if_set FLAG_VISITED_MAUVILLE_CITY, CableClub_EventScript_CableClubUnlockedRecordCorner
@@ -366,12 +361,6 @@ CableClub_EventScript_EnterColosseum::
 	special DoCableClubWarp
 	waitstate
 	end
-
-@ Unused
-CableClub_EventScript_PlayerApproachLinkRoomRight::
-	applymovement OBJ_EVENT_ID_PLAYER, Movement_PlayerApproachLinkRoomRight
-	waitmovement 0
-	return
 
 CableClub_EventScript_WarpTo4PColosseum::
 	special SetCableClubWarp
@@ -567,13 +556,6 @@ MossdeepCity_GameCorner_1F_EventScript_AbortMinigame::
 	release
 	end
 
-@ Unused
-CableClub_EventScript_CableClubWarp::
-	special SetCableClubWarp
-	special DoCableClubWarp
-	waitstate
-	end
-
 CableClub_EventScript_AbortLinkIncorrectNumberOfParticipants::
 	special CloseLink
 	msgbox CableClub_Text_IncorrectNumberOfParticipants, MSGBOX_DEFAULT
@@ -606,11 +588,6 @@ Movement_AttendantFaceDown:
 	face_down
 	step_end
 
-@ Unused
-Movement_AttendantFaceRight:
-	face_right
-	step_end
-
 Movement_AttendantFaceLeft:
 	face_left
 	step_end
@@ -635,11 +612,6 @@ Movement_PlayerApproachLinkRoomLeft:
 
 Movement_PlayerEnterLinkRoom:
 	walk_up
-	step_end
-
-@ Unused
-Movement_PlayerFaceAttendantLeft:
-	face_left
 	step_end
 
 Movement_PlayerFaceAttendantRight:

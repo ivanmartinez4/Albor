@@ -27,12 +27,3 @@ DesertUnderpass_EventScript_GiveRootFossil::
 	removeobject LOCALID_FOSSIL
 	release
 	end
-
-@ Unused
-DesertUnderpass_Text_FoundRootFossil::
-	.string "{PLAYER} found the Root Fossil.$"
-
-@ Unused
-DesertUnderpass_Text_FoundClawFossil::
-	.string "{PLAYER} found the Claw Fossil.$"
-

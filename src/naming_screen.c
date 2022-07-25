@@ -194,7 +194,6 @@ extern const u8 gText_TellHimTheWords[];
 static const u8 sPCIconOff_Gfx[] = INCBIN_U8("graphics/naming_screen/pc_icon/off.4bpp");
 static const u8 sPCIconOn_Gfx[] = INCBIN_U8("graphics/naming_screen/pc_icon/on.4bpp");
 static const u16 sKeyboard_Pal[] = INCBIN_U16("graphics/naming_screen/keyboard.gbapal");
-static const u16 sUnused_Pal[] = INCBIN_U16("graphics/naming_screen/unused.gbapal");
 
 static const u8 *const sTransferredToPCMessages[] =
 {

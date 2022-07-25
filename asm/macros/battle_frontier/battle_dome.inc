@@ -89,12 +89,6 @@
 	special CallBattleDomeFunction
 	.endm
 
-	@ Unused. Increment the win streaks for the current challenge by one
-	.macro dome_incrementstreaks
-	setvar VAR_0x8004, BATTLE_DOME_FUNC_INCREMENT_STREAK
-	special CallBattleDomeFunction
-	.endm
-
 	@ Sets the facility trainer/mon set pointers
 	.macro dome_settrainers
 	setvar VAR_0x8004, BATTLE_DOME_FUNC_SET_TRAINERS

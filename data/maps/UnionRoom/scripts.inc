@@ -99,11 +99,3 @@ UnionRoom_EventScript_Attendant::
 	waitstate
 	release
 	end
-
-UnionRoom_EventScript_Unused::
-	lockall
-	setvar VAR_RESULT, UR_INTERACT_UNUSED
-	waitstate
-	releaseall
-	end
-

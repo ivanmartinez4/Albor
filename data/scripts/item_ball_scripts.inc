@@ -526,10 +526,6 @@ AquaHideout_B2F_EventScript_ItemNestBall::
 	finditem ITEM_NEST_BALL
 	end
 
-AquaHideout_B2F_EventScript_ItemMasterBall::
-	finditem ITEM_MASTER_BALL      // Unused
-	end
-
 Route119_EventScript_ItemNugget::
 	finditem ITEM_NUGGET
 	end

@@ -87,10 +87,6 @@ ProfileMan_EventScript_DeclineNewProfile::
 	release
 	end
 
-@ Unused
-ProfileMan_EventScript_Ret::
-	return
-
 ProfileMan_Text_CollectTrainerProfiles:
 	.string "Hello there, Trainer!\n"
 	.string "You've got a wonderful smile, there.\p"
@@ -157,10 +153,3 @@ ProfileMan_Text_FantasticProfile:
 	.string "Why, anyone hearing this profile would\n"
 	.string "be captivated by you!\p"
 	.string "Thank you!$"
-
-@ Unused
-ProfileMan_Text_YouKnowSecretSaying:
-	.string "Oh?\n"
-	.string "You know the secret saying!\p"
-	.string "That means you're now a fellow member\n"
-	.string "of the Mystery Event Club!$"

@@ -270,7 +270,6 @@ gStdScripts_End::
 	.include "data/maps/LilycoveCity_ContestHall/scripts.inc"
 	.include "data/maps/LilycoveCity_PokemonCenter_1F/scripts.inc"
 	.include "data/maps/LilycoveCity_PokemonCenter_2F/scripts.inc"
-	.include "data/maps/LilycoveCity_UnusedMart/scripts.inc"
 	.include "data/maps/LilycoveCity_PokemonTrainerFanClub/scripts.inc"
 	.include "data/maps/LilycoveCity_Harbor/scripts.inc"
 	.include "data/maps/LilycoveCity_MoveDeletersHouse/scripts.inc"
@@ -379,9 +378,6 @@ gStdScripts_End::
 	.include "data/maps/SeafloorCavern_Room9/scripts.inc"
 	.include "data/maps/CaveOfOrigin_Entrance/scripts.inc"
 	.include "data/maps/CaveOfOrigin_1F/scripts.inc"
-	.include "data/maps/CaveOfOrigin_UnusedRubySapphireMap1/scripts.inc"
-	.include "data/maps/CaveOfOrigin_UnusedRubySapphireMap2/scripts.inc"
-	.include "data/maps/CaveOfOrigin_UnusedRubySapphireMap3/scripts.inc"
 	.include "data/maps/CaveOfOrigin_B1F/scripts.inc"
 	.include "data/maps/VictoryRoad_1F/scripts.inc"
 	.include "data/maps/VictoryRoad_B1F/scripts.inc"
@@ -414,9 +410,6 @@ gStdScripts_End::
 	.include "data/maps/SealedChamber_OuterRoom/scripts.inc"
 	.include "data/maps/SealedChamber_InnerRoom/scripts.inc"
 	.include "data/maps/ScorchedSlab/scripts.inc"
-	.include "data/maps/AquaHideout_UnusedRubyMap1/scripts.inc"
-	.include "data/maps/AquaHideout_UnusedRubyMap2/scripts.inc"
-	.include "data/maps/AquaHideout_UnusedRubyMap3/scripts.inc"
 	.include "data/maps/SkyPillar_Entrance/scripts.inc"
 	.include "data/maps/SkyPillar_Outside/scripts.inc"
 	.include "data/maps/SkyPillar_1F/scripts.inc"
@@ -650,7 +643,6 @@ EventScript_SetBrineyLocation_Route109::
 
 	.include "data/scripts/pkmn_center_nurse.inc"
 	.include "data/scripts/obtain_item.inc"
-	.include "data/scripts/record_mix.inc"
 	.include "data/scripts/pc.inc"
 
 @ scripts/notices.inc? signs.inc? See comment about text/notices.inc
@@ -785,21 +777,6 @@ RusturfTunnel_EventScript_SetRusturfTunnelOpen::
 	setflag FLAG_RUSTURF_TUNNEL_OPENED
 	return
 
-EventScript_UnusedBoardFerry::
-	delay 30
-	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp
-	waitmovement 0
-	showobjectat OBJ_EVENT_ID_PLAYER, 0
-	delay 30
-	applymovement OBJ_EVENT_ID_PLAYER, Movement_UnusedBoardFerry
-	waitmovement 0
-	delay 30
-	return
-
-Movement_UnusedBoardFerry:
-	walk_up
-	step_end
-
 Common_EventScript_FerryDepartIsland::
 	call_if_eq VAR_FACING, DIR_SOUTH, Ferry_EventScript_DepartIslandSouth
 	call_if_eq VAR_FACING, DIR_WEST, Ferry_EventScript_DepartIslandWest
@@ -808,7 +785,6 @@ Common_EventScript_FerryDepartIsland::
 	call Common_EventScript_FerryDepart
 	return
 
-	.include "data/scripts/cave_of_origin.inc"
 	.include "data/scripts/kecleon.inc"
 
 Common_EventScript_NameReceivedPartyMon::
@@ -829,7 +805,6 @@ Common_EventScript_PlayerHandedOverTheItem::
 	.include "data/scripts/elite_four.inc"
 	.include "data/scripts/movement.inc"
 	.include "data/scripts/check_furniture.inc"
-	.include "data/text/record_mix.inc"
 	.include "data/text/pc.inc"
 	.include "data/text/pkmn_center_nurse.inc"
 	.include "data/text/mart_clerk.inc"
@@ -876,10 +851,6 @@ gText_PlayerHouseBootPC::
 gText_PokeblockLinkCanceled::
 	.string "The link was canceled.$"
 
-gText_UnusedNicknameReceivedPokemon::
-	.string "Want to give a nickname to\n"
-	.string "the {STR_VAR_2} you received?$"
-
 gText_PlayerWhitedOut::
 	.string "{PLAYER} is out of usable\n"
 	.string "Pokémon!\p{PLAYER} whited out!$"
@@ -924,16 +895,6 @@ gText_UndergoingAdjustments::
 	.string "It appears to be undergoing\n"
 	.string "adjustments…$"
 
-@ Unused
-gText_SorryTradeCenterInspections::
-	.string "I'm terribly sorry. The Trade Center\n"
-	.string "is undergoing inspections.$"
-
-@ Unused
-gText_SorryRecordCornerPreparation::
-	.string "I'm terribly sorry. The Record Corner\n"
-	.string "is under preparation.$"
-
 gText_PlayerHandedOverTheItem::
 	.string "{PLAYER} handed over the\n"
 	.string "{STR_VAR_1}.$"
@@ -965,11 +926,6 @@ EventScript_SelectWithoutRegisteredItem::
 	.include "data/scripts/field_poison.inc"
 
 Common_EventScript_NopReturn::
-	return
-
-@ Unused
-EventScript_CableClub_SetVarResult1::
-	setvar VAR_RESULT, 1
 	return
 
 EventScript_CableClub_SetVarResult0::
