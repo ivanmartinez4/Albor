@@ -2576,7 +2576,7 @@ u8 CreateMonIcon(u16 species, void (*callback)(struct Sprite *), s16 x, s16 y, u
     struct MonIconSpriteTemplate iconTemplate =
     {
         .oam = &sMonIconOamData,
-        .image = GetMonIconPtrCustom(species, personality, isFemale),
+        .image = GetMonIconPtr(species, personality),
         .anims = sMonIconAnims,
         .affineAnims = sMonIconAffineAnims,
         .callback = callback,
@@ -2585,7 +2585,7 @@ u8 CreateMonIcon(u16 species, void (*callback)(struct Sprite *), s16 x, s16 y, u
 
     if (species > NUM_SPECIES)
         iconTemplate.paletteTag = POKE_ICON_BASE_PAL_TAG;
-    else if ((gBaseStats[species].flags & FLAG_GENDER_DIFFERENCE) && isFemale)
+    else if ((gBaseStats[species].flags & FLAG_GENDER_DIFFERENCE) && GetGenderFromSpeciesAndPersonality(species, personality) == MON_FEMALE)
         iconTemplate.paletteTag = POKE_ICON_BASE_PAL_TAG + gMonIconPaletteIndicesFemale[species];
 
     spriteId = CreateMonIconSprite(&iconTemplate, x, y, subpriority);
@@ -2706,7 +2706,7 @@ u16 GetIconSpeciesNoPersonality(u16 species)
 // usage in menu.c is unused
 const u8 *GetMonIconPtr(u16 species, u32 personality)
 {
-    return GetMonIconTilesCustom(GetIconSpecies(species, personality), isFemale);
+    return GetMonIconTiles(GetIconSpecies(species, personality), personality);
 }
 
 #if P_ENABLE_DEBUG == TRUE

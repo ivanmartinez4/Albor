@@ -17,7 +17,6 @@ s32 CalcCritChanceStage(u8 battlerAtk, u8 battlerDef, u32 move, bool32 recordAbi
 s8 GetInverseCritChance(u8 battlerAtk, u8 battlerDef, u32 move);
 u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u32 defAbility, u32 atkHoldEffect, u32 defHoldEffect);
 void AI_CalcDmg(u8 battlerIdAtk, u8 battlerIdDef);
-s32 GetTypeEffectiveness(struct Pokemon *mon, u8 moveType);
 u8 TypeCalc(u16 move, u8 battlerIdAtk, u8 battlerIdDef);
 u8 AI_TypeCalc(u16 move, u16 targetSpecies, u8 targetAbility);
 u8 GetBattlerTurnOrderNum(u8 battlerId);

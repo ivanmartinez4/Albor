@@ -382,7 +382,7 @@ const struct MonCoords gMonFrontPicCoords[] =
     [SPECIES_GRAVELER] =
     {
         .size = MON_COORDS_SIZE(64, 48),
-        .y_offset = 9,
+        .y_offset = 4,
     },
     [SPECIES_GOLEM] =
     {
@@ -402,7 +402,7 @@ const struct MonCoords gMonFrontPicCoords[] =
     [SPECIES_SLOWPOKE] =
     {
         .size = MON_COORDS_SIZE(64, 32),
-        .y_offset = 16,
+        .y_offset = 13,
     },
     [SPECIES_SLOWBRO] =
     {
@@ -662,7 +662,7 @@ const struct MonCoords gMonFrontPicCoords[] =
     [SPECIES_LAPRAS] =
     {
         .size = MON_COORDS_SIZE(64, 64),
-        .y_offset = 2,
+        .y_offset = 8,
     },
     [SPECIES_DITTO] =
     {
@@ -1137,7 +1137,7 @@ const struct MonCoords gMonFrontPicCoords[] =
     [SPECIES_MANTINE] =
     {
         .size = MON_COORDS_SIZE(64, 56),
-        .y_offset = 9,
+        .y_offset = 10,
     },
     [SPECIES_SKARMORY] =
     {
@@ -1327,7 +1327,7 @@ const struct MonCoords gMonFrontPicCoords[] =
     [SPECIES_LINOONE] =
     {
         .size = MON_COORDS_SIZE(64, 40),
-        .y_offset = 13,
+        .y_offset = 7,
     },
     [SPECIES_WURMPLE] =
     {
