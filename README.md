@@ -32,5 +32,5 @@ It is a romhack that uses pokeemerald-expansion for recreate the experience of H
 
 -CyanSMP64 for music expansion.
 
--AsparagusEduardo for decapilization.
+-AsparagusEduardo for decapitalization.
 
