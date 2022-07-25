@@ -20,6 +20,8 @@ It is a romhack that uses pokeemerald-expansion for recreate the experience of H
 
 -Decapitalization.
 
+-Music expansion from HGSS and DPPT.
+
 ## Credits:
 
 -Pret's team for pokeemerald.
@@ -27,3 +29,5 @@ It is a romhack that uses pokeemerald-expansion for recreate the experience of H
 -Rh-hideout's team for pokeemerald-expansion.
 
 -Aarant for follower's system, DNS system and icons.
+
+-CyanSMP64 for music expansion.
