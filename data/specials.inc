@@ -427,7 +427,6 @@ gSpecials::
 	def_special TryJoinLinkGroup
 	def_special RunUnionRoom
 	def_special ShowWirelessCommunicationScreen
-	def_special InitUnionRoom
 	def_special BufferUnionRoomPlayerName
 	def_special RetrieveWonderNewsVal
 	def_special ChooseMonForWirelessMinigame

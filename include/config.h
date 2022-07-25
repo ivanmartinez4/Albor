@@ -18,9 +18,9 @@
 #define ENGLISH
 
 #ifdef ENGLISH
-#define UNITS_IMPERIAL
-#else
 #define UNITS_METRIC
+#else
+#define UNITS_IMPERIAL
 #endif
 
 // Uncomment to fix some identified minor bugs
