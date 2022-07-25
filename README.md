@@ -31,3 +31,6 @@ It is a romhack that uses pokeemerald-expansion for recreate the experience of H
 -Aarant for follower's system, DNS system and icons.
 
 -CyanSMP64 for music expansion.
+
+-AsparagusEduardo for decapilization.
+
