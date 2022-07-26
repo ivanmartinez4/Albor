@@ -358,19 +358,6 @@ void SpriteCB_WaitForBattlerBallReleaseAnim(struct Sprite *sprite)
     }
 }
 
-static void UnusedDoBattleSpriteAffineAnim(struct Sprite *sprite, bool8 pointless)
-{
-    sprite->animPaused = TRUE;
-    sprite->callback = SpriteCallbackDummy;
-
-    if (!pointless)
-        StartSpriteAffineAnim(sprite, 1);
-    else
-        StartSpriteAffineAnim(sprite, 1);
-
-    AnimateSprite(sprite);
-}
-
 #define sSpeedX data[0]
 
 void SpriteCB_TrainerSlideIn(struct Sprite *sprite)
@@ -625,10 +612,6 @@ void BattleLoadPlayerMonSpriteGfx(struct Pokemon *mon, u8 battlerId)
     BattleLoadMonSpriteGfx(mon, battlerId, FALSE);
 }
 
-void BattleGfxSfxDummy2(u16 species)
-{
-}
-
 void DecompressTrainerFrontPic(u16 frontPicId, u8 battlerId)
 {
     u8 position = GetBattlerPosition(battlerId);
@@ -648,39 +631,9 @@ void DecompressTrainerBackPic(u16 backPicId, u8 battlerId)
                           0x100 + 16 * battlerId, 0x20);
 }
 
-void BattleGfxSfxDummy3(u8 gender)
-{
-}
-
 void FreeTrainerFrontPicPalette(u16 frontPicId)
 {
     FreeSpritePaletteByTag(gTrainerFrontPicPaletteTable[frontPicId].tag);
-}
-
-// Unused.
-void BattleLoadAllHealthBoxesGfxAtOnce(void)
-{
-    u8 numberOfBattlers = 0;
-    u8 i;
-
-    LoadSpritePalette(&sSpritePalettes_HealthBoxHealthBar[0]);
-    LoadSpritePalette(&sSpritePalettes_HealthBoxHealthBar[1]);
-    if (!IsDoubleBattle())
-    {
-        LoadCompressedSpriteSheet(&sSpriteSheet_SinglesPlayerHealthbox);
-        LoadCompressedSpriteSheet(&sSpriteSheet_SinglesOpponentHealthbox);
-        numberOfBattlers = 2;
-    }
-    else
-    {
-        LoadCompressedSpriteSheet(&sSpriteSheets_DoublesPlayerHealthbox[0]);
-        LoadCompressedSpriteSheet(&sSpriteSheets_DoublesPlayerHealthbox[1]);
-        LoadCompressedSpriteSheet(&sSpriteSheets_DoublesOpponentHealthbox[0]);
-        LoadCompressedSpriteSheet(&sSpriteSheets_DoublesOpponentHealthbox[1]);
-        numberOfBattlers = MAX_BATTLERS_COUNT;
-    }
-    for (i = 0; i < numberOfBattlers; i++)
-        LoadCompressedSpriteSheet(&sSpriteSheets_HealthBar[gBattlerPositions[i]]);
 }
 
 bool8 BattleLoadAllHealthBoxesGfx(u8 state)
@@ -1233,7 +1186,6 @@ void FreeMonSpritesGfx(void)
         return;
 
     TRY_FREE_AND_SET_NULL(gMonSpritesGfxPtr->buffer);
-    TRY_FREE_AND_SET_NULL(gMonSpritesGfxPtr->unusedPtr);
     FREE_AND_SET_NULL(gMonSpritesGfxPtr->barFontGfx);
     FREE_AND_SET_NULL(gMonSpritesGfxPtr->firstDecompressed);
     gMonSpritesGfxPtr->sprites.ptr[B_POSITION_PLAYER_LEFT] = NULL;

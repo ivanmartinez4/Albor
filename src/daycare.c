@@ -510,12 +510,6 @@ void TriggerPendingDaycareEgg(void)
     _TriggerPendingDaycareEgg(&gSaveBlock1Ptr->daycare);
 }
 
-// Unused
-static void TriggerPendingDaycareMaleEgg(void)
-{
-    _TriggerPendingDaycareMaleEgg(&gSaveBlock1Ptr->daycare);
-}
-
 // Removes the selected index from the given IV list and shifts the remaining
 // elements to the left.
 static void RemoveIVIndexFromList(u8 *ivs, u8 selectedIv)

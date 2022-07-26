@@ -553,7 +553,7 @@ static void Cmd_settypebasedhalvers(void);
 static void Cmd_jumpifsubstituteblocks(void);
 static void Cmd_tryrecycleitem(void);
 static void Cmd_settypetoterrain(void);
-static void Cmd_pursuitdoubles(void);
+static void Cmd_metalburstdamagecalculator(void);
 static void Cmd_snatchsetbattlers(void);
 static void Cmd_removelightscreenreflect(void);
 static void Cmd_handleballthrow(void);
@@ -572,7 +572,6 @@ static void Cmd_averagestats(void);
 static void Cmd_jumpifoppositegenders(void);
 static void Cmd_trygetbaddreamstarget(void);
 static void Cmd_tryworryseed(void);
-static void Cmd_metalburstdamagecalculator(void);
 
 void (* const gBattleScriptingCommandsTable[])(void) =
 {
@@ -812,7 +811,7 @@ void (* const gBattleScriptingCommandsTable[])(void) =
     Cmd_jumpifsubstituteblocks,                  //0xE9
     Cmd_tryrecycleitem,                          //0xEA
     Cmd_settypetoterrain,                        //0xEB
-    Cmd_pursuitdoubles,                          //0xEC
+    Cmd_metalburstdamagecalculator,              //0xEC
     Cmd_snatchsetbattlers,                       //0xED
     Cmd_removelightscreenreflect,                //0xEE
     Cmd_handleballthrow,                         //0xEF
@@ -831,7 +830,6 @@ void (* const gBattleScriptingCommandsTable[])(void) =
     Cmd_jumpifoppositegenders,                   //0xFC
     Cmd_trygetbaddreamstarget,                   //0xFD
     Cmd_tryworryseed,                            //0xFE
-    Cmd_metalburstdamagecalculator,              //0xFF
 };
 
 const struct StatFractions gAccuracyStageRatios[] =
@@ -884,16 +882,6 @@ static const u8* const sMoveEffectBS_Ptrs[] =
     [MOVE_EFFECT_WRAP]             = BattleScript_MoveEffectWrap,
     [MOVE_EFFECT_RECOIL_25]        = BattleScript_MoveEffectRecoil,
     [MOVE_EFFECT_RECOIL_33]        = BattleScript_MoveEffectRecoil,
-};
-
-static const struct WindowTemplate sUnusedWinTemplate = {
-    .bg = 0,
-    .tilemapLeft = 1,
-    .tilemapTop = 3,
-    .width = 7,
-    .height = 15,
-    .paletteNum = 31,
-    .baseBlock = 0x3F
 };
 
 static const u16 sLevelUpBanner_Pal[] = INCBIN_U16("graphics/battle_interface/level_up_banner.gbapal");
@@ -11619,26 +11607,6 @@ static bool8 IsTwoTurnsMove(u16 move)
         return FALSE;
 }
 
-// unused
-static u8 AttacksThisTurn(u8 battlerId, u16 move) // Note: returns 1 if it's a charging turn, otherwise 2
-{
-    // first argument is unused
-    if (gBattleMoves[move].effect == EFFECT_SOLAR_BEAM
-        && IsBattlerWeatherAffected(battlerId, B_WEATHER_SUN))
-        return 2;
-
-    if (gBattleMoves[move].effect == EFFECT_SKULL_BASH
-     || gBattleMoves[move].effect == EFFECT_TWO_TURNS_ATTACK
-     || gBattleMoves[move].effect == EFFECT_SOLAR_BEAM
-     || gBattleMoves[move].effect == EFFECT_SEMI_INVULNERABLE
-     || gBattleMoves[move].effect == EFFECT_BIDE)
-    {
-        if ((gHitMarker & HITMARKER_CHARGING))
-            return 1;
-    }
-    return 2;
-}
-
 static void Cmd_trychoosesleeptalkmove(void)
 {
     u32 i, unusableMovesBits = 0, movePosition;
@@ -13508,29 +13476,6 @@ static void Cmd_settypetoterrain(void)
         PREPARE_TYPE_BUFFER(gBattleTextBuff1, terrainType);
 
         gBattlescriptCurrInstr += 5;
-    }
-    else
-    {
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
-    }
-}
-
-// Unused
-static void Cmd_pursuitdoubles(void)
-{
-    gActiveBattler = GetBattlerAtPosition(GetBattlerPosition(gBattlerAttacker) ^ BIT_FLANK);
-
-    if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE
-        && !(gAbsentBattlerFlags & gBitTable[gActiveBattler])
-        && gChosenActionByBattler[gActiveBattler] == B_ACTION_USE_MOVE
-        && gChosenMoveByBattler[gActiveBattler] == MOVE_PURSUIT)
-    {
-        gActionsByTurnOrder[gActiveBattler] = B_ACTION_TRY_FINISH;
-        gCurrentMove = MOVE_PURSUIT;
-        gBattlescriptCurrInstr += 5;
-        gBattleScripting.animTurn = 1;
-        gBattleScripting.savedBattler = gBattlerAttacker;
-        gBattlerAttacker = gActiveBattler;
     }
     else
     {

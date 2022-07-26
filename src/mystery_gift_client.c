@@ -66,7 +66,6 @@ void MysteryGiftClient_SetParam(u32 val)
 
 static void MysteryGiftClient_Init(struct MysteryGiftClient * client, u32 sendPlayerId, u32 recvPlayerId)
 {
-    client->unused = 0;
     client->funcId = FUNC_INIT;
     client->funcState = 0;
     client->sendBuffer = AllocZeroed(MG_LINK_BUFFER_SIZE);

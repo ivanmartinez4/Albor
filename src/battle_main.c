@@ -115,8 +115,6 @@ static void HandleEndTurn_BattleLost(void);
 static void HandleEndTurn_RanFromBattle(void);
 static void HandleEndTurn_MonFled(void);
 static void HandleEndTurn_FinishBattle(void);
-static void SpriteCB_UnusedBattleInit(struct Sprite* sprite);
-static void SpriteCB_UnusedBattleInit_Main(struct Sprite *sprite);
 static void TrySpecialEvolution(void);
 
 EWRAM_DATA u16 gBattle_BG0_X = 0;
@@ -143,7 +141,6 @@ EWRAM_DATA u8 gBattleTextBuff3[30] = {0};   //expanded for stupidly long z move 
 EWRAM_DATA static u32 sFlickerArray[25] = {0};
 EWRAM_DATA u32 gBattleTypeFlags = 0;
 EWRAM_DATA u8 gBattleTerrain = 0;
-EWRAM_DATA u32 gUnusedFirstBattleVar1 = 0; // Never read
 EWRAM_DATA struct MultiPartnerMenuPokemon gMultiPartnerParty[MULTI_PARTY_SIZE] = {0};
 EWRAM_DATA static struct MultiPartnerMenuPokemon* sMultiPartnerPartyBuffer = NULL;
 EWRAM_DATA u8 *gBattleAnimBgTileBuffer = NULL;
@@ -193,7 +190,6 @@ EWRAM_DATA u16 gChosenMoveByBattler[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u16 gMoveResultFlags = 0;
 EWRAM_DATA u32 gHitMarker = 0;
 EWRAM_DATA u8 gTakenDmgByBattler[MAX_BATTLERS_COUNT] = {0};
-EWRAM_DATA u8 gUnusedFirstBattleVar2 = 0; // Never read
 EWRAM_DATA u32 gSideStatuses[2] = {0};
 EWRAM_DATA struct SideTimer gSideTimers[2] = {0};
 EWRAM_DATA u32 gStatuses3[MAX_BATTLERS_COUNT] = {0};
@@ -255,23 +251,6 @@ u8 gBattleControllerData[MAX_BATTLERS_COUNT]; // Used by the battle controllers 
 static const struct ScanlineEffectParams sIntroScanlineParams16Bit =
 {
     &REG_BG3HOFS, SCANLINE_EFFECT_DMACNT_16BIT, 1
-};
-
-// unused
-static const struct ScanlineEffectParams sIntroScanlineParams32Bit =
-{
-    &REG_BG3HOFS, SCANLINE_EFFECT_DMACNT_32BIT, 1
-};
-
-const struct SpriteTemplate gUnusedBattleInitSprite =
-{
-    .tileTag = 0,
-    .paletteTag = 0,
-    .oam = &gDummyOamData,
-    .anims = gDummySpriteAnimTable,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCB_UnusedBattleInit,
 };
 
 static const u8 sText_ShedinjaJpnName[] = _("ヌケニン"); // Nukenin
@@ -1768,57 +1747,6 @@ void CB2_QuitRecordedBattle(void)
 #define sState data[0]
 #define sDelay data[4]
 
-static void SpriteCB_UnusedBattleInit(struct Sprite* sprite)
-{
-    sprite->sState = 0;
-    sprite->callback = SpriteCB_UnusedBattleInit_Main;
-}
-
-static void SpriteCB_UnusedBattleInit_Main(struct Sprite *sprite)
-{
-    u16 *arr = (u16*)gDecompressionBuffer;
-
-    switch (sprite->sState)
-    {
-    case 0:
-        sprite->sState++;
-        sprite->data[1] = 0;
-        sprite->data[2] = 0x281;
-        sprite->data[3] = 0;
-        sprite->sDelay = 1;
-        // fall through
-    case 1:
-        sprite->sDelay--;
-        if (sprite->sDelay == 0)
-        {
-            s32 i;
-            s32 r2;
-            s32 r0;
-
-            sprite->sDelay = 2;
-            r2 = sprite->data[1] + sprite->data[3] * 32;
-            r0 = sprite->data[2] - sprite->data[3] * 32;
-            for (i = 0; i < 29; i += 2)
-            {
-                arr[r2 + i] = 0x3D;
-                arr[r0 + i] = 0x3D;
-            }
-            sprite->data[3]++;
-            if (sprite->data[3] == 21)
-            {
-                sprite->sState++;
-                sprite->data[1] = 32;
-            }
-        }
-        break;
-    case 2:
-        sprite->data[1]--;
-        if (sprite->data[1] == 20)
-            SetMainCallback2(CB2_InitBattle);
-        break;
-    }
-}
-
 static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 firstTrainer)
 {
     u32 nameHash = 0;
@@ -2565,11 +2493,6 @@ static void SpriteCb_WildMonAnimate(struct Sprite *sprite)
     }
 }
 
-void SpriteCallbackDummy_2(struct Sprite *sprite)
-{
-
-}
-
 #define sNumFlickers data[3]
 #define sDelay       data[4]
 
@@ -2584,7 +2507,6 @@ static void SpriteCB_Flicker(struct Sprite *sprite)
         if (sprite->sNumFlickers == 0)
         {
             sprite->invisible = FALSE;
-            sprite->callback = SpriteCallbackDummy_2;
             // sFlickerArray[0] = 0;
         }
     }
@@ -2679,7 +2601,6 @@ void SpriteCb_HideAsMoveTarget(struct Sprite *sprite)
 {
     sprite->invisible = sprite->data[4];
     sprite->data[4] = FALSE;
-    sprite->callback = SpriteCallbackDummy_2;
 }
 
 void SpriteCB_OpponentMonFromBall(struct Sprite *sprite)
@@ -2712,12 +2633,6 @@ static void SpriteCB_BattleSpriteSlideLeft(struct Sprite *sprite)
             sprite->data[1] = 0;
         }
     }
-}
-
-// Unused
-static void SetIdleSpriteCallback(struct Sprite *sprite)
-{
-    sprite->callback = SpriteCB_Idle;
 }
 
 static void SpriteCB_Idle(struct Sprite *sprite)

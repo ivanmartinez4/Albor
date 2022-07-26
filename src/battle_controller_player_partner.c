@@ -166,15 +166,6 @@ static void (*const sPlayerPartnerBufferCommands[CONTROLLER_CMDS_COUNT])(void) =
     [CONTROLLER_TERMINATOR_NOP]           = PlayerPartnerCmdEnd
 };
 
-// unknown unused data
-static const u8 sUnused[] =
-{
-    0x83, 0x4d, 0xf3, 0x5f, 0x6f, 0x4f, 0xeb, 0x3e,
-    0x67, 0x2e, 0x10, 0x46, 0x8c, 0x3d, 0x28, 0x35,
-    0xc5, 0x2c, 0x15, 0x7f, 0xb5, 0x56, 0x9d, 0x53,
-    0x3b, 0x43, 0xda, 0x36, 0x79, 0x2a, 0x0e, 0x53,
-};
-
 static void PlayerPartnerDummy(void)
 {
 }
@@ -205,7 +196,6 @@ static void FreeTrainerSpriteAfterSlide(void)
 {
     if (gSprites[gBattlerSpriteIds[gActiveBattler]].callback == SpriteCallbackDummy)
     {
-        BattleGfxSfxDummy3(MALE);
         FreeSpriteOamMatrix(&gSprites[gBattlerSpriteIds[gActiveBattler]]);
         DestroySprite(&gSprites[gBattlerSpriteIds[gActiveBattler]]);
         PlayerPartnerBufferExecCompleted();
@@ -479,7 +469,6 @@ static void FreeMonSpriteAfterFaintAnim(void)
     {
         u16 species = GetMonData(&gPlayerParty[gBattlerPartyIndexes[gActiveBattler]], MON_DATA_SPECIES);
 
-        BattleGfxSfxDummy2(species);
         FreeOamMatrix(gSprites[gBattlerSpriteIds[gActiveBattler]].oam.matrixNum);
         DestroySprite(&gSprites[gBattlerSpriteIds[gActiveBattler]]);
         SetHealthboxSpriteInvisible(gHealthboxSpriteIds[gActiveBattler]);
@@ -1699,25 +1688,21 @@ static void PlayerPartnerHandleOneReturnValue_Duplicate(void)
 
 static void PlayerPartnerHandleClearUnkVar(void)
 {
-    gUnusedControllerStruct.unk = 0;
     PlayerPartnerBufferExecCompleted();
 }
 
 static void PlayerPartnerHandleSetUnkVar(void)
 {
-    gUnusedControllerStruct.unk = gBattleResources->bufferA[gActiveBattler][1];
     PlayerPartnerBufferExecCompleted();
 }
 
 static void PlayerPartnerHandleClearUnkFlag(void)
 {
-    gUnusedControllerStruct.flag = 0;
     PlayerPartnerBufferExecCompleted();
 }
 
 static void PlayerPartnerHandleToggleUnkFlag(void)
 {
-    gUnusedControllerStruct.flag ^= 1;
     PlayerPartnerBufferExecCompleted();
 }
 

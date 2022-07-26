@@ -76,7 +76,6 @@ struct MysteryGiftServerCmd
 
 struct MysteryGiftServer
 {
-    u32 unused;
     u32 param;
     u32 funcId;
     u32 cmdidx;

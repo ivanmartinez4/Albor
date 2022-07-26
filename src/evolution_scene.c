@@ -266,7 +266,6 @@ void EvolutionScene(struct Pokemon* mon, u16 postEvoSpecies, bool8 canStopEvo, u
     gMultiuseSpriteTemplate.affineAnims = gDummySpriteAffineAnimTable;
     sEvoStructPtr->preEvoSpriteId = ID = CreateSprite(&gMultiuseSpriteTemplate, 120, 64, 30);
 
-    gSprites[ID].callback = SpriteCallbackDummy_2;
     gSprites[ID].oam.paletteNum = 1;
     gSprites[ID].invisible = TRUE;
 
@@ -280,7 +279,6 @@ void EvolutionScene(struct Pokemon* mon, u16 postEvoSpecies, bool8 canStopEvo, u
     SetMultiuseSpriteTemplateToPokemon(postEvoSpecies, B_POSITION_OPPONENT_RIGHT);
     gMultiuseSpriteTemplate.affineAnims = gDummySpriteAffineAnimTable;
     sEvoStructPtr->postEvoSpriteId = ID = CreateSprite(&gMultiuseSpriteTemplate, 120, 64, 30);
-    gSprites[ID].callback = SpriteCallbackDummy_2;
     gSprites[ID].oam.paletteNum = 2;
     gSprites[ID].invisible = TRUE;
 
@@ -359,7 +357,6 @@ static void CB2_EvolutionSceneLoadGraphics(void)
     gMultiuseSpriteTemplate.affineAnims = gDummySpriteAffineAnimTable;
     sEvoStructPtr->postEvoSpriteId = ID = CreateSprite(&gMultiuseSpriteTemplate, 120, 64, 30);
 
-    gSprites[ID].callback = SpriteCallbackDummy_2;
     gSprites[ID].oam.paletteNum = 2;
 
     SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_OBJ_ON | DISPCNT_BG_ALL_ON | DISPCNT_OBJ_1D_MAP);
@@ -436,7 +433,6 @@ static void CB2_TradeEvolutionSceneLoadGraphics(void)
             gMultiuseSpriteTemplate.affineAnims = gDummySpriteAffineAnimTable;
             sEvoStructPtr->postEvoSpriteId = ID = CreateSprite(&gMultiuseSpriteTemplate, 120, 64, 30);
 
-            gSprites[ID].callback = SpriteCallbackDummy_2;
             gSprites[ID].oam.paletteNum = 2;
             gMain.state++;
             LinkTradeDrawWindow();
@@ -495,7 +491,6 @@ void TradeEvolutionScene(struct Pokemon* mon, u16 postEvoSpecies, u8 preEvoSprit
     gMultiuseSpriteTemplate.affineAnims = gDummySpriteAffineAnimTable;
     sEvoStructPtr->postEvoSpriteId = ID = CreateSprite(&gMultiuseSpriteTemplate, 120, 64, 30);
 
-    gSprites[ID].callback = SpriteCallbackDummy_2;
     gSprites[ID].oam.paletteNum = 2;
     gSprites[ID].invisible = TRUE;
 
@@ -565,8 +560,6 @@ static void CreateShedinja(u16 preEvoSpecies, struct Pokemon* mon)
         #endif
 
         for (i = MON_DATA_COOL_RIBBON; i < MON_DATA_COOL_RIBBON + CONTEST_CATEGORIES_COUNT; i++)
-            SetMonData(&gPlayerParty[gPlayerPartyCount], i, &data);
-        for (i = MON_DATA_CHAMPION_RIBBON; i <= MON_DATA_UNUSED_RIBBONS; i++)
             SetMonData(&gPlayerParty[gPlayerPartyCount], i, &data);
 
         SetMonData(&gPlayerParty[gPlayerPartyCount], MON_DATA_STATUS, &data);
@@ -1638,17 +1631,6 @@ static void StartBgAnimation(bool8 isLink)
 
     CreateTask(Task_UpdateBgPalette, 5);
     CreateBgAnimTask(isLink);
-}
-
-// Unused
-static void PauseBgPaletteAnim(void)
-{
-    u8 taskId = FindTaskIdByFunc(Task_UpdateBgPalette);
-
-    if (taskId != TASK_NONE)
-        gTasks[taskId].tPaused = TRUE;
-
-    FillPalette(0, 0xA0, 0x20);
 }
 
 #undef tPaused

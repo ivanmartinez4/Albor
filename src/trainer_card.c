@@ -48,8 +48,6 @@ struct TrainerCardData
     bool8 hasHofResult;
     bool8 hasLinkResults;
     bool8 hasBattleTowerWins;
-    bool8 unused_E;
-    bool8 unused_F;
     bool8 hasTrades;
     u8 badgeCount[NUM_BADGES];
     u8 easyChatProfile[TRAINER_CARD_PROFILE_LENGTH][13];
@@ -812,8 +810,6 @@ static void SetDataFromTrainerCard(void)
     sData->hasHofResult = FALSE;
     sData->hasLinkResults = FALSE;
     sData->hasBattleTowerWins = FALSE;
-    sData->unused_E = FALSE;
-    sData->unused_F = FALSE;
     sData->hasTrades = FALSE;
     memset(sData->badgeCount, 0, sizeof(sData->badgeCount));
     if (sData->trainerCard.hasPokedex)

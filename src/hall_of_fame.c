@@ -146,7 +146,6 @@ static const struct WindowTemplate sHof_WindowTemplate = {
 
 static const u8 sMonInfoTextColors[4] = {TEXT_COLOR_TRANSPARENT, TEXT_COLOR_WHITE, TEXT_COLOR_DARK_GRAY};
 static const u8 sPlayerInfoTextColors[4] = {TEXT_COLOR_TRANSPARENT, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_LIGHT_GRAY};
-static const u8 sUnusedTextColors[4] = {TEXT_COLOR_RED, TEXT_COLOR_LIGHT_RED, TEXT_COLOR_TRANSPARENT};
 
 static const struct CompressedSpriteSheet sSpriteSheet_Confetti[] =
 {
@@ -340,13 +339,6 @@ static const struct HallofFameMon sDummyFameMon =
     .lvl = 0,
     .nick = {0}
 };
-
-// Unused, order of party slots on Hall of Fame screen
-static const u8 sHallOfFame_SlotOrder[] = {
-    2, 1, 3,
-    6, 4, 5,
-};
-
 // code
 static void VBlankCB_HallOfFame(void)
 {

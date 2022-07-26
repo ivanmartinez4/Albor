@@ -7951,20 +7951,6 @@ const struct Trainer gTrainers[] = {
         .party = {.NoItemDefaultMoves = sParty_GruntSeafloorCavern5},
     },
 
-    [TRAINER_GRUNT_UNUSED] =
-    {
-        .partyFlags = 0,
-        .trainerClass = TRAINER_CLASS_TEAM_MAGMA,
-        .encounterMusic_gender = F_TRAINER_FEMALE | TRAINER_ENCOUNTER_MUSIC_AQUA,
-        .trainerPic = TRAINER_PIC_AQUA_GRUNT_F,
-        .trainerName = _("Grunt"),
-        .items = {},
-        .doubleBattle = FALSE,
-        .aiFlags = AI_FLAG_CHECK_BAD_MOVE,
-        .partySize = ARRAY_COUNT(sParty_GruntUnused),
-        .party = {.NoItemDefaultMoves = sParty_GruntUnused},
-    },
-
     [TRAINER_GRUNT_MT_PYRE_4] =
     {
         .partyFlags = 0,
@@ -11939,33 +11925,5 @@ const struct Trainer gTrainers[] = {
         .aiFlags = 0,
         .partySize = ARRAY_COUNT(sParty_Leaf),
         .party = {.NoItemDefaultMoves = sParty_Leaf},
-    },
-
-    [TRAINER_BRENDAN_PLACEHOLDER] =
-    {
-        .partyFlags = 0,
-        .trainerClass = TRAINER_CLASS_RS_PROTAG,
-        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
-        .trainerPic = TRAINER_PIC_RS_BRENDAN,
-        .trainerName = _("Brendan"),
-        .items = {},
-        .doubleBattle = FALSE,
-        .aiFlags = 0,
-        .partySize = ARRAY_COUNT(sParty_BrendanLinkPlaceholder),
-        .party = {.NoItemDefaultMoves = sParty_BrendanLinkPlaceholder},
-    },
-
-    [TRAINER_MAY_PLACEHOLDER] =
-    {
-        .partyFlags = 0,
-        .trainerClass = TRAINER_CLASS_RS_PROTAG,
-        .encounterMusic_gender = F_TRAINER_FEMALE | TRAINER_ENCOUNTER_MUSIC_MALE,
-        .trainerPic = TRAINER_PIC_RS_MAY,
-        .trainerName = _("May"),
-        .items = {},
-        .doubleBattle = FALSE,
-        .aiFlags = 0,
-        .partySize = ARRAY_COUNT(sParty_MayLinkPlaceholder),
-        .party = {.NoItemDefaultMoves = sParty_MayLinkPlaceholder},
     },
 };

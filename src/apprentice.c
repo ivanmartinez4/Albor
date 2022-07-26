@@ -1301,10 +1301,3 @@ static void ExecuteFuncAfterButtonPress(void (*func)(void))
     gTasks[taskId].data[0] = (u32)(func);
     gTasks[taskId].data[1] = (u32)(func) >> 16;
 }
-
-// Unused
-static void ExecuteFollowupFuncAfterButtonPress(TaskFunc task)
-{
-    u8 taskId = CreateTask(Task_SwitchToFollowupFuncAfterButtonPress, 1);
-    SetTaskFuncWithFollowupFunc(taskId, Task_SwitchToFollowupFuncAfterButtonPress, task);
-}

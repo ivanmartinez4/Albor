@@ -38,7 +38,6 @@ struct EasyChatScreen
     /*0x10*/ s8 wordSelectColumn;
     /*0x11*/ s8 wordSelectRow;
     /*0x12*/ u8 displayedPersonType;
-    /*0x13*/ u8 unused; // Set to 0, never read
     /*0x14*/ u8 quizTitle[32];
     /*0x34*/ const u8 *titleText;
     /*0x38*/ u16 *savedPhrase;
@@ -109,7 +108,6 @@ struct EasyChatScreenWordData
     u16 unlockedGroupIds[EC_NUM_GROUPS];
     u16 numUnlockedAlphabetWords[EC_NUM_ALPHABET_GROUPS];
     u16 unlockedAlphabetWords[EC_NUM_ALPHABET_GROUPS][EC_MAX_WORDS_IN_GROUP];
-    u8 unused[44];
     u16 selectedGroupWords[EC_MAX_WORDS_IN_GROUP];
     u16 numSelectedGroupWords;
 }; /*size = 0x3BA4*/

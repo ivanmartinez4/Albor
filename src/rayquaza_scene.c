@@ -69,7 +69,6 @@ struct RayquazaScene
     bool8 endEarly;
     s16 revealedLightLine;
     s16 revealedLightTimer;
-    u8 unused[12];
 };
 
 static EWRAM_DATA struct RayquazaScene *sRayScene = NULL;

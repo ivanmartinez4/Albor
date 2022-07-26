@@ -877,9 +877,6 @@ static const u16 sFrontierTrainerIdRangesHard[][2] =
     {FRONTIER_TRAINER_JAXON,   FRONTIER_TRAINER_GRETEL}, // 200 - 299
 };
 
-// Unknown, unused data
-static const u16 sUnused[] = { 179, 141, 200, 183 };
-
 static const u8 sBattleTowerPartySizes[FRONTIER_MODE_COUNT] =
 {
     [FRONTIER_MODE_SINGLES]     = FRONTIER_PARTY_SIZE,
@@ -1128,36 +1125,6 @@ u16 GetRandomScaledFrontierTrainerId(u8 challengeNum, u8 battleNum)
     }
 
     return trainerId;
-}
-
-// Unused
-static void GetRandomScaledFrontierTrainerIdRange(u8 challengeNum, u8 battleNum, u16 *trainerIdPtr, u8 *rangePtr)
-{
-    u16 trainerId, range;
-
-    if (challengeNum <= 7)
-    {
-        if (battleNum == FRONTIER_STAGES_PER_CHALLENGE - 1)
-        {
-            // The last battle in each challenge has a jump in difficulty, pulls from a table with higher ranges
-            range = (sFrontierTrainerIdRangesHard[challengeNum][1] - sFrontierTrainerIdRangesHard[challengeNum][0]) + 1;
-            trainerId = sFrontierTrainerIdRangesHard[challengeNum][0];
-        }
-        else
-        {
-            range = (sFrontierTrainerIdRanges[challengeNum][1] - sFrontierTrainerIdRanges[challengeNum][0]) + 1;
-            trainerId = sFrontierTrainerIdRanges[challengeNum][0];
-        }
-    }
-    else
-    {
-        // After challenge 7, trainer IDs always come from the last, hardest range, which is the same for both trainer ID tables
-        range = (sFrontierTrainerIdRanges[7][1] - sFrontierTrainerIdRanges[7][0]) + 1;
-        trainerId = sFrontierTrainerIdRanges[7][0];
-    }
-
-    *trainerIdPtr = trainerId;
-    *rangePtr = range;
 }
 
 void SetBattleFacilityTrainerGfxId(u16 trainerId, u8 tempVarId)
@@ -1762,39 +1729,6 @@ static void FillTrainerParty(u16 trainerId, u8 firstMonId, u8 monCount)
         // The pokemon was successfully added to the trainer's party, so it's safe to move on to
         // the next party slot.
         i++;
-    }
-}
-
-// Probably an early draft before the 'CreateApprenticeMon' was written.
-static void Unused_CreateApprenticeMons(u16 trainerId, u8 firstMonId)
-{
-    s32 i, j;
-    u8 friendship = MAX_FRIENDSHIP;
-    u8 level = 0;
-    u8 fixedIV = 0;
-    struct Apprentice *apprentice = &gSaveBlock2Ptr->apprentices[0];
-
-    if (apprentice->numQuestions < 5)
-        fixedIV = 6;
-    else
-        fixedIV = 9;
-
-    if (gSaveBlock2Ptr->frontier.lvlMode != FRONTIER_LVL_50)
-        level = FRONTIER_MAX_LEVEL_OPEN;
-    else
-        level = FRONTIER_MAX_LEVEL_50;
-
-    for (i = 0; i != FRONTIER_PARTY_SIZE; i++)
-    {
-        CreateMonWithEVSpread(&gEnemyParty[firstMonId + i], apprentice->party[i].species, level, fixedIV, 8);
-        friendship = MAX_FRIENDSHIP;
-        for (j = 0; j < MAX_MON_MOVES; j++)
-        {
-            if (apprentice->party[i].moves[j] == MOVE_FRUSTRATION)
-                friendship = 0;
-        }
-        SetMonData(&gEnemyParty[firstMonId + i], MON_DATA_FRIENDSHIP, &friendship);
-        SetMonData(&gEnemyParty[firstMonId + i], MON_DATA_HELD_ITEM, &apprentice->party[i].item);
     }
 }
 
@@ -3608,33 +3542,6 @@ u8 FacilityClassToGraphicsId(u8 facilityClass)
     else
     {
         return OBJ_EVENT_GFX_BOY_1;
-    }
-}
-
-bool32 ValidateBattleTowerRecord(u8 recordId) // unused
-{
-    s32 i;
-    u32 *record = (u32*)(&gSaveBlock2Ptr->frontier.towerRecords[recordId]);
-    u32 checksum = 0;
-    u32 hasData = 0;
-    for (i = 0; i < (sizeof(struct EmeraldBattleTowerRecord) - 4) / 4; i++) // - 4, because of the last fjeld bejng the checksum jtself.
-    {
-        checksum += record[i];
-        hasData |= record[i];
-    }
-
-    if (checksum == 0 && hasData == 0)
-    {
-        return FALSE;
-    }
-    else if (gSaveBlock2Ptr->frontier.towerRecords[recordId].checksum != checksum)
-    {
-        ClearBattleTowerRecord(&gSaveBlock2Ptr->frontier.towerRecords[recordId]);
-        return FALSE;
-    }
-    else
-    {
-        return TRUE;
     }
 }
 

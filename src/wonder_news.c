@@ -56,57 +56,6 @@ void InitSavedWonderNews(void)
     VarSet(VAR_WONDER_NEWS_COUNTER, 0);
 }
 
-// Unused
-static void TryIncrementWonderNewsVar(void)
-{
-    u16 *var = GetVarPointer(VAR_WONDER_NEWS_COUNTER);
-    struct WonderNewsMetadata *data = GetSavedWonderNewsMetadata();
-
-    if (data->getCounter > 4 && ++(*var) >= 500)
-    {
-        data->getCounter = 0;
-        *var = 0;
-    }
-}
-
-// Unused
-u16 RetrieveWonderNewsVal(void)
-{
-    u16 *result = &gSpecialVar_Result;
-    struct WonderNewsMetadata *data = GetSavedWonderNewsMetadata();
-    u16 newsVal;
-
-    // Checks if Mystery Event is enabled, not Mystery Gift?  
-    if (!IsMysteryEventEnabled() || !ValidateSavedWonderNews())
-        return 0;
-
-    newsVal = GetNewsValByNewsType(data);
-
-    switch (newsVal)
-    {
-    case NEWS_VAL_RECV_FRIEND:
-        *result = GetNewsId(data);
-        break;
-    case NEWS_VAL_RECV_WIRELESS:
-        *result = GetNewsId(data);
-        break;
-    case NEWS_VAL_SENT:
-        *result = GetNewsId(data);
-        IncrementSentNewsCounter(data);
-        break;
-    case NEWS_VAL_SENT_MAX:
-        *result = GetNewsId(data);
-        ResetSentNewsCounter(data);
-        break;
-    case NEWS_VAL_INVALID:
-    case NEWS_VAL_NONE:
-    case NEWS_VAL_GET_MAX:
-        break;
-    }
-
-    return newsVal;
-}
-
 static u32 GetNewsId(struct WonderNewsMetadata *data)
 {
     u32 id;

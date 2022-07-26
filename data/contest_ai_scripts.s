@@ -21,31 +21,6 @@ gContestAI_ScriptsTable::
 	.4byte AI_CheckOrder        @ CONTEST_AI_CHECK_ORDER
 	.4byte AI_CheckGoodMove     @ CONTEST_AI_CHECK_GOOD_MOVE
 	.4byte AI_Erratic           @ CONTEST_AI_ERRATIC
-	.4byte AI_Nothing           @ CONTEST_AI_DUMMY_1
-	.4byte AI_Nothing           @ CONTEST_AI_DUMMY_2
-	.4byte AI_Nothing           @ CONTEST_AI_DUMMY_3
-	.4byte AI_Nothing           @ CONTEST_AI_DUMMY_4
-	.4byte AI_Nothing           @ CONTEST_AI_DUMMY_5
-	.4byte AI_Nothing           @ CONTEST_AI_DUMMY_6
-	.4byte AI_Nothing           @ CONTEST_AI_DUMMY_7
-	.4byte AI_Nothing           @ CONTEST_AI_DUMMY_8
-	.4byte AI_Nothing           @ CONTEST_AI_DUMMY_9
-	.4byte AI_Nothing           @ CONTEST_AI_DUMMY_10
-	.4byte AI_Nothing           @ CONTEST_AI_DUMMY_11
-	.4byte AI_Nothing           @ CONTEST_AI_DUMMY_12
-	.4byte AI_Nothing           @ CONTEST_AI_DUMMY_13
-	.4byte AI_Nothing           @ CONTEST_AI_DUMMY_14
-	.4byte AI_Nothing           @ CONTEST_AI_DUMMY_15
-	.4byte AI_Nothing           @ CONTEST_AI_DUMMY_16
-	.4byte AI_Nothing           @ CONTEST_AI_DUMMY_17
-	.4byte AI_Nothing           @ CONTEST_AI_DUMMY_18
-	.4byte AI_Nothing           @ CONTEST_AI_DUMMY_19
-	.4byte AI_Nothing           @ CONTEST_AI_DUMMY_20
-	.4byte AI_Nothing           @ CONTEST_AI_DUMMY_21
-	.4byte AI_Nothing           @ CONTEST_AI_DUMMY_22
-	.4byte AI_Nothing           @ CONTEST_AI_DUMMY_23
-	.4byte AI_Nothing           @ CONTEST_AI_DUMMY_24
-	.4byte AI_Nothing           @ CONTEST_AI_DUMMY_25
 
 @ Discourages using the same move multiple times if it would get boring
 AI_CheckBoring:

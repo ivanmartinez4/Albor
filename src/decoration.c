@@ -2191,21 +2191,6 @@ void PutAwayDecorationIteration(void)
     }
 }
 
-// Unused
-void GetObjectEventLocalIdByFlag(void)
-{
-    u8 i;
-
-    for (i = 0; i < gMapHeader.events->objectEventCount; i++)
-    {
-        if (gMapHeader.events->objectEvents[i].flagId == gSpecialVar_0x8004)
-        {
-            gSpecialVar_0x8005 = gMapHeader.events->objectEvents[i].localId;
-            break;
-        }
-    }
-}
-
 static void ClearRearrangementNonSprites(void)
 {
     u8 i;

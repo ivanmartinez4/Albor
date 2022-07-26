@@ -138,7 +138,6 @@ struct FrontierMapData
     struct Sprite *playerHeadSprite;
     struct Sprite *mapIndicatorSprite;
     u8 cursorPos;
-    u8 unused;
     u8 tilemapBuff0[BG_SCREEN_SIZE * 2];
     u8 tilemapBuff1[BG_SCREEN_SIZE * 2];
     u8 tilemapBuff2[BG_SCREEN_SIZE * 2];
@@ -373,12 +372,6 @@ static const struct SpritePalette sSpritePalettes[] =
     {}
 };
 
-static const union AnimCmd sAnim_Frame1_Unused[] =
-{
-    ANIMCMD_FRAME(0, 0),
-    ANIMCMD_END
-};
-
 static const union AnimCmd sAnim_Frame1[] =
 {
     ANIMCMD_FRAME(0, 0),
@@ -457,17 +450,6 @@ static const union AnimCmd *const sAnims_MapIndicatorCursor[] =
 {
     [MAP_INDICATOR_RECTANGLE] = sAnim_MapIndicatorCursor_Rectangle,
     [MAP_INDICATOR_SQUARE]    = sAnim_MapIndicatorCursor_Square
-};
-
-static const union AffineAnimCmd sAffineAnim_Unused[] =
-{
-    AFFINEANIMCMD_FRAME(256, 256, 0, 0),
-    AFFINEANIMCMD_END
-};
-
-static const union AffineAnimCmd *const sAffineAnims_Unused[] =
-{
-    sAffineAnim_Unused
 };
 
 static const struct SpriteTemplate sSpriteTemplates_Cursors[] =

@@ -91,12 +91,10 @@ struct Weather
     u8 fogHSpritesCreated;
     // Ash
     u16 ashBaseSpritesX;
-    u16 ashUnused;
     u8 ashSpritesCreated;
     // Sandstorm
     u32 sandstormXOffset;
     u32 sandstormYOffset;
-    u16 sandstormUnused;
     u16 sandstormBaseSpritesX;
     u16 sandstormPosY;
     u16 sandstormWaveIndex;
@@ -130,7 +128,6 @@ struct Weather
     s16 droughtLastBrightnessStage;
     s16 droughtTimer;
     s16 droughtState;
-    u8 droughtUnused[9];
     s8 loadDroughtPalsIndex;
     u8 loadDroughtPalsOffset;
 };

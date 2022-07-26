@@ -185,7 +185,6 @@ static void FreeTrainerSpriteAfterSlide(void)
 {
     if (gSprites[gBattlerSpriteIds[gActiveBattler]].callback == SpriteCallbackDummy)
     {
-        BattleGfxSfxDummy3(MALE);
         FreeSpriteOamMatrix(&gSprites[gBattlerSpriteIds[gActiveBattler]]);
         DestroySprite(&gSprites[gBattlerSpriteIds[gActiveBattler]]);
         RecordedPlayerBufferExecCompleted();
@@ -366,7 +365,6 @@ static void FreeMonSpriteAfterFaintAnim(void)
     {
         u16 species = GetMonData(&gPlayerParty[gBattlerPartyIndexes[gActiveBattler]], MON_DATA_SPECIES);
 
-        BattleGfxSfxDummy2(species);
         FreeOamMatrix(gSprites[gBattlerSpriteIds[gActiveBattler]].oam.matrixNum);
         DestroySprite(&gSprites[gBattlerSpriteIds[gActiveBattler]]);
         SetHealthboxSpriteInvisible(gHealthboxSpriteIds[gActiveBattler]);
@@ -1562,25 +1560,21 @@ static void RecordedPlayerHandleOneReturnValue_Duplicate(void)
 
 static void RecordedPlayerHandleClearUnkVar(void)
 {
-    gUnusedControllerStruct.unk = 0;
     RecordedPlayerBufferExecCompleted();
 }
 
 static void RecordedPlayerHandleSetUnkVar(void)
 {
-    gUnusedControllerStruct.unk = gBattleResources->bufferA[gActiveBattler][1];
     RecordedPlayerBufferExecCompleted();
 }
 
 static void RecordedPlayerHandleClearUnkFlag(void)
 {
-    gUnusedControllerStruct.flag = 0;
     RecordedPlayerBufferExecCompleted();
 }
 
 static void RecordedPlayerHandleToggleUnkFlag(void)
 {
-    gUnusedControllerStruct.flag ^= 1;
     RecordedPlayerBufferExecCompleted();
 }
 

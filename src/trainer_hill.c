@@ -70,7 +70,6 @@ static void GetChallengeWon(void);
 static void TrainerHillSetMode(void);
 static void SetUpDataStruct(void);
 static void FreeDataStruct(void);
-static void TrainerHillDummy(void);
 static void SetTimerValue(u32 *dst, u32 val);
 static u32 GetTimerValue(u32 *src);
 static void SetTrainerHillMonLevel(struct Pokemon *mon, u8 level);
@@ -206,15 +205,6 @@ static const struct TrainerHillChallenge *const sChallengeData[NUM_TRAINER_HILL_
     [HILL_MODE_VARIETY] = &sChallenge_Variety,
     [HILL_MODE_UNIQUE]  = &sChallenge_Unique,
     [HILL_MODE_EXPERT]  = &sChallenge_Expert,
-};
-
-// Unused.
-static const u8 *const sFloorStrings[] =
-{
-    gText_TrainerHill1F,
-    gText_TrainerHill2F,
-    gText_TrainerHill3F,
-    gText_TrainerHill4F,
 };
 
 static void (* const sHillFunctions[])(void) =
@@ -357,7 +347,6 @@ static void SetUpDataStruct(void)
         // e.g. for HILL_MODE_NORMAL, it will copy sChallenge_Normal to sHillData->challenge and
         // it will copy sFloors_Normal to sHillData->floors
         CpuCopy32(sChallengeData[gSaveBlock1Ptr->trainerHill.mode], &sHillData->challenge, sizeof(sHillData->challenge) + sizeof(sHillData->floors));
-        TrainerHillDummy();
     }
 }
 
@@ -395,7 +384,6 @@ void CopyTrainerHillTrainerText(u8 which, u16 trainerId)
 
 static void TrainerHillStartChallenge(void)
 {
-    TrainerHillDummy();
     if (!ReadTrainerHillAndValidate())
         gSaveBlock1Ptr->trainerHill.field_3D6E_0f = 1;
     else
@@ -569,16 +557,6 @@ static void IsTrainerHillChallengeActive(void)
         gSpecialVar_Result = FALSE;
     else
         gSpecialVar_Result = TRUE;
-}
-
-static void TrainerHillDummy_Unused(void)
-{
-
-}
-
-static void TrainerHillDummy(void)
-{
-
 }
 
 void PrintOnTrainerHillRecordsWindow(void)
@@ -768,19 +746,6 @@ u8 GetCurrentTrainerHillMapId(void)
     return mapId;
 }
 
-// Unused
-static bool32 OnTrainerHillRoof(void)
-{
-    bool32 onRoof;
-
-    if (gMapHeader.mapLayoutId == LAYOUT_TRAINER_HILL_ROOF)
-        onRoof = TRUE;
-    else
-        onRoof = FALSE;
-
-    return onRoof;
-}
-
 const struct WarpEvent* SetWarpDestinationTrainerHill4F(void)
 {
     const struct MapHeader *header = Overworld_GetMapHeaderByGroupAndId(MAP_GROUP(TRAINER_HILL_4F), MAP_NUM(TRAINER_HILL_4F));
@@ -892,14 +857,6 @@ void FillHillTrainersParties(void)
     ZeroEnemyPartyMons();
     CreateNPCTrainerHillParty(gTrainerBattleOpponent_A, 0);
     CreateNPCTrainerHillParty(gTrainerBattleOpponent_B, PARTY_SIZE / 2);
-}
-
-// This function is unused, but my best guess is
-// it was supposed to return AI scripts for trainer
-// hill trainers.
-u32 GetTrainerHillAIFlags(void)
-{
-    return (AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_TRY_TO_FAINT | AI_FLAG_CHECK_VIABILITY);
 }
 
 u8 GetTrainerEncounterMusicIdInTrainerHill(u16 trainerId)

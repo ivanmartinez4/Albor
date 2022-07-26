@@ -17,7 +17,6 @@ struct Pokenav_MainMenu
 {
     void (*loopTask)(u32);
     u32 (*isLoopTaskActiveFunc)(void);
-    u32 unused;
     u32 currentTaskId;
     u32 helpBarWindowId;
     u32 palettes;
@@ -55,7 +54,6 @@ static u32 LoopedTask_InitPokenavMenu(s32);
 
 static const u16 sSpinningPokenav_Pal[] = INCBIN_U16("graphics/pokenav/nav_icon.gbapal");
 static const u32 sSpinningPokenav_Gfx[] = INCBIN_U32("graphics/pokenav/nav_icon.4bpp.lz");
-static const u32 sBlueLightCopy[] = INCBIN_U32("graphics/pokenav/blue_light.4bpp.lz"); // Unused copy of sMatchCallBlueLightTiles
 
 const struct BgTemplate gPokenavMainMenuBgTemplates[] =
 {
@@ -376,13 +374,11 @@ void SetActiveMenuLoopTasks(void *createLoopTask, void *isLoopTaskActive) // Fix
     struct Pokenav_MainMenu *menu = GetSubstructPtr(POKENAV_SUBSTRUCT_MAIN_MENU);
     menu->loopTask = createLoopTask;
     menu->isLoopTaskActiveFunc = isLoopTaskActive;
-    menu->unused = 0;
 }
 
 void RunMainMenuLoopedTask(u32 state)
 {
     struct Pokenav_MainMenu *menu = GetSubstructPtr(POKENAV_SUBSTRUCT_MAIN_MENU);
-    menu->unused = 0;
     menu->loopTask(state);
 }
 

@@ -814,21 +814,6 @@ bool8 ScrCmd_warphole(struct ScriptContext *ctx)
     return TRUE;
 }
 
-// RS mossdeep gym warp, unused in Emerald
-bool8 ScrCmd_warpteleport(struct ScriptContext *ctx)
-{
-    u8 mapGroup = ScriptReadByte(ctx);
-    u8 mapNum = ScriptReadByte(ctx);
-    u8 warpId = ScriptReadByte(ctx);
-    u16 x = VarGet(ScriptReadHalfword(ctx));
-    u16 y = VarGet(ScriptReadHalfword(ctx));
-
-    SetWarpDestination(mapGroup, mapNum, warpId, x, y);
-    DoTeleportTileWarp();
-    ResetInitialPlayerAvatarState();
-    return TRUE;
-}
-
 bool8 ScrCmd_warpmossdeepgym(struct ScriptContext *ctx)
 {
     u8 mapGroup = ScriptReadByte(ctx);

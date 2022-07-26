@@ -145,7 +145,6 @@ gBattleScriptsForMoveEffects::
 	.4byte BattleScript_EffectPresent                 @ EFFECT_PRESENT
 	.4byte BattleScript_EffectHit                     @ EFFECT_FRUSTRATION
 	.4byte BattleScript_EffectSafeguard               @ EFFECT_SAFEGUARD
-	.4byte BattleScript_EffectHit                     @ EFFECT_UNUSED_125
 	.4byte BattleScript_EffectMagnitude               @ EFFECT_MAGNITUDE
 	.4byte BattleScript_EffectBatonPass               @ EFFECT_BATON_PASS
 	.4byte BattleScript_EffectHit                     @ EFFECT_PURSUIT

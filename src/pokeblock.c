@@ -75,7 +75,6 @@ struct PokeblockMenuStruct
     u8 arrowTaskId;
     bool8 isSwapping;
     s16 gfxState;
-    u8 unused[8];
 };
 
 struct PokeblockSavedData

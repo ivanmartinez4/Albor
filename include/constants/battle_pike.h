@@ -44,8 +44,8 @@
 #define BATTLE_PIKE_FUNC_SET_IN_WILD_MON_ROOM      6
 #define BATTLE_PIKE_FUNC_CLEAR_IN_WILD_MON_ROOM    7
 #define BATTLE_PIKE_FUNC_SAVE                      8
-#define BATTLE_PIKE_FUNC_DUMMY_1                   9
-#define BATTLE_PIKE_FUNC_DUMMY_2                   10
+#define BATTLE_PIKE_FUNC_RESET_HELD_ITEMS          9
+#define BATTLE_PIKE_FUNC_INIT                      10
 #define BATTLE_PIKE_FUNC_GET_ROOM_STATUS           11
 #define BATTLE_PIKE_FUNC_GET_ROOM_STATUS_MON       12
 #define BATTLE_PIKE_FUNC_HEAL_ONE_TWO_MONS         13
@@ -62,8 +62,6 @@
 #define BATTLE_PIKE_FUNC_SET_HEAL_ROOMS_DISABLED   24
 #define BATTLE_PIKE_FUNC_IS_PARTY_FULL_HEALTH      25
 #define BATTLE_PIKE_FUNC_SAVE_HELD_ITEMS           26
-#define BATTLE_PIKE_FUNC_RESET_HELD_ITEMS          27
-#define BATTLE_PIKE_FUNC_INIT                      28
 
 #define PIKE_DATA_PRIZE             0
 #define PIKE_DATA_WIN_STREAK        1

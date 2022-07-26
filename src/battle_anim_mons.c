@@ -483,35 +483,6 @@ void TranslateSpriteInGrowingCircle(struct Sprite *sprite)
     }
 }
 
-// Unused
-// Exact shape depends on arguments. Can move in a figure-8-like pattern, or circular, etc.
-static void TranslateSpriteInWavePattern(struct Sprite *sprite)
-{
-    if (sprite->sDuration)
-    {
-        sprite->x2 = Sin(sprite->sCirclePosX, sprite->sAmplitude);
-        sprite->y2 = Cos(sprite->sCirclePosY, sprite->sAmplitude);
-        sprite->sCirclePosX += sprite->sCircleSpeedX;
-        sprite->sCirclePosY += sprite->sCircleSpeedY;
-        
-        if (sprite->sCirclePosX >= 0x100)
-            sprite->sCirclePosX -= 0x100;
-        else if (sprite->sCirclePosX < 0)
-            sprite->sCirclePosX += 0x100;
-
-        if (sprite->sCirclePosY >= 0x100)
-            sprite->sCirclePosY -= 0x100;
-        else if (sprite->sCirclePosY < 0)
-            sprite->sCirclePosY += 0x100;
-
-        sprite->sDuration--;
-    }
-    else
-    {
-        SetCallbackToStoredInData6(sprite);
-    }
-}
-
 void TranslateSpriteInEllipse(struct Sprite *sprite)
 {
     if (sprite->sDuration)
@@ -637,16 +608,6 @@ static void TranslateSpriteLinearFixedPointIconFrame(struct Sprite *sprite)
     UpdateMonIconFrame(sprite);
 }
 
-// Unused
-static void TranslateSpriteToBattleTargetPos(struct Sprite *sprite)
-{
-    sprite->sStartX = sprite->x + sprite->x2;
-    sprite->sStartY = sprite->y + sprite->y2;
-    sprite->sTargetX = GetBattlerSpriteCoord(gBattleAnimTarget, BATTLER_COORD_X_2);
-    sprite->sTargetY = GetBattlerSpriteCoord(gBattleAnimTarget, BATTLER_COORD_Y_PIC_OFFSET);
-    sprite->callback = AnimPosToTranslateLinear;
-}
-
 // Same as TranslateSpriteLinear but takes an id to specify which sprite to move
 void TranslateSpriteLinearById(struct Sprite *sprite)
 {
@@ -705,28 +666,11 @@ void DestroySpriteAndMatrix(struct Sprite *sprite)
     DestroyAnimSprite(sprite);
 }
 
-// Unused
-static void TranslateSpriteToBattleAttackerPos(struct Sprite *sprite)
-{
-    sprite->sStartX = sprite->x + sprite->x2;
-    sprite->sStartY = sprite->y + sprite->y2;
-    sprite->sTargetX = GetBattlerSpriteCoord(gBattleAnimAttacker, BATTLER_COORD_X_2);
-    sprite->sTargetY = GetBattlerSpriteCoord(gBattleAnimAttacker, BATTLER_COORD_Y_PIC_OFFSET);
-    sprite->callback = AnimPosToTranslateLinear;
-}
-
 #undef sStepsX
 #undef sStartX
 #undef sTargetX
 #undef sStartY
 #undef sTargetY
-
-// Unused
-static void EndUnkPaletteAnim(struct Sprite *sprite)
-{
-    PaletteStruct_ResetById(sprite->data[5]);
-    DestroySpriteAndMatrix(sprite);
-}
 
 void RunStoredCallbackWhenAffineAnimEnds(struct Sprite *sprite)
 {
@@ -961,7 +905,6 @@ void GetBattleAnimBg1Data(struct BattleAnimBgData *out)
         out->paletteId = BG_ANIM_PAL_CONTEST;
         out->bgId = 1;
         out->tilesOffset = 0;
-        out->unused = 0;
     }
     else
     {
@@ -970,7 +913,6 @@ void GetBattleAnimBg1Data(struct BattleAnimBgData *out)
         out->paletteId = BG_ANIM_PAL_1;
         out->bgId = 1;
         out->tilesOffset = 0x200;
-        out->unused = 0;
     }
 }
 
@@ -983,7 +925,6 @@ void GetBattleAnimBgData(struct BattleAnimBgData *out, u32 bgId)
         out->paletteId = BG_ANIM_PAL_CONTEST;
         out->bgId = 1;
         out->tilesOffset = 0;
-        out->unused = 0;
     }
     else if (bgId == 1)
     {
@@ -996,7 +937,6 @@ void GetBattleAnimBgData(struct BattleAnimBgData *out, u32 bgId)
         out->paletteId = BG_ANIM_PAL_2;
         out->bgId = 2;
         out->tilesOffset = 0x300;
-        out->unused = 0;
     }
 }
 
@@ -1009,21 +949,18 @@ void GetBgDataForTransform(struct BattleAnimBgData *out, u8 battlerId)
         out->paletteId = BG_ANIM_PAL_CONTEST;
         out->bgId = 1;
         out->tilesOffset = 0;
-        out->unused = 0;
     }
     else if (GetBattlerSpriteBGPriorityRank(gBattleAnimAttacker) == 1)
     {
         out->paletteId = BG_ANIM_PAL_1;
         out->bgId = 1;
         out->tilesOffset = 0x200;
-        out->unused = 0;
     }
     else
     {
         out->paletteId = BG_ANIM_PAL_2;
         out->bgId = 2;
         out->tilesOffset = 0x300;
-        out->unused = 0;
     }
 }
 
@@ -1140,16 +1077,6 @@ void StartAnimLinearTranslation(struct Sprite *sprite)
     sprite->data[3] = sprite->y;
     InitAnimLinearTranslation(sprite);
     sprite->callback = AnimTranslateLinear_WithFollowup;
-    sprite->callback(sprite);
-}
-
-// Unused
-static void StartAnimLinearTranslation_SetCornerVecX(struct Sprite *sprite)
-{
-    sprite->data[1] = sprite->x;
-    sprite->data[3] = sprite->y;
-    InitAnimLinearTranslation(sprite);
-    sprite->callback = AnimTranslateLinear_WithFollowup_SetCornerVecX;
     sprite->callback(sprite);
 }
 
@@ -2057,19 +1984,6 @@ void AnimTask_GetFrustrationPowerLevel(u8 taskId)
     DestroyAnimVisualTask(taskId);
 }
 
-// Unused
-static void SetPriorityForVisibleBattlers(u8 priority)
-{
-    if (IsBattlerSpriteVisible(gBattleAnimTarget))
-        gSprites[gBattlerSpriteIds[gBattleAnimTarget]].oam.priority = priority;
-    if (IsBattlerSpriteVisible(gBattleAnimAttacker))
-        gSprites[gBattlerSpriteIds[gBattleAnimAttacker]].oam.priority = priority;
-    if (IsBattlerSpriteVisible(BATTLE_PARTNER(gBattleAnimTarget)))
-        gSprites[gBattlerSpriteIds[BATTLE_PARTNER(gBattleAnimTarget)]].oam.priority = priority;
-    if (IsBattlerSpriteVisible(BATTLE_PARTNER(gBattleAnimAttacker)))
-        gSprites[gBattlerSpriteIds[BATTLE_PARTNER(gBattleAnimAttacker)]].oam.priority = priority;
-}
-
 void InitPrioritiesForVisibleBattlers(void)
 {
     int i;
@@ -2374,28 +2288,6 @@ void AnimTranslateLinearAndFlicker_Flipped(struct Sprite *sprite)
     sprite->data[1] = gBattleAnimArgs[3];
     sprite->data[3] = gBattleAnimArgs[4];
     sprite->data[5] = gBattleAnimArgs[5];
-    StoreSpriteCallbackInData6(sprite, DestroySpriteAndMatrix);
-    sprite->callback = TranslateSpriteLinearAndFlicker;
-}
-
-// Used by three different unused battle anim sprite templates.
-void AnimTranslateLinearAndFlicker(struct Sprite *sprite)
-{
-    if (GetBattlerSide(gBattleAnimAttacker) != B_SIDE_PLAYER)
-    {
-        sprite->x -= gBattleAnimArgs[0];
-        gBattleAnimArgs[3] *= -1;
-    }
-    else
-    {
-        sprite->x += gBattleAnimArgs[0];
-    }
-    sprite->y += gBattleAnimArgs[1];
-    sprite->data[0] = gBattleAnimArgs[2];
-    sprite->data[1] = gBattleAnimArgs[3];
-    sprite->data[3] = gBattleAnimArgs[4];
-    sprite->data[5] = gBattleAnimArgs[5];
-    StartSpriteAnim(sprite, gBattleAnimArgs[6]);
     StoreSpriteCallbackInData6(sprite, DestroySpriteAndMatrix);
     sprite->callback = TranslateSpriteLinearAndFlicker;
 }

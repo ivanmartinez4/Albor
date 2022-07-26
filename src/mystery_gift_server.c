@@ -51,7 +51,6 @@ u32 MysterGiftServer_Run(u16 * endVal)
 
 static void MysteryGiftServer_Init(struct MysteryGiftServer * svr, const void * script, u32 sendPlayerId, u32 recvPlayerId)
 {
-    svr->unused = 0;
     svr->funcId = FUNC_INIT;
     svr->card = AllocZeroed(sizeof(*svr->card));
     svr->news = AllocZeroed(sizeof(*svr->news));

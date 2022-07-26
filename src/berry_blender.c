@@ -137,7 +137,6 @@ struct BerryBlender
 {
     u8 mainState;
     u8 loadGfxState;
-    u8 unused0[66];
     u16 unk0; // never read
     u8 scoreIconIds[NUM_SCORE_TYPES];
     u16 arrowPos;
@@ -145,7 +144,6 @@ struct BerryBlender
     u16 maxRPM;
     u8 playerArrowSpriteIds[BLENDER_MAX_PLAYERS];
     u8 playerArrowSpriteIds2[BLENDER_MAX_PLAYERS];
-    u8 unused1[11];
     u8 gameEndState;
     u16 playerContinueResponses[BLENDER_MAX_PLAYERS];
     u16 canceledPlayerCmd;
@@ -154,7 +152,6 @@ struct BerryBlender
     u8 slowdownTimer;
     u16 chosenItemId[BLENDER_MAX_PLAYERS];
     u8 numPlayers;
-    u8 unused2[16];
     u16 arrowIdToPlayerId[BLENDER_MAX_PLAYERS];
     u16 playerIdToArrowId[BLENDER_MAX_PLAYERS];
     u8 yesNoAnswer;
@@ -162,7 +159,6 @@ struct BerryBlender
     u32 gameFrameTime;
     s32 framesToWait;
     u32 unk1; // never read
-    u8 unused3[4];
     u8 playerToThrowBerry;
     u16 progressBarValue;
     u16 maxProgressBarValue;
@@ -246,13 +242,6 @@ static const u8 sBlenderCenter_Tilemap[] = INCBIN_U8("graphics/berry_blender/cen
 static const u16 sBlenderOuter_Pal[] = INCBIN_U16("graphics/berry_blender/outer.gbapal");
 
 static const u16 sEmpty_Pal[16 * 14] = {0};
-
-// unused text
-static const u8 sUnusedText_YesNo[] = _("Yes\nNo");
-static const u8 sUnusedText_2[] = _("▶");
-static const u8 sUnusedText_Space[] = _(" ");
-static const u8 sUnusedText_Terminating[] = _("Terminating.");
-static const u8 sUnusedText_LinkPartnerNotFound[] = _("Link partner(s) not found.\nPlease try again.\p");
 
 static const u8 sText_BerryBlenderStart[] = _("Starting up the Berry Blender.\pPlease select a Berry from your Bag\nto put in the Berry Blender.\p");
 static const u8 sText_NewParagraph[] = _("\p");
@@ -906,16 +895,6 @@ static const u8 sBlackPokeblockFlavorFlags[] = {
     (1 << FLAVOR_BITTER) | (1 << FLAVOR_DRY)    | (1 << FLAVOR_SPICY),
     (1 << FLAVOR_SWEET)  | (1 << FLAVOR_DRY)    | (1 << FLAVOR_SPICY),
     (1 << FLAVOR_SOUR)   | (1 << FLAVOR_SWEET)  | (1 << FLAVOR_SPICY),
-};
-
-static const u8 sUnused[] =
-{
-    0xfe, 0x02, 0x02, 0xce, 0xd0, 0x37, 0x44, 0x07, 0x1f, 0x0c, 0x10,
-    0x00, 0xff, 0xfe, 0x91, 0x72, 0xce, 0xd0, 0x37, 0x44, 0x07, 0x1f,
-    0x0c, 0x10, 0x00, 0xff, 0x06, 0x27, 0x02, 0xff, 0x00, 0x0c, 0x48,
-    0x02, 0xff, 0x00, 0x01, 0x1f, 0x02, 0xff, 0x00, 0x16, 0x37, 0x02,
-    0xff, 0x00, 0x0d, 0x50, 0x4b, 0x02, 0xff, 0x06, 0x06, 0x06, 0x06,
-    0x05, 0x03, 0x03, 0x03, 0x02, 0x02, 0x03, 0x03, 0x03, 0x03, 0x02
 };
 
 static const struct WindowTemplate sBlenderRecordWindowTemplate =
@@ -2368,12 +2347,6 @@ static void Debug_SetMaxRPMStage(s16 value)
     sDebug_MaxRPMStage = value;
 }
 
-// Unused
-static s16 Debug_GetMaxRPMStage(void)
-{
-    return sDebug_MaxRPMStage;
-}
-
 static void Debug_SetGameTimeStage(s16 value)
 {
     sDebug_GameTimeStage = value;
@@ -2490,12 +2463,6 @@ static void CalculatePokeblock(struct BlenderBerry *berries, struct Pokeblock *p
 
     for (i = 0; i < FLAVOR_COUNT + 1; i++)
         flavors[i] = sPokeblockFlavors[i];
-}
-
-// Unused
-static void Debug_CalculatePokeblock(struct BlenderBerry* berries, struct Pokeblock* pokeblock, u8 numPlayers, u8* flavors, u16 maxRPM)
-{
-    CalculatePokeblock(berries, pokeblock, numPlayers, flavors, maxRPM);
 }
 
 static void Debug_SetStageVars(void)

@@ -57,8 +57,8 @@
 #define LINKCMD_BLENDER_SEND_KEYS       0x4444
 #define LINKCMD_BLENDER_SCORE_BEST      0x4523
 #define LINKCMD_BLENDER_SCORE_GOOD      0x5432
-#define LINKCMD_DUMMY_1                 0x5555
-#define LINKCMD_DUMMY_2                 0x5566
+#define LINKCMD_BOTH_CANCEL_TRADE       0x5555
+#define LINKCMD_PARTNER_CANCEL_TRADE    0x5566
 #define LINKCMD_READY_CLOSE_LINK        0x5FFF
 #define LINKCMD_SEND_EMPTY              0x6666
 #define LINKCMD_SEND_0xEE               0x7777
@@ -79,8 +79,7 @@
 #define LINKCMD_SET_MONS_TO_TRADE       0xDDDD
 #define LINKCMD_PLAYER_CANCEL_TRADE     0xDDEE
 #define LINKCMD_REQUEST_CANCEL          0xEEAA
-#define LINKCMD_BOTH_CANCEL_TRADE       0xEEBB
-#define LINKCMD_PARTNER_CANCEL_TRADE    0xEECC
+
 #define LINKCMD_NONE                    0xEFFF
 
 #define LINKTYPE_TRADE                 0x1111
@@ -119,9 +118,7 @@ struct LinkStatus
     u32 playerCount:3;
     u32 master:1;
     u32 connEstablished:1;
-    u32 unused_7:1;
     u32 receivedNothing:1;
-    u32 unused_9:7;
     u32 errors:7;
 };
 

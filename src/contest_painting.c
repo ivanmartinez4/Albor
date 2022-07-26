@@ -83,15 +83,6 @@ static const u8 sPictureFrameTilemap_Smart[]     = INCBIN_U8("graphics/picture_f
 static const u8 sPictureFrameTilemap_Tough[]     = INCBIN_U8("graphics/picture_frame/tough_map.bin.rl");
 static const u8 sPictureFrameTilemap_HallLobby[] = INCBIN_U8("graphics/picture_frame/lobby_map.bin.rl");
 
-static const u8 *const sContestCategoryNames_Unused[] =
-{
-    [CONTEST_CATEGORY_COOL]   = gContestCoolness,
-    [CONTEST_CATEGORY_BEAUTY] = gContestBeauty,
-    [CONTEST_CATEGORY_CUTE]   = gContestCuteness,
-    [CONTEST_CATEGORY_SMART]  = gContestSmartness,
-    [CONTEST_CATEGORY_TOUGH]  = gContestToughness,
-};
-
 static const u8 *const sContestRankNames[] =
 {
     [CONTEST_RANK_NORMAL] = gContestRankNormal,

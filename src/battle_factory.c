@@ -25,8 +25,6 @@ static void InitFactoryChallenge(void);
 static void GetBattleFactoryData(void);
 static void SetBattleFactoryData(void);
 static void SaveFactoryChallenge(void);
-static void FactoryDummy1(void);
-static void FactoryDummy2(void);
 static void SelectInitialRentalMons(void);
 static void SwapRentalMons(void);
 static void SetPerformedRentalSwap(void);
@@ -127,8 +125,6 @@ static void (* const sBattleFactoryFunctions[])(void) =
     [BATTLE_FACTORY_FUNC_GET_DATA]               = GetBattleFactoryData,
     [BATTLE_FACTORY_FUNC_SET_DATA]               = SetBattleFactoryData,
     [BATTLE_FACTORY_FUNC_SAVE]                   = SaveFactoryChallenge,
-    [BATTLE_FACTORY_FUNC_NULL]                   = FactoryDummy1,
-    [BATTLE_FACTORY_FUNC_NULL2]                  = FactoryDummy2,
     [BATTLE_FACTORY_FUNC_SELECT_RENT_MONS]       = SelectInitialRentalMons,
     [BATTLE_FACTORY_FUNC_SWAP_RENT_MONS]         = SwapRentalMons,
     [BATTLE_FACTORY_FUNC_SET_SWAPPED]            = SetPerformedRentalSwap,
@@ -272,16 +268,6 @@ static void SaveFactoryChallenge(void)
     VarSet(VAR_TEMP_0, 0);
     gSaveBlock2Ptr->frontier.challengePaused = TRUE;
     SaveGameFrontier();
-}
-
-static void FactoryDummy1(void)
-{
-
-}
-
-static void FactoryDummy2(void)
-{
-
 }
 
 static void SelectInitialRentalMons(void)

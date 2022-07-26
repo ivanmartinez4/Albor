@@ -57,8 +57,6 @@ struct TransitionData
     u16 WINOUT;
     u16 WIN0H;
     u16 WIN0V;
-    u16 unused1;
-    u16 unused2;
     u16 BLDCNT;
     u16 BLDALPHA;
     u16 BLDY;
@@ -67,9 +65,7 @@ struct TransitionData
     s16 BG0HOFS_Lower;
     s16 BG0HOFS_Upper;
     s16 BG0VOFS; // used but not set
-    s16 unused3;
     s16 counter;
-    s16 unused4;
     s16 data[11];
 };
 
@@ -947,13 +943,6 @@ static void CB2_TestBattleTransition(void)
     AnimateSprites();
     BuildOamBuffer();
     UpdatePaletteFade();
-}
-
-// Unused
-static void TestBattleTransition(u8 transitionId)
-{
-    sTestingTransitionId = transitionId;
-    SetMainCallback2(CB2_TestBattleTransition);
 }
 
 void BattleTransition_StartOnField(u8 transitionId)

@@ -72,14 +72,7 @@ RustboroCity_DevonCorp_3F_EventScript_MeetPresident::
 	setvar VAR_RUSTBORO_CITY_STATE, 6
 	releaseall
 	end
-
-RustboroCity_DevonCorp_3F_Movement_Unused:
-	walk_up
-	walk_up
-	walk_up
-	walk_in_place_faster_left
-	step_end
-
+	
 RustboroCity_DevonCorp_3F_Movement_LeadPlayerToPresident:
 	walk_right
 	walk_right

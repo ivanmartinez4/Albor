@@ -2728,17 +2728,6 @@ void LoadMonIconPalettes(void)
         LoadSpritePalette(&gMonIconPaletteTable[i]);
 }
 
-// unused
-void SafeLoadMonIconPalette(u16 species)
-{
-    u8 palIndex;
-    if (species > NUM_SPECIES)
-        species = INVALID_ICON_SPECIES;
-    palIndex = gMonIconPaletteIndices[species];
-    if (IndexOfSpritePaletteTag(gMonIconPaletteTable[palIndex].tag) == 0xFF)
-        LoadSpritePalette(&gMonIconPaletteTable[palIndex]);
-}
-
 void LoadMonIconPalette(u16 species)
 {
     u8 palIndex = gMonIconPaletteIndices[species];
@@ -2751,16 +2740,6 @@ void FreeMonIconPalettes(void)
     u8 i;
     for (i = 0; i < ARRAY_COUNT(gMonIconPaletteTable); i++)
         FreeSpritePaletteByTag(gMonIconPaletteTable[i].tag);
-}
-
-// unused
-void SafeFreeMonIconPalette(u16 species)
-{
-    u8 palIndex;
-    if (species > NUM_SPECIES)
-        species = INVALID_ICON_SPECIES;
-    palIndex = gMonIconPaletteIndices[species];
-    FreeSpritePaletteByTag(gMonIconPaletteTable[palIndex].tag);
 }
 
 void FreeMonIconPalette(u16 species)
@@ -2817,25 +2796,9 @@ void TryLoadAllMonIconPalettesAtOffset(u16 offset)
     }
 }
 
-// Unused as of icon upgrade
-u8 GetValidMonIconPalIndex(u16 species)
-{
-    if (species > NUM_SPECIES)
-        species = INVALID_ICON_SPECIES;
-    return gMonIconPaletteIndices[species];
-}
-
 u8 GetMonIconPaletteIndexFromSpecies(u16 species)
 {
     return gMonIconPaletteIndices[species];
-}
-
-// Unused as of icon upgrade
-const u16* GetValidMonIconPalettePtr(u16 species)
-{
-    if (species > NUM_SPECIES)
-        species = INVALID_ICON_SPECIES;
-    return gMonIconPaletteTable[gMonIconPaletteIndices[species]].data;
 }
 
 u8 UpdateMonIconFrame(struct Sprite *sprite)

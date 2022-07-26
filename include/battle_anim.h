@@ -23,7 +23,6 @@ struct BattleAnimBgData
     u8 paletteId;
     u8 bgId;
     u16 tilesOffset;
-    u16 unused;
 };
 
 struct BattleAnimBackground
@@ -78,7 +77,6 @@ int GetAnimBgAttribute(u8 bgId, u8 attributeId);
 
 // battle_anim_mons.c
 void TranslateSpriteInEllipse(struct Sprite *sprite);
-void AnimTranslateLinearAndFlicker(struct Sprite *sprite);
 void AnimTranslateLinearAndFlicker_Flipped(struct Sprite *sprite);
 void AnimWeatherBallUp(struct Sprite *sprite);
 void AnimWeatherBallDown(struct Sprite *sprite);

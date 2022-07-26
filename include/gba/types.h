@@ -49,7 +49,6 @@ struct PlttData
     u16 r:5; // red
     u16 g:5; // green
     u16 b:5; // blue
-    u16 unused_15:1;
 };
 
 struct OamData
@@ -154,10 +153,8 @@ struct SioMultiCnt
     u16 id:2;          // ID
     u16 error:1;       // error flag
     u16 enable:1;      // SIO enable
-    u16 unused_11_8:4;
     u16 mode:2;        // communication mode (should equal 2)
     u16 intrEnable:1;  // IRQ enable
-    u16 unused_15:1;
     u16 data;          // data
 };
 

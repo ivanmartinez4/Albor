@@ -4660,9 +4660,6 @@ u32 GetBoxMonData(struct BoxPokemon *boxMon, s32 field, u8 *data)
     case MON_DATA_WORLD_RIBBON:
         retVal = substruct3->worldRibbon;
         break;
-    case MON_DATA_UNUSED_RIBBONS:
-        retVal = substruct3->unusedRibbons;
-        break;
     case MON_DATA_EVENT_LEGAL:
         retVal = substruct3->eventLegal;
         break;
@@ -5050,9 +5047,6 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
         break;
     case MON_DATA_WORLD_RIBBON:
         SET8(substruct3->worldRibbon);
-        break;
-    case MON_DATA_UNUSED_RIBBONS:
-        SET8(substruct3->unusedRibbons);
         break;
     case MON_DATA_EVENT_LEGAL:
         SET8(substruct3->eventLegal);
@@ -6916,16 +6910,6 @@ u16 HoennToNationalOrder(u16 hoennNum)
     }                                                                           \
 }
 
-// Same as DrawSpindaSpots but attempts to discern for itself whether or
-// not it's the front pic.
-static void DrawSpindaSpotsUnused(u16 species, u32 personality, u8 *dest)
-{
-    if (species == SPECIES_SPINDA
-        && dest != gMonSpritesGfxPtr->sprites.ptr[B_POSITION_PLAYER_LEFT]
-        && dest != gMonSpritesGfxPtr->sprites.ptr[B_POSITION_PLAYER_RIGHT])
-        DRAW_SPINDA_SPOTS(personality, dest);
-}
-
 void DrawSpindaSpots(u16 species, u32 personality, u8 *dest, bool8 isFrontPic)
 {
     if (species == SPECIES_SPINDA && isFrontPic)
@@ -8106,7 +8090,6 @@ void DoMonFrontSpriteAnimation(struct Sprite* sprite, u16 species, bool8 noCry, 
             // No delay, start animation
             LaunchAnimationTaskForFrontSprite(sprite, sMonFrontAnimIdsTable[species - 1]);
         }
-        sprite->callback = SpriteCallbackDummy_2;
     }
 }
 
@@ -8147,34 +8130,7 @@ void BattleAnimateBackSprite(struct Sprite* sprite, u16 species)
     else
     {
         LaunchAnimationTaskForBackSprite(sprite, GetSpeciesBackAnimSet(species));
-        sprite->callback = SpriteCallbackDummy_2;
     }
-}
-
-// Unused, identical to GetOpposingLinkMultiBattlerId but for the player
-// "rightSide" from that team's perspective, i.e. B_POSITION_*_RIGHT
-static u8 GetOwnOpposingLinkMultiBattlerId(bool8 rightSide)
-{
-    s32 i;
-    s32 battlerId = 0;
-    u8 multiplayerId = GetMultiplayerId();
-    switch (gLinkPlayers[multiplayerId].id)
-    {
-    case 0:
-    case 2:
-        battlerId = rightSide ? 1 : 3;
-        break;
-    case 1:
-    case 3:
-        battlerId = rightSide ? 2 : 0;
-        break;
-    }
-    for (i = 0; i < MAX_LINK_PLAYERS; i++)
-    {
-        if (gLinkPlayers[i].id == (s16)battlerId)
-            break;
-    }
-    return i;
 }
 
 u8 GetOpposingLinkMultiBattlerId(bool8 rightSide, u8 multiplayerId)

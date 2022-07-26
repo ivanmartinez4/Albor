@@ -11,7 +11,6 @@ struct RfuSIO32Id
     u16 count;
     u16 send_id;
     u16 recv_id;
-    u16 unk8; // unused
     u16 lastId;
 };
 

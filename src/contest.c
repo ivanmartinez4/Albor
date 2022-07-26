@@ -111,7 +111,6 @@ static void SetBottomSliderHeartsInvisibility(bool8);
 static void CreateNextTurnSprites(void);
 static void CreateApplauseMeterSprite(void);
 static void CreateJudgeAttentionEyeTask(void);
-static void CreateUnusedBlendTask(void);
 static void ContestDebugDoPrint(void);
 static void DrawContestantWindows(void);
 static void ApplyNextTurnOrder(void);
@@ -162,8 +161,6 @@ static void Task_UpdateAppealHearts(u8);
 static void SpriteCB_UpdateHeartSlider(struct Sprite *);
 static void Task_FlashJudgeAttentionEye(u8);
 static void Task_StopFlashJudgeAttentionEye(u8);
-static void Task_UnusedBlend(u8);
-static void InitUnusedBlendTaskData(u8);
 static void UpdateBlendTaskContestantData(u8);
 static void SpriteCB_BlinkContestantBox(struct Sprite *);
 static void SpriteCB_EndBlinkContestantBox(struct Sprite *sprite);
@@ -553,14 +550,6 @@ static const struct SubspriteTable sSubspriteTable_NextTurn[] =
     }
 };
 
-// Unused
-static const struct CompressedSpriteSheet sSpriteSheet_Faces =
-{
-    .data = gContestFaces_Gfx,
-    .size = 0x180,
-    .tag = TAG_FACES_GFX
-};
-
 static const struct OamData sOam_Faces =
 {
     .y = 0,
@@ -573,18 +562,6 @@ static const struct OamData sOam_Faces =
     .tileNum = 0,
     .priority = 0,
     .paletteNum = 0,
-};
-
-// Unused
-static const struct SpriteTemplate sSpriteTemplate_Faces =
-{
-    .tileTag = TAG_FACES_GFX,
-    .paletteTag = TAG_CONTEST_SYMBOLS_PAL,
-    .oam = &sOam_Faces,
-    .anims = gDummySpriteAnimTable,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCallbackDummy
 };
 
 static const struct CompressedSpriteSheet sSpriteSheet_ApplauseMeter =
@@ -991,10 +968,6 @@ static const s8 sContestExcitementTable[CONTEST_CATEGORIES_COUNT][CONTEST_CATEGO
     }
 };
 
-static void TaskDummy1(u8 taskId)
-{
-}
-
 void ResetLinkContestBoolean(void)
 {
     gLinkContestFlags = 0;
@@ -1129,7 +1102,6 @@ static void AllocContestResources(void)
     gContestResources->gfxState = AllocZeroed(sizeof(struct ContestGraphicsState) * CONTESTANT_COUNT);
     gContestResources->moveAnim = AllocZeroed(sizeof(struct ContestMoveAnimData));
     gContestResources->tv = AllocZeroed(sizeof(struct ContestTV) * CONTESTANT_COUNT);
-    gContestResources->unused = AllocZeroed(sizeof(struct ContestUnused));
     gContestResources->contestBgTilemaps[0] = AllocZeroed(0x1000);
     gContestResources->contestBgTilemaps[1] = AllocZeroed(0x1000);
     gContestResources->contestBgTilemaps[2] = AllocZeroed(0x1000);
@@ -1151,7 +1123,6 @@ static void FreeContestResources(void)
     FREE_AND_SET_NULL(gContestResources->gfxState);
     FREE_AND_SET_NULL(gContestResources->moveAnim);
     FREE_AND_SET_NULL(gContestResources->tv);
-    FREE_AND_SET_NULL(gContestResources->unused);
     FREE_AND_SET_NULL(gContestResources->contestBgTilemaps[0]);
     FREE_AND_SET_NULL(gContestResources->contestBgTilemaps[1]);
     FREE_AND_SET_NULL(gContestResources->contestBgTilemaps[2]);
@@ -1263,7 +1234,6 @@ static void Task_TryStartLinkContest(u8 taskId)
                 ContestPrintLinkStandby();
             CreateTask(Task_CommunicateMonIdxs, 0);
             gTasks[taskId].data[0] = 0;
-            gTasks[taskId].func = TaskDummy1;
         }
     }
     else
@@ -1344,7 +1314,6 @@ static bool8 SetupContestGraphics(u8 *stateVar)
         CreateNextTurnSprites();
         CreateApplauseMeterSprite();
         CreateJudgeAttentionEyeTask();
-        CreateUnusedBlendTask();
         gBattlerPositions[0] = B_POSITION_PLAYER_LEFT;
         gBattlerPositions[1] = B_POSITION_OPPONENT_LEFT;
         gBattlerPositions[2] = B_POSITION_OPPONENT_RIGHT;
@@ -1637,7 +1606,6 @@ static void Task_SelectedMove(u8 taskId)
         eContestantStatus[gContestPlayerMonIndex].currMove = move;
         taskId2 = CreateTask(Task_LinkContest_CommunicateMoveSelections, 0);
         SetTaskFuncWithFollowupFunc(taskId2, Task_LinkContest_CommunicateMoveSelections, Task_EndCommunicateMoveSelections);
-        gTasks[taskId].func = TaskDummy1;
         ContestPrintLinkStandby();
         SetBottomSliderHeartsInvisibility(FALSE);
     }
@@ -1707,7 +1675,6 @@ static void Task_AppealSetup(u8 taskId)
     if (++gTasks[taskId].data[0] > 19)
     {
         eContest.turnNumber = 0;
-        eContest.unusedRng = gRngValue;
         if ((gLinkContestFlags & LINK_CONTEST_FLAG_IS_LINK) && IsPlayerLinkLeader())
         {
             s32 i;
@@ -2726,7 +2693,6 @@ static void Task_CommunicateFinalStandings(u8 taskId)
     u8 taskId2 = CreateTask(Task_LinkContest_CommunicateFinalStandings, 0);
 
     SetTaskFuncWithFollowupFunc(taskId2, Task_LinkContest_CommunicateFinalStandings, Task_EndCommunicateFinalStandings);
-    gTasks[taskId].func = TaskDummy1;
     ContestPrintLinkStandby();
     SetBottomSliderHeartsInvisibility(FALSE);
 }
@@ -3245,15 +3211,6 @@ static void DrawMoveEffectSymbol(u16 move, u8 contestant)
     {
         ContestBG_FillBoxWithTile(0, 0, 20, contestantOffset, 2, 2, 17);
     }
-}
-
-// Unused
-static void DrawMoveEffectSymbols(void)
-{
-    s32 i;
-
-    for (i = 0; i < CONTESTANT_COUNT; i++)
-        DrawMoveEffectSymbol(eContestantStatus[i].currMove, i);
 }
 
 static u16 GetStarTileOffset(void)
@@ -4023,28 +3980,6 @@ static void Task_FlashJudgeAttentionEye(u8 taskId)
     }
 }
 
-// Note: While the below task is run for the entire Appeals portion of the contest,
-//       because data[i * 4] is always 0xFF it never does anything
-//       If turned on by setting that data between 0 and 16, it blends
-//       an odd selection of palette colors (e.g. the text box, the appeal hearts
-//       for only one contestant, the heart outlines in the move selection box, etc)
-//       Given the similarities, it's possible this was an incorrect attempt
-//       at something similar to what CreateJudgeAttentionEyeTask does
-static void CreateUnusedBlendTask(void)
-{
-    s32 i;
-
-    eContest.blendTaskId = CreateTask(Task_UnusedBlend, 30);
-    for (i = 0; i < CONTESTANT_COUNT; i++)
-        InitUnusedBlendTaskData(i);
-}
-
-static void InitUnusedBlendTaskData(u8 contestant)
-{
-    gTasks[eContest.blendTaskId].data[contestant * 4] = 0xFF;
-    gTasks[eContest.blendTaskId].data[contestant * 4 + 1] = 0;
-}
-
 static void UpdateBlendTaskContestantsData(void)
 {
     s32 i;
@@ -4058,8 +3993,6 @@ static void UpdateBlendTaskContestantData(u8 contestant)
     u32 palOffset1;
     u32 palOffset2;
 
-    InitUnusedBlendTaskData(contestant);
-
     palOffset1 = contestant + 5;
     DmaCopy16Defvars(3,
                      gPlttBufferUnfaded + palOffset1 * 16 + 10,
@@ -4070,38 +4003,6 @@ static void UpdateBlendTaskContestantData(u8 contestant)
                      gPlttBufferUnfaded + palOffset2,
                      gPlttBufferFaded + palOffset2,
                      2);
-}
-
-// See comments on CreateUnusedBlendTask
-static void Task_UnusedBlend(u8 taskId)
-{
-    u8 i;
-
-    for (i = 0; i < CONTESTANT_COUNT; i++)
-    {
-        u8 idx = i * 4;
-
-        // Below is never true
-        if (gTasks[taskId].data[idx] != 0xFF)
-        {
-            if (++gTasks[taskId].data[idx + 2] > 2)
-            {
-                gTasks[taskId].data[idx + 2] = 0;
-
-                if (gTasks[taskId].data[idx + 1] == 0)
-                    gTasks[taskId].data[idx]++;
-                else
-                    gTasks[taskId].data[idx]--;
-
-                if (gTasks[taskId].data[idx] == 16
-                 || gTasks[taskId].data[idx] == 0)
-                    gTasks[taskId].data[idx + 1] ^= 1;
-
-                BlendPalette((i + 5) * 16 + 10,     1, gTasks[taskId].data[idx + 0], RGB(31, 31, 18));
-                BlendPalette((i + 5) * 16 + 12 + i, 1, gTasks[taskId].data[idx + 0], RGB(31, 31, 18));
-            }
-        }
-    }
 }
 
 static void StartStopFlashJudgeAttentionEye(u8 contestant)
@@ -4215,25 +4116,6 @@ static void SpriteCB_EndBlinkContestantBox(struct Sprite *sprite)
     eContestGfxState[sprite->data[1]].boxBlinking = FALSE;
     DestroyContestantBoxBlinkSprites(sprite->data[0]);
     ResetBlendForContestantBoxBlink();
-}
-
-// Unused.
-static void ContestDebugTogglePointTotal(void)
-{
-    if(eContestDebugMode == CONTEST_DEBUG_MODE_PRINT_POINT_TOTAL)
-        eContestDebugMode = CONTEST_DEBUG_MODE_OFF;
-    else
-        eContestDebugMode = CONTEST_DEBUG_MODE_PRINT_POINT_TOTAL;
-
-    if(eContestDebugMode == CONTEST_DEBUG_MODE_OFF)
-    {
-        DrawContestantWindowText();
-        SwapMoveDescAndContestTilemaps();
-    }
-    else
-    {
-        ContestDebugDoPrint();
-    }
 }
 
 static void ContestDebugDoPrint(void)
@@ -4870,19 +4752,6 @@ static void Task_ShowAndUpdateApplauseMeter(u8 taskId)
         }
         break;
     }
-}
-
-// Unused.
-static void HideApplauseMeterNoAnim(void)
-{
-    gSprites[eContest.applauseMeterSpriteId].x2 = 0;
-    gSprites[eContest.applauseMeterSpriteId].invisible = FALSE;
-}
-
-// Unused.
-static void ShowApplauseMeterNoAnim(void)
-{
-    gSprites[eContest.applauseMeterSpriteId].invisible = TRUE;
 }
 
 #define tDelay  data[10]
@@ -5916,32 +5785,6 @@ static void SetConestLiveUpdateTVData(void)
     ContestLiveUpdates_SetWinnerAppealFlag(winnerFlag);
     ContestLiveUpdates_SetWinnerMoveUsed(gContestResources->tv[winner].move);
     ContestLiveUpdates_SetLoserData(loserFlag, loser);
-}
-
-// Unused
-void ContestDebugToggleBitfields(bool8 loserFlags)
-{
-    if (eContestDebugMode == CONTEST_DEBUG_MODE_OFF)
-    {
-        if (!loserFlags)
-            eContestDebugMode = CONTEST_DEBUG_MODE_PRINT_WINNER_FLAGS;
-        else
-            eContestDebugMode = CONTEST_DEBUG_MODE_PRINT_LOSER_FLAGS;
-    }
-    else
-    {
-        eContestDebugMode = CONTEST_DEBUG_MODE_OFF;
-    }
-
-    if (eContestDebugMode == CONTEST_DEBUG_MODE_OFF)
-    {
-        DrawContestantWindowText();
-        SwapMoveDescAndContestTilemaps();
-    }
-    else
-    {
-        ContestDebugPrintBitStrings();
-    }
 }
 
 static void ContestDebugPrintBitStrings(void)

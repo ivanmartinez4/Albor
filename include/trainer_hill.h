@@ -7,7 +7,6 @@ struct TrainerHillTrainer
 {
     u8 name[HILL_TRAINER_NAME_LENGTH];
     u8 facilityClass;
-    bool32 unused; // Set to TRUE on JP trainers
     u16 speechBefore[EASY_CHAT_BATTLE_WORDS_COUNT];
     u16 speechWin[EASY_CHAT_BATTLE_WORDS_COUNT];
     u16 speechLose[EASY_CHAT_BATTLE_WORDS_COUNT];
@@ -35,7 +34,6 @@ struct TrainerHillFloor
 struct TrainerHillChallenge
 {
     u8 numTrainers;
-    u8 unused1;
     u8 numFloors;
     u32 checksum; // A byte array sum of the floor data
     struct TrainerHillFloor floors[0]; // Floor data is assumed to follow, so this will be intentionally read out of bounds

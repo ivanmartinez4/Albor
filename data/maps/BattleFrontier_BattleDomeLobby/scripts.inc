@@ -586,16 +586,6 @@ BattleFrontier_OutsideWest_Text_LongDreamedAboutBattleFrontier:
 	.string "The Battle Frontier…\n"
 	.string "I've long dreamed about a place like it.$"
 
-@ Functionally unused
-BattleFrontier_OutsideWest_Text_BattleDomeSign2:
-	.string "The Battle Dome\n"
-	.string "Become the Unbeatable Superstar!$"
-
-@ Functionally unused
-BattleFrontier_OutsideWest_Text_QuestionMarkUnderConstruction:
-	.string "The ??????\n"
-	.string "Under Construction!$"
-
 BattleFrontier_BattleDomeLobby_Text_WinnersGainReputation:
 	.string "When a Trainer chains tournament\n"
 	.string "wins at the Battle Dome, he or she\l"

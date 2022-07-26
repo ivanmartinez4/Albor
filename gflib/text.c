@@ -552,22 +552,6 @@ void DecompressGlyphTile(const void *src_, void *dest_)
     *(dest++) = ((sFontHalfRowLookupTable[sFontHalfRowOffsets[temp & 0xFF]]) << 16) | (sFontHalfRowLookupTable[sFontHalfRowOffsets[temp >> 8]]);
 }
 
-// Unused
-static u8 GetLastTextColor(u8 colorType)
-{
-    switch (colorType)
-    {
-    case 0:
-        return sLastTextFgColor;
-    case 2:
-        return sLastTextBgColor;
-    case 1:
-        return sLastTextShadowColor;
-    default:
-        return 0;
-    }
-}
-
 inline static void GLYPH_COPY(u8 *windowTiles, u32 widthOffset, u32 j, u32 i, u32 *glyphPixels, s32 width, s32 height)
 {
     u32 xAdd, yAdd, pixelData, bits, toOrr, dummyX;
@@ -1223,96 +1207,6 @@ static u16 RenderText(struct TextPrinter *textPrinter)
     return RENDER_FINISH;
 }
 
-// Unused
-static u32 GetStringWidthFixedWidthFont(const u8 *str, u8 fontId, u8 letterSpacing)
-{
-    int i;
-    u8 width;
-    int temp;
-    int temp2;
-    u8 line;
-    int strPos;
-    u8 lineWidths[8];
-    const u8 *strLocal;
-
-    for (i = 0; i < (int)ARRAY_COUNT(lineWidths); i++)
-        lineWidths[i] = 0;
-
-    width = 0;
-    line = 0;
-    strLocal = str;
-    strPos = 0;
-
-    do
-    {
-        temp = strLocal[strPos++];
-        switch (temp)
-        {
-        case CHAR_NEWLINE:
-        case EOS:
-            lineWidths[line] = width;
-            width = 0;
-            line++;
-            break;
-        case EXT_CTRL_CODE_BEGIN:
-            temp2 = strLocal[strPos++];
-            switch (temp2)
-            {
-            case EXT_CTRL_CODE_COLOR_HIGHLIGHT_SHADOW:
-                ++strPos;
-            case EXT_CTRL_CODE_PLAY_BGM:
-            case EXT_CTRL_CODE_PLAY_SE:
-                ++strPos;
-            case EXT_CTRL_CODE_COLOR:
-            case EXT_CTRL_CODE_HIGHLIGHT:
-            case EXT_CTRL_CODE_SHADOW:
-            case EXT_CTRL_CODE_PALETTE:
-            case EXT_CTRL_CODE_FONT:
-            case EXT_CTRL_CODE_PAUSE:
-            case EXT_CTRL_CODE_ESCAPE:
-            case EXT_CTRL_CODE_SHIFT_TEXT:
-            case EXT_CTRL_CODE_SHIFT_DOWN:
-            case EXT_CTRL_CODE_CLEAR:
-            case EXT_CTRL_CODE_SKIP:
-            case EXT_CTRL_CODE_CLEAR_TO:
-            case EXT_CTRL_CODE_MIN_LETTER_SPACING:
-                ++strPos;
-                break;
-            case EXT_CTRL_CODE_RESET_SIZE:
-            case EXT_CTRL_CODE_PAUSE_UNTIL_PRESS:
-            case EXT_CTRL_CODE_WAIT_SE:
-            case EXT_CTRL_CODE_FILL_WINDOW:
-            case EXT_CTRL_CODE_JPN:
-            case EXT_CTRL_CODE_ENG:
-            default:
-                break;
-            }
-            break;
-        case CHAR_DYNAMIC:
-        case PLACEHOLDER_BEGIN:
-            ++strPos;
-            break;
-        case CHAR_PROMPT_SCROLL:
-        case CHAR_PROMPT_CLEAR:
-            break;
-        case CHAR_KEYPAD_ICON:
-        case CHAR_EXTRA_SYMBOL:
-            ++strPos;
-        default:
-            ++width;
-            break;
-        }
-    } while (temp != EOS);
-
-    for (width = 0, strPos = 0; strPos < 8; ++strPos)
-    {
-        if (width < lineWidths[strPos])
-            width = lineWidths[strPos];
-    }
-
-    return (u8)(GetFontAttribute(fontId, FONTATTR_MAX_LETTER_WIDTH) + letterSpacing) * width;
-}
-
 static u32 (*GetFontWidthFunc(u8 fontId))(u16, bool32)
 {
     u32 i;
@@ -1870,7 +1764,7 @@ static void DecompressGlyph_Normal(u16 glyphId, bool32 isJapanese)
     }
     else
     {
-        glyphs = gFontNormalLatinGlyphs + (0x20 * glyphId);
+        glyphs = gFontShortLatinGlyphs + (0x20 * glyphId);
         gCurGlyph.width = gFontNormalLatinGlyphWidths[glyphId];
 
         if (gCurGlyph.width <= 8)

@@ -191,7 +191,6 @@ static void FreeTrainerSpriteAfterSlide(void)
 {
     if (gSprites[gBattlerSpriteIds[gActiveBattler]].callback == SpriteCallbackDummy)
     {
-        BattleGfxSfxDummy3(MALE);
         FreeSpriteOamMatrix(&gSprites[gBattlerSpriteIds[gActiveBattler]]);
         DestroySprite(&gSprites[gBattlerSpriteIds[gActiveBattler]]);
         LinkPartnerBufferExecCompleted();
@@ -293,7 +292,6 @@ static void FreeMonSpriteAfterFaintAnim(void)
     {
         u16 species = GetMonData(&gPlayerParty[gBattlerPartyIndexes[gActiveBattler]], MON_DATA_SPECIES);
 
-        BattleGfxSfxDummy2(species);
         FreeOamMatrix(gSprites[gBattlerSpriteIds[gActiveBattler]].oam.matrixNum);
         DestroySprite(&gSprites[gBattlerSpriteIds[gActiveBattler]]);
         SetHealthboxSpriteInvisible(gHealthboxSpriteIds[gActiveBattler]);
@@ -1433,25 +1431,21 @@ static void LinkPartnerHandleOneReturnValue_Duplicate(void)
 
 static void LinkPartnerHandleClearUnkVar(void)
 {
-    gUnusedControllerStruct.unk = 0;
     LinkPartnerBufferExecCompleted();
 }
 
 static void LinkPartnerHandleSetUnkVar(void)
 {
-    gUnusedControllerStruct.unk = gBattleResources->bufferA[gActiveBattler][1];
     LinkPartnerBufferExecCompleted();
 }
 
 static void LinkPartnerHandleClearUnkFlag(void)
 {
-    gUnusedControllerStruct.flag = 0;
     LinkPartnerBufferExecCompleted();
 }
 
 static void LinkPartnerHandleToggleUnkFlag(void)
 {
-    gUnusedControllerStruct.flag ^= 1;
     LinkPartnerBufferExecCompleted();
 }
 

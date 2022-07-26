@@ -188,12 +188,6 @@ static void CompleteOnBattlerSpriteCallbackDummy(void)
         LinkOpponentBufferExecCompleted();
 }
 
-static void CompleteOnBankSpriteCallbackDummy2(void)
-{
-    if (gSprites[gBattlerSpriteIds[gActiveBattler]].callback == SpriteCallbackDummy)
-        LinkOpponentBufferExecCompleted();
-}
-
 static void FreeTrainerSpriteAfterSlide(void)
 {
     if (gSprites[gBattlerSpriteIds[gActiveBattler]].callback == SpriteCallbackDummy)
@@ -461,8 +455,7 @@ static void SwitchIn_HandleSoundAndEnd(void)
 {
     if (!gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].specialAnimActive && !IsCryPlayingOrClearCrySongs())
     {
-        if (gSprites[gBattlerSpriteIds[gActiveBattler]].callback == SpriteCallbackDummy
-            || gSprites[gBattlerSpriteIds[gActiveBattler]].callback == SpriteCallbackDummy_2)
+        if (gSprites[gBattlerSpriteIds[gActiveBattler]].callback == SpriteCallbackDummy)
         {
             m4aMPlayVolumeControl(&gMPlayInfo_BGM, TRACKS_ALL, 0x100);
             LinkOpponentBufferExecCompleted();
@@ -1329,7 +1322,6 @@ static void LinkOpponentHandleTrainerSlide(void)
     gSprites[gBattlerSpriteIds[gActiveBattler]].oam.affineParam = trainerPicId;
     gSprites[gBattlerSpriteIds[gActiveBattler]].callback = SpriteCB_TrainerSlideIn;
 
-    gBattlerControllerFuncs[gActiveBattler] = CompleteOnBankSpriteCallbackDummy2; // this line is redundant, because LinkOpponentBufferExecCompleted changes the battle battlerId function
     LinkOpponentBufferExecCompleted();
 }
 
@@ -1601,25 +1593,21 @@ static void LinkOpponentHandleOneReturnValue_Duplicate(void)
 
 static void LinkOpponentHandleClearUnkVar(void)
 {
-    gUnusedControllerStruct.unk = 0;
     LinkOpponentBufferExecCompleted();
 }
 
 static void LinkOpponentHandleSetUnkVar(void)
 {
-    gUnusedControllerStruct.unk = gBattleResources->bufferA[gActiveBattler][1];
     LinkOpponentBufferExecCompleted();
 }
 
 static void LinkOpponentHandleClearUnkFlag(void)
 {
-    gUnusedControllerStruct.flag = 0;
     LinkOpponentBufferExecCompleted();
 }
 
 static void LinkOpponentHandleToggleUnkFlag(void)
 {
-    gUnusedControllerStruct.flag ^= 1;
     LinkOpponentBufferExecCompleted();
 }
 

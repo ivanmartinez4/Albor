@@ -228,18 +228,6 @@ BravoTrainerBattleTower_Text_Unsatisfied::
 	.string "Anyway, I found out how dissatisfied\n"
 	.string "our Trainer was when I heard this:$"
 
-BravoTrainerBattleTower_Text_None1::
-	.string "None$"
-
-BravoTrainerBattleTower_Text_None2::
-	.string "None$"
-
-BravoTrainerBattleTower_Text_None3::
-	.string "None$"
-
-BravoTrainerBattleTower_Text_None4::
-	.string "None$"
-
 BravoTrainerBattleTower_Text_Response::
 	.string "“{STR_VAR_1}.”$"
 

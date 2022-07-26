@@ -63,7 +63,6 @@ static const u32 sHouseSilhouette_Gfx[]   = INCBIN_U32("graphics/intro/scene_2/h
 static const u16 sBrendanCredits_Pal[]    = INCBIN_U16("graphics/intro/scene_2/brendan_credits.gbapal");
 static const u32 sBrendanCredits_Gfx[]    = INCBIN_U32("graphics/intro/scene_2/brendan_credits.4bpp.lz");
 static const u16 sMayCredits_Pal[]        = INCBIN_U16("graphics/intro/scene_2/may_credits.gbapal");
-static const u16 sUnused[0xF0]            = {0};
 static const u32 sMayCredits_Gfx[]        = INCBIN_U32("graphics/intro/scene_2/may_credits.4bpp.lz");
 static const u32 sBicycle_Gfx[]           = INCBIN_U32("graphics/intro/scene_2/bicycle.4bpp.lz");
 static const u16 sLatios_Pal[]            = INCBIN_U16("graphics/intro/scene_2/latios.gbapal");
@@ -606,17 +605,6 @@ const struct CompressedSpriteSheet gSpriteSheet_IntroBicycle[] =
     {}
 };
 
-// In RS these were Latios/Latias. In Emerald both are replaced with Flygon and now only 1 is used
-static const struct CompressedSpriteSheet sSpriteSheet_IntroFlygon_Unused[] =
-{
-    {
-        .data = gIntroFlygon_Gfx,
-        .size = 0x1000,
-        .tag = TAG_FLYGON_LATIOS
-    },
-    {}
-};
-
 const struct CompressedSpriteSheet gSpriteSheet_IntroFlygon[] =
 {
     {
@@ -662,28 +650,6 @@ const struct CompressedSpriteSheet gSpriteSheet_CreditsBicycle[] =
         .data = sBicycle_Gfx,
         .size = 0x1000,
         .tag = TAG_BICYCLE
-    },
-    {}
-};
-
-// Unused
-static const struct CompressedSpriteSheet sSpriteSheet_Latios[] =
-{
-    {
-        .data = sLatios_Gfx,
-        .size = 0x1000,
-        .tag = TAG_FLYGON_LATIOS
-    },
-    {}
-};
-
-// Unused
-static const struct CompressedSpriteSheet sSpriteSheet_Latias[] =
-{
-    {
-        .data = sLatias_Gfx,
-        .size = 0x1000,
-        .tag = TAG_FLYGON_LATIAS
     },
     {}
 };
@@ -1146,18 +1112,6 @@ static void SpriteCB_FlygonRightHalf(struct Sprite* sprite)
     sprite->x2 = gSprites[sprite->sLeftSpriteId].x2;
     sprite->y2 = gSprites[sprite->sLeftSpriteId].y2;
 }
-
-// In RS these were for Latios/Latias. In Emerald both are replaced with Flygon and now only 1 is used
-static u8 CreateIntroFlygonSprite_Unused(s16 x, s16 y)
-{
-    u8 leftSpriteId = CreateSprite(&sSpriteTemplate_FlygonLatios, x - 32, y, 5);
-    u8 rightSpriteId = CreateSprite(&sSpriteTemplate_FlygonLatios, x + 32, y, 6);
-    gSprites[rightSpriteId].sLeftSpriteId = leftSpriteId;
-    StartSpriteAnim(&gSprites[rightSpriteId], 1);
-    gSprites[rightSpriteId].callback = &SpriteCB_FlygonRightHalf;
-    return leftSpriteId;
-}
-
 
 u8 CreateIntroFlygonSprite(s16 x, s16 y)
 {

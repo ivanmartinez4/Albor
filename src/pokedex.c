@@ -113,8 +113,6 @@ static EWRAM_DATA u16 sLastSelectedPokemon = 0;
 static EWRAM_DATA u8 sPokeBallRotation = 0;
 static EWRAM_DATA struct PokedexListItem *sPokedexListItem = NULL;
 
-// This is written to, but never read.
-u8 gUnusedPokedexU8;
 void (*gPokedexVBlankCB)(void);
 
 struct SearchOptionText
@@ -1505,7 +1503,6 @@ void ResetPokedex(void)
 
     sLastSelectedPokemon = 0;
     sPokeBallRotation = POKEBALL_ROTATION_TOP;
-    gUnusedPokedexU8 = 0;
     gSaveBlock2Ptr->pokedex.mode = DEX_MODE_HOENN;
     gSaveBlock2Ptr->pokedex.order = 0;
     gSaveBlock2Ptr->pokedex.nationalMagic = 0;
@@ -4233,11 +4230,6 @@ static void PrintMonWeight(u16 weight, u8 left, u8 top)
     PrintInfoScreenText(buffer, left, top);
 }
 
-const u8 *GetPokedexCategoryName(u16 dexNum) // unused
-{
-    return gPokedexEntries[dexNum].categoryName;
-}
-
 u16 GetPokedexHeightWeight(u16 dexNum, u8 data)
 {
     switch (data)
@@ -4448,17 +4440,6 @@ static void PrintInfoSubMenuText(u8 windowId, const u8 *str, u8 left, u8 top)
     AddTextPrinterParameterized4(windowId, FONT_NORMAL, left, top, 0, 0, color, TEXT_SKIP_DRAW, str);
 }
 
-static void UnusedPrintNum(u8 windowId, u16 num, u8 left, u8 top)
-{
-    u8 str[4];
-
-    str[0] = CHAR_0 + num / 100;
-    str[1] = CHAR_0 + (num % 100) / 10;
-    str[2] = CHAR_0 + (num % 100) % 10;
-    str[3] = EOS;
-    PrintInfoSubMenuText(windowId, str, left, top);
-}
-
 static u8 PrintCryScreenSpeciesName(u8 windowId, u16 num, u8 left, u8 top)
 {
     u8 str[POKEMON_NAME_LENGTH + 1];
@@ -4480,63 +4461,6 @@ static u8 PrintCryScreenSpeciesName(u8 windowId, u16 num, u8 left, u8 top)
     }
     PrintInfoSubMenuText(windowId, str, left, top);
     return i;
-}
-
-static void UnusedPrintMonName(u8 windowId, const u8* name, u8 left, u8 top)
-{
-    u8 str[POKEMON_NAME_LENGTH + 1];
-    u8 i;
-    u8 nameLength;
-
-    for (i = 0; i < ARRAY_COUNT(str); i++)
-        str[i] = CHAR_SPACE;
-    for (nameLength = 0; name[nameLength] != CHAR_SPACE && nameLength < ARRAY_COUNT(str); nameLength++)
-        ;
-    for (i = 0; i < nameLength; i++)
-        str[ARRAY_COUNT(str) - nameLength + i] = name[i];
-#ifdef UBFIX
-    str[ARRAY_COUNT(str) - 1] = EOS;
-#else
-    str[ARRAY_COUNT(str)] = EOS;
-#endif
-    PrintInfoSubMenuText(windowId, str, left, top);
-}
-
-static void UnusedPrintDecimalNum(u8 windowId, u16 b, u8 left, u8 top)
-{
-    u8 str[6];
-    bool8 outputted = FALSE;
-    u8 result;
-
-    result = b / 1000;
-    if (result == 0)
-    {
-        str[0] = CHAR_SPACER;
-        outputted = FALSE;
-    }
-    else
-    {
-        str[0] = CHAR_0 + result;
-        outputted = TRUE;
-    }
-
-    result = (b % 1000) / 100;
-    if (result == 0 && !outputted)
-    {
-        str[1] = CHAR_SPACER;
-        outputted = FALSE;
-    }
-    else
-    {
-        str[1] = CHAR_0 + result;
-        outputted = TRUE;
-    }
-
-    str[2] = CHAR_0 + ((b % 1000) % 100) / 10;
-    str[3] = CHAR_PERIOD;
-    str[4] = CHAR_0 + ((b % 1000) % 100) % 10;
-    str[5] = EOS;
-    PrintInfoSubMenuText(windowId, str, left, top);
 }
 
 static void DrawFootprint(u8 windowId, u16 dexNum)
@@ -4561,15 +4485,6 @@ static void DrawFootprint(u8 windowId, u16 dexNum)
         }
     }
     CopyToWindowPixelBuffer(windowId, footprint, sizeof(footprint), 0);
-}
-
-// Unused Ruby/Sapphire function.
-static void RS_DrawFootprint(u16 offset, u16 tileNum)
-{
-    *(u16 *)(VRAM + offset * 0x800 + 0x232) = 0xF000 + tileNum + 0;
-    *(u16 *)(VRAM + offset * 0x800 + 0x234) = 0xF000 + tileNum + 1;
-    *(u16 *)(VRAM + offset * 0x800 + 0x272) = 0xF000 + tileNum + 2;
-    *(u16 *)(VRAM + offset * 0x800 + 0x274) = 0xF000 + tileNum + 3;
 }
 
 static u16 GetNextPosition(u8 direction, u16 position, u16 min, u16 max)

@@ -168,10 +168,6 @@ static void (*const sOpponentBufferCommands[CONTROLLER_CMDS_COUNT])(void) =
     [CONTROLLER_DEBUGMENU]                = OpponentHandleDebugMenu,
     [CONTROLLER_TERMINATOR_NOP]           = OpponentCmdEnd
 };
-
-// unknown unused data
-static const u8 sUnused[] = {0xB0, 0xB0, 0xC8, 0x98, 0x28, 0x28, 0x28, 0x20};
-
 static void OpponentDummy(void)
 {
 }
@@ -193,12 +189,6 @@ static void OpponentBufferRunCommand(void)
 }
 
 static void CompleteOnBattlerSpriteCallbackDummy(void)
-{
-    if (gSprites[gBattlerSpriteIds[gActiveBattler]].callback == SpriteCallbackDummy)
-        OpponentBufferExecCompleted();
-}
-
-static void CompleteOnBankSpriteCallbackDummy2(void)
 {
     if (gSprites[gBattlerSpriteIds[gActiveBattler]].callback == SpriteCallbackDummy)
         OpponentBufferExecCompleted();
@@ -476,8 +466,7 @@ static void SwitchIn_HandleSoundAndEnd(void)
 {
     if (!gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].specialAnimActive && !IsCryPlayingOrClearCrySongs())
     {
-        if (gSprites[gBattlerSpriteIds[gActiveBattler]].callback == SpriteCallbackDummy
-         || gSprites[gBattlerSpriteIds[gActiveBattler]].callback == SpriteCallbackDummy_2)
+        if (gSprites[gBattlerSpriteIds[gActiveBattler]].callback == SpriteCallbackDummy)
         {
             m4aMPlayVolumeControl(&gMPlayInfo_BGM, TRACKS_ALL, 0x100);
             OpponentBufferExecCompleted();
@@ -1393,8 +1382,6 @@ static void OpponentHandleTrainerSlide(void)
     gSprites[gBattlerSpriteIds[gActiveBattler]].oam.paletteNum = IndexOfSpritePaletteTag(gTrainerFrontPicPaletteTable[trainerPicId].tag);
     gSprites[gBattlerSpriteIds[gActiveBattler]].oam.affineParam = trainerPicId;
     gSprites[gBattlerSpriteIds[gActiveBattler]].callback = SpriteCB_TrainerSlideIn;
-
-    gBattlerControllerFuncs[gActiveBattler] = CompleteOnBankSpriteCallbackDummy2;
 }
 
 #undef sSpeedX
@@ -1823,25 +1810,21 @@ static void OpponentHandleOneReturnValue_Duplicate(void)
 
 static void OpponentHandleClearUnkVar(void)
 {
-    gUnusedControllerStruct.unk = 0;
     OpponentBufferExecCompleted();
 }
 
 static void OpponentHandleSetUnkVar(void)
 {
-    gUnusedControllerStruct.unk = gBattleResources->bufferA[gActiveBattler][1];
     OpponentBufferExecCompleted();
 }
 
 static void OpponentHandleClearUnkFlag(void)
 {
-    gUnusedControllerStruct.flag = 0;
     OpponentBufferExecCompleted();
 }
 
 static void OpponentHandleToggleUnkFlag(void)
 {
-    gUnusedControllerStruct.flag ^= 1;
     OpponentBufferExecCompleted();
 }
 

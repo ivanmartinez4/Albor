@@ -23,8 +23,6 @@
 static void CB2_MysteryEventMenu(void);
 static void PrintMysteryMenuText(u8 windowId, const u8 *text, u8 x, u8 y, s32 speed);
 
-static EWRAM_DATA u8 sUnused = 0; // set but unused
-
 static const struct BgTemplate sBgTemplates[] =
 {
     {
@@ -267,7 +265,6 @@ static void CB2_MysteryEventMenu(void)
         if (!IsTextPrinterActive(0))
         {
             gMain.state++;
-            sUnused = 0;
         }
         break;
     case 14:

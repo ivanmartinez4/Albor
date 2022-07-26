@@ -549,64 +549,6 @@ static bool8 RfuUnusedQueue_Dequeue(struct RfuUnusedQueue *queue, u8 *dest)
     return TRUE;
 }
 
-// Unused
-// Populates an array with a sequence of numbers (which numbers depends on the mode)
-// and sets the final element to the total of the other elements
-#define SEQ_ARRAY_MAX_SIZE 200
-static void PopulateArrayWithSequence(u8 *arr, u8 mode)
-{
-    s32 i;
-    u8 rval;
-    u16 total = 0;
-    switch (mode)
-    {
-    case 0:
-        // Populate with numbers 1-200
-        // Total will be 20100
-        for (i = 0; i < SEQ_ARRAY_MAX_SIZE; i++)
-        {
-            arr[i] = i + 1;
-            total += i + 1;
-        }
-        *((u16 *)(arr + i)) = total;
-        break;
-    case 1:
-        // Populate with numbers 1-100
-        // Total will be 5050
-        for (i = 0; i < 100; i++)
-        {
-            arr[i] = i + 1;
-            total += i + 1;
-        }
-        *((u16 *)(arr + SEQ_ARRAY_MAX_SIZE)) = total;
-        break;
-    case 2:
-        // Populate with random numbers 0-255
-        // Total will be a number 0-51000
-        for (i = 0; i < SEQ_ARRAY_MAX_SIZE; i++)
-        {
-            rval = Random();
-            arr[i] = rval;
-            total += rval;
-        }
-        *((u16 *)(arr + i)) = total;
-        break;
-    case 3:
-        // Populate with numbers 1-200 + sSequenceArrayValOffset
-        // Total will be a number 20100-51000
-        for (i = 0; i < SEQ_ARRAY_MAX_SIZE; i++)
-        {
-            arr[i] = i + 1 + sSequenceArrayValOffset;
-            total += (i + 1 + sSequenceArrayValOffset) & 0xFF;
-        }
-        *((u16 *)(arr + i)) = total;
-        sSequenceArrayValOffset++;
-        break;
-    }
-}
-
-// File boundary here maybe?
-
 static void PkmnStrToASCII(u8 *asciiStr, const u8 *pkmnStr)
 {
     s32 i;

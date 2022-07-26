@@ -71,7 +71,6 @@ struct CreditsData
     u16 numMonToShow; //number of pokemon to show, always NUM_MON_SLIDES after determine function
     u16 caughtMonIds[NATIONAL_DEX_COUNT]; //temporary location to hold a condensed array of all caught pokemon
     u16 numCaughtMon; //count of filled spaces in caughtMonIds
-    u16 unused[7];
 };
 
 struct CreditsEntry

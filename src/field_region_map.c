@@ -29,7 +29,6 @@
 
 static EWRAM_DATA struct {
     MainCallback callback;
-    u32 unused;
     struct RegionMap regionMap;
     u16 state;
 } *sFieldRegionMapHandler = NULL;

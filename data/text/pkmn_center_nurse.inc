@@ -42,7 +42,7 @@ gText_YouWantTheUsual::
 
 gText_IllTakeYourPkmn2::
     .string "Okay, I'll take your Pokémon\n"
-    .string "for a few seconds.$"
+    .string "for a few seconds, master.$"
 
 gText_ThankYouForWaiting::
     .string "Thank you for waiting.$"

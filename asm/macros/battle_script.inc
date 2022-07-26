@@ -1214,7 +1214,7 @@
 	.4byte \ptr
 	.endm
 
-	.macro pursuitdoubles ptr:req
+	.macro metalburstdamagecalculator ptr:req
 	.byte 0xec
 	.4byte \ptr
 	.endm
@@ -1297,11 +1297,6 @@
 
 	.macro tryworryseed ptr:req
 	.byte 0xfe
-	.4byte \ptr
-	.endm
-
-	.macro metalburstdamagecalculator ptr:req
-	.byte 0xff
 	.4byte \ptr
 	.endm
 

@@ -185,9 +185,6 @@ static void (*const sPlayerBufferCommands[CONTROLLER_CMDS_COUNT])(void) =
     [CONTROLLER_TERMINATOR_NOP]           = PlayerCmdEnd
 };
 
-// unknown unused data
-static const u8 sUnused[] = {0x48, 0x48, 0x20, 0x5a, 0x50, 0x50, 0x50, 0x58};
-
 void BattleControllerDummy(void)
 {
 }
@@ -344,13 +341,6 @@ static void HandleInputChooseAction(void)
         PlayerBufferExecCompleted();
     }
     #endif
-}
-
-static void UnusedEndBounceEffect(void)
-{
-    EndBounceEffect(gActiveBattler, BOUNCE_HEALTHBOX);
-    EndBounceEffect(gActiveBattler, BOUNCE_MON);
-    gBattlerControllerFuncs[gActiveBattler] = HandleInputChooseTarget;
 }
 
 static void HandleInputChooseTarget(void)
@@ -824,56 +814,6 @@ static void ReloadMoveNames(void)
     MoveSelectionDisplayMoveType();
 }
 
-static u32 HandleMoveInputUnused(void)
-{
-    u32 var = 0;
-
-    if (JOY_NEW(A_BUTTON))
-    {
-        PlaySE(SE_SELECT);
-        var = 1;
-    }
-    if (JOY_NEW(B_BUTTON))
-    {
-        PlaySE(SE_SELECT);
-        gBattle_BG0_X = 0;
-        gBattle_BG0_Y = DISPLAY_HEIGHT * 2;
-        var = 0xFF;
-    }
-    if (JOY_NEW(DPAD_LEFT) && gMoveSelectionCursor[gActiveBattler] & 1)
-    {
-        MoveSelectionDestroyCursorAt(gMoveSelectionCursor[gActiveBattler]);
-        gMoveSelectionCursor[gActiveBattler] ^= 1;
-        PlaySE(SE_SELECT);
-        MoveSelectionCreateCursorAt(gMoveSelectionCursor[gActiveBattler], 0);
-    }
-    if (JOY_NEW(DPAD_RIGHT) && !(gMoveSelectionCursor[gActiveBattler] & 1)
-        && (gMoveSelectionCursor[gActiveBattler] ^ 1) < gNumberOfMovesToChoose)
-    {
-        MoveSelectionDestroyCursorAt(gMoveSelectionCursor[gActiveBattler]);
-        gMoveSelectionCursor[gActiveBattler] ^= 1;
-        PlaySE(SE_SELECT);
-        MoveSelectionCreateCursorAt(gMoveSelectionCursor[gActiveBattler], 0);
-    }
-    if (JOY_NEW(DPAD_UP) && gMoveSelectionCursor[gActiveBattler] & 2)
-    {
-        MoveSelectionDestroyCursorAt(gMoveSelectionCursor[gActiveBattler]);
-        gMoveSelectionCursor[gActiveBattler] ^= 2;
-        PlaySE(SE_SELECT);
-        MoveSelectionCreateCursorAt(gMoveSelectionCursor[gActiveBattler], 0);
-    }
-    if (JOY_NEW(DPAD_DOWN) && !(gMoveSelectionCursor[gActiveBattler] & 2)
-        && (gMoveSelectionCursor[gActiveBattler] ^ 2) < gNumberOfMovesToChoose)
-    {
-        MoveSelectionDestroyCursorAt(gMoveSelectionCursor[gActiveBattler]);
-        gMoveSelectionCursor[gActiveBattler] ^= 2;
-        PlaySE(SE_SELECT);
-        MoveSelectionCreateCursorAt(gMoveSelectionCursor[gActiveBattler], 0);
-    }
-
-    return var;
-}
-
 static void HandleMoveSwitching(void)
 {
     u8 perMovePPBonuses[MAX_MON_MOVES];
@@ -1121,17 +1061,10 @@ static void CompleteOnBattlerSpriteCallbackDummy(void)
         PlayerBufferExecCompleted();
 }
 
-static void CompleteOnBankSpriteCallbackDummy2(void)
-{
-    if (gSprites[gBattlerSpriteIds[gActiveBattler]].callback == SpriteCallbackDummy)
-        PlayerBufferExecCompleted();
-}
-
 static void FreeTrainerSpriteAfterSlide(void)
 {
     if (gSprites[gBattlerSpriteIds[gActiveBattler]].callback == SpriteCallbackDummy)
     {
-        BattleGfxSfxDummy3(gSaveBlock2Ptr->playerGender);
         FreeSpriteOamMatrix(&gSprites[gBattlerSpriteIds[gActiveBattler]]);
         DestroySprite(&gSprites[gBattlerSpriteIds[gActiveBattler]]);
         PlayerBufferExecCompleted();
@@ -1538,7 +1471,6 @@ static void FreeMonSpriteAfterFaintAnim(void)
     {
         u16 species = GetMonData(&gPlayerParty[gBattlerPartyIndexes[gActiveBattler]], MON_DATA_SPECIES);
 
-        BattleGfxSfxDummy2(species);
         FreeOamMatrix(gSprites[gBattlerSpriteIds[gActiveBattler]].oam.matrixNum);
         DestroySprite(&gSprites[gBattlerSpriteIds[gActiveBattler]]);
         SetHealthboxSpriteInvisible(gHealthboxSpriteIds[gActiveBattler]);
@@ -2604,8 +2536,6 @@ static void PlayerHandleTrainerSlide(void)
     gSprites[gBattlerSpriteIds[gActiveBattler]].x2 = -96;
     gSprites[gBattlerSpriteIds[gActiveBattler]].sSpeedX = 2;
     gSprites[gBattlerSpriteIds[gActiveBattler]].callback = SpriteCB_TrainerSlideIn;
-
-    gBattlerControllerFuncs[gActiveBattler] = CompleteOnBankSpriteCallbackDummy2;
 }
 
 #undef sSpeedX
@@ -3087,25 +3017,21 @@ static void PlayerHandleOneReturnValue_Duplicate(void)
 
 static void PlayerHandleClearUnkVar(void)
 {
-    gUnusedControllerStruct.unk = 0;
     PlayerBufferExecCompleted();
 }
 
 static void PlayerHandleSetUnkVar(void)
 {
-    gUnusedControllerStruct.unk = gBattleResources->bufferA[gActiveBattler][1];
     PlayerBufferExecCompleted();
 }
 
 static void PlayerHandleClearUnkFlag(void)
 {
-    gUnusedControllerStruct.flag = 0;
     PlayerBufferExecCompleted();
 }
 
 static void PlayerHandleToggleUnkFlag(void)
 {
-    gUnusedControllerStruct.flag ^= 1;
     PlayerBufferExecCompleted();
 }
 

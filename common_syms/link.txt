@@ -10,8 +10,6 @@ gLinkFiller2
 gLinkHeldKeys
 gRecvCmds
 gLinkStatus
-gLinkDummy1
-gLinkDummy2
 gReadyToExitStandby
 gReadyToCloseLink
 gReadyCloseLinkType

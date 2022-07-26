@@ -357,28 +357,6 @@ static const u8 sTradeMonBoxCoords[][2][2] =
     },
 };
 
-static const u8 sUnusedCoords[][2] =
-{
-    { 0, 14},
-    {15, 29},
-    { 3,  5},
-    { 3,  7},
-    {18,  5},
-    {18,  7},
-    { 8,  7},
-    {22, 12},
-    { 8,  7},
-    {22, 12},
-    { 6,  7},
-    {24, 12},
-    { 6,  7},
-    {24, 12},
-    { 8,  7},
-    {22, 12},
-    { 7,  7},
-    {23, 12}
-};
-
 static const u8 *const sTradeActionTexts[] =
 {
     [TRADE_TEXT_CANCEL]       = sText_Cancel,
@@ -646,7 +624,6 @@ static const u8 sPokeballSymbol_Gfx[] = INCBIN_U8("graphics/trade/pokeball_symbo
 static const u16 sCrossingHighlightCable_Tilemap[] = INCBIN_U16("graphics/trade/crossing_highlight_cable.bin");
 static const u16 sTradeTilemap_PokeBallSymbol[] = INCBIN_U16("graphics/trade/pokeball_symbol_map.bin"); // unused?
 static const u16 sGba_Pal[] = INCBIN_U16("graphics/trade/gba.gbapal");
-static const u16 sWirelessSignalNone_Pal_Unused[] = INCBIN_U16("graphics/trade/wireless_signal_none.gbapal");
 static const u16 sLinkMon_Pal[] = INCBIN_U16("graphics/trade/link_mon.gbapal");
 static const u8 sLinkMonGlow_Gfx[] = INCBIN_U8("graphics/trade/link_mon_glow.4bpp");
 static const u8 sLinkMonShadow_Gfx[] = INCBIN_U8("graphics/trade/link_mon_shadow.4bpp");

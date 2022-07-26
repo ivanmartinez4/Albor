@@ -226,12 +226,6 @@ u8 RecordedBattle_GetBattlerAction(u8 battlerId)
     }
 }
 
-// Unused
-static u8 GetRecordedBattleMode(void)
-{
-    return sRecordMode;
-}
-
 u8 RecordedBattle_BufferNewBattlerData(u8 *dst)
 {
     u8 i, j;

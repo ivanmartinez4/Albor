@@ -61,7 +61,6 @@ struct RouletteFlashPalette
 struct RouletteFlashUtil
 {
     u8 enabled;
-    u8 unused;
     u16 flags;
     struct RouletteFlashPalette palettes[16];
 };

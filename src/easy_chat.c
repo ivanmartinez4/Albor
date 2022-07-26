@@ -63,7 +63,6 @@ static u16 TryConfirmWords(void);
 static u8 GetEasyChatScreenFrameId(void);
 static u8 GetEachChatScreenTemplateId(u8);
 static void GetQuizTitle(u8 *);
-static void ClearUnusedField(void);
 static bool8 InitEasyChatScreenControl(void);
 static bool8 LoadEasyChatScreen(void);
 static void FreeEasyChatScreenControl(void);
@@ -1631,7 +1630,6 @@ static bool8 InitEasyChatScreenStruct(u8 type, u16 *words, u8 displayedPersonTyp
     sEasyChatScreen->mainCursorRow = 0;
     sEasyChatScreen->inAlphabetMode = FALSE;
     sEasyChatScreen->displayedPersonType = displayedPersonType;
-    sEasyChatScreen->unused = 0;
     templateId = GetEachChatScreenTemplateId(type);
     if (type == EASY_CHAT_TYPE_QUIZ_QUESTION)
     {
@@ -1726,7 +1724,6 @@ static u16 HandleEasyChatInput_Phrase(void)
     {
         if (JOY_NEW(A_BUTTON))
         {
-            ClearUnusedField();
             sEasyChatScreen->inputState = INPUTSTATE_KEYBOARD;
             sEasyChatScreen->keyboardColumn = 0;
             sEasyChatScreen->keyboardRow = 0;
@@ -2772,11 +2769,6 @@ static u8 GetWordSelectLastRow(void)
     return sEasyChatScreen->wordSelectLastRow;
 }
 
-static u8 UnusedDummy(void)
-{
-    return FALSE;
-}
-
 static bool32 CanScrollUp(void)
 {
     switch (sEasyChatScreen->inputState)
@@ -2982,11 +2974,6 @@ static u16 DidPlayerInputABerryMasterWifePhrase(void)
     }
 
     return 0;
-}
-
-static void ClearUnusedField(void)
-{
-    sEasyChatScreen->unused = 0;
 }
 
 static bool32 DummyWordCheck(int easyChatWord)
@@ -5246,58 +5233,6 @@ u8 *ConvertEasyChatWordsToString(u8 *dest, const u16 *src, u16 columns, u16 rows
     return dest;
 }
 
-static u8 *UnusedConvertEasyChatWordsToString(u8 *dest, const u16 *src, u16 columns, u16 rows)
-{
-    u16 i, j, k;
-    u16 numColumns;
-    int notEmpty, lineNumber;
-
-    numColumns = columns;
-    lineNumber = 0;
-    columns--;
-    for (i = 0; i < rows; i++)
-    {
-        const u16 *str = src;
-        notEmpty = FALSE;
-        for (j = 0; j < numColumns; j++)
-        {
-            if (str[j] != EC_EMPTY_WORD)
-                notEmpty = TRUE;
-        }
-
-        if (!notEmpty)
-        {
-            src += numColumns;
-            continue;
-        }
-
-        for (k = 0; k < columns; k++)
-        {
-            dest = CopyEasyChatWord(dest, *src);
-            if (*src != EC_EMPTY_WORD)
-            {
-                *dest = CHAR_SPACE;
-                dest++;
-            }
-
-            src++;
-        }
-
-        dest = CopyEasyChatWord(dest, *(src++));
-        if (lineNumber == 0)
-            *dest = CHAR_NEWLINE;
-        else
-            *dest = CHAR_PROMPT_SCROLL;
-
-        dest++;
-        lineNumber++;
-    }
-
-    dest--;
-    *dest = EOS;
-    return dest;
-}
-
 static u16 GetEasyChatWordStringLength(u16 easyChatWord)
 {
     if (easyChatWord == EC_EMPTY_WORD)
@@ -5466,29 +5401,6 @@ u16 GetNewHipsterPhraseToTeach(void)
     return EC_EMPTY_WORD;
 }
 
-// Unused
-u16 GetRandomTaughtHipsterPhrase(void)
-{
-    u16 i;
-    u16 additionalPhraseId = GetNumAdditionalPhrasesUnlocked();
-    if (additionalPhraseId == 0)
-        return EC_EMPTY_WORD;
-
-    additionalPhraseId = Random() % additionalPhraseId;
-    for (i = 0; i < NUM_ADDITIONAL_PHRASES; i++)
-    {
-        if (IsAdditionalPhraseUnlocked(i))
-        {
-            if (additionalPhraseId)
-                additionalPhraseId--;
-            else
-                return EC_WORD(EC_GROUP_TRENDY_SAYING, i);
-        }
-    }
-
-    return EC_EMPTY_WORD;
-}
-
 static bool8 EasyChatIsNationalPokedexEnabled(void)
 {
     return IsNationalPokedexEnabled();
@@ -5611,21 +5523,6 @@ static u8 GetUnlockedEasyChatGroupId(u8 index)
         return EC_NUM_GROUPS;
     else
         return sWordData->unlockedGroupIds[index];
-}
-
-// Unused
-static u8 *BufferEasyChatWordGroupName(u8 *dest, u8 groupId, u16 totalChars)
-{
-    u16 i;
-    u8 *str = StringCopy(dest, sEasyChatGroupNamePointers[groupId]);
-    for (i = str - dest; i < totalChars; i++)
-    {
-        *str = CHAR_SPACE;
-        str++;
-    }
-
-    *str = EOS;
-    return str;
 }
 
 static const u8 *GetEasyChatWordGroupName(u8 groupId)

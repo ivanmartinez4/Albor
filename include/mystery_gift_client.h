@@ -70,7 +70,6 @@ struct MysteryGiftClientCmd
 
 struct MysteryGiftClient
 {
-    u32 unused;
     u32 param;
     u32 funcId;
     u32 funcState;

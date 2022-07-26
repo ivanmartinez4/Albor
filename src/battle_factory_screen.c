@@ -105,7 +105,6 @@ struct FactorySelectScreen
     u8 selectingMonsState;
     bool8 fromSummaryScreen;
     u8 yesNoCursorPos;
-    u8 unused;
     struct FactorySelectableMon mons[SELECTABLE_MONS_COUNT];
     struct FactoryMonPic monPics[FRONTIER_PARTY_SIZE]; // Array so all chosen mons can be shown at once
     bool8 monPicAnimating;
@@ -141,7 +140,6 @@ struct FactorySwapScreen
     u8 yesNoCursorPos;
     u8 actionsCount;
     const struct SwapScreenAction *actionsData;
-    u8 unused[4];
     bool8 monSwapped;
     u8 fadeSpeciesNameTaskId;
     bool8 fadeSpeciesNameActive;

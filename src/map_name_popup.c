@@ -198,14 +198,6 @@ static const u8 * const sBattlePyramid_MapHeaderStrings[FRONTIER_STAGES_PER_CHAL
     sText_Pyramid,
 };
 
-// Unused
-static bool8 StartMenu_ShowMapNamePopup(void)
-{
-    HideStartMenu();
-    ShowMapNamePopup();
-    return TRUE;
-}
-
 void ShowMapNamePopup(void)
 {
     if (FlagGet(FLAG_HIDE_MAP_NAME_POPUP) != TRUE)

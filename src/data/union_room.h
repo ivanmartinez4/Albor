@@ -20,24 +20,6 @@ ALIGNED(4) static const u8 sJPText_HoldBerryPicking[] = _("きのみどりを �
 ALIGNED(4) static const u8 sJPText_HoldSpinTrade[] = _("ぐるぐるこうかんを かいさいする");
 ALIGNED(4) static const u8 sJPText_HoldSpinShop[] = _("ぐるぐるショップを かいさいする");
 
-// Unused
-static const u8 *const sJPLinkGroupActionTexts[] = {
-    sJPText_SingleBattle,
-    sJPText_DoubleBattle,
-    sJPText_MultiBattle,
-    sJPText_TradePokemon,
-    sJPText_Chat,
-    sJPText_DistWonderCard,
-    sJPText_DistWonderNews,
-    sJPText_DistWonderCard,
-    sJPText_HoldPokemonJump,
-    sJPText_HoldBerryCrush,
-    sJPText_HoldBerryPicking,
-    sJPText_HoldBerryPicking,
-    sJPText_HoldSpinTrade,
-    sJPText_HoldSpinShop
-};
-
 static const u8 sText_1PlayerNeeded[] = _("1 player\nneeded.");
 static const u8 sText_2PlayersNeeded[] = _("2 players\nneeded.");
 static const u8 sText_3PlayersNeeded[] = _("3 players\nneeded.");
@@ -152,12 +134,6 @@ static const u8 *const sLinkDroppedTexts[] = {
 ALIGNED(4) static const u8 sText_DoYouWantXMode[] = _("Do you want the {STR_VAR_2}\nMode?");
 ALIGNED(4) static const u8 sText_DoYouWantXMode2[] = _("Do you want the {STR_VAR_2}\nMode?");
 
-// Unused
-static const u8 *const sDoYouWantModeTexts[] = {
-    sText_DoYouWantXMode,
-    sText_DoYouWantXMode2
-};
-
 ALIGNED(4) static const u8 sText_CommunicatingPleaseWait[] = _("Communicating…\nPlease wait."); // Unused
 ALIGNED(4) static const u8 sText_AwaitingPlayersResponseAboutTrade[] = _("Awaiting {STR_VAR_1}'s response about\nthe trade…");
 ALIGNED(4) static const u8 sText_Communicating[] = _("Communicating{PAUSE 15}.{PAUSE 15}.{PAUSE 15}.{PAUSE 15}.{PAUSE 15}.\n"
@@ -193,17 +169,6 @@ ALIGNED(4) static const u8 sText_DoSomethingFemale[] = _("Would you like to do s
 ALIGNED(4) static const u8 sText_DoSomethingAgainMale[] = _("{STR_VAR_1}: What would you like to\ndo now?");
 ALIGNED(4) static const u8 sText_DoSomethingAgainFemale[] = _("{STR_VAR_1}: Want to do anything else?"); // Unused
 
-// Unused
-static const u8 *const sDoSomethingTexts[][GENDER_COUNT] = {
-    {
-        sText_DoSomethingMale,
-        sText_DoSomethingFemale
-    }, {
-        sText_DoSomethingAgainMale,
-        sText_DoSomethingAgainMale // was probably supposed to be sText_DoSomethingAgainFemale
-    }
-};
-
 ALIGNED(4) static const u8 sText_SomebodyHasContactedYou[] = _("Somebody has contacted you.{PAUSE 60}");
 ALIGNED(4) static const u8 sText_PlayerHasContactedYou[] = _("{STR_VAR_1} has contacted you.{PAUSE 60}");
 
@@ -229,14 +194,6 @@ ALIGNED(4) static const u8 sText_ChatDropped[] = _("The chat has been dropped.\p
 ALIGNED(4) static const u8 sText_OfferDeclined1[] = _("You declined the offer.\p");
 ALIGNED(4) static const u8 sText_OfferDeclined2[] = _("You declined the offer.\p");
 ALIGNED(4) static const u8 sText_ChatEnded[] = _("The chat was ended.\p");
-
-// Unused
-static const u8 *const sInvitationTexts[] = {
-    sText_ShowTrainerCard,
-    sText_BattleChallenge,
-    sText_ChatInvitation,
-    sText_OfferToTradeMon
-};
 
 ALIGNED(4) static const u8 sText_JoinChatMale[] = _("Oh, hey! We're in a chat right now.\nWant to join us?");
 ALIGNED(4) static const u8 sText_PlayerJoinChatMale[] = _("{STR_VAR_1}: Hey, {PLAYER}!\nWe're having a chat right now.\lWant to join us?");
@@ -465,12 +422,6 @@ ALIGNED(4) static const u8 sText_DontHaveTypeTrainerWants[] = _("You don't have 
 ALIGNED(4) static const u8 sText_DontHaveEggTrainerWants[] = _("You don't have an Egg that\n{STR_VAR_1} wants.\p");
 ALIGNED(4) static const u8 sText_PlayerCantTradeForYourMon[] = _("{STR_VAR_1} can't make a trade for\nyour Pokémon right now.\p");
 ALIGNED(4) static const u8 sText_CantTradeForPartnersMon[] = _("You can't make a trade for\n{STR_VAR_1}'s Pokémon right now.\p");
-
-// Unused
-static const u8 *const sCantTradeMonTexts[] = {
-    sText_PlayerCantTradeForYourMon,
-    sText_CantTradeForPartnersMon
-};
 
 ALIGNED(4) static const u8 sText_TradeOfferRejected[] = _("Your trade offer was rejected.\p");
 ALIGNED(4) static const u8 sText_EggTrade[] = _("Egg Trade");
@@ -963,17 +914,6 @@ static const struct ListMenuTemplate sTradeBoardListMenuTemplate = {
     .cursorKind = 0
 };
 
-// Unused
-static const struct WindowTemplate sWindowTemplate_Unused = {
-    .bg = 0,
-    .tilemapLeft = 1,
-    .tilemapTop = 5,
-    .width = 28,
-    .height = 12,
-    .paletteNum = 13,
-    .baseBlock = 0x0039
-};
-
 static const struct ListMenuItem sEmptyListMenuItems[] = {
     { sText_EmptyString,  0 },
     { sText_EmptyString,  1 },
@@ -991,28 +931,6 @@ static const struct ListMenuItem sEmptyListMenuItems[] = {
     { sText_EmptyString, 13 },
     { sText_EmptyString, 14 },
     { sText_EmptyString, 15 }
-};
-
-// Unused
-static const struct ListMenuTemplate sEmptyListMenuTemplate = {
-    .items = sEmptyListMenuItems,
-    .moveCursorFunc = ListMenuDefaultCursorMoveFunc,
-    .itemPrintFunc = ItemPrintFunc_EmptyList,
-    .totalItems = ARRAY_COUNT(sEmptyListMenuItems),
-    .maxShowed = 4,
-    .windowId = 0,
-    .header_X = 0,
-    .item_X = 8,
-    .cursor_X = 0,
-    .upText_Y = 1,
-    .cursorPal = 2,
-    .fillValue = 1,
-    .cursorShadowPal = 3,
-    .lettersSpacing = 0,
-    .itemVerticalPadding = 0,
-    .scrollMultiple = 1,
-    .fontId = 1,
-    .cursorKind = 0
 };
 
 static const struct RfuPlayerData sUnionRoomPlayer_DummyRfu = {0};

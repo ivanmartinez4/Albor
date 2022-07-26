@@ -452,13 +452,14 @@
 	map \map
 	.endm
 
-	@ Warps the player to the specified map using a teleport effect. Effect is similar to warpspinenter but
-	@ this warp has a fade out first and doesn't maintain the original facing direction.
-	@ Warp commands can be given either the id of which warp location to go to on the destination map
-	@ or a pair of x/y coordinates to go to directly on the destination map.
-	.macro warpteleport map:req, a, b, c
+	@ Writes the name of the specified item to the specified buffer. If 'item' is a Berry or ITEM_POKE_BALL
+	@ and if the quantity is 2 or more, the buffered string will be pluralized ("IES" or "S" appended).
+	@ If the specified item is >= ITEMS_COUNT then the name of ITEM_NONE ("????????") is buffered instead.
+	.macro bufferitemnameplural stringVarId:req, item:req, quantity:req
 	.byte 0x3d
-	formatwarp \map, \a, \b, \c
+	stringvar \stringVarId
+	.2byte \item
+	.2byte \quantity
 	.endm
 
 	@ Sets the warp destination to be used later.
@@ -1725,16 +1726,6 @@
 	.byte 0xe1
 	stringvar \stringVarId
 	.2byte \category
-	.endm
-
-	@ Writes the name of the specified item to the specified buffer. If 'item' is a Berry or ITEM_POKE_BALL
-	@ and if the quantity is 2 or more, the buffered string will be pluralized ("IES" or "S" appended).
-	@ If the specified item is >= ITEMS_COUNT then the name of ITEM_NONE ("????????") is buffered instead.
-	.macro bufferitemnameplural stringVarId:req, item:req, quantity:req
-	.byte 0xe2
-	stringvar \stringVarId
-	.2byte \item
-	.2byte \quantity
 	.endm
 
   @ Like callnative, but function expects a ctx

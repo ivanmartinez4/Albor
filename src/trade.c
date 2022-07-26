@@ -129,7 +129,6 @@ static EWRAM_DATA struct {
     /*0x007B*/ u8 partnerLinkFlagStatus;
     /*0x007C*/ u8 filler_7C[2];
     /*0x007E*/ u8 partnerCursorPosition;
-    /*0x007F*/ u8 unused_7F;
     /*0x0080*/ u16 linkData[20];
     /*0x00A8*/ u8 timer;
     /*0x00A9*/ u8 giftRibbons[GIFT_RIBBONS_COUNT];
@@ -4830,7 +4829,7 @@ static void CheckPartnersMonForRibbons(void)
 {
     u8 i;
     u8 numRibbons = 0;
-    for (i = 0; i < (MON_DATA_UNUSED_RIBBONS - MON_DATA_CHAMPION_RIBBON); i ++)
+    for (i = 0; i < (MON_DATA_CHAMPION_RIBBON); i ++)
     {
         numRibbons += GetMonData(&gEnemyParty[gSelectedTradeMonPositions[TRADE_PARTNER] % PARTY_SIZE], MON_DATA_CHAMPION_RIBBON + i);
     }

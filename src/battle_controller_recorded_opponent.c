@@ -188,12 +188,6 @@ static void CompleteOnBattlerSpriteCallbackDummy(void)
         RecordedOpponentBufferExecCompleted();
 }
 
-static void CompleteOnBankSpriteCallbackDummy2(void)
-{
-    if (gSprites[gBattlerSpriteIds[gActiveBattler]].callback == SpriteCallbackDummy)
-        RecordedOpponentBufferExecCompleted();
-}
-
 static void FreeTrainerSpriteAfterSlide(void)
 {
     if (gSprites[gBattlerSpriteIds[gActiveBattler]].callback == SpriteCallbackDummy)
@@ -446,8 +440,7 @@ static void SwitchIn_HandleSoundAndEnd(void)
     if (!gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].specialAnimActive
         && !IsCryPlayingOrClearCrySongs())
     {
-        if (gSprites[gBattlerSpriteIds[gActiveBattler]].callback == SpriteCallbackDummy
-            || gSprites[gBattlerSpriteIds[gActiveBattler]].callback == SpriteCallbackDummy_2)
+        if (gSprites[gBattlerSpriteIds[gActiveBattler]].callback == SpriteCallbackDummy)
         {
             m4aMPlayVolumeControl(&gMPlayInfo_BGM, TRACKS_ALL, 0x100);
             RecordedOpponentBufferExecCompleted();
@@ -1541,25 +1534,21 @@ static void RecordedOpponentHandleOneReturnValue_Duplicate(void)
 
 static void RecordedOpponentHandleClearUnkVar(void)
 {
-    gUnusedControllerStruct.unk = 0;
     RecordedOpponentBufferExecCompleted();
 }
 
 static void RecordedOpponentHandleSetUnkVar(void)
 {
-    gUnusedControllerStruct.unk = gBattleResources->bufferA[gActiveBattler][1];
     RecordedOpponentBufferExecCompleted();
 }
 
 static void RecordedOpponentHandleClearUnkFlag(void)
 {
-    gUnusedControllerStruct.flag = 0;
     RecordedOpponentBufferExecCompleted();
 }
 
 static void RecordedOpponentHandleToggleUnkFlag(void)
 {
-    gUnusedControllerStruct.flag ^= 1;
     RecordedOpponentBufferExecCompleted();
 }
 

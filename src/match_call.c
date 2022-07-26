@@ -101,7 +101,6 @@ struct MatchCallState
 struct MatchCallTrainerTextInfo
 {
     u16 trainerId;
-    u16 unused;
     u16 battleTopicTextIds[3];
     u16 generalTextId;
     u8 battleFrontierRecordStreakTextIndex;
@@ -172,7 +171,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
 {
     {
         .trainerId = TRAINER_ROSE_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(8),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 3),
         .battleFrontierRecordStreakTextIndex = 8,
@@ -181,7 +179,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_ANDRES_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(12),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 62),
         .battleFrontierRecordStreakTextIndex = 12,
@@ -190,7 +187,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_DUSTY_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(12),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 4),
         .battleFrontierRecordStreakTextIndex = 12,
@@ -199,7 +195,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_LOLA_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(2),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 5),
         .battleFrontierRecordStreakTextIndex = 2,
@@ -208,7 +203,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_RICKY_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(1),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 6),
         .battleFrontierRecordStreakTextIndex = 1,
@@ -217,7 +211,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_LILA_AND_ROY_1,
-        .unused = 4,
         .battleTopicTextIds = BATTLE_TEXT_IDS(1),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 61),
         .battleFrontierRecordStreakTextIndex = 1,
@@ -226,7 +219,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_CRISTIN_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(10),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 64),
         .battleFrontierRecordStreakTextIndex = 10,
@@ -235,7 +227,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_BROOKE_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(9),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 8),
         .battleFrontierRecordStreakTextIndex = 9,
@@ -244,7 +235,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_WILTON_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(6),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 7),
         .battleFrontierRecordStreakTextIndex = 6,
@@ -253,7 +243,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_VALERIE_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(8),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 9),
         .battleFrontierRecordStreakTextIndex = 8,
@@ -262,7 +251,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_CINDY_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(8),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 10),
         .battleFrontierRecordStreakTextIndex = 8,
@@ -271,7 +259,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_THALIA_1,
-        .unused = 0,
         // Thalia and Sawyer are the only ones who use different msg ids for their battle topics
         .battleTopicTextIds = { TEXT_ID(B_TOPIC_WILD, 8), TEXT_ID(B_TOPIC_NEGATIVE, 10), TEXT_ID(B_TOPIC_POSITIVE, 10) },
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 14),
@@ -281,7 +268,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_JESSICA_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(10),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 11),
         .battleFrontierRecordStreakTextIndex = 10,
@@ -290,7 +276,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_WINSTON_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(4),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 12),
         .battleFrontierRecordStreakTextIndex = 4,
@@ -299,7 +284,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_STEVE_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(7),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 13),
         .battleFrontierRecordStreakTextIndex = 7,
@@ -308,7 +292,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_TONY_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(5),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 15),
         .battleFrontierRecordStreakTextIndex = 5,
@@ -317,7 +300,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_NOB_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(3),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 16),
         .battleFrontierRecordStreakTextIndex = 3,
@@ -326,7 +308,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_KOJI_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(3),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 59),
         .battleFrontierRecordStreakTextIndex = 3,
@@ -335,7 +316,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_FERNANDO_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(6),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 17),
         .battleFrontierRecordStreakTextIndex = 6,
@@ -344,7 +324,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_DALTON_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(4),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 18),
         .battleFrontierRecordStreakTextIndex = 4,
@@ -353,7 +332,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_BERNIE_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(11),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 19),
         .battleFrontierRecordStreakTextIndex = 11,
@@ -362,7 +340,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_ETHAN_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(1),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 20),
         .battleFrontierRecordStreakTextIndex = 1,
@@ -371,7 +348,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_JOHN_AND_JAY_1,
-        .unused = 3,
         .battleTopicTextIds = BATTLE_TEXT_IDS(12),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 60),
         .battleFrontierRecordStreakTextIndex = 12,
@@ -380,7 +356,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_JEFFREY_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(7),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 21),
         .battleFrontierRecordStreakTextIndex = 7,
@@ -389,7 +364,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_CAMERON_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(4),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 22),
         .battleFrontierRecordStreakTextIndex = 1,
@@ -398,7 +372,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_JACKI_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(8),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 23),
         .battleFrontierRecordStreakTextIndex = 8,
@@ -407,7 +380,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_WALTER_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(12),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 24),
         .battleFrontierRecordStreakTextIndex = 12,
@@ -416,7 +388,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_KAREN_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(2),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 26),
         .battleFrontierRecordStreakTextIndex = 2,
@@ -425,7 +396,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_JERRY_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(1),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 25),
         .battleFrontierRecordStreakTextIndex = 1,
@@ -434,7 +404,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_ANNA_AND_MEG_1,
-        .unused = 6,
         .battleTopicTextIds = BATTLE_TEXT_IDS(9),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 27),
         .battleFrontierRecordStreakTextIndex = 9,
@@ -443,7 +412,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_ISABEL_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(14),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 29),
         .battleFrontierRecordStreakTextIndex = 14,
@@ -452,7 +420,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_MIGUEL_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(11),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 28),
         .battleFrontierRecordStreakTextIndex = 11,
@@ -461,7 +428,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_TIMOTHY_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(12),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 30),
         .battleFrontierRecordStreakTextIndex = 12,
@@ -470,7 +436,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_SHELBY_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(13),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 31),
         .battleFrontierRecordStreakTextIndex = 13,
@@ -479,7 +444,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_CALVIN_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(1),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 32),
         .battleFrontierRecordStreakTextIndex = 1,
@@ -488,7 +452,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_ELLIOT_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(3),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 33),
         .battleFrontierRecordStreakTextIndex = 3,
@@ -497,7 +460,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_ISAIAH_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(5),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 38),
         .battleFrontierRecordStreakTextIndex = 5,
@@ -506,7 +468,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_MARIA_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(9),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 37),
         .battleFrontierRecordStreakTextIndex = 9,
@@ -515,7 +476,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_ABIGAIL_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(9),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 35),
         .battleFrontierRecordStreakTextIndex = 9,
@@ -524,7 +484,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_DYLAN_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(5),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 36),
         .battleFrontierRecordStreakTextIndex = 5,
@@ -533,7 +492,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_KATELYN_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(9),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 40),
         .battleFrontierRecordStreakTextIndex = 9,
@@ -542,7 +500,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_BENJAMIN_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(5),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 34),
         .battleFrontierRecordStreakTextIndex = 5,
@@ -551,7 +508,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_PABLO_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(5),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 39),
         .battleFrontierRecordStreakTextIndex = 5,
@@ -560,7 +516,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_NICOLAS_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(4),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 41),
         .battleFrontierRecordStreakTextIndex = 4,
@@ -569,7 +524,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_ROBERT_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(6),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 42),
         .battleFrontierRecordStreakTextIndex = 6,
@@ -578,7 +532,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_LAO_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(1),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 43),
         .battleFrontierRecordStreakTextIndex = 1,
@@ -587,7 +540,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_CYNDY_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(9),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 44),
         .battleFrontierRecordStreakTextIndex = 9,
@@ -596,7 +548,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_MADELINE_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(8),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 45),
         .battleFrontierRecordStreakTextIndex = 8,
@@ -605,7 +556,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_JENNY_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(9),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 46),
         .battleFrontierRecordStreakTextIndex = 9,
@@ -614,7 +564,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_DIANA_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(2),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 47),
         .battleFrontierRecordStreakTextIndex = 2,
@@ -623,7 +572,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_AMY_AND_LIV_1,
-        .unused = 2,
         .battleTopicTextIds = BATTLE_TEXT_IDS(2),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 48),
         .battleFrontierRecordStreakTextIndex = 1,
@@ -632,7 +580,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_ERNEST_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(3),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 49),
         .battleFrontierRecordStreakTextIndex = 3,
@@ -641,7 +588,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_CORY_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(3),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 63),
         .battleFrontierRecordStreakTextIndex = 3,
@@ -650,7 +596,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_EDWIN_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(7),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 50),
         .battleFrontierRecordStreakTextIndex = 7,
@@ -659,7 +604,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_LYDIA_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(8),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 52),
         .battleFrontierRecordStreakTextIndex = 8,
@@ -668,7 +612,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_ISAAC_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(5),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 51),
         .battleFrontierRecordStreakTextIndex = 5,
@@ -677,7 +620,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_GABRIELLE_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(8),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 2),
         .battleFrontierRecordStreakTextIndex = 8,
@@ -686,7 +628,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_CATHERINE_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(9),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 54),
         .battleFrontierRecordStreakTextIndex = 9,
@@ -695,7 +636,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_JACKSON_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(5),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 53),
         .battleFrontierRecordStreakTextIndex = 5,
@@ -704,7 +644,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_HALEY_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(2),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 55),
         .battleFrontierRecordStreakTextIndex = 2,
@@ -713,7 +652,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_JAMES_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(1),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 56),
         .battleFrontierRecordStreakTextIndex = 1,
@@ -722,7 +660,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_TRENT_1,
-        .unused = 0,
         .battleTopicTextIds = BATTLE_TEXT_IDS(3),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 57),
         .battleFrontierRecordStreakTextIndex = 3,
@@ -731,7 +668,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_SAWYER_1,
-        .unused = 0,
         // Thalia and Sawyer are the only ones who use different msg ids for their battle topics
         .battleTopicTextIds = { TEXT_ID(B_TOPIC_WILD, 15), TEXT_ID(B_TOPIC_NEGATIVE, 3), TEXT_ID(B_TOPIC_POSITIVE, 3) },
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 1),
@@ -741,7 +677,6 @@ static const struct MatchCallTrainerTextInfo sMatchCallTrainers[] =
     },
     {
         .trainerId = TRAINER_KIRA_AND_DAN_1,
-        .unused = 1,
         .battleTopicTextIds = BATTLE_TEXT_IDS(9),
         .generalTextId = TEXT_ID(GEN_TOPIC_PERSONAL, 58),
         .battleFrontierRecordStreakTextIndex = 9,

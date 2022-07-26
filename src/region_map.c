@@ -1437,18 +1437,6 @@ static void FreeRegionMapCursorSprite(void)
     }
 }
 
-// Unused
-static void SetUnkCursorSpriteData(void)
-{
-    sRegionMap->cursorSprite->data[3] = TRUE;
-}
-
-// Unused
-static void ClearUnkCursorSpriteData(void)
-{
-    sRegionMap->cursorSprite->data[3] = FALSE;
-}
-
 void CreateRegionMapPlayerIcon(u16 tileTag, u16 paletteTag)
 {
     u8 spriteId;

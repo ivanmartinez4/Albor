@@ -236,12 +236,6 @@ void MailboxMenu_RemoveWindow(u8 windowIdx)
     sMailboxWindowIds[windowIdx] = WINDOW_NONE;
 }
 
-// Unused
-static u8 MailboxMenu_GetWindowId(u8 windowIdx)
-{
-    return sMailboxWindowIds[windowIdx];
-}
-
 static void MailboxMenu_ItemPrintFunc(u8 windowId, u32 itemId, u8 y)
 {
     u8 buffer[30];

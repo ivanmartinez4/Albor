@@ -561,7 +561,6 @@ struct WonderNewsData
     /*01c4*/ u16 scrollEnd;
     /*01c6*/ u16 scrollOffset;
     /*01c8*/ u16 windowIds[NEWS_WIN_COUNT];
-    /*01cc*/ u8 unused[2];
     /*01ce*/ u8 titleText[WONDER_NEWS_TEXT_LENGTH + 1];
     /*01f7*/ u8 bodyText[WONDER_NEWS_BODY_TEXT_LINES][WONDER_NEWS_TEXT_LENGTH + 1];
     /*0394*/ struct ScrollArrowsTemplate arrowsTemplate;

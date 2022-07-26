@@ -474,7 +474,6 @@ struct ZMoveData
     u8 zStatusActive:1;
     u8 healReplacement:1;
     u8 activeSplit:2;  // active z move split
-    u8 zUnused:1;
     u8 triggerSpriteId;
     u8 possibleZMoves[MAX_BATTLERS_COUNT];
     u16 chosenZMove;  // z move of move cursor is on
@@ -803,9 +802,7 @@ struct MonSpritesGfx
     } sprites;
     struct SpriteTemplate templates[MAX_BATTLERS_COUNT];
     struct SpriteFrameImage frameImages[MAX_BATTLERS_COUNT][4];
-    u8 unusedArr[0x80];
     u8 *barFontGfx;
-    void *unusedPtr;
     u16 *buffer;
 };
 
@@ -834,7 +831,6 @@ extern u8 gBattleTextBuff2[TEXT_BUFF_ARRAY_COUNT];
 extern u8 gBattleTextBuff3[30]; //to handle stupidly large z move names
 extern u32 gBattleTypeFlags;
 extern u8 gBattleTerrain;
-extern u32 gUnusedFirstBattleVar1;
 extern u8 *gBattleAnimBgTileBuffer;
 extern u8 *gBattleAnimBgTilemapBuffer;
 extern u8 gActiveBattler;
@@ -882,7 +878,6 @@ extern u16 gChosenMoveByBattler[MAX_BATTLERS_COUNT];
 extern u16 gMoveResultFlags;
 extern u32 gHitMarker;
 extern u8 gTakenDmgByBattler[MAX_BATTLERS_COUNT];
-extern u8 gUnusedFirstBattleVar2;
 extern u32 gSideStatuses[2];
 extern struct SideTimer gSideTimers[2];
 extern u32 gStatuses3[MAX_BATTLERS_COUNT];
