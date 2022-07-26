@@ -22,9 +22,21 @@ It is a romhack that uses pokeemerald-expansion for recreate the experience of H
 
 -Music expansion from HGSS and DPPT.
 
+-Shiny rate has been increased to 1/512.
+
+-Chain fishing.
+
+-EVs can be increased by vitamins to the max, like in the newer generations.
+
+-EVs limit is now 504, and the max EV for stat is 252, so just two stats can be maxed.
+
+-QoL like repeated medicine use or Pokecenters disregard eggs.
+
+-Egg hatch level is now 1.
+
 ## Credits:
 
--Pret's team for pokeemerald.
+-Pret's team for pokeemerald (including wiki).
 
 -Rh-hideout's team for pokeemerald-expansion.
 
