@@ -542,42 +542,38 @@
 #define MAP_NAVEL_ROCK_BOTTOM                               (87 | (26 << 8))
 #define MAP_TRAINER_HILL_ELEVATOR                           (88 | (26 << 8))
 
-// gMapGroup_IndoorRoute104Prototype
-#define MAP_ROUTE104_PROTOTYPE                          (0 | (27 << 8))
-#define MAP_ROUTE104_PROTOTYPE_PRETTY_PETAL_FLOWER_SHOP (1 | (27 << 8))
-
 // gMapGroup_IndoorRoute109
-#define MAP_ROUTE109_SEASHORE_HOUSE (0 | (28 << 8))
+#define MAP_ROUTE109_SEASHORE_HOUSE (0 | (27 << 8))
 
 // gMapGroup_IndoorRoute110
-#define MAP_ROUTE110_TRICK_HOUSE_ENTRANCE                (0 | (29 << 8))
-#define MAP_ROUTE110_TRICK_HOUSE_END                     (1 | (29 << 8))
-#define MAP_ROUTE110_TRICK_HOUSE_CORRIDOR                (2 | (29 << 8))
-#define MAP_ROUTE110_TRICK_HOUSE_PUZZLE1                 (3 | (29 << 8))
-#define MAP_ROUTE110_TRICK_HOUSE_PUZZLE2                 (4 | (29 << 8))
-#define MAP_ROUTE110_TRICK_HOUSE_PUZZLE3                 (5 | (29 << 8))
-#define MAP_ROUTE110_TRICK_HOUSE_PUZZLE4                 (6 | (29 << 8))
-#define MAP_ROUTE110_TRICK_HOUSE_PUZZLE5                 (7 | (29 << 8))
-#define MAP_ROUTE110_TRICK_HOUSE_PUZZLE6                 (8 | (29 << 8))
-#define MAP_ROUTE110_TRICK_HOUSE_PUZZLE7                 (9 | (29 << 8))
-#define MAP_ROUTE110_TRICK_HOUSE_PUZZLE8                 (10 | (29 << 8))
-#define MAP_ROUTE110_SEASIDE_CYCLING_ROAD_NORTH_ENTRANCE (11 | (29 << 8))
-#define MAP_ROUTE110_SEASIDE_CYCLING_ROAD_SOUTH_ENTRANCE (12 | (29 << 8))
+#define MAP_ROUTE110_TRICK_HOUSE_ENTRANCE                (0 | (28 << 8))
+#define MAP_ROUTE110_TRICK_HOUSE_END                     (1 | (28 << 8))
+#define MAP_ROUTE110_TRICK_HOUSE_CORRIDOR                (2 | (28 << 8))
+#define MAP_ROUTE110_TRICK_HOUSE_PUZZLE1                 (3 | (28 << 8))
+#define MAP_ROUTE110_TRICK_HOUSE_PUZZLE2                 (4 | (28 << 8))
+#define MAP_ROUTE110_TRICK_HOUSE_PUZZLE3                 (5 | (28 << 8))
+#define MAP_ROUTE110_TRICK_HOUSE_PUZZLE4                 (6 | (28 << 8))
+#define MAP_ROUTE110_TRICK_HOUSE_PUZZLE5                 (7 | (28 << 8))
+#define MAP_ROUTE110_TRICK_HOUSE_PUZZLE6                 (8 | (28 << 8))
+#define MAP_ROUTE110_TRICK_HOUSE_PUZZLE7                 (9 | (28 << 8))
+#define MAP_ROUTE110_TRICK_HOUSE_PUZZLE8                 (10 | (28 << 8))
+#define MAP_ROUTE110_SEASIDE_CYCLING_ROAD_NORTH_ENTRANCE (11 | (28 << 8))
+#define MAP_ROUTE110_SEASIDE_CYCLING_ROAD_SOUTH_ENTRANCE (12 | (28 << 8))
 
 // gMapGroup_IndoorRoute113
-#define MAP_ROUTE113_GLASS_WORKSHOP (0 | (30 << 8))
+#define MAP_ROUTE113_GLASS_WORKSHOP (0 | (29 << 8))
 
 // gMapGroup_IndoorRoute123
-#define MAP_ROUTE123_BERRY_MASTERS_HOUSE (0 | (31 << 8))
+#define MAP_ROUTE123_BERRY_MASTERS_HOUSE (0 | (30 << 8))
 
 // gMapGroup_IndoorRoute119
-#define MAP_ROUTE119_WEATHER_INSTITUTE_1F (0 | (32 << 8))
-#define MAP_ROUTE119_WEATHER_INSTITUTE_2F (1 | (32 << 8))
-#define MAP_ROUTE119_HOUSE                (2 | (32 << 8))
+#define MAP_ROUTE119_WEATHER_INSTITUTE_1F (0 | (31 << 8))
+#define MAP_ROUTE119_WEATHER_INSTITUTE_2F (1 | (31 << 8))
+#define MAP_ROUTE119_HOUSE                (2 | (31 << 8))
 
 // gMapGroup_IndoorRoute124
-#define MAP_ROUTE124_DIVING_TREASURE_HUNTERS_HOUSE (0 | (33 << 8))
+#define MAP_ROUTE124_DIVING_TREASURE_HUNTERS_HOUSE (0 | (32 << 8))
 
-#define MAP_GROUPS_COUNT 34
+#define MAP_GROUPS_COUNT 33
 
 #endif // GUARD_CONSTANTS_MAP_GROUPS_H
