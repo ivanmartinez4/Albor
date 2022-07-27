@@ -28,6 +28,9 @@ gSpecials::
 	def_special GetSecretBaseOwnerAndState
 	def_special InitSecretBaseDecorationSprites
 	def_special SetDecoration
+	def_special CheckSaveBlock1Size
+ 	def_special CheckSaveBlock2Size
+ 	def_special CheckPokemonStorageSize
 	def_special GetObjectEventLocalIdByFlag
 	def_special GetSecretBaseTypeInFrontOfPlayer
 	def_special SetSecretBaseOwnerGfxId

@@ -960,6 +960,24 @@ Common_EventScript_LegendaryFlewAway::
 	release
 	end
 
+EventScript_CheckSavefileSizes::
+ 	special CheckSaveBlock1Size
+ 	msgbox CheckSavefileSizes_Text_SaveBlock1, MSGBOX_NPC
+ 	special CheckSaveBlock2Size
+ 	msgbox CheckSavefileSizes_Text_SaveBlock2, MSGBOX_NPC
+ 	special CheckPokemonStorageSize
+ 	msgbox CheckSavefileSizes_Text_PokemonStorage, MSGBOX_NPC
+ 	end
+
+ CheckSavefileSizes_Text_SaveBlock1::
+ 	.string "SaveBlock1 size: {STR_VAR_1}/{STR_VAR_2}$"
+
+ CheckSavefileSizes_Text_SaveBlock2::
+ 	.string "SaveBlock2 size: {STR_VAR_1}/{STR_VAR_2}$"
+
+ CheckSavefileSizes_Text_PokemonStorage::
+ 	.string "{PKMN}Storage size: {STR_VAR_1}/{STR_VAR_2}$"
+
 	.include "data/scripts/pc_transfer.inc"
 	.include "data/scripts/questionnaire.inc"
 	.include "data/scripts/abnormal_weather.inc"

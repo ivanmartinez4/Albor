@@ -4195,3 +4195,30 @@ u8 Script_TryGainNewFanFromCounter(void)
 {
     return TryGainNewFanFromCounter(gSpecialVar_0x8004);
 }
+
+
+ #include "save.h" // <-- SECTOR_DATA_SIZE is defined there.
+ void CheckSaveBlock1Size(void)
+ {
+     u32 currSb1Size = (sizeof(struct SaveBlock1));
+     u32 maxSb1Size = (SECTOR_DATA_SIZE * 4);
+     ConvertIntToDecimalStringN(gStringVar1, currSb1Size, STR_CONV_MODE_LEFT_ALIGN, 6);
+     ConvertIntToDecimalStringN(gStringVar2, maxSb1Size, STR_CONV_MODE_LEFT_ALIGN, 6);
+ }
+
+ void CheckSaveBlock2Size(void)
+ {
+     u32 currSb2Size = (sizeof(struct SaveBlock2));
+     u32 maxSb2Size = SECTOR_DATA_SIZE;
+     ConvertIntToDecimalStringN(gStringVar1, currSb2Size, STR_CONV_MODE_LEFT_ALIGN, 6);
+     ConvertIntToDecimalStringN(gStringVar2, maxSb2Size, STR_CONV_MODE_LEFT_ALIGN, 6);
+ }
+
+ void CheckPokemonStorageSize(void)
+ {
+     u32 currPkmnStorageSize = (sizeof(struct PokemonStorage));
+     u32 maxPkmnStorageSize = (SECTOR_DATA_SIZE * 9);
+     ConvertIntToDecimalStringN(gStringVar1, currPkmnStorageSize, STR_CONV_MODE_LEFT_ALIGN, 6);
+     ConvertIntToDecimalStringN(gStringVar2, maxPkmnStorageSize, STR_CONV_MODE_LEFT_ALIGN, 6);
+ }
+ 
