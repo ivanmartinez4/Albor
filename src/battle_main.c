@@ -2493,6 +2493,11 @@ static void SpriteCb_WildMonAnimate(struct Sprite *sprite)
     }
 }
 
+void SpriteCallbackDummy_2(struct Sprite *sprite)
+{
+
+}
+
 #define sNumFlickers data[3]
 #define sDelay       data[4]
 
@@ -2507,6 +2512,7 @@ static void SpriteCB_Flicker(struct Sprite *sprite)
         if (sprite->sNumFlickers == 0)
         {
             sprite->invisible = FALSE;
+            sprite->callback = SpriteCallbackDummy_2;
             // sFlickerArray[0] = 0;
         }
     }
@@ -2601,6 +2607,7 @@ void SpriteCb_HideAsMoveTarget(struct Sprite *sprite)
 {
     sprite->invisible = sprite->data[4];
     sprite->data[4] = FALSE;
+    sprite->callback = SpriteCallbackDummy_2;
 }
 
 void SpriteCB_OpponentMonFromBall(struct Sprite *sprite)

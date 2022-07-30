@@ -8098,6 +8098,7 @@ void DoMonFrontSpriteAnimation(struct Sprite* sprite, u16 species, bool8 noCry, 
             // No delay, start animation
             LaunchAnimationTaskForFrontSprite(sprite, sMonFrontAnimIdsTable[species - 1]);
         }
+        sprite->callback = SpriteCallbackDummy_2;
     }
 }
 
@@ -8138,6 +8139,7 @@ void BattleAnimateBackSprite(struct Sprite* sprite, u16 species)
     else
     {
         LaunchAnimationTaskForBackSprite(sprite, GetSpeciesBackAnimSet(species));
+        sprite->callback = SpriteCallbackDummy_2;
     }
 }
 

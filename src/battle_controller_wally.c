@@ -391,6 +391,12 @@ static void DoSwitchOutAnimation(void)
     }
 }
 
+static void CompleteOnBankSpriteCallbackDummy2(void)
+{
+    if (gSprites[gBattlerSpriteIds[gActiveBattler]].callback == SpriteCallbackDummy)
+        WallyBufferExecCompleted();
+}
+
 static void CompleteOnFinishedBattleAnimation(void)
 {
     if (!gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].animFromTableActive)
@@ -1054,6 +1060,7 @@ static void WallyHandleTrainerSlide(void)
     gSprites[gBattlerSpriteIds[gActiveBattler]].x2 = -96;
     gSprites[gBattlerSpriteIds[gActiveBattler]].sSpeedX = 2;
     gSprites[gBattlerSpriteIds[gActiveBattler]].callback = SpriteCB_TrainerSlideIn;
+    gBattlerControllerFuncs[gActiveBattler] = CompleteOnBankSpriteCallbackDummy2;
 }
 
 #undef sSpeedX

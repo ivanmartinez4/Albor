@@ -188,6 +188,12 @@ static void CompleteOnBattlerSpriteCallbackDummy(void)
         RecordedOpponentBufferExecCompleted();
 }
 
+static void CompleteOnBankSpriteCallbackDummy2(void)
+{
+    if (gSprites[gBattlerSpriteIds[gActiveBattler]].callback == SpriteCallbackDummy)
+        RecordedOpponentBufferExecCompleted();
+}
+
 static void FreeTrainerSpriteAfterSlide(void)
 {
     if (gSprites[gBattlerSpriteIds[gActiveBattler]].callback == SpriteCallbackDummy)
@@ -440,7 +446,8 @@ static void SwitchIn_HandleSoundAndEnd(void)
     if (!gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].specialAnimActive
         && !IsCryPlayingOrClearCrySongs())
     {
-        if (gSprites[gBattlerSpriteIds[gActiveBattler]].callback == SpriteCallbackDummy)
+        if (gSprites[gBattlerSpriteIds[gActiveBattler]].callback == SpriteCallbackDummy
+            || gSprites[gBattlerSpriteIds[gActiveBattler]].callback == SpriteCallbackDummy_2)
         {
             m4aMPlayVolumeControl(&gMPlayInfo_BGM, TRACKS_ALL, 0x100);
             RecordedOpponentBufferExecCompleted();
