@@ -2345,14 +2345,20 @@ static void RenderPlayerParty(void)
 {
     u8 i, id;
     u16 species;
+    u8 index;
+    u8 spriteId;
 
     LoadMonIconPalettes();
     for (i = 0; i < gPlayerPartyCount; i++)
     {
-        species = GetMonData(gPlayerParty + i, MON_DATA_SPECIES2);
-
-        id = CreateMonIconNoPersonality(species, SpriteCallbackDummy, 32 * i + 40, 64, 0);
-        iconsIDs[i] = id;
-        gSprites[id].oam.priority = 0;
+        spriteId = CreateMonIcon(GetMonData(gPlayerParty + i, MON_DATA_SPECIES2), SpriteCallbackDummy, 56, 40, 0, GetMonData(gPlayerParty + i, MON_DATA_PERSONALITY));
+        index = IndexOfSpritePaletteTag(56000); // POKE_ICON_BASE_PAL_TAG
+        if (index < 16) {
+        u32 otId = T1_READ_32(gSaveBlock2Ptr->playerTrainerId);
+        const u32 *palette = GetMonSpritePalFromSpeciesAndPersonality(GetMonData(gPlayerParty + i, MON_DATA_SPECIES2), otId, GetMonData(gPlayerParty + i, MON_DATA_PERSONALITY));
+        LoadCompressedPalette(palette, index*16 + 0x100, 32);
+        gSprites[spriteId].oam.paletteNum = index;
+                        }
     }
+    gSprites[id].oam.priority = 0;
 }

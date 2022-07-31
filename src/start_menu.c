@@ -46,7 +46,6 @@
 #include "constants/battle_frontier.h"
 #include "constants/rgb.h"
 #include "constants/songs.h"
-#include "debug.h"
 #include "rtc.h"
 
 // Menu actions
@@ -1441,8 +1440,8 @@ static void ShowCurrentTimeWindow(void)
     FlagSet(FLAG_TEMP_5);
     ConvertIntToDecimalStringN(gStringVar1, gLocalTime.hours, STR_CONV_MODE_LEADING_ZEROS, 2);
     ConvertIntToDecimalStringN(gStringVar2, gLocalTime.minutes, STR_CONV_MODE_LEADING_ZEROS, 2);
-    StringExpandPlaceholders(gStringVar7, gText_CurrentTime);
-    AddTextPrinterParameterized(sCurrentTimeWindowId, 7, gStringVar7, 0, 1, 0xFF, NULL);
+    StringExpandPlaceholders(gStringVar4, gText_CurrentTime);
+    AddTextPrinterParameterized(sCurrentTimeWindowId, 7, gStringVar4, 0, 1, 0xFF, NULL);
     CopyWindowToVram(sCurrentTimeWindowId, 2);
 }
 
@@ -1453,7 +1452,7 @@ void UpdateClockDisplay(void)
     RtcCalcLocalTime();
     ConvertIntToDecimalStringN(gStringVar1, gLocalTime.hours, STR_CONV_MODE_LEADING_ZEROS, 2);
     ConvertIntToDecimalStringN(gStringVar2, gLocalTime.minutes, STR_CONV_MODE_LEADING_ZEROS, 2);
-    StringExpandPlaceholders(gStringVar7, gText_CurrentTime);
-    AddTextPrinterParameterized(sCurrentTimeWindowId, 7, gStringVar7, 0, 1, 0xFF, NULL);
+    StringExpandPlaceholders(gStringVar4, gText_CurrentTime);
+    AddTextPrinterParameterized(sCurrentTimeWindowId, 7, gStringVar4, 0, 1, 0xFF, NULL);
     CopyWindowToVram(sCurrentTimeWindowId, 2);
 }
