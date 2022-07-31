@@ -11,11 +11,16 @@ EverGrandeCity_PokemonLeague_1F_OnTransition:
 	setrespawn HEAL_LOCATION_EVER_GRANDE_CITY_POKEMON_LEAGUE
 	setflag FLAG_LANDMARK_POKEMON_LEAGUE
 	call_if_unset FLAG_ENTERED_ELITE_FOUR, EverGrandeCity_PokemonLeague_1F_EventScript_GuardsBlockDoor
+	call_if_unset FLAG_DEFEATED_METEOR_FALLS_STEVEN, EverGrandeCity_PokemonLeague_1F_EventScript_TryMakeGuardsBlockDoor
 	end
 
 EverGrandeCity_PokemonLeague_1F_EventScript_GuardsBlockDoor::
 	setobjectxyperm LOCALID_GUARD_1, 9, 2
 	setobjectxyperm LOCALID_GUARD_2, 10, 2
+	return
+
+EverGrandeCity_PokemonLeague_1F_EventScript_TryMakeGuardsBlockDoor:
+	call_if_ge VAR_POKEMON_LEAGUE_RUNS_COUNTER, 1, EverGrandeCity_PokemonLeague_1F_EventScript_GuardsBlockDoor
 	return
 
 EverGrandeCity_PokemonLeague_1F_EventScript_Nurse::
@@ -53,6 +58,9 @@ EverGrandeCity_PokemonLeague_1F_Pokemart:
 @ Its assumed the player has the remaining badges
 EverGrandeCity_PokemonLeague_1F_EventScript_DoorGuard::
 	lockall
+	faceplayer
+	call_if_set FLAG_DEFEATED_METEOR_FALLS_STEVEN, EverGrandeCity_PokemonLeague_1F_EventScript_NewChampion
+	call_if_unset FLAG_DEFEATED_METEOR_FALLS_STEVEN, EverGrandeCity_PokemonLeague_1F_EventScript_CheckIfNotAvailable
 	goto_if_set FLAG_ENTERED_ELITE_FOUR, EverGrandeCity_PokemonLeague_1F_EventScript_GoForth
 	getplayerxy VAR_TEMP_0, VAR_TEMP_1
 	call_if_ge VAR_TEMP_0, 11, EverGrandeCity_PokemonLeague_1F_EventScript_PlayerMoveToFrontFromRight
@@ -90,6 +98,8 @@ EverGrandeCity_PokemonLeague_1F_EventScript_PlayerMoveToFrontFromLeft::
 EverGrandeCity_PokemonLeague_1F_EventScript_NotAllBadges::
 	playse SE_FAILURE
 	msgbox EverGrandeCity_PokemonLeague_1F_Text_HaventObtainedAllBadges, MSGBOX_DEFAULT
+	applymovement VAR_LAST_TALKED, Common_Movement_FaceOriginalDirection
+	waitmovement 0
 	releaseall
 	end
 
@@ -98,6 +108,24 @@ EverGrandeCity_PokemonLeague_1F_EventScript_GoForth::
 	waitmovement 0
 	msgbox EverGrandeCity_PokemonLeague_1F_Text_GoForth, MSGBOX_DEFAULT
 	closemessage
+	applymovement VAR_LAST_TALKED, Common_Movement_FaceOriginalDirection
+	waitmovement 0
+	releaseall
+	end
+
+EverGrandeCity_PokemonLeague_1F_EventScript_CheckIfNotAvailable:
+	goto_if_ge VAR_POKEMON_LEAGUE_RUNS_COUNTER, 1, EverGrandeCity_PokemonLeague_1F_EventScript_NotAvailable
+	return
+
+EverGrandeCity_PokemonLeague_1F_EventScript_NotAvailable:
+	msgbox EverGrandeCity_PokemonLeague_1F_Text_NotAvailable, MSGBOX_DEFAULT
+	applymovement VAR_LAST_TALKED, Common_Movement_FaceOriginalDirection
+	waitmovement 0
+	releaseall
+	end
+
+EverGrandeCity_PokemonLeague_1F_EventScript_NewChampion:
+	msgbox EverGrandeCity_PokemonLeague_1F_Text_NewChampion, MSGBOX_DEFAULT
 	applymovement VAR_LAST_TALKED, Common_Movement_FaceOriginalDirection
 	waitmovement 0
 	releaseall
@@ -140,4 +168,17 @@ EverGrandeCity_PokemonLeague_1F_Text_HaventObtainedAllBadges:
 EverGrandeCity_PokemonLeague_1F_Text_GoForth:
 	.string "Trainer! Believe in yourself and your\n"
 	.string "Pokémon, and go forth!$"
+
+EverGrandeCity_PokemonLeague_1F_Text_NotAvailable:
+	.string "I am so sorry, but you've wasted\n"
+	.string "your time coming here.\p"
+	.string "The POKéMON LEAGUE is closed\n"
+	.string "for the time being.$"
+
+EverGrandeCity_PokemonLeague_1F_Text_NewChampion:
+	.string "The POKéMON LEAGUE has been\n"
+	.string "injected with new strength.\p"
+	.string "Former champion, believe in\n"
+	.string "yourself and your POKéMON!\p"
+	.string "Good luck!$"
 

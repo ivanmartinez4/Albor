@@ -24,13 +24,18 @@ struct WildPokemonHeader
     const struct WildPokemonInfo *waterMonsInfo;
     const struct WildPokemonInfo *rockSmashMonsInfo;
     const struct WildPokemonInfo *fishingMonsInfo;
+    const struct WildPokemonInfo *headbuttMonsInfo;
+    const struct WildPokemonInfo *landMonsNatInfo;
+    const struct WildPokemonInfo *waterMonsNatInfo;
+    const struct WildPokemonInfo *rockSmashMonsNatInfo;
+    const struct WildPokemonInfo *fishingMonsNatInfo;
+    const struct WildPokemonInfo *headbuttMonsNatInfo;
 };
 
 extern const struct WildPokemonHeader gWildMonHeaders[];
 extern bool8 gIsFishingEncounter;
 extern bool8 gIsSurfingEncounter;
 extern u8 gChainFishingStreak;
-extern bool8 gIsFishingEncounter;
 
 void DisableWildEncounters(bool8 disabled);
 bool8 StandardWildEncounter(u16 currMetaTileBehavior, u16 previousMetaTileBehavior);

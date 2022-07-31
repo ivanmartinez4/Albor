@@ -112,6 +112,7 @@ PlayersHouse_2F_EventScript_SetWallClock::
 	fadescreen FADE_TO_BLACK
 	special StartWallClock
 	waitstate
+	gettime @ Calls RtcCalcLocalTime which updates the RTC
 	return
 
 PlayersHouse_2F_Movement_MomEntersMale:
@@ -166,6 +167,17 @@ PlayersHouse_1F_EventScript_PetalburgGymReportMale::
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
 	waitmovement 0
 	msgbox PlayersHouse_1F_Text_ItsOverWeMissedHim, MSGBOX_DEFAULT
+	closemessage
+	delay 30
+	msgbox PlayersHouse_1F_Text_RunningShoes, MSGBOX_DEFAULT
+	playfanfare MUS_RG_OBTAIN_KEY_ITEM
+	msgbox PlayersHouse_1F_Text_ReceivedRunningShoes, MSGBOX_DEFAULT
+	waitfanfare
+	delay 30
+	setflag FLAG_SYS_B_DASH
+	msgbox PlayersHouse_1F_Text_RunningShoesExplanation, MSGBOX_DEFAULT
+	closemessage
+	delay 30
 	msgbox PlayersHouse_1F_Text_GoIntroduceYourselfNextDoor, MSGBOX_DEFAULT
 	closemessage
 	setvar VAR_TEMP_1, 1
@@ -191,6 +203,17 @@ PlayersHouse_1F_EventScript_PetalburgGymReportFemale::
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
 	msgbox PlayersHouse_1F_Text_ItsOverWeMissedHim, MSGBOX_DEFAULT
+	closemessage
+	delay 30
+	msgbox PlayersHouse_1F_Text_RunningShoes, MSGBOX_DEFAULT
+	playfanfare MUS_RG_OBTAIN_KEY_ITEM
+	msgbox PlayersHouse_1F_Text_ReceivedRunningShoes, MSGBOX_DEFAULT
+	waitfanfare
+	delay 30
+	setflag FLAG_SYS_B_DASH
+	msgbox PlayersHouse_1F_Text_RunningShoesExplanation, MSGBOX_DEFAULT
+	closemessage
+	delay 30
 	msgbox PlayersHouse_1F_Text_GoIntroduceYourselfNextDoor, MSGBOX_DEFAULT
 	closemessage
 	setvar VAR_TEMP_1, 1
@@ -308,7 +331,7 @@ PlayersHouse_1F_EventScript_Mom::
 	faceplayer
 	goto_if_eq VAR_LITTLEROOT_HOUSES_STATE_MAY, 4, PlayersHouse_1F_EventScript_DontPushYourselfTooHard
 	goto_if_eq VAR_LITTLEROOT_HOUSES_STATE_BRENDAN, 4, PlayersHouse_1F_EventScript_DontPushYourselfTooHard
-	goto_if_set FLAG_HAS_MATCH_CALL, PlayersHouse_1F_EventScript_TryRegisterMom
+	goto_if_set FLAG_SYS_POKENAV_GET, PlayersHouse_1F_EventScript_TryRegisterMom
 	goto_if_set FLAG_RESCUED_BIRCH, PlayersHouse_1F_EventScript_MomHealsParty
 	goto_if_eq VAR_TEMP_1, 1, PlayersHouse_1F_EventScript_SeeYouHoney
 	goto_if_eq VAR_LITTLEROOT_INTRO_STATE, 7, PlayersHouse_1F_EventScript_DidYouMeetProfBirch
@@ -344,6 +367,7 @@ PlayersHouse_1F_EventScript_TryGiveAmuletCoin::
 	msgbox PlayersHouse_1F_Text_GotDadsBadgeHeresSomethingFromMom, MSGBOX_DEFAULT
 	giveitem ITEM_AMULET_COIN
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
+	msgbox PlayersHouse_1F_Text_IAlsoBoughtYouSomeNewClothes, MSGBOX_DEFAULT
 	msgbox PlayersHouse_1F_Text_DontPushYourselfTooHard, MSGBOX_DEFAULT
 	setflag FLAG_RECEIVED_AMULET_COIN
 	release
@@ -440,6 +464,7 @@ PlayersHouse_1F_EventScript_GetSSTicketAndSeeLatiTV::
 	msgbox PlayersHouse_1F_Text_TicketFromBrineyCameForYou, MSGBOX_DEFAULT
 	giveitem ITEM_SS_TICKET
 	msgbox PlayersHouse_1F_Text_PortsInSlateportLilycove, MSGBOX_DEFAULT
+	msgbox PlayersHouse_1F_Text_IBoughtYouSomeNewClothesToo, MSGBOX_DEFAULT
 	closemessage
 	delay 20
 	call_if_eq VAR_0x8008, MALE, PlayersHouse_1F_EventScript_MomApproachDadMale
@@ -479,7 +504,39 @@ PlayersHouse_1F_EventScript_GetSSTicketAndSeeLatiTV::
 	special InitRoamer
 	copyvar VAR_ROAMER_POKEMON, VAR_RESULT
 	msgbox PlayersHouse_1F_Text_StillUnknownPokemon, MSGBOX_DEFAULT
+	applymovement VAR_0x800A, Common_Movement_FaceUp
+	waitmovement 0
+	delay 60
+	playse SE_PIN
+	applymovement VAR_0x800A, Common_Movement_ExclamationMark
+	waitmovement 0
+	waitse
+	applymovement VAR_0x800A, Common_Movement_FacePlayer
+	waitmovement 0
+	msgbox PlayersHouse_1F_Text_IAlmostForgot, MSGBOX_DEFAULT
+	msgbox PlayersHouse_1F_Text_OneLastThing, MSGBOX_DEFAULT
 	closemessage
+	checkplayergender
+	compare VAR_RESULT, FEMALE
+	goto_if_eq PlayersHouse_1F_EventScript_FemalePlayersMomGoesBackToHerPreferredSpot
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceDown
+	applymovement VAR_0x800A, PlayersHouse_1F_Movement_MomGoesBackToHerPreferredSpot
+	waitmovement 0
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceLeft
+	applymovement VAR_0x800A, PlayersHouse_1F_Movement_MomGoesBackToHerPreferredSpot2
+	waitmovement 0
+	setvar VAR_LITTLEROOT_HOUSES_STATE_MAY, 4
+	setvar VAR_LITTLEROOT_HOUSES_STATE_BRENDAN, 4
+	releaseall
+	end
+
+PlayersHouse_1F_EventScript_FemalePlayersMomGoesBackToHerPreferredSpot:
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceDown
+	applymovement VAR_0x800A, PlayersHouse_1F_Movement_FemalePlayersMomGoesBackToHerPreferredSpot
+	waitmovement 0
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceRight
+	applymovement VAR_0x800A, PlayersHouse_1F_Movement_FemalePlayersMomGoesBackToHerPreferredSpot2
+	waitmovement 0
 	setvar VAR_LITTLEROOT_HOUSES_STATE_MAY, 4
 	setvar VAR_LITTLEROOT_HOUSES_STATE_BRENDAN, 4
 	releaseall
@@ -602,6 +659,36 @@ PlayersHouse_1F_EventScript_MomApproachPlayerAfterTVFemale::
 	waitmovement 0
 	return
 
+PlayersHouse_1F_Movement_MomGoesBackToHerPreferredSpot:
+	walk_down
+	walk_down
+	walk_down
+	walk_left
+	walk_left
+	walk_left
+	step_end
+
+PlayersHouse_1F_Movement_MomGoesBackToHerPreferredSpot2:
+	walk_up
+	walk_up
+	face_right
+	step_end
+
+PlayersHouse_1F_Movement_FemalePlayersMomGoesBackToHerPreferredSpot:
+	walk_down
+	walk_down
+	walk_down
+	walk_right
+	walk_right
+	walk_right
+	step_end
+
+PlayersHouse_1F_Movement_FemalePlayersMomGoesBackToHerPreferredSpot2:
+	walk_up
+	walk_up
+	face_left
+	step_end
+
 PlayersHouse_1F_Movement_DadApproachPlayerMale:
 	walk_right
 	walk_right
@@ -678,3 +765,92 @@ PlayersHouse_1F_Movement_PlayerApproachTVForLatiFemale:
 EventScript_RunningShoesManual::
 	msgbox PlayersHouse_1F_Text_RunningShoesManual, MSGBOX_SIGN
 	end
+
+EventScript_Dresser::
+	lock
+	goto_if_unset FLAG_RECEIVED_AMULET_COIN, EventScript_NicelyMadeDresser
+	checkplayergender
+	compare VAR_RESULT, FEMALE
+	goto_if_eq EventScript_SwapFemalePlayersCostume
+EventScript_SwapMalePlayersCostume:
+	specialvar VAR_RESULT, GetCurrentMap
+	compare VAR_RESULT, MAP_LITTLEROOT_TOWN_MAYS_HOUSE_2F
+	goto_if_eq EventScript_NicelyMadeDresser
+	goto_if_set FLAG_IS_CHAMPION, EventScript_SwapPlayersCostumeExtended
+	multichoice 0, 0, MULTI_COSTUME_SELECTION_1, 0
+	switch VAR_RESULT
+	case 0, EventScript_SetPkmnTrainerCostume
+	case 1, EventScript_SetLegacyCostume
+	case 2, EventScript_SwapPlayersCostumeEnd
+	case MULTI_B_PRESSED, EventScript_SwapPlayersCostumeEnd
+
+EventScript_SwapPlayersCostumeExtended:
+	multichoice 0, 0, MULTI_COSTUME_SELECTION_2, 0
+	switch VAR_RESULT
+	case 0, EventScript_SetPkmnTrainerCostume
+	case 1, EventScript_SetLegacyCostume
+	case 2, EventScript_SetPokedexHolderCostume
+	case 3, EventScript_SwapPlayersCostumeEnd
+	case MULTI_B_PRESSED, EventScript_SwapPlayersCostumeEnd
+
+EventScript_SetPkmnTrainerCostume:
+	compare VAR_TEMP_1, 0
+	goto_if_eq EventScript_AlreadyWearingIt
+	setvar VAR_TEMP_1, 0
+	goto EventScript_ChangeCostume
+EventScript_SetLegacyCostume:
+	compare VAR_TEMP_1, 1
+	goto_if_eq EventScript_AlreadyWearingIt
+	setvar VAR_TEMP_1, 1
+	goto EventScript_ChangeCostume
+EventScript_SetPokedexHolderCostume:
+	compare VAR_TEMP_1, 2
+	goto_if_eq EventScript_AlreadyWearingIt
+	setvar VAR_TEMP_1, 2
+	goto EventScript_ChangeCostume
+
+EventScript_AlreadyWearingIt:
+	msgbox CostumeSwapping_Text_AlreadyWearingIt, MSGBOX_DEFAULT
+	closemessage
+	release
+	end
+
+EventScript_ChangeCostume:
+	fadescreen FADE_TO_BLACK
+	special SwapPlayersCostume
+	fadescreen FADE_FROM_BLACK
+	playfanfare MUS_LEVEL_UP
+	msgbox CostumeSwapping_Text_2, MSGBOX_DEFAULT
+	waitfanfare
+EventScript_SwapPlayersCostumeEnd:
+	release
+	end
+
+EventScript_SwapFemalePlayersCostume:
+	specialvar VAR_RESULT, GetCurrentMap
+	compare VAR_RESULT, MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_2F
+	goto_if_eq EventScript_NicelyMadeDresser
+	goto_if_set FLAG_IS_CHAMPION, EventScript_SwapPlayersCostumeExtended
+	multichoice 0, 0, MULTI_COSTUME_SELECTION_1, 0
+	switch VAR_RESULT
+	case 0, EventScript_SetPkmnTrainerCostume
+	case 1, EventScript_SetLegacyCostume
+	case 2, EventScript_SwapPlayersCostumeEnd
+	case MULTI_B_PRESSED, EventScript_SwapPlayersCostumeEnd
+
+EventScript_NicelyMadeDresser:
+	msgbox EventScript_Text_NicelyMadeDresser, MSGBOX_DEFAULT
+	release
+	end
+
+EventScript_Text_NicelyMadeDresser:
+	.string "It's a nicely made dresser.\nIt will hold a lot of stuff.$"
+
+CostumeSwapping_Text_1:
+	.string "The clothes MOM bought for me\nare nicely put inside the drawer.\pShould I try to put them on?$"
+
+CostumeSwapping_Text_2:
+	.string "Comfy.$"
+
+CostumeSwapping_Text_AlreadyWearingIt:
+	.string "I'm already wearing it.$"

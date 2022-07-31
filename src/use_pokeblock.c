@@ -126,7 +126,6 @@ static void UpdateSelection(bool8);
 static void CloseUsePokeblockMenu(void);
 static void AskUsePokeblock(void);
 static s8 HandleAskUsePokeblockInput(void);
-static bool8 IsSheenMaxed(void);
 static void PrintWontEatAnymore(void);
 static void FeedPokeblockToMon(void);
 static void EraseMenuWindow(void);
@@ -660,15 +659,7 @@ static void UsePokeblockMenu(void)
             sInfo->mainState = STATE_HANDLE_INPUT;
             break;
         case 0: // YES
-            if (IsSheenMaxed())
-            {
-                PrintWontEatAnymore();
-                sInfo->mainState = STATE_WAIT_MSG;
-            }
-            else
-            {
-                SetUsePokeblockCallback(FeedPokeblockToMon);
-            }
+            SetUsePokeblockCallback(FeedPokeblockToMon);
             break;
         }
         break;
@@ -865,10 +856,10 @@ static void AskUsePokeblock(void)
     GetMonData(&gPlayerParty[GetPartyIdFromSelectionId(sMenu->info.curSelection)], MON_DATA_NICKNAME, stringBuffer);
     StringGet_Nickname(stringBuffer);
     StringAppend(stringBuffer, gText_GetsAPokeBlockQuestion);
-    StringCopy(gStringVar4, stringBuffer);
+    StringCopy(gStringVar7, stringBuffer);
     FillWindowPixelBuffer(WIN_TEXT, 17);
     DrawTextBorderOuter(WIN_TEXT, 151, 14);
-    AddTextPrinterParameterized(WIN_TEXT, FONT_NORMAL, gStringVar4, 0, 1, 0, NULL);
+    AddTextPrinterParameterized(WIN_TEXT, FONT_NORMAL, gStringVar7, 0, 1, 0, NULL);
     PutWindowTilemap(WIN_TEXT);
     CopyWindowToVram(WIN_TEXT, COPYWIN_FULL);
     CreateYesNoMenu(&sUsePokeblockYesNoWinTemplate, 151, 14, 0);
@@ -905,11 +896,11 @@ static void PrintFirstEnhancement(void)
     }
 
     if (sInfo->condition < CONDITION_COUNT)
-        BufferEnhancedText(gStringVar4, sInfo->condition, sInfo->enhancements[sInfo->condition]);
+        BufferEnhancedText(gStringVar7, sInfo->condition, sInfo->enhancements[sInfo->condition]);
     else
-        BufferEnhancedText(gStringVar4, sInfo->condition, 0);
+        BufferEnhancedText(gStringVar7, sInfo->condition, 0);
 
-    PrintMenuWindowText(gStringVar4);
+    PrintMenuWindowText(gStringVar7);
     PutWindowTilemap(WIN_TEXT);
     CopyWindowToVram(WIN_TEXT, COPYWIN_FULL);
 }
@@ -933,8 +924,8 @@ static bool8 TryPrintNextEnhancement(void)
         }
     }
 
-    BufferEnhancedText(gStringVar4, sInfo->condition, sInfo->enhancements[sInfo->condition]);
-    PrintMenuWindowText(gStringVar4);
+    BufferEnhancedText(gStringVar7, sInfo->condition, sInfo->enhancements[sInfo->condition]);
+    PrintMenuWindowText(gStringVar7);
     CopyWindowToVram(WIN_TEXT, COPYWIN_GFX);
 
     return TRUE;
@@ -958,7 +949,7 @@ static void EraseMenuWindow(void)
 
 static void PrintMenuWindowText(const u8 *message)
 {
-    AddTextPrinterParameterized(WIN_TEXT, FONT_NORMAL, gStringVar4, 0, 1, 0, NULL);
+    AddTextPrinterParameterized(WIN_TEXT, FONT_NORMAL, gStringVar7, 0, 1, 0, NULL);
 }
 
 static void BufferEnhancedText(u8 *dest, u8 condition, s16 enhancement)
@@ -994,27 +985,17 @@ static void AddPokeblockToConditions(struct Pokeblock *pokeblock, struct Pokemon
     s16 stat;
     u8 data;
 
-    if (GetMonData(mon, MON_DATA_SHEEN) != MAX_SHEEN)
+    CalculatePokeblockEffectiveness(pokeblock, mon);
+    for (i = 0; i < CONDITION_COUNT; i++)
     {
-        CalculatePokeblockEffectiveness(pokeblock, mon);
-        for (i = 0; i < CONDITION_COUNT; i++)
-        {
-            data = GetMonData(mon, sConditionToMonData[i]);
-            stat = data +  sInfo->pokeblockStatBoosts[i];
-            if (stat < 0)
-                stat = 0;
-            if (stat > MAX_CONDITION)
-                stat = MAX_CONDITION;
-            data = stat;
-            SetMonData(mon, sConditionToMonData[i], &data);
-        }
-
-        stat = (u8)(GetMonData(mon, MON_DATA_SHEEN)) + pokeblock->feel;
-        if (stat > MAX_SHEEN)
-            stat = MAX_SHEEN;
-
+        data = GetMonData(mon, sConditionToMonData[i]);
+        stat = data +  sInfo->pokeblockStatBoosts[i];
+        if (stat < 0)
+            stat = 0;
+        if (stat > MAX_CONDITION)
+            stat = MAX_CONDITION;
         data = stat;
-        SetMonData(mon, MON_DATA_SHEEN, &data);
+        SetMonData(mon, sConditionToMonData[i], &data);
     }
 }
 
@@ -1060,17 +1041,6 @@ static void CalculatePokeblockEffectiveness(struct Pokeblock *pokeblock, struct 
         if (flavor == direction)
             sInfo->pokeblockStatBoosts[i] += boost * flavor;
     }
-}
-
-static bool8 IsSheenMaxed(void)
-{
-    if (GetBoxOrPartyMonData(sMenu->party[sMenu->info.curSelection].boxId,
-                             sMenu->party[sMenu->info.curSelection].monId,
-                             MON_DATA_SHEEN,
-                             NULL) == MAX_SHEEN)
-        return TRUE;
-    else
-        return FALSE;
 }
 
 static u8 GetPartyIdFromSelectionId(u8 selectionId)
@@ -1584,7 +1554,7 @@ static void SpriteCB_SelectionIconCancel(struct Sprite *sprite)
 // is the total number of sparkles that appear
 static void CalculateNumAdditionalSparkles(u8 monIndex)
 {
-    u8 sheen = GetMonData(&gPlayerParty[monIndex], MON_DATA_SHEEN);
+    u8 sheen = 0;
     sMenu->numSparkles[sMenu->curLoadId] = GET_NUM_CONDITION_SPARKLES(sheen);
 }
 

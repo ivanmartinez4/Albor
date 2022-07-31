@@ -20,6 +20,9 @@ struct PartyMenu
     s16 learnMoveState;  // data2, used only as a learn move state
 };
 
+#define TMHM_COUNT 108
+extern const u16 gTMHMMoves[TMHM_COUNT];
+
 extern struct PartyMenu gPartyMenu;
 extern bool8 gPartyMenuUseExitCallback;
 extern u8 gSelectedMonPartyId;
@@ -94,5 +97,8 @@ void MoveDeleterForgetMove(void);
 void BufferMoveDeleterNicknameAndMove(void);
 void GetNumMovesSelectedMonHas(void);
 void MoveDeleterChooseMoveToForget(void);
+
+// New code
+void CB2_ReturnToPartyMenuFromSummaryScreen(void);
 
 #endif // GUARD_PARTY_MENU_H

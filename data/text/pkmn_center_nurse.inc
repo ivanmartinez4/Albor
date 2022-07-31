@@ -40,9 +40,12 @@ gText_YouWantTheUsual::
     .string "I'm delighted to see you, {PLAYER}!\n"
     .string "You want the usual, am I right?$"
 
+gText_SecondAndSubsequentMeetingsWithNurseJoy::
+    .string "Hey {PLAYER}, how have you been?$"
+
 gText_IllTakeYourPkmn2::
-    .string "Okay, I'll take your Pokémon\n"
-    .string "for a few seconds, master.$"
+    .string "Let me take your POKéMON\n"
+    .string "for a few seconds.$"
 
 gText_ThankYouForWaiting::
     .string "Thank you for waiting.$"

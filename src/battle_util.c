@@ -7571,16 +7571,6 @@ u32 GetMoveTarget(u16 move, u8 setTarget)
     return targetBattler;
 }
 
-static bool32 IsMonEventLegal(u8 battlerId)
-{
-    if (GetBattlerSide(battlerId) == B_SIDE_OPPONENT)
-        return TRUE;
-    if (GetMonData(&gPlayerParty[gBattlerPartyIndexes[battlerId]], MON_DATA_SPECIES, NULL) != SPECIES_DEOXYS
-        && GetMonData(&gPlayerParty[gBattlerPartyIndexes[battlerId]], MON_DATA_SPECIES, NULL) != SPECIES_MEW)
-            return TRUE;
-    return GetMonData(&gPlayerParty[gBattlerPartyIndexes[battlerId]], MON_DATA_EVENT_LEGAL, NULL);
-}
-
 u8 IsMonDisobedient(void)
 {
     s32 rnd;
@@ -7591,29 +7581,25 @@ u8 IsMonDisobedient(void)
         return 0;
     if (GetBattlerSide(gBattlerAttacker) == B_SIDE_OPPONENT)
         return 0;
+    if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER && GetBattlerPosition(gBattlerAttacker) == 2)
+        return 0;
+    if (gBattleTypeFlags & BATTLE_TYPE_FRONTIER)
+        return 0;
+    if (gBattleTypeFlags & BATTLE_TYPE_RECORDED)
+        return 0;
+    if (!IsOtherTrainer(gBattleMons[gBattlerAttacker].otId, gBattleMons[gBattlerAttacker].otName))
+        return 0;
+    if (FlagGet(FLAG_BADGE08_GET))
+        return 0;
 
-    if (IsMonEventLegal(gBattlerAttacker)) // only false if illegal Mew or Deoxys
-    {
-        if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER && GetBattlerPosition(gBattlerAttacker) == 2)
-            return 0;
-        if (gBattleTypeFlags & BATTLE_TYPE_FRONTIER)
-            return 0;
-        if (gBattleTypeFlags & BATTLE_TYPE_RECORDED)
-            return 0;
-        if (!IsOtherTrainer(gBattleMons[gBattlerAttacker].otId, gBattleMons[gBattlerAttacker].otName))
-            return 0;
-        if (FlagGet(FLAG_BADGE08_GET))
-            return 0;
+    obedienceLevel = 10;
 
-        obedienceLevel = 10;
-
-        if (FlagGet(FLAG_BADGE02_GET))
-            obedienceLevel = 30;
-        if (FlagGet(FLAG_BADGE04_GET))
-            obedienceLevel = 50;
-        if (FlagGet(FLAG_BADGE06_GET))
-            obedienceLevel = 70;
-    }
+    if (FlagGet(FLAG_BADGE02_GET))
+        obedienceLevel = 30;
+    if (FlagGet(FLAG_BADGE04_GET))
+        obedienceLevel = 50;
+    if (FlagGet(FLAG_BADGE06_GET))
+        obedienceLevel = 70;
 
     if (gBattleMons[gBattlerAttacker].level <= obedienceLevel)
         return 0;
@@ -8765,8 +8751,9 @@ static u32 CalcAttackStat(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, b
             MulModifier(&modifier, UQ_4_12(2.0));
         break;
     case HOLD_EFFECT_LIGHT_BALL:
-        if (atkBaseSpeciesId == SPECIES_PIKACHU)
-            MulModifier(&modifier, UQ_4_12(2.0));
+        if ((atkBaseSpeciesId == SPECIES_PICHU || atkBaseSpeciesId == SPECIES_PIKACHU || atkBaseSpeciesId == SPECIES_RAICHU)
+         && IS_BATTLER_OF_TYPE(battlerAtk, TYPE_ELECTRIC))
+            MulModifier(&modifier, UQ_4_12(1.5));
         break;
     case HOLD_EFFECT_CHOICE_BAND:
         if (IS_MOVE_PHYSICAL(move))
@@ -8774,6 +8761,36 @@ static u32 CalcAttackStat(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, b
         break;
     case HOLD_EFFECT_CHOICE_SPECS:
         if (IS_MOVE_SPECIAL(move))
+            MulModifier(&modifier, UQ_4_12(1.5));
+        break;
+    case HOLD_EFFECT_ELECTIRIZER:
+        if ((gBattleMons[battlerAtk].species == SPECIES_ELEKID || gBattleMons[battlerAtk].species == SPECIES_ELECTABUZZ || gBattleMons[battlerAtk].species == SPECIES_ELECTIVIRE)
+         && IS_BATTLER_OF_TYPE(battlerAtk, TYPE_ELECTRIC))
+            MulModifier(&modifier, UQ_4_12(1.5));
+        break;
+    case HOLD_EFFECT_MAGMARIZER:
+        if ((gBattleMons[battlerAtk].species == SPECIES_MAGBY || gBattleMons[battlerAtk].species == SPECIES_MAGMAR || gBattleMons[battlerAtk].species == SPECIES_MAGMORTAR)
+         && IS_BATTLER_OF_TYPE(battlerAtk, TYPE_FIRE))
+            MulModifier(&modifier, UQ_4_12(1.5));
+        break;
+    case HOLD_EFFECT_PROTECTOR:
+        if ((gBattleMons[battlerAtk].species == SPECIES_RHYHORN || gBattleMons[battlerAtk].species == SPECIES_RHYDON || gBattleMons[battlerAtk].species == SPECIES_RHYPERIOR)
+         && IS_BATTLER_OF_TYPE(battlerAtk, TYPE_GROUND))
+            MulModifier(&modifier, UQ_4_12(1.5));
+        break;
+    case HOLD_EFFECT_DUBIOUS_DISC:
+        if ((gBattleMons[battlerAtk].species == SPECIES_PORYGON || gBattleMons[battlerAtk].species == SPECIES_PORYGON2 || gBattleMons[battlerAtk].species == SPECIES_PORYGON_Z)
+         && IS_BATTLER_OF_TYPE(battlerAtk, TYPE_NORMAL))
+            MulModifier(&modifier, UQ_4_12(1.5));
+        break;
+    case HOLD_EFFECT_REAPER_CLOTH:
+        if ((gBattleMons[battlerAtk].species == SPECIES_DUSKULL || gBattleMons[battlerAtk].species == SPECIES_DUSCLOPS || gBattleMons[battlerAtk].species == SPECIES_DUSKNOIR)
+         && IS_BATTLER_OF_TYPE(battlerAtk, TYPE_GHOST))
+            MulModifier(&modifier, UQ_4_12(1.5));
+        break;
+    case HOLD_EFFECT_TWISTED_SPOON:
+        if ((gBattleMons[battlerAtk].species == SPECIES_ABRA || gBattleMons[battlerAtk].species == SPECIES_KADABRA || gBattleMons[battlerAtk].species == SPECIES_ALAKAZAM)
+         && IS_BATTLER_OF_TYPE(battlerAtk, TYPE_PSYCHIC))
             MulModifier(&modifier, UQ_4_12(1.5));
         break;
     }
@@ -8932,6 +8949,10 @@ static u32 CalcDefenseStat(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, 
             MulModifier(&modifier, UQ_4_12(1.5));
         break;
 #endif
+    case HOLD_EFFECT_ODD_KEYSTONE:
+        if (gBattleMons[battlerDef].species == SPECIES_SPIRITOMB)
+            MulModifier(&modifier, UQ_4_12(1.5));
+        break;
     }
 
     // sandstorm sp.def boost for rock types
@@ -9442,12 +9463,7 @@ bool32 CanMegaEvolve(u8 battlerId)
     // Check if trainer already mega evolved a pokemon.
     if (mega->alreadyEvolved[battlerPosition])
         return FALSE;
-
-    // Cannot use z move and mega evolve on same turn
-    if (gBattleStruct->zmove.toBeUsed[battlerId])
-        return FALSE;
-    
-    if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE
+    if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE && gTrainerBattleOpponent_A != TRAINER_TATE_AND_LIZA_2
      && IsPartnerMonFromSameTrainer(battlerId)
      && (mega->alreadyEvolved[partnerPosition] || (mega->toEvolve & gBitTable[BATTLE_PARTNER(battlerId)])))
         return FALSE;

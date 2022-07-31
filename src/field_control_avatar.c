@@ -37,6 +37,8 @@
 
 static EWRAM_DATA u8 sWildEncounterImmunitySteps = 0;
 static EWRAM_DATA u16 sPreviousPlayerMetatileBehavior = 0;
+static EWRAM_DATA u8 sCurrentDirection = 0;
+static EWRAM_DATA u8 sPreviousDirection = 0;
 
 u8 gSelectedObjectEvent;
 
@@ -68,6 +70,9 @@ static bool8 TryStartMiscWalkingScripts(u16);
 static bool8 TryStartStepCountScript(u16);
 static void UpdateFriendshipStepCounter(void);
 static bool8 UpdatePoisonStepCounter(void);
+static bool8 EnableAutoRun(void);
+static u8 GetDirectionFromBitfield(u8 bitfield);
+static void SetDirectionFromHeldKeys(u16 heldKeys);
 
 void FieldClearPlayerInput(struct FieldInput *input)
 {
@@ -79,11 +84,9 @@ void FieldClearPlayerInput(struct FieldInput *input)
     input->heldDirection2 = FALSE;
     input->tookStep = FALSE;
     input->pressedBButton = FALSE;
-    input->input_field_1_0 = FALSE;
-    input->input_field_1_1 = FALSE;
-    input->input_field_1_2 = FALSE;
-    input->input_field_1_3 = FALSE;
+    input->pressedRButton = FALSE;
     input->dpadDirection = 0;
+    input->pressedLButton = FALSE;
 }
 
 void FieldGetPlayerInput(struct FieldInput *input, u16 newKeys, u16 heldKeys)
@@ -104,6 +107,8 @@ void FieldGetPlayerInput(struct FieldInput *input, u16 newKeys, u16 heldKeys)
                 input->pressedAButton = TRUE;
             if (newKeys & B_BUTTON)
                 input->pressedBButton = TRUE;
+            if (newKeys & L_BUTTON)
+                input->pressedLButton = TRUE;
         }
 
         if (heldKeys & (DPAD_UP | DPAD_DOWN | DPAD_LEFT | DPAD_RIGHT))
@@ -111,6 +116,9 @@ void FieldGetPlayerInput(struct FieldInput *input, u16 newKeys, u16 heldKeys)
             input->heldDirection = TRUE;
             input->heldDirection2 = TRUE;
         }
+
+        if (newKeys & R_BUTTON)
+            input->pressedRButton = TRUE;
     }
 
     if (forcedMove == FALSE)
@@ -121,14 +129,8 @@ void FieldGetPlayerInput(struct FieldInput *input, u16 newKeys, u16 heldKeys)
             input->checkStandardWildEncounter = TRUE;
     }
 
-    if (heldKeys & DPAD_UP)
-        input->dpadDirection = DIR_NORTH;
-    else if (heldKeys & DPAD_DOWN)
-        input->dpadDirection = DIR_SOUTH;
-    else if (heldKeys & DPAD_LEFT)
-        input->dpadDirection = DIR_WEST;
-    else if (heldKeys & DPAD_RIGHT)
-        input->dpadDirection = DIR_EAST;
+    SetDirectionFromHeldKeys(heldKeys);
+    input->dpadDirection = sCurrentDirection;
 }
 
 int ProcessPlayerFieldInput(struct FieldInput *input)
@@ -187,6 +189,28 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
     }
     if (input->pressedSelectButton && UseRegisteredKeyItemOnField() == TRUE)
         return TRUE;
+    
+    if (input->pressedLButton && EnableAutoRun())
+        return TRUE;
+
+    if (input->pressedLButton && TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_MACH_BIKE | PLAYER_AVATAR_FLAG_ACRO_BIKE))
+    {
+        ObjectEventClearHeldMovementIfActive(&gObjectEvents[gPlayerAvatar.objectEventId]);
+        if (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_MACH_BIKE)
+        {
+            gPlayerAvatar.flags -= PLAYER_AVATAR_FLAG_MACH_BIKE;
+            gPlayerAvatar.flags += PLAYER_AVATAR_FLAG_ACRO_BIKE;
+            SetPlayerAvatarTransitionFlags(PLAYER_AVATAR_FLAG_ACRO_BIKE);
+            PlaySE(SE_BIKE_HOP);
+        }
+        else
+        {
+            gPlayerAvatar.flags -= PLAYER_AVATAR_FLAG_ACRO_BIKE;
+            gPlayerAvatar.flags += PLAYER_AVATAR_FLAG_MACH_BIKE;
+            SetPlayerAvatarTransitionFlags(PLAYER_AVATAR_FLAG_MACH_BIKE);
+            PlaySE(SE_BIKE_BELL);
+        }
+    }
 
     return FALSE;
 }
@@ -408,6 +432,8 @@ static const u8 *GetInteractedMetatileScript(struct MapPosition *position, u8 me
         return EventScript_Questionnaire;
     if (MetatileBehavior_IsTrainerHillTimer(metatileBehavior) == TRUE)
         return EventScript_TrainerHillTimer;
+    if (MetatileBehavior_IsHeadbuttTree(metatileBehavior))
+        return EventScript_Headbutt;
 
     elevation = position->elevation;
     if (elevation == MapGridGetElevationAt(position->x, position->y))
@@ -646,7 +672,7 @@ static bool8 UpdatePoisonStepCounter(void)
                 return FALSE;
             case FLDPSN_PSN:
                 return FALSE;
-            case FLDPSN_FNT:
+            case FLDPSN_SURVIVED:
                 return TRUE;
             }
         }
@@ -662,6 +688,9 @@ void RestartWildEncounterImmunitySteps(void)
 
 static bool8 CheckStandardWildEncounter(u16 metatileBehavior)
 {
+    if (FlagGet(FLAG_DISABLE_WILD_ENCOUNTERS))
+        return FALSE;
+
     if (sWildEncounterImmunitySteps < 4)
     {
         sWildEncounterImmunitySteps++;
@@ -996,4 +1025,78 @@ int SetCableClubWarp(void)
     MapGridGetMetatileBehaviorAt(position.x, position.y);  //unnecessary
     SetupWarp(&gMapHeader, GetWarpEventAtMapPosition(&gMapHeader, &position), &position);
     return 0;
+}
+
+extern const u8 EventScript_DisableAutoRun[];
+extern const u8 EventScript_EnableAutoRun[];
+static bool8 EnableAutoRun(void)
+{
+    if (!FlagGet(FLAG_SYS_B_DASH))
+        return FALSE;   //auto run unusable until you get running shoes
+
+    if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_MACH_BIKE | PLAYER_AVATAR_FLAG_ACRO_BIKE))
+        return FALSE;   //auto run unusable while riding a bike
+
+    if (gSaveBlock2Ptr->autoRun)
+    {
+        gSaveBlock2Ptr->autoRun = FALSE;
+        ScriptContext1_SetupScript(EventScript_DisableAutoRun);
+    }
+    else
+    {
+        gSaveBlock2Ptr->autoRun = TRUE;
+        ScriptContext1_SetupScript(EventScript_EnableAutoRun);
+    }
+    
+    return TRUE;
+}
+
+static u8 GetDirectionFromBitfield(u8 bitfield)
+{
+    u8 direction = 0;
+    while (bitfield >>= 1) direction++;
+    return direction;
+}
+
+static void SetDirectionFromHeldKeys(u16 heldKeys)
+{
+    u8 dpadDirections = 0;
+
+    if (heldKeys & DPAD_UP)
+        dpadDirections |= (1 << DIR_NORTH);
+    if (heldKeys & DPAD_DOWN)
+        dpadDirections |= (1 << DIR_SOUTH);
+    if (heldKeys & DPAD_LEFT)
+        dpadDirections |= (1 << DIR_WEST);
+    if (heldKeys & DPAD_RIGHT)
+        dpadDirections |= (1 << DIR_EAST);
+
+    if (dpadDirections == 0) // no dir is pushed
+    {
+        sCurrentDirection = DIR_NONE;
+        sPreviousDirection = DIR_NONE;
+        return;
+    }
+
+    if ((dpadDirections & (dpadDirections - 1)) == 0) // only 1 dir is pushed
+    {
+        // simply set currDir to that dir
+        sCurrentDirection = GetDirectionFromBitfield(dpadDirections);
+        sPreviousDirection = DIR_NONE;
+        return;
+    }
+
+    if (((dpadDirections >> sCurrentDirection) & 1) == 0) // none of the multiple dirs pushed is currDir
+    {
+        sCurrentDirection = DIR_NONE;
+        sPreviousDirection = DIR_NONE;
+    }
+    else if ((sPreviousDirection == DIR_NONE) || (((dpadDirections >> sPreviousDirection) & 1) == 0))
+    {
+        // turn
+        sCurrentDirection = GetDirectionFromBitfield(dpadDirections & ~(1 << sCurrentDirection));
+        sPreviousDirection = sCurrentDirection;
+    }
+    // else, currDir and prevDir are the dirs pushed
+    // do nothing (keep the same currDir and prevDir)
 }

@@ -53,7 +53,6 @@
 
 enum {
     TVGROUP_NONE,
-    TVGROUP_UNUSED,
     TVGROUP_NORMAL,
     TVGROUP_RECORD_MIX,
     TVGROUP_OUTBREAK,
@@ -2254,13 +2253,6 @@ u8 GetRibbonCount(struct Pokemon *pokemon)
     nRibbons += GetMonData(pokemon, MON_DATA_VICTORY_RIBBON);
     nRibbons += GetMonData(pokemon, MON_DATA_ARTIST_RIBBON);
     nRibbons += GetMonData(pokemon, MON_DATA_EFFORT_RIBBON);
-    nRibbons += GetMonData(pokemon, MON_DATA_MARINE_RIBBON);
-    nRibbons += GetMonData(pokemon, MON_DATA_LAND_RIBBON);
-    nRibbons += GetMonData(pokemon, MON_DATA_SKY_RIBBON);
-    nRibbons += GetMonData(pokemon, MON_DATA_COUNTRY_RIBBON);
-    nRibbons += GetMonData(pokemon, MON_DATA_NATIONAL_RIBBON);
-    nRibbons += GetMonData(pokemon, MON_DATA_EARTH_RIBBON);
-    nRibbons += GetMonData(pokemon, MON_DATA_WORLD_RIBBON);
     return nRibbons;
 }
 
@@ -2276,13 +2268,6 @@ static u8 MonDataIdxToRibbon(u8 monDataIdx)
     if (monDataIdx == MON_DATA_VICTORY_RIBBON)  return VICTORY_RIBBON;
     if (monDataIdx == MON_DATA_ARTIST_RIBBON)   return ARTIST_RIBBON;
     if (monDataIdx == MON_DATA_EFFORT_RIBBON)   return EFFORT_RIBBON;
-    if (monDataIdx == MON_DATA_MARINE_RIBBON)   return MARINE_RIBBON;
-    if (monDataIdx == MON_DATA_LAND_RIBBON)     return LAND_RIBBON;
-    if (monDataIdx == MON_DATA_SKY_RIBBON)      return SKY_RIBBON;
-    if (monDataIdx == MON_DATA_COUNTRY_RIBBON)  return COUNTRY_RIBBON;
-    if (monDataIdx == MON_DATA_NATIONAL_RIBBON) return NATIONAL_RIBBON;
-    if (monDataIdx == MON_DATA_EARTH_RIBBON)    return EARTH_RIBBON;
-    if (monDataIdx == MON_DATA_WORLD_RIBBON)    return WORLD_RIBBON;
     return CHAMPION_RIBBON;
 }
 
@@ -4682,13 +4667,13 @@ static void DoTVShowPokemonFanClubLetter(void)
         TVShowDone();
         break;
     case 50:
-        ConvertEasyChatWordsToString(gStringVar4, show->fanclubLetter.words, 2, 2);
-        ShowFieldMessage(gStringVar4);
+        ConvertEasyChatWordsToString(gStringVar7, show->fanclubLetter.words, 2, 2);
+        ShowFieldMessage(gStringVar7);
         sTVShowState = 1;
         return;
     case 51:
-        ConvertEasyChatWordsToString(gStringVar4, show->fanclubLetter.words, 2, 2);
-        ShowFieldMessage(gStringVar4);
+        ConvertEasyChatWordsToString(gStringVar7, show->fanclubLetter.words, 2, 2);
+        ShowFieldMessage(gStringVar7);
         sTVShowState = 3;
         return;
     }
@@ -4722,8 +4707,8 @@ static void DoTVShowRecentHappenings(void)
         TVShowDone();
         break;
     case 50:
-        ConvertEasyChatWordsToString(gStringVar4, show->recentHappenings.words, 2, 2);
-        ShowFieldMessage(gStringVar4);
+        ConvertEasyChatWordsToString(gStringVar7, show->recentHappenings.words, 2, 2);
+        ShowFieldMessage(gStringVar7);
         sTVShowState = 1;
         return;
     }

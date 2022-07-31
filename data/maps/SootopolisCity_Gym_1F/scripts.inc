@@ -80,6 +80,7 @@ SootopolisCity_Gym_1F_Movement_FallThroughIce:
 	step_end
 
 SootopolisCity_Gym_1F_EventScript_Juan::
+	setflag FLAG_DISABLE_SHINY_HUE_SHIFT
 	trainerbattle_single TRAINER_JUAN_1, SootopolisCity_Gym_1F_Text_JuanIntro, SootopolisCity_Gym_1F_Text_JuanDefeat, SootopolisCity_Gym_1F_EventScript_JuanDefeated, NO_MUSIC
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	goto_if_eq VAR_RESULT, TRUE, SootopolisCity_Gym_1F_EventScript_JuanRematch
@@ -136,6 +137,7 @@ SootopolisCity_Gym_1F_EventScript_GoGetFortreeBadge::
 	end
 
 SootopolisCity_Gym_1F_EventScript_JuanRematch::
+	setflag FLAG_DISABLE_SHINY_HUE_SHIFT
 	trainerbattle_rematch_double TRAINER_JUAN_1, SootopolisCity_Gym_1F_Text_JuanPreRematch, SootopolisCity_Gym_1F_Text_JuanRematchDefeat, SootopolisCity_Gym_1F_Text_JuanRematchNeedTwoMons
 	msgbox SootopolisCity_Gym_1F_Text_JuanPostRematch, MSGBOX_AUTOCLOSE
 	end
@@ -213,10 +215,6 @@ SootopolisCity_Gym_1F_Text_JuanIntro:
 	.string "A grand illusion of water sculpted\n"
 	.string "by Pokémon and myself!$"
 
-@ NOTE: This defeat text actually causes a buffer overflow. It's about 50 bytes too long for
-@ the gDisplayedStringBattle buffer that it's put into, and it stomps all over the gBattleTextBuffs
-@ after, as well as the otherwise unused array after that. One wonders if that's the reason for
-@ the existence of that unused array of ints.
 SootopolisCity_Gym_1F_Text_JuanDefeat:
 	.string "Ahahaha, excellent!\n"
 	.string "Very well, you are the winner.\p"

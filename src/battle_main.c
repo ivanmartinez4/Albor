@@ -51,6 +51,7 @@
 #include "util.h"
 #include "wild_encounter.h"
 #include "window.h"
+#include "wild_encounter.h"
 #include "constants/abilities.h"
 #include "constants/battle_config.h"
 #include "constants/battle_move_effects.h"
@@ -63,6 +64,8 @@
 #include "constants/songs.h"
 #include "constants/trainers.h"
 #include "cable_club.h"
+#include "starter_choose.h"
+#include "wonder_trade.h"
 
 extern struct Evolution gEvolutionTable[][EVOS_PER_MON];
 
@@ -371,6 +374,66 @@ const struct TrainerMoney gTrainerMoneyTable[] =
     {0xFF, 5}, // Any trainer class not listed above uses this
 };
 
+const struct TrainerBall gTrainerBallTable[] = {
+    {TRAINER_CLASS_TEAM_AQUA, ITEM_NET_BALL},
+    {TRAINER_CLASS_AQUA_ADMIN, ITEM_NET_BALL},
+    {TRAINER_CLASS_AQUA_LEADER, ITEM_MASTER_BALL},
+    {TRAINER_CLASS_AROMA_LADY, ITEM_FRIEND_BALL},
+    {TRAINER_CLASS_RUIN_MANIAC, ITEM_DUSK_BALL},
+    {TRAINER_CLASS_INTERVIEWER, ITEM_REPEAT_BALL},
+    {TRAINER_CLASS_TUBER_F, ITEM_DIVE_BALL},
+    {TRAINER_CLASS_TUBER_M, ITEM_DIVE_BALL},
+    {TRAINER_CLASS_SIS_AND_BRO, ITEM_POKE_BALL},
+    {TRAINER_CLASS_COOLTRAINER, ITEM_ULTRA_BALL},
+    {TRAINER_CLASS_HEX_MANIAC, ITEM_DUSK_BALL},
+    {TRAINER_CLASS_LADY, ITEM_LUXURY_BALL},
+    {TRAINER_CLASS_BEAUTY, ITEM_LOVE_BALL},
+    {TRAINER_CLASS_RICH_BOY, ITEM_LUXURY_BALL},
+    {TRAINER_CLASS_POKEMANIAC, ITEM_MOON_BALL},
+    {TRAINER_CLASS_SWIMMER_M, ITEM_DIVE_BALL},
+    {TRAINER_CLASS_BLACK_BELT, ITEM_HEAVY_BALL},
+    {TRAINER_CLASS_GUITARIST, ITEM_FAST_BALL},
+    {TRAINER_CLASS_KINDLER, ITEM_POKE_BALL},
+    {TRAINER_CLASS_CAMPER, ITEM_NEST_BALL},
+    {TRAINER_CLASS_OLD_COUPLE, ITEM_POKE_BALL},
+    {TRAINER_CLASS_BUG_MANIAC, ITEM_NET_BALL},
+    {TRAINER_CLASS_PSYCHIC, ITEM_DREAM_BALL},
+    {TRAINER_CLASS_GENTLEMAN, ITEM_LUXURY_BALL},
+    {TRAINER_CLASS_ELITE_FOUR, ITEM_ULTRA_BALL},
+    {TRAINER_CLASS_LEADER, ITEM_ULTRA_BALL},
+    {TRAINER_CLASS_SCHOOL_KID, ITEM_POKE_BALL},
+    {TRAINER_CLASS_SR_AND_JR, ITEM_POKE_BALL},
+    {TRAINER_CLASS_POKEFAN, ITEM_POKE_BALL},
+    {TRAINER_CLASS_EXPERT, ITEM_ULTRA_BALL},
+    {TRAINER_CLASS_YOUNGSTER, ITEM_POKE_BALL},
+    {TRAINER_CLASS_CHAMPION, ITEM_LUXURY_BALL},
+    {TRAINER_CLASS_FISHERMAN, ITEM_LURE_BALL},
+    {TRAINER_CLASS_TRIATHLETE, ITEM_FAST_BALL},
+    {TRAINER_CLASS_DRAGON_TAMER, ITEM_ULTRA_BALL},
+    {TRAINER_CLASS_BIRD_KEEPER, ITEM_QUICK_BALL},
+    {TRAINER_CLASS_NINJA_BOY, ITEM_QUICK_BALL},
+    {TRAINER_CLASS_BATTLE_GIRL, ITEM_HEAVY_BALL},
+    {TRAINER_CLASS_PARASOL_LADY, ITEM_POKE_BALL},
+    {TRAINER_CLASS_SWIMMER_F, ITEM_DIVE_BALL},
+    {TRAINER_CLASS_PICNICKER, ITEM_FRIEND_BALL},
+    {TRAINER_CLASS_TWINS, ITEM_POKE_BALL},
+    {TRAINER_CLASS_SAILOR, ITEM_DIVE_BALL},
+    {TRAINER_CLASS_COLLECTOR, ITEM_REPEAT_BALL},
+    {TRAINER_CLASS_RIVAL, ITEM_POKE_BALL},
+    {TRAINER_CLASS_PKMN_BREEDER, ITEM_TIMER_BALL},
+    {TRAINER_CLASS_PKMN_RANGER, ITEM_SAFARI_BALL},
+    {TRAINER_CLASS_TEAM_MAGMA, ITEM_NEST_BALL},
+    {TRAINER_CLASS_MAGMA_ADMIN, ITEM_NEST_BALL},
+    {TRAINER_CLASS_MAGMA_LEADER, ITEM_MASTER_BALL},
+    {TRAINER_CLASS_LASS, ITEM_POKE_BALL},
+    {TRAINER_CLASS_BUG_CATCHER, ITEM_NET_BALL},
+    {TRAINER_CLASS_HIKER, ITEM_HEAVY_BALL},
+    {TRAINER_CLASS_YOUNG_COUPLE, ITEM_LOVE_BALL},
+    {TRAINER_CLASS_WINSTRATE, ITEM_GREAT_BALL},
+    {TRAINER_CLASS_PKMN_TRAINER_2, ITEM_POKE_BALL},
+    {0xFF, ITEM_POKE_BALL},
+};
+
 #include "data/text/abilities.h"
 
 static void (* const sTurnActionsFuncsTable[])(void) =
@@ -540,8 +603,9 @@ static void CB2_InitBattleInternal(void)
     {
         CreateNPCTrainerParty(&gEnemyParty[0], gTrainerBattleOpponent_A, TRUE);
         if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS && !BATTLE_TWO_VS_ONE_OPPONENT)
-            CreateNPCTrainerParty(&gEnemyParty[PARTY_SIZE / 2], gTrainerBattleOpponent_B, FALSE);
-        SetWildMonHeldItem();
+            CreateNPCTrainerParty(&gEnemyParty[3], gTrainerBattleOpponent_B, FALSE);
+        if (GetMonData(&gEnemyParty[0], MON_DATA_HELD_ITEM) == ITEM_NONE || GetMonData(&gEnemyParty[1], MON_DATA_HELD_ITEM) == ITEM_NONE)
+            SetWildMonHeldItem();
     }
 
     gMain.inBattle = TRUE;
@@ -599,33 +663,17 @@ static void SetPlayerBerryDataInBattleStruct(void)
     s32 i;
     struct BattleStruct *battleStruct = gBattleStruct;
     struct BattleEnigmaBerry *battleBerry = &battleStruct->multiBuffer.linkBattlerHeader.battleEnigmaBerry;
-
-    if (IsEnigmaBerryValid() == TRUE)
-    {
-        for (i = 0; i < BERRY_NAME_LENGTH; i++)
-            battleBerry->name[i] = gSaveBlock1Ptr->enigmaBerry.berry.name[i];
-        battleBerry->name[i] = EOS;
-
-        for (i = 0; i < BERRY_ITEM_EFFECT_COUNT; i++)
-            battleBerry->itemEffect[i] = gSaveBlock1Ptr->enigmaBerry.itemEffect[i];
-
-        battleBerry->holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
-        battleBerry->holdEffectParam = gSaveBlock1Ptr->enigmaBerry.holdEffectParam;
-    }
-    else
-    {
-        const struct Berry *berryData = GetBerryInfo(ItemIdToBerryType(ITEM_ENIGMA_BERRY_E_READER));
-
-        for (i = 0; i < BERRY_NAME_LENGTH; i++)
-            battleBerry->name[i] = berryData->name[i];
-        battleBerry->name[i] = EOS;
-
-        for (i = 0; i < BERRY_ITEM_EFFECT_COUNT; i++)
-            battleBerry->itemEffect[i] = 0;
-
-        battleBerry->holdEffect = HOLD_EFFECT_NONE;
-        battleBerry->holdEffectParam = 0;
-    }
+    const struct Berry *berryData = GetBerryInfo(ItemIdToBerryType(ITEM_ENIGMA_BERRY_E_READER));
+    
+    for (i = 0; i < BERRY_NAME_LENGTH; i++)
+        battleBerry->name[i] = berryData->name[i];
+    battleBerry->name[i] = EOS;
+    
+    for (i = 0; i < BERRY_ITEM_EFFECT_COUNT; i++)
+        battleBerry->itemEffect[i] = 0;
+    
+    battleBerry->holdEffect = HOLD_EFFECT_NONE;
+    battleBerry->holdEffectParam = 0;
 }
 
 static void SetAllPlayersBerryData(void)
@@ -635,50 +683,26 @@ static void SetAllPlayersBerryData(void)
 
     if (!(gBattleTypeFlags & BATTLE_TYPE_LINK))
     {
-        if (IsEnigmaBerryValid() == TRUE)
+        const struct Berry *berryData = GetBerryInfo(ItemIdToBerryType(ITEM_ENIGMA_BERRY_E_READER));
+        
+        for (i = 0; i < BERRY_NAME_LENGTH; i++)
         {
-            for (i = 0; i < BERRY_NAME_LENGTH; i++)
-            {
-                gEnigmaBerries[0].name[i] = gSaveBlock1Ptr->enigmaBerry.berry.name[i];
-                gEnigmaBerries[2].name[i] = gSaveBlock1Ptr->enigmaBerry.berry.name[i];
-            }
-            gEnigmaBerries[0].name[i] = EOS;
-            gEnigmaBerries[2].name[i] = EOS;
-
-            for (i = 0; i < BERRY_ITEM_EFFECT_COUNT; i++)
-            {
-                gEnigmaBerries[0].itemEffect[i] = gSaveBlock1Ptr->enigmaBerry.itemEffect[i];
-                gEnigmaBerries[2].itemEffect[i] = gSaveBlock1Ptr->enigmaBerry.itemEffect[i];
-            }
-
-            gEnigmaBerries[0].holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
-            gEnigmaBerries[2].holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
-            gEnigmaBerries[0].holdEffectParam = gSaveBlock1Ptr->enigmaBerry.holdEffectParam;
-            gEnigmaBerries[2].holdEffectParam = gSaveBlock1Ptr->enigmaBerry.holdEffectParam;
+            gEnigmaBerries[0].name[i] = berryData->name[i];
+            gEnigmaBerries[2].name[i] = berryData->name[i];
         }
-        else
+        gEnigmaBerries[0].name[i] = EOS;
+        gEnigmaBerries[2].name[i] = EOS;
+        
+        for (i = 0; i < BERRY_ITEM_EFFECT_COUNT; i++)
         {
-            const struct Berry *berryData = GetBerryInfo(ItemIdToBerryType(ITEM_ENIGMA_BERRY_E_READER));
-
-            for (i = 0; i < BERRY_NAME_LENGTH; i++)
-            {
-                gEnigmaBerries[0].name[i] = berryData->name[i];
-                gEnigmaBerries[2].name[i] = berryData->name[i];
-            }
-            gEnigmaBerries[0].name[i] = EOS;
-            gEnigmaBerries[2].name[i] = EOS;
-
-            for (i = 0; i < BERRY_ITEM_EFFECT_COUNT; i++)
-            {
-                gEnigmaBerries[0].itemEffect[i] = 0;
-                gEnigmaBerries[2].itemEffect[i] = 0;
-            }
-
-            gEnigmaBerries[0].holdEffect = 0;
-            gEnigmaBerries[2].holdEffect = 0;
-            gEnigmaBerries[0].holdEffectParam = 0;
-            gEnigmaBerries[2].holdEffectParam = 0;
+            gEnigmaBerries[0].itemEffect[i] = 0;
+            gEnigmaBerries[2].itemEffect[i] = 0;
         }
+        
+        gEnigmaBerries[0].holdEffect = 0;
+        gEnigmaBerries[2].holdEffect = 0;
+        gEnigmaBerries[0].holdEffectParam = 0;
+        gEnigmaBerries[2].holdEffectParam = 0;
     }
     else
     {
@@ -1751,9 +1775,14 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 {
     u32 nameHash = 0;
     u32 personalityValue;
-    u8 fixedIV;
+    u8 level;
     s32 i, j;
+    u16 ev;
     u8 monsCount;
+    u8 nickname[POKEMON_NAME_LENGTH + 1];
+    u8 trainerName[(PLAYER_NAME_LENGTH * 3) + 1];
+    u8 ability, gender, friendship;
+    u16 species;
 
     if (trainerNum == TRAINER_SECRET_BASE)
         return 0;
@@ -1779,84 +1808,136 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 
         for (i = 0; i < monsCount; i++)
         {
-
-            if (gTrainers[trainerNum].doubleBattle == TRUE)
-                personalityValue = 0x80;
-            else if (gTrainers[trainerNum].encounterMusic_gender & F_TRAINER_FEMALE)
-                personalityValue = 0x78; // Use personality more likely to result in a female Pokémon
-            else
-                personalityValue = 0x88; // Use personality more likely to result in a male Pokémon
+            const struct TrainerMon *partyData = gTrainers[trainerNum].party.TrainerMon;
 
             for (j = 0; gTrainers[trainerNum].trainerName[j] != EOS; j++)
                 nameHash += gTrainers[trainerNum].trainerName[j];
 
-            switch (gTrainers[trainerNum].partyFlags)
+            if (!partyData[i].gender)
             {
-            case 0:
-            {
-                const struct TrainerMonNoItemDefaultMoves *partyData = gTrainers[trainerNum].party.NoItemDefaultMoves;
-
-                for (j = 0; gSpeciesNames[partyData[i].species][j] != EOS; j++)
-                    nameHash += gSpeciesNames[partyData[i].species][j];
-
-                personalityValue += nameHash << 8;
-                fixedIV = partyData[i].iv * MAX_PER_STAT_IVS / 255;
-                CreateMon(&party[i], partyData[i].species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
-                break;
+                if (gTrainers[trainerNum].doubleBattle == TRUE)
+                    personalityValue = 0x80;
+                else if (gTrainers[trainerNum].encounterMusic_gender & F_TRAINER_FEMALE)
+                    personalityValue = 0x78; // Use personality more likely to result in a female Pokémon
+                else
+                    personalityValue = 0x88; // Use personality more likely to result in a male Pokémon
             }
-            case F_TRAINER_PARTY_CUSTOM_MOVESET:
+            else
             {
-                const struct TrainerMonNoItemCustomMoves *partyData = gTrainers[trainerNum].party.NoItemCustomMoves;
+                if (partyData[i].gender == TRAINER_MON_MALE)
+                    gender = MON_MALE;
+                else if (partyData[i].gender == TRAINER_MON_FEMALE)
+                    gender = MON_FEMALE;
+                else
+                    gender = GetGenderFromSpeciesAndPersonality(species, personalityValue);
+            }
 
-                for (j = 0; gSpeciesNames[partyData[i].species][j] != EOS; j++)
-                    nameHash += gSpeciesNames[partyData[i].species][j];
+            if (partyData[i].species == SPECIES_DYNAMIC)
+            {
+                if (trainerNum == TRAINER_BRENDAN_ROUTE_103 || trainerNum == TRAINER_MAY_ROUTE_103)
+                    species = GetRivalStarterPokemon();
+                else
+                    species = (Random() % (FORMS_START + 1));
+            }
+            else
+            {
+                species = partyData[i].species;
+            }
 
-                personalityValue += nameHash << 8;
-                fixedIV = partyData[i].iv * MAX_PER_STAT_IVS / 255;
-                CreateMon(&party[i], partyData[i].species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+            // MON_MALE and NATURE_HARDY share the default values. If one is set, assume the other is also meant to be set.
+            // Enforced male pokemon cannot be Hardy. All pokemon with set natures will be male unless otherwise stated.
+            if ((partyData[i].nature > 0 && partyData[i].nature <= (NUM_NATURES - 1) && partyData[i].gender > 0))
+                CreateMonWithGenderNatureLetter(&party[i], species, partyData[i].lvl, 0, gender, partyData[i].nature, 0, partyData[i].shiny ? OT_ID_SHINY : OT_ID_RANDOM_NO_SHINY);
+            else
+                CreateMon(&party[i], species, partyData[i].lvl, 0, TRUE, personalityValue, partyData[i].shiny ? OT_ID_SHINY : OT_ID_RANDOM_NO_SHINY, 0);
 
+            // Adjust species post creation
+            if (partyData[i].species == SPECIES_DYNAMIC && partyData[i].cantEvolve == FALSE)
+            {
+                // 1st pass
+                species = ShouldEvolve(&party[i]);
+                if (partyData[i].nature > 0)
+                    CreateMonWithGenderNatureLetter(&party[i], species, partyData[i].lvl, 0, gender, partyData[i].nature, 0, partyData[i].shiny ? OT_ID_SHINY : OT_ID_RANDOM_NO_SHINY);
+                else
+                    CreateMon(&party[i], species, partyData[i].lvl, 0, TRUE, personalityValue, partyData[i].shiny ? OT_ID_SHINY : OT_ID_RANDOM_NO_SHINY, 0);
+                // 2nd pass, 3rd evos
+                species = ShouldEvolve(&party[i]);
+                if (partyData[i].nature > 0)
+                    CreateMonWithGenderNatureLetter(&party[i], species, partyData[i].lvl, 0, gender, partyData[i].nature, 0, partyData[i].shiny ? OT_ID_SHINY : OT_ID_RANDOM_NO_SHINY);
+                else
+                    CreateMon(&party[i], species, partyData[i].lvl, 0, TRUE, personalityValue, partyData[i].shiny ? OT_ID_SHINY : OT_ID_RANDOM_NO_SHINY, 0);
+            }
+
+            if (partyData[i].friendship > 0)
+            {
+                if (partyData[i].friendship == TRAINER_MON_UNFRIENDLY)
+                    friendship = 0;
+                else if (partyData[i].friendship == TRAINER_MON_FRIENDLY)
+                    friendship = MAX_FRIENDSHIP;
+                SetMonData(&party[i], MON_DATA_FRIENDSHIP, &friendship);
+            }
+
+            if (partyData[i].nickname[0] != '\0')
+                SetMonData(&party[i], MON_DATA_NICKNAME, &partyData[i].nickname);
+
+            // Should take only constants of FIRST_ABILITY, SECOND_ABILITY, or HIDDEN_ABILITY.
+            // If desired, implement else where undefined abilities are chosen between slots 1 and 2, a la gen IV.
+            if (partyData[i].ability > 0)
+            {
+                ability = partyData[i].ability;
+
+                if (partyData[i].ability == FIRST_ABILITY)
+                    ability = 0;
+
+                SetMonData(&gPlayerParty[i + 3], MON_DATA_ABILITY_NUM, &ability);
+            }
+
+            // Check if ball was defined for that pokemon.
+            if (partyData[i].ball > 0)
+            {
+                SetMonData(&party[i], MON_DATA_POKEBALL, &partyData[i].ball);
+            }
+            else
+            {
+                for (j = 0; gTrainerBallTable[j].classId != 0xFF; j++)
+                {
+                    if (gTrainerBallTable[j].classId == gTrainers[trainerNum].trainerClass)
+                        break;
+                }
+                SetMonData(&party[i], MON_DATA_POKEBALL, &gTrainerBallTable[j].ball);
+            }
+
+            // Check if heldItem was defined.
+            if (partyData[i].heldItem > 0)
+                SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
+
+            // Check if moves were defined.
+            if (partyData[i].moves[0] != 0)
+            {
                 for (j = 0; j < MAX_MON_MOVES; j++)
                 {
                     SetMonData(&party[i], MON_DATA_MOVE1 + j, &partyData[i].moves[j]);
                     SetMonData(&party[i], MON_DATA_PP1 + j, &gBattleMoves[partyData[i].moves[j]].pp);
                 }
-                break;
             }
-            case F_TRAINER_PARTY_HELD_ITEM:
+
+            // Set individual values.
+            if (partyData[i].ivs > 0)
             {
-                const struct TrainerMonItemDefaultMoves *partyData = gTrainers[trainerNum].party.ItemDefaultMoves;
-
-                for (j = 0; gSpeciesNames[partyData[i].species][j] != EOS; j++)
-                    nameHash += gSpeciesNames[partyData[i].species][j];
-
-                personalityValue += nameHash << 8;
-                fixedIV = partyData[i].iv * MAX_PER_STAT_IVS / 255;
-                CreateMon(&party[i], partyData[i].species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
-
-                SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
-                break;
+                for (j = 0; j < NUM_STATS; j++)
+                    SetMonData(&party[i], MON_DATA_HP_IV + j, &partyData[i].ivs[j]);
             }
-            case F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_HELD_ITEM:
+
+            // Set effort values.
+            if (partyData[i].evs > 0)
             {
-                const struct TrainerMonItemCustomMoves *partyData = gTrainers[trainerNum].party.ItemCustomMoves;
-
-                for (j = 0; gSpeciesNames[partyData[i].species][j] != EOS; j++)
-                    nameHash += gSpeciesNames[partyData[i].species][j];
-
-                personalityValue += nameHash << 8;
-                fixedIV = partyData[i].iv * MAX_PER_STAT_IVS / 255;
-                CreateMon(&party[i], partyData[i].species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
-
-                SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
-
-                for (j = 0; j < MAX_MON_MOVES; j++)
-                {
-                    SetMonData(&party[i], MON_DATA_MOVE1 + j, &partyData[i].moves[j]);
-                    SetMonData(&party[i], MON_DATA_PP1 + j, &gBattleMoves[partyData[i].moves[j]].pp);
-                }
-                break;
+                for (j = 0; j < NUM_STATS; j++)
+                    SetMonData(&party[i], MON_DATA_HP_EV + j, &partyData[i].evs[j]);
             }
-            }
+
+            StringCopy(trainerName, gTrainers[trainerNum].trainerName);
+            SetMonData(&party[i], MON_DATA_OT_NAME, trainerName);
+            CalculateMonStats(&party[i]);
         }
 
         gBattleTypeFlags |= gTrainers[trainerNum].doubleBattle;
@@ -3732,13 +3813,23 @@ u8 IsRunningFromBattleImpossible(void)
 
     gPotentialItemEffectBattler = gActiveBattler;
 
-    if (gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE) // Cannot ever run from saving Birch's battle.
+    // Cannot run from saving Birch's battle
+    if (gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE)
     {
         gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_DONT_LEAVE_BIRCH;
         return 1;
     }
+
+    // Cannot run if FLAG_DISABLE_ESCAPING_FROM_BATTLE is set.
+    if (FlagGet(FLAG_DISABLE_ESCAPING_FROM_BATTLE))
+    {
+        gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_CANT_ESCAPE;
+        return 1;
+    }
+
+    // The second pokemon cannot run from a double wild battle, unless it's the only alive mon.
     if (GetBattlerPosition(gActiveBattler) == B_POSITION_PLAYER_RIGHT && WILD_DOUBLE_BATTLE
-        && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT))) // The second pokemon cannot run from a double wild battle, unless it's the only alive mon.
+     && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)))
     {
         gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_CANT_ESCAPE;
         return 1;
@@ -3923,7 +4014,8 @@ static void HandleTurnActionSelectionState(void)
                     }
                     break;
                 case B_ACTION_USE_ITEM:
-                    if ((gBattleTypeFlags & (BATTLE_TYPE_LINK
+                    if (FlagGet(FLAG_DISABLE_BATTLE_BAG_ACCESS)
+                     || (gBattleTypeFlags & (BATTLE_TYPE_LINK
                                             | BATTLE_TYPE_FRONTIER_NO_PYRAMID
                                             | BATTLE_TYPE_EREADER_TRAINER
                                             | BATTLE_TYPE_RECORDED_LINK))
@@ -4355,11 +4447,9 @@ u32 GetBattlerTotalSpeedStat(u8 battlerId)
 
     // player's badge boost
     if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED_LINK | BATTLE_TYPE_FRONTIER))
-        && ShouldGetStatBadgeBoost(FLAG_BADGE03_GET, battlerId)
-        && GetBattlerSide(battlerId) == B_SIDE_PLAYER)
-    {
+       && ShouldGetStatBadgeBoost(FLAG_BADGE03_GET, battlerId)
+       && GetBattlerSide(battlerId) == B_SIDE_PLAYER)
         speed = (speed * 110) / 100;
-    }
 
     // item effects
     if (holdEffect == HOLD_EFFECT_MACHO_BRACE || holdEffect == HOLD_EFFECT_POWER_ITEM)
@@ -4879,36 +4969,42 @@ static void HandleEndTurn_BattleWon(void)
         BattleStopLowHpSound();
         gBattlescriptCurrInstr = BattleScript_FrontierTrainerBattleWon;
 
-        if (gTrainerBattleOpponent_A == TRAINER_FRONTIER_BRAIN)
-            PlayBGM(MUS_VICTORY_GYM_LEADER);
-        else
-            PlayBGM(MUS_VICTORY_TRAINER);
+        if (!FlagGet(FLAG_DONT_TRANSITION_MUSIC))
+        {
+            if (gTrainerBattleOpponent_A == TRAINER_FRONTIER_BRAIN)
+                PlayBGM(MUS_VICTORY_GYM_LEADER);
+            else
+                PlayBGM(MUS_VICTORY_TRAINER);
+        }
     }
     else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER && !(gBattleTypeFlags & BATTLE_TYPE_LINK))
     {
         BattleStopLowHpSound();
         gBattlescriptCurrInstr = BattleScript_LocalTrainerBattleWon;
 
-        switch (gTrainers[gTrainerBattleOpponent_A].trainerClass)
+        if (!FlagGet(FLAG_DONT_TRANSITION_MUSIC))
         {
-        case TRAINER_CLASS_ELITE_FOUR:
-        case TRAINER_CLASS_CHAMPION:
-            PlayBGM(MUS_VICTORY_LEAGUE);
-            break;
-        case TRAINER_CLASS_TEAM_AQUA:
-        case TRAINER_CLASS_TEAM_MAGMA:
-        case TRAINER_CLASS_AQUA_ADMIN:
-        case TRAINER_CLASS_AQUA_LEADER:
-        case TRAINER_CLASS_MAGMA_ADMIN:
-        case TRAINER_CLASS_MAGMA_LEADER:
-            PlayBGM(MUS_VICTORY_AQUA_MAGMA);
-            break;
-        case TRAINER_CLASS_LEADER:
-            PlayBGM(MUS_VICTORY_GYM_LEADER);
-            break;
-        default:
-            PlayBGM(MUS_VICTORY_TRAINER);
-            break;
+            switch (gTrainers[gTrainerBattleOpponent_A].trainerClass)
+            {
+            case TRAINER_CLASS_ELITE_FOUR:
+            case TRAINER_CLASS_CHAMPION:
+                PlayBGM(MUS_VICTORY_LEAGUE);
+                break;
+            case TRAINER_CLASS_TEAM_AQUA:
+            case TRAINER_CLASS_TEAM_MAGMA:
+            case TRAINER_CLASS_AQUA_ADMIN:
+            case TRAINER_CLASS_AQUA_LEADER:
+            case TRAINER_CLASS_MAGMA_ADMIN:
+            case TRAINER_CLASS_MAGMA_LEADER:
+                PlayBGM(MUS_VICTORY_AQUA_MAGMA);
+                break;
+            case TRAINER_CLASS_LEADER:
+                PlayBGM(MUS_VICTORY_GYM_LEADER);
+                break;
+            default:
+                PlayBGM(MUS_VICTORY_TRAINER);
+                break;
+            }
         }
     }
     else

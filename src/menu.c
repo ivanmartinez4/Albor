@@ -73,11 +73,12 @@ static EWRAM_DATA void *sTempTileDataBuffer[0x20] = {NULL};
 
 const u16 gStandardMenuPalette[] = INCBIN_U16("graphics/interface/std_menu.gbapal");
 
-static const u8 sTextSpeedFrameDelays[] =
-{
-    [OPTIONS_TEXT_SPEED_SLOW] = 8,
-    [OPTIONS_TEXT_SPEED_MID]  = 4,
-    [OPTIONS_TEXT_SPEED_FAST] = 1
+static const u8 sTextSpeedFrameDelays[] = 
+{ 
+    [OPTIONS_TEXT_SPEED_SLOW] = 8, 
+    [OPTIONS_TEXT_SPEED_MID]  = 4, 
+    [OPTIONS_TEXT_SPEED_FAST] = 1,
+    [OPTIONS_TEXT_SPEED_INSTANT] = 1
 };
 
 static const struct WindowTemplate sStandardTextBox_WindowTemplates[] =
@@ -192,19 +193,19 @@ void AddTextPrinterForMessage(bool8 allowSkippingDelayWithButtonPress)
 {
     void (*callback)(struct TextPrinterTemplate *, u16) = NULL;
     gTextFlags.canABSpeedUpPrint = allowSkippingDelayWithButtonPress;
-    AddTextPrinterParameterized2(0, FONT_NORMAL, gStringVar4, GetPlayerTextSpeedDelay(), callback, 2, 1, 3);
+    AddTextPrinterParameterized2(0, FONT_NORMAL, gStringVar7, GetPlayerTextSpeedDelay(), callback, 2, 1, 3);
 }
 
 void AddTextPrinterForMessage_2(bool8 allowSkippingDelayWithButtonPress)
 {
     gTextFlags.canABSpeedUpPrint = allowSkippingDelayWithButtonPress;
-    AddTextPrinterParameterized2(0, FONT_NORMAL, gStringVar4, GetPlayerTextSpeedDelay(), NULL, 2, 1, 3);
+    AddTextPrinterParameterized2(0, FONT_NORMAL, gStringVar7, GetPlayerTextSpeedDelay(), NULL, 2, 1, 3);
 }
 
 void AddTextPrinterWithCustomSpeedForMessage(bool8 allowSkippingDelayWithButtonPress, u8 speed)
 {
     gTextFlags.canABSpeedUpPrint = allowSkippingDelayWithButtonPress;
-    AddTextPrinterParameterized2(0, FONT_NORMAL, gStringVar4, speed, NULL, 2, 1, 3);
+    AddTextPrinterParameterized2(0, FONT_NORMAL, gStringVar7, speed, NULL, 2, 1, 3);
 }
 
 void LoadMessageBoxAndBorderGfx(void)
@@ -468,17 +469,16 @@ u32 GetPlayerTextSpeed(void)
 
 u8 GetPlayerTextSpeedDelay(void)
 {
-    u32 speed;
-    if (gSaveBlock2Ptr->optionsTextSpeed > OPTIONS_TEXT_SPEED_FAST)
-        gSaveBlock2Ptr->optionsTextSpeed = OPTIONS_TEXT_SPEED_MID;
-    speed = GetPlayerTextSpeed();
+    u32 speed = GetPlayerTextSpeed();
+    if (speed > OPTIONS_TEXT_SPEED_INSTANT)
+        speed = OPTIONS_TEXT_SPEED_MID;
     return sTextSpeedFrameDelays[speed];
 }
 
 u8 AddStartMenuWindow(u8 numActions)
 {
     if (sStartMenuWindowId == WINDOW_NONE)
-        sStartMenuWindowId = AddWindowParameterized(0, 22, 1, 7, (numActions * 2) + 2, 15, 0x139);
+        sStartMenuWindowId = AddWindowParameterized(0, 22, 1, 7, (numActions * 2), 15, 0x139);
     return sStartMenuWindowId;
 }
 
@@ -519,8 +519,8 @@ void RemoveMapNamePopUpWindow(void)
 
 void AddTextPrinterWithCallbackForMessage(bool8 canSpeedUp, void (*callback)(struct TextPrinterTemplate *, u16))
 {
-    gTextFlags.canABSpeedUpPrint = canSpeedUp;
-    AddTextPrinterParameterized2(0, FONT_NORMAL, gStringVar4, GetPlayerTextSpeedDelay(), callback, 2, 1, 3);
+    gTextFlags.canABSpeedUpPrint = a1;
+    AddTextPrinterParameterized2(0, FONT_NORMAL, gStringVar7, GetPlayerTextSpeedDelay(), callback, 2, 1, 3);
 }
 
 void EraseFieldMessageBox(bool8 copyToVram)
@@ -534,18 +534,6 @@ void DrawDialogFrameWithCustomTileAndPalette(u8 windowId, bool8 copyToVram, u16 
 {
     sTileNum = tileNum;
     sPaletteNum = paletteNum;
-    CallWindowFunction(windowId, WindowFunc_DrawDialogFrameWithCustomTileAndPalette);
-    FillWindowPixelBuffer(windowId, PIXEL_FILL(1));
-    PutWindowTilemap(windowId);
-    if (copyToVram == TRUE)
-        CopyWindowToVram(windowId, COPYWIN_FULL);
-}
-
-// Never used.
-static void DrawDialogFrameWithCustomTile(u8 windowId, bool8 copyToVram, u16 tileNum)
-{
-    sTileNum = tileNum;
-    sPaletteNum = GetWindowAttribute(windowId, WINDOW_PALETTE_NUM);
     CallWindowFunction(windowId, WindowFunc_DrawDialogFrameWithCustomTileAndPalette);
     FillWindowPixelBuffer(windowId, PIXEL_FILL(1));
     PutWindowTilemap(windowId);
@@ -667,18 +655,6 @@ void DrawStdFrameWithCustomTileAndPalette(u8 windowId, bool8 copyToVram, u16 bas
 {
     sTileNum = baseTileNum;
     sPaletteNum = paletteNum;
-    CallWindowFunction(windowId, WindowFunc_DrawStdFrameWithCustomTileAndPalette);
-    FillWindowPixelBuffer(windowId, PIXEL_FILL(1));
-    PutWindowTilemap(windowId);
-    if (copyToVram == TRUE)
-        CopyWindowToVram(windowId, COPYWIN_FULL);
-}
-
-// Never used.
-void DrawStdFrameWithCustomTile(u8 windowId, bool8 copyToVram, u16 baseTileNum)
-{
-    sTileNum = baseTileNum;
-    sPaletteNum = GetWindowAttribute(windowId, WINDOW_PALETTE_NUM);
     CallWindowFunction(windowId, WindowFunc_DrawStdFrameWithCustomTileAndPalette);
     FillWindowPixelBuffer(windowId, PIXEL_FILL(1));
     PutWindowTilemap(windowId);
@@ -1392,7 +1368,10 @@ void PrintMenuTable(u8 windowId, u8 itemCount, const struct MenuAction *menuActi
     u32 i;
 
     for (i = 0; i < itemCount; i++)
-        AddTextPrinterParameterized(windowId, 1, menuActions[i].text, 8, (i * 16) + 1, TEXT_SKIP_DRAW, NULL);
+    {
+        StringExpandPlaceholders(gStringVar7, menuActions[i].text);
+        AddTextPrinterParameterized(windowId, 1, gStringVar7, 8, (i * 16) + 1, TEXT_SKIP_DRAW, NULL);
+    }
 
     CopyWindowToVram(windowId, COPYWIN_GFX);
 }
@@ -1757,9 +1736,9 @@ void PrintPlayerNameOnWindow(u8 windowId, const u8 *src, u16 x, u16 y)
     while (gSaveBlock2Ptr->playerName[count] != EOS)
         count++;
 
-    StringExpandPlaceholders(gStringVar4, src);
+    StringExpandPlaceholders(gStringVar7, src);
 
-    AddTextPrinterParameterized(windowId, 1, gStringVar4, x, y, TEXT_SKIP_DRAW, 0);
+    AddTextPrinterParameterized(windowId, 1, gStringVar7, x, y, TEXT_SKIP_DRAW, 0);
 }
 
 void ListMenuLoadStdPalAt(u8 palOffset, u8 palId)
@@ -1804,9 +1783,6 @@ void BufferSaveMenuText(u8 textId, u8 *dest, u8 color)
 
     switch (textId)
     {
-        case SAVE_MENU_NAME:
-            StringCopy(string, gSaveBlock2Ptr->playerName);
-            break;
         case SAVE_MENU_CAUGHT:
             if (IsNationalPokedexEnabled())
                 string = ConvertIntToDecimalStringN(string, GetNationalPokedexCount(FLAG_GET_CAUGHT), STR_CONV_MODE_LEFT_ALIGN, 3);
@@ -1830,6 +1806,14 @@ void BufferSaveMenuText(u8 textId, u8 *dest, u8 color)
             }
             *string = flagCount + CHAR_0;
             *endOfString = EOS;
+            break;
+        case SAVE_MENU_LAST_DATE:
+            string = ConvertIntToDecimalStringN(string, gSaveBlock2Ptr->savedDay, STR_CONV_MODE_LEADING_ZEROS, 2);
+            *(string++) = CHAR_SLASH;
+            ConvertIntToDecimalStringN(string++, gSaveBlock2Ptr->savedMonth, STR_CONV_MODE_LEADING_ZEROS, 2);
+            string++;
+            *(string++) = CHAR_SLASH;
+            ConvertIntToDecimalStringN(string, gSaveBlock2Ptr->savedYear, STR_CONV_MODE_LEFT_ALIGN, 4);
             break;
     }
 }

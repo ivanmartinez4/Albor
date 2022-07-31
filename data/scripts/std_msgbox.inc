@@ -34,12 +34,6 @@ Std_MsgboxGetPoints:
 	waitmessage
 	return
 
-@ Never used, pokenavcall is always used directly instead
-Std_MsgboxPokenav:
-	pokenavcall NULL
-	waitmessage
-	return
-
 Common_EventScript_SaveGame::
 	special SaveGame
 	waitstate

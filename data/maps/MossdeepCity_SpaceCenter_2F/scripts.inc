@@ -257,16 +257,12 @@ MossdeepCity_SpaceCenter_2F_EventScript_ChoosePartyForMultiBattle::
 	goto MossdeepCity_SpaceCenter_2F_EventScript_ReadyForBattlePrompt
 
 MossdeepCity_SpaceCenter_2F_EventScript_DoStevenMultiBattle::
-	special ReducePlayerPartyToSelectedMons
-	frontier_set FRONTIER_DATA_SELECTED_MON_ORDER
-	setvar VAR_0x8004, SPECIAL_BATTLE_STEVEN
-	setvar VAR_0x8005, 0
-	special DoSpecialTrainerBattle
-	waitstate
-	frontier_saveparty
-	special LoadPlayerParty
-	switch VAR_RESULT
-	case 1, MossdeepCity_SpaceCenter_2F_EventScript_DefeatedMaxieTabitha
+	multi_2_vs_2 TRAINER_MAXIE_MOSSDEEP, MossdeepCity_SpaceCenter_2F_Text_JustWantToExpandLand, TRAINER_TABITHA_MOSSDEEP, MossdeepCity_SpaceCenter_Text_TabithaDefeat, TRAINER_STEVEN_MOSSDEEP, TRAINER_BACK_PIC_STEVEN
+	specialvar VAR_RESULT, GetBattleOutcome
+	goto_if_eq VAR_RESULT, B_OUTCOME_WON, MossdeepCity_SpaceCenter_2F_EventScript_DefeatedMaxieTabitha
+	goto_if_eq VAR_RESULT, B_OUTCOME_LOST, MossdeepCity_SpaceCenter_2F_EventScript_WasDefeatedByMaxieTabitha
+
+MossdeepCity_SpaceCenter_2F_EventScript_WasDefeatedByMaxieTabitha:
 	fadescreen FADE_TO_BLACK
 	special SetCB2WhiteOut
 	waitstate
@@ -305,7 +301,19 @@ MossdeepCity_SpaceCenter_2F_EventScript_DefeatedMaxieTabitha::
 	turnobject LOCALID_RICH_BOY, DIR_NORTH
 	call MossdeepCity_SpaceCenter_2F_EventScript_StevenFacePlayer
 	fadescreen FADE_FROM_BLACK
-	msgbox MossdeepCity_SpaceCenter_2F_Text_StevenThankYouComeSeeMeAtHome, MSGBOX_DEFAULT
+	msgbox MossdeepCity_SpaceCenter_2F_Text_StevenThankYou, MSGBOX_DEFAULT
+	closemessage
+	specialvar VAR_RESULT, GetPlayerFacingDirection
+	compare VAR_RESULT, DIR_WEST
+	call_if_eq MossdeepCity_SpaceCenter_2F_EventScript_StevenFaceDown
+	specialvar VAR_RESULT, GetPlayerFacingDirection
+	compare VAR_RESULT, DIR_SOUTH
+	call_if_eq MossdeepCity_SpaceCenter_2F_EventScript_StevenFaceLeft
+	msgbox MossdeepCity_SpaceCenter_2F_Text_StevenFoundSomething, MSGBOX_DEFAULT
+	faceplayer
+	msgbox MossdeepCity_SpaceCenter_2F_Text_StevenSaysPlayerShouldKeepIt, MSGBOX_DEFAULT
+	giveitem ITEM_MASTER_BALL
+	msgbox MossdeepCity_SpaceCenter_2F_Text_StevenComeSeeMeAtHome, MSGBOX_DEFAULT
 	closemessage
 	fadescreen FADE_TO_BLACK
 	setflag FLAG_DEFEATED_MAGMA_SPACE_CENTER
@@ -336,13 +344,25 @@ MossdeepCity_SpaceCenter_2F_EventScript_StevenFacePlayerWest::
 	turnobject LOCALID_STEVEN, DIR_EAST
 	return
 
-MossdeepCity_SpaceCenter_2F_EventScript_MaxieTrainer::
-	trainerbattle TRAINER_BATTLE_SET_TRAINER_A, TRAINER_MAXIE_MOSSDEEP, 0, MossdeepCity_SpaceCenter_2F_Text_JustWantToExpandLand, MossdeepCity_SpaceCenter_2F_Text_JustWantToExpandLand
-	end
+MossdeepCity_SpaceCenter_2F_EventScript_StevenFaceDown:
+	applymovement LOCALID_STEVEN, Common_Movement_FaceDown
+	waitmovement 0
+	delay 40
+	playse SE_PIN
+	applymovement LOCALID_STEVEN, Common_Movement_ExclamationMark
+	waitmovement 0
+	delay 20
+	return
 
-MossdeepCity_SpaceCenter_2F_EventScript_TabithaTrainer::
-	trainerbattle TRAINER_BATTLE_SET_TRAINER_B, TRAINER_TABITHA_MOSSDEEP, 0, MossdeepCity_SpaceCenter_Text_TabithaDefeat, MossdeepCity_SpaceCenter_Text_TabithaDefeat
-	end
+MossdeepCity_SpaceCenter_2F_EventScript_StevenFaceLeft:
+	applymovement LOCALID_STEVEN, Common_Movement_FaceLeft
+	waitmovement 0
+	delay 40
+	playse SE_PIN
+	applymovement LOCALID_STEVEN, Common_Movement_ExclamationMark
+	waitmovement 0
+	delay 20
+	return
 
 MossdeepCity_SpaceCenter_2F_EventScript_RivalRayquazaCall::
 	lockall
@@ -504,11 +524,23 @@ MossdeepCity_SpaceCenter_2F_Text_MaxieWeWillGiveUp:
 	.string "There appear to be more important\n"
 	.string "matters that I must examine…$"
 
-MossdeepCity_SpaceCenter_2F_Text_StevenThankYouComeSeeMeAtHome:
-	.string "Steven: Whew, that was too tense.\n"
-	.string "{PLAYER}{KUN}, thank you.\p"
-	.string "I have something to give you as\n"
-	.string "thanks for your support.\p"
+MossdeepCity_SpaceCenter_2F_Text_StevenThankYou:
+	.string "STEVEN: Whew, that was too tense.\n"
+	.string "{PLAYER}, thank you.$"
+
+MossdeepCity_SpaceCenter_2F_Text_StevenFoundSomething:
+	.string "Hmm? What is this?\n"
+	.string "This looks just like…\p"
+	.string "Yes, there's no doubt.\p"
+	.string "They must have dropped it by\n"
+	.string "accident when they ran away.$"
+
+MossdeepCity_SpaceCenter_2F_Text_StevenSaysPlayerShouldKeepIt:
+	.string "{PLAYER}, you should keep it.$"
+
+MossdeepCity_SpaceCenter_2F_Text_StevenComeSeeMeAtHome:
+	.string "I have something else to give you\n"
+	.string "as thanks for your support.\p"
 	.string "Please come see me at home\n"
 	.string "after this.\p"
 	.string "Oh, yes, I don't live in Rustboro City.\n"

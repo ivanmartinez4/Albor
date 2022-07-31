@@ -92,3 +92,7 @@ Common_Movement_Delay32:
 Common_Movement_WalkUp:
 	walk_up
 	step_end
+
+Common_Movement_SetVisible:
+	set_visible
+	step_end

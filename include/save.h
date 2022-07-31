@@ -1,7 +1,7 @@
 #ifndef GUARD_SAVE_H
 #define GUARD_SAVE_H
 
-// Each 4 KiB flash sector contains 3968 bytes of actual data followed by a 128 byte footer.
+// By default, each 4 KiB flash sector contains 3968 bytes of actual data followed by a 128 byte footer.
 // Only 12 bytes of the footer are used.
 #define SECTOR_DATA_SIZE 4084
 #define SECTOR_FOOTER_SIZE 12
@@ -55,7 +55,6 @@ enum
     SAVE_EREADER, // deprecated in Emerald
     SAVE_HALL_OF_FAME,
     SAVE_OVERWRITE_DIFFERENT_FILE,
-    SAVE_HALL_OF_FAME_ERASE_BEFORE // unused
 };
 
 // A save sector location holds a pointer to the data for a particular sector

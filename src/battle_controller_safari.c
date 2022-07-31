@@ -232,6 +232,13 @@ static void HandleInputChooseAction(void)
             ActionSelectionCreateCursorAt(gActionSelectionCursor[gActiveBattler], 0);
         }
     }
+    else if (JOY_NEW(B_BUTTON))
+    {
+        PlaySE(SE_SELECT);
+        ActionSelectionDestroyCursorAt(gActionSelectionCursor[gActiveBattler]);
+        gActionSelectionCursor[gActiveBattler] = 3;
+        ActionSelectionCreateCursorAt(gActionSelectionCursor[gActiveBattler], 0);
+    }
 }
 
 static void CompleteOnBattlerSpriteCallbackDummy(void)
@@ -354,12 +361,13 @@ static void SafariHandleReturnMonToBall(void)
 
 static void SafariHandleDrawTrainerPic(void)
 {
-    DecompressTrainerBackPic(gSaveBlock2Ptr->playerGender, gActiveBattler);
-    SetMultiuseSpriteTemplateToTrainerBack(gSaveBlock2Ptr->playerGender, GetBattlerPosition(gActiveBattler));
+    u32 trainerPicId = gCostumeBackPics[gSaveBlock2Ptr->playerCostume][gSaveBlock2Ptr->playerGender];
+    LoadPalette(gTrainerBackPicPaletteTable[trainerPicId].data, 0x100 + 16 * gActiveBattler, 0x20);
+    SetMultiuseSpriteTemplateToTrainerBack(trainerPicId, GetBattlerPosition(gActiveBattler));
     gBattlerSpriteIds[gActiveBattler] = CreateSprite(
       &gMultiuseSpriteTemplate,
       80,
-      (8 - gTrainerBackPicCoords[gSaveBlock2Ptr->playerGender].size) * 4 + 80,
+      (8 - gTrainerBackPicCoords[trainerPicId].size) * 4 + 80,
       30);
     gSprites[gBattlerSpriteIds[gActiveBattler]].oam.paletteNum = gActiveBattler;
     gSprites[gBattlerSpriteIds[gActiveBattler]].x2 = DISPLAY_WIDTH;

@@ -8,6 +8,8 @@ const struct MonCoords gTrainerBackPicCoords[] =
     [TRAINER_BACK_PIC_RUBY_SAPPHIRE_MAY] = {.size = 8, .y_offset = 4},
     [TRAINER_BACK_PIC_WALLY] = {.size = 8, .y_offset = 4},
     [TRAINER_BACK_PIC_STEVEN] = {.size = 8, .y_offset = 4},
+    [TRAINER_BACK_PIC_ADVENTURES_BRENDAN] = {.size = 8, .y_offset = 4},
+    [TRAINER_BACK_PIC_ADVENTURES_MAY] = {.size = 8, .y_offset = 4},
 };
 
 // this table goes functionally unused, since none of these pics are compressed
@@ -25,11 +27,13 @@ const struct CompressedSpriteSheet gTrainerBackPicTable[] =
     TRAINER_BACK_SPRITE(RUBY_SAPPHIRE_MAY, gTrainerBackPic_RubySapphireMay, 0x2000),
     TRAINER_BACK_SPRITE(WALLY, gTrainerBackPic_Wally, 0x2000),
     TRAINER_BACK_SPRITE(STEVEN, gTrainerBackPic_Steven, 0x2000),
+    TRAINER_BACK_SPRITE(ADVENTURES_BRENDAN, gTrainerBackPic_AdventuresBrendan, 0x2000),
+    TRAINER_BACK_SPRITE(ADVENTURES_MAY, gTrainerBackPic_AdventuresMay, 0x2000),
 };
 
 #define TRAINER_BACK_PAL(trainerPic, pal) [TRAINER_BACK_PIC_##trainerPic] = {pal, TRAINER_BACK_PIC_##trainerPic}
 
-const struct CompressedSpritePalette gTrainerBackPicPaletteTable[] =
+const struct SpritePalette gTrainerBackPicPaletteTable[] =
 {
     TRAINER_BACK_PAL(BRENDAN, gTrainerPalette_Brendan),
     TRAINER_BACK_PAL(MAY, gTrainerPalette_May),
@@ -39,4 +43,13 @@ const struct CompressedSpritePalette gTrainerBackPicPaletteTable[] =
     TRAINER_BACK_PAL(RUBY_SAPPHIRE_MAY, gTrainerPalette_RubySapphireMay),
     TRAINER_BACK_PAL(WALLY, gTrainerPalette_Wally),
     TRAINER_BACK_PAL(STEVEN, gTrainerPalette_Steven),
+    TRAINER_BACK_PAL(ADVENTURES_BRENDAN, gTrainerPalette_AdventuresBrendan),
+    TRAINER_BACK_PAL(ADVENTURES_MAY, gTrainerPalette_AdventuresMay),
+};
+
+const u8 gCostumeBackPics[COSTUME_COUNT][GENDER_COUNT] = 
+{
+    [DEFAULT_COSTUME]    = {TRAINER_BACK_PIC_BRENDAN, TRAINER_BACK_PIC_MAY},
+    [LEGACY_COSTUME]     = {TRAINER_BACK_PIC_RUBY_SAPPHIRE_BRENDAN, TRAINER_BACK_PIC_RUBY_SAPPHIRE_MAY},
+    [ADVENTURES_COSTUME] = {TRAINER_BACK_PIC_ADVENTURES_BRENDAN, TRAINER_BACK_PIC_ADVENTURES_MAY},
 };

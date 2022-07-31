@@ -52,7 +52,7 @@ Route104_EventScript_Rival::
 Route104_EventScript_RivalTrigger::
 	lockall
 	setflag FLAG_HIDE_RUSTBORO_CITY_RIVAL
-	setvar VAR_RUSTBORO_CITY_STATE, 8
+	setvar VAR_RUSTBORO_CITY_STATE, 7
 	setvar VAR_ROUTE104_STATE, 2
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp
 	waitmovement 0
@@ -72,14 +72,6 @@ Route104_EventScript_RivalTrigger::
 	applymovement LOCALID_RIVAL, Common_Movement_Delay48
 	waitmovement 0
 	goto Route104_EventScript_RivalEncounter
-
-Route104_EventScript_PlayMayMusic::
-	playbgm MUS_ENCOUNTER_MAY, TRUE
-	return
-
-Route104_EventScript_PlayBrendanMusic::
-	playbgm MUS_ENCOUNTER_BRENDAN, TRUE
-	return
 
 Route104_EventScript_RivalEncounter::
 	checkplayergender
@@ -863,7 +855,7 @@ Route104_EventScript_Haley::
 Route104_EventScript_TryRegisterHaleyAfterBattle::
 	special PlayerFaceTrainerAfterBattle
 	waitmovement 0
-	goto_if_set FLAG_HAS_MATCH_CALL, Route104_EventScript_RegisterHaleyAfterBattle
+	goto_if_set FLAG_SYS_POKENAV_GET, Route104_EventScript_RegisterHaleyAfterBattle
 	release
 	end
 
@@ -874,7 +866,7 @@ Route104_EventScript_RegisterHaleyAfterBattle::
 	end
 
 Route104_EventScript_TryRegisterHaley::
-	goto_if_set FLAG_HAS_MATCH_CALL, Route104_EventScript_RegisterHaley
+	goto_if_set FLAG_SYS_POKENAV_GET, Route104_EventScript_RegisterHaley
 	msgbox Route104_Text_HaleyPostBattle, MSGBOX_DEFAULT
 	release
 	end
@@ -904,7 +896,7 @@ Route104_EventScript_Winston::
 Route104_EventScript_TryRegisterWinstonAfterBattle::
 	special PlayerFaceTrainerAfterBattle
 	waitmovement 0
-	goto_if_set FLAG_HAS_MATCH_CALL, Route104_EventScript_RegisterWinstonAfterBattle
+	goto_if_set FLAG_SYS_POKENAV_GET, Route104_EventScript_RegisterWinstonAfterBattle
 	release
 	end
 
@@ -915,7 +907,7 @@ Route104_EventScript_RegisterWinstonAfterBattle::
 	end
 
 Route104_EventScript_TryRegisterWinston::
-	goto_if_set FLAG_HAS_MATCH_CALL, Route104_EventScript_RegisterWinston
+	goto_if_set FLAG_SYS_POKENAV_GET, Route104_EventScript_RegisterWinston
 	msgbox Route104_Text_WinstonPostBattle, MSGBOX_DEFAULT
 	release
 	end
@@ -945,7 +937,7 @@ Route104_EventScript_Cindy::
 Route104_EventScript_TryRegisterCindyAfterBattle::
 	special PlayerFaceTrainerAfterBattle
 	waitmovement 0
-	goto_if_set FLAG_HAS_MATCH_CALL, Route104_EventScript_RegisterCindyAfterBattle
+	goto_if_set FLAG_SYS_POKENAV_GET, Route104_EventScript_RegisterCindyAfterBattle
 	release
 	end
 
@@ -956,7 +948,7 @@ Route104_EventScript_RegisterCindyAfterBattle::
 	end
 
 Route104_EventScript_TryRegisterCindy::
-	goto_if_set FLAG_HAS_MATCH_CALL, Route104_EventScript_RegisterCindy
+	goto_if_set FLAG_SYS_POKENAV_GET, Route104_EventScript_RegisterCindy
 	msgbox Route104_Text_CindyPostBattle, MSGBOX_DEFAULT
 	release
 	end
@@ -1072,9 +1064,9 @@ Route104_Text_TrainerTipsDoubleBattles:
 	.string "Watch how Pokémon are lined up.$"
 
 Route104_Text_MayWeShouldRegister:
-	.string "May: Oh, hi, {PLAYER}{KUN}!\p"
-	.string "Devon upgraded your Pokénav with\n"
-	.string "the Match Call system, huh?\p"
+	.string "{RIVAL}: Oh, hi, {PLAYER}{KUN}!\p"
+	.string "DEVON upgraded your POKéNAV with\n"
+	.string "the MATCH CALL system, huh?\p"
 	.string "We should register each other so we\n"
 	.string "can get in contact anytime.$"
 
@@ -1083,8 +1075,8 @@ Route104_Text_RegisteredMay:
 	.string "in the Pokénav.$"
 
 Route104_Text_MayHowsYourPokedex:
-	.string "May: Oh, by the way, {PLAYER}{KUN},\n"
-	.string "how's your Pokédex coming along?$"
+	.string "{RIVAL}: Oh, by the way, {PLAYER}{KUN},\n"
+	.string "how's your POKéDEX coming along?$"
 
 Route104_Text_MayMinesDecentLetsBattle:
 	.string "Mine's looking pretty decent.\n"
@@ -1092,17 +1084,17 @@ Route104_Text_MayMinesDecentLetsBattle:
 	.string "How about a little battle?$"
 
 Route104_Text_MayHaventRaisedPokemon:
-	.string "May: Oh, what's the matter?\p"
+	.string "{RIVAL}: Oh, what's the matter?\p"
 	.string "Haven't you caught or raised your\n"
 	.string "Pokémon very much?\p"
 	.string "That's not very good for a Trainer!$"
 
 Route104_Text_MayLetsBattle:
-	.string "May: So, what do you think?\n"
+	.string "{RIVAL}: So, what do you think?\n"
 	.string "How about a little battle here?$"
 
 Route104_Text_MayIntro:
-	.string "May: You just became a Trainer,\n"
+	.string "{RIVAL}: You just became a TRAINER,\n"
 	.string "{PLAYER}{KUN}. I'm not going to lose!$"
 
 Route104_Text_MayDefeat:
@@ -1110,17 +1102,17 @@ Route104_Text_MayDefeat:
 	.string "You're better than I expected!$"
 
 Route104_Text_MayPostBattle:
-	.string "May: I can tell you've gotten pretty\n"
-	.string "good with the way you handle Pokémon.\p"
+	.string "{RIVAL}: I can tell you've gotten pretty\n"
+	.string "good with the way you handle POKéMON.\p"
 	.string "But instead of only making them\n"
 	.string "battle, you should be like Mr. Briney.\p"
 	.string "It's important to become friends with\n"
 	.string "Pokémon, too.$"
 
 Route104_Text_BrendanWeShouldRegister:
-	.string "Brendan: Oh, hey, {PLAYER}!\p"
-	.string "Cool, you had Devon install the Match\n"
-	.string "Call system on your Pokénav!\p"
+	.string "{RIVAL}: Oh, hey, {PLAYER}!\p"
+	.string "Cool, you had DEVON install the MATCH\n"
+	.string "CALL system on your POKéNAV!\p"
 	.string "Let's register each other in our\n"
 	.string "Pokénavs so we can keep in touch.$"
 
@@ -1129,7 +1121,7 @@ Route104_Text_RegisteredBrendan:
 	.string "in the Pokénav.$"
 
 Route104_Text_BrendanHowsYourPokedex:
-	.string "Brendan: {PLAYER}, how's your Pokédex?\n"
+	.string "{RIVAL}: {PLAYER}, how's your POKéDEX?\n"
 	.string "Have you filled in any pages yet?$"
 
 Route104_Text_BrendanDoingGreatLetsBattle:
@@ -1138,24 +1130,24 @@ Route104_Text_BrendanDoingGreatLetsBattle:
 	.string "a battle?$"
 
 Route104_Text_BrendanNoConfidence:
-	.string "Brendan: What's the matter? Don't have\n"
-	.string "any confidence in your Pokémon?$"
+	.string "{RIVAL}: What's the matter? Don't have\n"
+	.string "any confidence in your POKéMON?$"
 
 Route104_Text_BrendanLetsBattle:
-	.string "Brendan: What's up?\n"
+	.string "{RIVAL}: What's up?\n"
 	.string "Want to have a battle with me?$"
 
 Route104_Text_BrendanIntro:
-	.string "Brendan: I know you just became\n"
-	.string "a Trainer, but I won't go easy!$"
+	.string "{RIVAL}: I know you just became\n"
+	.string "a TRAINER, but I won't go easy!$"
 
 Route104_Text_BrendanDefeat:
 	.string "Hmm…\n"
 	.string "You're pretty good.$"
 
 Route104_Text_BrendanPostBattle:
-	.string "Brendan: You've gotten pretty decent\n"
-	.string "at handling Pokémon.\p"
+	.string "{RIVAL}: You've gotten pretty decent\n"
+	.string "at handling POKéMON.\p"
 	.string "But, you know, you shouldn't just be\n"
 	.string "making Pokémon battle.\p"
 	.string "Like Mr. Briney, it's important to\n"

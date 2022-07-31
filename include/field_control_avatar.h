@@ -11,15 +11,9 @@ struct FieldInput
     bool8 heldDirection2:1;
     bool8 tookStep:1;
     bool8 pressedBButton:1;
-    bool8 input_field_1_0:1;
-    bool8 input_field_1_1:1;
-    bool8 input_field_1_2:1;
-    bool8 input_field_1_3:1;
-    bool8 input_field_1_4:1;
-    bool8 input_field_1_5:1;
-    bool8 input_field_1_6:1;
-    bool8 input_field_1_7:1;
+    bool8 pressedRButton:1;
     u8 dpadDirection;
+    bool8 pressedLButton:1;
 };
 
 void FieldClearPlayerInput(struct FieldInput *pStruct);

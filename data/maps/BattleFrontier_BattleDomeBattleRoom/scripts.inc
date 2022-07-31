@@ -21,22 +21,8 @@ BattleFrontier_BattleDomeBattleRoom_OnTransition:
 	frontier_get FRONTIER_DATA_BATTLE_NUM
 	copyvar VAR_TEMP_F, VAR_RESULT
 	call_if_eq VAR_RESULT, DOME_ROUND1, BattleFrontier_BattleDomeBattleRoom_EventScript_SetWalkingAudienceMemberPos
-	call BattleFrontier_BattleDomeBattleRoom_EventScript_SetPlayerGfx
+	specialvar VAR_OBJ_GFX_ID_1, GetPlayerCostumeId
 	end
-
-BattleFrontier_BattleDomeBattleRoom_EventScript_SetPlayerGfx::
-	checkplayergender
-	goto_if_eq VAR_RESULT, MALE, BattleFrontier_BattleDomeBattleRoom_EventScript_SetPlayerGfxMale
-	goto_if_eq VAR_RESULT, FEMALE, BattleFrontier_BattleDomeBattleRoom_EventScript_SetPlayerGfxFemale
-	return
-
-BattleFrontier_BattleDomeBattleRoom_EventScript_SetPlayerGfxMale::
-	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL
-	return
-
-BattleFrontier_BattleDomeBattleRoom_EventScript_SetPlayerGfxFemale::
-	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_RIVAL_MAY_NORMAL
-	return
 
 BattleFrontier_BattleDomeBattleRoom_OnFrame:
 	map_script_2 VAR_TEMP_0, 0, BattleFrontier_BattleDomeBattleRoom_EventScript_EnterRoom
@@ -74,7 +60,7 @@ BattleFrontier_BattleDomeBattleRoom_EventScript_BattleOpponent::
 	applymovement LOCALID_OPPONENT, BattleFrontier_BattleDomeBattleRoom_Movement_OpponentStepForward
 	waitmovement 0
 	tower_getopponentintro 0
-	msgbox gStringVar4, MSGBOX_DEFAULT
+	msgbox gStringVar7, MSGBOX_DEFAULT
 	closemessage
 	dome_initopponentparty
 	call BattleFrontier_BattleDomeBattleRoom_EventScript_DoDomeBattle
@@ -464,7 +450,7 @@ BattleFrontier_BattleDomeBattleRoom_OnWarp:
 BattleFrontier_BattleDomeBattleRoom_EventScript_SetUpObjects::
 	hideobjectat LOCALID_PLAYER, MAP_BATTLE_FRONTIER_BATTLE_DOME_BATTLE_ROOM
 	call BattleFrontier_BattleDomeBattleRoom_EventScript_AddAudience
-	call BattleFrontier_BattleDomeBattleRoom_EventScript_SetPlayerGfx
+	specialvar VAR_OBJ_GFX_ID_1, GetPlayerCostumeId
 	setvar VAR_TEMP_1, 1
 	applymovement OBJ_EVENT_ID_PLAYER, BattleFrontier_BattleDomeBattleRoom_Movement_SetInvisible
 	frontier_get FRONTIER_DATA_BATTLE_NUM

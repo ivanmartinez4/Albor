@@ -192,4 +192,6 @@ bool32 CanBeFrozen(u8 battlerId);
 bool32 CanBeConfused(u8 battlerId);
 bool32 IsBattlerTerrainAffected(u8 battlerId, u32 terrainFlag);
 
+u8 GetCurrentMaxLevel(void);
+
 #endif // GUARD_BATTLE_UTIL_H

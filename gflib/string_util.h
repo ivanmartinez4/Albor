@@ -4,7 +4,10 @@
 extern u8 gStringVar1[0x100];
 extern u8 gStringVar2[0x100];
 extern u8 gStringVar3[0x100];
-extern u8 gStringVar4[0x3E8];
+extern u8 gStringVar4[0x100];
+extern u8 gStringVar5[0x100];
+extern u8 gStringVar6[0x100];
+extern u8 gStringVar7[0x3E8];
 
 enum StringConvertMode
 {
@@ -42,5 +45,6 @@ u8 GetExtCtrlCodeLength(u8 code);
 s32 StringCompareWithoutExtCtrlCodes(const u8 *str1, const u8 *str2);
 void ConvertInternationalString(u8 *s, u8 language);
 void StripExtCtrlCodes(u8 *str);
+bool32 IsFirstLetterVowelSound(const u8 *str);
 
 #endif // GUARD_STRING_UTIL_H

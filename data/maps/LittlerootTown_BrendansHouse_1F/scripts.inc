@@ -157,6 +157,12 @@ LittlerootTown_BrendansHouse_1F_EventScript_MeetRival::
 	call_if_eq VAR_0x8008, 1, LittlerootTown_BrendansHouse_1F_EventScript_BrendanApproachPlayer1
 	call_if_eq VAR_0x8008, 2, LittlerootTown_BrendansHouse_1F_EventScript_BrendanApproachPlayer2
 	msgbox RivalsHouse_1F_Text_BrendanWhoAreYou, MSGBOX_DEFAULT
+	special SetRivalsName
+	waitstate
+	goto LittlerootTown_BrendansHouse_1F_EventScript_MeetNamedMaleRival
+
+LittlerootTown_BrendansHouse_1F_EventScript_MeetNamedMaleRival:
+	msgbox RivalsHouse_1F_Text_BrendanWhoAreYou2, MSGBOX_DEFAULT
 	closemessage
 	call_if_eq VAR_0x8008, 0, LittlerootTown_BrendansHouse_1F_EventScript_BrendanGoUpstairs0
 	call_if_eq VAR_0x8008, 1, LittlerootTown_BrendansHouse_1F_EventScript_BrendanGoUpstairs1
@@ -323,6 +329,23 @@ PlayersHouse_1F_Text_ItsOverWeMissedHim:
 	.string "I think Dad was on, but we missed him.\n"
 	.string "Too bad.$"
 
+PlayersHouse_1F_Text_RunningShoes:
+	.string "Speaking of DAD, he asked me to give\n"
+	.string "you a present he bought for you.$"
+
+PlayersHouse_1F_Text_ReceivedRunningShoes:
+	.string "{PLAYER} received a pair of\nRunning Shoes!$"
+
+PlayersHouse_1F_Text_RunningShoesExplanation:
+	.string "With those Running Shoes, you can\n"
+	.string "get to faraway places much faster.\p"
+	.string "Let me read you the instructions.\p"
+	.string "“Press the B Button to run while\n"
+	.string "wearing your RUNNING SHOES.\p"
+	.string "“Lace up your RUNNING SHOES and hit\n"
+	.string "the road running!”\p"
+	.string "That's what it says.$"
+
 PlayersHouse_1F_Text_GoIntroduceYourselfNextDoor:
 	.string "Oh, yes.\n"
 	.string "One of Dad's friends lives in town.\p"
@@ -348,6 +371,11 @@ PlayersHouse_1F_Text_TakeCareHoney:
 PlayersHouse_1F_Text_GotDadsBadgeHeresSomethingFromMom:
 	.string "Mom: Oh? Did Dad give you that Badge?\p"
 	.string "Then here's something from your Mom!$"
+
+PlayersHouse_1F_Text_IAlsoBoughtYouSomeNewClothes:
+	.string "I also bought you a fresh set of\n"
+	.string "clothes. They're in the dresser\l"
+	.string "at your room upstairs.$"
 
 PlayersHouse_1F_Text_DontPushYourselfTooHard:
 	.string "Don't push yourself too hard, dear.\n"
@@ -405,6 +433,12 @@ PlayersHouse_1F_Text_PortsInSlateportLilycove:
 	.string "If I recall, there are ferry ports in\n"
 	.string "Slateport and Lilycove.$"
 
+PlayersHouse_1F_Text_IBoughtYouSomeNewClothesToo:
+	.string "By the way, I bought a present for\n"
+	.string "you, to celebrate your achievement.\p"
+	.string "I felt I had to reward you somehow.\n"
+	.string "The ELITE FOUR are no small fries.$"
+
 PlayersHouse_1F_Text_BetterGetBackToGym:
 	.string "I'd better get back to Petalburg Gym.\p"
 	.string "Mom, thanks for looking after the house\n"
@@ -436,5 +470,17 @@ PlayersHouse_1F_Text_WhatColorDidTheySay:
 	.string "that Pokémon was?$"
 
 PlayersHouse_1F_Text_StillUnknownPokemon:
-	.string "Mom: Well, isn't that something!\n"
-	.string "There are still unknown Pokémon.$"
+	.string "MOM: Well, isn't that something!\n"
+	.string "There are still unknown POKéMON.$"
+
+PlayersHouse_1F_Text_IAlmostForgot:
+	.string "Oh! I almost forgot!\p"
+	.string "I put the present your father\n"
+	.string "bought for you in your dresser\l"
+	.string "while you were asleep.\p"
+	.string "Make sure to thank him later!$"
+
+PlayersHouse_1F_Text_OneLastThing:
+	.string "I know you're a grown up now, but\n"
+	.string "please be careful out there.\p"
+	.string "I'm always rooting for you, honey.$"

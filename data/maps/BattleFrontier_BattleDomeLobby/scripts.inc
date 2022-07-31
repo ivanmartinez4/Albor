@@ -384,7 +384,6 @@ BattleFrontier_BattleDomeLobby_EventScript_Man::
 	msgbox BattleFrontier_BattleDomeLobby_Text_NeedToCheckOpponentCarefully, MSGBOX_NPC
 	end
 
-@ A few OutsideWest event scripts are inserted here instead, two of which are unused
 BattleFrontier_OutsideWest_EventScript_Man3::
 	msgbox BattleFrontier_OutsideWest_Text_LongDreamedAboutBattleFrontier, MSGBOX_NPC
 	end

@@ -37,6 +37,10 @@
 #include "constants/songs.h"
 #include "constants/trainers.h"
 #include "constants/rgb.h"
+#include "constants/battle_move_effects.h"
+#include "event_data.h"
+#include "battle_script_commands.h"
+#include "pokemon_animation.h"
 
 static void PlayerHandleGetMonData(void);
 static void PlayerHandleSetMonData(void);
@@ -102,6 +106,7 @@ static void HandleInputChooseMove(void);
 static void MoveSelectionDisplayPpNumber(void);
 static void MoveSelectionDisplayPpString(void);
 static void MoveSelectionDisplayMoveType(void);
+static void MoveSelectionDisplayMoveTypeDoubles(u8 targetId);
 static void MoveSelectionDisplayMoveNames(void);
 static void HandleMoveSwitching(void);
 static void SwitchIn_HandleSoundAndEnd(void);
@@ -120,6 +125,7 @@ static void DoSwitchOutAnimation(void);
 static void PlayerDoMoveAnimation(void);
 static void Task_StartSendOutAnim(u8);
 static void EndDrawPartyStatusSummary(void);
+static void Task_CreateLevelUpVerticalStripes(u8 taskId);
 
 static void ReloadMoveNames(void);
 
@@ -185,6 +191,40 @@ static void (*const sPlayerBufferCommands[CONTROLLER_CMDS_COUNT])(void) =
     [CONTROLLER_TERMINATOR_NOP]           = PlayerCmdEnd
 };
 
+#define X UQ_4_12
+static const u16 sTypeEffectivenessTable[NUMBER_OF_MON_TYPES][NUMBER_OF_MON_TYPES] =
+{
+//   normal  fight   flying  poison  ground  rock    bug     ghost   steel   mystery fire    water   grass  electric psychic ice     dragon  dark    fairy
+    {X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(0.5), X(1.0), X(0.0), X(0.5), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0)}, // normal
+    {X(2.0), X(1.0), X(0.5), X(0.5), X(1.0), X(2.0), X(0.5), X(0.0), X(2.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(0.5), X(2.0), X(1.0), X(2.0), X(0.5)}, // fight
+    {X(1.0), X(2.0), X(1.0), X(1.0), X(1.0), X(0.5), X(2.0), X(1.0), X(0.5), X(1.0), X(1.0), X(1.0), X(2.0), X(0.5), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0)}, // flying
+    {X(1.0), X(1.0), X(1.0), X(0.5), X(0.5), X(0.5), X(1.0), X(0.5), X(0.0), X(1.0), X(1.0), X(1.0), X(2.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(2.0)}, // poison
+    {X(1.0), X(1.0), X(0.0), X(2.0), X(1.0), X(2.0), X(0.5), X(1.0), X(2.0), X(1.0), X(2.0), X(1.0), X(0.5), X(2.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0)}, // ground
+    {X(1.0), X(0.5), X(2.0), X(1.0), X(0.5), X(1.0), X(2.0), X(1.0), X(0.5), X(1.0), X(2.0), X(1.0), X(1.0), X(1.0), X(1.0), X(2.0), X(1.0), X(1.0), X(1.0)}, // rock
+    {X(1.0), X(0.5), X(0.5), X(0.5), X(1.0), X(1.0), X(1.0), X(0.5), X(0.5), X(1.0), X(0.5), X(1.0), X(2.0), X(1.0), X(2.0), X(1.0), X(1.0), X(2.0), X(0.5)}, // bug
+    #if B_STEEL_RESISTANCES >= GEN_6
+    {X(0.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(2.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(2.0), X(1.0), X(1.0), X(0.5), X(1.0)}, // ghost
+    #else
+    {X(0.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(2.0), X(0.5), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(2.0), X(1.0), X(1.0), X(0.5), X(1.0)}, // ghost
+    #endif
+    {X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(2.0), X(1.0), X(1.0), X(0.5), X(1.0), X(0.5), X(0.5), X(1.0), X(0.5), X(1.0), X(2.0), X(1.0), X(1.0), X(2.0)}, // steel
+    {X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0)}, // mystery
+    {X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(0.5), X(2.0), X(1.0), X(2.0), X(1.0), X(0.5), X(0.5), X(2.0), X(1.0), X(1.0), X(2.0), X(0.5), X(1.0), X(1.0)}, // fire
+    {X(1.0), X(1.0), X(1.0), X(1.0), X(2.0), X(2.0), X(1.0), X(1.0), X(1.0), X(1.0), X(2.0), X(0.5), X(0.5), X(1.0), X(1.0), X(1.0), X(0.5), X(1.0), X(1.0)}, // water
+    {X(1.0), X(1.0), X(0.5), X(0.5), X(2.0), X(2.0), X(0.5), X(1.0), X(0.5), X(1.0), X(0.5), X(2.0), X(0.5), X(1.0), X(1.0), X(1.0), X(0.5), X(1.0), X(1.0)}, // grass
+    {X(1.0), X(1.0), X(2.0), X(1.0), X(0.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(2.0), X(0.5), X(0.5), X(1.0), X(1.0), X(0.5), X(1.0), X(1.0)}, // electric
+    {X(1.0), X(2.0), X(1.0), X(2.0), X(1.0), X(1.0), X(1.0), X(1.0), X(0.5), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(0.5), X(1.0), X(1.0), X(0.0), X(1.0)}, // psychic
+    {X(1.0), X(1.0), X(2.0), X(1.0), X(2.0), X(1.0), X(1.0), X(1.0), X(0.5), X(1.0), X(0.5), X(0.5), X(2.0), X(1.0), X(1.0), X(0.5), X(2.0), X(1.0), X(1.0)}, // ice
+    {X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(0.5), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(2.0), X(1.0), X(0.0)}, // dragon
+    #if B_STEEL_RESISTANCES >= GEN_6
+    {X(1.0), X(0.5), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(2.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(2.0), X(1.0), X(1.0), X(0.5), X(0.5)}, // dark
+    #else
+    {X(1.0), X(0.5), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(2.0), X(0.5), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(2.0), X(1.0), X(1.0), X(0.5), X(0.5)}, // dark
+    #endif
+    {X(1.0), X(2.0), X(1.0), X(0.5), X(1.0), X(1.0), X(1.0), X(1.0), X(0.5), X(1.0), X(0.5), X(1.0), X(1.0), X(1.0), X(1.0), X(1.0), X(2.0), X(2.0), X(1.0)}, // fairy
+};
+#undef X
+
 void BattleControllerDummy(void)
 {
 }
@@ -245,7 +285,7 @@ static void HandleInputChooseAction(void)
     {
         PlaySE(SE_SELECT);
         TryHideLastUsedBall();
-        
+
         switch (gActionSelectionCursor[gActiveBattler])
         {
         case 0: // Top left
@@ -305,7 +345,14 @@ static void HandleInputChooseAction(void)
     }
     else if (JOY_NEW(B_BUTTON) || gPlayerDpadHoldFrames > 59)
     {
-        if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
+        if (!(gBattleTypeFlags & (BATTLE_TYPE_TRAINER | BATTLE_TYPE_FIRST_BATTLE)))
+        {
+            PlaySE(SE_SELECT);
+            ActionSelectionDestroyCursorAt(gActionSelectionCursor[gActiveBattler]);
+            gActionSelectionCursor[gActiveBattler] = 3;
+            ActionSelectionCreateCursorAt(gActionSelectionCursor[gActiveBattler], 0);
+        }
+        else if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
          && GetBattlerPosition(gActiveBattler) == B_POSITION_PLAYER_RIGHT
          && !(gAbsentBattlerFlags & gBitTable[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)])
          && !(gBattleTypeFlags & BATTLE_TYPE_MULTI))
@@ -426,6 +473,8 @@ static void HandleInputChooseTarget(void)
                     i++;
                     break;
                 }
+                if (gSaveBlock2Ptr->optionsBattleType)
+                    MoveSelectionDisplayMoveTypeDoubles(GetBattlerPosition(gMultiUsePlayerCursor));
 
                 if (gAbsentBattlerFlags & gBitTable[gMultiUsePlayerCursor]
                  || !CanTargetBattler(gActiveBattler, gMultiUsePlayerCursor, move))
@@ -476,6 +525,8 @@ static void HandleInputChooseTarget(void)
                     i++;
                     break;
                 }
+                if (gSaveBlock2Ptr->optionsBattleType)
+                    MoveSelectionDisplayMoveTypeDoubles(GetBattlerPosition(gMultiUsePlayerCursor));
 
                 if (gAbsentBattlerFlags & gBitTable[gMultiUsePlayerCursor]
                  || !CanTargetBattler(gActiveBattler, gMultiUsePlayerCursor, move))
@@ -650,7 +701,7 @@ static void HandleInputChooseMove(void)
                     u32 i = 0;
                     for (i = 0; i < gBattlersCount; i++)
                         TryShowAsTarget(i);
-                    
+
                     canSelectTarget = 3;
                 }
                 else if (moveTarget & (MOVE_TARGET_OPPONENTS_FIELD | MOVE_TARGET_BOTH | MOVE_TARGET_FOES_AND_ALLY))
@@ -663,7 +714,7 @@ static void HandleInputChooseMove(void)
                 }
             }
         }
-        
+
         switch (canSelectTarget)
         {
         case 0:
@@ -1471,6 +1522,104 @@ static void DestroyExpTaskAndCompleteOnInactiveTextPrinter(u8 taskId)
     DestroyTask(taskId);
 }
 
+void AnimTask_CreateLevelUpVerticalStripes(u8 taskId)
+{
+    u8 monIndex;
+    s32 battlerId = gTasks[taskId].tExpTask_battler;
+
+    if (IsBattlerSpriteVisible((u8)battlerId) == TRUE)
+    {
+        gTasks[taskId].func = Task_CreateLevelUpVerticalStripes;
+        gTasks[taskId].data[15] = 0;
+    }
+    else
+    {
+        gBattlerControllerFuncs[battlerId] = CompleteOnInactiveTextPrinter;
+        DestroyTask(taskId);
+    }
+}
+
+static void Task_CreateLevelUpVerticalStripes(u8 taskId)
+{
+    s16 *data = gTasks[taskId].data;
+    u8 battlerId = tExpTask_battler;
+    u16 bgPriorityRank = GetBattlerSpriteBGPriorityRank(battlerId);
+    bool32 isOnBg2 = ((bgPriorityRank ^ 1)) != 0;
+    struct Sprite *sprite = &gSprites[gBattlerSpriteIds[battlerId]];
+
+    switch (data[15])
+    {
+    case 0:
+        if (!IsTextPrinterActive(0))
+        {
+            if (!isOnBg2)
+            {
+                data[14] = gBattle_BG1_X;
+                data[13] = gBattle_BG1_Y;
+                gBattle_BG1_X = -(sprite->x + sprite->x2) + 32;
+                gBattle_BG1_Y = -(sprite->y + sprite->y2) + 32;
+            }
+            else
+            {
+                data[14] = gBattle_BG2_X;
+                data[13] = gBattle_BG2_Y;
+                gBattle_BG2_X = -(sprite->x + sprite->x2) + 32;
+                gBattle_BG2_Y = -(sprite->y + sprite->y2) + 32;
+            }
+            ++data[15];
+        }
+        break;
+    case 1:
+        {
+            u32 battlerIdAlt = battlerId;
+            bool32 v6Alt = isOnBg2;
+
+            MoveBattlerSpriteToBG(battlerIdAlt, v6Alt, FALSE); // Don't make sprite invisible
+        }
+        ++data[15];
+        break;
+    case 2:
+        PlaySE(SE_SHOP);
+        if (IsMonGettingExpSentOut())
+            CreateLevelUpVerticalSpritesTask(sprite->x + sprite->x2,
+                        sprite->y + sprite->y2,
+                        10000,
+                        10000,
+                        1,
+                        0);
+        ++data[15];
+        break;
+    case 3:
+        if (!LevelUpVerticalSpritesTaskIsRunning())
+        {
+            sprite->invisible = FALSE;
+            ++data[15];
+        }
+        break;
+    case 5:
+        ResetBattleAnimBg(isOnBg2);
+        ++data[15];
+        break;
+    case 4:
+        ++data[15];
+        break;
+    case 6:
+        if (!isOnBg2)
+        {
+            gBattle_BG1_X = data[14];
+            gBattle_BG1_Y = data[13];
+        }
+        else
+        {
+            gBattle_BG2_X = data[14];
+            gBattle_BG2_Y = data[13];
+        }
+        gBattlerControllerFuncs[battlerId] = CompleteOnInactiveTextPrinter;
+        DestroyTask(taskId);
+        break;
+    }
+}
+
 static void FreeMonSpriteAfterFaintAnim(void)
 {
     if (gSprites[gBattlerSpriteIds[gActiveBattler]].y + gSprites[gBattlerSpriteIds[gActiveBattler]].y2 > DISPLAY_HEIGHT)
@@ -1652,6 +1801,84 @@ static void MoveSelectionDisplayPpNumber(void)
     BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_PP_REMAINING);
 }
 
+static void MulModifier(u16 *modifier, u16 val)
+{
+    *modifier = UQ_4_12_TO_INT((*modifier * val) + UQ_4_12_ROUND);
+}
+
+u8 TypeEffectiveness(struct ChooseMoveStruct *moveInfo, u8 targetId)
+{
+    bool8 isInverse = (B_FLAG_INVERSE_BATTLE != 0 && FlagGet(B_FLAG_INVERSE_BATTLE)) ? TRUE : FALSE;
+
+    if (gBattleMoves[moveInfo->moves[gMoveSelectionCursor[gActiveBattler]]].power == 0)
+        return 10;
+    else
+    {
+        u16 mod = sTypeEffectivenessTable[gBattleMoves[moveInfo->moves[gMoveSelectionCursor[gActiveBattler]]].type][gBattleMons[targetId].type1];
+
+        if (gBattleMons[targetId].type2 != gBattleMons[targetId].type1)
+        {
+            u16 mod2 = sTypeEffectivenessTable[gBattleMoves[moveInfo->moves[gMoveSelectionCursor[gActiveBattler]]].type][gBattleMons[targetId].type2];
+            MulModifier(&mod, mod2);
+        }
+
+        if (gBattleMoves[moveInfo->moves[gMoveSelectionCursor[gActiveBattler]]].effect == EFFECT_TWO_TYPED_MOVE)
+        {
+            u16 mod3 = sTypeEffectivenessTable[gBattleMoves[moveInfo->moves[gMoveSelectionCursor[gActiveBattler]]].argument][gBattleMons[targetId].type1];
+            MulModifier(&mod, mod3);
+
+            if (gBattleMons[targetId].type2 != gBattleMons[targetId].type1)
+            {
+                u16 mod4 = sTypeEffectivenessTable[gBattleMoves[moveInfo->moves[gMoveSelectionCursor[gActiveBattler]]].argument][gBattleMons[targetId].type2];
+                MulModifier(&mod, mod4);
+            }
+        }
+
+        // 10 - normal effectiveness
+        // 24 - super effective
+        // 25 - not very effective
+        // 26 - no effect
+
+        if (mod == UQ_4_12(0.0)) {
+            if(isInverse)
+                return 24;
+            else
+                return 26;
+        }
+        else if (mod <= UQ_4_12(0.5)) {
+            if(isInverse)
+                return 24;
+            else
+                return 25;
+        }
+        else if (mod >= UQ_4_12(2.0)) {
+            if(isInverse)
+                return 25;
+            else
+                return 24;
+        }
+        else
+            return 10;
+    }
+}
+
+static void MoveSelectionDisplayMoveTypeDoubles(u8 targetId)
+{
+    u8 *txtPtr;
+    struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct*)(&gBattleResources->bufferA[gActiveBattler][4]);
+
+    txtPtr = StringCopy(gDisplayedStringBattle, gText_MoveInterfaceType);
+    txtPtr[0] = EXT_CTRL_CODE_BEGIN;
+    txtPtr++;
+    txtPtr[0] = 6;
+    txtPtr++;
+    txtPtr[0] = 1;
+    txtPtr++;
+
+    StringCopy(txtPtr, gTypeNames[gBattleMoves[moveInfo->moves[gMoveSelectionCursor[gActiveBattler]]].type]);
+    BattlePutTextOnWindow(gDisplayedStringBattle, TypeEffectiveness(moveInfo, targetId));
+}
+
 static void MoveSelectionDisplayMoveType(void)
 {
     u8 *txtPtr;
@@ -1662,8 +1889,30 @@ static void MoveSelectionDisplayMoveType(void)
     *(txtPtr)++ = EXT_CTRL_CODE_FONT;
     *(txtPtr)++ = 1;
 
-    StringCopy(txtPtr, gTypeNames[gBattleMoves[moveInfo->moves[gMoveSelectionCursor[gActiveBattler]]].type]);
-    BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_MOVE_TYPE);
+    if (moveInfo->moves[gMoveSelectionCursor[gActiveBattler]] == MOVE_HIDDEN_POWER)
+    {
+        u8 typeBits  = ((GetMonData(&gPlayerParty[gBattlerPartyIndexes[gActiveBattler]], MON_DATA_HP_IV) & 1) << 0)
+                     | ((GetMonData(&gPlayerParty[gBattlerPartyIndexes[gActiveBattler]], MON_DATA_ATK_IV) & 1) << 1)
+                     | ((GetMonData(&gPlayerParty[gBattlerPartyIndexes[gActiveBattler]], MON_DATA_DEF_IV) & 1) << 2)
+                     | ((GetMonData(&gPlayerParty[gBattlerPartyIndexes[gActiveBattler]], MON_DATA_SPEED_IV) & 1) << 3)
+                     | ((GetMonData(&gPlayerParty[gBattlerPartyIndexes[gActiveBattler]], MON_DATA_SPATK_IV) & 1) << 4)
+                     | ((GetMonData(&gPlayerParty[gBattlerPartyIndexes[gActiveBattler]], MON_DATA_SPDEF_IV) & 1) << 5);
+
+        u8 type = (15 * typeBits) / 63 + 1;
+        if (type >= TYPE_MYSTERY)
+            type++;
+        type |= 0xC0;
+        StringCopy(txtPtr, gTypeNames[type & 0x3F]);
+    }
+    else
+    {
+        StringCopy(txtPtr, gTypeNames[gBattleMoves[moveInfo->moves[gMoveSelectionCursor[gActiveBattler]]].type]);
+    }
+
+    if (!gSaveBlock2Ptr->optionsBattleType)
+        BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_MOVE_TYPE);
+    else
+        BattlePutTextOnWindow(gDisplayedStringBattle, TypeEffectiveness(moveInfo, 1));
 }
 
 void MoveSelectionCreateCursorAt(u8 cursorPosition, u8 baseTileNum)
@@ -2039,10 +2288,6 @@ static u32 CopyPlayerMonData(u8 monId, u8 *dst)
         dst[0] = GetMonData(&gPlayerParty[monId], MON_DATA_TOUGH);
         size = 1;
         break;
-    case REQUEST_SHEEN_BATTLE:
-        dst[0] = GetMonData(&gPlayerParty[monId], MON_DATA_SHEEN);
-        size = 1;
-        break;
     case REQUEST_COOL_RIBBON_BATTLE:
         dst[0] = GetMonData(&gPlayerParty[monId], MON_DATA_COOL_RIBBON);
         size = 1;
@@ -2299,9 +2544,6 @@ static void SetPlayerMonData(u8 monId)
     case REQUEST_TOUGH_BATTLE:
         SetMonData(&gPlayerParty[monId], MON_DATA_TOUGH, &gBattleResources->bufferA[gActiveBattler][3]);
         break;
-    case REQUEST_SHEEN_BATTLE:
-        SetMonData(&gPlayerParty[monId], MON_DATA_SHEEN, &gBattleResources->bufferA[gActiveBattler][3]);
-        break;
     case REQUEST_COOL_RIBBON_BATTLE:
         SetMonData(&gPlayerParty[monId], MON_DATA_COOL_RIBBON, &gBattleResources->bufferA[gActiveBattler][3]);
         break;
@@ -2428,29 +2670,7 @@ static void DoSwitchOutAnimation(void)
 static void PlayerHandleDrawTrainerPic(void)
 {
     s16 xPos, yPos;
-    u32 trainerPicId;
-
-    if (gBattleTypeFlags & BATTLE_TYPE_LINK)
-    {
-        if ((gLinkPlayers[GetMultiplayerId()].version & 0xFF) == VERSION_FIRE_RED
-            || (gLinkPlayers[GetMultiplayerId()].version & 0xFF) == VERSION_LEAF_GREEN)
-        {
-            trainerPicId = gLinkPlayers[GetMultiplayerId()].gender + TRAINER_BACK_PIC_RED;
-        }
-        else if ((gLinkPlayers[GetMultiplayerId()].version & 0xFF) == VERSION_RUBY
-                 || (gLinkPlayers[GetMultiplayerId()].version & 0xFF) == VERSION_SAPPHIRE)
-        {
-            trainerPicId = gLinkPlayers[GetMultiplayerId()].gender + TRAINER_BACK_PIC_RUBY_SAPPHIRE_BRENDAN;
-        }
-        else
-        {
-            trainerPicId = gLinkPlayers[GetMultiplayerId()].gender + TRAINER_BACK_PIC_BRENDAN;
-        }
-    }
-    else
-    {
-        trainerPicId = gSaveBlock2Ptr->playerGender;
-    }
+    u32 trainerPicId = gCostumeBackPics[gSaveBlock2Ptr->playerCostume][gSaveBlock2Ptr->playerGender];
 
     if (gBattleTypeFlags & BATTLE_TYPE_MULTI)
     {
@@ -2460,26 +2680,18 @@ static void PlayerHandleDrawTrainerPic(void)
             xPos = 32;
 
         if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER && gPartnerTrainerId != TRAINER_STEVEN_PARTNER && gPartnerTrainerId < TRAINER_CUSTOM_PARTNER)
-        {
             xPos = 90;
-            yPos = (8 - gTrainerFrontPicCoords[trainerPicId].size) * 4 + 80;
-        }
-        else
-        {
-            yPos = (8 - gTrainerBackPicCoords[trainerPicId].size) * 4 + 80;
-        }
-
     }
     else
     {
         xPos = 80;
-        yPos = (8 - gTrainerBackPicCoords[trainerPicId].size) * 4 + 80;
     }
+    yPos = 80;
 
     // Use front pic table for any tag battles unless your partner is Steven.
     if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER && gPartnerTrainerId != TRAINER_STEVEN_PARTNER && gPartnerTrainerId < TRAINER_CUSTOM_PARTNER)
     {
-        trainerPicId = PlayerGenderToFrontTrainerPicId(gSaveBlock2Ptr->playerGender);
+        trainerPicId = gCostumeFrontPics[gSaveBlock2Ptr->playerCostume][gSaveBlock2Ptr->playerGender];
         DecompressTrainerFrontPic(trainerPicId, gActiveBattler);
         SetMultiuseSpriteTemplateToTrainerFront(trainerPicId, GetBattlerPosition(gActiveBattler));
         gBattlerSpriteIds[gActiveBattler] = CreateSprite(&gMultiuseSpriteTemplate, xPos, yPos, GetBattlerSpriteSubpriority(gActiveBattler));
@@ -2495,7 +2707,7 @@ static void PlayerHandleDrawTrainerPic(void)
     // Use the back pic in any other scenario.
     else
     {
-        DecompressTrainerBackPic(trainerPicId, gActiveBattler);
+        LoadPalette(gTrainerBackPicPaletteTable[trainerPicId].data, 0x100 + 16 * gActiveBattler, 32);
         SetMultiuseSpriteTemplateToTrainerBack(trainerPicId, GetBattlerPosition(gActiveBattler));
         gBattlerSpriteIds[gActiveBattler] = CreateSprite(&gMultiuseSpriteTemplate, xPos, yPos, GetBattlerSpriteSubpriority(gActiveBattler));
 
@@ -2511,6 +2723,7 @@ static void PlayerHandleDrawTrainerPic(void)
 static void PlayerHandleTrainerSlide(void)
 {
     u32 trainerPicId;
+    u8 position;
 
     if (gBattleTypeFlags & BATTLE_TYPE_LINK)
     {
@@ -2534,7 +2747,8 @@ static void PlayerHandleTrainerSlide(void)
         trainerPicId = gSaveBlock2Ptr->playerGender + TRAINER_BACK_PIC_BRENDAN;
     }
 
-    DecompressTrainerBackPic(trainerPicId, gActiveBattler);
+    position = GetBattlerPosition(gActiveBattler);
+    LoadPalette(gTrainerBackPicPaletteTable[2].data, 0x100 + 16 * gActiveBattler, 0x20);
     SetMultiuseSpriteTemplateToTrainerBack(trainerPicId, GetBattlerPosition(gActiveBattler));
     gBattlerSpriteIds[gActiveBattler] = CreateSprite(&gMultiuseSpriteTemplate, 80, (8 - gTrainerBackPicCoords[trainerPicId].size) * 4 + 80, 30);
 
@@ -3129,7 +3343,7 @@ static void PlayerHandleIntroTrainerBallThrow(void)
     StartSpriteAnim(&gSprites[gBattlerSpriteIds[gActiveBattler]], 1);
 
     paletteNum = AllocSpritePalette(0xD6F8);
-    LoadCompressedPalette(gTrainerBackPicPaletteTable[gSaveBlock2Ptr->playerGender].data, 0x100 + paletteNum * 16, 32);
+    LoadPalette(gTrainerBackPicPaletteTable[gCostumeBackPics[gSaveBlock2Ptr->playerCostume][gSaveBlock2Ptr->playerGender]].data, 0x100 + paletteNum * 16, 32);
     gSprites[gBattlerSpriteIds[gActiveBattler]].oam.paletteNum = paletteNum;
 
     taskId = CreateTask(Task_StartSendOutAnim, 5);
@@ -3185,6 +3399,7 @@ static void Task_StartSendOutAnim(u8 taskId)
             gBattleResources->bufferA[gActiveBattler][1] = gBattlerPartyIndexes[gActiveBattler];
             StartSendOutAnim(gActiveBattler, FALSE);
         }
+        PlaySE12WithPanning(SE_BALL_THROW, 0);
         gBattlerControllerFuncs[gActiveBattler] = Intro_TryShinyAnimShowHealthbox;
         gActiveBattler = savedActiveBattler;
         DestroyTask(taskId);

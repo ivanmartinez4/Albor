@@ -309,7 +309,7 @@ static void CreateHatchedMon(struct Pokemon *egg, struct Pokemon *temp)
 {
     u16 species;
     u32 personality, pokerus;
-    u8 i, friendship, language, gameMet, markings, isEventLegal;
+    u8 i, friendship, language, gameMet, markings;
     u16 moves[MAX_MON_MOVES];
     u32 ivs[NUM_STATS];
 
@@ -328,7 +328,6 @@ static void CreateHatchedMon(struct Pokemon *egg, struct Pokemon *temp)
     gameMet = GetMonData(egg, MON_DATA_MET_GAME);
     markings = GetMonData(egg, MON_DATA_MARKINGS);
     pokerus = GetMonData(egg, MON_DATA_POKERUS);
-    isEventLegal = GetMonData(egg, MON_DATA_EVENT_LEGAL);
 
     CreateMon(temp, species, EGG_HATCH_LEVEL, USE_RANDOM_IVS, TRUE, personality, OT_ID_PLAYER_ID, 0);
 
@@ -346,7 +345,6 @@ static void CreateHatchedMon(struct Pokemon *egg, struct Pokemon *temp)
     friendship = 120;
     SetMonData(temp, MON_DATA_FRIENDSHIP, &friendship);
     SetMonData(temp, MON_DATA_POKERUS, &pokerus);
-    SetMonData(temp, MON_DATA_EVENT_LEGAL, &isEventLegal);
 
     *egg = *temp;
 }
@@ -443,7 +441,7 @@ static u8 EggHatchCreateMonSprite(u8 useAlt, u8 state, u8 partyId, u16* speciesL
             HandleLoadSpecialPokePic(&gMonFrontPicTable[species],
                                      gMonSpritesGfxPtr->sprites.ptr[(useAlt * 2) + B_POSITION_OPPONENT_LEFT],
                                      species, pid);
-            LoadCompressedSpritePalette(GetMonSpritePalStruct(mon));
+            LoadCompressedUniqueSpritePalette(GetMonSpritePalStruct(mon), species, pid, IsMonShiny(mon));
             *speciesLoc = species;
         }
         break;
@@ -485,6 +483,8 @@ static void Task_EggHatch(u8 taskId)
 
 static void CB2_LoadEggHatch(void)
 {
+    const struct CompressedSpritePalette *pal1, *pal2;
+
     switch (gMain.state)
     {
     case 0:
@@ -534,7 +534,9 @@ static void CB2_LoadEggHatch(void)
     case 3:
         LoadSpriteSheet(&sEggHatch_Sheet);
         LoadSpriteSheet(&sEggShards_Sheet);
-        LoadSpritePalette(&sEgg_SpritePalette);
+        pal1 = &gEgg1PaletteTable[gBaseStats[GetMonData(&gPlayerParty[sEggHatchData->eggPartyId], MON_DATA_SPECIES)].type1];
+        pal2 = &gEgg2PaletteTable[gBaseStats[GetMonData(&gPlayerParty[sEggHatchData->eggPartyId], MON_DATA_SPECIES)].type2];
+        LoadCompressedEggHatchSpritePalette(pal1, pal2);
         gMain.state++;
         break;
     case 4:
@@ -648,8 +650,8 @@ static void CB2_EggHatch(void)
     case 5:
         // "{mon} hatched from egg" message/fanfare
         GetMonNickname2(&gPlayerParty[sEggHatchData->eggPartyId], gStringVar1);
-        StringExpandPlaceholders(gStringVar4, gText_HatchedFromEgg);
-        EggHatchPrintMessage(sEggHatchData->windowId, gStringVar4, 0, 3, TEXT_SKIP_DRAW);
+        StringExpandPlaceholders(gStringVar7, gText_HatchedFromEgg);
+        EggHatchPrintMessage(sEggHatchData->windowId, gStringVar7, 0, 3, TEXT_SKIP_DRAW);
         PlayFanfare(MUS_EVOLVED);
         sEggHatchData->state++;
         PutWindowTilemap(sEggHatchData->windowId);
@@ -666,8 +668,8 @@ static void CB2_EggHatch(void)
     case 8:
         // Ready the nickname prompt
         GetMonNickname2(&gPlayerParty[sEggHatchData->eggPartyId], gStringVar1);
-        StringExpandPlaceholders(gStringVar4, gText_NicknameHatchPrompt);
-        EggHatchPrintMessage(sEggHatchData->windowId, gStringVar4, 0, 2, 1);
+        StringExpandPlaceholders(gStringVar7, gText_NicknameHatchPrompt);
+        EggHatchPrintMessage(sEggHatchData->windowId, gStringVar7, 0, 2, 1);
         sEggHatchData->state++;
         break;
     case 9:

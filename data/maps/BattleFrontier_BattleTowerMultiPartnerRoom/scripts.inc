@@ -124,20 +124,6 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Movement_PlayerEnterElevator:
 	set_invisible
 	step_end
 
-@ Functionally unused
-BattleFrontier_BattleTowerMultiPartnerRoom_Movement_PlayerEnterElevatorEast:
-	walk_right
-	walk_up
-	set_invisible
-	step_end
-
-@ Functionally unused
-BattleFrontier_BattleTowerMultiPartnerRoom_Movement_PlayerEneterElevatorWest:
-	walk_left
-	walk_up
-	set_invisible
-	step_end
-
 BattleFrontier_BattleTowerMultiPartnerRoom_Movement_AttendantEnterElevator:
 	walk_up
 	set_invisible
@@ -281,7 +267,7 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_PleaseFindPartner2:
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_ThankYouForChoosingPartner::
 	.string "Thank you for choosing a partner.\p"
 	.string "I will now show you to your\n"
-	.string "Multi Battle Room.$"
+	.string "MULTI BATTLE ROOM.$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_Apprentice1Intro::
 	.string "Um, my name's {STR_VAR_3}, and I'm\n"

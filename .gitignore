@@ -40,4 +40,6 @@ overworld/
 *.sna
 *.diff
 *.sym
+berry_fix/
+log.txt
 *.js

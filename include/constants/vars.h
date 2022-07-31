@@ -58,7 +58,7 @@
 #define VAR_CYCLING_ROAD_RECORD_TIME_H       0x4029
 #define VAR_FRIENDSHIP_STEP_COUNTER          0x402A
 #define VAR_POISON_STEP_COUNTER              0x402B
-#define VAR_RESET_RTC_ENABLE                 0x402C
+#define VAR_DEVON_RESEARCHER_GIFT_COUNT      0x402C
 #define VAR_ENIGMA_BERRY_AVAILABLE           0x402D
 #define VAR_WONDER_NEWS_COUNTER              0x402E
 
@@ -86,7 +86,7 @@
 #define VAR_DEPT_STORE_FLOOR                 0x4043
 #define VAR_TRICK_HOUSE_LEVEL                0x4044
 #define VAR_POKELOT_PRIZE_ITEM               0x4045
-#define VAR_NATIONAL_DEX                     0x4046
+#define VAR_SOUTHERN_ISLAND_STATE            0x4046
 #define VAR_SEEDOT_SIZE_RECORD               0x4047
 #define VAR_ASH_GATHER_COUNT                 0x4048
 #define VAR_BIRCH_STATE                      0x4049
@@ -98,10 +98,10 @@
 #define VAR_LOTAD_SIZE_RECORD                0x404F
 #define VAR_LITTLEROOT_TOWN_STATE            0x4050
 #define VAR_OLDALE_TOWN_STATE                0x4051
-#define VAR_DEWFORD_TOWN_STATE               0x4052 // Unused Var
+#define VAR_UNUSED_0x4052                    0x4052 // Unused Var
 #define VAR_LAVARIDGE_TOWN_STATE             0x4053
 #define VAR_CURRENT_SECRET_BASE              0x4054 // was probably allocated for VAR_FALLARBOR_TOWN_STATE at one point
-#define VAR_VERDANTURF_TOWN_STATE            0x4055 // Unused Var
+#define VAR_POKEMON_LEAGUE_RUNS_COUNTER      0x4055 // Originally Unused Var
 #define VAR_PACIFIDLOG_TOWN_STATE            0x4056 // Unused Var
 #define VAR_PETALBURG_CITY_STATE             0x4057
 #define VAR_SLATEPORT_CITY_STATE             0x4058
@@ -114,7 +114,7 @@
 #define VAR_EVER_GRANDE_CITY_STATE           0x405F // Unused Var
 #define VAR_ROUTE101_STATE                   0x4060
 #define VAR_ROUTE102_STATE                   0x4061 // Unused Var
-#define VAR_ROUTE103_STATE                   0x4062 // Unused Var
+#define VAR_ROUTE103_STATE                   0x4062 // Originally Unused Var
 #define VAR_ROUTE104_STATE                   0x4063
 #define VAR_ROUTE105_STATE                   0x4064 // Unused Var
 #define VAR_ROUTE106_STATE                   0x4065 // Unused Var
@@ -238,13 +238,13 @@
 #define VAR_UNUSED_0x40DB                    0x40DB // Unused Var
 #define VAR_UNUSED_0x40DC                    0x40DC // Unused Var
 #define VAR_GIFT_PICHU_SLOT                  0x40DD
-#define VAR_GIFT_UNUSED_1                    0x40DE // Var is written to, but never read
-#define VAR_GIFT_UNUSED_2                    0x40DF // Var is written to, but never read
-#define VAR_GIFT_UNUSED_3                    0x40E0 // Var is written to, but never read
-#define VAR_GIFT_UNUSED_4                    0x40E1 // Var is written to, but never read
-#define VAR_GIFT_UNUSED_5                    0x40E2 // Var is written to, but never read
-#define VAR_GIFT_UNUSED_6                    0x40E3 // Var is written to, but never read
-#define VAR_GIFT_UNUSED_7                    0x40E4 // var is written to, but never read
+#define VAR_UNUSED_0x40DE                    0x40DE // Var was originally written to, but never read
+#define VAR_UNUSED_0x40DF                    0x40DF // Var was originally written to, but never read
+#define VAR_UNUSED_0x40E0                    0x40E0 // Var was originally written to, but never read
+#define VAR_UNUSED_0x40E1                    0x40E1 // Var was originally written to, but never read
+#define VAR_UNUSED_0x40E2                    0x40E2 // Var was originally written to, but never read
+#define VAR_UNUSED_0x40E3                    0x40E3 // Var was originally written to, but never read
+#define VAR_UNUSED_0x40E4                    0x40E4 // var was originally written to, but never read
 #define VAR_UNUSED_0x40E5                    0x40E5 // Unused Var
 #define VAR_DAILY_SLOTS                      0x40E6
 #define VAR_DAILY_WILDS                      0x40E7
@@ -263,8 +263,8 @@
 #define VAR_ROXANNE_CALL_STEP_COUNTER        0x40F4
 #define VAR_SCOTT_BF_CALL_STEP_COUNTER       0x40F5
 #define VAR_RIVAL_RAYQUAZA_CALL_STEP_COUNTER 0x40F6
-#define VAR_UNUSED_0x40F7                    0x40F7 // Unused Var
-#define VAR_UNUSED_0x40F8                    0x40F8 // Unused Var
+#define VAR_WILD_POKEMON_CHAIN_COUNT         0x40F7
+#define VAR_CURRENTLY_CHAINED_SPECIES        0x40F8
 #define VAR_UNUSED_0x40F9                    0x40F9 // Unused Var
 #define VAR_UNUSED_0x40FA                    0x40FA // Unused Var
 #define VAR_UNUSED_0x40FB                    0x40FB // Unused Var

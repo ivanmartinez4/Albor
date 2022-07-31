@@ -23,12 +23,13 @@
 #include "constants/items.h"
 #include "constants/layouts.h"
 #include "constants/weather.h"
+#include "constants/metatile_behaviors.h"
+#include "rtc.h"
+#include "battle_util.h"
 
 extern const u8 EventScript_RepelWoreOff[];
 
 #define MAX_ENCOUNTER_RATE 2880
-
-#define NUM_FEEBAS_SPOTS 6
 
 // Number of accessible fishing spots in each section of Route 119
 // Each section is an area of the route between the y coordinates in sRoute119WaterTileData
@@ -49,8 +50,6 @@ enum {
 
 #define HEADER_NONE 0xFFFF
 
-static u16 FeebasRandom(void);
-static void FeebasSeedRng(u16 seed);
 static bool8 IsWildLevelAllowedByRepel(u8 level);
 static void ApplyFluteEncounterRateMod(u32 *encRate);
 static void ApplyCleanseTagEncounterRateMod(u32 *encRate);
@@ -58,9 +57,8 @@ static bool8 TryGetAbilityInfluencedWildMonIndex(const struct WildPokemon *wildM
 static bool8 IsAbilityAllowingEncounter(u8 level);
 
 EWRAM_DATA static u8 sWildEncountersDisabled = 0;
-EWRAM_DATA static u32 sFeebasRngValue = 0;
-EWRAM_DATA bool8 gIsFishingEncounter = FALSE;
-EWRAM_DATA bool8 gIsSurfingEncounter = FALSE;
+EWRAM_DATA bool8 gIsFishingEncounter = 0;
+EWRAM_DATA bool8 gIsSurfingEncounter = 0;
 EWRAM_DATA u8 gChainFishingStreak = 0;
 EWRAM_DATA static u16 sLastFishingSpecies = 0;
 
@@ -68,116 +66,26 @@ EWRAM_DATA static u16 sLastFishingSpecies = 0;
 
 static const struct WildPokemon sWildFeebas = {20, 25, SPECIES_FEEBAS};
 
-static const u16 sRoute119WaterTileData[] =
-{
-//yMin, yMax, numSpots in previous sections 
-     0,  45,  0,
-    46,  91,  NUM_FISHING_SPOTS_1,
-    92, 139,  NUM_FISHING_SPOTS_1 + NUM_FISHING_SPOTS_2,
-};
-
+// code
 void DisableWildEncounters(bool8 disabled)
 {
     sWildEncountersDisabled = disabled;
 }
 
-// Each fishing spot on Route 119 is given a number between 1 and NUM_FISHING_SPOTS inclusive.
-// The number is determined by counting the valid fishing spots left to right top to bottom.
-// The map is divided into three sections, with each section having a pre-counted number of
-// fishing spots to start from to avoid counting a large number of spots at the bottom of the map.
-// Note that a spot is considered valid if it is surfable and not a waterfall. To exclude all
-// of the inaccessible water metatiles (so that they can't be selected as a Feebas spot) they
-// use a different metatile that isn't actually surfable because it has MB_NORMAL instead.
-// This function is given the coordinates and section of a fishing spot and returns which number it is.
-static u16 GetFeebasFishingSpotId(s16 targetX, s16 targetY, u8 section)
-{
-    u16 x, y;
-    u16 yMin = sRoute119WaterTileData[section * 3 + 0];
-    u16 yMax = sRoute119WaterTileData[section * 3 + 1];
-    u16 spotId = sRoute119WaterTileData[section * 3 + 2];
-
-    for (y = yMin; y <= yMax; y++)
-    {
-        for (x = 0; x < gMapHeader.mapLayout->width; x++)
-        {
-            u8 behavior = MapGridGetMetatileBehaviorAt(x + MAP_OFFSET, y + MAP_OFFSET);
-            if (MetatileBehavior_IsSurfableAndNotWaterfall(behavior) == TRUE)
-            {
-                spotId++;
-                if (targetX == x && targetY == y)
-                    return spotId;
-            }
-        }
-    }
-    return spotId + 1;
-}
-
 static bool8 CheckFeebas(void)
 {
-    u8 i;
-    u16 feebasSpots[NUM_FEEBAS_SPOTS];
     s16 x, y;
-    u8 route119Section = 0;
-    u16 spotId;
 
-    if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(ROUTE119)
-     && gSaveBlock1Ptr->location.mapNum == MAP_NUM(ROUTE119))
-    {
-        GetXYCoordsOneStepInFrontOfPlayer(&x, &y);
-        x -= MAP_OFFSET;
-        y -= MAP_OFFSET;
-
-        // Get which third of the map the player is in
-        if (y >= sRoute119WaterTileData[3 * 0 + 0] && y <= sRoute119WaterTileData[3 * 0 + 1])
-            route119Section = 0;
-        if (y >= sRoute119WaterTileData[3 * 1 + 0] && y <= sRoute119WaterTileData[3 * 1 + 1])
-            route119Section = 1;
-        if (y >= sRoute119WaterTileData[3 * 2 + 0] && y <= sRoute119WaterTileData[3 * 2 + 1])
-            route119Section = 2;
-
-        // 50% chance of encountering Feebas (assuming this is a Feebas spot)
-        if (Random() % 100 > 49)
-            return FALSE;
-
-        FeebasSeedRng(gSaveBlock1Ptr->dewfordTrends[0].rand);
-
-        // Assign each Feebas spot to a random fishing spot.
-        // Randomness is fixed depending on the seed above.
-        for (i = 0; i != NUM_FEEBAS_SPOTS;)
-        {
-            feebasSpots[i] = FeebasRandom() % NUM_FISHING_SPOTS;
-            if (feebasSpots[i] == 0)
-                feebasSpots[i] = NUM_FISHING_SPOTS;
-            
-            // < 1 below is a pointless check, it will never be TRUE.
-            // >= 4 to skip fishing spots 1-3, because these are inaccessible
-            // spots at the top of the map, at (9,7), (7,13), and (15,16).
-            // The first accessible fishing spot is spot 4 at (18,18).
-            if (feebasSpots[i] < 1 || feebasSpots[i] >= 4)
-                i++;
-        }
-
-        // Check which fishing spot the player is at, and see if
-        // it matches any of the Feebas spots.
-        spotId = GetFeebasFishingSpotId(x, y, route119Section);
-        for (i = 0; i < NUM_FEEBAS_SPOTS; i++)
-        {
-            if (spotId == feebasSpots[i])
-                return TRUE;
-        }
-    }
-    return FALSE;
-}
-
-static u16 FeebasRandom(void)
-{
-    sFeebasRngValue = ISO_RANDOMIZE2(sFeebasRngValue);
-    return sFeebasRngValue >> 16;
-}
-
-static void FeebasSeedRng(u16 seed)
-{
-    sFeebasRngValue = seed;
+    PlayerGetDestCoords(&x, &y);
+    RtcCalcLocalTime();
+    if (MapGridGetMetatileBehaviorAt(x, y) == MB_FEEBAS_DAY
+     && gLocalTime.hours >= 12 && gLocalTime.hours < 24)
+        return TRUE;
+    else if (MapGridGetMetatileBehaviorAt(x, y) == MB_FEEBAS_NIGHT
+          && gLocalTime.hours >= 0 && gLocalTime.hours < 12)
+        return TRUE;
+    else
+        return FALSE;
 }
 
 // LAND_WILD_COUNT
@@ -409,9 +317,12 @@ static void CreateWildMon(u16 species, u8 level)
         else
             gender = MON_FEMALE;
 
-        CreateMonWithGenderNatureLetter(&gEnemyParty[0], species, level, USE_RANDOM_IVS, gender, PickWildMonNature(), 0);
+        CreateMonWithGenderNatureLetter(&gEnemyParty[0], species, level, USE_RANDOM_IVS, gender, PickWildMonNature(), 0, OT_ID_PLAYER_ID);
         return;
     }
+
+    if (VarGet(VAR_CURRENTLY_CHAINED_SPECIES) != GetMonData(&gEnemyParty[0], MON_DATA_SPECIES) && (Random() % 99) < 85)
+        species = VarGet(VAR_CURRENTLY_CHAINED_SPECIES);
 
     CreateMonWithNature(&gEnemyParty[0], species, level, USE_RANDOM_IVS, PickWildMonNature());
 }
@@ -638,6 +549,24 @@ bool8 StandardWildEncounter(u16 currMetaTileBehavior, u16 previousMetaTileBehavi
                     return TRUE;
                 }
 
+                if (IsNationalPokedexEnabled()
+                 && TryGenerateWildMon(gWildMonHeaders[headerId].landMonsNatInfo, WILD_AREA_LAND, WILD_CHECK_REPEL | WILD_CHECK_KEEN_EYE) == TRUE
+                 && gWildMonHeaders[headerId].landMonsNatInfo != NULL)
+                {
+                    if (TryDoDoubleWildBattle())
+                    {
+                        struct Pokemon mon1 = gEnemyParty[0];
+                        TryGenerateWildMon(gWildMonHeaders[headerId].landMonsNatInfo, WILD_AREA_LAND, WILD_CHECK_KEEN_EYE);
+                        gEnemyParty[1] = mon1;
+                        BattleSetup_StartDoubleWildBattle();
+                    }
+                    else
+                    {
+                        BattleSetup_StartWildBattle();
+                    }
+                    return TRUE;
+                }
+
                 // try a regular wild land encounter
                 if (TryGenerateWildMon(gWildMonHeaders[headerId].landMonsInfo, WILD_AREA_LAND, WILD_CHECK_REPEL | WILD_CHECK_KEEN_EYE) == TRUE)
                 {
@@ -681,6 +610,24 @@ bool8 StandardWildEncounter(u16 currMetaTileBehavior, u16 previousMetaTileBehavi
             }
             else // try a regular surfing encounter
             {
+                if (IsNationalPokedexEnabled()
+                 && TryGenerateWildMon(gWildMonHeaders[headerId].waterMonsNatInfo, WILD_AREA_WATER, WILD_CHECK_REPEL | WILD_CHECK_KEEN_EYE) == TRUE
+                 && gWildMonHeaders[headerId].waterMonsNatInfo != NULL)
+                {
+                    gIsSurfingEncounter = TRUE;
+                    if (TryDoDoubleWildBattle())
+                    {
+                        struct Pokemon mon1 = gEnemyParty[0];
+                        TryGenerateWildMon(gWildMonHeaders[headerId].waterMonsNatInfo, WILD_AREA_WATER, WILD_CHECK_KEEN_EYE);
+                        gEnemyParty[1] = mon1;
+                        BattleSetup_StartDoubleWildBattle();
+                    }
+                    else
+                    {
+                        BattleSetup_StartWildBattle();
+                    }
+                    return TRUE;
+                }
                 if (TryGenerateWildMon(gWildMonHeaders[headerId].waterMonsInfo, WILD_AREA_WATER, WILD_CHECK_REPEL | WILD_CHECK_KEEN_EYE) == TRUE)
                 {
                     gIsSurfingEncounter = TRUE;
@@ -712,7 +659,11 @@ void RockSmashWildEncounter(void)
 
     if (headerId != HEADER_NONE)
     {
-        const struct WildPokemonInfo *wildPokemonInfo = gWildMonHeaders[headerId].rockSmashMonsInfo;
+        const struct WildPokemonInfo *wildPokemonInfo;
+        if (IsNationalPokedexEnabled() && gWildMonHeaders[headerId].rockSmashMonsNatInfo != NULL)
+            wildPokemonInfo = gWildMonHeaders[headerId].rockSmashMonsNatInfo;
+        else
+            wildPokemonInfo = gWildMonHeaders[headerId].rockSmashMonsInfo;
 
         if (wildPokemonInfo == NULL)
         {
@@ -780,6 +731,8 @@ bool8 SweetScentWildEncounter(void)
 
             if (DoMassOutbreakEncounterTest() == TRUE)
                 SetUpMassOutbreakEncounter(0);
+            else if (IsNationalPokedexEnabled() && gWildMonHeaders[headerId].landMonsNatInfo != NULL)
+                TryGenerateWildMon(gWildMonHeaders[headerId].landMonsNatInfo, WILD_AREA_LAND, 0);
             else
                 TryGenerateWildMon(gWildMonHeaders[headerId].landMonsInfo, WILD_AREA_LAND, 0);
 
@@ -798,8 +751,11 @@ bool8 SweetScentWildEncounter(void)
                 BattleSetup_StartRoamerBattle();
                 return TRUE;
             }
-
-            TryGenerateWildMon(gWildMonHeaders[headerId].waterMonsInfo, WILD_AREA_WATER, 0);
+            
+            if (IsNationalPokedexEnabled() && gWildMonHeaders[headerId].waterMonsNatInfo != NULL)
+                TryGenerateWildMon(gWildMonHeaders[headerId].waterMonsNatInfo, WILD_AREA_WATER, 0);
+            else
+                TryGenerateWildMon(gWildMonHeaders[headerId].waterMonsInfo, WILD_AREA_WATER, 0);
             BattleSetup_StartWildBattle();
             return TRUE;
         }
@@ -821,7 +777,7 @@ bool8 DoesCurrentMapHaveFishingMons(void)
 void FishingWildEncounter(u8 rod)
 {
     u16 species;
-
+    
     gIsFishingEncounter = TRUE; //must be set before mon is created
     if (CheckFeebas() == TRUE)
     {
@@ -832,12 +788,15 @@ void FishingWildEncounter(u8 rod)
     }
     else
     {
-        species = GenerateFishingWildMon(gWildMonHeaders[GetCurrentMapWildMonHeaderId()].fishingMonsInfo, rod);
+        if (IsNationalPokedexEnabled() && gWildMonHeaders[GetCurrentMapWildMonHeaderId()].fishingMonsNatInfo != NULL)
+            species = GenerateFishingWildMon(gWildMonHeaders[GetCurrentMapWildMonHeaderId()].fishingMonsNatInfo, rod);
+        else
+            species = GenerateFishingWildMon(gWildMonHeaders[GetCurrentMapWildMonHeaderId()].fishingMonsInfo, rod);
     }
-
+    
     if (species == sLastFishingSpecies)
     {
-        if (gChainFishingStreak < 20)
+        if (gChainFishingStreak < MAX_CHAIN_FISHING_STREAK)
             gChainFishingStreak++;
     }
     else
@@ -845,11 +804,14 @@ void FishingWildEncounter(u8 rod)
         gChainFishingStreak = 0;    //reeling in different species resets chain fish counter
     }
 
-    sLastFishingSpecies = species;
-    IncrementGameStat(GAME_STAT_FISHING_CAPTURES);
-    SetPokemonAnglerSpecies(species);
-    gIsFishingEncounter = TRUE;
-    BattleSetup_StartWildBattle();
+    if (species != SPECIES_NONE)
+    {
+        sLastFishingSpecies = species;
+        IncrementGameStat(GAME_STAT_FISHING_CAPTURES);
+        SetPokemonAnglerSpecies(species);
+        gIsFishingEncounter = TRUE;
+        BattleSetup_StartWildBattle();
+    }
 }
 
 u16 GetLocalWildMon(bool8 *isWaterMon)
@@ -862,8 +824,16 @@ u16 GetLocalWildMon(bool8 *isWaterMon)
     headerId = GetCurrentMapWildMonHeaderId();
     if (headerId == HEADER_NONE)
         return SPECIES_NONE;
-    landMonsInfo = gWildMonHeaders[headerId].landMonsInfo;
-    waterMonsInfo = gWildMonHeaders[headerId].waterMonsInfo;
+    // Land Pokemon
+    if (IsNationalPokedexEnabled() && gWildMonHeaders[headerId].landMonsNatInfo != NULL)
+        landMonsInfo = gWildMonHeaders[headerId].landMonsNatInfo;
+    else
+        landMonsInfo = gWildMonHeaders[headerId].landMonsInfo;
+    // Water Pokemon
+    if (IsNationalPokedexEnabled() && gWildMonHeaders[headerId].waterMonsNatInfo != NULL)
+        waterMonsInfo = gWildMonHeaders[headerId].waterMonsNatInfo;
+    else
+        waterMonsInfo = gWildMonHeaders[headerId].waterMonsInfo;
     // Neither
     if (landMonsInfo == NULL && waterMonsInfo == NULL)
         return SPECIES_NONE;
@@ -894,7 +864,11 @@ u16 GetLocalWaterMon(void)
 
     if (headerId != HEADER_NONE)
     {
-        const struct WildPokemonInfo *waterMonsInfo = gWildMonHeaders[headerId].waterMonsInfo;
+        const struct WildPokemonInfo *waterMonsInfo;
+        if (IsNationalPokedexEnabled() && gWildMonHeaders[headerId].waterMonsNatInfo != NULL)
+            waterMonsInfo = gWildMonHeaders[headerId].waterMonsNatInfo;
+        else
+            waterMonsInfo = gWildMonHeaders[headerId].waterMonsInfo;
 
         if (waterMonsInfo)
             return waterMonsInfo->wildPokemon[ChooseWildMonIndex_WaterRock()].species;
@@ -1025,4 +999,104 @@ bool8 TryDoDoubleWildBattle(void)
         return TRUE;
     #endif
     return FALSE;
+}
+
+static const u16 sCommonHeadbuttSpecies[] =
+{
+    SPECIES_WURMPLE,
+    SPECIES_TAILLOW,
+};
+
+static const u16 sCommonHeadbuttSpeciesPostNatDex[] =
+{
+    SPECIES_CATERPIE,
+    SPECIES_METAPOD,
+    SPECIES_BUTTERFREE,
+    SPECIES_WEEDLE,
+    SPECIES_KAKUNA,
+    SPECIES_BEEDRILL,
+    SPECIES_SPEAROW,
+    SPECIES_HOOTHOOT,
+    SPECIES_NOCTOWL,
+    SPECIES_LEDYBA,
+    SPECIES_LEDIAN,
+    SPECIES_SPINARAK,
+    SPECIES_ARIADOS,
+    SPECIES_WURMPLE,
+    SPECIES_TAILLOW,
+};
+
+static const u16 sUncommonHeadbuttSpecies[] =
+{
+    SPECIES_SHROOMISH,
+};
+
+static const u16 sUncommonHeadbuttSpeciesPostNatDex[] =
+{
+    SPECIES_VENONAT,
+    SPECIES_EXEGGCUTE,
+    SPECIES_TANGELA,
+    SPECIES_NATU,
+    SPECIES_AIPOM,
+    SPECIES_SHROOMISH,
+};
+
+static const u16 sRareHeadbuttSpecies[] =
+{
+    SPECIES_SEEDOT,
+    SPECIES_SLAKOTH,
+};
+
+static const u16 sRareHeadbuttSpeciesPostNatDex[] =
+{
+    SPECIES_PINECO,
+    SPECIES_HERACROSS,
+    SPECIES_SEEDOT,
+    SPECIES_SLAKOTH,
+    SPECIES_STARLY,
+    SPECIES_BURMY,
+    SPECIES_CHERUBI,
+    SPECIES_COMBEE,
+};
+
+void HeadbuttWildEncounter(void)
+{
+    u16 headerId = GetCurrentMapWildMonHeaderId();
+    u32 species = 0, level = 1, random = Random() % 175;
+
+    switch (random)
+    {
+    case 166 ... 175:
+        if (IsNationalPokedexEnabled())
+            species = sRareHeadbuttSpeciesPostNatDex[Random() % NELEMS(sRareHeadbuttSpecies)];
+        else
+            species = sRareHeadbuttSpecies[Random() % NELEMS(sRareHeadbuttSpecies)];
+        break;
+    case 151 ... 165:
+        if (IsNationalPokedexEnabled())
+            species = sUncommonHeadbuttSpeciesPostNatDex[Random() % NELEMS(sUncommonHeadbuttSpecies)];
+        else
+            species = sUncommonHeadbuttSpecies[Random() % NELEMS(sUncommonHeadbuttSpecies)];
+        break;
+    default:
+        if (IsNationalPokedexEnabled())
+            species = sCommonHeadbuttSpeciesPostNatDex[Random() % NELEMS(sCommonHeadbuttSpecies)];
+        else
+            species = sCommonHeadbuttSpecies[Random() % NELEMS(sCommonHeadbuttSpecies)];
+        break;
+    }
+
+    if (headerId != 0xFFFF)
+    {
+        level = Random() % GetCurrentMaxLevel();
+        if (level == 0)
+            level = 1;
+        CreateWildMon(species, level);
+        BattleSetup_StartWildBattle();
+        gSpecialVar_Result = TRUE;
+    }
+    else
+    {
+        gSpecialVar_Result = FALSE;
+    }
 }

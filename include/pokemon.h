@@ -9,120 +9,88 @@
 #define GET_BASE_SPECIES_ID(speciesId) (GetFormSpeciesId(speciesId, 0))
 #define FORM_SPECIES_END (0xffff)
 
-struct PokemonSubstruct0
+struct __attribute__((packed, aligned(2)) BoxPokemon
 {
-    /*0x00*/ u16 species;
-    /*0x02*/ u16 heldItem;
-    /*0x04*/ u32 experience;
-    /*0x08*/ u8 ppBonuses;
-    /*0x09*/ u8 friendship;
-    /*0x0A*/ u16 pokeball:5; //31 balls
-             u16 filler:11;
-}; /* size = 12 */
-
-struct PokemonSubstruct1
-{
-    /*0x00*/ u16 moves[MAX_MON_MOVES];
-    /*0x08*/ u8 pp[MAX_MON_MOVES];
-}; /* size = 12 */
-
-struct PokemonSubstruct2
-{
-    /*0x00*/ u8 hpEV;
-    /*0x01*/ u8 attackEV;
-    /*0x02*/ u8 defenseEV;
-    /*0x03*/ u8 speedEV;
-    /*0x04*/ u8 spAttackEV;
-    /*0x05*/ u8 spDefenseEV;
-    /*0x06*/ u8 cool;
-    /*0x07*/ u8 beauty;
-    /*0x08*/ u8 cute;
-    /*0x09*/ u8 smart;
-    /*0x0A*/ u8 tough;
-    /*0x0B*/ u8 sheen;
-}; /* size = 12 */
-
-struct PokemonSubstruct3
-{
- /* 0x00 */ u8 pokerus;
- /* 0x01 */ u8 metLocation;
-
- /* 0x02 */ u16 metLevel:7;
- /* 0x02 */ u16 metGame:4;
- /* 0x03 */ u16 otGender:1;
-
- /* 0x04 */ u32 hpIV:5;
- /* 0x04 */ u32 attackIV:5;
- /* 0x05 */ u32 defenseIV:5;
- /* 0x05 */ u32 speedIV:5;
- /* 0x05 */ u32 spAttackIV:5;
- /* 0x06 */ u32 spDefenseIV:5;
- /* 0x07 */ u32 isEgg:1;
-
- /* 0x08 */ u32 coolRibbon:3;
- /* 0x08 */ u32 beautyRibbon:3;
- /* 0x08 */ u32 cuteRibbon:3;
- /* 0x09 */ u32 smartRibbon:3;
- /* 0x09 */ u32 toughRibbon:3;
- /* 0x09 */ u32 championRibbon:1;
- /* 0x0A */ u32 winningRibbon:1;
- /* 0x0A */ u32 victoryRibbon:1;
- /* 0x0A */ u32 artistRibbon:1;
- /* 0x0A */ u32 effortRibbon:1;
- /* 0x0A */ u32 marineRibbon:1; // never distributed
- /* 0x0A */ u32 landRibbon:1; // never distributed
- /* 0x0A */ u32 skyRibbon:1; // never distributed
- /* 0x0A */ u32 countryRibbon:1; // distributed during Pokémon Festa '04 and '05 to tournament winners
- /* 0x0B */ u32 nationalRibbon:1;
- /* 0x0B */ u32 earthRibbon:1;
- /* 0x0B */ u32 worldRibbon:1; // distributed during Pokémon Festa '04 and '05 to tournament winners
- /* 0x0B */ u32 abilityNum:2;
- /* 0x0B */ u32 eventLegal:1; // controls Mew & Deoxys obedience; if set, Pokémon is a fateful encounter in Gen 4+; set for in-game event island legendaries, some distributed events, and Pokémon from XD: Gale of Darkness.
-}; /* size = 12 */
-
-// Number of bytes in the largest Pokémon substruct.
-// They are assumed to be the same size, and will be padded to
-// the largest size by the union.
-// By default they are all 12 bytes.
-#define NUM_SUBSTRUCT_BYTES (max(sizeof(struct PokemonSubstruct0),     \
-                             max(sizeof(struct PokemonSubstruct1),     \
-                             max(sizeof(struct PokemonSubstruct2),     \
-                                 sizeof(struct PokemonSubstruct3)))))
-
-union PokemonSubstruct
-{
-    struct PokemonSubstruct0 type0;
-    struct PokemonSubstruct1 type1;
-    struct PokemonSubstruct2 type2;
-    struct PokemonSubstruct3 type3;
-    u16 raw[NUM_SUBSTRUCT_BYTES / 2]; // /2 because it's u16, not u8
-};
-
-struct BoxPokemon
-{
+    // Words 1 & 2: PID + Trainer ID
     u32 personality;
     u32 otId;
-    u8 nickname[POKEMON_NAME_LENGTH];
-    u8 language;
-    u8 isBadEgg:1;
-    u8 hasSpecies:1;
-    u8 isEgg:1;
-    u8 unused:5;
-    u8 otName[PLAYER_NAME_LENGTH];
-    u8 markings;
-    u16 checksum;
-    u16 unknown;
 
-    union
-    {
-        u32 raw[(NUM_SUBSTRUCT_BYTES * 4) / 4]; // *4 because there are 4 substructs, /4 because it's u32, not u8
-        union PokemonSubstruct substructs[4];
-    } secure;
+    // Words 3-5: Pokémon nickname (12 chars)
+    u8 nickname[POKEMON_NAME_LENGTH];
+
+    // Word 6: Species + Experience points (used to derive level)
+    u32 species:11;
+    u32 experience:21;
+
+    // Words 7 & 8: moves, language, gender, friendship, Pokérus, ppBonuses
+    u32 move1:10;
+    u32 move2:10;
+    u32 language:3;
+    u32 gender:1;
+    u32 friendship:8;
+    u32 move3:10;
+    u32 move4:10;
+    u32 pokerus:4;
+    u32 ppBonuses:8;
+
+    // Words 9 - 11: EV's + contest stats
+    u8 hpEV;
+    u8 attackEV;
+    u8 defenseEV;
+    u8 speedEV;
+    u8 spAttackEV;
+    u8 spDefenseEV;
+    u8 cool;
+    u8 beauty;
+    u8 cute;
+    u8 smart;
+    u8 tough;
+
+    // Word 12: miscellaneous data; item, formId, Egg and origin data
+    u32 heldItem:10;
+    u32 formId:5;
+    u32 isEgg:1;
+    u32 metLevel:7;
+    u32 metGame:3;
+    u16 pokeball:5; // 31 balls
+    u32 otGender:1;
+
+    // Words 13 & 14: Trainer name + met location
+    u8 metLocation;
+    u8 otName[PLAYER_NAME_LENGTH];
+
+    // Word 15: IV's
+    u32 hpIV:5;
+    u32 attackIV:5;
+    u32 defenseIV:5;
+    u32 speedIV:5;
+    u32 spAttackIV:5;
+    u32 spDefenseIV:5;
+    u32 abilityNum:2;
+
+    // Word 16: ribbons and markings
+    u32 coolRibbon:3;
+    u32 beautyRibbon:3;
+    u32 cuteRibbon:3;
+    u32 smartRibbon:3;
+    u32 toughRibbon:3;
+    u32 championRibbon:1;
+    u32 winningRibbon:1;
+    u32 victoryRibbon:1;
+    u32 artistRibbon:1;
+    u32 effortRibbon:1;
+    u32 markings:4;
+
+    // Word 17: Date Met
+    u32 dayMet:5;
+    u32 monthMet:4;
+    u32 yearMet:7;
 };
 
 struct Pokemon
 {
     struct BoxPokemon box;
+    u8 pp[MAX_MON_MOVES];
     u32 status;
     u8 level;
     u8 mail;
@@ -315,7 +283,7 @@ void ZeroEnemyPartyMons(void);
 void CreateMon(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV, u8 hasFixedPersonality, u32 fixedPersonality, u8 otIdType, u32 fixedOtId);
 void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, u8 hasFixedPersonality, u32 fixedPersonality, u8 otIdType, u32 fixedOtId);
 void CreateMonWithNature(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV, u8 nature);
-void CreateMonWithGenderNatureLetter(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV, u8 gender, u8 nature, u8 unownLetter);
+void CreateMonWithGenderNatureLetter(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV, u8 gender, u8 nature, u8 unownLetter, u8 otIdType);
 void CreateMaleMon(struct Pokemon *mon, u16 species, u8 level);
 void CreateMonWithIVsPersonality(struct Pokemon *mon, u16 species, u8 level, u32 ivs, u32 personality);
 void CreateMonWithIVsOTID(struct Pokemon *mon, u16 species, u8 level, u8 *ivs, u32 otId);
@@ -325,11 +293,8 @@ void CreateBattleTowerMon_HandleLevel(struct Pokemon *mon, struct BattleTowerPok
 void CreateApprenticeMon(struct Pokemon *mon, const struct Apprentice *src, u8 monId);
 void CreateMonWithEVSpreadNatureOTID(struct Pokemon *mon, u16 species, u8 level, u8 nature, u8 fixedIV, u8 evSpread, u32 otId);
 void ConvertPokemonToBattleTowerPokemon(struct Pokemon *mon, struct BattleTowerPokemon *dest);
-void CreateEventLegalMon(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV, u8 hasFixedPersonality, u32 fixedPersonality, u8 otIdType, u32 fixedOtId);
-bool8 ShouldIgnoreDeoxysForm(u8 caseId, u8 battlerId);
 u16 GetUnionRoomTrainerPic(void);
 u16 GetUnionRoomTrainerClass(void);
-void CreateEventLegalEnemyMon(void);
 void CalculateMonStats(struct Pokemon *mon);
 void BoxMonToMon(const struct BoxPokemon *src, struct Pokemon *dest);
 u8 GetLevelFromMonExp(struct Pokemon *mon);
@@ -427,7 +392,6 @@ const u32 *GetMonFrontSpritePal(struct Pokemon *mon);
 const u32 *GetMonSpritePalFromSpeciesAndPersonality(u16 species, u32 otId, u32 personality);
 const struct CompressedSpritePalette *GetMonSpritePalStruct(struct Pokemon *mon);
 const struct CompressedSpritePalette *GetMonSpritePalStructFromOtIdPersonality(u16 species, u32 otId , u32 personality);
-bool32 IsHMMove2(u16 move);
 bool8 IsMonSpriteNotFlipped(u16 species);
 s8 GetMonFlavorRelation(struct Pokemon *mon, u8 flavor);
 s8 GetFlavorRelationByPersonality(u32 personality, u8 flavor);
@@ -438,6 +402,7 @@ void BoxMonRestorePP(struct BoxPokemon *boxMon);
 void SetMonPreventsSwitchingString(void);
 void SetWildMonHeldItem(void);
 bool8 IsMonShiny(struct Pokemon *mon);
+bool8 IsBoxMonShiny(struct BoxPokemon *boxMon);
 bool8 IsShinyOtIdPersonality(u32 otId, u32 personality);
 const u8 *GetTrainerPartnerName(void);
 void BattleAnimateFrontSprite(struct Sprite* sprite, u16 species, bool8 noCry, u8 panMode);
@@ -460,5 +425,14 @@ u8 GetFormIdFromFormSpeciesId(u16 formSpeciesId);
 u16 GetFormChangeTargetSpecies(struct Pokemon *mon, u16 method, u32 arg);
 u16 GetFormChangeTargetSpeciesBoxMon(struct BoxPokemon *mon, u16 method, u32 arg);
 u16 MonTryLearningNewMoveEvolution(struct Pokemon *mon, bool8 firstMove);
+
+void CreateShinyMonWithNature(struct Pokemon *mon, u16 species, u8 level, u8 nature);
+u8 SendMonToPC(struct Pokemon* mon);
+u16 GetTrainerFrontSpriteBasedOnPlayerCostumeAndGender(u8 playerCostume, u8 playerGender);
+u16 IsOpponentKantoSpecies(void);
+u16 IsOpponentJohtoSpecies(void);
+u16 IsOpponentHoennSpecies(void);
+u16 IsOpponentSinnohSpecies(void);
+void SetCustomWildMon(u16 species, u8 level, u16 item, u8 nature, u8 abilityNum, u8* evs, u8* ivs, u16* moves, bool8 isShiny);
 
 #endif // GUARD_POKEMON_H

@@ -17,8 +17,8 @@
 #define MULTI_BASE_PC_WITH_REGISTRY        6
 #define MULTI_REGISTER_MENU                7
 #define MULTI_SSTIDAL_LILYCOVE             8 // Exit only, populated by CreateLilycoveSSTidalMultichoice
-#define MULTI_BATTLE_PALACE_RULES          9
-#define MULTI_BATTLE_PYRAMID_RULES         10
+#define MULTI_COSTUME_SELECTION_1          9
+#define MULTI_COSTUME_SELECTION_2          10
 #define MULTI_FRONTIER_PASS_INFO           11
 #define MULTI_BIKE                         12
 #define MULTI_STATUS_INFO                  13
@@ -108,6 +108,25 @@
 #define MULTI_BATTLE_TOWER_RULES           97
 #define MULTI_BATTLE_DOME_RULES            98
 #define MULTI_BATTLE_FACTORY_RULES         99
+#define MULTI_BATTLE_PALACE_RULES          100
+#define MULTI_BATTLE_PYRAMID_RULES         101
+#define MULTI_BATTLE_PIKE_RULES            102
+#define MULTI_GO_ON_RECORD_REST_RETIRE     103
+#define MULTI_GO_ON_REST_RETIRE            104
+#define MULTI_GO_ON_RECORD_RETIRE          105
+#define MULTI_GO_ON_RETIRE                 106
+#define MULTI_TOURNEY_NO_RECORD            107
+#define MULTI_TV_LATI                      108
+#define MULTI_BATTLE_TOWER_FEELINGS        109
+#define MULTI_UNUSED_110                   110
+#define MULTI_SLATEPORT_TENT_RULES         111
+#define MULTI_FALLARBOR_TENT_RULES         112
+#define MULTI_TAG_MATCH_TYPE               113
+#define MULTI_DYNAMIC_2                    114
+#define MULTI_DYNAMIC_3                    115
+#define MULTI_DYNAMIC_4                    116
+#define MULTI_DYNAMIC_5                    117
+#define MULTI_DYNAMIC_6                    118
 
 // Lilycove SS Tidal Multichoice Selections
 #define SSTIDAL_SELECTION_SLATEPORT        0

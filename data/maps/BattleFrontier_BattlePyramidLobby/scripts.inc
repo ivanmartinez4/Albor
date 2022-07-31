@@ -656,7 +656,7 @@ BattleFrontier_BattlePyramidLobby_Text_LeastOneMonHoldingItem:
 
 BattleFrontier_BattlePyramidLobby_Text_PickItemsToKeep:
 	.string "Please pick the items you'll keep in the\n"
-	.string "Battle Bag, and with your Pokémon.$"
+	.string "BATTLE BAG, and with your POKéMON.$"
 
 BattleFrontier_BattlePyramidLobby_Text_UsedBattleBagWillBeKept:
 	.string "The Battle Bag you used will be kept\n"

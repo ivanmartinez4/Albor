@@ -9,6 +9,7 @@
 #include "sound.h"
 #include "constants/map_types.h"
 #include "constants/songs.h"
+#include "event_data.h"
 
 // this file's functions
 static void MovePlayerOnMachBike(u8, u16, u16);

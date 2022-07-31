@@ -916,7 +916,7 @@ BattleFrontier_BattleTowerLobby_Text_DidntSaveBeforeQuitting:
 
 BattleFrontier_BattleTowerLobby_Text_CongratsBeatenSeven:
 	.string "Congratulations!\n"
-	.string "You've beaten all seven Trainers!\p"
+	.string "You've beaten all seven TRAINERS!\p"
 	.string "$"
 
 BattleFrontier_BattleTowerLobby_Text_ReceivedPrize:
@@ -1019,8 +1019,8 @@ BattleFrontier_BattleTowerLobby_Text_ShowYouToBattleRoom:
 	.string "{STR_VAR_1} Battle Room.$"
 
 BattleFrontier_BattleTowerLobby_Text_RecordLastMatch:
-	.string "Shall I record your last Battle Tower\n"
-	.string "match on your Frontier Pass?$"
+	.string "Shall I record your last BATTLE TOWER\n"
+	.string "match on your FRONTIER PASS?$"
 
 BattleFrontier_BattleTowerLobby_Text_NotEnoughValidMonsLv50Singles:
 	.string "Excuse me!\p"

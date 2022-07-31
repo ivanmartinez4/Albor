@@ -16,16 +16,6 @@ static const u8 sTextWindowFrame7_Gfx[] = INCBIN_U8("graphics/text_window/7.4bpp
 static const u8 sTextWindowFrame8_Gfx[] = INCBIN_U8("graphics/text_window/8.4bpp");
 static const u8 sTextWindowFrame9_Gfx[] = INCBIN_U8("graphics/text_window/9.4bpp");
 static const u8 sTextWindowFrame10_Gfx[] = INCBIN_U8("graphics/text_window/10.4bpp");
-static const u8 sTextWindowFrame11_Gfx[] = INCBIN_U8("graphics/text_window/11.4bpp");
-static const u8 sTextWindowFrame12_Gfx[] = INCBIN_U8("graphics/text_window/12.4bpp");
-static const u8 sTextWindowFrame13_Gfx[] = INCBIN_U8("graphics/text_window/13.4bpp");
-static const u8 sTextWindowFrame14_Gfx[] = INCBIN_U8("graphics/text_window/14.4bpp");
-static const u8 sTextWindowFrame15_Gfx[] = INCBIN_U8("graphics/text_window/15.4bpp");
-static const u8 sTextWindowFrame16_Gfx[] = INCBIN_U8("graphics/text_window/16.4bpp");
-static const u8 sTextWindowFrame17_Gfx[] = INCBIN_U8("graphics/text_window/17.4bpp");
-static const u8 sTextWindowFrame18_Gfx[] = INCBIN_U8("graphics/text_window/18.4bpp");
-static const u8 sTextWindowFrame19_Gfx[] = INCBIN_U8("graphics/text_window/19.4bpp");
-static const u8 sTextWindowFrame20_Gfx[] = INCBIN_U8("graphics/text_window/20.4bpp");
 
 const u16 gTextWindowFrame1_Pal[] = INCBIN_U16("graphics/text_window/1.gbapal");
 static const u16 sTextWindowFrame2_Pal[] = INCBIN_U16("graphics/text_window/2.gbapal");
@@ -37,19 +27,11 @@ static const u16 sTextWindowFrame7_Pal[] = INCBIN_U16("graphics/text_window/7.gb
 static const u16 sTextWindowFrame8_Pal[] = INCBIN_U16("graphics/text_window/8.gbapal");
 static const u16 sTextWindowFrame9_Pal[] = INCBIN_U16("graphics/text_window/9.gbapal");
 static const u16 sTextWindowFrame10_Pal[] = INCBIN_U16("graphics/text_window/10.gbapal");
-static const u16 sTextWindowFrame11_Pal[] = INCBIN_U16("graphics/text_window/11.gbapal");
-static const u16 sTextWindowFrame12_Pal[] = INCBIN_U16("graphics/text_window/12.gbapal");
-static const u16 sTextWindowFrame13_Pal[] = INCBIN_U16("graphics/text_window/13.gbapal");
-static const u16 sTextWindowFrame14_Pal[] = INCBIN_U16("graphics/text_window/14.gbapal");
-static const u16 sTextWindowFrame15_Pal[] = INCBIN_U16("graphics/text_window/15.gbapal");
-static const u16 sTextWindowFrame16_Pal[] = INCBIN_U16("graphics/text_window/16.gbapal");
-static const u16 sTextWindowFrame17_Pal[] = INCBIN_U16("graphics/text_window/17.gbapal");
-static const u16 sTextWindowFrame18_Pal[] = INCBIN_U16("graphics/text_window/18.gbapal");
-static const u16 sTextWindowFrame19_Pal[] = INCBIN_U16("graphics/text_window/19.gbapal");
-static const u16 sTextWindowFrame20_Pal[] = INCBIN_U16("graphics/text_window/20.gbapal");
 
 static const u16 sTextWindowPalettes[][16] =
 {
+    INCBIN_U16("graphics/text_window/male_message_box.gbapal"),
+    INCBIN_U16("graphics/text_window/female_message_box.gbapal"),
     INCBIN_U16("graphics/text_window/message_box.gbapal"),
     INCBIN_U16("graphics/text_window/text_pal1.gbapal"),
     INCBIN_U16("graphics/text_window/text_pal2.gbapal"),
@@ -69,16 +51,6 @@ static const struct TilesPal sWindowFrames[WINDOW_FRAMES_COUNT] =
     {sTextWindowFrame8_Gfx, sTextWindowFrame8_Pal},
     {sTextWindowFrame9_Gfx, sTextWindowFrame9_Pal},
     {sTextWindowFrame10_Gfx, sTextWindowFrame10_Pal},
-    {sTextWindowFrame11_Gfx, sTextWindowFrame11_Pal},
-    {sTextWindowFrame12_Gfx, sTextWindowFrame12_Pal},
-    {sTextWindowFrame13_Gfx, sTextWindowFrame13_Pal},
-    {sTextWindowFrame14_Gfx, sTextWindowFrame14_Pal},
-    {sTextWindowFrame15_Gfx, sTextWindowFrame15_Pal},
-    {sTextWindowFrame16_Gfx, sTextWindowFrame16_Pal},
-    {sTextWindowFrame17_Gfx, sTextWindowFrame17_Pal},
-    {sTextWindowFrame18_Gfx, sTextWindowFrame18_Pal},
-    {sTextWindowFrame19_Gfx, sTextWindowFrame19_Pal},
-    {sTextWindowFrame20_Gfx, sTextWindowFrame20_Pal}
 };
 
 // code
@@ -92,7 +64,12 @@ const struct TilesPal *GetWindowFrameTilesPal(u8 id)
 
 void LoadMessageBoxGfx(u8 windowId, u16 destOffset, u8 palOffset)
 {
-    LoadBgTiles(GetWindowAttribute(windowId, WINDOW_BG), gMessageBox_Gfx, 0x1C0, destOffset);
+    if (gSaveBlock2Ptr->playerGender == MALE)
+        LoadBgTiles(GetWindowAttribute(windowId, WINDOW_BG), gMessageBoxMale_Gfx, 0x1C0, destOffset);
+    else if (gSaveBlock2Ptr->playerGender == FEMALE)
+        LoadBgTiles(GetWindowAttribute(windowId, WINDOW_BG), gMessageBoxFemale_Gfx, 0x1C0, destOffset);
+    else
+        LoadBgTiles(GetWindowAttribute(windowId, WINDOW_BG), gMessageBox_Gfx, 0x1C0, destOffset);
     LoadPalette(GetOverworldTextboxPalettePtr(), palOffset, 0x20);
 }
 
@@ -186,7 +163,12 @@ const u16 *GetTextWindowPalette(u8 id)
 
 const u16 *GetOverworldTextboxPalettePtr(void)
 {
-    return gMessageBox_Pal;
+    if (gSaveBlock2Ptr->playerGender == MALE)
+        return gMessageBoxMale_Pal;
+    else if (gSaveBlock2Ptr->playerGender == FEMALE)
+        return gMessageBoxFemale_Pal;
+    else
+        return gMessageBox_Pal;
 }
 
 // Effectively LoadUserWindowBorderGfx but specifying the bg directly instead of a window from that bg

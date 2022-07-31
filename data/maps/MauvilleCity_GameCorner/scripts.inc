@@ -664,7 +664,7 @@ MauvilleCity_GameCorner_Text_SendToYourHomePC:
 	.string "We'll send it to your PC at home.$"
 
 MauvilleCity_GameCorner_Text_NotEnoughCoins:
-	.string "You don't have enough Coins.$"
+	.string "You don't have enough COINS.$"
 
 MauvilleCity_GameCorner_Text_OhIsThatSo:
 	.string "Oh, is that so? \n"

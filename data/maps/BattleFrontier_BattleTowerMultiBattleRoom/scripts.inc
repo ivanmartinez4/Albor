@@ -22,13 +22,7 @@ BattleFrontier_BattleTowerMultiBattleRoom_OnTransition:
 
 BattleFrontier_BattleTowerMultiBattleRoom_EventScript_SetObjGfx::
 	tower_setpartnergfx
-	checkplayergender
-	goto_if_eq VAR_RESULT, FEMALE, BattleFrontier_BattleTowerMultiBattleRoom_EventScript_SetPlayerGfxFemale
-	setvar VAR_OBJ_GFX_ID_F, OBJ_EVENT_GFX_BRENDAN_NORMAL
-	return
-
-BattleFrontier_BattleTowerMultiBattleRoom_EventScript_SetPlayerGfxFemale::
-	setvar VAR_OBJ_GFX_ID_F, OBJ_EVENT_GFX_MAY_NORMAL
+	specialvar VAR_OBJ_GFX_ID_F, GetPlayerCostumeId
 	return
 
 BattleFrontier_BattleTowerMultiBattleRoom_EventScript_SetLinkPlayerGfx::
@@ -75,12 +69,12 @@ BattleFrontier_BattleTowerMultiBattleRoom_EventScript_OpponentsEnter::
 	delay 15
 	applymovement LOCALID_OPPONENT_1, BattleFrontier_BattleTowerMultiBattleRoom_Movement_WalkInPlaceLeft
 	waitmovement 0
-	msgbox gStringVar4, MSGBOX_DEFAULT
+	msgbox gStringVar7, MSGBOX_DEFAULT
 	waitmessage
 	tower_getopponentintro 1
 	applymovement LOCALID_OPPONENT_2, BattleFrontier_BattleTowerMultiBattleRoom_Movement_WalkInPlaceLeft
 	waitmovement 0
-	msgbox gStringVar4, MSGBOX_DEFAULT
+	msgbox gStringVar7, MSGBOX_DEFAULT
 	waitmessage
 	goto BattleFrontier_BattleTowerMultiBattleRoom_EventScript_DoTowerBattle
 
@@ -89,13 +83,13 @@ BattleFrontier_BattleTowerMultiBattleRoom_EventScript_DoOpponentIntrosLink::
 	delay 15
 	applymovement LOCALID_OPPONENT_1, BattleFrontier_BattleTowerMultiBattleRoom_Movement_WalkInPlaceLeft
 	waitmovement 0
-	messageautoscroll gStringVar4
+	messageautoscroll gStringVar7
 	waitmessage
 	delay 48
 	tower_getopponentintro 1
 	applymovement LOCALID_OPPONENT_2, BattleFrontier_BattleTowerMultiBattleRoom_Movement_WalkInPlaceLeft
 	waitmovement 0
-	messageautoscroll gStringVar4
+	messageautoscroll gStringVar7
 	waitmessage
 	delay 48
 BattleFrontier_BattleTowerMultiBattleRoom_EventScript_DoTowerBattle::

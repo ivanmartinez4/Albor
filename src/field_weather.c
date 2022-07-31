@@ -4,6 +4,7 @@
 #include "constants/rgb.h"
 #include "util.h"
 #include "event_object_movement.h"
+#include "field_camera.h"
 #include "field_weather.h"
 #include "main.h"
 #include "menu.h"

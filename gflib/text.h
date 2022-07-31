@@ -3,6 +3,9 @@
 
 #include "characters.h"
 
+#define TEXT_STRING(arg)   \
+(const u8[]) _(arg)        \
+
 #define NUM_TEXT_PRINTERS 32
 
 // Given as a text speed when all the text should be
@@ -13,7 +16,7 @@ enum {
     FONT_SMALL,
     FONT_NORMAL,
     FONT_SHORT,
-    FONT_SHORT_COPY_1,
+    FONT_BIG,
     FONT_SHORT_COPY_2,
     FONT_SHORT_COPY_3,
     FONT_BRAILLE,
@@ -128,6 +131,8 @@ struct TextGlyph
 {
     u32 gfxBufferTop[16];
     u32 gfxBufferBottom[16];
+    u32 gfxBufferBottom2[16];
+    u32 gfxBufferBottom3[16];
     u8 width;
     u8 height;
 };

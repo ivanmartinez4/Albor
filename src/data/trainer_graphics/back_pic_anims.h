@@ -68,6 +68,26 @@ static const union AnimCmd sAnimCmd_RubySapphireMay_1[] =
     ANIMCMD_END,
 };
 
+static const union AnimCmd gAnimCmd_AdventuresBrendan_1[] =
+{
+    ANIMCMD_FRAME(0, 24),
+    ANIMCMD_FRAME(1, 9),
+    ANIMCMD_FRAME(2, 24),
+    ANIMCMD_FRAME(0, 9),
+    ANIMCMD_FRAME(3, 50),
+    ANIMCMD_END,
+};
+
+static const union AnimCmd gAnimCmd_AdventuresMay_1[] =
+{
+    ANIMCMD_FRAME(0, 24),
+    ANIMCMD_FRAME(1, 9),
+    ANIMCMD_FRAME(2, 24),
+    ANIMCMD_FRAME(0, 9),
+    ANIMCMD_FRAME(3, 50),
+    ANIMCMD_END,
+};
+
 static const union AnimCmd *const sBackAnims_Brendan[] =
 {
     sAnim_GeneralFrame3,
@@ -116,6 +136,18 @@ static const union AnimCmd *const sBackAnims_Steven[] =
     sAnimCmd_May_Steven_1,
 };
 
+static const union AnimCmd *const sBackAnims_AdventuresBrendan[] =
+{
+    sAnim_GeneralFrame3,
+    gAnimCmd_AdventuresBrendan_1,
+};
+
+static const union AnimCmd *const sBackAnims_AdventuresMay[] =
+{
+    sAnim_GeneralFrame3,
+    gAnimCmd_AdventuresMay_1,
+};
+
 const union AnimCmd *const *const gTrainerBackAnimsPtrTable[] =
 {
     [TRAINER_BACK_PIC_BRENDAN] = sBackAnims_Brendan,
@@ -126,4 +158,6 @@ const union AnimCmd *const *const gTrainerBackAnimsPtrTable[] =
     [TRAINER_BACK_PIC_RUBY_SAPPHIRE_MAY] = sBackAnims_RubySapphireMay,
     [TRAINER_BACK_PIC_WALLY] = sBackAnims_Wally,
     [TRAINER_BACK_PIC_STEVEN] = sBackAnims_Steven,
+    [TRAINER_BACK_PIC_ADVENTURES_BRENDAN] = sBackAnims_AdventuresBrendan,
+    [TRAINER_BACK_PIC_ADVENTURES_MAY] = sBackAnims_AdventuresMay,
 };

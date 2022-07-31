@@ -55,6 +55,7 @@
 	STD_FIND_ITEM = 1
 	STD_OBTAIN_DECORATION = 7
 	STD_REGISTER_MATCH_CALL = 8
+	STD_RECEIVE_ITEM = 10
 
 	@ Calls the script in gStdScripts at index function.
 	.macro callstd function:req
@@ -731,6 +732,15 @@
 	.elseif \type == TRAINER_BATTLE_HILL
 		.4byte \pointer1 @ text
 		.4byte \pointer2 @ text
+	.elseif \type == TRAINER_BATTLE_NO_WHITEOUT_NO_INTRO
+		.4byte \pointer1 @ lose text
+		.4byte \pointer2 @ win text
+		.4byte \pointer3 @ event script
+	.elseif \type == TRAINER_BATTLE_NO_WHITEOUT
+		.4byte \pointer1 @ intro text
+		.4byte \pointer2 @ lose text
+		.4byte \pointer3 @ win text
+		.4byte \pointer4 @ event script
 	.endif
 	.endm
 
@@ -775,6 +785,25 @@
 	trainerbattle TRAINER_BATTLE_SINGLE_NO_INTRO_TEXT, \trainer, 0, \lose_text
 	.endm
 
+	@ Starts a trainer battle, skipping intro text, takes a trainer, lose text, win text, and optionally, an event script
+	@ If no event script is provided, the macro behaves like trainerbattle_single
+	.macro trainerbattle_no_whiteout_no_intro trainer:req, lose_text:req, win_text:req, event_script=FALSE
+	.if \event_script == FALSE
+	trainerbattle TRAINER_BATTLE_NO_WHITEOUT_NO_INTRO, \trainer, 0, \lose_text, \win_text, 0
+	.else
+	trainerbattle TRAINER_BATTLE_NO_WHITEOUT_NO_INTRO, \trainer, 0, \lose_text, \win_text, \event_script
+	.endif
+	.endm
+
+	@ Starts a trainer battle, takes a trainer, intro text, lose text, win text, and optionally, an event script
+	@ If no event script is provided, the macro behaves like trainerbattle_single
+	.macro trainerbattle_no_whiteout trainer:req, intro_text:req, lose_text:req, win_text:req, event_script=FALSE
+	.if \event_script == FALSE
+	trainerbattle TRAINER_BATTLE_NO_WHITEOUT, \trainer, 0, \intro_text, \lose_text, \win_text, 0
+	.else
+	trainerbattle TRAINER_BATTLE_NO_WHITEOUT, \trainer, 0, \intro_text, \lose_text, \win_text, \event_script
+	.endif
+	.endm
 
 	@ Starts a trainer battle using the battle information stored in RAM (usually by the scripts in trainer_battle.inc, which
 	@ are run by trainerbattle), and blocks script execution until the battle finishes.
@@ -1002,6 +1031,18 @@
 	.2byte \species
 	.endm
 
+	@ Gives the player an Egg with the specified parameters.
+	@ VAR_RESULT will be set to MON_GIVEN_TO_PARTY, MON_GIVEN_TO_PC, or MON_CANT_GIVE depending on the outcome.
+	.macro givespecialegg species:req, location:req, move1:req, move2:req, move3:req, move4:req
+	setvar VAR_TEMP_1, \species
+	setvar VAR_TEMP_2, \location
+	setvar VAR_TEMP_3, \move1
+	setvar VAR_TEMP_4, \move2
+	setvar VAR_TEMP_5, \move3
+	setvar VAR_TEMP_6, \move4
+	specialvar VAR_RESULT, GiveSpecialEgg
+	.endm
+
 	@ Replaces the move at 'slot' of the Pokémon in the player's party at 'partyIndex' with the specified move.
 	@ If a value greater than PARTY_SIZE is given for partyIndex it will use the last Pokémon in the party instead.
 	@ Note that this means in vanilla a value equal to PARTY_SIZE for partyIndex will go out of bounds.
@@ -1031,6 +1072,12 @@
 		.byte 1
 	.elseif \id == STR_VAR_3
 		.byte 2
+	.elseif \id == STR_VAR_4
+		.byte 3
+	.elseif \id == STR_VAR_5
+		.byte 4
+	.elseif \id == STR_VAR_6
+		.byte 5
 	.else
 		.byte \id
 	.endif
@@ -1346,7 +1393,7 @@
 	@ The specified id can be used to refer to the sprite again later with turnvobject.
 	.macro createvobject graphicsId:req, id:req, x:req, y:req, elevation=3, direction=DIR_SOUTH
 	.byte 0xaa
-	.byte \graphicsId
+	.2byte \graphicsId
 	.byte \id
 	.2byte \x
 	.2byte \y
@@ -1547,10 +1594,17 @@
 	.2byte \box
 	.endm
 
-	@ Used only in FireRed/LeafGreen, does nothing in Emerald.
-	.macro textcolor color:req
+	@ Buffers up to 6 supplied text strings for use with MULTI_DYNAMIC_X.
+	@ This allows you to create custom menus at runtime using only stuff you can edit within the same script.
+	@ Prevents having to create whole new const menu stuffs in other files.
+	.macro bufferdynamicmulti, ptr1=gText_EmptyTextString, ptr2=gText_EmptyTextString, ptr3=gText_EmptyTextString, ptr4=gText_EmptyTextString, ptr5=gText_EmptyTextString, ptr6=gText_EmptyTextString
 	.byte 0xc7
-	.byte \color
+	.4byte \ptr1
+	.4byte \ptr2
+	.4byte \ptr3
+	.4byte \ptr4
+	.4byte \ptr5
+	.4byte \ptr6
 	.endm
 
 	@ Used only in FireRed/LeafGreen, does nothing in Emerald.
@@ -1579,19 +1633,6 @@
 	.byte 0xcc
 	.byte \a
 	.4byte \value
-	.endm
-
-	@ Sets the eventLegal bit for the Pokemon in the specified slot of the player's party.
-	.macro setmoneventlegal slot:req
-	.byte 0xcd
-	.2byte \slot
-	.endm
-
-	@ Checks if the eventLegal bit is set for the Pokemon in the specified slot of the player's party. If it isn't set,
-	@ VAR_RESULT is TRUE. If the bit is set (or if the specified slot is empty or invalid), VAR_RESULT is FALSE.
-	.macro checkmoneventlegal slot:req
-	.byte 0xce
-	.2byte \slot
 	.endm
 
 	@ Jumps to the ram script saved from a Wonder Card. If there is no valid saved Wonder Card or if the
@@ -1727,12 +1768,180 @@
 	.2byte \item
 	.2byte \quantity
 	.endm
+    
+    .macro givecustommon species:req, level:req, item, ball, nature, abilityNum, hpEv, atkEv, defEv, speedEv, spAtkEv, spDefEv, hpIv, atkIv, defIv, speedIv, spAtkIv, spDefIv, move1, move2, move3, move4, isShiny
+    .byte 0xe3
+    .2byte \species
+    .byte \level
+    .ifb \item
+        .2byte ITEM_NONE
+    .else
+        .2byte \item
+    .endif
+    .ifb \ball
+        .byte 0
+    .else
+        .byte \ball
+    .endif
+    .ifb \nature
+        .byte NUM_NATURES
+    .else
+        .byte \nature
+    .endif
+    .ifb \abilityNum
+        .byte 3
+    .else
+        .byte \abilityNum
+    .endif
+    @evs
+    .ifb \hpEv
+        .byte 0
+    .else
+        .byte \hpEv
+    .endif
+    .ifb \atkEv
+        .byte 0
+    .else
+        .byte \atkEv
+    .endif
+    .ifb \defEv
+        .byte 0
+    .else
+        .byte \defEv
+    .endif
+    .ifb \speedEv
+        .byte 0
+    .else
+        .byte \speedEv
+    .endif
+    .ifb \spAtkEv
+        .byte 0
+    .else
+        .byte \spAtkEv
+    .endif
+    .ifb \spDefEv
+        .byte 0
+    .else
+        .byte \spDefEv
+    .endif
+    @ivs
+    .ifb \hpIv
+        .byte 32
+    .else
+        .byte \hpIv
+    .endif
+    .ifb \atkIv
+        .byte 32
+    .else
+        .byte \atkIv
+    .endif
+    .ifb \defIv
+        .byte 32
+    .else
+        .byte \defIv
+    .endif
+    .ifb \speedIv
+        .byte 32
+    .else
+        .byte \speedIv
+    .endif
+    .ifb \spAtkIv
+        .byte 32
+    .else
+        .byte \spAtkIv
+    .endif
+    .ifb \spDefIv
+        .byte 32
+    .else
+        .byte \spDefIv
+    .endif
+    .ifb \move1
+        .2byte 0
+    .else
+        .2byte \move1
+    .endif
+    .ifb \move2
+        .2byte 0
+    .else
+        .2byte \move2
+    .endif
+    .ifb \move3
+        .2byte 0
+    .else
+        .2byte \move3
+    .endif
+    .ifb \move4
+        .2byte 0
+    .else
+        .2byte \move4
+    .endif
+    .ifb \isShiny
+        .byte 0
+    .else
+        .byte \isShiny
+    .endif
+    .endm
+    
+    .macro givemonmoves species:req, level:req, move1:req, move2:req, move3:req, move4:req
+    customgivemon \species, \level, 0, 0, NUM_NATURES, 0xFF, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, \move1, \move2, \move3, \move4, 0
+    .endm
 
-  @ Like callnative, but function expects a ctx
-  .macro callfunc func:req
-  .byte 0xe2
-  .4byte \func
-  .endm
+	@ Checks the value of the specified game stat in VAR_RESULT.
+	.macro getgamestat stat:req
+	.byte 0xe4
+	.byte \stat
+	.endm
+
+	@ Sets the values of variables 0x8000, 0x8001, and 0x8002 to the current day, month and year.
+	.macro getdate
+	.byte 0xe5
+	.endm
+
+	@ Ceases movement for the event obj. the Player is currently interacting with and that one alone.
+	.macro locktarget
+	.byte 0xe6
+	.endm
+
+	@ Stores a text string for the current day of the week in the chosen buffer.
+	.macro getcurrentday out:req
+	.byte 0xe7
+	.byte \out
+	.endm
+
+	.macro drawinfobox number:req
+	.byte 0xe8
+	.byte \number
+	.endm
+
+	.macro removeinfobox
+	.byte 0xe9
+	.endm
+
+	.macro setcustomwildbattle species:req, level:req, item=ITEM_NONE, nature=NUM_NATURES, abilityNum=0, hpEv=0, atkEv=0, defEv=0, speedEv=0, spAtkEv=0, spDefEv=0, hpIv=USE_RANDOM_IVS, atkIv=USE_RANDOM_IVS, defIv=USE_RANDOM_IVS, speedIv=USE_RANDOM_IVS, spAtkIv=USE_RANDOM_IVS, spDefIv=USE_RANDOM_IVS, move1=MOVE_NONE, move2=MOVE_NONE, move3=MOVE_NONE, move4=MOVE_NONE, isShiny=FALSE
+	.byte 0xea
+	.2byte \species
+	.byte \level
+	.2byte \item
+	.byte \nature
+	.byte \abilityNum
+	.byte \hpEv
+	.byte \atkEv
+	.byte \defEv
+	.byte \speedEv
+	.byte \spAtkEv
+	.byte \spDefEv
+	.byte \hpIv
+	.byte \atkIv
+	.byte \defIv
+	.byte \speedIv
+	.byte \spAtkIv
+	.byte \spDefIv
+	.2byte \move1
+	.2byte \move2
+	.2byte \move3
+	.2byte \move4
+	.byte \isShiny
+	.endm
 
 @ Supplementary
 
@@ -1936,14 +2145,6 @@
 	closebraillemessage
 	.endm
 
-	@ Creates an "event legal" Pokémon for an encounter
-	.macro seteventmon species:req, level:req, item=ITEM_NONE
-	setvar VAR_0x8004, \species
-	setvar VAR_0x8005, \level
-	setvar VAR_0x8006, \item
-	special CreateEventLegalEnemyMon
-	.endm
-
 	@ Set up a totem boost for the next battle.
 	@ 'battler' is the position of the mon you want to gain a boost. see B_POSITION_xx in include/constants/battle.h.
 	@ The rest of the arguments are the stat change values to each stat.
@@ -2015,4 +2216,107 @@
 	setvar VAR_0x8001, \canStopEvo
 	setvar VAR_0x8002, \tryMultiple
 	special TrySpecialOverworldEvo
+	.endm
+
+@ Custom macros start here
+
+	@ Modifies the status of the Pokémon at the party slot stored in the var 0x8004.
+	.macro changemonstatus status:req partyScr=FALSE
+.if \partyScr == TRUE
+	special ChoosePartyMon
+	waitstate
+.endif
+	setvar VAR_TEMP_6, \status
+	special ChangeMonStatus
+	.endm
+
+	@ Call \dest if the Player has specified item.
+	.macro call_if_has_item item:req, amount:req, dest:req
+	checkitem \item, \amount
+	compare VAR_RESULT, TRUE
+	call_if TRUE, \dest
+	.endm
+
+	@ Go to \dest if the Player has specified item.
+	.macro goto_if_has_item item:req, amount:req, dest:req
+	checkitem \item, \amount
+	compare VAR_RESULT, TRUE
+	goto_if TRUE, \dest
+	.endm
+
+	@ Spawns a camera object and executes the specified movement script for it.
+	.macro spawnmovecamera movement:req
+	special SpawnCameraObject
+	applymovement OBJ_EVENT_ID_CAMERA, \movement
+	waitmovement 0
+	.endm
+
+	@ Removes a camera object after executing a movement script that is
+	@ supposed to walk OBJ_EVENT_ID_CAMERA back to the Player.
+	.macro despawnmovecamera movement:req
+	applymovement OBJ_EVENT_ID_CAMERA, \movement
+	waitmovement 0
+	special RemoveCameraObject
+	.endm
+
+	@ Stops playback of sound effects immediately.
+	.macro stopse
+	callnative StopSE
+	.endm
+
+	@ Copy of giveitem and finditem, meant to be used when the Player
+	@ receives an item from an NPC directly.
+	.macro receiveitem item:req, amount=1
+	setorcopyvar VAR_0x8000, \item
+	setorcopyvar VAR_0x8001, \amount
+	callstd STD_RECEIVE_ITEM
+	.endm
+
+	@ Calls a script if the Player's Pokedex has seen the specified Pokemon.
+	.macro call_if_mon_seen species:req, script:req
+	setvar VAR_TEMP_1, \species
+	specialvar VAR_RESULT, GetSeenMon
+	call_if_eq VAR_RESULT, TRUE, \script
+	.endm
+
+	@ Calls a script if the Player's Pokedex has recorded the data of the specified Pokemon.
+	.macro call_if_mon_caught species:req, script:req
+	setvar VAR_TEMP_1, \species
+	specialvar VAR_RESULT, GetCaughtMon
+	call_if_eq VAR_RESULT, TRUE, \script
+	.endm
+
+	@ Jumps to a script if the Player's Pokedex has seen the specified Pokemon.
+	.macro goto_if_mon_seen species:req, script:req
+	setvar VAR_TEMP_1, \species
+	specialvar VAR_RESULT, GetSeenMon
+	goto_if_eq VAR_RESULT, TRUE, \script
+	.endm
+
+	@ Jumps to a script if the Player's Pokedex has recorded the data of the specified Pokemon.
+	.macro goto_if_mon_caught species:req, script:req
+	setvar VAR_TEMP_1, \species
+	specialvar VAR_RESULT, GetCaughtMon
+	goto_if_eq VAR_RESULT, TRUE, \script
+	.endm
+
+	@ Sets the Pokédex Seen flag of the specified Pokemon
+	.macro setseenmon species:req
+	setvar VAR_TEMP_1, \species
+	special SetSeenMon
+	.endm
+
+	@ Sets the Pokédex Caught flag of the specified Pokemon
+	.macro setcaughtmon species:req
+	setvar VAR_TEMP_1, \species
+	special SetCaughtMon
+	.endm
+
+	@ Opens the bag in the specified pocket and lets the Player choose an item.
+	@ This item can be used for scripting purposes and it's stored in VAR_ITEM_ID.
+	.macro chooseitem pocket:req
+	setvar VAR_TEMP_1, \pocket
+	fadescreen FADE_TO_BLACK
+	special ChooseItemFromBag
+	waitstate
 	.endm

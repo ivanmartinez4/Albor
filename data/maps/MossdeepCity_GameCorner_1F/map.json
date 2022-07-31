@@ -24,7 +24,7 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "MossdeepCity_GameCorner_1F_EventScript_OldMan",
+      "script": "0",
       "flag": "0"
     },
     {
@@ -37,7 +37,7 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "MossdeepCity_GameCorner_1F_EventScript_InfoMan",
+      "script": "0",
       "flag": "0"
     }
   ],
@@ -68,11 +68,19 @@
   "bg_events": [
     {
       "type": "sign",
+      "x": 3,
+      "y": 0,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "0"
+    },
+    {
+      "type": "sign",
       "x": 0,
       "y": 1,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "MossdeepCity_GameCorner_1F_EventScript_DodrioBerryPickingRecords"
+      "script": "0"
     },
     {
       "type": "sign",
@@ -80,7 +88,7 @@
       "y": 1,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "MossdeepCity_GameCorner_1F_EventScript_PokemonJumpRecords"
+      "script": "0"
     }
   ]
 }

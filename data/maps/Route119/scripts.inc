@@ -480,7 +480,7 @@ Route119_EventScript_ScottWonAtFortreeGymCall::
 	end
 
 Route119_Text_MayIntro:
-	.string "May: {PLAYER}{KUN}!\n"
+	.string "{RIVAL}: {PLAYER}{KUN}!\n"
 	.string "Where were you? I was looking for you!\p"
 	.string "How much stronger have you gotten?\n"
 	.string "Let me check for you!\p"
@@ -494,12 +494,12 @@ Route119_Text_MayDefeat:
 	.string "struggling with your training.$"
 
 Route119_Text_MayPresentForYou:
-	.string "May: But I had absolutely nothing to\n"
+	.string "{RIVAL}: But I had absolutely nothing to\n"
 	.string "worry about! Keep it up!\p"
 	.string "And, here! I have a present for you.$"
 
 Route119_Text_MayExplainFly:
-	.string "May: Use Fly, and your Pokémon will\n"
+	.string "{RIVAL}: Use FLY, and your POKéMON will\n"
 	.string "instantly carry you to any town you've\l"
 	.string "already visited.\p"
 	.string "But, to use Fly, you have to get\n"
@@ -512,8 +512,8 @@ Route119_Text_MayExplainFly:
 	.string "Well, let's meet again somewhere!$"
 
 Route119_Text_BrendanIntro:
-	.string "Brendan: {PLAYER}! So this is where\n"
-	.string "you've been looking for Pokémon?\p"
+	.string "{RIVAL}: {PLAYER}! So this is where\n"
+	.string "you've been looking for POKéMON?\p"
 	.string "Let me see how good you got.\n"
 	.string "I'll test you!\p"
 	.string "Now!\n"
@@ -524,13 +524,13 @@ Route119_Text_BrendanDefeat:
 	.string "You've gotten pretty darn decent.$"
 
 Route119_Text_BrendanIllGiveYouThis:
-	.string "Brendan: I'd say you're good enough\n"
-	.string "to search for Pokémon anywhere.\p"
+	.string "{RIVAL}: I'd say you're good enough\n"
+	.string "to search for POKéMON anywhere.\p"
 	.string "Here, I'll give you this.\n"
 	.string "Try it out.$"
 
 Route119_Text_BrendanExplainFly:
-	.string "Brendan: Use Fly, and your Pokémon\n"
+	.string "{RIVAL}: Use FLY, and your POKéMON\n"
 	.string "instantly carries you to any town\l"
 	.string "you've already visited.\p"
 	.string "But you need the Fortree Gym Badge \n"

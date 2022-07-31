@@ -2,6 +2,8 @@
 #include "sprite.h"
 #include "main.h"
 #include "palette.h"
+#include "util.h"
+#include "constants/rgb.h"
 
 #define MAX_SPRITE_COPY_REQUESTS 64
 
@@ -94,7 +96,8 @@ static void ApplyAffineAnimFrame(u8 matrixNum, struct AffineAnimFrameCmd *frameC
 static u8 IndexOfSpriteTileTag(u16 tag);
 static void AllocSpriteTileRange(u16 tag, u16 start, u16 count);
 static void DoLoadSpritePalette(const u16 *src, u16 paletteOffset);
-static void UpdateSpriteMatrixAnchorPos(struct Sprite*, s32, s32);
+static void DoLoadSpriteShortPalette(const u16 *src, u16 paletteOffset);
+static void UpdateSpriteMatrixAnchorPos(struct Sprite* sprite, s32 a1, s32 a2);
 
 typedef void (*AnimFunc)(struct Sprite *);
 typedef void (*AnimCmdFunc)(struct Sprite *);
@@ -1625,6 +1628,48 @@ u8 LoadSpritePalette(const struct SpritePalette *palette)
     }
 }
 
+u8 LoadEggSpritePalette(const struct SpritePalette *palette1, const struct SpritePalette *palette2)
+{
+    u8 index = IndexOfSpritePaletteTag(palette1->tag);
+
+    if (index != 0xFF)
+        return index;
+
+    index = IndexOfSpritePaletteTag(0xFFFF);
+
+    if (index == 0xFF)
+    {
+        return 0xFF;
+    }
+    else
+    {
+        sSpritePaletteTags[index] = palette1->tag;
+        DoLoadSpriteShortPalette(palette1->data, index * 16);
+        DoLoadSpriteShortPalette(palette2->data, index * 16 + 8);
+        return index;
+    }
+}
+
+u8 LoadUniqueSpritePalette(const struct SpritePalette *palette, u16 species, u32 personality, bool8 isShiny)
+{
+    u8 index = IndexOfSpritePaletteTag(palette->tag);
+
+    index = IndexOfSpritePaletteTag(0xFFFF);
+
+    if (index == 0xFF)
+    {
+        return 0xFF;
+    }
+    else
+    {
+        sSpritePaletteTags[index] = palette->tag;
+        DoLoadSpritePalette(palette->data, index * 16);
+        UniquePalette(index * 16 + 0x100, species, personality, isShiny);
+        CpuCopy32(gPlttBufferFaded + index * 16 + 0x100, gPlttBufferUnfaded + index * 16 + 0x100, 32);
+        return index;
+    }
+}
+
 void LoadSpritePalettes(const struct SpritePalette *palettes)
 {
     u8 i;
@@ -1643,6 +1688,11 @@ u8 LoadSpritePaletteInSlot(const struct SpritePalette *palette, u8 paletteNum) {
 void DoLoadSpritePalette(const u16 *src, u16 paletteOffset)
 {
     LoadPaletteFast(src, paletteOffset + 0x100, 32);
+}
+
+void DoLoadSpriteShortPalette(const u16 *src, u16 paletteOffset)
+{
+    LoadPalette(src, paletteOffset + 0x100, 16);
 }
 
 u8 AllocSpritePalette(u16 tag)

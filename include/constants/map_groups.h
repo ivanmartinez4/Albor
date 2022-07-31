@@ -63,6 +63,7 @@
 #define MAP_UNDERWATER_ROUTE129 (54 | (0 << 8))
 #define MAP_UNDERWATER_ROUTE105 (55 | (0 << 8))
 #define MAP_UNDERWATER_ROUTE125 (56 | (0 << 8))
+#define MAP_ROUTE103NORTH       (57 | (0 << 8))
 
 // gMapGroup_IndoorLittleroot
 #define MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_1F    (0 | (1 << 8))
@@ -449,7 +450,6 @@
 #define MAP_BATTLE_PYRAMID_SQUARE14  (51 | (25 << 8))
 #define MAP_BATTLE_PYRAMID_SQUARE15  (52 | (25 << 8))
 #define MAP_BATTLE_PYRAMID_SQUARE16  (53 | (25 << 8))
-#define MAP_UNION_ROOM               (54 | (25 << 8))
 
 // gMapGroup_SpecialArea
 #define MAP_SAFARI_ZONE_NORTHWEST                           (0 | (26 << 8))

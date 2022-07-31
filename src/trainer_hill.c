@@ -201,10 +201,10 @@ static const u8 sRecordWinColors[] = {TEXT_COLOR_TRANSPARENT, TEXT_COLOR_DARK_GR
 
 static const struct TrainerHillChallenge *const sChallengeData[NUM_TRAINER_HILL_MODES] =
 {
-    [HILL_MODE_NORMAL]  = &sChallenge_Normal,
-    [HILL_MODE_VARIETY] = &sChallenge_Variety,
-    [HILL_MODE_UNIQUE]  = &sChallenge_Unique,
-    [HILL_MODE_EXPERT]  = &sChallenge_Expert,
+    &sDataTagNormal,
+    &sDataTagVariety,
+    &sDataTagUnique,
+    &sDataTagExpert,
 };
 
 static void (* const sHillFunctions[])(void) =
@@ -272,7 +272,6 @@ void ResetTrainerHillResults(void)
     s32 i;
 
     gSaveBlock2Ptr->frontier.savedGame = 0;
-    gSaveBlock2Ptr->frontier.unk_EF9 = 0;
     gSaveBlock1Ptr->trainerHill.bestTime = 0;
     for (i = 0; i < NUM_TRAINER_HILL_MODES; i++)
         SetTimerValue(&gSaveBlock1Ptr->trainerHillTimes[i], HILL_MAX_TIME);
@@ -340,13 +339,7 @@ static void SetUpDataStruct(void)
     {
         sHillData = AllocZeroed(sizeof(*sHillData));
         sHillData->floorId = gMapHeader.mapLayoutId - LAYOUT_TRAINER_HILL_1F;
-
-        // This copy depends on the floor data for each challenge being directly after the
-        // challenge header data, and for the field 'floors' in sHillData to come directly
-        // after the field 'challenge'.
-        // e.g. for HILL_MODE_NORMAL, it will copy sChallenge_Normal to sHillData->challenge and
-        // it will copy sFloors_Normal to sHillData->floors
-        CpuCopy32(sChallengeData[gSaveBlock1Ptr->trainerHill.mode], &sHillData->challenge, sizeof(sHillData->challenge) + sizeof(sHillData->floors));
+        CpuCopy32(sDataPerTag[gSaveBlock1Ptr->trainerHill.tag], &sHillData->tag, sizeof(sHillData->tag) + 4 * sizeof(struct TrHillFloor));
     }
 }
 
@@ -384,12 +377,6 @@ void CopyTrainerHillTrainerText(u8 which, u16 trainerId)
 
 static void TrainerHillStartChallenge(void)
 {
-    if (!ReadTrainerHillAndValidate())
-        gSaveBlock1Ptr->trainerHill.field_3D6E_0f = 1;
-    else
-        gSaveBlock1Ptr->trainerHill.field_3D6E_0f = 0;
-
-    gSaveBlock1Ptr->trainerHill.unk_3D6C = 0;
     SetTrainerHillVBlankCounter(&gSaveBlock1Ptr->trainerHill.timer);
     gSaveBlock1Ptr->trainerHill.timer = 0;
     gSaveBlock1Ptr->trainerHill.spokeToOwner = 0;
@@ -424,7 +411,6 @@ static void GiveChallengePrize(void)
     {
         CopyItemName(itemId, gStringVar2);
         gSaveBlock1Ptr->trainerHill.receivedPrize = TRUE;
-        gSaveBlock2Ptr->frontier.unk_EF9 = 0;
         gSpecialVar_Result = 0;
     }
     else
@@ -583,9 +569,9 @@ void PrintOnTrainerHillRecordsWindow(void)
         ConvertIntToDecimalStringN(gStringVar2, secondsWhole, STR_CONV_MODE_RIGHT_ALIGN, 2);
         secondsFraction = (total * 168) / 100;
         ConvertIntToDecimalStringN(gStringVar3, secondsFraction, STR_CONV_MODE_LEADING_ZEROS, 2);
-        StringExpandPlaceholders(StringCopy(gStringVar4, gText_TimeCleared), gText_XMinYDotZSec);
-        x = GetStringRightAlignXOffset(FONT_NORMAL, gStringVar4, 0xD0);
-        AddTextPrinterParameterized3(0, FONT_NORMAL, x, y, sRecordWinColors, TEXT_SKIP_DRAW, gStringVar4);
+        StringExpandPlaceholders(StringCopy(gStringVar7, gText_TimeCleared), gText_XMinYDotZSec);
+        x = GetStringRightAlignXOffset(FONT_NORMAL, gStringVar7, 0xD0);
+        AddTextPrinterParameterized3(0, FONT_NORMAL, x, y, sRecordWinColors, TEXT_SKIP_DRAW, gStringVar7);
         y += 17;
     }
 
@@ -856,7 +842,7 @@ void FillHillTrainersParties(void)
 {
     ZeroEnemyPartyMons();
     CreateNPCTrainerHillParty(gTrainerBattleOpponent_A, 0);
-    CreateNPCTrainerHillParty(gTrainerBattleOpponent_B, PARTY_SIZE / 2);
+    CreateNPCTrainerHillParty(gTrainerBattleOpponent_B, 3);
 }
 
 u8 GetTrainerEncounterMusicIdInTrainerHill(u16 trainerId)

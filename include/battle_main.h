@@ -22,6 +22,14 @@ struct MultiPartnerMenuPokemon
     /*0x1D*/ u8 language;
 };
 
+struct TrainerBall
+{
+    u8 classId;
+    u8 ball; // make this a u16 if needed
+};
+
+#define TYPE_NAME_LENGTH 6
+
 #if B_EXPANDED_ABILITY_NAMES
 #define ABILITY_NAME_LENGTH 16
 #else
@@ -41,7 +49,7 @@ void SpriteCB_VsLetterInit(struct Sprite *sprite);
 void CB2_InitEndLinkBattle(void);
 u32 GetBattleBgTemplateData(u8 arrayId, u8 caseId);
 u32 GetBattleWindowTemplatePixelWidth(u32 setId, u32 tableId);
-void SpriteCb_WildMon(struct Sprite *sprite);
+void SpriteCb_WildMon(struct Sprite *sprite);z
 void SpriteCallbackDummy_2(struct Sprite *sprite);
 void SpriteCB_FaintOpponentMon(struct Sprite *sprite);
 void SpriteCb_ShowAsMoveTarget(struct Sprite *sprite);

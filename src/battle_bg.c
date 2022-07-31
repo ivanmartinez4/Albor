@@ -25,6 +25,7 @@
 #include "constants/songs.h"
 #include "constants/trainers.h"
 #include "constants/battle_anim.h"
+#include "event_data.h"
 
 #if !P_ENABLE_DEBUG
 struct BattleBackground
@@ -380,6 +381,33 @@ static const struct WindowTemplate sStandardBattleWindowTemplates[] =
         .height = 2,
         .paletteNum = 0,
         .baseBlock = 0x00b0,
+    },
+    { // super effective
+        .bg = 0,
+        .tilemapLeft = 21,
+        .tilemapTop = 57,
+        .width = 8,
+        .height = 2,
+        .paletteNum = 5,
+        .baseBlock = 0x02a0,
+    },
+    { // not very effective
+        .bg = 0,
+        .tilemapLeft = 21,
+        .tilemapTop = 57,
+        .width = 8,
+        .height = 2,
+        .paletteNum = 5,
+        .baseBlock = 0x02a0,
+    },
+    { // no effect
+        .bg = 0,
+        .tilemapLeft = 21,
+        .tilemapTop = 57,
+        .width = 8,
+        .height = 2,
+        .paletteNum = 5,
+        .baseBlock = 0x02a0,
     },
     DUMMY_WIN_TEMPLATE
 };
@@ -786,9 +814,18 @@ void DrawMainBattleBackground(void)
             }
             else if (trainerClass == TRAINER_CLASS_CHAMPION)
             {
-                LZDecompressVram(gBattleTerrainTiles_Stadium, (void*)(BG_CHAR_ADDR(2)));
-                LZDecompressVram(gBattleTerrainTilemap_Stadium, (void*)(BG_SCREEN_ADDR(26)));
-                LoadCompressedPalette(gBattleTerrainPalette_StadiumWallace, 0x20, 0x60);
+                if (!VarGet(VAR_POKEMON_LEAGUE_RUNS_COUNTER))
+                {
+                    LZDecompressVram(gBattleTerrainTiles_Stadium, (void*)(BG_CHAR_ADDR(2)));
+                    LZDecompressVram(gBattleTerrainTilemap_Stadium, (void*)(BG_SCREEN_ADDR(26)));
+                    LoadCompressedPalette(gBattleTerrainPalette_StadiumWallace, 0x20, 0x60);
+                }
+                else
+                {
+                    LZDecompressVram(gBattleTerrainTiles_Stadium, (void*)(BG_CHAR_ADDR(2)));
+                    LZDecompressVram(gBattleTerrainTilemap_Stadium, (void*)(BG_SCREEN_ADDR(26)));
+                    LoadCompressedPalette(gBattleTerrainPalette_StadiumSteven, 0x20, 0x60);
+                }
                 return;
             }
         }
@@ -1180,8 +1217,15 @@ void DrawBattleEntryBackground(void)
             }
             else if (trainerClass == TRAINER_CLASS_CHAMPION)
             {
-                LZDecompressVram(gBattleTerrainAnimTiles_Building, (void*)(BG_CHAR_ADDR(1)));
-                LZDecompressVram(gBattleTerrainAnimTilemap_Building, (void*)(BG_SCREEN_ADDR(28)));
+                if (!VarGet(VAR_POKEMON_LEAGUE_RUNS_COUNTER))
+                {
+                    LZDecompressVram(gBattleTerrainAnimTiles_Building, (void*)(BG_CHAR_ADDR(1)));
+                    LZDecompressVram(gBattleTerrainAnimTilemap_Building, (void*)(BG_SCREEN_ADDR(28)));
+                }
+                else
+                {
+                    LoadCompressedPalette(gBattleTerrainPalette_StadiumSteven, 0x20, 0x60);
+                }
                 return;
             }
         }

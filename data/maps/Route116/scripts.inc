@@ -49,15 +49,20 @@ Route116_EventScript_BoyfriendGruntInTunnel::
 Route116_EventScript_DevonEmployee::
 	lock
 	faceplayer
-	goto_if_set FLAG_MET_DEVON_EMPLOYEE, Route116_EventScript_TryGiveRepeatBallAgain
 	msgbox Route116_Text_ThankYouTokenOfAppreciation, MSGBOX_DEFAULT
+	addvar VAR_DEVON_RESEARCHER_GIFT_COUNT, 1
+	call_if_mon_caught SPECIES_SHROOMISH, Route116_EventScript_HappyDevonEmployee
 	goto Route116_EventScript_GiveRepeatBall
 	end
 
+Route116_EventScript_HappyDevonEmployee:
+	addvar VAR_DEVON_RESEARCHER_GIFT_COUNT, 2
+	msgbox Route116_Text_HappyDevonEmployee, MSGBOX_DEFAULT
+	closemessage
+	return
+
 Route116_EventScript_GiveRepeatBall::
-	setflag FLAG_MET_DEVON_EMPLOYEE
-	giveitem ITEM_REPEAT_BALL
-	goto_if_eq VAR_RESULT, FALSE, Route116_EventScript_NoRoomForRepeatBall
+	receiveitem ITEM_REPEAT_BALL, VAR_DEVON_RESEARCHER_GIFT_COUNT
 	msgbox Route116_Text_NewBallAvailableAtMart, MSGBOX_DEFAULT
 	closemessage
 	call_if_eq VAR_FACING, DIR_NORTH, Route116_EventScript_DevonEmployeeExit
@@ -66,7 +71,8 @@ Route116_EventScript_GiveRepeatBall::
 	call_if_eq VAR_FACING, DIR_EAST, Route116_EventScript_DevonEmployeeExitEast
 	removeobject VAR_LAST_TALKED
 	clearflag FLAG_HIDE_RUSTBORO_CITY_DEVON_CORP_3F_EMPLOYEE
-	setflag FLAG_RECEIVED_REPEAT_BALL
+	clearflag FLAG_HIDE_SPECIAL_BALLS_SELLER
+	setflag FLAG_MET_DEVON_EMPLOYEE
 	release
 	end
 
@@ -79,11 +85,6 @@ Route116_EventScript_DevonEmployeeExitEast::
 	applymovement VAR_LAST_TALKED, Route116_Movement_DevonEmployeeExitEast
 	waitmovement 0
 	return
-
-Route116_EventScript_TryGiveRepeatBallAgain::
-	msgbox Route116_Text_TokenOfAppreciation, MSGBOX_DEFAULT
-	goto Route116_EventScript_GiveRepeatBall
-	end
 
 Route116_EventScript_NoRoomForRepeatBall::
 	msgbox Route116_Text_BagIsJamPacked, MSGBOX_DEFAULT
@@ -251,7 +252,7 @@ Route116_EventScript_Jerry::
 	end
 
 Route116_EventScript_TryRegisterJerryAfterBattle::
-	goto_if_set FLAG_HAS_MATCH_CALL, Route116_EventScript_RegisterJerryAfterBattle
+	goto_if_set FLAG_SYS_POKENAV_GET, Route116_EventScript_RegisterJerryAfterBattle
 	release
 	end
 
@@ -264,7 +265,7 @@ Route116_EventScript_RegisterJerryAfterBattle::
 	end
 
 Route116_EventScript_TryRegisterJerry::
-	goto_if_set FLAG_HAS_MATCH_CALL, Route116_EventScript_RegisterJerry
+	goto_if_set FLAG_SYS_POKENAV_GET, Route116_EventScript_RegisterJerry
 	msgbox Route116_Text_JerryPostBattle, MSGBOX_DEFAULT
 	release
 	end
@@ -302,7 +303,7 @@ Route116_EventScript_Karen::
 	end
 
 Route116_EventScript_TryRegisterKarenAfterBattle::
-	goto_if_set FLAG_HAS_MATCH_CALL, Route116_EventScript_RegisterKarenAfterBattle
+	goto_if_set FLAG_SYS_POKENAV_GET, Route116_EventScript_RegisterKarenAfterBattle
 	release
 	end
 
@@ -315,7 +316,7 @@ Route116_EventScript_RegisterKarenAfterBattle::
 	end
 
 Route116_EventScript_TryRegisterKaren::
-	goto_if_set FLAG_HAS_MATCH_CALL, Route116_EventScript_RegisterKaren
+	goto_if_set FLAG_SYS_POKENAV_GET, Route116_EventScript_RegisterKaren
 	msgbox Route116_Text_KarenPostBattle, MSGBOX_DEFAULT
 	release
 	end
@@ -397,14 +398,30 @@ Route116_Text_ThankYouTokenOfAppreciation:
 	.string "For you, the most wonderful Trainer,\n"
 	.string "I bear good news!\p"
 	.string "Recently, our company developed\n"
-	.string "a new kind of Poké Ball.\p"
+	.string "new kinds of POKé BALL.\p"
 	.string "As a token of our appreciation, this\n"
 	.string "is our gift to our wonderful Trainer!$"
 
+Route116_Text_HappyDevonEmployee:
+	.string "… … …\p"
+	.string "Wait a second, is that the data of\n"
+	.string "SHROOMISH I see in your Pokédex?\p"
+	.string "So you did catch one! Hahaha!\n"
+	.string "SHROOMISH is cute!\p"
+	.string "Its lovely… beady… eyes are funny…\n"
+	.string "Its body shape… makes you want to…\l"
+	.string "wear it like a hat…\p"
+	.string "It's so smart that as soon as it\n"
+	.string "thinks there's danger nearby it\l"
+	.string "scatters spores to protect itself…\p"
+	.string "Oh… look at the time!\n"
+	.string "I need to go back to DEVON!\p"
+	.string "But first, please take these.$"
+
 Route116_Text_NewBallAvailableAtMart:
-	.string "Our new Poké Ball will be available\n"
-	.string "at the Pokémon Mart in Rustboro.\p"
-	.string "Please do try it out!\n"
+	.string "Our new POKé BALLS will be available\n"
+	.string "at the POKéMON MART in RUSTBORO.\p"
+	.string "Please do try them out!\n"
 	.string "Thank you and bye-bye!$"
 
 Route116_Text_BagIsJamPacked:

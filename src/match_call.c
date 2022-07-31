@@ -1006,7 +1006,7 @@ static bool32 MapAllowsMatchCall(void)
 
     if (gMapHeader.regionMapSectionId == MAPSEC_SOOTOPOLIS_CITY
      && FlagGet(FLAG_HIDE_SOOTOPOLIS_CITY_RAYQUAZA) == TRUE
-     && FlagGet(FLAG_NEVER_SET_0x0DC) == FALSE)
+     && FlagGet(FLAG_RECEIVED_HM07) == FALSE)
         return FALSE;
 
     if (gMapHeader.regionMapSectionId == MAPSEC_MT_CHIMNEY
@@ -1089,7 +1089,7 @@ static u32 GetActiveMatchCallTrainerId(u32 activeMatchCallId)
 */
 bool32 TryStartMatchCall(void)
 {
-    if (FlagGet(FLAG_HAS_MATCH_CALL)
+    if (FlagGet(FLAG_SYS_POKENAV_GET)
         && UpdateMatchCallStepCounter()
         && UpdateMatchCallMinutesCounter()
         && CheckMatchCallChance()
@@ -1256,8 +1256,8 @@ static bool32 MatchCall_PrintIntro(u8 taskId)
 
         // Ready the message
         if (!sMatchCallState.triggeredFromScript)
-            SelectMatchCallMessage(sMatchCallState.trainerId, gStringVar4);
-        InitMatchCallTextPrinter(tWindowId, gStringVar4);
+            SelectMatchCallMessage(sMatchCallState.trainerId, gStringVar7);
+        InitMatchCallTextPrinter(tWindowId, gStringVar7);
         return TRUE;
     }
 
@@ -1732,22 +1732,7 @@ static void PopulateSpeciesFromTrainerParty(int matchCallId, u8 *destStr)
     party = gTrainers[trainerId].party;
     monId = Random() % gTrainers[trainerId].partySize;
 
-    switch (gTrainers[trainerId].partyFlags)
-    {
-    case 0:
-    default:
-        speciesName = gSpeciesNames[party.NoItemDefaultMoves[monId].species];
-        break;
-    case F_TRAINER_PARTY_CUSTOM_MOVESET:
-        speciesName = gSpeciesNames[party.NoItemCustomMoves[monId].species];
-        break;
-    case F_TRAINER_PARTY_HELD_ITEM:
-        speciesName = gSpeciesNames[party.ItemDefaultMoves[monId].species];
-        break;
-    case F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_HELD_ITEM:
-        speciesName = gSpeciesNames[party.ItemCustomMoves[monId].species];
-        break;
-    }
+    speciesName = gSpeciesNames[party.TrainerMon[monId].species];
 
     StringCopy(destStr, speciesName);
 }
@@ -1793,15 +1778,18 @@ static const u16 sBadgeFlags[NUM_BADGES] =
     FLAG_BADGE08_GET,
 };
 
-static int GetNumOwnedBadges(void)
+int GetNumOwnedBadges(void)
 {
-    u32 i;
+    int i;
 
     for (i = 0; i < NUM_BADGES; i++)
     {
         if (!FlagGet(sBadgeFlags[i]))
             break;
     }
+
+    // Store the number of badges in the 1st string buffer
+    ConvertIntToDecimalStringN(gStringVar1, i, STR_CONV_MODE_LEFT_ALIGN, 1);
 
     return i;
 }
@@ -2001,7 +1989,7 @@ void BufferPokedexRatingForMatchCall(u8 *destStr)
     u8 *str;
     u8 dexRatingLevel;
 
-    u8 *buffer = Alloc(sizeof(gStringVar4));
+    u8 *buffer = Alloc(sizeof(gStringVar7));
     if (!buffer)
     {
         destStr[0] = EOS;

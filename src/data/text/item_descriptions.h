@@ -2391,9 +2391,9 @@ static const u8 sWhiteHerbDesc[] = _(
     "lowered stat.");
 
 static const u8 sExpShareDesc[] = _(
-    "A hold item that\n"
-    "gets Exp. points\n"
-    "from battles.");
+    "A device that gives\n"
+    "exp. from battles\n"
+    "to all the party.");
 
 static const u8 sQuickClawDesc[] = _(
     "A hold item that\n"
@@ -3540,9 +3540,9 @@ static const u8 sBicycleDesc[] = _(
     "the Running Shoes.");
 
 static const u8 sMachBikeDesc[] = _(
-    "A folding bicycle\n"
-    "that doubles your\n"
-    "speed or better.");
+    "A folding bike for\n"
+    "fast momvement and\n"
+    "performing tricks.");
 
 static const u8 sAcroBikeDesc[] = _(
     "A folding bicycle\n"

@@ -304,11 +304,6 @@ BattleFrontier_OutsideWest_Text_BattlePikeSign:
 	.string "This is the Battle Pike!\n"
 	.string "Choose one of three paths!$"
 
-BattleFrontier_OutsideWest_Text_ThisIsBattleTower:
-	.string "This is the Battle Tower.\p"
-	.string "Trainers bring their best-raised\n"
-	.string "Pokémon for elimination-style matches.$"
-
 BattleFrontier_OutsideWest_Text_MayISeeYourTicket:
 	.string "Hello, are you here for the ferry?\n"
 	.string "May I see your Ticket?$"
@@ -344,12 +339,6 @@ BattleFrontier_OutsideWest_Text_BestOutOfAllMyFriends:
 	.string "I'm the best out of all my friends.\n"
 	.string "But here…\l"
 	.string "I've been useless!$"
-
-BattleFrontier_OutsideWest_Text_CantFindBattleTower:
-	.string "I want to go to the Battle Tower,\n"
-	.string "but I can't find it even though I have\l"
-	.string "a map of the Battle Frontier.\p"
-	.string "This place is just too big!$"
 
 BattleFrontier_OutsideWest_Text_GotSeasickOnWayHere:
 	.string "I wanted to take a challenge as soon\n"
@@ -423,11 +412,6 @@ BattleFrontier_OutsideWest_Text_YoureOffToChallengeDome:
 	.string "I'll wish you the best of luck.\n"
 	.string "Let us both win our way up and meet\l"
 	.string "in challenges.$"
-
-BattleFrontier_OutsideWest_Text_DomeIsHereGrandpa:
-	.string "Grandpa, over here!\n"
-	.string "The Battle Dome is here!\l"
-	.string "Go get 'em, Grandpa!$"
 
 BattleFrontier_OutsideWest_Text_WontLetGentlemenBeatMe:
 	.string "Ah, so this here is the Battle Dome?\n"

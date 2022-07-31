@@ -33,6 +33,7 @@
 #include "constants/songs.h"
 #include "constants/battle_config.h"
 #include "constants/items.h"
+#include "strings.h"
 
 enum
 {   // Corresponds to gHealthboxElementsGfxTable (and the tables after it) in graphics.c
@@ -2133,15 +2134,24 @@ static void UpdateNickInHealthbox(u8 healthboxSpriteId, struct Pokemon *mon)
     switch (gender)
     {
     default:
-        StringCopy(ptr, gText_HealthboxGender_None);
+        if (IsMonShiny(mon))
+            StringCopy(ptr, gText_ShinyStar);
+        else
+            StringCopy(ptr, gText_HealthboxGender_None);
         windowTileData = AddTextPrinterAndCreateWindowOnHealthbox(gDisplayedStringBattle, 0, 3, 2, &windowId);
         break;
     case MON_MALE:
-        StringCopy(ptr, gText_HealthboxGender_Male);
+        if (IsMonShiny(mon))
+            StringCopy(ptr, gText_ShinyStarMale);
+        else
+            StringCopy(ptr, gText_HealthboxGender_Male);
         windowTileData = AddTextPrinterAndCreateWindowOnHealthbox(gDisplayedStringBattle, 0, 3, 2, &windowId);
         break;
     case MON_FEMALE:
-        StringCopy(ptr, gText_HealthboxGender_Female);
+        if (IsMonShiny(mon))
+            StringCopy(ptr, gText_ShinyStarFemale);
+        else
+            StringCopy(ptr, gText_HealthboxGender_Female);
         windowTileData = AddTextPrinterAndCreateWindowOnHealthbox(gDisplayedStringBattle, 0, 3, 2, &windowId);
         break;
     }

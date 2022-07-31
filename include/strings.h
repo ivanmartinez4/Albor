@@ -179,7 +179,6 @@ extern const u8 gText_EmptyString2[];
 extern const u8 gText_Confirm3[];
 extern const u8 gText_Cancel4[];
 extern const u8 gText_IsThisTheCorrectTime[];
-extern const u8 gText_PkmnFainted3[];
 extern const u8 gText_Coins[];
 extern const u8 gText_Silver[];
 extern const u8 gText_Gold[];
@@ -283,7 +282,6 @@ extern const u8 gText_SavingDontTurnOff[];
 extern const u8 gText_PlayerSavedGame[];
 extern const u8 gText_SaveError[];
 extern const u8 gText_SavingDontTurnOffPower[];
-extern const u8 gText_SavingPlayer[];
 extern const u8 gText_SavingBadges[];
 extern const u8 gText_SavingPokedex[];
 extern const u8 gText_SavingTime[];
@@ -296,8 +294,8 @@ extern const u8 gText_BattlePyramidConfirmRetire[];
 extern const u8 gText_TextSpeedSlow[];
 extern const u8 gText_TextSpeedMid[];
 extern const u8 gText_TextSpeedFast[];
-extern const u8 gText_BattleSceneOn[];
-extern const u8 gText_BattleSceneOff[];
+extern const u8 gText_OptionMenuOn[];
+extern const u8 gText_OptionMenuOff[];
 extern const u8 gText_BattleStyleShift[];
 extern const u8 gText_BattleStyleSet[];
 extern const u8 gText_SoundMono[];
@@ -321,6 +319,7 @@ extern const u8 gText_MaleSymbol[];
 extern const u8 gText_FemaleSymbol[];
 
 extern const u8 gText_SelectorArrow3[];
+extern const u8 gText_EmptySpace[];
 extern const u8 gText_YesNo[];
 
 // main menu/birch speech text
@@ -983,6 +982,7 @@ extern const u8 gText_PeculiarEggTrade[];
 extern const u8 gText_EggFromTraveler[];
 extern const u8 gText_EggFromHotSprings[];
 extern const u8 gText_OddEggFoundByCouple[];
+extern const u8 gText_EggFoundIn[];
 extern const u8 gText_None[];
 extern const u8 gText_RibbonsVar1[];
 extern const u8 gText_OneDash[];
@@ -1287,10 +1287,6 @@ extern const u8 gText_IllBattleNow[];
 extern const u8 gText_IWon[];
 extern const u8 gText_ILost[];
 extern const u8 gText_IWontTell[];
-extern const u8 gText_CaveOfOrigin[];
-extern const u8 gText_MtPyre[];
-extern const u8 gText_SkyPillar[];
-extern const u8 gText_DontRemember[];
 extern const u8 gText_BattlePokemon[];
 extern const u8 gText_NormalTagMatch[];
 extern const u8 gText_VarietyTagMatch[];
@@ -2400,6 +2396,7 @@ extern const u8 MatchCall_Text_Steven4[];
 extern const u8 MatchCall_Text_Steven5[];
 extern const u8 MatchCall_Text_Steven6[];
 extern const u8 MatchCall_Text_Steven7[];
+extern const u8 MatchCall_Text_Steven8[];
 extern const u8 MatchCall_Text_May1[];
 extern const u8 MatchCall_Text_May2[];
 extern const u8 MatchCall_Text_May3[];
@@ -2473,9 +2470,13 @@ extern const u8 MatchCall_Text_Juan2[];
 extern const u8 MatchCall_Text_Juan3[];
 extern const u8 MatchCall_Text_Juan4[];
 extern const u8 MatchCall_Text_Sidney[];
+extern const u8 MatchCall_Text_Sidney2[];
 extern const u8 MatchCall_Text_Phoebe[];
+extern const u8 MatchCall_Text_Phoebe2[];
 extern const u8 MatchCall_Text_Glacia[];
+extern const u8 MatchCall_Text_Glacia2[];
 extern const u8 MatchCall_Text_Drake[];
+extern const u8 MatchCall_Text_Drake2[];
 extern const u8 MatchCall_Text_Wallace[];
 extern const u8 gText_MrStoneMatchCallDesc[];
 extern const u8 gText_MrStoneMatchCallName[];
@@ -3019,5 +3020,129 @@ extern const u8 gText_Summary2[];
 extern const u8 gText_PkmnForSwap[];
 extern const u8 gText_SamePkmnInPartyAlready[];
 extern const u8 gText_Cancel3[];
+
+// Custom text strings start here
+
+// Gen. 6 Exp. Share
+extern const u8 gText_ExpShareOn[];
+extern const u8 gText_ExpShareOff[];
+
+// 1HP overworld poison survival
+extern const u8 gText_PkmnFainted3[];
+
+// New Ryder's Bike event in Mauville City
+extern const u8 gText_MachBikeMode[];
+extern const u8 gText_AcroBikeMode[];
+
+// Instant text speed
+extern const u8 gText_TextSpeedInstant[];
+
+// One time purchasable TMs/HMs
+extern const u8 gText_SoldOut[];
+extern const u8 gText_SoldOut2[];
+
+// Costumes
+extern const u8 gText_PkmnTrainerCostume[];
+extern const u8 gText_LegacyCostume[];
+extern const u8 gText_PokedexHolderCostume[];
+
+// Pokedex Evolutions Screen
+extern const u8 gText_EVO_Name[];
+extern const u8 gText_EVO_FRIENDSHIP[];
+extern const u8 gText_EVO_FRIENDSHIP_DAY[];
+extern const u8 gText_EVO_FRIENDSHIP_NIGHT[];
+extern const u8 gText_EVO_LEVEL[];
+extern const u8 gText_EVO_TRADE[];
+extern const u8 gText_EVO_TRADE_ITEM[];
+extern const u8 gText_EVO_ITEM[];
+extern const u8 gText_EVO_LEVEL_ATK_GT_DEF[];
+extern const u8 gText_EVO_LEVEL_ATK_EQ_DEF[];
+extern const u8 gText_EVO_LEVEL_ATK_LT_DEF[];
+extern const u8 gText_EVO_LEVEL_SILCOON[];
+extern const u8 gText_EVO_LEVEL_CASCOON[];
+extern const u8 gText_EVO_LEVEL_NINJASK[];
+extern const u8 gText_EVO_LEVEL_SHEDINJA[];
+extern const u8 gText_EVO_BEAUTY[];
+extern const u8 gText_EVO_LEVEL_FEMALE[];
+extern const u8 gText_EVO_LEVEL_MALE[];
+extern const u8 gText_EVO_LEVEL_NIGHT[];
+extern const u8 gText_EVO_LEVEL_DAY[];
+extern const u8 gText_EVO_LEVEL_DUSK[];
+extern const u8 gText_EVO_ITEM_HOLD_DAY[];
+extern const u8 gText_EVO_ITEM_HOLD_NIGHT[];
+extern const u8 gText_EVO_MOVE[];
+extern const u8 gText_EVO_MOVE_TYPE[];
+extern const u8 gText_EVO_MAPSEC[];
+extern const u8 gText_EVO_ITEM_MALE[];
+extern const u8 gText_EVO_ITEM_FEMALE[];
+extern const u8 gText_EVO_LEVEL_RAIN[];
+extern const u8 gText_EVO_SPECIFIC_MON_IN_PARTY[];
+extern const u8 gText_EVO_LEVEL_DARK_TYPE_MON_IN_PARTY[];
+extern const u8 gText_EVO_TRADE_SPECIFIC_MON[];
+extern const u8 gText_EVO_SPECIFIC_MAP[];
+extern const u8 gText_EVO_HELD_ITEM[];
+extern const u8 gText_EVO_NONE[];
+extern const u8 gText_EVO_PreEvo[];
+
+// Days of the week
+extern const u8 gText_Sunday[];
+extern const u8 gText_Monday[];
+extern const u8 gText_Tuesday[];
+extern const u8 gText_Wednesday[];
+extern const u8 gText_Thursday[];
+extern const u8 gText_Friday[];
+extern const u8 gText_Saturday[];
+
+// LGPE styled Premier Ball promo
+extern const u8 gText_ThrowInPremierBalls[];
+
+// Debug menu
+extern const u8 gText_MenuDebug[];
+
+// Star mark for shinies in the summary screen and the battle interface
+extern const u8 gText_ShinyStar[];
+extern const u8 gText_ShinyStarMale[];
+extern const u8 gText_ShinyStarFemale[];
+
+// Start menu clock
+extern const u8 gText_CurrentTime[];
+
+// Held item party screen management
+extern const u8 gMenuText_Move[];
+extern const u8 gText_MoveItemWhere[];
+extern const u8 gText_XsYAndXsYWereSwapped[];
+
+// Nicknaming from party screen
+extern const u8 gText_Nickname[];
+
+// Last save date when saving the game
+extern const u8 gText_SavingDate[];
+
+// Route 118 event
+extern const u8 gText_Badge[];
+extern const u8 gText_Badges[];
+
+// Date Met
+extern const u8 gText_Month_January[];
+extern const u8 gText_Month_February[];
+extern const u8 gText_Month_March[];
+extern const u8 gText_Month_April[];
+extern const u8 gText_Month_May[];
+extern const u8 gText_Month_June[];
+extern const u8 gText_Month_July[];
+extern const u8 gText_Month_August[];
+extern const u8 gText_Month_September[];
+extern const u8 gText_Month_October[];
+extern const u8 gText_Month_November[];
+extern const u8 gText_Month_December[];
+
+// New Options for the Options Menu
+extern const u8 gText_BattleType[];
+extern const u8 gText_OptionMenuHide[];
+extern const u8 gText_OptionMenuShow[];
+extern const u8 gText_QuickLoad[];
+
+// Relearning moves from the party screen
+extern const u8 gText_Moves_Menu[];
 
 #endif // GUARD_STRINGS_H

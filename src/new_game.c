@@ -36,7 +36,6 @@
 #include "contest.h"
 #include "item_menu.h"
 #include "pokemon_storage_system.h"
-#include "pokemon_jump.h"
 #include "decoration_inventory.h"
 #include "secret_base.h"
 #include "player_pc.h"
@@ -90,12 +89,14 @@ static void InitPlayerTrainerId(void)
 // L=A isnt set here for some reason.
 static void SetDefaultOptions(void)
 {
-    gSaveBlock2Ptr->optionsTextSpeed = OPTIONS_TEXT_SPEED_FAST;
+    gSaveBlock2Ptr->optionsTextSpeed = OPTIONS_TEXT_SPEED_INSTANT;
     gSaveBlock2Ptr->optionsWindowFrameType = 0;
     gSaveBlock2Ptr->optionsSound = OPTIONS_SOUND_STEREO;
     gSaveBlock2Ptr->optionsBattleStyle = OPTIONS_BATTLE_STYLE_SET;
     gSaveBlock2Ptr->optionsBattleSceneOff = FALSE;
     gSaveBlock2Ptr->regionMapZoom = FALSE;
+    gSaveBlock2Ptr->optionsBattleType = OPTIONS_BATTLE_TYPE_HIDE;
+    gSaveBlock2Ptr->optionsQuickLoadOff = TRUE;
 }
 
 static void ClearPokedexFlags(void)
@@ -151,7 +152,6 @@ void NewGameInitData(void)
         RtcReset();
 
     gDifferentSaveFile = TRUE;
-    gSaveBlock2Ptr->encryptionKey = 0;
     ZeroPlayerPartyMons();
     ZeroEnemyPartyMons();
     ResetPokedex();
@@ -159,7 +159,6 @@ void NewGameInitData(void)
     ClearSav1();
     ClearAllMail();
     gSaveBlock2Ptr->specialSaveWarpFlags = 0;
-    gSaveBlock2Ptr->gcnLinkFlags = 0;
     InitPlayerTrainerId();
     PlayTimeCounter_Reset();
     ClearPokedexFlags();
@@ -203,12 +202,13 @@ void NewGameInitData(void)
     WipeTrainerNameRecords();
     ResetTrainerHillResults();
     ResetContestLinkResults();
+    gSaveBlock2Ptr->autoRun = FALSE;
+    gSaveBlock2Ptr->playerCostume = DEFAULT_COSTUME;
+    RtcCalcLocalTime();
 }
 
 static void ResetMiniGamesRecords(void)
 {
     CpuFill16(0, &gSaveBlock2Ptr->berryCrush, sizeof(struct BerryCrush));
     SetBerryPowder(&gSaveBlock2Ptr->berryCrush.berryPowderAmount, 0);
-    ResetPokemonJumpRecords();
-    CpuFill16(0, &gSaveBlock2Ptr->berryPick, sizeof(struct BerryPickingResults));
 }

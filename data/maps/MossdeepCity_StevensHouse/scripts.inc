@@ -180,9 +180,6 @@ MossdeepCity_StevensHouse_Text_TakeBallContainingBeldum:
 MossdeepCity_StevensHouse_Text_ObtainedBeldum:
 	.string "{PLAYER} obtained a Beldum.$"
 
-MossdeepCity_StevensHouse_Text_NoSpaceForAnotherMon:
-	.string "There is no space for another Pokémon.$"
-
 MossdeepCity_StevensHouse_Text_LeftPokeBallWhereItWas:
 	.string "{PLAYER} left the Poké Ball where\n"
 	.string "it was.$"

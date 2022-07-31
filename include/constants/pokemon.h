@@ -91,8 +91,33 @@
 #define DEFAULT_STAT_STAGE 6
 #define MAX_STAT_STAGE    12
 
+#define BEST_IV_SPREAD_HIDDEN_POWER_BUG      {31, 31, 31, 30, 31, 30}
+#define BEST_IV_SPREAD_HIDDEN_POWER_DARK     {31, 31, 31, 31, 31, 31}
+#define BEST_IV_SPREAD_HIDDEN_POWER_DRAGON   {30, 31, 31, 31, 31, 31}
+#define BEST_IV_SPREAD_HIDDEN_POWER_ELECTRIC {31, 31, 31, 31, 30, 31}
+#define BEST_IV_SPREAD_HIDDEN_POWER_FIGHTING {31, 31, 30, 30, 30, 30}
+#define BEST_IV_SPREAD_HIDDEN_POWER_FIRE     {31, 30, 31, 30, 30, 31}
+#define BEST_IV_SPREAD_HIDDEN_POWER_FLYING   {31, 31, 31, 30, 30, 30}
+#define BEST_IV_SPREAD_HIDDEN_POWER_GHOST    {31, 30, 31, 31, 31, 30}
+#define BEST_IV_SPREAD_HIDDEN_POWER_GRASS    {30, 31, 31, 31, 30, 31}
+#define BEST_IV_SPREAD_HIDDEN_POWER_GROUND   {31, 31, 31, 31, 30, 30}
+#define BEST_IV_SPREAD_HIDDEN_POWER_ICE      {31, 31, 31, 30, 31, 31}
+#define BEST_IV_SPREAD_HIDDEN_POWER_POISON   {31, 31, 30, 31, 30, 30}
+#define BEST_IV_SPREAD_HIDDEN_POWER_PSYCHIC  {30, 31, 31, 30, 31, 31}
+#define BEST_IV_SPREAD_HIDDEN_POWER_ROCK     {31, 31, 30, 30, 31, 30}
+#define BEST_IV_SPREAD_HIDDEN_POWER_STEEL    {31, 31, 31, 31, 31, 30}
+#define BEST_IV_SPREAD_HIDDEN_POWER_WATER    {31, 31, 31, 30, 30, 31}
+
+#define BEST_IV_SPREAD BEST_IV_SPREAD_HIDDEN_POWER_DARK
+
+#define WORST_IVS                0
+
+#define FIRST_ABILITY    3
+#define SECOND_ABILITY   1
+#define HIDDEN_ABILITY   2
+
 // Shiny odds
-#define SHINY_ODDS 128 // Actual probability is SHINY_ODDS/65536
+#define SHINY_ODDS 16 // Actual probability is SHINY_ODDS/65536
 
 // Flags for Get(Box)MonData / Set(Box)MonData
 #define MON_DATA_PERSONALITY        0
@@ -105,7 +130,7 @@
 #define MON_DATA_OT_NAME            7
 #define MON_DATA_MARKINGS           8
 #define MON_DATA_CHECKSUM           9
-#define MON_DATA_ENCRYPT_SEPARATOR 10
+#define MON_DATA_YEAR_MET          10
 #define MON_DATA_SPECIES           11
 #define MON_DATA_HELD_ITEM         12
 #define MON_DATA_MOVE1             13
@@ -143,47 +168,34 @@
 #define MON_DATA_IS_EGG            45
 #define MON_DATA_ABILITY_NUM       46
 #define MON_DATA_TOUGH             47
-#define MON_DATA_SHEEN             48
-#define MON_DATA_OT_GENDER         49
-#define MON_DATA_COOL_RIBBON       50
-#define MON_DATA_BEAUTY_RIBBON     51
-#define MON_DATA_CUTE_RIBBON       52
-#define MON_DATA_SMART_RIBBON      53
-#define MON_DATA_TOUGH_RIBBON      54
-#define MON_DATA_STATUS            55
-#define MON_DATA_LEVEL             56
-#define MON_DATA_HP                57
-#define MON_DATA_MAX_HP            58
-#define MON_DATA_ATK               59
-#define MON_DATA_DEF               60
-#define MON_DATA_SPEED             61
-#define MON_DATA_SPATK             62
-#define MON_DATA_SPDEF             63
-#define MON_DATA_MAIL              64
-#define MON_DATA_SPECIES2          65
-#define MON_DATA_IVS               66
-#define MON_DATA_CHAMPION_RIBBON   67
-#define MON_DATA_WINNING_RIBBON    68
-#define MON_DATA_VICTORY_RIBBON    69
-#define MON_DATA_ARTIST_RIBBON     70
-#define MON_DATA_EFFORT_RIBBON     71
-#define MON_DATA_MARINE_RIBBON     72
-#define MON_DATA_LAND_RIBBON       73
-#define MON_DATA_SKY_RIBBON        74
-#define MON_DATA_COUNTRY_RIBBON    75
-#define MON_DATA_NATIONAL_RIBBON   76
-#define MON_DATA_EARTH_RIBBON      77
-#define MON_DATA_WORLD_RIBBON      78
-#define MON_DATA_NATURE            79
-#define MON_DATA_EVENT_LEGAL       80
-#define MON_DATA_KNOWN_MOVES       81
-#define MON_DATA_RIBBON_COUNT      82
-#define MON_DATA_RIBBONS           83
-#define MON_DATA_ATK2              84
-#define MON_DATA_DEF2              85
-#define MON_DATA_SPEED2            86
-#define MON_DATA_SPATK2            87
-#define MON_DATA_SPDEF2            88
+#define MON_DATA_OT_GENDER         48
+#define MON_DATA_COOL_RIBBON       49
+#define MON_DATA_BEAUTY_RIBBON     50
+#define MON_DATA_CUTE_RIBBON       51
+#define MON_DATA_SMART_RIBBON      52
+#define MON_DATA_TOUGH_RIBBON      53
+#define MON_DATA_STATUS            54
+#define MON_DATA_LEVEL             55
+#define MON_DATA_HP                56
+#define MON_DATA_MAX_HP            57
+#define MON_DATA_ATK               58
+#define MON_DATA_DEF               59
+#define MON_DATA_SPEED             60
+#define MON_DATA_SPATK             61
+#define MON_DATA_SPDEF             62
+#define MON_DATA_MAIL              63
+#define MON_DATA_SPECIES2          64
+#define MON_DATA_IVS               65
+#define MON_DATA_CHAMPION_RIBBON   66
+#define MON_DATA_WINNING_RIBBON    67
+#define MON_DATA_VICTORY_RIBBON    68
+#define MON_DATA_ARTIST_RIBBON     69
+#define MON_DATA_EFFORT_RIBBON     70
+#define MON_DATA_KNOWN_MOVES       71
+#define MON_DATA_RIBBON_COUNT      72
+#define MON_DATA_RIBBONS           73
+#define MON_DATA_DAY_MET           74
+#define MON_DATA_MONTH_MET         75
 
 // Ribbon IDs used by TV and Pokénav
 #define CHAMPION_RIBBON       0
@@ -211,19 +223,12 @@
 #define VICTORY_RIBBON       22
 #define ARTIST_RIBBON        23
 #define EFFORT_RIBBON        24
-#define MARINE_RIBBON        25
-#define LAND_RIBBON          26
-#define SKY_RIBBON           27
-#define COUNTRY_RIBBON       28
-#define NATIONAL_RIBBON      29
-#define EARTH_RIBBON         30
-#define WORLD_RIBBON         31
 
-#define FIRST_GIFT_RIBBON MARINE_RIBBON
-#define LAST_GIFT_RIBBON  WORLD_RIBBON
-#define NUM_GIFT_RIBBONS  (1 + LAST_GIFT_RIBBON - FIRST_GIFT_RIBBON)
+#define FIRST_GIFT_RIBBON 0
+#define LAST_GIFT_RIBBON  0
+#define NUM_GIFT_RIBBONS  0
 
-// The above gift ribbons (Marine - World) are
+// The above gift ribbons (Country - World) are
 // special distribution ribbons that correspond to
 // 1 bit each in the Pokémon struct. Gen 4 hard-codes
 // each of these to the given name. In Gen 3 they're
@@ -240,6 +245,7 @@
 #define OT_ID_PLAYER_ID       0
 #define OT_ID_PRESET          1
 #define OT_ID_RANDOM_NO_SHINY 2
+#define OT_ID_SHINY           3
 
 #define MON_GIVEN_TO_PARTY      0
 #define MON_GIVEN_TO_PC         1
@@ -281,7 +287,7 @@
 #define MAX_IV_MASK 31
 #define USE_RANDOM_IVS (MAX_PER_STAT_IVS + 1)
 #define MAX_PER_STAT_EVS 252
-#define MAX_TOTAL_EVS 504
+#define MAX_TOTAL_EVS 510
 #if I_VITAMIN_EV_CAP >= GEN_8
 #define EV_ITEM_RAISE_LIMIT MAX_PER_STAT_EVS
 #else
@@ -383,10 +389,11 @@
 #define EVO_SPECIFIC_MAP                  32     // Pokémon levels up on specified map
 #define EVO_LEVEL_NATURE_AMPED            33     // Pokémon reaches the specified level, it has a Hardy, Brave, Adamant, Naughty, Docile, Impish, Lax, Hasty, Jolly, Naive, Rash, Sassy, or Quirky nature.
 #define EVO_LEVEL_NATURE_LOW_KEY          34     // Pokémon reaches the specified level, it has a Lonely, Bold, Relaxed, Timid, Serious, Modest, Mild, Quiet, Bashful, Calm, Gentle, or Careful nature.
-#define EVO_CRITICAL_HITS                 35     // Pokémon performs specified number of critical hits in one battle
-#define EVO_SCRIPT_TRIGGER_DMG            36     // Pokémon has specified HP below max, then player interacts trigger
-#define EVO_DARK_SCROLL                   37     // interacts with Scroll of Darkness
-#define EVO_WATER_SCROLL                  38     // interacts with Scroll of Waters
+#define EVO_HELD_ITEM                     35     // Pokémon levels up while holding specified item
+#define EVO_CRITICAL_HITS                 36     // Pokémon performs specified number of critical hits in one battle
+#define EVO_SCRIPT_TRIGGER_DMG            37     // Pokémon has specified HP below max, then player interacts trigger
+#define EVO_DARK_SCROLL                   38     // interacts with Scroll of Darkness
+#define EVO_WATER_SCROLL                  39     // interacts with Scroll of Waters
 
 #define EVOS_PER_MON 10
 

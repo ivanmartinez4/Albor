@@ -12,6 +12,8 @@
 #include "constants/trainers.h"
 #include "constants/battle_config.h"
 #include "constants/species.h"
+#include "constants/battle_setup.h"
+#include "constants/flags.h"
 	.include "asm/macros.inc"
 	.include "asm/macros/battle_script.inc"
 	.include "constants/constants.inc"
@@ -6249,6 +6251,7 @@ BattleScript_LocalBattleWonLoseTexts::
 	waitstate
 	printstring STRINGID_TRAINER2LOSETEXT
 BattleScript_LocalBattleWonReward::
+	jumpifset FLAG_DISABLE_MONEY_REWARD, BattleScript_PayDayMoneyAndPickUpItems
 	getmoneyreward
 	printstring STRINGID_PLAYERGOTMONEY
 	waitmessage B_WAIT_TIME_LONG
@@ -6257,7 +6260,19 @@ BattleScript_PayDayMoneyAndPickUpItems::
 	pickup
 	end2
 
+BattleScript_PickedUpItem::
+	printstring STRINGID_PICKUP
+	waitmessage 0x40
+	return
+
+BattleScript_PickedUpItemSolo::
+	printstring STRINGID_PICKUPSOLO
+	waitmessage 0x40
+	return
+
 BattleScript_LocalBattleLost::
+	jumpifhalfword CMP_EQUAL, gTrainerBattleMode, TRAINER_BATTLE_NO_WHITEOUT, BattleScript_LostNoWhiteoutBattle
+	jumpifhalfword CMP_EQUAL, gTrainerBattleMode, TRAINER_BATTLE_NO_WHITEOUT_NO_INTRO, BattleScript_LostNoWhiteoutBattle
 	jumpifbattletype BATTLE_TYPE_INGAME_PARTNER, BattleScript_LocalBattleLostPrintWhiteOut
 	jumpifbattletype BATTLE_TYPE_DOME, BattleScript_CheckDomeDrew
 	jumpifbattletype BATTLE_TYPE_FRONTIER, BattleScript_LocalBattleLostPrintTrainersWinText
@@ -6309,6 +6324,15 @@ BattleScript_LocalBattleLostDoTrainer2WinText::
 	waitstate
 	printstring STRINGID_TRAINER2WINTEXT
 BattleScript_LocalBattleLostEnd_::
+	end2
+BattleScript_LostNoWhiteoutBattle::
+	printstring STRINGID_PLAYERWHITEOUT3
+	printstring STRINGID_TRAINER1PKMNCOMEBACK
+	returnatktoball
+	waitstate
+	trainerslidein BS_ATTACKER
+	waitstate
+	printstring STRINGID_TRAINER1WINTEXT
 	end2
 
 BattleScript_FrontierLinkBattleLost::

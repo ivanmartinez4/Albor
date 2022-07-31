@@ -28,14 +28,14 @@ struct Item
 struct BagPocket
 {
     struct ItemSlot *itemSlots;
-    u8 capacity;
+    u16 capacity;
 };
 
 extern const struct Item gItems[];
 extern struct BagPocket gBagPockets[];
+extern struct ItemSlot gTmHmItemSlots[BAG_TMHM_COUNT];
 
-void ApplyNewEncryptionKeyToBagItems(u32 newKey);
-void ApplyNewEncryptionKeyToBagItems_(u32 newKey);
+u16 GetBagItemQuantity(u16 *quantity);
 void SetBagItemsPointers(void);
 void CopyItemName(u16 itemId, u8 *dst);
 void CopyItemNameHandlePlural(u16 itemId, u8 *dst, u32 quantity);
@@ -47,7 +47,7 @@ bool8 CheckBagHasSpace(u16 itemId, u16 count);
 bool8 AddBagItem(u16 itemId, u16 count);
 bool8 RemoveBagItem(u16 itemId, u16 count);
 u8 GetPocketByItemId(u16 itemId);
-void ClearItemSlots(struct ItemSlot *itemSlots, u8 itemCount);
+void ClearItemSlots(struct ItemSlot *itemSlots, u16 itemCount);
 u8 CountUsedPCItemSlots(void);
 bool8 CheckPCHasItem(u16 itemId, u16 count);
 bool8 AddPCItem(u16 itemId, u16 count);
@@ -79,5 +79,12 @@ ItemUseFunc ItemId_GetBattleFunc(u16 itemId);
 u8 ItemId_GetSecondaryId(u16 itemId);
 u8 ItemId_GetFlingPower(u16 itemId);
 void ItemId_GetHoldEffectParam_Script();
+
+void DeserializeTmHmItemSlots(void);
+u16 GetBagItemQuantity(u16 *quantity);
+u8 CountUsedBagItemSlots(void);
+u8 CountUsedPokeBallItemSlots(void);
+u8 CountUsedBerryItemSlots(void);
+u8 CountUsedKeyItemSlots(void);
 
 #endif // GUARD_ITEM_H

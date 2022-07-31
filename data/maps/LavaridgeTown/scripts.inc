@@ -10,7 +10,7 @@ LavaridgeTown_OnTransition:
 	setflag FLAG_VISITED_LAVARIDGE_TOWN
 	call_if_set FLAG_WHITEOUT_TO_LAVARIDGE, LavaridgeTown_EventScript_ClearLavaridgeWhiteOut
 	call_if_set FLAG_DEFEATED_EVIL_TEAM_MT_CHIMNEY, LavaridgeTown_EventScript_ShowMtChimneyTrainers
-	call Common_EventScript_SetupRivalGfxId
+	call Common_EventScript_SetupRiv>alGfxId
 	call Common_EventScript_SetupRivalOnBikeGfxId
 	call_if_eq VAR_LAVARIDGE_TOWN_STATE, 1, LavaridgeTown_EventScript_CheckSetRivalPos
 	call_if_eq VAR_LAVARIDGE_TOWN_STATE, 1, LavaridgeTown_EventScript_HideMapNamePopup
@@ -277,7 +277,7 @@ LavaridgeTown_EventScript_HerbShopSign::
 	end
 
 LavaridgeTown_Text_MayNiceBadgesTakeThis:
-	.string "May: {PLAYER}{KUN}! Long time no see!\p"
+	.string "{RIVAL}: {PLAYER}{KUN}! Long time no see!\p"
 	.string "Oh? While I visited the hot springs,\n"
 	.string "you got the Lavaridge Gym Badge.\p"
 	.string "You must have collected\n"
@@ -287,7 +287,7 @@ LavaridgeTown_Text_MayNiceBadgesTakeThis:
 	.string "have this.$"
 
 LavaridgeTown_Text_MayExplainGoGogglesChallengeDad:
-	.string "May: With those Go-Goggles, you'll\n"
+	.string "{RIVAL}: With those GO-GOGGLES, you'll\n"
 	.string "have no trouble getting through the\l"
 	.string "desert near Route 111.\p"
 	.string "But, wow, {PLAYER}{KUN}…\n"
@@ -299,7 +299,7 @@ LavaridgeTown_Text_MayExplainGoGogglesChallengeDad:
 	.string "See you again!$"
 
 LavaridgeTown_Text_BrendanNiceBadgesTakeThis:
-	.string "Brendan: {PLAYER}, hey, it's been a while.\n"
+	.string "{RIVAL}: {PLAYER}, hey, it's been a while.\n"
 	.string "How's it going?\p"
 	.string "Hmm…\n"
 	.string "That's a decent collection of Badges.\p"
@@ -307,7 +307,7 @@ LavaridgeTown_Text_BrendanNiceBadgesTakeThis:
 	.string "You may as well have this.$"
 
 LavaridgeTown_Text_BrendanExplainGoGogglesChallengeDad:
-	.string "Brendan: Keep those with you if you're\n"
+	.string "{RIVAL}: Keep those with you if you're\n"
 	.string "planning on going into that desert near\l"
 	.string "Route 111.\p"
 	.string "There should be some Pokémon that\n"

@@ -40,6 +40,7 @@
 #include "constants/moves.h"
 #include "constants/rgb.h"
 #include "constants/songs.h"
+#include "util.h"
 
 /*
     NOTE: This file is large. Some general groups of functions have
@@ -373,23 +374,6 @@ struct StorageMenu
     int textId;
 };
 
-struct UnkUtilData
-{
-    const u8 *src;
-    u8 *dest;
-    u16 size;
-    u16 unk;
-    u16 height;
-    void (*func)(struct UnkUtilData *data);
-};
-
-struct UnkUtil
-{
-    struct UnkUtilData *data;
-    u8 numActive;
-    u8 max;
-};
-
 struct ChooseBoxMenu
 {
     struct Sprite *menuSprite;
@@ -419,8 +403,6 @@ struct PokemonStorageSystemData
     u8 screenChangeType;
     bool8 isReopening;
     u8 taskId;
-    struct UnkUtil unkUtil;
-    struct UnkUtilData unkUtilData[8];
     u16 partyMenuTilemapBuffer[0x108];
     u16 partyMenuY;
     u8 partyMenuMoveTimer;
@@ -878,10 +860,6 @@ static void TilemapUtil_Free(void);
 static void TilemapUtil_Update(u8);
 static void TilemapUtil_DrawPrev(u8);
 static void TilemapUtil_Draw(u8);
-
-// Unknown utility
-static void UnkUtil_Init(struct UnkUtil *, struct UnkUtilData *, u32);
-static void UnkUtil_Run(void);
 
 // Form changing
 void SetMonFormPSS(struct BoxPokemon *boxMon);
@@ -1906,18 +1884,7 @@ static void VBlankCB_PokeStorage(void)
     }
     LoadOam();
     ProcessSpriteCopyRequests();
-    UnkUtil_Run();
-    // Instead of transferring the entire palette buffer, transfer bg and non-dynamic palettes
-    if (sPaletteSwapBuffer && !gPaletteFade.bufferTransferDisabled && !gPaletteFade.active && !sStorage->transferWholePlttFrames) {
-      RequestDma3Copy(gPlttBufferFaded, (void*)PLTT, 32*17, 0);
-      // Skip the 12-1 palettes that are being dynamically swapped anyway
-      RequestDma3Copy(&gPlttBufferFaded[(12+16)*16], (void*) 0x05000380, 32*4, 0);
-    } else {
-      if (sStorage && sStorage->transferWholePlttFrames > 0)
-        sStorage->transferWholePlttFrames--;
-      TransferPlttBuffer();
-    }
-
+    TransferPlttBuffer();
     SetGpuReg(REG_OFFSET_BG2HOFS, sStorage->bg2_X);
 }
 
@@ -2002,7 +1969,6 @@ static void ResetForPokeStorage(void)
     FreeAllSpritePalettes();
     ClearDma3Requests();
     gReservedSpriteTileCount = 0x280;
-    UnkUtil_Init(&sStorage->unkUtil, sStorage->unkUtilData, ARRAY_COUNT(sStorage->unkUtilData));
     gKeyRepeatStartDelay = 20;
     ClearScheduledBgCopiesToVram();
     TilemapUtil_Init(TILEMAPID_COUNT);
@@ -3999,16 +3965,31 @@ static void CreateDisplayMonSprite(void)
 
 static void LoadDisplayMonGfx(u16 species, u32 pid)
 {
+    const struct CompressedSpritePalette *pal1, *pal2;
+
     if (sStorage->displayMonSprite == NULL)
         return;
 
-    if (species != SPECIES_NONE)
+    if (species == SPECIES_EGG)
+    {
+        pal1 = &gEgg1PaletteTable[sStorage->filler2[0]];
+        pal2 = &gEgg2PaletteTable[sStorage->filler2[1]];
+        LoadSpecialPokePic(&gMonFrontPicTable[species], sStorage->tileBuffer, species, pid, TRUE);
+        LZ77UnCompWram(pal1->data, sStorage->displayMonPalBuffer);
+        LZ77UnCompWram(pal2->data, gDecompressionBuffer);
+        CpuCopy32(sStorage->tileBuffer, sStorage->displayMonTilePtr, MON_PIC_SIZE);
+        LoadPalette(sStorage->displayMonPalBuffer, sStorage->displayMonPalOffset, 0x10);
+        LoadPalette(gDecompressionBuffer, sStorage->displayMonPalOffset + 8, 0x10);
+        sStorage->displayMonSprite->invisible = FALSE;
+    }
+    else if (species != SPECIES_NONE)
     {
         LoadSpecialPokePic(&gMonFrontPicTable[species], sStorage->tileBuffer, species, pid, TRUE);
-        // LZ77UnCompWram(sStorage->displayMonPalette, sStorage->displayMonPalBuffer);
-        CpuFastCopy(sStorage->tileBuffer, sStorage->displayMonTilePtr, MON_PIC_SIZE);
-        LoadCompressedPaletteFast(sStorage->displayMonPalette, sStorage->displayMonPalOffset, 0x20);
-        // LoadPalette(sStorage->displayMonPalBuffer, sStorage->displayMonPalOffset, 0x20);
+        LZ77UnCompWram(sStorage->displayMonPalette, sStorage->displayMonPalBuffer);
+        CpuCopy32(sStorage->tileBuffer, sStorage->displayMonTilePtr, MON_PIC_SIZE);
+        LoadPalette(sStorage->displayMonPalBuffer, sStorage->displayMonPalOffset, 0x20);
+        UniquePalette(sStorage->displayMonPalOffset, species, pid, (bool8)sStorage->filler2[2]);
+        CpuCopy32(gPlttBufferFaded + sStorage->displayMonPalOffset, gPlttBufferUnfaded + sStorage->displayMonPalOffset, 32);
         sStorage->displayMonSprite->invisible = FALSE;
     }
     else
@@ -6510,14 +6491,9 @@ static void SetMovingMonData(u8 boxId, u8 position)
 static void SetPlacedMonData(u8 boxId, u8 position)
 {
     if (boxId == TOTAL_BOXES_COUNT)
-    {
         gPlayerParty[position] = sStorage->movingMon;
-    }
     else
-    {
-        BoxMonRestorePP(&sStorage->movingMon.box);
         SetBoxMonAt(boxId, position, &sStorage->movingMon.box);
-    }
 }
 
 static void PurgeMonOrBoxMon(u8 boxId, u8 position)
@@ -7064,6 +7040,9 @@ static void SetDisplayMonData(void *pokemon, u8 mode)
             sStorage->displayMonPalette = GetMonFrontSpritePal(mon);
             gender = GetMonGender(mon);
             sStorage->displayMonItemId = GetMonData(mon, MON_DATA_HELD_ITEM);
+            sStorage->filler2[0] = gBaseStats[GetMonData(mon, MON_DATA_SPECIES)].type1;
+            sStorage->filler2[1] = gBaseStats[GetMonData(mon, MON_DATA_SPECIES)].type2;
+            sStorage->filler2[2] = IsMonShiny(mon);
         }
     }
     else if (mode == MODE_BOX)
@@ -7080,7 +7059,6 @@ static void SetDisplayMonData(void *pokemon, u8 mode)
             else
                 sStorage->displayMonIsEgg = GetBoxMonData(boxMon, MON_DATA_IS_EGG);
 
-
             GetBoxMonData(boxMon, MON_DATA_NICKNAME, sStorage->displayMonName);
             StringGet_Nickname(sStorage->displayMonName);
             sStorage->displayMonLevel = GetLevelFromBoxMonExp(boxMon);
@@ -7089,6 +7067,9 @@ static void SetDisplayMonData(void *pokemon, u8 mode)
             sStorage->displayMonPalette = GetMonSpritePalFromSpeciesAndPersonality(sStorage->displayMonSpecies, otId, sStorage->displayMonPersonality);
             gender = GetGenderFromSpeciesAndPersonality(sStorage->displayMonSpecies, sStorage->displayMonPersonality);
             sStorage->displayMonItemId = GetBoxMonData(boxMon, MON_DATA_HELD_ITEM);
+            sStorage->filler2[0] = gBaseStats[GetBoxMonData(boxMon, MON_DATA_SPECIES)].type1;
+            sStorage->filler2[1] = gBaseStats[GetBoxMonData(boxMon, MON_DATA_SPECIES)].type2;
+            sStorage->filler2[2] = IsBoxMonShiny(boxMon);
         }
     }
     else
@@ -9585,6 +9566,19 @@ static void SpriteCB_ItemIcon_HideParty(struct Sprite *sprite)
 //------------------------------------------------------------------------------
 
 // Functions here are general utility functions.
+
+// Originally Unused, leftover from FRLG
+static void BackupPokemonStorage(struct PokemonStorage * dest)
+{
+    *dest = *gPokemonStoragePtr;
+}
+
+// Originally Unused, leftover from FRLG
+static void RestorePokemonStorage(struct PokemonStorage * src)
+{
+    *gPokemonStoragePtr = *src;
+}
+
 u8 StorageGetCurrentBox(void)
 {
     return gPokemonStoragePtr->currentBox;
@@ -10127,41 +10121,6 @@ static void TilemapUtil_Draw(u8 id)
                                   sTilemapUtil[id].cur.width,
                                   1);
         tiles += adder;
-    }
-}
-
-
-//------------------------------------------------------------------------------
-//  SECTION: UnkUtil
-//
-//  Some data transfer utility that goes functionally unused.
-//  It gets initialized with UnkUtil_Init, and run every vblank in Pokémon
-//  Storage with UnkUtil_Run, but neither of the Add functions are ever used,
-//  so UnkUtil_Run performs no actions.
-//------------------------------------------------------------------------------
-
-
-EWRAM_DATA static struct UnkUtil *sUnkUtil = NULL;
-
-static void UnkUtil_Init(struct UnkUtil *util, struct UnkUtilData *data, u32 max)
-{
-    sUnkUtil = util;
-    util->data = data;
-    util->max = max;
-    util->numActive = 0;
-}
-
-static void UnkUtil_Run(void)
-{
-    u16 i;
-    if (sUnkUtil->numActive)
-    {
-        for (i = 0; i < sUnkUtil->numActive; i++)
-        {
-            struct UnkUtilData *data = &sUnkUtil->data[i];
-            data->func(data);
-        }
-        sUnkUtil->numActive = 0;
     }
 }
 

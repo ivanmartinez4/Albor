@@ -12,6 +12,7 @@
 #include "trainer_hill.h"
 #include "link.h"
 #include "constants/game_stat.h"
+#include "rtc.h"
 
 static u16 CalculateChecksum(void *, u16);
 static bool8 ReadFlashSector(u8, struct SaveSector *);
@@ -707,17 +708,16 @@ u8 HandleSavingData(u8 saveType)
     u8 i;
     u32 *backupVar = gTrainerHillVBlankCounter;
     u8 *tempAddr;
+    struct SiiRtcInfo rtc;
 
     gTrainerHillVBlankCounter = NULL;
     UpdateSaveAddresses();
+    RtcGetDateTime(&rtc);
+    gSaveBlock2Ptr->savedDay = ConvertBcdToBinary(rtc.day);
+    gSaveBlock2Ptr->savedMonth = ConvertBcdToBinary(rtc.month);
+    gSaveBlock2Ptr->savedYear = (u16)ConvertBcdToBinary(rtc.year) + 2000;
     switch (saveType)
     {
-    case SAVE_HALL_OF_FAME_ERASE_BEFORE:
-        // Unused. Erases the special save sectors (HOF, Trainer Hill, Recorded Battle)
-        // before overwriting HOF.
-        for (i = SECTOR_ID_HOF_1; i < SECTORS_COUNT; i++)
-            EraseFlashSector(i);
-        // fallthrough
     case SAVE_HALL_OF_FAME:
         if (GetGameStat(GAME_STAT_ENTERED_HOF) < 999)
             IncrementGameStat(GAME_STAT_ENTERED_HOF);

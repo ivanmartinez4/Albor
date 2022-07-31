@@ -306,6 +306,3 @@ BattleFrontier_BattleTowerLobby_EventScript_ShowOrHideReporter::
 BattleFrontier_BattleTowerLobby_EventScript_HideReporter::
 	setflag FLAG_HIDE_BATTLE_TOWER_REPORTER
 	return
-
-EventScript_ContestLiveInterviewEnd::
-	return

@@ -20,6 +20,8 @@ SkyPillar_Outside_EventScript_CheckSetAbnormalWeather::
 	return
 
 SkyPillar_Outside_OnLoad:
+	call_if_eq VAR_SKY_PILLAR_STATE, 4, SkyPillar_Outside_EventScript_OpenDoor
+	call_if_eq VAR_SKY_PILLAR_STATE, 3, SkyPillar_Outside_EventScript_End
 	call_if_set FLAG_WALLACE_GOES_TO_SKY_PILLAR, SkyPillar_Outside_EventScript_OpenDoor
 	end
 
@@ -27,6 +29,9 @@ SkyPillar_Outside_EventScript_OpenDoor::
 	setmetatile 14, 4, METATILE_Pacifidlog_SkyPillar_DoorOpen_Top, FALSE
 	setmetatile 14, 5, METATILE_Pacifidlog_SkyPillar_DoorOpen_Bottom, FALSE
 	return
+
+SkyPillar_Outside_EventScript_End:
+	end
 
 SkyPillar_Outside_OnFrame:
 	map_script_2 VAR_SOOTOPOLIS_CITY_STATE, 3, SkyPillar_Outside_EventScript_WallaceScene
@@ -131,9 +136,6 @@ SkyPillar_Outside_Movement_PlayerClimbSkyPillar:
 	walk_up
 	walk_up
 	step_end
-
-SkyPillar_Outside_EventScript_Wallace::
-	end
 
 SkyPillar_Outside_EventScript_ClosedDoor::
 	msgbox SkyPillar_Outside_Text_DoorIsClosed, MSGBOX_SIGN

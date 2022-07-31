@@ -7,6 +7,7 @@
 #include "constants/moves.h"
 #include "constants/trainers.h"
 #include "constants/battle_ai.h"
+#include "battle_transition.h"
 
 const u16 gMinigameDigits_Pal[] = INCBIN_U16("graphics/link/minigame_digits.gbapal");
 const u32 gMinigameDigits_Gfx[] = INCBIN_U32("graphics/link/minigame_digits.4bpp.lz");
@@ -109,6 +110,22 @@ const struct SpriteFrameImage gTrainerBackPicTable_Steven[] =
     gTrainerBackPic_Steven + 0x0800, 0x0800,
     gTrainerBackPic_Steven + 0x1000, 0x0800,
     gTrainerBackPic_Steven + 0x1800, 0x0800,
+};
+
+const struct SpriteFrameImage gTrainerBackPicTable_AdventuresBrendan[] =
+{
+    gTrainerBackPic_AdventuresBrendan, 0x0800,
+    gTrainerBackPic_AdventuresBrendan + 0x0800, 0x0800,
+    gTrainerBackPic_AdventuresBrendan + 0x1000, 0x0800,
+    gTrainerBackPic_AdventuresBrendan + 0x1800, 0x0800,
+};
+
+const struct SpriteFrameImage gTrainerBackPicTable_AdventuresMay[] =
+{
+    gTrainerBackPic_AdventuresMay, 0x0800,
+    gTrainerBackPic_AdventuresMay + 0x0800, 0x0800,
+    gTrainerBackPic_AdventuresMay + 0x1000, 0x0800,
+    gTrainerBackPic_AdventuresMay + 0x1800, 0x0800,
 };
 
 static const union AnimCmd sAnim_GeneralFrame0[] =

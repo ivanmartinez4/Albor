@@ -106,7 +106,6 @@ Route110_TrickHousePuzzle7_EventScript_FoundScroll::
 	goto Route110_TrickHousePuzzle_EventScript_FoundScroll
 	end
 
-@ From here is where the new, actually used puzzle scripts begin
 Route110_TrickHousePuzzle7_EventScript_YellowButton::
 	playse SE_SWITCH
 	waitse

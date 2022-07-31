@@ -85,6 +85,11 @@ LittlerootTown_MaysHouse_2F_EventScript_MeetMayNorth::
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
 	waitmovement 0
 	msgbox RivalsHouse_2F_Text_MayWhoAreYou, MSGBOX_DEFAULT
+	special SetRivalsName
+	waitstate
+	goto LittlerootTown_MaysHouse_2F_EventScript_MeetMayNorth2
+LittlerootTown_MaysHouse_2F_EventScript_MeetMayNorth2:
+	msgbox RivalsHouse_2F_Text_MayWhoAreYou2, MSGBOX_DEFAULT
 	closemessage
 	applymovement OBJ_EVENT_ID_PLAYER, LittlerootTown_MaysHouse_2F_Movement_PlayerWatchMayNorth
 	applymovement LOCALID_RIVAL, LittlerootTown_MaysHouse_2F_Movement_MayWalkToPCNorth
@@ -97,6 +102,11 @@ LittlerootTown_MaysHouse_2F_EventScript_MeetMaySouth::
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
 	waitmovement 0
 	msgbox RivalsHouse_2F_Text_MayWhoAreYou, MSGBOX_DEFAULT
+	special SetRivalsName
+	waitstate
+	goto LittlerootTown_MaysHouse_2F_EventScript_MeetMaySouth2
+LittlerootTown_MaysHouse_2F_EventScript_MeetMaySouth2:
+	msgbox RivalsHouse_2F_Text_MayWhoAreYou2, MSGBOX_DEFAULT
 	closemessage
 	applymovement OBJ_EVENT_ID_PLAYER, LittlerootTown_MaysHouse_2F_Movement_PlayerWatchMaySouth
 	applymovement LOCALID_RIVAL, LittlerootTown_MaysHouse_2F_Movement_MayWalkToPCSouth
@@ -109,6 +119,11 @@ LittlerootTown_MaysHouse_2F_EventScript_MeetMayWest::
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp
 	waitmovement 0
 	msgbox RivalsHouse_2F_Text_MayWhoAreYou, MSGBOX_DEFAULT
+	special SetRivalsName
+	waitstate
+	goto LittlerootTown_MaysHouse_2F_EventScript_MeetMayWest2
+LittlerootTown_MaysHouse_2F_EventScript_MeetMayWest2:
+	msgbox RivalsHouse_2F_Text_MayWhoAreYou2, MSGBOX_DEFAULT
 	closemessage
 	applymovement LOCALID_RIVAL, LittlerootTown_MaysHouse_2F_Movement_MayWalkToPCWest
 	waitmovement 0
@@ -120,6 +135,11 @@ LittlerootTown_MaysHouse_2F_EventScript_MeetMayEast::
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
 	waitmovement 0
 	msgbox RivalsHouse_2F_Text_MayWhoAreYou, MSGBOX_DEFAULT
+	special SetRivalsName
+	waitstate
+	goto LittlerootTown_MaysHouse_2F_EventScript_MeetMayEast2
+LittlerootTown_MaysHouse_2F_EventScript_MeetMayEast2:
+	msgbox RivalsHouse_2F_Text_MayWhoAreYou2, MSGBOX_DEFAULT
 	closemessage
 	applymovement OBJ_EVENT_ID_PLAYER, LittlerootTown_MaysHouse_2F_Movement_PlayerWatchMayEast
 	applymovement LOCALID_RIVAL, LittlerootTown_MaysHouse_2F_Movement_MayWalkToPCEast
@@ -310,7 +330,9 @@ RivalsHouse_2F_Text_MayWhoAreYou:
 	.string "… … … … … … … …\p"
 	.string "Oh, you're {PLAYER}{KUN}.\n"
 	.string "So your move was today.\p"
-	.string "Um… I'm May.\n"
+	.string "Um… I'm…$"
+RivalsHouse_2F_Text_MayWhoAreYou2:
+	.string "Um… I'm {RIVAL}.\n"
 	.string "Glad to meet you!\p"
 	.string "I…\n"
 	.string "I have this dream of becoming friends\l"
@@ -341,7 +363,9 @@ RivalsHouse_2F_Text_BrendanWhoAreYou:
 	.string "Dad, Prof. Birch, said that our new\n"
 	.string "next-door neighbor is a Gym Leader's\l"
 	.string "kid, so I assumed you'd be a guy.\p"
-	.string "My name's Brendan.\n"
+	.string "My name's…$"
+RivalsHouse_2F_Text_BrendanWhoAreYou2:
+	.string "My name's {RIVAL}.\n"
 	.string "So, hi, neighbor!\p"
 	.string "Huh? Hey, {PLAYER}, don't you have\n"
 	.string "a Pokémon?\p"
@@ -360,9 +384,9 @@ RivalsHouse_2F_Text_ItsRivalsPokeBall:
 	.string "Better leave it right where it is.$"
 
 RivalsHouse_2F_Text_MayJustCheckingMyPokedex:
-	.string "May: {PLAYER}{KUN}!\p"
-	.string "I was just checking my Pokédex.\p"
-	.string "There's still a lot of Pokémon that\n"
+	.string "{RIVAL}: {PLAYER}{KUN}!\p"
+	.string "I was just checking my POKéDEX.\p"
+	.string "There's still a lot of POKéMON that\n"
 	.string "I've seen but haven't caught.\p"
 	.string "And there are many others that\n"
 	.string "I think will evolve.\p"
@@ -370,23 +394,23 @@ RivalsHouse_2F_Text_MayJustCheckingMyPokedex:
 	.string "some Pokémon next?$"
 
 RivalsHouse_2F_Text_MayWhereShouldIGoNext:
-	.string "May: I wonder where I should go catch\n"
-	.string "some Pokémon next?\p"
+	.string "{RIVAL}: I wonder where I should go catch\n"
+	.string "some POKéMON next?\p"
 	.string "Wouldn't it be funny if we ran into each\n"
 	.string "other, {PLAYER}{KUN}?$"
 
 RivalsHouse_2F_Text_BrendanJustCheckingMyPokedex:
-	.string "Brendan: Hey, it's {PLAYER}.\p"
-	.string "I was just checking out my Pokédex.\p"
-	.string "There are still many Pokémon that\n"
+	.string "{RIVAL}: Hey, it's {PLAYER}.\p"
+	.string "I was just checking out my POKéDEX.\p"
+	.string "There are still many POKéMON that\n"
 	.string "I need to catch, I know, but this\l"
 	.string "is looking pretty good.\p"
 	.string "Checking this Pokédex out gives me\n"
 	.string "the urge to hit the road again.$"
 
 RivalsHouse_2F_Text_BrendanWhereShouldIGoNext:
-	.string "Brendan: I'm having a hard time deciding\n"
-	.string "where I should catch Pokémon next.\p"
+	.string "{RIVAL}: I'm having a hard time deciding\n"
+	.string "where I should catch POKéMON next.\p"
 	.string "Hey, {PLAYER}, if I see you while I'm out\n"
 	.string "catching Pokémon, I can pitch you a\l"
 	.string "battle if you'd like.$"

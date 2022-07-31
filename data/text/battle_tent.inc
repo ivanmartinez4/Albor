@@ -33,8 +33,8 @@ FallarborTown_BattleTentLobby_Text_ExplainFallarborTent:
 	.string "we will present you with a fine prize.$"
 
 FallarborTown_BattleTentLobby_Text_SaveBeforeChallenge:
-	.string "Before showing you to the Battle\n"
-	.string "Tent, I must save. Is that okay?$"
+	.string "Before showing you to the BATTLE\n"
+	.string "TENT, I must save. Is that okay?$"
 
 FallarborTown_BattleTentLobby_Text_SelectThreeMons:
 	.string "Very well, now select your\n"
@@ -143,7 +143,7 @@ VerdanturfTown_BattleTentLobby_Text_ExplainVerdanturfTent:
 
 VerdanturfTown_BattleTentLobby_Text_ReturnFortified:
 	.string "When you have fortified your heart\n"
-	.string "and Pokémon, you must return.$"
+	.string "and POKéMON, you must return.$"
 
 VerdanturfTown_BattleTentLobby_Text_NotEnoughValidMonsLv50:
 	.string "Sigh…\p"

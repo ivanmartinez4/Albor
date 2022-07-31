@@ -28,6 +28,7 @@ void ItemUseOutOfBattle_EnigmaBerry(u8);
 void ItemUseOutOfBattle_FormChange(u8);
 void ItemUseOutOfBattle_FormChange_ConsumedOnUse(u8);
 void ItemUseOutOfBattle_CannotUse(u8);
+void ItemUseOutOfBattle_ExpShare(u8);
 void ItemUseInBattle_PokeBall(u8);
 void ItemUseInBattle_StatIncrease(u8);
 void ItemUseInBattle_Medicine(u8);
@@ -42,6 +43,7 @@ enum {
     BALL_THROW_UNABLE_TWO_MONS,
     BALL_THROW_UNABLE_NO_ROOM,
     BALL_THROW_UNABLE_SEMI_INVULNERABLE,
+    BALL_THROW_NOT_ALLOWED,
     BALL_THROW_ABLE,
 };
 

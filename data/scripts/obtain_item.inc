@@ -31,7 +31,7 @@ EventScript_BufferItemsPocket::
 
 EventScript_BufferKeyItemsPocket::
 	bufferstdstring STR_VAR_3, STDSTRING_KEYITEMS
-	call_if_eq VAR_0x8007, TRUE, EventScript_PlayFanfareObtainedItem
+	call_if_eq VAR_0x8007, TRUE, EventScript_PlayFanfareObtainedKeyItem
 	return
 
 EventScript_BufferPokeballsPocket::
@@ -50,7 +50,14 @@ EventScript_BufferBerriesPocket::
 	return
 
 EventScript_ObtainedItem::
+	compare VAR_0x8001, 1
+	goto_if_eq EventScript_ObtainedItemMessage
+	buffernumberstring 0, VAR_0x8001
+	message gText_ObtainedTheItems
+	goto EventScript_ContinueObtainedItem
+EventScript_ObtainedItemMessage:
 	message gText_ObtainedTheItem
+EventScript_ContinueObtainedItem:
 	waitfanfare
 	msgbox gText_PutItemInPocket, MSGBOX_DEFAULT
 	setvar VAR_RESULT, TRUE
@@ -62,6 +69,10 @@ EventScript_NoRoomForItem::
 
 EventScript_PlayFanfareObtainedItem::
 	playfanfare MUS_OBTAIN_ITEM
+	return
+
+EventScript_PlayFanfareObtainedKeyItem::
+	playfanfare MUS_HG_OBTAIN_KEY_ITEM
 	return
 
 EventScript_PlayFanfareObtainedTMHM::
@@ -133,6 +144,12 @@ EventScript_FoundTMHM::
 	return
 
 EventScript_FoundItem::
+	compare VAR_0x8001, 1
+	goto_if_eq EventScript_FoundItemMessage
+	buffernumberstring 0, VAR_0x8001
+	message gText_PlayerFoundItems
+	return
+EventScript_FoundItemMessage::
 	message gText_PlayerFoundOneItem
 	return
 
@@ -190,3 +207,26 @@ EventScript_NoRoomForHiddenItem::
 	setvar VAR_RESULT, 0
 	releaseall
 	end
+
+Std_ReceiveItem::
+	additem VAR_0x8000, VAR_0x8001
+	copyvar VAR_0x8007, VAR_RESULT
+	call EventScript_ReceiveItemMessage
+	return
+
+EventScript_ReceiveItemMessage::
+	bufferitemnameplural 1, VAR_0x8000, VAR_0x8001
+	checkitemtype VAR_0x8000
+	call EventScript_BufferPocketNameAndTryFanfare
+	compare VAR_0x8007, 1
+	call_if_eq EventScript_ReceivedItem
+	compare VAR_0x8007, 0
+	call_if_eq EventScript_NoRoomForItem
+	return
+
+EventScript_ReceivedItem::
+	message gText_PlayerReceivedTheItem
+	waitfanfare
+	msgbox gText_PutItemInPocket, MSGBOX_DEFAULT
+	setvar VAR_RESULT, 1
+	return

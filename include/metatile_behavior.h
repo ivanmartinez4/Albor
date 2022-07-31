@@ -19,6 +19,7 @@ bool8 MetatileBehavior_IsPokeGrass(u8);
 bool8 MetatileBehavior_IsSandOrDeepSand(u8);
 bool8 MetatileBehavior_IsDeepSand(u8);
 bool8 MetatileBehavior_IsReflective(u8);
+bool8 MetatileBehavior_HasFeebas(u8);
 bool8 MetatileBehavior_IsIce(u8);
 bool8 MetatileBehavior_IsWarpDoor(u8);
 bool8 MetatileBehavior_IsDoor(u8);
@@ -148,5 +149,6 @@ bool8 MetatileBehavior_IsQuestionnaire(u8);
 bool8 MetatileBehavior_IsLongGrass_Duplicate(u8);
 bool8 MetatileBehavior_IsLongGrassSouthEdge(u8);
 bool8 MetatileBehavior_IsTrainerHillTimer(u8);
+bool8 MetatileBehavior_IsHeadbuttTree(u8);
 
 #endif // GUARD_METATILE_BEHAVIOR_H

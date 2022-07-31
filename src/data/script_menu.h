@@ -54,6 +54,21 @@ static const struct MenuAction MultichoiceList_RegisterMenu[] =
     {gText_Cancel2},
 };
 
+static const struct MenuAction MultichoiceList_CostumeSelection1[] =
+{
+    {gText_PkmnTrainerCostume},
+    {gText_LegacyCostume},
+    {gText_Exit},
+};
+
+static const struct MenuAction MultichoiceList_CostumeSelection2[] =
+{
+    {gText_PkmnTrainerCostume},
+    {gText_LegacyCostume},
+    {gText_PokedexHolderCostume},
+    {gText_Exit},
+};
+
 static const struct MenuAction MultichoiceList_Bike[] =
 {
     {gText_Mach},
@@ -218,6 +233,7 @@ static const struct MenuAction MultichoiceList_VendingMachine[] =
 
 static const struct MenuAction MultichoiceList_MachBikeInfo[] =
 {
+    {gText_MachBikeMode},
     {gText_HowToRide},
     {gText_HowToTurn},
     {gText_SandySlopes},
@@ -226,6 +242,7 @@ static const struct MenuAction MultichoiceList_MachBikeInfo[] =
 
 static const struct MenuAction MultichoiceList_AcroBikeInfo[] =
 {
+    {gText_AcroBikeMode},
     {gText_Wheelies},
     {gText_BunnyHops},
     {gText_Jump},
@@ -693,14 +710,6 @@ static const struct MenuAction MultichoiceList_BattleTowerFeelings[] =
     {gText_IWontTell},
 };
 
-static const struct MenuAction MultichoiceList_WheresRayquaza[] =
-{
-    {gText_CaveOfOrigin},
-    {gText_MtPyre},
-    {gText_SkyPillar},
-    {gText_DontRemember},
-};
-
 static const struct MenuAction MultichoiceList_SlateportTentRules[] =
 {
     {gText_BasicRules},
@@ -719,6 +728,46 @@ static const struct MenuAction MultichoiceList_FallarborTentRules[] =
     {gText_JudgeSkill},
     {gText_JudgeBody},
     {gText_Exit},
+};
+
+static const struct MenuAction MultichoiceList_Dynamic2[] =
+{
+    {TEXT_STRING("{STR_VAR_1}")},
+    {TEXT_STRING("{STR_VAR_2}")},
+};
+
+static const struct MenuAction MultichoiceList_Dynamic3[] =
+{
+    {TEXT_STRING("{STR_VAR_1}")},
+    {TEXT_STRING("{STR_VAR_2}")},
+    {TEXT_STRING("{STR_VAR_3}")},
+};
+
+static const struct MenuAction MultichoiceList_Dynamic4[] =
+{
+    {TEXT_STRING("{STR_VAR_1}")},
+    {TEXT_STRING("{STR_VAR_2}")},
+    {TEXT_STRING("{STR_VAR_3}")},
+    {TEXT_STRING("{STR_VAR_4}")},
+};
+
+static const struct MenuAction MultichoiceList_Dynamic5[] =
+{
+    {TEXT_STRING("{STR_VAR_1}")},
+    {TEXT_STRING("{STR_VAR_2}")},
+    {TEXT_STRING("{STR_VAR_3}")},
+    {TEXT_STRING("{STR_VAR_4}")},
+    {TEXT_STRING("{STR_VAR_5}")},
+};
+
+static const struct MenuAction MultichoiceList_Dynamic6[] =
+{
+    {TEXT_STRING("{STR_VAR_1}")},
+    {TEXT_STRING("{STR_VAR_2}")},
+    {TEXT_STRING("{STR_VAR_3}")},
+    {TEXT_STRING("{STR_VAR_4}")},
+    {TEXT_STRING("{STR_VAR_5}")},
+    {TEXT_STRING("{STR_VAR_6}")},
 };
 
 static const struct MenuAction MultichoiceList_TagMatchType[] =
@@ -752,6 +801,8 @@ static const struct MultichoiceListStruct sMultichoiceLists[] =
     [MULTI_BASE_PC_WITH_REGISTRY]      = MULTICHOICE(MultichoiceList_BasePCWithRegistry),
     [MULTI_REGISTER_MENU]              = MULTICHOICE(MultichoiceList_RegisterMenu),
     [MULTI_SSTIDAL_LILYCOVE]           = MULTICHOICE(MultichoiceList_Exit),
+    [MULTI_COSTUME_SELECTION_1]        = MULTICHOICE(MultichoiceList_CostumeSelection1),
+    [MULTI_COSTUME_SELECTION_2]        = MULTICHOICE(MultichoiceList_CostumeSelection2),
     [MULTI_FRONTIER_PASS_INFO]         = MULTICHOICE(MultichoiceList_FrontierPassInfo),
     [MULTI_BIKE]                       = MULTICHOICE(MultichoiceList_Bike),
     [MULTI_STATUS_INFO]                = MULTICHOICE(MultichoiceList_StatusInfo),
@@ -839,10 +890,13 @@ static const struct MultichoiceListStruct sMultichoiceLists[] =
     [MULTI_TOURNEY_NO_RECORD]          = MULTICHOICE(MultichoiceList_TourneyNoRecord),
     [MULTI_TV_LATI]                    = MULTICHOICE(MultichoiceList_TVLati),
     [MULTI_BATTLE_TOWER_FEELINGS]      = MULTICHOICE(MultichoiceList_BattleTowerFeelings),
-    [MULTI_WHERES_RAYQUAZA]            = MULTICHOICE(MultichoiceList_WheresRayquaza),
     [MULTI_SLATEPORT_TENT_RULES]       = MULTICHOICE(MultichoiceList_SlateportTentRules),
     [MULTI_FALLARBOR_TENT_RULES]       = MULTICHOICE(MultichoiceList_FallarborTentRules),
-    [MULTI_TAG_MATCH_TYPE]             = MULTICHOICE(MultichoiceList_TagMatchType),
+    [MULTI_DYNAMIC_2]                  = MULTICHOICE(MultichoiceList_Dynamic2),
+    [MULTI_DYNAMIC_3]                  = MULTICHOICE(MultichoiceList_Dynamic3),
+    [MULTI_DYNAMIC_4]                  = MULTICHOICE(MultichoiceList_Dynamic4),
+    [MULTI_DYNAMIC_5]                  = MULTICHOICE(MultichoiceList_Dynamic5),
+    [MULTI_DYNAMIC_6]                  = MULTICHOICE(MultichoiceList_Dynamic6),
 };
 
 const u8 *const gStdStrings[] =

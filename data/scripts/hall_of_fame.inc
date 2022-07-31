@@ -1,5 +1,6 @@
 EverGrandeCity_HallOfFame_EventScript_SetGameClearFlags::
 	special SetChampionSaveWarp
+	call_if_set FLAG_IS_CHAMPION, EventScript_HallOfFame_EventScript_IsChampionAgain
 	setflag FLAG_IS_CHAMPION
 	call EverGrandeCity_HallOfFame_EventScript_ResetDefeatedEventLegendaries
 	call_if_eq VAR_FOSSIL_MANIAC_STATE, 0, EverGrandeCity_HallOfFame_EventScript_SetDesertUnderpassCommentReady
@@ -22,6 +23,14 @@ EverGrandeCity_HallOfFame_EventScript_SetGameClearFlags::
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_RIVAL_BEDROOM
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_RIVAL_BEDROOM
 	call_if_eq VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 0, EverGrandeCity_HallOfFame_EventScript_ReadyDexUpgradeEvent
+	addvar VAR_POKEMON_LEAGUE_RUNS_COUNTER, 1
+	call_if_set FLAG_DEFEATED_RIVAL_POSTGAME, EverGrandeCity_HallOfFame_EventScript_Birch_LabState
+	clearflag FLAG_DEFEATED_RIVAL_POSTGAME
+	call_if_unset FLAG_DEFEATED_METEOR_FALLS_STEVEN, EverGrandeCity_HallOfFame_EventScript_CantPhoneCallTheE4
+	return
+
+EventScript_HallOfFame_EventScript_IsChampionAgain:
+	setflag FLAG_IS_CHAMPION_AGAIN
 	return
 
 EverGrandeCity_HallOfFame_EventScript_ResetDefeatedEventLegendaries::
@@ -48,4 +57,12 @@ EverGrandeCity_HallOfFame_EventScript_ReadyReceiveSSTicketEvent::
 
 EverGrandeCity_HallOfFame_EventScript_ReadyDexUpgradeEvent::
 	setvar VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 1
+	return
+
+EverGrandeCity_HallOfFame_EventScript_Birch_LabState:
+	setvar VAR_BIRCH_LAB_STATE, 6
+	return
+
+EverGrandeCity_HallOfFame_EventScript_CantPhoneCallTheE4:
+	setflag FLAG_CANT_REACH_BY_MATCH_CALL
 	return

@@ -756,20 +756,17 @@ static const u8 sText_TargetTooHeavy[] = _("But the target\nwas too heavy!");
 static const u8 sText_MeteorBeamCharging[] = _("{B_ATK_NAME_WITH_PREFIX} is overflowing\nwith space energy!");
 static const u8 sText_HeatingUpBeak[] = _("{B_ATK_NAME_WITH_PREFIX} started\nheating up its beak!");
 static const u8 sText_CourtChange[] = _("{B_ATK_NAME_WITH_PREFIX} swapped the battle\neffects affecting each side!");
-
+static const u8 sText_Trainer1PkmnComeBack[] = _("{B_TRAINER1_NAME}: {B_OPPONENT_MON1_NAME}, come back!");
+static const u8 sText_PlayerWhiteout3[] = _("{B_PLAYER_NAME} lost the battle!\p");
+static const u8 sText_MonPickedUpItem[] = _("Your POKéMON picked\nup some items!");
+static const u8 sText_MonPickedUpItemSolo[] = _("{B_BUFF1} picked up {B_BUFF2} {B_BUFF3}!");
 
 const u8 *const gBattleStringsTable[BATTLESTRINGS_COUNT] =
 {
-    [STRINGID_ZPOWERSURROUNDS - BATTLESTRINGS_TABLE_START] = sText_ZPowerSurrounds,
-    [STRINGID_ZMOVEUNLEASHED - BATTLESTRINGS_TABLE_START] = sText_ZPowerUnleashed,
-    [STRINGID_ZMOVERESETSSTATS - BATTLESTRINGS_TABLE_START] = sText_ZMoveResetsStats,
-    [STRINGID_ZMOVEALLSTATSUP - BATTLESTRINGS_TABLE_START] = sText_ZMoveAllStatsUp,
-    [STRINGID_ZMOVEZBOOSTCRIT - BATTLESTRINGS_TABLE_START] = sText_ZMoveBoostCrit,
-    [STRINGID_ZMOVERESTOREHP - BATTLESTRINGS_TABLE_START] = sText_ZMoveRestoreHp,
-    [STRINGID_ZMOVESTATUP - BATTLESTRINGS_TABLE_START] = sText_ZMoveStatUp,
-    [STRINGID_ZMOVEHPTRAP - BATTLESTRINGS_TABLE_START] = sText_ZMoveHpSwitchInTrap,
-    [STRINGID_PLAYERLOSTTOENEMYTRAINER - BATTLESTRINGS_TABLE_START] = sText_PlayerLostToEnemyTrainer,
-    [STRINGID_PLAYERPAIDPRIZEMONEY - BATTLESTRINGS_TABLE_START] = sText_PlayerPaidPrizeMoney,
+    [STRINGID_PICKUPSOLO - BATTLESTRINGS_TABLE_START] = sText_MonPickedUpItemSolo,
+    [STRINGID_PICKUP - BATTLESTRINGS_TABLE_START] = sText_MonPickedUpItem,
+    [STRINGID_PLAYERWHITEOUT3 - BATTLESTRINGS_TABLE_START] = sText_PlayerWhiteout3,
+    [STRINGID_TRAINER1PKMNCOMEBACK - BATTLESTRINGS_TABLE_START] = sText_Trainer1PkmnComeBack,
     [STRINGID_COURTCHANGE - BATTLESTRINGS_TABLE_START] = sText_CourtChange,
     [STRINGID_HEATUPBEAK - BATTLESTRINGS_TABLE_START] = sText_HeatingUpBeak,
     [STRINGID_METEORBEAMCHARGING - BATTLESTRINGS_TABLE_START] = sText_MeteorBeamCharging,
@@ -2292,6 +2289,42 @@ static const struct BattleWindowText sTextOnWindowsInfo_Normal[] =
         .bgColor = TEXT_COLOR_TRANSPARENT,
         .shadowColor = TEXT_COLOR_GREEN,
     },
+    { // 24 "type" super-effective
+        .fillValue = PIXEL_FILL(0xE),
+        .fontId = 7,
+        .x = 0,
+        .y = 1,
+        .letterSpacing = 0,
+        .lineSpacing = 0,
+        .speed = 0,
+        .fgColor = 6,
+        .bgColor = 14,
+        .shadowColor = 5,
+    },
+    { // 25 "type" not very effective
+        .fillValue = PIXEL_FILL(0xE),
+        .fontId = 7,
+        .x = 0,
+        .y = 1,
+        .letterSpacing = 0,
+        .lineSpacing = 0,
+        .speed = 0,
+        .fgColor = 1,
+        .bgColor = 14,
+        .shadowColor = 3,
+    },
+    { // 26 "type" no effect
+        .fillValue = PIXEL_FILL(0xE),
+        .fontId = 7,
+        .x = 0,
+        .y = 1,
+        .letterSpacing = 0,
+        .lineSpacing = 0,
+        .speed = 0,
+        .fgColor = 11,
+        .bgColor = 14,
+        .shadowColor = 11,
+    },
 };
 
 static const struct BattleWindowText sTextOnWindowsInfo_Arena[] =
@@ -2995,6 +3028,8 @@ static const u8 *BattleStringGetOpponentNameByTrainerId(u16 trainerId, u8 *text,
     else
     {
         toCpy = gTrainers[trainerId].trainerName;
+        if (toCpy[0] == B_BUFF_PLACEHOLDER_BEGIN && toCpy[1] == B_TXT_RIVAL_NAME)
+            toCpy = GetExpandedPlaceholder(PLACEHOLDER_ID_RIVAL);
     }
 
     return toCpy;
@@ -3314,12 +3349,12 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst)
                 if (gBattleTypeFlags & BATTLE_TYPE_FRONTIER)
                 {
                     CopyFrontierTrainerText(FRONTIER_PLAYER_WON_TEXT, gTrainerBattleOpponent_A);
-                    toCpy = gStringVar4;
+                    toCpy = gStringVar7;
                 }
                 else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_HILL)
                 {
                     CopyTrainerHillTrainerText(TRAINER_HILL_TEXT_PLAYER_WON, gTrainerBattleOpponent_A);
-                    toCpy = gStringVar4;
+                    toCpy = gStringVar7;
                 }
                 else
                 {
@@ -3330,12 +3365,16 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst)
                 if (gBattleTypeFlags & BATTLE_TYPE_FRONTIER)
                 {
                     CopyFrontierTrainerText(FRONTIER_PLAYER_LOST_TEXT, gTrainerBattleOpponent_A);
-                    toCpy = gStringVar4;
+                    toCpy = gStringVar7;
                 }
                 else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_HILL)
                 {
                     CopyTrainerHillTrainerText(TRAINER_HILL_TEXT_PLAYER_LOST, gTrainerBattleOpponent_A);
-                    toCpy = gStringVar4;
+                    toCpy = gStringVar7;
+                }
+                else
+                {
+                    toCpy = GetTrainerWonSpeech();
                 }
                 break;
             case B_TXT_26: // ?
@@ -3412,12 +3451,12 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst)
                 if (gBattleTypeFlags & BATTLE_TYPE_FRONTIER)
                 {
                     CopyFrontierTrainerText(FRONTIER_PLAYER_WON_TEXT, gTrainerBattleOpponent_B);
-                    toCpy = gStringVar4;
+                    toCpy = gStringVar7;
                 }
                 else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_HILL)
                 {
                     CopyTrainerHillTrainerText(TRAINER_HILL_TEXT_PLAYER_WON, gTrainerBattleOpponent_B);
-                    toCpy = gStringVar4;
+                    toCpy = gStringVar7;
                 }
                 else
                 {
@@ -3428,19 +3467,29 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst)
                 if (gBattleTypeFlags & BATTLE_TYPE_FRONTIER)
                 {
                     CopyFrontierTrainerText(FRONTIER_PLAYER_LOST_TEXT, gTrainerBattleOpponent_B);
-                    toCpy = gStringVar4;
+                    toCpy = gStringVar7;
                 }
                 else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_HILL)
                 {
                     CopyTrainerHillTrainerText(TRAINER_HILL_TEXT_PLAYER_LOST, gTrainerBattleOpponent_B);
-                    toCpy = gStringVar4;
+                    toCpy = gStringVar7;
                 }
                 break;
             case B_TXT_PARTNER_CLASS:
                 toCpy = gTrainerClassNames[GetFrontierOpponentClass(gPartnerTrainerId)];
                 break;
             case B_TXT_PARTNER_NAME:
-                toCpy = BattleStringGetPlayerName(text, GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT));
+                if ((gPartnerSpriteId == TRAINER_BACK_PIC_BRENDAN
+                  || gPartnerSpriteId == TRAINER_BACK_PIC_MAY)
+                  && !(gBattleTypeFlags & BATTLE_TYPE_FRONTIER))
+                {
+                    toCpy = gSaveBlock2Ptr->rivalName;
+                }
+                else
+                {
+                    GetFrontierTrainerName(text, gPartnerTrainerId);
+                    toCpy = text;
+                }
                 break;
             case B_TXT_ATK_TRAINER_NAME:
                 toCpy = BattleStringGetTrainerName(text, multiplayerId, gBattlerAttacker);
@@ -3486,6 +3535,9 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst)
                     toCpy = sText_Your2;
                 else
                     toCpy = sText_Opposing2;
+                break;
+            case B_TXT_RIVAL_NAME:
+                toCpy = gSaveBlock2Ptr->rivalName;
                 break;
             }
 

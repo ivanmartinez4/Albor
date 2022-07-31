@@ -86,7 +86,7 @@
 #define TRAINER_PIC_SWIMMER_F             66
 #define TRAINER_PIC_TWINS                 67
 #define TRAINER_PIC_SAILOR                68
-#define TRAINER_PIC_MAGMA_ADMIN           69
+#define TRAINER_PIC_MAGMA_ADMIN_M         69
 #define TRAINER_PIC_WALLY                 70
 #define TRAINER_PIC_BRENDAN               71
 #define TRAINER_PIC_MAY                   72
@@ -110,6 +110,12 @@
 #define TRAINER_PIC_LEAF                  90
 #define TRAINER_PIC_RS_BRENDAN            91
 #define TRAINER_PIC_RS_MAY                92
+#define TRAINER_PIC_ADVENTURES_BRENDAN    93
+#define TRAINER_PIC_ADVENTURES_MAY        94
+#define TRAINER_PIC_MAGMA_ADMIN_F         95
+#define TRAINER_PIC_WALLY_2               96
+#define TRAINER_PIC_WALLY_3               97
+#define TRAINER_PIC_COUNT                 98
 
 // The player back pics are assumed to alternate according to the gender values (MALE/FEMALE)
 #define TRAINER_BACK_PIC_BRENDAN                0
@@ -120,6 +126,8 @@
 #define TRAINER_BACK_PIC_RUBY_SAPPHIRE_MAY      5
 #define TRAINER_BACK_PIC_WALLY                  6
 #define TRAINER_BACK_PIC_STEVEN                 7
+#define TRAINER_BACK_PIC_ADVENTURES_BRENDAN     8
+#define TRAINER_BACK_PIC_ADVENTURES_MAY         9
 
 #define FACILITY_CLASS_HIKER                 0x0
 #define FACILITY_CLASS_AQUA_GRUNT_M          0x1
@@ -370,10 +378,10 @@
 
 #define F_TRAINER_FEMALE (1 << 7)
 
-// All trainer parties specify the IV, level, and species for each Pokémon in the
-// party. Some trainer parties also specify held items and custom moves for each
-// Pokémon.
-#define F_TRAINER_PARTY_CUSTOM_MOVESET (1 << 0)
-#define F_TRAINER_PARTY_HELD_ITEM      (1 << 1)
+#define TRAINER_MON_FEMALE     1
+#define TRAINER_MON_MALE       2
+
+#define TRAINER_MON_FRIENDLY     1
+#define TRAINER_MON_UNFRIENDLY   2
 
 #endif  // GUARD_TRAINERS_H

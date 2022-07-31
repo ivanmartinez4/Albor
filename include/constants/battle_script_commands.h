@@ -230,18 +230,18 @@
 #define VARIOUS_SET_SKY_DROP                        139
 #define VARIOUS_CLEAR_SKY_DROP                      140
 #define VARIOUS_SKY_DROP_YAWN                       141
-#define VARIOUS_JUMP_IF_CANT_FLING                  142
-#define VARIOUS_JUMP_IF_HOLD_EFFECT                 143
-#define VARIOUS_CURE_CERTAIN_STATUSES               144
-#define VARIOUS_TRY_RESET_NEGATIVE_STAT_STAGES      145
-#define VARIOUS_JUMP_IF_LAST_USED_ITEM_BERRY        146
-#define VARIOUS_JUMP_IF_LAST_USED_ITEM_HOLD_EFFECT  147
-#define VARIOUS_SAVE_BATTLER_ITEM                   148
-#define VARIOUS_RESTORE_BATTLER_ITEM                149
-#define VARIOUS_BATTLER_ITEM_TO_LAST_USED_ITEM      150
-#define VARIOUS_SET_BEAK_BLAST                      151
-#define VARIOUS_SWAP_SIDE_STATUSES                  152
-#define VARIOUS_SET_Z_EFFECT                        153
+#define VARIOUS_JUMP_IF_SET                         142
+#define VARIOUS_JUMP_IF_CANT_FLING                  143
+#define VARIOUS_JUMP_IF_HOLD_EFFECT                 144
+#define VARIOUS_CURE_CERTAIN_STATUSES               145
+#define VARIOUS_TRY_RESET_NEGATIVE_STAT_STAGES      146
+#define VARIOUS_JUMP_IF_LAST_USED_ITEM_BERRY        147
+#define VARIOUS_JUMP_IF_LAST_USED_ITEM_HOLD_EFFECT  148
+#define VARIOUS_SAVE_BATTLER_ITEM                   149
+#define VARIOUS_RESTORE_BATTLER_ITEM                150
+#define VARIOUS_BATTLER_ITEM_TO_LAST_USED_ITEM      151
+#define VARIOUS_SET_BEAK_BLAST                      152
+#define VARIOUS_SWAP_SIDE_STATUSES                  153
 
 // Cmd_manipulatedamage
 #define DMG_CHANGE_SIGN            0

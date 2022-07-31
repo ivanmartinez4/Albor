@@ -54,6 +54,9 @@
 #include "constants/union_room.h"
 #include "constants/vars.h"
 #include "constants/weather.h"
+#include "constants/battle_transition.h"
+#include "constants/infobox.h"
+#include "constants/region_map_sections.h"
 	.include "asm/macros.inc"
 	.include "asm/macros/event.inc"
 	.include "constants/constants.inc"
@@ -99,7 +102,7 @@ gStdScripts::
 	.4byte Std_ObtainDecoration        @ STD_OBTAIN_DECORATION
 	.4byte Std_RegisteredInMatchCall   @ STD_REGISTER_MATCH_CALL
 	.4byte Std_MsgboxGetPoints         @ MSGBOX_GETPOINTS
-	.4byte Std_MsgboxPokenav           @ MSGBOX_POKENAV
+	.4byte Std_ReceiveItem             @ STD_RECEIVE_ITEM
 gStdScripts_End::
 
 	.include "data/maps/PetalburgCity/scripts.inc"
@@ -452,7 +455,6 @@ gStdScripts_End::
 	.include "data/maps/SSTidalLowerDeck/scripts.inc"
 	.include "data/maps/SSTidalRooms/scripts.inc"
 	.include "data/maps/BattlePyramidSquare01/scripts.inc"
-	.include "data/maps/UnionRoom/scripts.inc"
 	.include "data/maps/SafariZone_Northwest/scripts.inc"
 	.include "data/maps/SafariZone_North/scripts.inc"
 	.include "data/maps/SafariZone_Southwest/scripts.inc"
@@ -775,13 +777,34 @@ RusturfTunnel_EventScript_SetRusturfTunnelOpen::
 	setflag FLAG_RUSTURF_TUNNEL_OPENED
 	return
 
-Common_EventScript_FerryDepartIsland::
-	call_if_eq VAR_FACING, DIR_SOUTH, Ferry_EventScript_DepartIslandSouth
-	call_if_eq VAR_FACING, DIR_WEST, Ferry_EventScript_DepartIslandWest
+Common_EventScript_FerryDepartIsland:: 
+	compare VAR_FACING, DIR_SOUTH
+	call_if_eq Ferry_EventScript_DepartIslandSouth
+	compare VAR_FACING, DIR_WEST
+	call_if_eq Ferry_EventScript_DepartIslandWest
 	delay 30
 	hideobjectat OBJ_EVENT_ID_PLAYER, 0
 	call Common_EventScript_FerryDepart
 	return
+
+Ferry_EventScript_DepartIslandSouth::
+	applymovement OBJ_EVENT_ID_PLAYER, Ferry_EventScript_DepartIslandBoardSouth
+	waitmovement 0
+	return
+
+Ferry_EventScript_DepartIslandWest::
+	applymovement OBJ_EVENT_ID_PLAYER, Ferry_EventScript_DepartIslandBoardWest
+	waitmovement 0
+	return
+
+Ferry_EventScript_DepartIslandBoardSouth:
+	walk_down
+	step_end
+
+Ferry_EventScript_DepartIslandBoardWest:
+	walk_left
+	walk_in_place_faster_down
+	step_end
 
 	.include "data/scripts/kecleon.inc"
 
@@ -849,7 +872,7 @@ gText_PlayerHouseBootPC::
 gText_PokeblockLinkCanceled::
 	.string "The link was canceled.$"
 
-gText_PlayerWhitedOut::
+gText_PlayerWhitedOut:: 
 	.string "{PLAYER} is out of usable\n"
 	.string "Pokémon!\p{PLAYER} whited out!$"
 
@@ -884,16 +907,16 @@ gText_DoorOpenedFarAway::
 gText_BigHoleInTheWall::
 	.string "There is a big hole in the wall.$"
 
-gText_SorryWirelessClubAdjustments::
+gText_SorryCableClubAdjustments::
 	.string "I'm terribly sorry.\n"
-	.string "The Pokémon Wireless Club is\l"
+	.string "The POKéMON CABLE CLUB is\l"
 	.string "undergoing adjustments now.$"
 
 gText_UndergoingAdjustments::
 	.string "It appears to be undergoing\n"
 	.string "adjustments…$"
 
-gText_PlayerHandedOverTheItem::
+gText_PlayerHandedOverTheItem:: 
 	.string "{PLAYER} handed over the\n"
 	.string "{STR_VAR_1}.$"
 
@@ -914,7 +937,6 @@ gText_LegendaryFlewAway::
 	.string "The {STR_VAR_1} flew away!$"
 
 	.include "data/text/pc_transfer.inc"
-	.include "data/text/questionnaire.inc"
 	.include "data/text/abnormal_weather.inc"
 
 EventScript_SelectWithoutRegisteredItem::
@@ -926,16 +948,98 @@ EventScript_SelectWithoutRegisteredItem::
 Common_EventScript_NopReturn::
 	return
 
-EventScript_CableClub_SetVarResult0::
+EventScript_CableClub_SetVarResult0:: 
 	setvar VAR_RESULT, 0
 	return
 
-Common_EventScript_UnionRoomAttendant::
-	call CableClub_EventScript_UnionRoomAttendant
+EventScript_WonderTradeManager::
+	lock
+	goto_if_unset FLAG_SYS_POKEDEX_GET, CableClub_EventScript_CableClubAdjustements
+	goto_if_unset FLAG_BADGE02_GET, EventScript_WonderTradeManager_Adjustements
+	goto_if_set FLAG_WONDER_TRADE_EXPLAINED, EventScript_WonderTradeManager_MovingOnPreamble
+	msgbox EventScript_WonderTradeManager_Text_1, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq EventScript_PerformWonderTrade
+	msgbox EventScript_WonderTradeManager_Text_3
+	setflag FLAG_WONDER_TRADE_EXPLAINED
+	goto EventScript_WonderTradeManager_MovingOn
+
+EventScript_WonderTradeManager_Adjustements:
+	msgbox EventScript_WonderTradeManager_Text_Adjustments
+	release
 	end
 
-Common_EventScript_WirelessClubAttendant::
-	call CableClub_EventScript_WirelessClubAttendant
+EventScript_WonderTradeManager_MovingOnPreamble:
+	msgbox EventScript_WonderTradeManager_Text_4
+EventScript_WonderTradeManager_MovingOn:
+	msgbox EventScript_WonderTradeManager_Text_5, MSGBOX_YESNO
+	compare VAR_RESULT, YES
+	goto_if_eq EventScript_PerformWonderTrade_
+	msgbox EventScript_WonderTradeManager_Text_6
+	release
+	end
+
+EventScript_PerformWonderTrade:
+	msgbox EventScript_WonderTradeManager_Text_2
+EventScript_PerformWonderTrade_:
+	msgbox EventScript_WonderTradeManager_Text_7
+	special ChoosePartyMon
+	waitstate
+	compare VAR_0x8004, PARTY_SIZE
+	goto_if_ge EventScript_WonderTradeEnd
+	copyvar VAR_0x8005, VAR_0x8004
+	callnative CreateWonderTradePokemon
+	special DoInGameTradeScene
+	waitstate
+	msgbox EventScript_DoWonderTrade_Text_WannaPerformAnotherWonderTrade, MSGBOX_YESNO
+	compare VAR_RESULT, YES
+	goto_if_eq EventScript_PerformWonderTrade_
+EventScript_WonderTradeEnd:
+	msgbox EventScript_WonderTradeManager_Text_6
+	release
+	end
+
+EventScript_WonderTradeManager_Text_Adjustments:
+	.string "I am terribly sorry, but the WONDER\nCORNER is currently unavailable.\pPlease come back later.$"
+
+EventScript_WonderTradeManager_Text_1:
+	.string "Welcome to the POKéMON WIRELESS\nCLUB's WONDER CORNER.\pHere you can partake in\na WONDER TRADE.\pDo you want me to explain\nmore about it?$"
+
+EventScript_WonderTradeManager_Text_2:
+	.string "Oh, I see.\nAlright then.$"
+
+EventScript_WonderTradeManager_Text_3:
+	.string "You will be asked to put up a\pPokémon of your choice.\pIn return, you will get a Pokémon\nfrom another player.\nThis process is done anonymously.\pIn other words, you can't tell what\nsort of POKéMON you will receive.\pThis is what is called a WONDER TRADE.$"
+
+EventScript_WonderTradeManager_Text_4:
+	.string "Hello there, {PLAYER}!$"
+
+EventScript_WonderTradeManager_Text_5:
+	.string "Do you want to perform a\nWONDER TRADE?$"
+
+EventScript_WonderTradeManager_Text_6:
+	.string "Come back anytime!$"
+
+EventScript_WonderTradeManager_Text_7:
+	.string "Please select a POKéMON.$"
+
+EventScript_DoWonderTrade_Text_WannaPerformAnotherWonderTrade:
+	.string "Do you want to perform\nanother WONDER TRADE?$"
+
+Common_EventScript_CableClubAttendant::
+	lock
+	faceplayer
+	goto_if_lt VAR_CABLE_CLUB_TUTORIAL_STATE, 2, CableClub_EventScript_CableClubAdjustements
+	msgbox CableClub_Text_AskAboutLinking, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq CableClub_EventScript_DontAskAboutLinking
+	msgbox CableClub_Text_ExplainCableClubFirstTime, MSGBOX_DEFAULT
+	release
+	end
+
+CableClub_EventScript_DontAskAboutLinking::
+	msgbox CableClub_Text_HopeYouEnjoyCableClub, MSGBOX_DEFAULT
+	release
 	end
 
 Common_EventScript_DirectCornerAttendant::
@@ -958,23 +1062,8 @@ Common_EventScript_LegendaryFlewAway::
 	release
 	end
 
-EventScript_CheckSavefileSizes::
- 	special CheckSaveBlock1Size
- 	msgbox CheckSavefileSizes_Text_SaveBlock1, MSGBOX_NPC
- 	special CheckSaveBlock2Size
- 	msgbox CheckSavefileSizes_Text_SaveBlock2, MSGBOX_NPC
- 	special CheckPokemonStorageSize
- 	msgbox CheckSavefileSizes_Text_PokemonStorage, MSGBOX_NPC
- 	end
-
- CheckSavefileSizes_Text_SaveBlock1::
- 	.string "SaveBlock1 size: {STR_VAR_1}/{STR_VAR_2}$"
-
- CheckSavefileSizes_Text_SaveBlock2::
- 	.string "SaveBlock2 size: {STR_VAR_1}/{STR_VAR_2}$"
-
- CheckSavefileSizes_Text_PokemonStorage::
- 	.string "{PKMN}Storage size: {STR_VAR_1}/{STR_VAR_2}$"
+gText_EmptyTextString:: @ So the dynamic multichoice won't go Out of Bounds
+	.string "$"
 
 	.include "data/scripts/pc_transfer.inc"
 	.include "data/scripts/questionnaire.inc"
@@ -993,6 +1082,7 @@ EventScript_CheckSavefileSizes::
 	.include "data/text/tv.inc"
 	.include "data/scripts/interview.inc"
 	.include "data/scripts/gabby_and_ty.inc"
+	.include "data/scripts/general_pokemon_mart.inc"
 	.include "data/text/pokemon_news.inc"
 	.include "data/scripts/mauville_man.inc"
 	.include "data/scripts/field_move_scripts.inc"
@@ -1032,3 +1122,7 @@ EventScript_CheckSavefileSizes::
 	.include "data/text/frontier_brain.inc"
 	.include "data/text/save.inc"
 	.include "data/text/birch_speech.inc"
+	.include "data/scripts/misc_scripts.inc"
+
+	.include "data/maps/Route103North/scripts.inc"
+	.include "data/scripts/fossils.inc"

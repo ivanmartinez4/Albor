@@ -25,7 +25,13 @@
 	special CallBattlePalaceFunction
 	.endm
 
-	@ Buffer the opponents intro speech to gStringVar4. Also used by Battle Arena and Factory
+	@ Unused. Choose and set the opponent gfx id. The equivalent macro from Battle Tower is used instead
+	.macro palace_setopponent
+	setvar VAR_0x8004, BATTLE_PALACE_FUNC_SET_OPPONENT
+	special CallBattlePalaceFunction
+	.endm
+
+	@ Buffer the opponents intro speech to gStringVar7. Also used by Battle Arena and Factory
 	.macro palace_getopponentintro
 	setvar VAR_0x8004, BATTLE_PALACE_FUNC_GET_OPPONENT_INTRO
 	special CallBattlePalaceFunction

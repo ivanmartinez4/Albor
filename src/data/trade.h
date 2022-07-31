@@ -989,9 +989,8 @@ static const struct InGameTrade sIngameTrades[] =
         .personality = 0x84,
         .heldItem = ITEM_CHESTO_BERRY,
         .mailNum = -1,
-        .otName = _("Kobe"),
-        .otGender = MALE, 
-        .sheen = 10,
+        .otName = _("KOBE"),
+        .otGender = MALE,
         .requestedSpecies = SPECIES_RALTS
     },
     [INGAME_TRADE_PLUSLE] =
@@ -1005,9 +1004,8 @@ static const struct InGameTrade sIngameTrades[] =
         .personality = 0x6F,
         .heldItem = ITEM_WOOD_MAIL,
         .mailNum = 0,
-        .otName = _("Roman"),
-        .otGender = MALE, 
-        .sheen = 10,
+        .otName = _("ROMAN"),
+        .otGender = MALE,
         .requestedSpecies = SPECIES_VOLBEAT
     },
     [INGAME_TRADE_HORSEA] =
@@ -1021,9 +1019,8 @@ static const struct InGameTrade sIngameTrades[] =
         .personality = 0x7F,
         .heldItem = ITEM_WAVE_MAIL,
         .mailNum = 1,
-        .otName = _("Skylar"),
-        .otGender = MALE, 
-        .sheen = 10,
+        .otName = _("SKYLAR"),
+        .otGender = MALE,
         .requestedSpecies = SPECIES_BAGON
     },
     [INGAME_TRADE_MEOWTH] =
@@ -1037,9 +1034,8 @@ static const struct InGameTrade sIngameTrades[] =
         .personality = 0x8B,
         .heldItem = ITEM_RETRO_MAIL,
         .mailNum = 2,
-        .otName = _("Isis"),
-        .otGender = FEMALE, 
-        .sheen = 10,
+        .otName = _("ISIS"),
+        .otGender = FEMALE,
         .requestedSpecies = SPECIES_SKITTY
     }
 };

@@ -8,12 +8,12 @@ static u16 sErrorStatus;
 static struct SiiRtcInfo sRtc;
 static u8 sProbeResult;
 static u16 sSavedIme;
+static u8 gLastRtcSecond;
 
 // iwram common
 struct Time gLocalTime;
 
 // const rom
-
 static const struct SiiRtcInfo sRtcDummy = {0, MONTH_JAN, 1}; // 2000 Jan 1
 
 static const s32 sNumDaysInMonths[12] =
@@ -267,6 +267,7 @@ void RtcCalcTimeDifference(struct SiiRtcInfo *rtc, struct Time *result, struct T
     result->minutes = ConvertBcdToBinary(rtc->minute) - t->minutes;
     result->hours = ConvertBcdToBinary(rtc->hour) - t->hours;
     result->days = days - t->days;
+    result->dayOfWeek = ConvertBcdToBinary(rtc->dayOfWeek) - t->dayOfWeek;
 
     if (result->seconds < 0)
     {
@@ -284,6 +285,28 @@ void RtcCalcTimeDifference(struct SiiRtcInfo *rtc, struct Time *result, struct T
     {
         result->hours += 24;
         --result->days;
+        --result->dayOfWeek;
+    }
+
+    if (result->dayOfWeek < 0)
+    {
+        result->dayOfWeek += 7;
+    }
+}
+
+u8 RtcSecondChange(void)
+{   
+    u8 currentRtcSecond;
+    RtcGetInfo(&sRtc);
+    currentRtcSecond = ConvertBcdToBinary(sRtc.second);
+    if (gLastRtcSecond != currentRtcSecond)
+    {
+        gLastRtcSecond = currentRtcSecond;
+        return 1;
+    }
+    else
+    {
+        return 0;
     }
 }
 
@@ -295,15 +318,16 @@ void RtcCalcLocalTime(void)
 
 void RtcInitLocalTimeOffset(s32 hour, s32 minute)
 {
-    RtcCalcLocalTimeOffset(0, hour, minute, 0);
+    RtcCalcLocalTimeOffset(gLocalTime.days, hour, minute, gLocalTime.seconds, gLocalTime.dayOfWeek);
 }
 
-void RtcCalcLocalTimeOffset(s32 days, s32 hours, s32 minutes, s32 seconds)
+void RtcCalcLocalTimeOffset(s32 days, s32 hours, s32 minutes, s32 seconds, s32 dayOfWeek)
 {
     gLocalTime.days = days;
     gLocalTime.hours = hours;
     gLocalTime.minutes = minutes;
     gLocalTime.seconds = seconds;
+    gLocalTime.dayOfWeek = dayOfWeek;
     RtcGetInfo(&sRtc);
     RtcCalcTimeDifference(&sRtc, &gSaveBlock2Ptr->localTimeOffset, &gLocalTime);
 }
@@ -314,6 +338,7 @@ void CalcTimeDifference(struct Time *result, struct Time *t1, struct Time *t2)
     result->minutes = t2->minutes - t1->minutes;
     result->hours = t2->hours - t1->hours;
     result->days = t2->days - t1->days;
+    result->dayOfWeek = t2->dayOfWeek - t1->dayOfWeek;
 
     if (result->seconds < 0)
     {
@@ -331,6 +356,12 @@ void CalcTimeDifference(struct Time *result, struct Time *t1, struct Time *t2)
     {
         result->hours += 24;
         --result->days;
+        --result->dayOfWeek;
+    }
+
+    if (result->dayOfWeek < 0)
+    {
+        result->dayOfWeek += 7;
     }
 }
 

@@ -15,10 +15,10 @@ void PrintCoinsString(u32 coinAmount)
     u32 xAlign;
 
     ConvertIntToDecimalStringN(gStringVar1, coinAmount, STR_CONV_MODE_RIGHT_ALIGN, MAX_COIN_DIGITS);
-    StringExpandPlaceholders(gStringVar4, gText_Coins);
+    StringExpandPlaceholders(gStringVar7, gText_Coins);
 
-    xAlign = GetStringRightAlignXOffset(FONT_NORMAL, gStringVar4, 0x40);
-    AddTextPrinterParameterized(sCoinsWindowId, FONT_NORMAL, gStringVar4, xAlign, 1, 0, NULL);
+    xAlign = GetStringRightAlignXOffset(FONT_NORMAL, gStringVar7, 0x40);
+    AddTextPrinterParameterized(sCoinsWindowId, FONT_NORMAL, gStringVar7, xAlign, 1, 0, NULL);
 }
 
 void ShowCoinsWindow(u32 coinAmount, u8 x, u8 y)
@@ -40,12 +40,12 @@ void HideCoinsWindow(void)
 
 u16 GetCoins(void)
 {
-    return gSaveBlock1Ptr->coins ^ gSaveBlock2Ptr->encryptionKey;
+    return gSaveBlock1Ptr->coins;
 }
 
 void SetCoins(u16 coinAmount)
 {
-    gSaveBlock1Ptr->coins = coinAmount ^ gSaveBlock2Ptr->encryptionKey;
+    gSaveBlock1Ptr->coins = coinAmount;
 }
 
 bool8 AddCoins(u16 toAdd)

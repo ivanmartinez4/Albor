@@ -795,10 +795,6 @@ static u32 CopyRecordedPlayerMonData(u8 monId, u8 *dst)
         dst[0] = GetMonData(&gPlayerParty[monId], MON_DATA_TOUGH);
         size = 1;
         break;
-    case REQUEST_SHEEN_BATTLE:
-        dst[0] = GetMonData(&gPlayerParty[monId], MON_DATA_SHEEN);
-        size = 1;
-        break;
     case REQUEST_COOL_RIBBON_BATTLE:
         dst[0] = GetMonData(&gPlayerParty[monId], MON_DATA_COOL_RIBBON);
         size = 1;
@@ -1046,9 +1042,6 @@ static void SetRecordedPlayerMonData(u8 monId)
     case REQUEST_TOUGH_BATTLE:
         SetMonData(&gPlayerParty[monId], MON_DATA_TOUGH, &gBattleResources->bufferA[gActiveBattler][3]);
         break;
-    case REQUEST_SHEEN_BATTLE:
-        SetMonData(&gPlayerParty[monId], MON_DATA_SHEEN, &gBattleResources->bufferA[gActiveBattler][3]);
-        break;
     case REQUEST_COOL_RIBBON_BATTLE:
         SetMonData(&gPlayerParty[monId], MON_DATA_COOL_RIBBON, &gBattleResources->bufferA[gActiveBattler][3]);
         break;
@@ -1236,7 +1229,7 @@ static void RecordedPlayerHandleDrawTrainerPic(void)
     }
     else
     {
-        DecompressTrainerBackPic(trainerPicId, gActiveBattler);
+        LoadPalette(gTrainerBackPicPaletteTable[trainerPicId].data, 0x100 + gActiveBattler * 16, 32);
         SetMultiuseSpriteTemplateToTrainerBack(trainerPicId, GetBattlerPosition(gActiveBattler));
         gBattlerSpriteIds[gActiveBattler] = CreateSprite(&gMultiuseSpriteTemplate, xPos, yPos, GetBattlerSpriteSubpriority(gActiveBattler));
 
@@ -1664,7 +1657,7 @@ static void RecordedPlayerHandleIntroTrainerBallThrow(void)
     else
         trainerPicId = gSaveBlock2Ptr->playerGender;
 
-    LoadCompressedPalette(gTrainerBackPicPaletteTable[trainerPicId].data, 0x100 + paletteNum * 16, 32);
+    LoadPalette(gTrainerBackPicPaletteTable[trainerPicId].data, 0x100 + paletteNum * 16, 32);
 
     gSprites[gBattlerSpriteIds[gActiveBattler]].oam.paletteNum = paletteNum;
 

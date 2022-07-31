@@ -7,7 +7,7 @@ DewfordTown_Gym_OnTransition:
 	end
 
 DewfordTown_Gym_EventScript_SetFlashLevel::
-	goto_if_defeated TRAINER_BRAWLY_1, DewfordTown_Gym_EventScript_SetLightsOn
+	goto_if_set FLAG_HAS_INTERACTED_WITH_BRAWLY, DewfordTown_Gym_EventScript_SetLightsOn
 	call DewfordTown_Gym_EventScript_CountTrainersDefeated
 	copyvar VAR_0x8001, VAR_0x8000
 	goto_if_eq VAR_0x8000, 0, DewfordTown_Gym_EventScript_SetFlashLevel7
@@ -133,7 +133,10 @@ DewfordTown_Gym_EventScript_StopCountingTrainers::
 	return
 
 DewfordTown_Gym_EventScript_Brawly::
+	goto_if_set FLAG_BADGE02_GET, DewfordTown_Gym_EventScript_Brawly2
+	call_if_unset FLAG_HAS_INTERACTED_WITH_BRAWLY, DewfordTown_Gym_EventScript_BrawlyTurnsOnTheLights
 	trainerbattle_single TRAINER_BRAWLY_1, DewfordTown_Gym_Text_BrawlyIntro, DewfordTown_Gym_Text_BrawlyDefeat, DewfordTown_Gym_EventScript_BrawlyDefeated, NO_MUSIC
+DewfordTown_Gym_EventScript_Brawly2:
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	goto_if_eq VAR_RESULT, TRUE, DewfordTown_Gym_EventScript_BrawlyRematch
 	goto_if_unset FLAG_RECEIVED_TM08, DewfordTown_Gym_EventScript_GiveBulkUp2
@@ -141,8 +144,14 @@ DewfordTown_Gym_EventScript_Brawly::
 	release
 	end
 
-DewfordTown_Gym_EventScript_BrawlyDefeated::
+DewfordTown_Gym_EventScript_BrawlyTurnsOnTheLights:
+	msgbox DewfordTown_Gym_Text_PreIntro, MSGBOX_DEFAULT
+	closemessage
 	call DewfordTown_Gym_EventScript_AnimateFlashFullBrightness
+	setflag FLAG_HAS_INTERACTED_WITH_BRAWLY
+	return
+
+DewfordTown_Gym_EventScript_BrawlyDefeated::
 	message DewfordTown_Gym_Text_ReceivedKnuckleBadge
 	waitmessage
 	call Common_EventScript_PlayGymBadgeFanfare
@@ -378,6 +387,10 @@ DewfordTown_Gym_Text_CristianDefeat:
 DewfordTown_Gym_Text_CristianPostBattle:
 	.string "You win!\n"
 	.string "Go after that Badge!$"
+
+DewfordTown_Gym_Text_PreIntro:
+	.string "Oh, a challenger!\n"
+	.string "I guess the gig is up.$"
 
 DewfordTown_Gym_Text_BrawlyIntro:
 	.string "I'm Brawly!\n"

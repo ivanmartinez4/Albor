@@ -65,29 +65,6 @@ extern const u8 gText_MonCaughtALittleAttention[];
 extern const u8 gText_MonAttractedALotOfAttention[];
 extern const u8 gText_MonCommandedTotalAttention[];
 extern const u8 gText_MonHasntMadeItsAppeal[];
-extern const u8 gText_JudgesViewsOnMonHeldFirm[];
-extern const u8 gText_MonsXChangedPerceptions[];
-extern const u8 gText_EmptyContestString[];
-extern const u8 gText_MonsAppealEffectWoreOff[];
-extern const u8 gText_SpecialAppealsEffectWoreOff[];
-extern const u8 gText_EveryonesAppealsMadeToLookSame[];
-extern const u8 gText_CheapenedMonsAppeal[];
-extern const u8 gText_CheapenedMonsAppeal2[];
-extern const u8 gText_CheapenedAppealOfThoseAhead[];
-extern const u8 gText_CheapenedAppealOfThoseAhead2[];
-extern const u8 gText_StoleAttentionAwayFromMon[];
-extern const u8 gText_SeverelyCheapenedOtherAppeals[];
-extern const u8 gText_AnticipationSwelledForMonsAppealNext[];
-extern const u8 gText_CheapenedJudgesFavoriteAppeal[];
-extern const u8 gText_AppealsOfOthersCheapenedByHalf[];
-extern const u8 gText_StoodOutToMakeUpForBeingJammed[];
-extern const u8 gText_CantParticipateInAppealsAnyMore[];
-extern const u8 gText_TouchedJudgeForFantasticAppeal[];
-extern const u8 gText_AnticipationRoseForUpcomingAppeals[];
-extern const u8 gText_StoodOutAsMuchAsSpecialAppeals[];
-extern const u8 gText_StoodOutAsMuchAsMon[];
-extern const u8 gText_JammedAppealsMadeEvenLessNoticeable[];
-extern const u8 gText_EveryonesAppealsMadeSame[];
 
 // sAppealResultTexts
 extern const u8 gText_BecameMoreConsciousOfOtherMons[];
@@ -258,32 +235,6 @@ static const u8 *const sRoundResultTexts[] =
     gText_MonAttractedALotOfAttention,
     gText_MonCommandedTotalAttention,
     gText_MonHasntMadeItsAppeal,
-    gText_JudgesViewsOnMonHeldFirm, // here below unused
-    gText_MonsXChangedPerceptions,
-    gText_EmptyContestString,
-    gText_MonsAppealEffectWoreOff,
-    gText_SpecialAppealsEffectWoreOff,
-    gText_EveryonesAppealsMadeToLookSame,
-    gText_CheapenedMonsAppeal,
-    gText_CheapenedAppealOfThoseAhead,
-    gText_StoleAttentionAwayFromMon,
-    gText_CheapenedMonsAppeal2,
-    gText_SeverelyCheapenedOtherAppeals,
-    gText_AnticipationSwelledForMonsAppealNext,
-    gText_CheapenedAppealOfThoseAhead2,
-    gText_CheapenedJudgesFavoriteAppeal,
-    gText_AppealsOfOthersCheapenedByHalf,
-    gText_StoodOutToMakeUpForBeingJammed,
-    gText_CantParticipateInAppealsAnyMore,
-    gText_TouchedJudgeForFantasticAppeal,
-    gText_AnticipationRoseForUpcomingAppeals,
-    gText_StoodOutAsMuchAsSpecialAppeals,
-    gText_StoodOutAsMuchAsMon,
-    gText_EmptyContestString,
-    gText_EmptyContestString,
-    gText_EmptyContestString,
-    gText_JammedAppealsMadeEvenLessNoticeable,
-    gText_EveryonesAppealsMadeSame
 };
 
 static const u8 *const sAppealResultTexts[] =

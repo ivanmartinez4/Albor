@@ -457,32 +457,38 @@ u32 GetGameStat(u8 index)
     if (index >= NUM_USED_GAME_STATS)
         return 0;
 
-    return gSaveBlock1Ptr->gameStats[index] ^ gSaveBlock2Ptr->encryptionKey;
+    return gSaveBlock1Ptr->gameStats[index];
 }
 
 void SetGameStat(u8 index, u32 value)
 {
     if (index < NUM_USED_GAME_STATS)
-        gSaveBlock1Ptr->gameStats[index] = value ^ gSaveBlock2Ptr->encryptionKey;
-}
-
-void ApplyNewEncryptionKeyToGameStats(u32 newKey)
-{
-    u8 i;
-
-    for (i = 0; i < NUM_GAME_STATS; i++)
-        ApplyNewEncryptionKeyToWord(&gSaveBlock1Ptr->gameStats[i], newKey);
+        gSaveBlock1Ptr->gameStats[index] = value;
 }
 
 void LoadObjEventTemplatesFromHeader(void)
 {
-    // Clear map object templates
-    CpuFill32(0, gSaveBlock1Ptr->objectEventTemplates, sizeof(gSaveBlock1Ptr->objectEventTemplates));
+    u8 i;
 
-    // Copy map header events to save block
-    CpuCopy32(gMapHeader.events->objectEvents,
-              gSaveBlock1Ptr->objectEventTemplates,
-              gMapHeader.events->objectEventCount * sizeof(struct ObjectEventTemplate));
+    for (i = 0; i < gMapHeader.events->objectEventCount; i++)
+    {
+        if (gMapHeader.events->objectEvents[i].inConnection == 0xFF)
+        {
+            gSaveBlock1Ptr->objectEventTemplates[i] = Overworld_GetMapHeaderByGroupAndId(gMapHeader.events->objectEvents[i].trainerRange_berryTreeId, gMapHeader.events->objectEvents[i].trainerType)->events->objectEvents[gMapHeader.events->objectEvents[i].elevation - 1];
+            gSaveBlock1Ptr->objectEventTemplates[i].localId = gMapHeader.events->objectEvents[i].localId;
+            gSaveBlock1Ptr->objectEventTemplates[i].x = gMapHeader.events->objectEvents[i].x;
+            gSaveBlock1Ptr->objectEventTemplates[i].y = gMapHeader.events->objectEvents[i].y;
+            // set up object for seamless map transitions
+            gSaveBlock1Ptr->objectEventTemplates[i].elevation = gMapHeader.events->objectEvents[i].elevation;
+            gSaveBlock1Ptr->objectEventTemplates[i].trainerType = gMapHeader.events->objectEvents[i].trainerType;
+            gSaveBlock1Ptr->objectEventTemplates[i].trainerRange_berryTreeId = gMapHeader.events->objectEvents[i].trainerRange_berryTreeId;
+            gSaveBlock1Ptr->objectEventTemplates[i].inConnection = 0xFF;
+        }
+        else
+        {
+            gSaveBlock1Ptr->objectEventTemplates[i] = gMapHeader.events->objectEvents[i];
+        }
+    }
 }
 
 void LoadSaveblockObjEventScripts(void)
@@ -826,8 +832,7 @@ void LoadMapFromCameraTransition(u8 mapGroup, u8 mapNum)
     ResetFieldTasksArgs();
     RunOnResumeMapScript();
 
-    if (gMapHeader.regionMapSectionId != MAPSEC_BATTLE_FRONTIER
-     || gMapHeader.regionMapSectionId != sLastMapSectionId)
+    if (gMapHeader.showMapName && gMapHeader.regionMapSectionId != sLastMapSectionId)
         ShowMapNamePopup();
 }
 
@@ -1170,24 +1175,21 @@ void Overworld_ClearSavedMusic(void)
 
 static void TransitionMapMusic(void)
 {
-    if (FlagGet(FLAG_DONT_TRANSITION_MUSIC) != TRUE)
+    u16 newMusic = GetWarpDestinationMusic();
+    u16 currentMusic = GetCurrentMapMusic();
+    if (newMusic != MUS_ABNORMAL_WEATHER && newMusic != MUS_NONE)
     {
-        u16 newMusic = GetWarpDestinationMusic();
-        u16 currentMusic = GetCurrentMapMusic();
-        if (newMusic != MUS_ABNORMAL_WEATHER && newMusic != MUS_NONE)
-        {
-            if (currentMusic == MUS_UNDERWATER || currentMusic == MUS_SURF)
-                return;
-            if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_SURFING))
-                newMusic = MUS_SURF;
-        }
-        if (newMusic != currentMusic)
-        {
-            if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_MACH_BIKE | PLAYER_AVATAR_FLAG_ACRO_BIKE))
-                FadeOutAndFadeInNewMapMusic(newMusic, 4, 4);
-            else
-                FadeOutAndPlayNewMapMusic(newMusic, 8);
-        }
+        if (currentMusic == MUS_UNDERWATER || currentMusic == MUS_SURF)
+            return;
+        if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_SURFING))
+            newMusic = MUS_SURF;
+    }
+    if (newMusic != currentMusic)
+    {
+        if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_MACH_BIKE | PLAYER_AVATAR_FLAG_ACRO_BIKE))
+            FadeOutAndFadeInNewMapMusic(newMusic, 4, 4);
+        else
+            FadeOutAndPlayNewMapMusic(newMusic, 8);
     }
 }
 
@@ -1218,7 +1220,7 @@ void TryFadeOutOldMapMusic(void)
 {
     u16 currentMusic = GetCurrentMapMusic();
     u16 warpMusic = GetWarpDestinationMusic();
-    if (FlagGet(FLAG_DONT_TRANSITION_MUSIC) != TRUE && warpMusic != GetCurrentMapMusic())
+    if (warpMusic != GetCurrentMapMusic())
     {
         if (currentMusic == MUS_SURF
             && VarGet(VAR_SKY_PILLAR_STATE) == 2
@@ -1750,6 +1752,7 @@ void CB2_ReturnToField(void)
     else
     {
         FieldClearVBlankHBlankCallbacks();
+        FlagClear(FLAG_DISABLE_SHINY_HUE_SHIFT);
         SetMainCallback2(CB2_ReturnToFieldLocal);
     }
 }
@@ -1825,50 +1828,53 @@ void CB2_ContinueSavedGame(void)
 {
     u8 trainerHillMapId;
 
-    FieldClearVBlankHBlankCallbacks();
-    StopMapMusic();
-    ResetSafariZoneFlag_();
-    if (gSaveFileStatus == SAVE_STATUS_ERROR)
-        ResetWinStreaks();
-
-    LoadSaveblockMapHeader();
-    ClearDiveAndHoleWarps();
-    trainerHillMapId = GetCurrentTrainerHillMapId();
-    if (gMapHeader.mapLayoutId == LAYOUT_BATTLE_FRONTIER_BATTLE_PYRAMID_FLOOR)
-        LoadBattlePyramidFloorObjectEventScripts();
-    else if (trainerHillMapId != 0 && trainerHillMapId != TRAINER_HILL_ENTRANCE)
-        LoadTrainerHillFloorObjectEventScripts();
-    else
-        LoadSaveblockObjEventScripts();
-
-    UnfreezeObjectEvents();
-    DoTimeBasedEvents();
-    UpdateMiscOverworldStates();
-    if (gMapHeader.mapLayoutId == LAYOUT_BATTLE_FRONTIER_BATTLE_PYRAMID_FLOOR)
-        InitBattlePyramidMap(TRUE);
-    else if (trainerHillMapId != 0)
-        InitTrainerHillMap();
-    else
-        InitMapFromSavedGame();
-
-    PlayTimeCounter_Start();
-    ScriptContext1_Init();
-    ScriptContext2_Disable();
-    InitMatchCallCounters();
-    if (UseContinueGameWarp() == TRUE)
+    if (++gMain.state == 60)
     {
-        ClearContinueGameWarpStatus();
-        SetWarpDestinationToContinueGameWarp();
-        WarpIntoMap();
-        TryPutTodaysRivalTrainerOnAir();
-        SetMainCallback2(CB2_LoadMap);
-    }
-    else
-    {
-        TryPutTodaysRivalTrainerOnAir();
-        gFieldCallback = FieldCB_FadeTryShowMapPopup;
-        SetMainCallback1(CB1_Overworld);
-        CB2_ReturnToField();
+        FieldClearVBlankHBlankCallbacks();
+        StopMapMusic();
+        ResetSafariZoneFlag_();
+        if (gSaveFileStatus == SAVE_STATUS_ERROR)
+            ResetWinStreaks();
+
+        LoadSaveblockMapHeader();
+        ClearDiveAndHoleWarps();
+        trainerHillMapId = GetCurrentTrainerHillMapId();
+        if (gMapHeader.mapLayoutId == LAYOUT_BATTLE_FRONTIER_BATTLE_PYRAMID_FLOOR)
+            LoadBattlePyramidFloorObjectEventScripts();
+        else if (trainerHillMapId != 0 && trainerHillMapId != TRAINER_HILL_ENTRANCE)
+            LoadTrainerHillFloorObjectEventScripts();
+        else
+            LoadSaveblockObjEventScripts();
+
+        UnfreezeObjectEvents();
+        DoTimeBasedEvents();
+        UpdateMiscOverworldStates();
+        if (gMapHeader.mapLayoutId == LAYOUT_BATTLE_FRONTIER_BATTLE_PYRAMID_FLOOR)
+            InitBattlePyramidMap(TRUE);
+        else if (trainerHillMapId != 0)
+            InitTrainerHillMap();
+        else
+            InitMapFromSavedGame();
+
+        PlayTimeCounter_Start();
+        ScriptContext1_Init();
+        ScriptContext2_Disable();
+        InitMatchCallCounters();
+        if (UseContinueGameWarp() == TRUE)
+        {
+            ClearContinueGameWarpStatus();
+            SetWarpDestinationToContinueGameWarp();
+            WarpIntoMap();
+            TryPutTodaysRivalTrainerOnAir();
+            SetMainCallback2(CB2_LoadMap);
+        }
+        else
+        {
+            TryPutTodaysRivalTrainerOnAir();
+            gFieldCallback = FieldCB_FadeTryShowMapPopup;
+            SetMainCallback1(CB1_Overworld);
+            CB2_ReturnToField();
+        }
     }
 }
 
@@ -2989,7 +2995,7 @@ bool32 Overworld_RecvKeysFromLinkIsRunning(void)
 
     if (temp == TRUE)
         return TRUE;
-    else if (gPaletteFade.active && gPaletteFade.softwareFadeFinishing)
+    else if (gPaletteFade.active && gPaletteFade.softwareFadeFinishingCounter > 0)
         return TRUE;
     else
         return FALSE;

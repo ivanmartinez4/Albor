@@ -11,6 +11,7 @@ PetalburgWoods_EventScript_DevonResearcherLeft::
 	waitmovement 0
 	msgbox PetalburgWoods_Text_HaveYouSeenShroomish, MSGBOX_DEFAULT
 	closemessage
+	call_if_mon_seen SPECIES_SHROOMISH, PetalburgWoods_EventScript_HappyDevonResearcher
 	playbgm MUS_ENCOUNTER_AQUA, FALSE
 	applymovement LOCALID_GRUNT, PetalburgWoods_Movement_AquaEntrance
 	waitmovement 0
@@ -48,6 +49,7 @@ PetalburgWoods_EventScript_DevonResearcherRight::
 	waitmovement 0
 	msgbox PetalburgWoods_Text_HaveYouSeenShroomish, MSGBOX_DEFAULT
 	closemessage
+	call_if_mon_seen SPECIES_SHROOMISH, PetalburgWoods_EventScript_HappyDevonResearcher
 	playbgm MUS_ENCOUNTER_AQUA, FALSE
 	applymovement LOCALID_GRUNT, PetalburgWoods_Movement_AquaEntrance
 	waitmovement 0
@@ -79,6 +81,12 @@ PetalburgWoods_EventScript_DevonResearcherIntro::
 	applymovement LOCALID_DEVON_EMPLOYEE, PetalburgWoods_Movement_DevonResearcherLookAround
 	waitmovement 0
 	msgbox PetalburgWoods_Text_NotAOneToBeFound, MSGBOX_DEFAULT
+	closemessage
+	return
+
+PetalburgWoods_EventScript_HappyDevonResearcher:
+	addvar VAR_DEVON_RESEARCHER_GIFT_COUNT, 2
+	msgbox PetalburgWoods_Text_HappyDevonResearcher, MSGBOX_DEFAULT
 	closemessage
 	return
 
@@ -291,7 +299,7 @@ PetalburgWoods_EventScript_James::
 PetalburgWoods_EventScript_TryRegisterJames::
 	special PlayerFaceTrainerAfterBattle
 	waitmovement 0
-	goto_if_set FLAG_HAS_MATCH_CALL, PetalburgWoods_EventScript_RegisterJames
+	goto_if_set FLAG_SYS_POKENAV_GET, PetalburgWoods_EventScript_RegisterJames
 	release
 	end
 
@@ -302,7 +310,7 @@ PetalburgWoods_EventScript_RegisterJames::
 	end
 
 PetalburgWoods_EventScript_TryRegisterJames2::
-	goto_if_set FLAG_HAS_MATCH_CALL, PetalburgWoods_EventScript_RegisterJames2
+	goto_if_set FLAG_SYS_POKENAV_GET, PetalburgWoods_EventScript_RegisterJames2
 	msgbox PetalburgWoods_Text_PeopleRespectYou, MSGBOX_DEFAULT
 	release
 	end
@@ -326,6 +334,11 @@ PetalburgWoods_Text_HaveYouSeenShroomish:
 	.string "Hello, have you seen any Pokémon\n"
 	.string "called Shroomish around here?\p"
 	.string "I really love that Pokémon.$"
+
+PetalburgWoods_Text_HappyDevonResearcher:
+	.string "Ohh! Is that a POKéDEX?\p"
+	.string "Have you recorded the data\n"
+	.string "of a SHROOMISH, by chance?$"
 
 PetalburgWoods_Text_IWasGoingToAmbushYou:
 	.string "I was going to ambush you, but you\n"

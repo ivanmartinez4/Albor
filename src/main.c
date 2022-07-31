@@ -28,7 +28,6 @@
 static void VBlankIntr(void);
 static void HBlankIntr(void);
 static void VCountIntr(void);
-static void SerialIntr(void);
 static void IntrDummy(void);
 
 const u8 gGameVersion = GAME_VERSION;
@@ -40,7 +39,7 @@ const char BuildDateTime[] = "2005 02 21 11:10";
 const IntrFunc gIntrTableTemplate[] =
 {
     VCountIntr, // V-count interrupt
-    SerialIntr, // Serial interrupt
+    IntrDummy, // Serial interrupt
     Timer3Intr, // Timer 3 interrupt
     HBlankIntr, // H-blank interrupt
     VBlankIntr, // V-blank interrupt
@@ -292,7 +291,6 @@ void InitIntrHandlers(void)
 
     SetVBlankCallback(NULL);
     SetHBlankCallback(NULL);
-    SetSerialCallback(NULL);
 
     REG_IME = 1;
 
@@ -316,13 +314,8 @@ void SetVCountCallback(IntrCallback callback)
 
 void RestoreSerialTimer3IntrHandlers(void)
 {
-    gIntrTable[1] = SerialIntr;
+    gIntrTable[1] = IntrDummy;
     gIntrTable[2] = Timer3Intr;
-}
-
-void SetSerialCallback(IntrCallback callback)
-{
-    gMain.serialCallback = callback;
 }
 
 static void VBlankIntr(void)
@@ -383,23 +376,13 @@ static void VCountIntr(void)
     gMain.intrCheck |= INTR_FLAG_VCOUNT;
 }
 
-static void SerialIntr(void)
-{
-    if (gMain.serialCallback)
-        gMain.serialCallback();
-
-    INTR_CHECK |= INTR_FLAG_SERIAL;
-    gMain.intrCheck |= INTR_FLAG_SERIAL;
-}
-
 static void IntrDummy(void)
 {}
 
 static void WaitForVBlank(void)
 {
     gMain.intrCheck &= ~INTR_FLAG_VBLANK;
-
-    VBlankIntrWait();
+    asm("swi 0x5");
 }
 
 void SetTrainerHillVBlankCounter(u32 *counter)

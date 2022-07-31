@@ -306,7 +306,6 @@ static bool8 IsTwoTurnsMove(u16 move);
 static void TrySetDestinyBondToHappen(void);
 static u8 AttacksThisTurn(u8 battlerId, u16 move); // Note: returns 1 if it's a charging turn, otherwise 2.
 static u32 ChangeStatBuffs(s8 statValue, u32 statId, u32 flags, const u8 *BS_ptr);
-static bool32 IsMonGettingExpSentOut(void);
 static void InitLevelUpBanner(void);
 static bool8 SlideInLevelUpBanner(void);
 static bool8 SlideOutLevelUpBanner(void);
@@ -3875,7 +3874,7 @@ static void Cmd_getexp(void)
               | BATTLE_TYPE_FRONTIER
               | BATTLE_TYPE_SAFARI
               | BATTLE_TYPE_BATTLE_TOWER
-              | BATTLE_TYPE_EREADER_TRAINER)))
+              | BATTLE_TYPE_EREADER_TRAINER)) || FlagGet(FLAG_DISABLE_EXPERIENCE))
         {
             gBattleScripting.getexpState = 6; // goto last case
         }
@@ -3896,17 +3895,12 @@ static void Cmd_getexp(void)
                     continue;
                 if (gBitTable[i] & sentIn)
                     viaSentIn++;
-
                 item = GetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM);
-
-                if (item == ITEM_ENIGMA_BERRY_E_READER)
-                    holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
-                else
-                    holdEffect = ItemId_GetHoldEffect(item);
-
-                if (holdEffect == HOLD_EFFECT_EXP_SHARE)
+                holdEffect = ItemId_GetHoldEffect(item);
+                if (holdEffect == HOLD_EFFECT_EXP_SHARE && !FlagGet(FLAG_SYS_EXP_SHARE))
                     viaExpShare++;
             }
+
             #if (B_SCALED_EXP >= GEN_5) && (B_SCALED_EXP != GEN_6)
                 calculatedExp = gBaseStats[gBattleMons[gBattlerFainted].species].expYield * gBattleMons[gBattlerFainted].level / 5;
             #else
@@ -3948,12 +3942,9 @@ static void Cmd_getexp(void)
         {
             item = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_HELD_ITEM);
 
-            if (item == ITEM_ENIGMA_BERRY_E_READER)
-                holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
-            else
-                holdEffect = ItemId_GetHoldEffect(item);
+            holdEffect = ItemId_GetHoldEffect(item);
 
-            if (holdEffect != HOLD_EFFECT_EXP_SHARE && !(gBattleStruct->sentInPokes & 1))
+            if (!FlagGet(FLAG_SYS_EXP_SHARE) && holdEffect != HOLD_EFFECT_EXP_SHARE && !(gBattleStruct->sentInPokes & 1))
             {
                 *(&gBattleStruct->sentInPokes) >>= 1;
                 gBattleScripting.getexpState = 5;
@@ -3983,7 +3974,7 @@ static void Cmd_getexp(void)
                     gBattleStruct->wildVictorySong++;
                 }
 
-                if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_HP))
+                if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_HP) && !GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_IS_EGG))
                 {
                     if (gBattleStruct->sentInPokes & 1)
                         gBattleMoveDamage = *exp;
@@ -3991,13 +3982,14 @@ static void Cmd_getexp(void)
                         gBattleMoveDamage = 0;
 
                     // only give exp share bonus in later gens if the mon wasn't sent out
-                    if ((holdEffect == HOLD_EFFECT_EXP_SHARE) && ((gBattleMoveDamage == 0) || (B_SPLIT_EXP < GEN_6)))
+                    if (FlagGet(FLAG_SYS_EXP_SHARE) && (gBattleMoveDamage == 0 || B_SPLIT_EXP < GEN_6))
                         gBattleMoveDamage += gExpShareExp;
                     if (holdEffect == HOLD_EFFECT_LUCKY_EGG)
                         gBattleMoveDamage = (gBattleMoveDamage * 150) / 100;
                     if (gBattleTypeFlags & BATTLE_TYPE_TRAINER && B_TRAINER_EXP_MULTIPLIER <= GEN_7)
                         gBattleMoveDamage = (gBattleMoveDamage * 150) / 100;
                     #if (B_SCALED_EXP >= GEN_5) && (B_SCALED_EXP != GEN_6)
+                    if (!FlagGet(FLAG_SYS_EXP_SHARE)) // Make B_SCALED_EXP not affect the Gen. 6 Exp. Share.
                     {
                         // Note: There is an edge case where if a pokemon receives a large amount of exp, it wouldn't be properly calculated
                         //       because of multiplying by scaling factor(the value would simply be larger than an u32 can hold). Hence u64 is needed.
@@ -6634,32 +6626,23 @@ static void Cmd_yesnoboxlearnmove(void)
             else
             {
                 u16 moveId = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_MOVE1 + movePosition);
-                if (IsHMMove2(moveId))
+                gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+
+                PREPARE_MOVE_BUFFER(gBattleTextBuff2, moveId)
+                RemoveMonPPBonus(&gPlayerParty[gBattleStruct->expGetterMonId], movePosition);
+                SetMonMoveSlot(&gPlayerParty[gBattleStruct->expGetterMonId], gMoveToLearn, movePosition);
+
+                if (gBattlerPartyIndexes[0] == gBattleStruct->expGetterMonId && MOVE_IS_PERMANENT(0, movePosition))
                 {
-                    PrepareStringBattle(STRINGID_HMMOVESCANTBEFORGOTTEN, gActiveBattler);
-                    gBattleScripting.learnMoveState = 6;
+                    RemoveBattleMonPPBonus(&gBattleMons[0], movePosition);
+                    SetBattleMonMoveSlot(&gBattleMons[0], gMoveToLearn, movePosition);
                 }
-                else
+                if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE
+                    && gBattlerPartyIndexes[2] == gBattleStruct->expGetterMonId
+                    && MOVE_IS_PERMANENT(2, movePosition))
                 {
-                    gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
-
-                    PREPARE_MOVE_BUFFER(gBattleTextBuff2, moveId)
-
-                    RemoveMonPPBonus(&gPlayerParty[gBattleStruct->expGetterMonId], movePosition);
-                    SetMonMoveSlot(&gPlayerParty[gBattleStruct->expGetterMonId], gMoveToLearn, movePosition);
-
-                    if (gBattlerPartyIndexes[0] == gBattleStruct->expGetterMonId && MOVE_IS_PERMANENT(0, movePosition))
-                    {
-                        RemoveBattleMonPPBonus(&gBattleMons[0], movePosition);
-                        SetBattleMonMoveSlot(&gBattleMons[0], gMoveToLearn, movePosition);
-                    }
-                    if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE
-                        && gBattlerPartyIndexes[2] == gBattleStruct->expGetterMonId
-                        && MOVE_IS_PERMANENT(2, movePosition))
-                    {
-                        RemoveBattleMonPPBonus(&gBattleMons[2], movePosition);
-                        SetBattleMonMoveSlot(&gBattleMons[2], gMoveToLearn, movePosition);
-                    }
+                    RemoveBattleMonPPBonus(&gBattleMons[2], movePosition);
+                    SetBattleMonMoveSlot(&gBattleMons[2], gMoveToLearn, movePosition);
                 }
             }
         }
@@ -6756,34 +6739,9 @@ static u32 GetTrainerMoneyToGive(u16 trainerId)
     }
     else
     {
-        switch (gTrainers[trainerId].partyFlags)
-        {
-        case 0:
-            {
-                const struct TrainerMonNoItemDefaultMoves *party = gTrainers[trainerId].party.NoItemDefaultMoves;
-                lastMonLevel = party[gTrainers[trainerId].partySize - 1].lvl;
-            }
-            break;
-        case F_TRAINER_PARTY_CUSTOM_MOVESET:
-            {
-                const struct TrainerMonNoItemCustomMoves *party = gTrainers[trainerId].party.NoItemCustomMoves;
-                lastMonLevel = party[gTrainers[trainerId].partySize - 1].lvl;
-            }
-            break;
-        case F_TRAINER_PARTY_HELD_ITEM:
-            {
-                const struct TrainerMonItemDefaultMoves *party = gTrainers[trainerId].party.ItemDefaultMoves;
-                lastMonLevel = party[gTrainers[trainerId].partySize - 1].lvl;
-            }
-            break;
-        case F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_HELD_ITEM:
-            {
-                const struct TrainerMonItemCustomMoves *party = gTrainers[trainerId].party.ItemCustomMoves;
-                lastMonLevel = party[gTrainers[trainerId].partySize - 1].lvl;
-            }
-            break;
-        }
-
+        const struct TrainerMon *party = gTrainers[trainerId].party.TrainerMon;
+        lastMonLevel = party[gTrainers[trainerId].partySize - 1].lvl;
+ 
         for (; gTrainerMoneyTable[i].classId != 0xFF; i++)
         {
             if (gTrainerMoneyTable[i].classId == gTrainers[trainerId].trainerClass)
@@ -7272,9 +7230,9 @@ static void DrawLevelUpBannerText(void)
 
     monLevel = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL);
     monGender = GetMonGender(&gPlayerParty[gBattleStruct->expGetterMonId]);
-    GetMonNickname(&gPlayerParty[gBattleStruct->expGetterMonId], gStringVar4);
+    GetMonNickname(&gPlayerParty[gBattleStruct->expGetterMonId], gStringVar7);
 
-    printerTemplate.currentChar = gStringVar4;
+    printerTemplate.currentChar = gStringVar7;
     printerTemplate.windowId = B_WIN_LEVEL_UP_BANNER;
     printerTemplate.fontId = FONT_SMALL;
     printerTemplate.x = 32;
@@ -7290,7 +7248,7 @@ static void DrawLevelUpBannerText(void)
 
     AddTextPrinter(&printerTemplate, TEXT_SKIP_DRAW, NULL);
 
-    txtPtr = gStringVar4;
+    txtPtr = gStringVar7;
     *(txtPtr)++ = CHAR_EXTRA_SYMBOL;
     *(txtPtr)++ = CHAR_LV_2;
 
@@ -7387,7 +7345,7 @@ static void SpriteCB_MonIconOnLvlUpBanner(struct Sprite* sprite)
 #undef sDestroy
 #undef sXOffset
 
-static bool32 IsMonGettingExpSentOut(void)
+bool32 IsMonGettingExpSentOut(void)
 {
     if (gBattlerPartyIndexes[0] == gBattleStruct->expGetterMonId)
         return TRUE;
@@ -9558,6 +9516,12 @@ static void Cmd_various(void)
             gBattlescriptCurrInstr += 7;
         return;
     }
+    case VARIOUS_JUMP_IF_SET:
+        if (FlagGet(T1_READ_16(gBattlescriptCurrInstr + 3)))
+            gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 5);
+        else
+            gBattlescriptCurrInstr += 9;
+        return;
     case VARIOUS_JUMP_IF_CANT_FLING:
         if (!CanFling(gActiveBattler))
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
@@ -10664,8 +10628,8 @@ static void Cmd_forcerandomswitch(void)
             battler1PartyId = gBattlerPartyIndexes[gBattlerTarget ^ BIT_FLANK];
         }
         else if ((gBattleTypeFlags & BATTLE_TYPE_BATTLE_TOWER && gBattleTypeFlags & BATTLE_TYPE_LINK)
-            || (gBattleTypeFlags & BATTLE_TYPE_BATTLE_TOWER && gBattleTypeFlags & BATTLE_TYPE_RECORDED_LINK)
-            || (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER))
+              || (gBattleTypeFlags & BATTLE_TYPE_BATTLE_TOWER && gBattleTypeFlags & BATTLE_TYPE_RECORDED_LINK)
+              || (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER))
         {
             if ((gBattlerTarget & BIT_FLANK) != B_FLANK_LEFT)
             {
@@ -13211,6 +13175,9 @@ static void Cmd_pickup(void)
     u16 species, heldItem;
     u16 ability;
     u8 lvlDivBy10;
+    u8 nickname[POKEMON_NAME_LENGTH * 2];
+    u32 index = 0;
+    u32 pickedUpItems = 0;
 
     if (InBattlePike())
     {
@@ -13236,6 +13203,8 @@ static void Cmd_pickup(void)
             {
                 heldItem = GetBattlePyramidPickupItemId();
                 SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
+                pickedUpItems++;
+                index = i;
             }
             #if (defined ITEM_HONEY)
             else if (ability == ABILITY_HONEY_GATHER
@@ -13247,6 +13216,8 @@ static void Cmd_pickup(void)
                 {
                     heldItem = ITEM_HONEY;
                     SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
+                    pickedUpItems++;
+                    index = i;
                 }
             }
             #endif
@@ -13281,11 +13252,15 @@ static void Cmd_pickup(void)
                     if (sPickupProbabilities[j] > rand)
                     {
                         SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &sPickupItems[lvlDivBy10 + j]);
+                        pickedUpItems++;
+                        index = i;
                         break;
                     }
                     else if (rand == 99 || rand == 98)
                     {
                         SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &sRarePickupItems[lvlDivBy10 + (99 - rand)]);
+                        pickedUpItems++;
+                        index = i;
                         break;
                     }
                 }
@@ -13300,13 +13275,39 @@ static void Cmd_pickup(void)
                 {
                     heldItem = ITEM_HONEY;
                     SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
+                    pickedUpItems++;
+                    index = i;
                 }
             }
             #endif
         }
     }
 
-    gBattlescriptCurrInstr++;
+    if (pickedUpItems == 1) // only one Pokemon has picked something up, print solo message
+    {
+        static const u8 sText_LowercaseA[] = _("a");
+        static const u8 sText_LowercaseAn[] = _("an");
+
+        GetMonData(&gPlayerParty[index], MON_DATA_NICKNAME, nickname);
+        StringCopy_Nickname(gBattleTextBuff1, nickname);
+
+        if (IsFirstLetterVowelSound(ItemId_GetName(GetMonData(&gPlayerParty[index], MON_DATA_HELD_ITEM))))
+            StringCopy(gBattleTextBuff2, sText_LowercaseAn);
+        else
+            StringCopy(gBattleTextBuff2, sText_LowercaseA);
+        CopyItemName(GetMonData(&gPlayerParty[index], MON_DATA_HELD_ITEM), gBattleTextBuff3);
+        BattleScriptPush(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = BattleScript_PickedUpItemSolo;
+    }
+    else if (pickedUpItems > 1) // multiple Pokemon have picked something up, print multi message
+    {
+        BattleScriptPush(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = BattleScript_PickedUpItem;
+    }
+    else
+    {
+        ++gBattlescriptCurrInstr;
+    }
 }
 
 static void Cmd_docastformchangeanimation(void)

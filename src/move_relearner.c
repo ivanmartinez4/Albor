@@ -24,6 +24,7 @@
 #include "task.h"
 #include "constants/rgb.h"
 #include "constants/songs.h"
+#include "party_menu.h"
 
 /*
  * Move relearner state machine
@@ -426,8 +427,8 @@ static void CB2_MoveRelearnerMain(void)
 
 static void FormatAndPrintText(const u8 *src)
 {
-    StringExpandPlaceholders(gStringVar4, src);
-    MoveRelearnerPrintText(gStringVar4);
+    StringExpandPlaceholders(gStringVar7, src);
+    MoveRelearnerPrintText(gStringVar7);
 }
 
 // See the state machine doc at the top of the file.
@@ -638,7 +639,10 @@ static void DoMoveRelearnerMain(void)
         if (!gPaletteFade.active)
         {
             FreeMoveRelearnerResources();
-            SetMainCallback2(CB2_ReturnToField);
+            if (FlagGet(FLAG_TEMP_1))
+                SetMainCallback2(CB2_ReturnToPartyMenuFromSummaryScreen);
+            else
+                SetMainCallback2(CB2_ReturnToField);
         }
         break;
     case MENU_STATE_FADE_FROM_SUMMARY_SCREEN:
@@ -665,10 +669,14 @@ static void DoMoveRelearnerMain(void)
             else
             {
                 u16 moveId = GetMonData(&gPlayerParty[sMoveRelearnerStruct->partyMon], MON_DATA_MOVE1 + sMoveRelearnerStruct->moveSlot);
+                u8 oldPP;
 
                 StringCopy(gStringVar3, gMoveNames[moveId]);
                 RemoveMonPPBonus(&gPlayerParty[sMoveRelearnerStruct->partyMon], sMoveRelearnerStruct->moveSlot);
+                oldPP = GetMonData(&gPlayerParty[sMoveRelearnerStruct->partyMon], MON_DATA_PP1 + GetMoveSlotToReplace(), NULL);
                 SetMonMoveSlot(&gPlayerParty[sMoveRelearnerStruct->partyMon], GetCurrentSelectedMove(), sMoveRelearnerStruct->moveSlot);
+                if (GetMonData(&gPlayerParty[sMoveRelearnerStruct->partyMon], MON_DATA_PP1 + GetMoveSlotToReplace(), NULL) > oldPP)
+                    SetMonData(&gPlayerParty[sMoveRelearnerStruct->partyMon], MON_DATA_PP1 + GetMoveSlotToReplace(), &oldPP);
                 StringCopy(gStringVar2, gMoveNames[GetCurrentSelectedMove()]);
                 FormatAndPrintText(gText_MoveRelearnerAndPoof);
                 sMoveRelearnerStruct->state = MENU_STATE_DOUBLE_FANFARE_FORGOT_MOVE;
@@ -730,9 +738,9 @@ static void HideHeartSpritesAndShowTeachMoveText(bool8 onlyHideSprites)
 
     if (!onlyHideSprites)
     {
-        StringExpandPlaceholders(gStringVar4, gText_TeachWhichMoveToPkmn);
+        StringExpandPlaceholders(gStringVar7, gText_TeachWhichMoveToPkmn);
         FillWindowPixelBuffer(3, 0x11);
-        AddTextPrinterParameterized(3, FONT_NORMAL, gStringVar4, 0, 1, 0, NULL);
+        AddTextPrinterParameterized(3, FONT_NORMAL, gStringVar7, 0, 1, 0, NULL);
     }
 }
 
@@ -771,16 +779,16 @@ static void HandleInput(bool8 showContest)
         PlaySE(SE_SELECT);
         RemoveScrollArrows();
         sMoveRelearnerStruct->state = MENU_STATE_PRINT_GIVE_UP_PROMPT;
-        StringExpandPlaceholders(gStringVar4, gText_MoveRelearnerGiveUp);
-        MoveRelearnerPrintText(gStringVar4);
+        StringExpandPlaceholders(gStringVar7, gText_MoveRelearnerGiveUp);
+        MoveRelearnerPrintText(gStringVar7);
         break;
     default:
         PlaySE(SE_SELECT);
         RemoveScrollArrows();
         sMoveRelearnerStruct->state = MENU_STATE_PRINT_TEACH_MOVE_PROMPT;
         StringCopy(gStringVar2, gMoveNames[itemId]);
-        StringExpandPlaceholders(gStringVar4, gText_MoveRelearnerTeachMoveConfirm);
-        MoveRelearnerPrintText(gStringVar4);
+        StringExpandPlaceholders(gStringVar7, gText_MoveRelearnerTeachMoveConfirm);
+        MoveRelearnerPrintText(gStringVar7);
         break;
     }
 }
@@ -800,9 +808,9 @@ static void ShowTeachMoveText(bool8 shouldDoNothingInstead)
 {
     if (shouldDoNothingInstead == FALSE)
     {
-        StringExpandPlaceholders(gStringVar4, gText_TeachWhichMoveToPkmn);
+        StringExpandPlaceholders(gStringVar7, gText_TeachWhichMoveToPkmn);
         FillWindowPixelBuffer(3, 0x11);
-        AddTextPrinterParameterized(3, FONT_NORMAL, gStringVar4, 0, 1, 0, NULL);
+        AddTextPrinterParameterized(3, FONT_NORMAL, gStringVar7, 0, 1, 0, NULL);
     }
 }
 

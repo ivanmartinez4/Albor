@@ -190,6 +190,12 @@ LittlerootTown_MaysHouse_1F_EventScript_MeetRival::
 	call_if_eq VAR_0x8008, 1, LittlerootTown_MaysHouse_1F_EventScript_MayApproachPlayer1
 	call_if_eq VAR_0x8008, 2, LittlerootTown_MaysHouse_1F_EventScript_MayApproachPlayer2
 	msgbox RivalsHouse_1F_Text_MayWhoAreYou, MSGBOX_DEFAULT
+	special SetRivalsName
+	waitstate
+	goto LittlerootTown_MaysHouse_1F_EventScript_MeetNamedFemaleRival
+
+LittlerootTown_MaysHouse_1F_EventScript_MeetNamedFemaleRival:
+	msgbox RivalsHouse_1F_Text_MayWhoAreYou2, MSGBOX_DEFAULT
 	closemessage
 	call_if_eq VAR_0x8008, 0, LittlerootTown_MaysHouse_1F_EventScript_MayGoUpstairs0
 	call_if_eq VAR_0x8008, 1, LittlerootTown_MaysHouse_1F_EventScript_MayGoUpstairs1
@@ -366,7 +372,9 @@ RivalsHouse_1F_Text_MayWhoAreYou:
 	.string "… … … … … … … …\p"
 	.string "Oh, you're {PLAYER}{KUN}.\n"
 	.string "So your move was today.\p"
-	.string "Um… I'm May.\n"
+	.string "Um… I'm…$"
+RivalsHouse_1F_Text_MayWhoAreYou2:
+	.string "Um… I'm {RIVAL}.\n"
 	.string "Glad to meet you!\p"
 	.string "I…\n"
 	.string "I have this dream of becoming friends\l"
@@ -393,7 +401,9 @@ RivalsHouse_1F_Text_BrendanWhoAreYou:
 	.string "Dad, Prof. Birch, said that our new\n"
 	.string "next-door neighbor is a Gym Leader's\l"
 	.string "kid, so I assumed you'd be a guy.\p"
-	.string "My name's Brendan.\n"
+	.string "My name's…$"
+RivalsHouse_1F_Text_BrendanWhoAreYou2:
+	.string "My name's {RIVAL}.\n"
 	.string "So, hi, neighbor!\p"
 	.string "Huh? Hey, {PLAYER}, don't you have\n"
 	.string "a Pokémon?\p"

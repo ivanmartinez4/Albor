@@ -722,10 +722,6 @@ static u32 CopyLinkPartnerMonData(u8 monId, u8 *dst)
         dst[0] = GetMonData(&gPlayerParty[monId], MON_DATA_TOUGH);
         size = 1;
         break;
-    case REQUEST_SHEEN_BATTLE:
-        dst[0] = GetMonData(&gPlayerParty[monId], MON_DATA_SHEEN);
-        size = 1;
-        break;
     case REQUEST_COOL_RIBBON_BATTLE:
         dst[0] = GetMonData(&gPlayerParty[monId], MON_DATA_COOL_RIBBON);
         size = 1;
@@ -973,9 +969,6 @@ static void SetLinkPartnerMonData(u8 monId)
     case REQUEST_TOUGH_BATTLE:
         SetMonData(&gPlayerParty[monId], MON_DATA_TOUGH, &gBattleResources->bufferA[gActiveBattler][3]);
         break;
-    case REQUEST_SHEEN_BATTLE:
-        SetMonData(&gPlayerParty[monId], MON_DATA_SHEEN, &gBattleResources->bufferA[gActiveBattler][3]);
-        break;
     case REQUEST_COOL_RIBBON_BATTLE:
         SetMonData(&gPlayerParty[monId], MON_DATA_COOL_RIBBON, &gBattleResources->bufferA[gActiveBattler][3]);
         break;
@@ -1137,7 +1130,7 @@ static void LinkPartnerHandleDrawTrainerPic(void)
         trainerPicId = gLinkPlayers[GetBattlerMultiplayerId(gActiveBattler)].gender;
     }
 
-    DecompressTrainerBackPic(trainerPicId, gActiveBattler);
+    LoadPalette(gTrainerBackPicPaletteTable[trainerPicId].data, 0x100 + 16 * gActiveBattler, 32);
     SetMultiuseSpriteTemplateToTrainerBack(trainerPicId, GetBattlerPosition(gActiveBattler));
     gBattlerSpriteIds[gActiveBattler] = CreateSprite(&gMultiuseSpriteTemplate, xPos, (8 - gTrainerBackPicCoords[trainerPicId].size) * 4 + 80, GetBattlerSpriteSubpriority(gActiveBattler));
 
@@ -1546,7 +1539,7 @@ static void LinkPartnerHandleIntroTrainerBallThrow(void)
         trainerPicId = gLinkPlayers[GetBattlerMultiplayerId(gActiveBattler)].gender;
     }
 
-    LoadCompressedPalette(gTrainerBackPicPaletteTable[trainerPicId].data, 0x100 + paletteNum * 16, 32);
+    LoadPalette(gTrainerBackPicPaletteTable[trainerPicId].data, 0x100 + paletteNum * 16, 32);
 
     gSprites[gBattlerSpriteIds[gActiveBattler]].oam.paletteNum = paletteNum;
 

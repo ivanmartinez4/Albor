@@ -13,24 +13,9 @@ FallarborTown_BattleTentBattleRoom_MapScripts::
 	@ The opponent is represented by object event 3, which has the gfx id VAR_OBJ_GFX_ID_0
 
 FallarborTown_BattleTentBattleRoom_OnTransition:
-	call FallarborTown_BattleTentBattleRoom_EventScript_SetPlayerGfx
+	specialvar VAR_OBJ_GFX_ID_1, GetPlayerCostumeId
+	specialvar VAR_OBJ_GFX_ID_0, GetPlayerCostumeId
 	end
-
-FallarborTown_BattleTentBattleRoom_EventScript_SetPlayerGfx::
-	checkplayergender
-	goto_if_eq VAR_RESULT, MALE, FallarborTown_BattleTentBattleRoom_EventScript_SetPlayerGfxMale
-	goto_if_eq VAR_RESULT, FEMALE, FallarborTown_BattleTentBattleRoom_EventScript_SetPlayerGfxFemale
-	return
-
-FallarborTown_BattleTentBattleRoom_EventScript_SetPlayerGfxMale::
-	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL
-	setvar VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL
-	return
-
-FallarborTown_BattleTentBattleRoom_EventScript_SetPlayerGfxFemale::
-	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_RIVAL_MAY_NORMAL
-	setvar VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_RIVAL_MAY_NORMAL
-	return
 
 FallarborTown_BattleTentBattleRoom_OnFrame:
 	map_script_2 VAR_TEMP_0, 0, FallarborTown_BattleTentBattleRoom_EventScript_EnterRoom
@@ -54,7 +39,7 @@ FallarborTown_BattleTentBattleRoom_EventScript_NextOpponentEnter::
 	waitmovement 0
 	msgbox BattleFrontier_BattleArenaBattleRoom_Text_SetKOTourneyBegin, MSGBOX_DEFAULT
 	battletent_getopponentintro
-	msgbox gStringVar4, MSGBOX_DEFAULT
+	msgbox gStringVar7, MSGBOX_DEFAULT
 	waitmessage
 	call BattleFrontier_BattleArenaBattleRoom_EventScript_DoArenaBattle
 	switch VAR_RESULT

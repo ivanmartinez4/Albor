@@ -16,6 +16,9 @@
 #include "constants/layouts.h"
 #include "constants/region_map_sections.h"
 #include "constants/weather.h"
+#include "roamer.h"
+#include "script.h"
+#include "event_scripts.h"
 
 // enums
 enum MapPopUp_Themes
@@ -315,6 +318,8 @@ static void ShowMapNamePopUpWindow(void)
     {
         withoutPrefixPtr = &(mapDisplayHeader[3]);
         GetMapName(withoutPrefixPtr, gMapHeader.regionMapSectionId, 0);
+        if (IsRoamerAt(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum))
+            ScriptContext1_SetupScript(EventScript_RoamerCue);
     }
     AddMapNamePopUpWindow();
     LoadMapNamePopUpWindowBg();

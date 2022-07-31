@@ -199,14 +199,14 @@ gScriptCmdTable::
 	.4byte ScrCmd_setescapewarp             @ 0xc4
 	.4byte ScrCmd_waitmoncry                @ 0xc5
 	.4byte ScrCmd_bufferboxname             @ 0xc6
-	.4byte ScrCmd_nop1                      @ 0xc7
+	.4byte ScrCmd_bufferdynamicmulti        @ 0xc7
 	.4byte ScrCmd_nop1                      @ 0xc8
 	.4byte ScrCmd_nop1                      @ 0xc9
 	.4byte ScrCmd_nop1                      @ 0xca
 	.4byte ScrCmd_nop1                      @ 0xcb
 	.4byte ScrCmd_nop1                      @ 0xcc
-	.4byte ScrCmd_setmoneventlegal          @ 0xcd
-	.4byte ScrCmd_checkmoneventlegal        @ 0xce
+	.4byte ScrCmd_nop1                      @ 0xcd
+	.4byte ScrCmd_nop1                      @ 0xce
 	.4byte ScrCmd_trywondercardscript       @ 0xcf
 	.4byte ScrCmd_nop1                      @ 0xd0
 	.4byte ScrCmd_warpspinenter             @ 0xd1
@@ -224,9 +224,17 @@ gScriptCmdTable::
 	.4byte ScrCmd_buffertrainerclassname    @ 0xdd
 	.4byte ScrCmd_buffertrainername         @ 0xde
 	.4byte ScrCmd_pokenavcall               @ 0xdf
-	.4byte ScrCmd_buffercontestname         @ 0xe0
-	.4byte ScrCmd_bufferitemnameplural      @ 0xe1
-    .4byte ScrCmd_callfunc                  @ 0xe2
+	.4byte ScrCmd_warpwhitefade             @ 0xe0
+	.4byte ScrCmd_buffercontestname         @ 0xe1
+	.4byte ScrCmd_bufferitemnameplural      @ 0xe2
+	.4byte ScrCmd_givecustommon             @ 0xe3
+	.4byte ScrCmd_getgamestat               @ 0xe4
+	.4byte ScrCmd_getdate                   @ 0xe5
+	.4byte ScrCmd_locktarget                @ 0xe6
+	.4byte ScrCmd_getcurrentday             @ 0xe7
+	.4byte ScrCmd_drawinfobox               @ 0xe8
+	.4byte ScrCmd_removeinfobox             @ 0xe9
+	.4byte ScrCmd_setcustomwildbattle       @ 0xea
 
 gScriptCmdTableEnd::
 	.4byte ScrCmd_nop

@@ -423,9 +423,9 @@ static bool32 TryWriteTrainerHill_Internal(struct EReaderTrainerHillSet * hillSe
     AGB_ASSERT_EX(hillSet->dummy == 0, "cereader_tool.c", 450);
     AGB_ASSERT_EX(hillSet->id == 0, "cereader_tool.c", 452);
 
-    memset(challenge, 0, SECTOR_SIZE);
-    challenge->numTrainers = hillSet->numTrainers;
-    challenge->numFloors = (hillSet->numTrainers + 1) / HILL_TRAINERS_PER_FLOOR;
+    memset(hillTag, 0, SECTOR_SIZE);
+    hillTag->numTrainers = hillSet->numTrainers;
+    hillTag->numFloors = (hillSet->numTrainers + 1) / TRAINER_HILL_TRAINERS_PER_FLOOR;
 
     for (i = 0; i < hillSet->numTrainers; i++)
     {

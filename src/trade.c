@@ -50,6 +50,7 @@
 #include "constants/rgb.h"
 #include "constants/songs.h"
 #include "constants/union_room.h"
+#include "rtc.h"
 
 // The following tags are offsets from GFXTAG_MENU_TEXT
 // They're looped over in CB2_CreateTradeMenu and CB2_ReturnToTradeMenu
@@ -87,7 +88,6 @@ struct InGameTrade {
     /*0x2A*/ u8 mailNum;
     /*0x2B*/ u8 otName[11];
     /*0x36*/ u8 otGender;
-    /*0x37*/ u8 sheen;
     /*0x38*/ u16 requestedSpecies;
 };
 
@@ -1520,19 +1520,9 @@ static u8 CheckValidityOfTradeMons(u8 *aliveMons, u8 playerPartyCount, u8 player
     partnerMonIdx %= PARTY_SIZE;
     partnerSpecies = GetMonData(&gEnemyParty[partnerMonIdx], MON_DATA_SPECIES);
 
-    // Partner cant trade illegitimate Deoxys or Mew
-    if (partnerSpecies == SPECIES_DEOXYS || partnerSpecies == SPECIES_MEW)
-    {
-        if (!GetMonData(&gEnemyParty[partnerMonIdx], MON_DATA_EVENT_LEGAL))
-            return PARTNER_MON_INVALID;
-    }
-
-    // Partner cant trade Egg or non-Hoenn mon if player doesn't have National Dex
-    if (!IsNationalPokedexEnabled())
-    {
-        if (sTradeMenuData->isEgg[TRADE_PARTNER][partnerMonIdx] || !IsSpeciesInHoennDex(partnerSpecies))
-            return PARTNER_MON_INVALID;
-    }
+    // Partner cant trade Egg
+    if (sTradeMenuData->isEgg[TRADE_PARTNER][partnerMonIdx])
+        return PARTNER_MON_INVALID;
 
     if (hasLiveMon)
         hasLiveMon = BOTH_MONS_VALID;
@@ -2377,12 +2367,6 @@ static u32 CanTradeSelectedMon(struct Pokemon *playerParty, int partyCount, int 
         }
     }
 
-    if (species[monIdx] == SPECIES_DEOXYS || species[monIdx] == SPECIES_MEW)
-    {
-        if (!GetMonData(&playerParty[monIdx], MON_DATA_EVENT_LEGAL))
-            return CANT_TRADE_INVALID_MON;
-    }
-
     // Make Eggs not count for numMonsLeft
     for (i = 0; i < partyCount; i++)
     {
@@ -2444,17 +2428,7 @@ s32 GetGameProgressForLinkTrade(void)
     return TRADE_BOTH_PLAYERS_READY;
 }
 
-static bool32 IsDeoxysOrMewUntradable(u16 species, bool8 isEventLegal)
-{
-    if (species == SPECIES_DEOXYS || species == SPECIES_MEW)
-    {
-        if (!isEventLegal)
-            return TRUE;
-    }
-    return FALSE;
-}
-
-int GetUnionRoomTradeMessageId(struct RfuGameCompatibilityData player, struct RfuGameCompatibilityData partner, u16 playerSpecies2, u16 partnerSpecies, u8 requestedType, u16 playerSpecies, bool8 isEventLegal)
+int GetUnionRoomTradeMessageId(struct RfuGameCompatibilityData player, struct RfuGameCompatibilityData partner, u16 playerSpecies2, u16 partnerSpecies, u8 requestedType, u16 playerSpecies, u8 isEventLegal)
 {
     bool8 playerHasNationalDex = player.hasNationalDex;
     bool8 playerIsChampion = player.isChampion;
@@ -2470,10 +2444,6 @@ int GetUnionRoomTradeMessageId(struct RfuGameCompatibilityData player, struct Rf
         else if (!partnerIsChampion)
             return UR_TRADE_MSG_CANT_TRADE_WITH_PARTNER_2;
     }
-
-    // Cannot trade illegitimate Deoxys/Mew
-    if (IsDeoxysOrMewUntradable(playerSpecies, isEventLegal))
-        return UR_TRADE_MSG_MON_CANT_BE_TRADED_2;
 
     if (partnerSpecies == SPECIES_EGG)
     {
@@ -2518,9 +2488,6 @@ int GetUnionRoomTradeMessageId(struct RfuGameCompatibilityData player, struct Rf
 int CanRegisterMonForTradingBoard(struct RfuGameCompatibilityData player, u16 species2, u16 species, bool8 isEventLegal)
 {
     bool8 hasNationalDex = player.hasNationalDex;
-
-    if (IsDeoxysOrMewUntradable(species, isEventLegal))
-        return CANT_REGISTER_MON;
 
     if (hasNationalDex)
         return CAN_REGISTER_MON;
@@ -2759,7 +2726,7 @@ static void LoadTradeMonPic(u8 whichParty, u8 state)
 
         HandleLoadSpecialPokePic(&gMonFrontPicTable[species], gMonSpritesGfxPtr->sprites.ptr[whichParty * 2 + B_POSITION_OPPONENT_LEFT], species, personality);
 
-        LoadCompressedSpritePalette(GetMonSpritePalStruct(mon));
+        LoadCompressedUniqueSpritePalette(GetMonSpritePalStruct(mon), species, personality, GetMonData(mon));
         sTradeData->monSpecies[whichParty] = species;
         sTradeData->monPersonalities[whichParty] = personality;
         break;
@@ -3287,9 +3254,9 @@ static void BufferTradeSceneStrings(void)
     }
     else
     {
-        ingameTrade = &sIngameTrades[gSpecialVar_0x8004];
-        StringCopy(gStringVar1, ingameTrade->otName);
-        StringCopy_Nickname(gStringVar3, ingameTrade->nickname);
+        GetMonData(&gEnemyParty[0], MON_DATA_OT_NAME, gStringVar1);
+        GetMonData(&gEnemyParty[0], MON_DATA_NICKNAME, name);
+        StringCopy_Nickname(gStringVar3, name);
         GetMonData(&gPlayerParty[gSpecialVar_0x8005], MON_DATA_NICKNAME, name);
         StringCopy_Nickname(gStringVar2, name);
     }
@@ -3409,8 +3376,8 @@ static bool8 AnimateTradeSequenceCable(void)
         }
         break;
     case TS_STATE_SEND_MSG:
-        StringExpandPlaceholders(gStringVar4, gText_XWillBeSentToY);
-        DrawTextOnTradeWindow(0, gStringVar4, 0);
+        StringExpandPlaceholders(gStringVar7, gText_XWillBeSentToY);
+        DrawTextOnTradeWindow(0, gStringVar7, 0);
 
         if (sTradeData->monSpecies[TRADE_PLAYER] != SPECIES_EGG)
             PlayCry_Normal(sTradeData->monSpecies[TRADE_PLAYER], 0);
@@ -3423,8 +3390,8 @@ static bool8 AnimateTradeSequenceCable(void)
         {
             sTradeData->releasePokeballSpriteId = CreateTradePokeballSprite(sTradeData->monSpriteIds[0], gSprites[sTradeData->monSpriteIds[0]].oam.paletteNum, 120, 32, 2, 1, 0x14, 0xfffff);
             sTradeData->state++;
-            StringExpandPlaceholders(gStringVar4, gText_ByeByeVar1);
-            DrawTextOnTradeWindow(0, gStringVar4, 0);
+            StringExpandPlaceholders(gStringVar7, gText_ByeByeVar1);
+            DrawTextOnTradeWindow(0, gStringVar7, 0);
         }
         break;
     case TS_STATE_POKEBALL_DEPART:
@@ -3771,8 +3738,8 @@ static bool8 AnimateTradeSequenceCable(void)
                                       DISPCNT_BG0_ON |
                                       DISPCNT_BG2_ON |
                                       DISPCNT_OBJ_ON);
-        StringExpandPlaceholders(gStringVar4, gText_XSentOverY);
-        DrawTextOnTradeWindow(0, gStringVar4, 0);
+        StringExpandPlaceholders(gStringVar7, gText_XSentOverY);
+        DrawTextOnTradeWindow(0, gStringVar7, 0);
         sTradeData->state = TS_STATE_DELAY_FOR_MON_ANIM;
         sTradeData->timer = 0;
         break;
@@ -3794,8 +3761,8 @@ static bool8 AnimateTradeSequenceCable(void)
         if (sTradeData->timer == 250)
         {
             sTradeData->state++;
-            StringExpandPlaceholders(gStringVar4, gText_TakeGoodCareOfX);
-            DrawTextOnTradeWindow(0, gStringVar4, 0);
+            StringExpandPlaceholders(gStringVar7, gText_TakeGoodCareOfX);
+            DrawTextOnTradeWindow(0, gStringVar7, 0);
             sTradeData->timer = 0;
         }
         break;
@@ -3880,8 +3847,8 @@ static bool8 AnimateTradeSequenceWireless(void)
         }
         break;
     case TS_STATE_SEND_MSG:
-        StringExpandPlaceholders(gStringVar4, gText_XWillBeSentToY);
-        DrawTextOnTradeWindow(0, gStringVar4, 0);
+        StringExpandPlaceholders(gStringVar7, gText_XWillBeSentToY);
+        DrawTextOnTradeWindow(0, gStringVar7, 0);
 
         if (sTradeData->monSpecies[TRADE_PLAYER] != SPECIES_EGG)
             PlayCry_Normal(sTradeData->monSpecies[TRADE_PLAYER], 0);
@@ -3894,8 +3861,8 @@ static bool8 AnimateTradeSequenceWireless(void)
         {
             sTradeData->releasePokeballSpriteId = CreateTradePokeballSprite(sTradeData->monSpriteIds[0], gSprites[sTradeData->monSpriteIds[0]].oam.paletteNum, 120, 32, 2, 1, 0x14, 0xfffff);
             sTradeData->state++;
-            StringExpandPlaceholders(gStringVar4, gText_ByeByeVar1);
-            DrawTextOnTradeWindow(0, gStringVar4, 0);
+            StringExpandPlaceholders(gStringVar7, gText_ByeByeVar1);
+            DrawTextOnTradeWindow(0, gStringVar7, 0);
         }
         break;
     case TS_STATE_POKEBALL_DEPART:
@@ -4271,8 +4238,8 @@ static bool8 AnimateTradeSequenceWireless(void)
                                       DISPCNT_BG0_ON |
                                       DISPCNT_BG2_ON |
                                       DISPCNT_OBJ_ON);
-        StringExpandPlaceholders(gStringVar4, gText_XSentOverY);
-        DrawTextOnTradeWindow(0, gStringVar4, 0);
+        StringExpandPlaceholders(gStringVar7, gText_XSentOverY);
+        DrawTextOnTradeWindow(0, gStringVar7, 0);
         sTradeData->state = TS_STATE_DELAY_FOR_MON_ANIM;
         sTradeData->timer = 0;
         break;
@@ -4294,8 +4261,8 @@ static bool8 AnimateTradeSequenceWireless(void)
         if (sTradeData->timer == 250)
         {
             sTradeData->state++;
-            StringExpandPlaceholders(gStringVar4, gText_TakeGoodCareOfX);
-            DrawTextOnTradeWindow(0, gStringVar4, 0);
+            StringExpandPlaceholders(gStringVar7, gText_TakeGoodCareOfX);
+            DrawTextOnTradeWindow(0, gStringVar7, 0);
             sTradeData->timer = 0;
         }
         break;
@@ -4507,6 +4474,8 @@ static void _CreateInGameTradePokemon(u8 whichPlayerMon, u8 whichInGameTrade)
     u8 metLocation = METLOC_IN_GAME_TRADE;
     u8 isMail;
     struct Pokemon *pokemon = &gEnemyParty[0];
+    struct SiiRtcInfo rtc;
+    u16 value;
 
     CreateMon(pokemon, inGameTrade->species, level, USE_RANDOM_IVS, TRUE, inGameTrade->personality, OT_ID_PRESET, inGameTrade->otId);
 
@@ -4525,7 +4494,6 @@ static void _CreateInGameTradePokemon(u8 whichPlayerMon, u8 whichInGameTrade)
     SetMonData(pokemon, MON_DATA_COOL, &inGameTrade->conditions[0]);
     SetMonData(pokemon, MON_DATA_SMART, &inGameTrade->conditions[3]);
     SetMonData(pokemon, MON_DATA_TOUGH, &inGameTrade->conditions[4]);
-    SetMonData(pokemon, MON_DATA_SHEEN, &inGameTrade->sheen);
     SetMonData(pokemon, MON_DATA_MET_LOCATION, &metLocation);
 
     isMail = FALSE;
@@ -4543,6 +4511,16 @@ static void _CreateInGameTradePokemon(u8 whichPlayerMon, u8 whichInGameTrade)
             SetMonData(pokemon, MON_DATA_HELD_ITEM, &inGameTrade->heldItem);
         }
     }
+
+    // Date Met
+    RtcGetDateTime(&rtc);
+    value = ConvertBcdToBinary(rtc.day);
+    SetMonData(pokemon, MON_DATA_DAY_MET, &value);
+    value = ConvertBcdToBinary(rtc.month);
+    SetMonData(pokemon, MON_DATA_MONTH_MET, &value);
+    value = ConvertBcdToBinary(rtc.year);
+    SetMonData(pokemon, MON_DATA_YEAR_MET, &value);
+
     CalculateMonStats(&gEnemyParty[0]);
 }
 
@@ -4633,8 +4611,8 @@ static void CB2_SaveAndEndTrade(void)
     {
     case 0:
         gMain.state++;
-        StringExpandPlaceholders(gStringVar4, gText_CommunicationStandby5);
-        DrawTextOnTradeWindow(0, gStringVar4, 0);
+        StringExpandPlaceholders(gStringVar7, gText_CommunicationStandby5);
+        DrawTextOnTradeWindow(0, gStringVar7, 0);
         break;
     case 1:
         SetTradeLinkStandbyCallback(0);
@@ -4660,8 +4638,8 @@ static void CB2_SaveAndEndTrade(void)
         break;
     case 2:
         gMain.state = 50;
-        StringExpandPlaceholders(gStringVar4, gText_SavingDontTurnOffPower);
-        DrawTextOnTradeWindow(0, gStringVar4, 0);
+        StringExpandPlaceholders(gStringVar7, gText_SavingDontTurnOffPower);
+        DrawTextOnTradeWindow(0, gStringVar7, 0);
         break;
     case 50:
         if (!InUnionRoom())
@@ -4829,7 +4807,7 @@ static void CheckPartnersMonForRibbons(void)
 {
     u8 i;
     u8 numRibbons = 0;
-    for (i = 0; i < (MON_DATA_CHAMPION_RIBBON); i ++)
+    for (i = 0; i < (MON_DATA_EFFORT_RIBBON - MON_DATA_CHAMPION_RIBBON); i ++)
     {
         numRibbons += GetMonData(&gEnemyParty[gSelectedTradeMonPositions[TRADE_PARTNER] % PARTY_SIZE], MON_DATA_CHAMPION_RIBBON + i);
     }
@@ -4965,8 +4943,8 @@ static void CB2_SaveAndEndWirelessTrade(void)
     {
     case 0:
         gMain.state = 1;
-        StringExpandPlaceholders(gStringVar4, gText_CommunicationStandby5);
-        DrawTextOnTradeWindow(0, gStringVar4, 0);
+        StringExpandPlaceholders(gStringVar7, gText_CommunicationStandby5);
+        DrawTextOnTradeWindow(0, gStringVar7, 0);
         break;
     case 1:
         SetTradeLinkStandbyCallback(0);
@@ -4977,8 +4955,8 @@ static void CB2_SaveAndEndWirelessTrade(void)
         if (_IsLinkTaskFinished())
         {
             gMain.state = 3;
-            StringExpandPlaceholders(gStringVar4, gText_SavingDontTurnOffPower);
-            DrawTextOnTradeWindow(0, gStringVar4, 0);
+            StringExpandPlaceholders(gStringVar7, gText_SavingDontTurnOffPower);
+            DrawTextOnTradeWindow(0, gStringVar7, 0);
             IncrementGameStat(GAME_STAT_POKEMON_TRADES);
             LinkFullSave_Init();
             sTradeData->timer = 0;

@@ -97,7 +97,6 @@ gSpecials::
 	def_special GetContestMonCondition
 	def_special HasMonWonThisContestBefore
 	def_special GiveMonContestRibbon
-	def_special IsContestDebugActive
 	def_special GiveMonArtistRibbon
 	def_special TryContestGModeLinkup
 	def_special SaveGame
@@ -204,7 +203,7 @@ gSpecials::
 	def_special ShowLinkBattleRecords
 	def_special IsEnoughForCostInVar0x8005
 	def_special SubtractMoneyFromVar0x8005
-	def_special TryFieldPoisonWhiteOut
+	def_special TryFieldPoisonSurvive
 	def_special SetCB2WhiteOut
 	def_special RotatingGate_InitPuzzle
 	def_special RotatingGate_InitPuzzleAndGraphics
@@ -428,10 +427,6 @@ gSpecials::
 	def_special IsBadEggInParty
 	def_special ValidateSavedWonderCard
 	def_special HasAtLeastOneBerry
-	def_special IsPokemonJumpSpeciesInParty
-	def_special ShowPokemonJumpRecords
-	def_special IsDodrioInParty
-	def_special ShowDodrioBerryPickingRecords
 	def_special OffsetCameraForBattle
 	def_special GetDeptStoreDefaultFloorChoice
 	def_special BufferVarsForIVRater
@@ -481,7 +476,6 @@ gSpecials::
 	def_special ScrollableMultichoice_ClosePersistentMenu
 	def_special DoDeoxysRockInteraction
 	def_special SetDeoxysRockPalette
-	def_special CreateEventLegalEnemyMon
 	def_special StartMirageTowerDisintegration
 	def_special StartMirageTowerShake
 	def_special StartMirageTowerFossilFallAndSink
@@ -494,7 +488,6 @@ gSpecials::
 	def_special GetAbnormalWeatherMapNameAndType
 	def_special GetMartEmployeeObjectEventId
 	def_special SaveForBattleTowerLink
-	def_special SetUnlockedPokedexFlags
 	def_special IsTrainerRegistered
 	def_special ShouldDoBrailleRegicePuzzle
 	def_special EnableNationalPokedex
@@ -506,7 +499,6 @@ gSpecials::
 	def_special LinkRetireStatusWithBattleTowerPartner
 	def_special BattleTowerReconnectLink
 	def_special CallTrainerHillFunction
-	def_special Script_DoRayquazaScene @ Listed twice
 	def_special LoopWingFlapSE
 	def_special DestroyMewEmergingGrassSprite
 	def_special ShowBerryCrushRankings
@@ -527,3 +519,31 @@ gSpecials::
 	def_special TrySetBattleTowerLinkType
 	def_special SetTotemBoost
 	def_special TrySpecialOverworldEvo
+	def_special CheckChainFishingStreak
+	def_special SwapPlayersCostume
+	def_special GetCurrentMap
+	def_special CheckMonEVs
+	def_special CheckMonIVs
+	def_special SetRivalsName
+	def_special GetPlayersCurrentCostume
+	def_special GetCurrentDayString
+	def_special SetMonFriendship
+	def_special DeleteChosenPartyMon
+	def_special CreateWonderTradePokemon
+	def_special BufferChosenMonStats
+	def_special DoSoftReset
+	def_special ChangeMonStatus
+	def_special CheckMonStatus
+	def_special GetPlayerCostumeId
+	def_special HeadbuttWildEncounter
+	def_special GetNumOwnedBadges
+	def_special GetSeenMon
+	def_special GetCaughtMon
+	def_special SetSeenMon
+	def_special SetCaughtMon
+	def_special GiveSpecialEgg
+	def_special ChooseItemFromBag
+	def_special Script_CreateFossilsMultichoice
+	def_special CountNumberUniqueFossils
+	def_special HasCaughtFossilMon
+	def_special ClearGymTrainerFlags

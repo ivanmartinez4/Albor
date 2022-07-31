@@ -72,7 +72,6 @@ RustboroCity_DevonCorp_3F_EventScript_MeetPresident::
 	setvar VAR_RUSTBORO_CITY_STATE, 6
 	releaseall
 	end
-	
 RustboroCity_DevonCorp_3F_Movement_LeadPlayerToPresident:
 	walk_right
 	walk_right
@@ -176,7 +175,7 @@ RustboroCity_DevonCorp_3F_EventScript_MrStoneAfterFavor::
 RustboroCity_DevonCorp_3F_EventScript_Employee::
 	lock
 	faceplayer
-	goto_if_set FLAG_RECEIVED_REPEAT_BALL, RustboroCity_DevonCorp_3F_EventScript_EmployeeBalls
+	goto_if_unset FLAG_HIDE_SPECIAL_BALLS_SELLER, RustboroCity_DevonCorp_3F_EventScript_EmployeeBalls
 	msgbox RustboroCity_DevonCorp_3F_Text_VisitCaptSternShipyard, MSGBOX_DEFAULT
 	release
 	end
@@ -291,9 +290,12 @@ RustboroCity_DevonCorp_3F_Text_VisitCaptSternShipyard:
 	.string "you should go see Capt. Stern.$"
 
 RustboroCity_DevonCorp_3F_Text_RepeatAndTimerHugelyPopular:
-	.string "Devon's new products, the Repeat Ball\n"
-	.string "and Timer Ball, have become hugely\l"
-	.string "popular among Trainers.$"
+	.string "DEVON's new products, the REPEAT BALL\n"
+	.string "and TIMER BALL, have become hugely\l"
+	.string "popular among TRAINERS.\p"
+	.string "The new POKé BALLS that we imported\n"
+	.string "from other parts of the region are\l"
+	.string "being well received as well.$"
 
 RustboroCity_DevonCorp_3F_Text_RareRocksDisplay:
 	.string "It's a collection of rare rocks and\n"

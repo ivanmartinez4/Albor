@@ -17,6 +17,7 @@
 #include "trainer_hill.h"
 #include "constants/field_poison.h"
 #include "constants/party_menu.h"
+#include "constants/abilities.h"
 
 static bool32 IsMonValidSpecies(struct Pokemon *pokemon)
 {
@@ -48,7 +49,6 @@ static void FaintFromFieldPoison(u8 partyIdx)
     struct Pokemon *pokemon = gPlayerParty + partyIdx;
     u32 status = STATUS1_NONE;
 
-    AdjustFriendship(pokemon, FRIENDSHIP_EVENT_FAINT_FIELD_PSN);
     SetMonData(pokemon, MON_DATA_STATUS, &status);
     GetMonData(pokemon, MON_DATA_NICKNAME, gStringVar1);
     StringGet_Nickname(gStringVar1);
@@ -57,14 +57,14 @@ static void FaintFromFieldPoison(u8 partyIdx)
 static bool32 MonFaintedFromPoison(u8 partyIdx)
 {
     struct Pokemon *pokemon = gPlayerParty + partyIdx;
-    if (IsMonValidSpecies(pokemon) && GetMonData(pokemon, MON_DATA_HP) == 0 && GetAilmentFromStatus(GetMonData(pokemon, MON_DATA_STATUS)) == AILMENT_PSN)
+    if (IsMonValidSpecies(pokemon) && GetMonData(pokemon, MON_DATA_HP) == 1 && GetAilmentFromStatus(GetMonData(pokemon, MON_DATA_STATUS)) == AILMENT_PSN)
     {
         return TRUE;
     }
     return FALSE;
 }
 
-static void Task_TryFieldPoisonWhiteOut(u8 taskId)
+static void Task_TryFieldPoisonSurvive(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
     switch (data[0])
@@ -89,47 +89,32 @@ static void Task_TryFieldPoisonWhiteOut(u8 taskId)
             }
             break;
         case 2:
-            if (AllMonsFainted())
-            {
-                if (InBattlePyramid() | InBattlePike() || InTrainerHillChallenge())
-                {
-                    gSpecialVar_Result = FLDPSN_FRONTIER_WHITEOUT;
-                }
-                else
-                {
-                    gSpecialVar_Result = FLDPSN_WHITEOUT;
-                }
-            }
-            else
-            {
-                gSpecialVar_Result = FLDPSN_NO_WHITEOUT;
-                UpdateFollowingPokemon();
-            }
+            gSpecialVar_Result = FLDPSN_NONE;
             EnableBothScriptContexts();
             DestroyTask(taskId);
             break;
     }
 }
 
-void TryFieldPoisonWhiteOut(void)
+void TryFieldPoisonSurvive(void)
 {
-    CreateTask(Task_TryFieldPoisonWhiteOut, 80);
+    CreateTask(Task_TryFieldPoisonSurvive, 80);
     ScriptContext1_Stop();
 }
 
 s32 DoPoisonFieldEffect(void)
 {
-    int i;
-    u32 hp;
+    int i, hp;
     struct Pokemon *pokemon = gPlayerParty;
-    u32 numPoisoned = 0;
-    u32 numFainted = 0;
+    u32 numPoisoned = 0, numFainted = 0;
     for (i = 0; i < PARTY_SIZE; i++)
     {
-        if (GetMonData(pokemon, MON_DATA_SANITY_HAS_SPECIES) && GetAilmentFromStatus(GetMonData(pokemon, MON_DATA_STATUS)) == AILMENT_PSN)
+        if (GetMonData(pokemon, MON_DATA_SANITY_HAS_SPECIES)
+         && GetAilmentFromStatus(GetMonData(pokemon, MON_DATA_STATUS)) == AILMENT_PSN
+         && GetMonAbility(&gPlayerParty[i]) != ABILITY_POISON_HEAL)
         {
             hp = GetMonData(pokemon, MON_DATA_HP);
-            if (hp == 0 || --hp == 0)
+            if (hp == 1 || --hp == 1)
             {
                 numFainted++;
             }
@@ -138,13 +123,13 @@ s32 DoPoisonFieldEffect(void)
         }
         pokemon++;
     }
-    if (numFainted != 0 || numPoisoned != 0)
+    if (numPoisoned != 0)
     {
         FldEffPoison_Start();
     }
     if (numFainted != 0)
     {
-        return FLDPSN_FNT;
+        return FLDPSN_SURVIVED;
     }
     if (numPoisoned != 0)
     {

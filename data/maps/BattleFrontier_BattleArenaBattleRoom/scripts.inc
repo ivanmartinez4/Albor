@@ -23,22 +23,8 @@ BattleFrontier_BattleArenaBattleRoom_OnResume:
 
 BattleFrontier_BattleArenaBattleRoom_OnTransition:
 	frontier_settrainers
-	call BattleFrontier_BattleArenaBattleRoom_EventScript_SetPlayerGfx
+	specialvar VAR_OBJ_GFX_ID_1, GetPlayerCostumeId
 	end
-
-BattleFrontier_BattleArenaBattleRoom_EventScript_SetPlayerGfx::
-	checkplayergender
-	goto_if_eq VAR_RESULT, MALE, BattleFrontier_BattleArenaBattleRoom_EventScript_SetPlayerGfxMale
-	goto_if_eq VAR_RESULT, FEMALE, BattleFrontier_BattleArenaBattleRoom_EventScript_SetPlayerGfxFemale
-	return
-
-BattleFrontier_BattleArenaBattleRoom_EventScript_SetPlayerGfxMale::
-	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL
-	return
-
-BattleFrontier_BattleArenaBattleRoom_EventScript_SetPlayerGfxFemale::
-	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_RIVAL_MAY_NORMAL
-	return
 
 BattleFrontier_BattleArenaBattleRoom_OnFrame:
 	map_script_2 VAR_TEMP_0, 0, BattleFrontier_BattleArenaBattleRoom_EventScript_EnterRoom
@@ -89,7 +75,7 @@ BattleFrontier_BattleArenaBattleRoom_EventScript_AnnounceTrainers::
 	applymovement LOCALID_OPPONENT, BattleFrontier_BattleArenaBattleRoom_Movement_OpponentStepForward
 	waitmovement 0
 	palace_getopponentintro
-	msgbox gStringVar4, MSGBOX_DEFAULT
+	msgbox gStringVar7, MSGBOX_DEFAULT
 	waitmessage
 	call BattleFrontier_BattleArenaBattleRoom_EventScript_DoArenaBattle
 	switch VAR_RESULT
@@ -466,7 +452,7 @@ BattleFrontier_BattleArenaBattleRoom_OnWarp:
 BattleFrontier_BattleArenaBattleRoom_EventScript_SetUpRoomObjects::
 	hideobjectat LOCALID_PLAYER, MAP_BATTLE_FRONTIER_BATTLE_ARENA_BATTLE_ROOM
 	removeobject LOCALID_OPPONENT
-	call BattleFrontier_BattleDomeBattleRoom_EventScript_SetPlayerGfx
+	specialvar VAR_OBJ_GFX_ID_1, GetPlayerCostumeId
 	applymovement OBJ_EVENT_ID_PLAYER, BattleFrontier_BattleDomeBattleRoom_Movement_SetInvisible
 	setvar VAR_TEMP_1, 1
 	end

@@ -243,7 +243,7 @@ static const u16 sBlenderOuter_Pal[] = INCBIN_U16("graphics/berry_blender/outer.
 
 static const u16 sEmpty_Pal[16 * 14] = {0};
 
-static const u8 sText_BerryBlenderStart[] = _("Starting up the Berry Blender.\pPlease select a Berry from your Bag\nto put in the Berry Blender.\p");
+static const u8 sText_BerryBlenderStart[] = _("Starting up the BERRY BLENDER.\pPlease select a BERRY from your BAG\nto put in the BERRY BLENDER.\p");
 static const u8 sText_NewParagraph[] = _("\p");
 static const u8 sText_WasMade[] = _(" was made!");
 static const u8 sText_Mister[] = _("Mister");
@@ -2815,16 +2815,16 @@ static void CB2_CheckPlayAgainLink(void)
         break;
     case 1:
         sBerryBlender->gameEndState = 3;
-        StringCopy(gStringVar4, gLinkPlayers[sBerryBlender->canceledPlayerId].name);
-        StringAppend(gStringVar4, sText_ApostropheSPokeblockCaseIsFull);
+        StringCopy(gStringVar7, gLinkPlayers[sBerryBlender->canceledPlayerId].name);
+        StringAppend(gStringVar7, sText_ApostropheSPokeblockCaseIsFull);
         break;
     case 2:
         sBerryBlender->gameEndState++;
-        StringCopy(gStringVar4, gLinkPlayers[sBerryBlender->canceledPlayerId].name);
-        StringAppend(gStringVar4, sText_HasNoBerriesToPut);
+        StringCopy(gStringVar7, gLinkPlayers[sBerryBlender->canceledPlayerId].name);
+        StringAppend(gStringVar7, sText_HasNoBerriesToPut);
         break;
     case 3:
-        if (Blender_PrintText(&sBerryBlender->textState, gStringVar4, GetPlayerTextSpeedDelay()))
+        if (Blender_PrintText(&sBerryBlender->textState, gStringVar7, GetPlayerTextSpeedDelay()))
         {
             sBerryBlender->framesToWait = 0;
             sBerryBlender->gameEndState++;
@@ -2923,15 +2923,15 @@ static void CB2_CheckPlayAgainLocal(void)
     case 1:
         sBerryBlender->gameEndState = 3;
         sBerryBlender->textState = 0;
-        StringCopy(gStringVar4, sText_YourPokeblockCaseIsFull);
+        StringCopy(gStringVar7, sText_YourPokeblockCaseIsFull);
         break;
     case 2:
         sBerryBlender->gameEndState++;
         sBerryBlender->textState = 0;
-        StringCopy(gStringVar4, sText_RunOutOfBerriesForBlending);
+        StringCopy(gStringVar7, sText_RunOutOfBerriesForBlending);
         break;
     case 3:
-        if (Blender_PrintText(&sBerryBlender->textState, gStringVar4, GetPlayerTextSpeedDelay()))
+        if (Blender_PrintText(&sBerryBlender->textState, gStringVar7, GetPlayerTextSpeedDelay()))
             sBerryBlender->gameEndState = 9;
         break;
     case 9:
@@ -3417,8 +3417,6 @@ static void SpriteCB_PlayerArrow(struct Sprite* sprite)
 
 static void TryUpdateBerryBlenderRecord(void)
 {
-    if (gSaveBlock1Ptr->berryBlenderRecords[sBerryBlender->numPlayers - 2] < sBerryBlender->maxRPM)
-        gSaveBlock1Ptr->berryBlenderRecords[sBerryBlender->numPlayers - 2] = sBerryBlender->maxRPM;
 }
 
 static bool8 PrintBlendingResults(void)
@@ -3723,38 +3721,6 @@ static bool8 PrintBlendingRanking(void)
 
 void ShowBerryBlenderRecordWindow(void)
 {
-    s32 i;
-    s32 xPos, yPos;
-    struct WindowTemplate winTemplate;
-    u8 text[32];
-
-    winTemplate = sBlenderRecordWindowTemplate;
-    gRecordsWindowId = AddWindow(&winTemplate);
-    DrawStdWindowFrame(gRecordsWindowId, 0);
-    FillWindowPixelBuffer(gRecordsWindowId, PIXEL_FILL(1));
-
-    xPos = GetStringCenterAlignXOffset(FONT_NORMAL, gText_BlenderMaxSpeedRecord, 144);
-    AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, gText_BlenderMaxSpeedRecord, xPos, 1, 0, NULL);
-    AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, gText_234Players, 4, 41, 0, NULL);
-
-    for (i = 0, yPos = 41; i < NUM_SCORE_TYPES; i++)
-    {
-        u8 *txtPtr;
-        u32 record;
-
-        record = gSaveBlock1Ptr->berryBlenderRecords[i];
-
-        txtPtr = ConvertIntToDecimalStringN(text, record / 100, STR_CONV_MODE_RIGHT_ALIGN, 3);
-        txtPtr = StringAppend(txtPtr, sText_Dot);
-        txtPtr = ConvertIntToDecimalStringN(txtPtr, record % 100, STR_CONV_MODE_LEADING_ZEROS, 2);
-        txtPtr = StringAppend(txtPtr, sText_RPM);
-
-        xPos = GetStringRightAlignXOffset(FONT_NORMAL, text, 140);
-        AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, text, xPos, yPos + (i * 16), 0, NULL);
-    }
-
-    PutWindowTilemap(gRecordsWindowId);
-    CopyWindowToVram(gRecordsWindowId, COPYWIN_FULL);
 }
 
 static void Task_PlayPokeblockFanfare(u8 taskId)

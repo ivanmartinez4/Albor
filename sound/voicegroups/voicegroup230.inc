@@ -1,11 +1,5 @@
 	.align 2
 voicegroup230:: @ 
-	voice_directsound 60, 0, DirectSoundWaveData_dp_whistle_c5_16, 255, 246, 78, 192
-	voice_directsound 60, 0, DirectSoundWaveData_dp_reverscyn_16, 255, 0, 255, 16
-	voice_directsound 60, 0, DirectSoundWaveData_dp_org5_c3_16, 255, 167, 235, 171
-	voice_directsound 60, 0, DirectSoundWaveData_puresquare_37, 80, 234, 191, 220
-	voice_directsound 60, 0, DirectSoundWaveData_puresquare_12, 80, 234, 191, 220
-	voice_directsound 60, 0, DirectSoundWaveData_dp_orchhitmajor60, 255, 197, 255, 171
 	voice_directsound 60, 0, DirectSoundWaveData_dp_orchhitminor60, 255, 197, 255, 171
 	voice_keysplit_all voicegroup232				 @ synth kick+snare
 	voice_keysplit voicegroup216, KeySplitTable27    @ DPPt timpani
@@ -14,7 +8,7 @@ voicegroup230:: @
 	voice_directsound 60, 0, DirectSoundWaveData_dp_sawtoothlead60, 255, 197, 255, 171
 	voice_keysplit voicegroup272, KeySplitTable57    @ shamisen
 	voice_directsound 60, 0, DirectSoundWaveData_hg_hyoshigi, 255, 0, 255, 171
-	voice_directsound 60, 0, DirectSoundWaveData_hg_kodaiko, 255, 0, 255, 171
+	voice_directsound 60, 0, DirectSoundWaveData_hg_ecruteaklow, 255, 0, 255, 171
 	voice_directsound 60, 0, DirectSoundWaveData_hg_tsuzumi, 255, 0, 255, 171
 	voice_directsound 60, 0, DirectSoundWaveData_hg_jinglebell, 255, 0, 255, 171
 	voice_directsound 60, 0, DirectSoundWaveData_hg_hoohclap, 255, 0, 255, 0
@@ -29,6 +23,12 @@ voicegroup230:: @
 	voice_directsound 60, 0, DirectSoundWaveData_dp_tom1_16, 255, 0, 255, 32
 	voice_keysplit voicegroup219, KeySplitTable29    @ dp trumpets (arceus)
 	voice_keysplit voicegroup220, KeySplitTable30    @ dp trombone (arceus)
+	voice_square_1 60, 0, 0, 2, 0, 2, 6, 2									 @ double up of 051
+	voice_square_1 60, 0, 0, 2, 0, 2, 2, 0									 @ double up of 048
+	voice_programmable_wave 60, 0, ProgrammableWaveData_sq50half, 0, 2, 2, 0 @ triple up of 048 (half volume)
+	voice_directsound 60, 0, DirectSoundWaveData_puresquare_50, 255, 242, 25, 0  @ 4x and up of 048
+	voice_square_1 60, 0, 0, 2, 0, 7, 0, 0									 @ double up of 049
+	voice_square_1 60, 0, 2, 0, 0, 2, 6, 1									 @ double up of 052
 	voice_directsound 60, 64, DirectSoundWaveData_dp_handclup1, 255, 0, 227, 171
 	voice_directsound 60, 64, DirectSoundWaveData_dp_sne2_loop, 255, 255, 191, 171
 	voice_directsound 48, 64, DirectSoundWaveData_dp_reverscyn_16, 2, 0, 227, 171

@@ -36,6 +36,7 @@
 #include "title_screen.h"
 #include "window.h"
 #include "mystery_gift_menu.h"
+#include "pokemon_icon.h"
 
 /*
  * Main menu state machine
@@ -171,6 +172,7 @@ static EWRAM_DATA bool8 sStartedPokeBallTask = 0;
 static EWRAM_DATA u16 sCurrItemAndOptionMenuCheck = 0;
 
 static u8 sBirchSpeechMainTaskId;
+static u8 iconsIDs[PARTY_SIZE];
 
 // Static ROM declarations
 
@@ -182,7 +184,7 @@ static void CreateMainMenuErrorWindow(const u8*);
 static void ClearMainMenuWindowTilemap(const struct WindowTemplate*);
 static void Task_DisplayMainMenu(u8);
 static void Task_WaitForBatteryDryErrorWindow(u8);
-static void MainMenu_FormatSavegameText(void);
+static void MainMenu_FormatSavegameText(u8);
 static void HighlightSelectedMainMenuItem(u8, u8, s16);
 static void Task_HandleMainMenuInput(u8);
 static void Task_HandleMainMenuAPressed(u8);
@@ -223,7 +225,7 @@ static void Task_NewGameBirchSpeech_WaitForWhatsYourNameToPrint(u8);
 static void Task_NewGameBirchSpeech_WaitPressBeforeNameChoice(u8);
 static void Task_NewGameBirchSpeech_StartNamingScreen(u8);
 static void CB2_NewGameBirchSpeech_ReturnFromNamingScreen(void);
-static void NewGameBirchSpeech_SetDefaultPlayerName(u8);
+void NewGameBirchSpeech_SetDefaultPlayerName(u8);
 static void Task_NewGameBirchSpeech_CreateNameYesNo(u8);
 static void Task_NewGameBirchSpeech_ProcessNameYesNoMenu(u8);
 void CreateYesNoMenuParameterized(u8, u8, u16, u16, u8, u8);
@@ -238,11 +240,12 @@ static void Task_NewGameBirchSpeech_FadePlayerToWhite(u8);
 static void Task_NewGameBirchSpeech_Cleanup(u8);
 static void SpriteCB_Null();
 static void Task_NewGameBirchSpeech_ReturnFromNamingScreenShowTextbox(u8);
-static void MainMenu_FormatSavegamePlayer(void);
+static void MainMenu_FormatSavegamePlayer(u8);
 static void MainMenu_FormatSavegamePokedex(void);
-static void MainMenu_FormatSavegameTime(void);
+static void MainMenu_FormatSavegameTime(u8);
 static void MainMenu_FormatSavegameBadges(void);
 static void NewGameBirchSpeech_CreateDialogueWindowBorder(u8, u8, u8, u8, u8, u8);
+static void RenderPlayerParty(void);
 
 // .rodata
 
@@ -257,21 +260,23 @@ static const u16 sBirchSpeechBgGradientPal[] = INCBIN_U16("graphics/birch_speech
 static const u16 sBirchSpeechPlatformBlackPal[] = {RGB_BLACK, RGB_BLACK, RGB_BLACK, RGB_BLACK, RGB_BLACK, RGB_BLACK, RGB_BLACK, RGB_BLACK};
 
 #define MENU_LEFT 2
-#define MENU_TOP_WIN0 1
-#define MENU_TOP_WIN1 5
-#define MENU_TOP_WIN2 1
-#define MENU_TOP_WIN3 9
-#define MENU_TOP_WIN4 13
-#define MENU_TOP_WIN5 17
-#define MENU_TOP_WIN6 21
+#define MENU_TOP_WIN0 1     // New Game, no save
+#define MENU_TOP_WIN1 5     // Options, no save
+#define MENU_TOP_WIN2 1     // Continue, no party save
+#define MENU_TOP_WIN3 9     // New Game, no party save
+#define MENU_TOP_WIN4 13    // Options, no party save
+#define MENU_TOP_WIN5 1     // Continue, has party
+#define MENU_TOP_WIN6 12    // New Game, has party
+#define MENU_TOP_WIN7 16    // Options, has party
 #define MENU_WIDTH 26
 #define MENU_HEIGHT_WIN0 2
 #define MENU_HEIGHT_WIN1 2
 #define MENU_HEIGHT_WIN2 6
 #define MENU_HEIGHT_WIN3 2
 #define MENU_HEIGHT_WIN4 2
-#define MENU_HEIGHT_WIN5 2
+#define MENU_HEIGHT_WIN5 9
 #define MENU_HEIGHT_WIN6 2
+#define MENU_HEIGHT_WIN7 2
 
 #define MENU_LEFT_ERROR 2
 #define MENU_TOP_ERROR 15
@@ -307,7 +312,7 @@ static const struct WindowTemplate sWindowTemplates_MainMenu[] =
         .paletteNum = 15,
         .baseBlock = 0x35
     },
-    // Has saved game
+    // Has saved game, but no party
     // CONTINUE
     {
         .bg = 0,
@@ -328,7 +333,7 @@ static const struct WindowTemplate sWindowTemplates_MainMenu[] =
         .paletteNum = 15,
         .baseBlock = 0x9D
     },
-    // OPTION / MYSTERY GIFT
+    // OPTION
     {
         .bg = 0,
         .tilemapLeft = MENU_LEFT,
@@ -338,7 +343,8 @@ static const struct WindowTemplate sWindowTemplates_MainMenu[] =
         .paletteNum = 15,
         .baseBlock = 0xD1
     },
-    // OPTION / MYSTERY EVENTS
+    // Has saved game and a party
+    // CONTINUE
     {
         .bg = 0,
         .tilemapLeft = MENU_LEFT,
@@ -346,9 +352,9 @@ static const struct WindowTemplate sWindowTemplates_MainMenu[] =
         .width = MENU_WIDTH,
         .height = MENU_HEIGHT_WIN5,
         .paletteNum = 15,
-        .baseBlock = 0x105
+        .baseBlock = 1
     },
-    // OPTION
+    // NEW GAME
     {
         .bg = 0,
         .tilemapLeft = MENU_LEFT,
@@ -356,7 +362,17 @@ static const struct WindowTemplate sWindowTemplates_MainMenu[] =
         .width = MENU_WIDTH,
         .height = MENU_HEIGHT_WIN6,
         .paletteNum = 15,
-        .baseBlock = 0x139
+        .baseBlock = 0xEB
+    },
+    // OPTIONS
+    {
+        .bg = 0,
+        .tilemapLeft = MENU_LEFT,
+        .tilemapTop = MENU_TOP_WIN7,
+        .width = MENU_WIDTH,
+        .height = MENU_HEIGHT_WIN7,
+        .paletteNum = 15,
+        .baseBlock = 0x11F
     },
     // Error message window
     {
@@ -507,10 +523,11 @@ static const u8 *const sFemalePresetNames[] = {
 
 enum
 {
-    HAS_NO_SAVED_GAME,  //NEW GAME, OPTION
-    HAS_SAVED_GAME,     //CONTINUE, NEW GAME, OPTION
-    HAS_MYSTERY_GIFT,   //CONTINUE, NEW GAME, MYSTERY GIFT, OPTION
-    HAS_MYSTERY_EVENTS, //CONTINUE, NEW GAME, MYSTERY GIFT, MYSTERY EVENTS, OPTION
+    HAS_NO_SAVED_GAME,     // NEW GAME, OPTION
+    HAS_SAVED_GAME_NOPKMN, // CONTINUE, NEW GAME, OPTION
+    HAS_SAVED_GAME,        // CONTINUE, NEW GAME, OPTION
+    HAS_MYSTERY_GIFT,      // CONTINUE, NEW GAME, MYSTERY GIFT, OPTION
+    HAS_MYSTERY_EVENTS,    // CONTINUE, NEW GAME, MYSTERY GIFT, MYSTERY EVENTS, OPTION
 };
 
 enum
@@ -638,7 +655,9 @@ static void Task_MainMenuCheckSaveFile(u8 taskId)
         switch (gSaveFileStatus)
         {
             case SAVE_STATUS_OK:
-                tMenuType = HAS_SAVED_GAME;
+                tMenuType = HAS_SAVED_GAME_NOPKMN;
+                if (gPlayerPartyCount > 0)
+                    tMenuType++;
                 if (IsMysteryGiftEnabled())
                     tMenuType++;
                 gTasks[taskId].func = Task_MainMenuCheckBattery;
@@ -651,7 +670,9 @@ static void Task_MainMenuCheckSaveFile(u8 taskId)
             case SAVE_STATUS_ERROR:
                 CreateMainMenuErrorWindow(gText_SaveFileCorrupted);
                 gTasks[taskId].func = Task_WaitForSaveFileErrorWindow;
-                tMenuType = HAS_SAVED_GAME;
+                tMenuType = HAS_SAVED_GAME_NOPKMN;
+                if (gPlayerPartyCount > 0)
+                    tMenuType++;
                 if (IsMysteryGiftEnabled() == TRUE)
                     tMenuType++;
                 break;
@@ -672,7 +693,7 @@ static void Task_MainMenuCheckSaveFile(u8 taskId)
             {
                 case HAS_NO_SAVED_GAME:
                 case HAS_SAVED_GAME:
-                    sCurrItemAndOptionMenuCheck = tMenuType + 1;
+                    sCurrItemAndOptionMenuCheck = tMenuType + 1; // if so, highlight the OPTIONS item
                     break;
                 case HAS_MYSTERY_GIFT:
                     sCurrItemAndOptionMenuCheck = 3;
@@ -684,17 +705,20 @@ static void Task_MainMenuCheckSaveFile(u8 taskId)
         }
         sCurrItemAndOptionMenuCheck &= ~OPTION_MENU_FLAG;  // turn off the "returning from options menu" flag
         tCurrItem = sCurrItemAndOptionMenuCheck;
-        tItemCount = tMenuType + 2;
+        if (tMenuType == HAS_NO_SAVED_GAME)
+            tItemCount = 2;
+        else
+            tItemCount = 3;
     }
 }
 
 static void Task_WaitForSaveFileErrorWindow(u8 taskId)
 {
     RunTextPrinters();
-    if (!IsTextPrinterActive(7) && (JOY_NEW(A_BUTTON)))
+    if (!IsTextPrinterActive(8) && (JOY_NEW(A_BUTTON)))
     {
-        ClearWindowTilemap(7);
-        ClearMainMenuWindowTilemap(&sWindowTemplates_MainMenu[7]);
+        ClearWindowTilemap(8);
+        ClearMainMenuWindowTilemap(&sWindowTemplates_MainMenu[8]);
         gTasks[taskId].func = Task_MainMenuCheckBattery;
     }
 }
@@ -726,10 +750,10 @@ static void Task_MainMenuCheckBattery(u8 taskId)
 static void Task_WaitForBatteryDryErrorWindow(u8 taskId)
 {
     RunTextPrinters();
-    if (!IsTextPrinterActive(7) && (JOY_NEW(A_BUTTON)))
+    if (!IsTextPrinterActive(8) && (JOY_NEW(A_BUTTON)))
     {
-        ClearWindowTilemap(7);
-        ClearMainMenuWindowTilemap(&sWindowTemplates_MainMenu[7]);
+        ClearWindowTilemap(8);
+        ClearMainMenuWindowTilemap(&sWindowTemplates_MainMenu[8]);
         gTasks[taskId].func = Task_DisplayMainMenu;
     }
 }
@@ -789,14 +813,15 @@ static void Task_DisplayMainMenu(u8 taskId)
                 DrawMainMenuWindowBorder(&sWindowTemplates_MainMenu[0], MAIN_MENU_BORDER_TILE);
                 DrawMainMenuWindowBorder(&sWindowTemplates_MainMenu[1], MAIN_MENU_BORDER_TILE);
                 break;
-            case HAS_SAVED_GAME:
+            case HAS_SAVED_GAME_NOPKMN:
+            DISPLAY_HAS_SAVED_GAME_NOPKMN:
                 FillWindowPixelBuffer(2, PIXEL_FILL(0xA));
                 FillWindowPixelBuffer(3, PIXEL_FILL(0xA));
                 FillWindowPixelBuffer(4, PIXEL_FILL(0xA));
                 AddTextPrinterParameterized3(2, FONT_NORMAL, 0, 1, sTextColor_Headers, TEXT_SKIP_DRAW, gText_MainMenuContinue);
                 AddTextPrinterParameterized3(3, FONT_NORMAL, 0, 1, sTextColor_Headers, TEXT_SKIP_DRAW, gText_MainMenuNewGame);
                 AddTextPrinterParameterized3(4, FONT_NORMAL, 0, 1, sTextColor_Headers, TEXT_SKIP_DRAW, gText_MainMenuOption);
-                MainMenu_FormatSavegameText();
+                MainMenu_FormatSavegameText(FALSE);
                 PutWindowTilemap(2);
                 PutWindowTilemap(3);
                 PutWindowTilemap(4);
@@ -807,6 +832,32 @@ static void Task_DisplayMainMenu(u8 taskId)
                 DrawMainMenuWindowBorder(&sWindowTemplates_MainMenu[3], MAIN_MENU_BORDER_TILE);
                 DrawMainMenuWindowBorder(&sWindowTemplates_MainMenu[4], MAIN_MENU_BORDER_TILE);
                 break;
+            case HAS_SAVED_GAME:
+                if (CalculatePlayerPartyCount() != 0)
+                {
+                    FillWindowPixelBuffer(5, PIXEL_FILL(0xA));
+                    FillWindowPixelBuffer(6, PIXEL_FILL(0xA));
+                    FillWindowPixelBuffer(7, PIXEL_FILL(0xA));
+                    AddTextPrinterParameterized3(5, 1, 0, 1, sTextColor_Headers, -1, gText_MainMenuContinue);
+                    AddTextPrinterParameterized3(6, 1, 0, 0, sTextColor_Headers, -1, gText_MainMenuNewGame);
+                    AddTextPrinterParameterized3(7, 1, 0, 1, sTextColor_Headers, -1, gText_MainMenuOption);
+                    MainMenu_FormatSavegameText(TRUE);
+                    RenderPlayerParty();
+                    PutWindowTilemap(5);
+                    PutWindowTilemap(6);
+                    PutWindowTilemap(7);
+                    CopyWindowToVram(5, 2);
+                    CopyWindowToVram(6, 2);
+                    CopyWindowToVram(7, 2);
+                    DrawMainMenuWindowBorder(&sWindowTemplates_MainMenu[5], MAIN_MENU_BORDER_TILE);
+                    DrawMainMenuWindowBorder(&sWindowTemplates_MainMenu[6], MAIN_MENU_BORDER_TILE);
+                    DrawMainMenuWindowBorder(&sWindowTemplates_MainMenu[7], MAIN_MENU_BORDER_TILE);
+                }
+                else
+                {
+                    goto DISPLAY_HAS_SAVED_GAME_NOPKMN;
+                }
+                break;
             case HAS_MYSTERY_GIFT:
                 FillWindowPixelBuffer(2, PIXEL_FILL(0xA));
                 FillWindowPixelBuffer(3, PIXEL_FILL(0xA));
@@ -816,7 +867,7 @@ static void Task_DisplayMainMenu(u8 taskId)
                 AddTextPrinterParameterized3(3, FONT_NORMAL, 0, 1, sTextColor_Headers, TEXT_SKIP_DRAW, gText_MainMenuNewGame);
                 AddTextPrinterParameterized3(4, FONT_NORMAL, 0, 1, sTextColor_Headers, TEXT_SKIP_DRAW, gText_MainMenuMysteryGift);
                 AddTextPrinterParameterized3(5, FONT_NORMAL, 0, 1, sTextColor_Headers, TEXT_SKIP_DRAW, gText_MainMenuOption);
-                MainMenu_FormatSavegameText();
+                MainMenu_FormatSavegameText(FALSE);
                 PutWindowTilemap(2);
                 PutWindowTilemap(3);
                 PutWindowTilemap(4);
@@ -841,7 +892,7 @@ static void Task_DisplayMainMenu(u8 taskId)
                 AddTextPrinterParameterized3(4, FONT_NORMAL, 0, 1, sTextColor_Headers, TEXT_SKIP_DRAW, gText_MainMenuMysteryGift2);
                 AddTextPrinterParameterized3(5, FONT_NORMAL, 0, 1, sTextColor_Headers, TEXT_SKIP_DRAW, gText_MainMenuMysteryEvents);
                 AddTextPrinterParameterized3(6, FONT_NORMAL, 0, 1, sTextColor_Headers, TEXT_SKIP_DRAW, gText_MainMenuOption);
-                MainMenu_FormatSavegameText();
+                MainMenu_FormatSavegameText(FALSE);
                 PutWindowTilemap(2);
                 PutWindowTilemap(3);
                 PutWindowTilemap(4);
@@ -947,6 +998,7 @@ static void Task_HandleMainMenuAPressed(u8 taskId)
         ClearStdWindowAndFrame(5, TRUE);
         ClearStdWindowAndFrame(6, TRUE);
         ClearStdWindowAndFrame(7, TRUE);
+        ClearStdWindowAndFrame(8, TRUE);
         wirelessAdapterConnected = IsWirelessAdapterConnected();
         switch (gTasks[taskId].tMenuType)
         {
@@ -964,6 +1016,7 @@ static void Task_HandleMainMenuAPressed(u8 taskId)
                 }
                 break;
             case HAS_SAVED_GAME:
+            case HAS_SAVED_GAME_NOPKMN:
                 switch (gTasks[taskId].tCurrItem)
                 {
                     case 0:
@@ -1142,7 +1195,7 @@ static void Task_DisplayMainMenuInvalidActionError(u8 taskId)
             break;
         case 2:
             RunTextPrinters();
-            if (!IsTextPrinterActive(7))
+            if (!IsTextPrinterActive(8))
                 gTasks[taskId].tCurrItem++;
             break;
         case 3:
@@ -1166,6 +1219,10 @@ static void Task_DisplayMainMenuInvalidActionError(u8 taskId)
 
 static void HighlightSelectedMainMenuItem(u8 menuType, u8 selectedMenuItem, s16 isScrolled)
 {
+    u8 i;
+    u16 monIconPal[16 * PARTY_SIZE];
+
+    CpuSet(gMonIconPalettes, monIconPal, 0x60);
     SetGpuReg(REG_OFFSET_WIN0H, MENU_WIN_HCOORDS);
 
     switch (menuType)
@@ -1183,69 +1240,51 @@ static void HighlightSelectedMainMenuItem(u8 menuType, u8 selectedMenuItem, s16 
                     break;
             }
             break;
+        case HAS_SAVED_GAME_NOPKMN:
+        HIGHLIGHT_HAS_SAVED_GAME_NOPKMN:
+            switch (selectedMenuItem)
+            {
+                case 0:
+                default:
+                    SetGpuReg(REG_OFFSET_WIN0V, MENU_WIN_VCOORDS(2));
+                    break;
+                case 1:
+                    SetGpuReg(REG_OFFSET_WIN0V, MENU_WIN_VCOORDS(3));
+                    break;
+                case 2:
+                    SetGpuReg(REG_OFFSET_WIN0V, MENU_WIN_VCOORDS(4));
+                    break;
+            }
+            break;
         case HAS_SAVED_GAME:
-            switch (selectedMenuItem)
+            if (CalculatePlayerPartyCount() != 0)
             {
+                switch (selectedMenuItem)
+                {
                 case 0:
                 default:
-                    SetGpuReg(REG_OFFSET_WIN0V, MENU_WIN_VCOORDS(2));
-                    break;
-                case 1:
-                    SetGpuReg(REG_OFFSET_WIN0V, MENU_WIN_VCOORDS(3));
-                    break;
-                case 2:
-                    SetGpuReg(REG_OFFSET_WIN0V, MENU_WIN_VCOORDS(4));
-                    break;
-            }
-            break;
-        case HAS_MYSTERY_GIFT:
-            switch (selectedMenuItem)
-            {
-                case 0:
-                default:
-                    SetGpuReg(REG_OFFSET_WIN0V, MENU_WIN_VCOORDS(2));
-                    break;
-                case 1:
-                    SetGpuReg(REG_OFFSET_WIN0V, MENU_WIN_VCOORDS(3));
-                    break;
-                case 2:
-                    SetGpuReg(REG_OFFSET_WIN0V, MENU_WIN_VCOORDS(4));
-                    break;
-                case 3:
                     SetGpuReg(REG_OFFSET_WIN0V, MENU_WIN_VCOORDS(5));
-                    break;
-            }
-            break;
-        case HAS_MYSTERY_EVENTS:
-            switch (selectedMenuItem)
-            {
-                case 0:
-                default:
-                    SetGpuReg(REG_OFFSET_WIN0V, MENU_WIN_VCOORDS(2));
+                    LoadPalette(monIconPal, 256, sizeof(monIconPal));
+                    for (i = 0; i < gPlayerPartyCount; i++)
+                        gSprites[iconsIDs[i]].callback = SpriteCB_MonIcon;
                     break;
                 case 1:
-                    if (isScrolled)
-                        SetGpuReg(REG_OFFSET_WIN0V, MENU_WIN_VCOORDS(3) - MENU_SCROLL_SHIFT);
-                    else
-                        SetGpuReg(REG_OFFSET_WIN0V, MENU_WIN_VCOORDS(3));
+                    SetGpuReg(REG_OFFSET_WIN0V, MENU_WIN_VCOORDS(6));
+                    TintPalette_GrayScale(monIconPal, 96);
+                    LoadPalette(monIconPal, 256, sizeof(monIconPal));
+                    for (i = 0; i < gPlayerPartyCount; i++)
+                        gSprites[iconsIDs[i]].callback = SpriteCallbackDummy;
                     break;
                 case 2:
-                    if (isScrolled)
-                        SetGpuReg(REG_OFFSET_WIN0V, MENU_WIN_VCOORDS(4) - MENU_SCROLL_SHIFT);
-                    else
-                        SetGpuReg(REG_OFFSET_WIN0V, MENU_WIN_VCOORDS(4));
+                    SetGpuReg(REG_OFFSET_WIN0V, MENU_WIN_VCOORDS(7));
                     break;
-                case 3:
-                    if (isScrolled)
-                        SetGpuReg(REG_OFFSET_WIN0V, MENU_WIN_VCOORDS(5) - MENU_SCROLL_SHIFT);
-                    else
-                        SetGpuReg(REG_OFFSET_WIN0V, MENU_WIN_VCOORDS(5));
-                    break;
-                case 4:
-                    SetGpuReg(REG_OFFSET_WIN0V, MENU_WIN_VCOORDS(6) - MENU_SCROLL_SHIFT);
-                    break;
+                }
+                break;
             }
-            break;
+            else
+            {
+                goto HIGHLIGHT_HAS_SAVED_GAME_NOPKMN;
+            }
     }
 }
 
@@ -1325,14 +1364,15 @@ static void Task_NewGameBirchSpeech_WaitForSpriteFadeInWelcome(u8 taskId)
         }
         else
         {
-            InitWindows(sNewGameBirchSpeechTextWindows);
+            gSaveBlock2Ptr->playerGender = UNDECIDED;
+            InitWindows(gNewGameBirchSpeechTextWindows);
             LoadMainMenuWindowFrameTiles(0, 0xF3);
             LoadMessageBoxGfx(0, 0xFC, 0xF0);
             NewGameBirchSpeech_ShowDialogueWindow(0, 1);
             PutWindowTilemap(0);
             CopyWindowToVram(0, COPYWIN_GFX);
             NewGameBirchSpeech_ClearWindow(0);
-            StringExpandPlaceholders(gStringVar4, gText_Birch_Welcome);
+            StringExpandPlaceholders(gStringVar7, gText_Birch_Welcome);
             AddTextPrinterForMessage(1);
             gTasks[taskId].func = Task_NewGameBirchSpeech_ThisIsAPokemon;
         }
@@ -1344,7 +1384,7 @@ static void Task_NewGameBirchSpeech_ThisIsAPokemon(u8 taskId)
     if (!gPaletteFade.active && !RunTextPrintersAndIsPrinter0Active())
     {
         gTasks[taskId].func = Task_NewGameBirchSpeech_MainSpeech;
-        StringExpandPlaceholders(gStringVar4, gText_ThisIsAPokemon);
+        StringExpandPlaceholders(gStringVar7, gText_ThisIsAPokemon);
         AddTextPrinterWithCallbackForMessage(1, NewGameBirchSpeech_WaitForThisIsPokemonText);
         sBirchSpeechMainTaskId = taskId;
     }
@@ -1354,7 +1394,7 @@ static void Task_NewGameBirchSpeech_MainSpeech(u8 taskId)
 {
     if (!RunTextPrintersAndIsPrinter0Active())
     {
-        StringExpandPlaceholders(gStringVar4, gText_Birch_MainSpeech);
+        StringExpandPlaceholders(gStringVar7, gText_Birch_MainSpeech);
         AddTextPrinterForMessage(1);
         gTasks[taskId].func = Task_NewGameBirchSpeech_AndYouAre;
     }
@@ -1409,7 +1449,7 @@ static void Task_NewGameBirchSpeech_AndYouAre(u8 taskId)
     if (!RunTextPrintersAndIsPrinter0Active())
     {
         sStartedPokeBallTask = FALSE;
-        StringExpandPlaceholders(gStringVar4, gText_Birch_AndYouAre);
+        StringExpandPlaceholders(gStringVar7, gText_Birch_AndYouAre);
         AddTextPrinterForMessage(1);
         gTasks[taskId].func = Task_NewGameBirchSpeech_StartBirchLotadPlatformFade;
     }
@@ -1481,7 +1521,7 @@ static void Task_NewGameBirchSpeech_WaitForPlayerFadeIn(u8 taskId)
 static void Task_NewGameBirchSpeech_BoyOrGirl(u8 taskId)
 {
     NewGameBirchSpeech_ClearWindow(0);
-    StringExpandPlaceholders(gStringVar4, gText_Birch_BoyOrGirl);
+    StringExpandPlaceholders(gStringVar7, gText_Birch_BoyOrGirl);
     AddTextPrinterForMessage(1);
     gTasks[taskId].func = Task_NewGameBirchSpeech_WaitToShowGenderMenu;
 }
@@ -1571,7 +1611,7 @@ static void Task_NewGameBirchSpeech_SlideInNewGenderSprite(u8 taskId)
 static void Task_NewGameBirchSpeech_WhatsYourName(u8 taskId)
 {
     NewGameBirchSpeech_ClearWindow(0);
-    StringExpandPlaceholders(gStringVar4, gText_Birch_WhatsYourName);
+    StringExpandPlaceholders(gStringVar7, gText_Birch_WhatsYourName);
     AddTextPrinterForMessage(1);
     gTasks[taskId].func = Task_NewGameBirchSpeech_WaitForWhatsYourNameToPrint;
 }
@@ -1606,7 +1646,7 @@ static void Task_NewGameBirchSpeech_StartNamingScreen(u8 taskId)
 static void Task_NewGameBirchSpeech_SoItsPlayerName(u8 taskId)
 {
     NewGameBirchSpeech_ClearWindow(0);
-    StringExpandPlaceholders(gStringVar4, gText_Birch_SoItsPlayer);
+    StringExpandPlaceholders(gStringVar7, gText_Birch_SoItsPlayer);
     AddTextPrinterForMessage(1);
     gTasks[taskId].func = Task_NewGameBirchSpeech_CreateNameYesNo;
 }
@@ -1634,6 +1674,12 @@ static void Task_NewGameBirchSpeech_ProcessNameYesNoMenu(u8 taskId)
         case -1:
         case 1:
             PlaySE(SE_SELECT);
+            gSaveBlock2Ptr->playerGender = UNDECIDED;
+            ClearWindowTilemap(0);
+            LoadMainMenuWindowFrameTiles(0, 0xF3);
+            LoadMessageBoxGfx(0, 0xFC, 0xF0);
+            PutWindowTilemap(0);
+            CopyWindowToVram(0, 3);
             gTasks[taskId].func = Task_NewGameBirchSpeech_BoyOrGirl;
     }
 }
@@ -1672,7 +1718,7 @@ static void Task_NewGameBirchSpeech_ReshowBirchLotad(u8 taskId)
         NewGameBirchSpeech_StartFadeInTarget1OutTarget2(taskId, 2);
         NewGameBirchSpeech_StartFadePlatformOut(taskId, 1);
         NewGameBirchSpeech_ClearWindow(0);
-        StringExpandPlaceholders(gStringVar4, gText_Birch_YourePlayer);
+        StringExpandPlaceholders(gStringVar7, gText_Birch_YourePlayer);
         AddTextPrinterForMessage(1);
         gTasks[taskId].func = Task_NewGameBirchSpeech_WaitForSpriteFadeInAndTextPrinter;
     }
@@ -1720,7 +1766,7 @@ static void Task_NewGameBirchSpeech_AreYouReady(u8 taskId)
         gTasks[taskId].tPlayerSpriteId = spriteId;
         NewGameBirchSpeech_StartFadeInTarget1OutTarget2(taskId, 2);
         NewGameBirchSpeech_StartFadePlatformOut(taskId, 1);
-        StringExpandPlaceholders(gStringVar4, gText_Birch_AreYouReady);
+        StringExpandPlaceholders(gStringVar7, gText_Birch_AreYouReady);
         AddTextPrinterForMessage(1);
         gTasks[taskId].func = Task_NewGameBirchSpeech_ShrinkPlayer;
     }
@@ -2100,7 +2146,7 @@ static s8 NewGameBirchSpeech_ProcessGenderMenuInput(void)
     return Menu_ProcessInputNoWrap();
 }
 
-static void NewGameBirchSpeech_SetDefaultPlayerName(u8 nameId)
+void NewGameBirchSpeech_SetDefaultPlayerName(u8 nameId)
 {
     const u8* name;
     u8 i;
@@ -2125,32 +2171,32 @@ static void CreateMainMenuErrorWindow(const u8* str)
     SetGpuReg(REG_OFFSET_WIN0V, WIN_RANGE(113, DISPLAY_HEIGHT - 1));
 }
 
-static void MainMenu_FormatSavegameText(void)
+static void MainMenu_FormatSavegameText(u8 hasParty)
 {
-    MainMenu_FormatSavegamePlayer();
+    MainMenu_FormatSavegamePlayer(hasParty);
     MainMenu_FormatSavegamePokedex();
-    MainMenu_FormatSavegameTime();
+    MainMenu_FormatSavegameTime(hasParty);
     MainMenu_FormatSavegameBadges();
 }
 
-static void MainMenu_FormatSavegamePlayer(void)
+static void MainMenu_FormatSavegamePlayer(u8 hasParty)
 {
-    StringExpandPlaceholders(gStringVar4, gText_ContinueMenuPlayer);
-    AddTextPrinterParameterized3(2, FONT_NORMAL, 0, 17, sTextColor_MenuInfo, TEXT_SKIP_DRAW, gStringVar4);
-    AddTextPrinterParameterized3(2, FONT_NORMAL, GetStringRightAlignXOffset(FONT_NORMAL, gSaveBlock2Ptr->playerName, 100), 17, sTextColor_MenuInfo, TEXT_SKIP_DRAW, gSaveBlock2Ptr->playerName);
+    StringExpandPlaceholders(gStringVar7, gText_ContinueMenuPlayer);
+    AddTextPrinterParameterized3(2 + 3 * hasParty, FONT_NORMAL, 0, 17, sTextColor_MenuInfo, TEXT_SKIP_DRAW, gStringVar7);
+    AddTextPrinterParameterized3(2 + 3 * hasParty, FONT_NORMAL, GetStringRightAlignXOffset(FONT_NORMAL, gSaveBlock2Ptr->playerName, 100), 17, sTextColor_MenuInfo, TEXT_SKIP_DRAW, gSaveBlock2Ptr->playerName);
 }
 
-static void MainMenu_FormatSavegameTime(void)
+static void MainMenu_FormatSavegameTime(u8 hasParty)
 {
     u8 str[0x20];
     u8* ptr;
 
-    StringExpandPlaceholders(gStringVar4, gText_ContinueMenuTime);
-    AddTextPrinterParameterized3(2, FONT_NORMAL, 0x6C, 17, sTextColor_MenuInfo, TEXT_SKIP_DRAW, gStringVar4);
+    StringExpandPlaceholders(gStringVar7, gText_ContinueMenuTime);
+    AddTextPrinterParameterized3(2 + 3 * hasParty, FONT_NORMAL, 0x6C, 17, sTextColor_MenuInfo, TEXT_SKIP_DRAW, gStringVar7);
     ptr = ConvertIntToDecimalStringN(str, gSaveBlock2Ptr->playTimeHours, STR_CONV_MODE_LEFT_ALIGN, 3);
     *ptr = 0xF0;
     ConvertIntToDecimalStringN(ptr + 1, gSaveBlock2Ptr->playTimeMinutes, STR_CONV_MODE_LEADING_ZEROS, 2);
-    AddTextPrinterParameterized3(2, FONT_NORMAL, GetStringRightAlignXOffset(FONT_NORMAL, str, 0xD0), 17, sTextColor_MenuInfo, TEXT_SKIP_DRAW, str);
+    AddTextPrinterParameterized3(2 + 3 * hasParty, FONT_NORMAL, GetStringRightAlignXOffset(FONT_NORMAL, str, 0xD0), 17, sTextColor_MenuInfo, TEXT_SKIP_DRAW, str);
 }
 
 static void MainMenu_FormatSavegamePokedex(void)
@@ -2164,10 +2210,10 @@ static void MainMenu_FormatSavegamePokedex(void)
             dexCount = GetNationalPokedexCount(FLAG_GET_CAUGHT);
         else
             dexCount = GetHoennPokedexCount(FLAG_GET_CAUGHT);
-        StringExpandPlaceholders(gStringVar4, gText_ContinueMenuPokedex);
-        AddTextPrinterParameterized3(2, FONT_NORMAL, 0, 33, sTextColor_MenuInfo, TEXT_SKIP_DRAW, gStringVar4);
+        StringExpandPlaceholders(gStringVar7, gText_ContinueMenuPokedex);
+        AddTextPrinterParameterized3(5, FONT_NORMAL, 0, 33, sTextColor_MenuInfo, TEXT_SKIP_DRAW, gStringVar7);
         ConvertIntToDecimalStringN(str, dexCount, STR_CONV_MODE_LEFT_ALIGN, 3);
-        AddTextPrinterParameterized3(2, FONT_NORMAL, GetStringRightAlignXOffset(FONT_NORMAL, str, 100), 33, sTextColor_MenuInfo, TEXT_SKIP_DRAW, str);
+        AddTextPrinterParameterized3(5, FONT_NORMAL, GetStringRightAlignXOffset(FONT_NORMAL, str, 100), 33, sTextColor_MenuInfo, TEXT_SKIP_DRAW, str);
     }
 }
 
@@ -2182,10 +2228,10 @@ static void MainMenu_FormatSavegameBadges(void)
         if (FlagGet(i))
             badgeCount++;
     }
-    StringExpandPlaceholders(gStringVar4, gText_ContinueMenuBadges);
-    AddTextPrinterParameterized3(2, FONT_NORMAL, 0x6C, 33, sTextColor_MenuInfo, TEXT_SKIP_DRAW, gStringVar4);
+    StringExpandPlaceholders(gStringVar7, gText_ContinueMenuBadges);
+    AddTextPrinterParameterized3(5, FONT_NORMAL, 0x6C, 33, sTextColor_MenuInfo, TEXT_SKIP_DRAW, gStringVar7);
     ConvertIntToDecimalStringN(str, badgeCount, STR_CONV_MODE_LEADING_ZEROS, 1);
-    AddTextPrinterParameterized3(2, FONT_NORMAL, GetStringRightAlignXOffset(FONT_NORMAL, str, 0xD0), 33, sTextColor_MenuInfo, TEXT_SKIP_DRAW, str);
+    AddTextPrinterParameterized3(5, FONT_NORMAL, GetStringRightAlignXOffset(FONT_NORMAL, str, 0xD0), 33, sTextColor_MenuInfo, TEXT_SKIP_DRAW, str);
 }
 
 static void LoadMainMenuWindowFrameTiles(u8 bgId, u16 tileOffset)
@@ -2301,3 +2347,19 @@ static void Task_NewGameBirchSpeech_ReturnFromNamingScreenShowTextbox(u8 taskId)
 }
 
 #undef tTimer
+
+static void RenderPlayerParty(void)
+{
+    u8 i, id;
+    u16 species;
+
+    LoadMonIconPalettes();
+    for (i = 0; i < gPlayerPartyCount; i++)
+    {
+        species = GetMonData(gPlayerParty + i, MON_DATA_SPECIES2);
+
+        id = CreateMonIconNoPersonality(species, SpriteCallbackDummy, 32 * i + 40, 64, 0);
+        iconsIDs[i] = id;
+        gSprites[id].oam.priority = 0;
+    }
+}

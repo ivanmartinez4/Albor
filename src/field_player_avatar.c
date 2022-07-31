@@ -232,7 +232,7 @@ static bool8 (*const sArrowWarpMetatileBehaviorChecks[])(u8) =
     [DIR_EAST - 1]  = MetatileBehavior_IsEastArrowWarp,
 };
 
-static const u8 sRivalAvatarGfxIds[][2] =
+static const u16 sRivalAvatarGfxIds[][2] =
 {
     [PLAYER_AVATAR_STATE_NORMAL]     = {OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL,     OBJ_EVENT_GFX_RIVAL_MAY_NORMAL},
     [PLAYER_AVATAR_STATE_MACH_BIKE]  = {OBJ_EVENT_GFX_RIVAL_BRENDAN_MACH_BIKE,  OBJ_EVENT_GFX_RIVAL_MAY_MACH_BIKE},
@@ -244,48 +244,114 @@ static const u8 sRivalAvatarGfxIds[][2] =
     [PLAYER_AVATAR_STATE_WATERING]   = {OBJ_EVENT_GFX_BRENDAN_WATERING,         OBJ_EVENT_GFX_MAY_WATERING}
 };
 
-static const u8 sPlayerAvatarGfxIds[][2] =
+static const u16 sPlayerAvatarGfxIds[COSTUME_COUNT][PLAYER_AVATAR_STATE_COUNT][GENDER_COUNT] = 
 {
-    [PLAYER_AVATAR_STATE_NORMAL]     = {OBJ_EVENT_GFX_BRENDAN_NORMAL,     OBJ_EVENT_GFX_MAY_NORMAL},
-    [PLAYER_AVATAR_STATE_MACH_BIKE]  = {OBJ_EVENT_GFX_BRENDAN_MACH_BIKE,  OBJ_EVENT_GFX_MAY_MACH_BIKE},
-    [PLAYER_AVATAR_STATE_ACRO_BIKE]  = {OBJ_EVENT_GFX_BRENDAN_ACRO_BIKE,  OBJ_EVENT_GFX_MAY_ACRO_BIKE},
-    [PLAYER_AVATAR_STATE_SURFING]    = {OBJ_EVENT_GFX_BRENDAN_SURFING,    OBJ_EVENT_GFX_MAY_SURFING},
-    [PLAYER_AVATAR_STATE_UNDERWATER] = {OBJ_EVENT_GFX_BRENDAN_UNDERWATER, OBJ_EVENT_GFX_MAY_UNDERWATER},
-    [PLAYER_AVATAR_STATE_FIELD_MOVE] = {OBJ_EVENT_GFX_BRENDAN_FIELD_MOVE, OBJ_EVENT_GFX_MAY_FIELD_MOVE},
-    [PLAYER_AVATAR_STATE_FISHING]    = {OBJ_EVENT_GFX_BRENDAN_FISHING,    OBJ_EVENT_GFX_MAY_FISHING},
-    [PLAYER_AVATAR_STATE_WATERING]   = {OBJ_EVENT_GFX_BRENDAN_WATERING,   OBJ_EVENT_GFX_MAY_WATERING},
+    [DEFAULT_COSTUME] =
+    {
+        {OBJ_EVENT_GFX_BRENDAN_NORMAL,     OBJ_EVENT_GFX_MAY_NORMAL},
+        {OBJ_EVENT_GFX_BRENDAN_MACH_BIKE,  OBJ_EVENT_GFX_MAY_MACH_BIKE},
+        {OBJ_EVENT_GFX_BRENDAN_ACRO_BIKE,  OBJ_EVENT_GFX_MAY_ACRO_BIKE},
+        {OBJ_EVENT_GFX_BRENDAN_SURFING,    OBJ_EVENT_GFX_MAY_SURFING},
+        {OBJ_EVENT_GFX_BRENDAN_UNDERWATER, OBJ_EVENT_GFX_MAY_UNDERWATER},
+        {OBJ_EVENT_GFX_BRENDAN_FIELD_MOVE, OBJ_EVENT_GFX_MAY_FIELD_MOVE},
+        {OBJ_EVENT_GFX_BRENDAN_FISHING,    OBJ_EVENT_GFX_MAY_FISHING},
+        {OBJ_EVENT_GFX_BRENDAN_WATERING,   OBJ_EVENT_GFX_MAY_WATERING},
+    },
+    [LEGACY_COSTUME] =
+    {
+        {OBJ_EVENT_GFX_LINK_RS_BRENDAN,       OBJ_EVENT_GFX_LINK_RS_MAY},
+        {OBJ_EVENT_GFX_RS_BRENDAN_MACH_BIKE,  OBJ_EVENT_GFX_RS_MAY_MACH_BIKE},
+        {OBJ_EVENT_GFX_RS_BRENDAN_ACRO_BIKE,  OBJ_EVENT_GFX_RS_MAY_ACRO_BIKE},
+        {OBJ_EVENT_GFX_RS_BRENDAN_SURFING,    OBJ_EVENT_GFX_RS_MAY_SURFING},
+        {OBJ_EVENT_GFX_RS_BRENDAN_UNDERWATER, OBJ_EVENT_GFX_RS_MAY_UNDERWATER},
+        {OBJ_EVENT_GFX_RS_BRENDAN_FIELD_MOVE, OBJ_EVENT_GFX_RS_MAY_FIELD_MOVE},
+        {OBJ_EVENT_GFX_RS_BRENDAN_FISHING,    OBJ_EVENT_GFX_RS_MAY_FISHING},
+        {OBJ_EVENT_GFX_RS_BRENDAN_WATERING,   OBJ_EVENT_GFX_RS_MAY_WATERING},
+    },
+    [ADVENTURES_COSTUME] =
+    {
+        {OBJ_EVENT_GFX_ADVENTURES_BRENDAN,            OBJ_EVENT_GFX_ADVENTURES_MAY},
+        {OBJ_EVENT_GFX_ADVENTURES_BRENDAN_MACH_BIKE,  OBJ_EVENT_GFX_ADVENTURES_MAY_MACH_BIKE},
+        {OBJ_EVENT_GFX_ADVENTURES_BRENDAN_ACRO_BIKE,  OBJ_EVENT_GFX_ADVENTURES_MAY_ACRO_BIKE},
+        {OBJ_EVENT_GFX_ADVENTURES_BRENDAN_SURFING,    OBJ_EVENT_GFX_ADVENTURES_MAY_SURFING},
+        {OBJ_EVENT_GFX_ADVENTURES_BRENDAN_UNDERWATER, OBJ_EVENT_GFX_ADVENTURES_MAY_UNDERWATER},
+        {OBJ_EVENT_GFX_ADVENTURES_BRENDAN_FIELD_MOVE, OBJ_EVENT_GFX_ADVENTURES_MAY_FIELD_MOVE},
+        {OBJ_EVENT_GFX_ADVENTURES_BRENDAN_FISHING,    OBJ_EVENT_GFX_ADVENTURES_MAY_FISHING},
+        {OBJ_EVENT_GFX_ADVENTURES_BRENDAN_WATERING,   OBJ_EVENT_GFX_ADVENTURES_MAY_WATERING},
+    },
 };
 
-static const u8 sFRLGAvatarGfxIds[GENDER_COUNT] =
+static const u16 sFRLGAvatarGfxIds[GENDER_COUNT] =
 {
     [MALE]   = OBJ_EVENT_GFX_RED,
     [FEMALE] = OBJ_EVENT_GFX_LEAF
 };
 
-static const u8 sRSAvatarGfxIds[GENDER_COUNT] =
+static const u16 sRSAvatarGfxIds[GENDER_COUNT] =
 {
     [MALE]   = OBJ_EVENT_GFX_LINK_RS_BRENDAN,
     [FEMALE] = OBJ_EVENT_GFX_LINK_RS_MAY
 };
 
-static const u8 sPlayerAvatarGfxToStateFlag[GENDER_COUNT][5][2] =
+static const u16 sPlayerAvatarGfxToStateFlag[COSTUME_COUNT][2][5][2] =
 {
-    [MALE] =
+    [DEFAULT_COSTUME] =
     {
-        {OBJ_EVENT_GFX_BRENDAN_NORMAL,     PLAYER_AVATAR_FLAG_ON_FOOT},
-        {OBJ_EVENT_GFX_BRENDAN_MACH_BIKE,  PLAYER_AVATAR_FLAG_MACH_BIKE},
-        {OBJ_EVENT_GFX_BRENDAN_ACRO_BIKE,  PLAYER_AVATAR_FLAG_ACRO_BIKE},
-        {OBJ_EVENT_GFX_BRENDAN_SURFING,    PLAYER_AVATAR_FLAG_SURFING},
-        {OBJ_EVENT_GFX_BRENDAN_UNDERWATER, PLAYER_AVATAR_FLAG_UNDERWATER},
+        [MALE] =
+        {
+            {OBJ_EVENT_GFX_BRENDAN_NORMAL,     PLAYER_AVATAR_FLAG_ON_FOOT},
+            {OBJ_EVENT_GFX_BRENDAN_MACH_BIKE,  PLAYER_AVATAR_FLAG_MACH_BIKE},
+            {OBJ_EVENT_GFX_BRENDAN_ACRO_BIKE,  PLAYER_AVATAR_FLAG_ACRO_BIKE},
+            {OBJ_EVENT_GFX_BRENDAN_SURFING,    PLAYER_AVATAR_FLAG_SURFING},
+            {OBJ_EVENT_GFX_BRENDAN_UNDERWATER, PLAYER_AVATAR_FLAG_UNDERWATER},
+        },
+        [FEMALE] =
+        {
+            {OBJ_EVENT_GFX_MAY_NORMAL,         PLAYER_AVATAR_FLAG_ON_FOOT},
+            {OBJ_EVENT_GFX_MAY_MACH_BIKE,      PLAYER_AVATAR_FLAG_MACH_BIKE},
+            {OBJ_EVENT_GFX_MAY_ACRO_BIKE,      PLAYER_AVATAR_FLAG_ACRO_BIKE},
+            {OBJ_EVENT_GFX_MAY_SURFING,        PLAYER_AVATAR_FLAG_SURFING},
+            {OBJ_EVENT_GFX_MAY_UNDERWATER,     PLAYER_AVATAR_FLAG_UNDERWATER},
+        },
     },
-    [FEMALE] =
+    [LEGACY_COSTUME] =
     {
-        {OBJ_EVENT_GFX_MAY_NORMAL,         PLAYER_AVATAR_FLAG_ON_FOOT},
-        {OBJ_EVENT_GFX_MAY_MACH_BIKE,      PLAYER_AVATAR_FLAG_MACH_BIKE},
-        {OBJ_EVENT_GFX_MAY_ACRO_BIKE,      PLAYER_AVATAR_FLAG_ACRO_BIKE},
-        {OBJ_EVENT_GFX_MAY_SURFING,        PLAYER_AVATAR_FLAG_SURFING},
-        {OBJ_EVENT_GFX_MAY_UNDERWATER,     PLAYER_AVATAR_FLAG_UNDERWATER},
-    }
+        [MALE] =
+        {
+            {OBJ_EVENT_GFX_LINK_RS_BRENDAN,       PLAYER_AVATAR_FLAG_ON_FOOT},
+            {OBJ_EVENT_GFX_RS_BRENDAN_MACH_BIKE,  PLAYER_AVATAR_FLAG_MACH_BIKE},
+            {OBJ_EVENT_GFX_RS_BRENDAN_ACRO_BIKE,  PLAYER_AVATAR_FLAG_ACRO_BIKE},
+            {OBJ_EVENT_GFX_RS_BRENDAN_SURFING,    PLAYER_AVATAR_FLAG_SURFING},
+            {OBJ_EVENT_GFX_RS_BRENDAN_UNDERWATER, PLAYER_AVATAR_FLAG_UNDERWATER},
+        },
+        [FEMALE] =
+        {
+            {OBJ_EVENT_GFX_LINK_RS_MAY,           PLAYER_AVATAR_FLAG_ON_FOOT},
+            {OBJ_EVENT_GFX_RS_MAY_MACH_BIKE,      PLAYER_AVATAR_FLAG_MACH_BIKE},
+            {OBJ_EVENT_GFX_RS_MAY_ACRO_BIKE,      PLAYER_AVATAR_FLAG_ACRO_BIKE},
+            {OBJ_EVENT_GFX_RS_MAY_SURFING,        PLAYER_AVATAR_FLAG_SURFING},
+            {OBJ_EVENT_GFX_RS_MAY_UNDERWATER,     PLAYER_AVATAR_FLAG_UNDERWATER},
+        },
+    },
+    [ADVENTURES_COSTUME] =
+    {
+        [MALE] =
+        {
+            {OBJ_EVENT_GFX_ADVENTURES_BRENDAN,            PLAYER_AVATAR_FLAG_ON_FOOT},
+            {OBJ_EVENT_GFX_ADVENTURES_BRENDAN_MACH_BIKE,  PLAYER_AVATAR_FLAG_MACH_BIKE},
+            {OBJ_EVENT_GFX_ADVENTURES_BRENDAN_ACRO_BIKE,  PLAYER_AVATAR_FLAG_ACRO_BIKE},
+            {OBJ_EVENT_GFX_ADVENTURES_BRENDAN_SURFING,    PLAYER_AVATAR_FLAG_SURFING},
+            {OBJ_EVENT_GFX_ADVENTURES_BRENDAN_UNDERWATER, PLAYER_AVATAR_FLAG_UNDERWATER},
+        },
+        [FEMALE] =
+        {
+            {OBJ_EVENT_GFX_ADVENTURES_MAY,                PLAYER_AVATAR_FLAG_ON_FOOT},
+            {OBJ_EVENT_GFX_ADVENTURES_MAY_MACH_BIKE,      PLAYER_AVATAR_FLAG_MACH_BIKE},
+            {OBJ_EVENT_GFX_ADVENTURES_MAY_ACRO_BIKE,      PLAYER_AVATAR_FLAG_ACRO_BIKE},
+            {OBJ_EVENT_GFX_ADVENTURES_MAY_SURFING,        PLAYER_AVATAR_FLAG_SURFING},
+            {OBJ_EVENT_GFX_ADVENTURES_MAY_UNDERWATER,     PLAYER_AVATAR_FLAG_UNDERWATER},
+        },
+    },
 };
 
 static bool8 (*const sArrowWarpMetatileBehaviorChecks2[])(u8) =  //Duplicate of sArrowWarpMetatileBehaviorChecks
@@ -645,18 +711,32 @@ static void PlayerNotOnBikeMoving(u8 direction, u16 heldKeys)
         }
     }
 
-    if (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_SURFING)
+    if (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_SURFING || gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_UNDERWATER)
     {
-        // same speed as running
-        PlayerWalkFast(direction);
+        if (heldKeys & B_BUTTON && gSaveBlock2Ptr->autoRun == TRUE)
+            PlayerWalkFast(direction); // same speed as running
+        else if (heldKeys & B_BUTTON || gSaveBlock2Ptr->autoRun == TRUE)
+            PlayerWalkFaster(direction); // same speed as the Mach Bike
+        else
+            PlayerWalkFast(direction);
         return;
     }
 
-    if (!(gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_UNDERWATER) && (heldKeys & B_BUTTON) && FlagGet(FLAG_SYS_B_DASH)
+    if (!(gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_SURFING)
+     && !(gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_UNDERWATER)
+     && (heldKeys & B_BUTTON || gSaveBlock2Ptr->autoRun)
+     && FlagGet(FLAG_SYS_B_DASH)
      && IsRunningDisallowed(gObjectEvents[gPlayerAvatar.objectEventId].currentMetatileBehavior) == 0)
     {
-        PlayerRun(direction);
-        gPlayerAvatar.flags |= PLAYER_AVATAR_FLAG_DASH;
+        if (heldKeys & B_BUTTON && gSaveBlock2Ptr->autoRun == TRUE)
+        {
+            PlayerWalkNormal(direction);
+        }
+        else
+        {
+            PlayerRun(direction);
+            gPlayerAvatar.flags |= PLAYER_AVATAR_FLAG_DASH;
+        }
         return;
     }
     else
@@ -1224,32 +1304,32 @@ void StopPlayerAvatar(void)
     }
 }
 
-u8 GetRivalAvatarGraphicsIdByStateIdAndGender(u8 state, u8 gender)
+u16 GetRivalAvatarGraphicsIdByStateIdAndGender(u8 state, u8 gender)
 {
     return sRivalAvatarGfxIds[state][gender];
 }
 
-u8 GetPlayerAvatarGraphicsIdByStateIdAndGender(u8 state, u8 gender)
+u16 GetPlayerAvatarGraphicsIdByStateIdAndGender(u8 state, u8 gender)
 {
-    return sPlayerAvatarGfxIds[state][gender];
+    return sPlayerAvatarGfxIds[gSaveBlock2Ptr->playerCostume][state][gSaveBlock2Ptr->playerGender];
 }
 
-u8 GetFRLGAvatarGraphicsIdByGender(u8 gender)
+u16 GetFRLGAvatarGraphicsIdByGender(u8 gender)
 {
     return sFRLGAvatarGfxIds[gender];
 }
 
-u8 GetRSAvatarGraphicsIdByGender(u8 gender)
+u16 GetRSAvatarGraphicsIdByGender(u8 gender)
 {
     return sRSAvatarGfxIds[gender];
 }
 
-u8 GetPlayerAvatarGraphicsIdByStateId(u8 state)
+u16 GetPlayerAvatarGraphicsIdByStateId(u8 state)
 {
     return GetPlayerAvatarGraphicsIdByStateIdAndGender(state, gPlayerAvatar.gender);
 }
 
-u8 unref_GetRivalAvatarGenderByGraphicsId(u8 gfxId)
+u8 unref_GetRivalAvatarGenderByGraphicsId(u16 gfxId)
 {
     switch (gfxId)
     {
@@ -1267,7 +1347,7 @@ u8 unref_GetRivalAvatarGenderByGraphicsId(u8 gfxId)
     }
 }
 
-u8 GetPlayerAvatarGenderByGraphicsId(u8 gfxId)
+u8 GetPlayerAvatarGenderByGraphicsId(u16 gfxId)
 {
     switch (gfxId)
     {
@@ -1336,32 +1416,32 @@ void SetPlayerAvatarStateMask(u8 flags)
     gPlayerAvatar.flags |= flags;
 }
 
-static u8 GetPlayerAvatarStateTransitionByGraphicsId(u8 graphicsId, u8 gender)
+static u8 GetPlayerAvatarStateTransitionByGraphicsId(u16 graphicsId, u8 gender)
 {
     u8 i;
 
-    for (i = 0; i < ARRAY_COUNT(sPlayerAvatarGfxToStateFlag[0]); i++)
+    for (i = 0; i < ARRAY_COUNT(sPlayerAvatarGfxToStateFlag[gSaveBlock2Ptr->playerCostume][0]); i++)
     {
-        if (sPlayerAvatarGfxToStateFlag[gender][i][0] == graphicsId)
-            return sPlayerAvatarGfxToStateFlag[gender][i][1];
+        if (sPlayerAvatarGfxToStateFlag[gSaveBlock2Ptr->playerCostume][gSaveBlock2Ptr->playerGender][i][0] == graphicsId)
+            return sPlayerAvatarGfxToStateFlag[gSaveBlock2Ptr->playerCostume][gSaveBlock2Ptr->playerGender][i][1];
     }
     return PLAYER_AVATAR_FLAG_ON_FOOT;
 }
 
-u8 GetPlayerAvatarGraphicsIdByCurrentState(void)
+u16 GetPlayerAvatarGraphicsIdByCurrentState(void)
 {
     u8 i;
     u8 flags = gPlayerAvatar.flags;
 
-    for (i = 0; i < ARRAY_COUNT(sPlayerAvatarGfxToStateFlag[0]); i++)
+    for (i = 0; i < ARRAY_COUNT(sPlayerAvatarGfxToStateFlag[gSaveBlock2Ptr->playerCostume][0]); i++)
     {
-        if (sPlayerAvatarGfxToStateFlag[gPlayerAvatar.gender][i][1] & flags)
-            return sPlayerAvatarGfxToStateFlag[gPlayerAvatar.gender][i][0];
+        if (sPlayerAvatarGfxToStateFlag[gSaveBlock2Ptr->playerCostume][gSaveBlock2Ptr->playerGender][i][1] & flags)
+            return sPlayerAvatarGfxToStateFlag[gSaveBlock2Ptr->playerCostume][gSaveBlock2Ptr->playerGender][i][0];
     }
     return 0;
 }
 
-void SetPlayerAvatarExtraStateTransition(u8 graphicsId, u8 transitionFlag)
+void SetPlayerAvatarExtraStateTransition(u16 graphicsId, u8 transitionFlag)
 {
     u8 stateFlag = GetPlayerAvatarStateTransitionByGraphicsId(graphicsId, gPlayerAvatar.gender);
 
@@ -1399,6 +1479,11 @@ void InitPlayerAvatar(s16 x, s16 y, u8 direction, u8 gender)
     gPlayerAvatar.spriteId = objectEvent->spriteId;
     gPlayerAvatar.gender = gender;
     SetPlayerAvatarStateMask(PLAYER_AVATAR_FLAG_CONTROLLABLE | PLAYER_AVATAR_FLAG_ON_FOOT);
+    if (FlagGet(FLAG_SPAWN_INVISIBLE_PLAYER))
+    {
+        FlagClear(FLAG_SPAWN_INVISIBLE_PLAYER);
+        objectEvent->invisible = TRUE;
+    }
 }
 
 void SetPlayerInvisibility(bool8 invisible)
@@ -1968,7 +2053,7 @@ static bool8 Fishing_StartEncounter(struct Task *task)
 
 static bool8 Fishing_NotEvenNibble(struct Task *task)
 {
-    gChainFishingStreak = 0;
+    gChainFishingStreak = 0;    //player failed to reel in a mon. reset chain fishing counter
     AlignFishingAnimationFrames();
     StartSpriteAnim(&gSprites[gPlayerAvatar.spriteId], GetFishingNoCatchDirectionAnimNum(GetPlayerFacingDirection()));
     FillWindowPixelBuffer(0, PIXEL_FILL(1));
@@ -1979,7 +2064,7 @@ static bool8 Fishing_NotEvenNibble(struct Task *task)
 
 static bool8 Fishing_GotAway(struct Task *task)
 {
-    gChainFishingStreak = 0;
+    gChainFishingStreak = 0;    //player failed to reel in a mon. reset chain fishing counter
     AlignFishingAnimationFrames();
     StartSpriteAnim(&gSprites[gPlayerAvatar.spriteId], GetFishingNoCatchDirectionAnimNum(GetPlayerFacingDirection()));
     FillWindowPixelBuffer(0, PIXEL_FILL(1));

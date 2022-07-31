@@ -59,17 +59,11 @@ void ClearDailyFlags(void)
 
 void DisableNationalPokedex(void)
 {
-    u16 *nationalDexVar = GetVarPointer(VAR_NATIONAL_DEX);
-    gSaveBlock2Ptr->pokedex.nationalMagic = 0;
-    *nationalDexVar = 0;
     FlagClear(FLAG_SYS_NATIONAL_DEX);
 }
 
 void EnableNationalPokedex(void)
 {
-    u16 *nationalDexVar = GetVarPointer(VAR_NATIONAL_DEX);
-    gSaveBlock2Ptr->pokedex.nationalMagic = 0xDA;
-    *nationalDexVar = 0x302;
     FlagSet(FLAG_SYS_NATIONAL_DEX);
     gSaveBlock2Ptr->pokedex.mode = DEX_MODE_NATIONAL;
     gSaveBlock2Ptr->pokedex.order = 0;
@@ -78,20 +72,10 @@ void EnableNationalPokedex(void)
 
 bool32 IsNationalPokedexEnabled(void)
 {
-    if (gSaveBlock2Ptr->pokedex.nationalMagic == 0xDA && VarGet(VAR_NATIONAL_DEX) == 0x302 && FlagGet(FLAG_SYS_NATIONAL_DEX))
+    if (FlagGet(FLAG_SYS_NATIONAL_DEX))
         return TRUE;
     else
         return FALSE;
-}
-
-void DisableMysteryEvent(void)
-{
-    FlagClear(FLAG_SYS_MYSTERY_EVENT_ENABLE);
-}
-
-void EnableMysteryEvent(void)
-{
-    FlagSet(FLAG_SYS_MYSTERY_EVENT_ENABLE);
 }
 
 bool32 IsMysteryEventEnabled(void)
@@ -114,53 +98,19 @@ bool32 IsMysteryGiftEnabled(void)
     return FlagGet(FLAG_SYS_MYSTERY_GIFT_ENABLE);
 }
 
-void ClearMysteryGiftFlags(void)
-{
-    FlagClear(FLAG_MYSTERY_GIFT_DONE);
-    FlagClear(FLAG_MYSTERY_GIFT_1);
-    FlagClear(FLAG_MYSTERY_GIFT_2);
-    FlagClear(FLAG_MYSTERY_GIFT_3);
-    FlagClear(FLAG_MYSTERY_GIFT_4);
-    FlagClear(FLAG_MYSTERY_GIFT_5);
-    FlagClear(FLAG_MYSTERY_GIFT_6);
-    FlagClear(FLAG_MYSTERY_GIFT_7);
-    FlagClear(FLAG_MYSTERY_GIFT_8);
-    FlagClear(FLAG_MYSTERY_GIFT_9);
-    FlagClear(FLAG_MYSTERY_GIFT_10);
-    FlagClear(FLAG_MYSTERY_GIFT_11);
-    FlagClear(FLAG_MYSTERY_GIFT_12);
-    FlagClear(FLAG_MYSTERY_GIFT_13);
-    FlagClear(FLAG_MYSTERY_GIFT_14);
-    FlagClear(FLAG_MYSTERY_GIFT_15);
-}
-
-void ClearMysteryGiftVars(void)
-{
-    VarSet(VAR_GIFT_PICHU_SLOT, 0);
-    VarSet(VAR_GIFT_UNUSED_1, 0);
-    VarSet(VAR_GIFT_UNUSED_2, 0);
-    VarSet(VAR_GIFT_UNUSED_3, 0);
-    VarSet(VAR_GIFT_UNUSED_4, 0);
-    VarSet(VAR_GIFT_UNUSED_5, 0);
-    VarSet(VAR_GIFT_UNUSED_6, 0);
-    VarSet(VAR_GIFT_UNUSED_7, 0);
-}
-
 void DisableResetRTC(void)
 {
-    VarSet(VAR_RESET_RTC_ENABLE, 0);
     FlagClear(FLAG_SYS_RESET_RTC_ENABLE);
 }
 
 void EnableResetRTC(void)
 {
-    VarSet(VAR_RESET_RTC_ENABLE, 0x920);
     FlagSet(FLAG_SYS_RESET_RTC_ENABLE);
 }
 
 bool32 CanResetRTC(void)
 {
-    if (FlagGet(FLAG_SYS_RESET_RTC_ENABLE) && VarGet(VAR_RESET_RTC_ENABLE) == 0x920)
+    if (FlagGet(FLAG_SYS_RESET_RTC_ENABLE))
         return TRUE;
     else
         return FALSE;
@@ -184,6 +134,14 @@ u16 VarGet(u16 id)
     return *ptr;
 }
 
+u16 VarGetIfExist(u16 id)
+{
+    u16 *ptr = GetVarPointer(id);
+    if (!ptr)
+        return 65535;
+    return *ptr;
+}
+
 bool8 VarSet(u16 id, u16 value)
 {
     u16 *ptr = GetVarPointer(id);
@@ -193,7 +151,7 @@ bool8 VarSet(u16 id, u16 value)
     return TRUE;
 }
 
-u8 VarGetObjectEventGraphicsId(u8 id)
+u16 VarGetObjectEventGraphicsId(u8 id)
 {
     return VarGet(VAR_OBJ_GFX_ID_0 + id);
 }
@@ -213,6 +171,14 @@ u8 FlagSet(u16 id)
     u8 *ptr = GetFlagPointer(id);
     if (ptr)
         *ptr |= 1 << (id & 7);
+    return 0;
+}
+
+u8 FlagToggle(u16 id)
+{
+    u8 *ptr = GetFlagPointer(id);
+    if (ptr)
+        *ptr ^= 1 << (id & 7);
     return 0;
 }
 

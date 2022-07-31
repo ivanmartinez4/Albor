@@ -71,12 +71,12 @@ static const struct CompressedSpritePalette sSpritePalette_MoneyLabel =
 
 u32 GetMoney(u32* moneyPtr)
 {
-    return *moneyPtr ^ gSaveBlock2Ptr->encryptionKey;
+    return *moneyPtr;
 }
 
 void SetMoney(u32* moneyPtr, u32 newValue)
 {
-    *moneyPtr = gSaveBlock2Ptr->encryptionKey ^ newValue;
+    *moneyPtr = newValue;
 }
 
 bool8 IsEnoughMoney(u32* moneyPtr, u32 cost)
@@ -142,14 +142,14 @@ void PrintMoneyAmount(u8 windowId, u8 x, u8 y, int amount, u8 speed)
 
     ConvertIntToDecimalStringN(gStringVar1, amount, STR_CONV_MODE_LEFT_ALIGN, 7);
 
-    strLength = 7 - StringLength(gStringVar1);
-    txtPtr = gStringVar4;
+    strLength = 6 - StringLength(gStringVar1);
+    txtPtr = gStringVar7;
 
     while (strLength-- > 0)
         *(txtPtr++) = CHAR_SPACER;
 
     StringExpandPlaceholders(txtPtr, gText_PokedollarVar1);
-    AddTextPrinterParameterized(windowId, FONT_NORMAL, gStringVar4, x, y, speed, NULL);
+    AddTextPrinterParameterized(windowId, FONT_NORMAL, gStringVar7, x, y, speed, NULL);
 }
 
 void PrintMoneyAmountInMoneyBoxWithBorder(u8 windowId, u16 tileStart, u8 pallete, int amount)

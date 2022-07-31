@@ -17,19 +17,8 @@ VerdanturfTown_BattleTentBattleRoom_OnTransition:
 	end
 
 VerdanturfTown_BattleTentBattleRoom_EventScript_SetPlayerGfx::
-	checkplayergender
-	goto_if_eq VAR_RESULT, MALE, VerdanturfTown_BattleTentBattleRoom_EventScript_SetPlayerGfxMale
-	goto_if_eq VAR_RESULT, FEMALE, VerdanturfTown_BattleTentBattleRoom_EventScript_SetPlayerGfxFemale
-	return
-
-VerdanturfTown_BattleTentBattleRoom_EventScript_SetPlayerGfxMale::
-	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL
-	setvar VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL
-	return
-
-VerdanturfTown_BattleTentBattleRoom_EventScript_SetPlayerGfxFemale::
-	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_RIVAL_MAY_NORMAL
-	setvar VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_RIVAL_MAY_NORMAL
+	specialvar VAR_OBJ_GFX_ID_1, GetPlayerCostumeId
+	specialvar VAR_OBJ_GFX_ID_0, GetPlayerCostumeId
 	return
 
 VerdanturfTown_BattleTentBattleRoom_OnFrame:
@@ -48,7 +37,7 @@ VerdanturfTown_BattleTentBattleRoom_EventScript_NextOpponentEnter::
 	applymovement LOCALID_OPPONENT, VerdanturfTown_BattleTentBattleRoom_Movement_OpponentEnter
 	waitmovement 0
 	battletent_getopponentintro
-	msgbox gStringVar4, MSGBOX_DEFAULT
+	msgbox gStringVar7, MSGBOX_DEFAULT
 	waitmessage
 	call BattleFrontier_BattlePalaceBattleRoom_EventScript_DoPalaceBattle
 	switch VAR_RESULT

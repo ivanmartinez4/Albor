@@ -28,6 +28,11 @@
 #include "window.h"
 #include "constants/rgb.h"
 #include "constants/songs.h"
+#include "pokemon_icon.h"
+#include "item.h"
+#include "region_map.h"
+
+extern const struct Evolution gEvolutionTable[][EVOS_PER_MON];
 
 enum
 {
@@ -38,14 +43,14 @@ enum
     PAGE_UNK,
     PAGE_AREA,
     PAGE_CRY,
-    PAGE_SIZE
+    PAGE_EVO
 };
 
 enum
 {
     AREA_SCREEN,
     CRY_SCREEN,
-    SIZE_SCREEN,
+    EVO_SCREEN,
     CANCEL_SCREEN,
     SCREEN_COUNT
 };
@@ -180,8 +185,6 @@ struct PokedexView
     u16 scrollMonIncrement;
     u16 maxScrollTimer;
     u16 scrollSpeed;
-    u16 unkArr1[4]; // Cleared, never read
-    u8 filler[8];
     u8 currentPage;
     u8 currentPageBackup;
     bool8 isSearchResults:1;
@@ -190,8 +193,7 @@ struct PokedexView
     u8 menuIsOpen;
     u16 menuCursorPos;
     s16 menuY;     //Menu Y position (inverted because we use REG_BG0VOFS for this)
-    u8 unkArr2[8]; // Cleared, never read
-    u8 unkArr3[8]; // Cleared, never read
+    u8 numPreEvolutions;
 };
 
 // this file's functions
@@ -252,9 +254,9 @@ static void Task_LoadCryScreen(u8);
 static void Task_HandleCryScreenInput(u8);
 static void Task_SwitchScreensFromCryScreen(u8);
 static void LoadPlayArrowPalette(bool8);
-static void Task_LoadSizeScreen(u8);
-static void Task_HandleSizeScreenInput(u8);
-static void Task_SwitchScreensFromSizeScreen(u8);
+static void Task_LoadEvoScreen(u8);
+static void Task_HandleEvoScreenInput(u8);
+static void Task_SwitchScreensFromEvoScreen(u8);
 static void LoadScreenSelectBarMain(u16);
 static void LoadScreenSelectBarSubmenu(u16);
 static void HighlightScreenSelectBarItem(u8, u16);
@@ -297,6 +299,11 @@ static void EraseSelectorArrow(u32);
 static void PrintSelectorArrow(u32);
 static void PrintSearchParameterTitle(u32, const u8*);
 static void ClearSearchParameterBoxText(void);
+static void PrintInfoScreenTextSmall(const u8* str, u8 left, u8 top);
+static u8 PrintEvolutionTargetSpeciesAndMethod(u8 taskId, u16 species, u8 depth, u8 depth_i);
+static u8 PrintPreEvolutions(u8 taskId, u16 species);
+static void Task_LoadEvoScreenWaitForFade(u8 taskId);
+static void Task_LoadCryScreenWaitForFade(u8 taskId);
 
 // const rom data
 #include "data/pokemon/pokedex_orders.h"
@@ -842,8 +849,6 @@ ALIGNED(4) static const u8 sExpandedPlaceholder_PokedexDescription[] = _("");
 
 #include "data/pokemon/pokedex_text.h"
 #include "data/pokemon/pokedex_entries.h"
-
-static const u16 sSizeScreenSilhouette_Pal[] = INCBIN_U16("graphics/pokedex/size_silhouette.gbapal");
 
 static const struct BgTemplate sInfoScreen_BgTemplate[] =
 {
@@ -1505,11 +1510,8 @@ void ResetPokedex(void)
     sPokeBallRotation = POKEBALL_ROTATION_TOP;
     gSaveBlock2Ptr->pokedex.mode = DEX_MODE_HOENN;
     gSaveBlock2Ptr->pokedex.order = 0;
-    gSaveBlock2Ptr->pokedex.nationalMagic = 0;
-    gSaveBlock2Ptr->pokedex.unknown2 = 0;
     gSaveBlock2Ptr->pokedex.unownPersonality = 0;
     gSaveBlock2Ptr->pokedex.spindaPersonality = 0;
-    gSaveBlock2Ptr->pokedex.unknown3 = 0;
     DisableNationalPokedex();
     for (i = 0; i < NUM_DEX_FLAG_BYTES; i++)
     {
@@ -1566,8 +1568,6 @@ static void ResetPokedexView(struct PokedexView *pokedexView)
     pokedexView->scrollMonIncrement = 0;
     pokedexView->maxScrollTimer = 0;
     pokedexView->scrollSpeed = 0;
-    for (i = 0; i < ARRAY_COUNT(pokedexView->unkArr1); i++)
-        pokedexView->unkArr1[i] = 0;
     pokedexView->currentPage = PAGE_MAIN;
     pokedexView->currentPageBackup = PAGE_MAIN;
     pokedexView->isSearchResults = FALSE;
@@ -1576,10 +1576,6 @@ static void ResetPokedexView(struct PokedexView *pokedexView)
     pokedexView->menuIsOpen = 0;
     pokedexView->menuCursorPos = 0;
     pokedexView->menuY = 0;
-    for (i = 0; i < ARRAY_COUNT(pokedexView->unkArr2); i++)
-        pokedexView->unkArr2[i] = 0;
-    for (i = 0; i < ARRAY_COUNT(pokedexView->unkArr3); i++)
-        pokedexView->unkArr3[i] = 0;
 }
 
 void CB2_OpenPokedex(void)
@@ -3381,7 +3377,7 @@ static void Task_HandleInfoScreenInput(u8 taskId)
             gTasks[taskId].func = Task_SwitchScreensFromInfoScreen;
             PlaySE(SE_PIN);
             break;
-        case SIZE_SCREEN:
+        case EVO_SCREEN:
             if (!sPokedexListItem->owned)
             {
                 PlaySE(SE_FAILURE);
@@ -3437,7 +3433,7 @@ static void Task_SwitchScreensFromInfoScreen(u8 taskId)
             gTasks[taskId].func = Task_LoadCryScreen;
             break;
         case 3:
-            gTasks[taskId].func = Task_LoadSizeScreen;
+            gTasks[taskId].func = Task_LoadEvoScreen;
             break;
         }
     }
@@ -3649,8 +3645,7 @@ static void Task_HandleCryScreenInput(u8 taskId)
             PlaySE(SE_PC_OFF);
             return;
         }
-        if (JOY_NEW(DPAD_LEFT)
-         || (JOY_NEW(L_BUTTON) && gSaveBlock2Ptr->optionsButtonMode == OPTIONS_BUTTON_MODE_LR))
+        if (JOY_NEW(DPAD_LEFT) || (JOY_NEW(L_BUTTON) && gSaveBlock2Ptr->optionsButtonMode == OPTIONS_BUTTON_MODE_LR))
         {
             BeginNormalPaletteFade(PALETTES_ALL & ~(0x14), 0, 0, 0x10, RGB_BLACK);
             m4aMPlayContinue(&gMPlayInfo_BGM);
@@ -3659,8 +3654,7 @@ static void Task_HandleCryScreenInput(u8 taskId)
             PlaySE(SE_DEX_PAGE);
             return;
         }
-        if (JOY_NEW(DPAD_RIGHT)
-         || (JOY_NEW(R_BUTTON) && gSaveBlock2Ptr->optionsButtonMode == OPTIONS_BUTTON_MODE_LR))
+        if (JOY_NEW(DPAD_RIGHT) || (JOY_NEW(R_BUTTON) && gSaveBlock2Ptr->optionsButtonMode == OPTIONS_BUTTON_MODE_LR))
         {
             if (!sPokedexListItem->owned)
             {
@@ -3676,6 +3670,48 @@ static void Task_HandleCryScreenInput(u8 taskId)
             }
             return;
         }
+        if ((JOY_NEW(DPAD_UP) || JOY_NEW(DPAD_DOWN)) && !IsCryPlaying())
+        {
+            // Scroll up/down if the current page isn't Bulbasaur's/NATIONAL_DEX_COUNT's
+            if (JOY_NEW(DPAD_UP))
+            {
+                int i;
+                for (i = sPokedexListItem->dexNum - 1; i > NATIONAL_DEX_NONE; i--)
+                {
+                    if (GetSetPokedexFlag(NationalPokedexNumToSpecies(i), FLAG_GET_SEEN))
+                    {
+                        sPokedexListItem->dexNum = i;
+                        gTasks[taskId].func = Task_LoadCryScreenWaitForFade;
+                        PlaySE(SE_DEX_SCROLL);
+                        break;
+                    }
+                }
+            }
+            else if (JOY_NEW(DPAD_DOWN))
+            {
+                int i;
+                for (i = sPokedexListItem->dexNum + 1; i < NATIONAL_DEX_COUNT; i++)
+                {
+                    if (GetSetPokedexFlag(NationalPokedexNumToSpecies(i), FLAG_GET_SEEN))
+                    {
+                        sPokedexListItem->dexNum = i;
+                        gTasks[taskId].func = Task_LoadCryScreenWaitForFade;
+                        PlaySE(SE_DEX_SCROLL);
+                        break;
+                    }
+                }
+            }
+            return;
+        }
+    }
+}
+
+static void Task_LoadCryScreenWaitForFade(u8 taskId)
+{
+    if (!gPaletteFade.active)
+    {
+        FreeAndDestroyMonPicSprite(gTasks[taskId].tMonSpriteId);
+        gTasks[taskId].func = Task_LoadCryScreen;
     }
 }
 
@@ -3695,7 +3731,7 @@ static void Task_SwitchScreensFromCryScreen(u8 taskId)
             gTasks[taskId].func = Task_LoadAreaScreen;
             break;
         case 3:
-            gTasks[taskId].func = Task_LoadSizeScreen;
+            gTasks[taskId].func = Task_LoadEvoScreen;
             break;
         }
     }
@@ -3712,28 +3748,31 @@ static void LoadPlayArrowPalette(bool8 cryPlaying)
     LoadPalette(&color, 0x5D, 2);
 }
 
-static void Task_LoadSizeScreen(u8 taskId)
+static void Task_LoadEvoScreen(u8 taskId)
 {
-    u8 spriteId;
-
     switch (gMain.state)
     {
-    default:
     case 0:
+    default:
         if (!gPaletteFade.active)
         {
-            sPokedexView->currentPage = PAGE_SIZE;
+            sPokedexView->currentPage = PAGE_EVO;
             gPokedexVBlankCB = gMain.vblankCallback;
             SetVBlankCallback(NULL);
             ResetOtherVideoRegisters(DISPCNT_BG1_ON);
-            sPokedexView->selectedScreen = SIZE_SCREEN;
+            sPokedexView->selectedScreen = EVO_SCREEN;
             gMain.state = 1;
         }
         break;
     case 1:
-        DecompressAndLoadBgGfxUsingHeap(3, gPokedexMenu_Gfx, 0x2000, 0, 0);
-        CopyToBgTilemapBuffer(3, gPokedexSizeScreen_Tilemap, 0, 0);
+        DecompressAndLoadBgGfxUsingHeap(3, &gPokedexMenu_Gfx, 0x2000, 0, 0);
+        CopyToBgTilemapBuffer(3, &gPokedexEvoScreen_Tilemap, 0, 0);
+        FillWindowPixelBuffer(WIN_FOOTPRINT, PIXEL_FILL(0));
+        CopyWindowToVram(WIN_INFO, COPYWIN_GFX);
         FillWindowPixelBuffer(WIN_INFO, PIXEL_FILL(0));
+        CopyWindowToVram(WIN_INFO, COPYWIN_GFX);
+        CopyBgTilemapBufferToVram(2);
+        CopyBgTilemapBufferToVram(3);
         PutWindowTilemap(WIN_INFO);
         gMain.state++;
         break;
@@ -3744,51 +3783,38 @@ static void Task_LoadSizeScreen(u8 taskId)
         gMain.state++;
         break;
     case 3:
+        if (gTasks[taskId].data[1] == 0)
         {
-            u8 string[64];
-
-            StringCopy(string, gText_SizeComparedTo);
-            StringAppend(string, gSaveBlock2Ptr->playerName);
-            PrintInfoScreenText(string, GetStringCenterAlignXOffset(FONT_NORMAL, string, 0xF0), 0x79);
-            gMain.state++;
+            sPokedexView->selectedScreen = EVO_SCREEN;
+            //Icon
+            FreeMonIconPalettes(); //Free space for new pallete
+            LoadMonIconPalette(NationalPokedexNumToSpecies(sPokedexListItem->dexNum)); // Loads pallete for current mon
+            PrintPreEvolutions(taskId, NationalPokedexNumToSpecies(sPokedexListItem->dexNum));
+            gTasks[taskId].data[4] = CreateMonIcon(NationalPokedexNumToSpecies(sPokedexListItem->dexNum), SpriteCB_MonIcon, 18 + 32*sPokedexView->numPreEvolutions, 31, 4, 0); //Create pokemon sprite
+            gSprites[gTasks[taskId].data[4]].oam.priority = 0;
         }
+        gMain.state++;
         break;
     case 4:
-        ResetPaletteFade();
+        // Print evo info and icons
+        gTasks[taskId].data[3] = 0;
+        PrintEvolutionTargetSpeciesAndMethod(taskId, NationalPokedexNumToSpecies(sPokedexListItem->dexNum), 0, sPokedexView->numPreEvolutions);
         gMain.state++;
         break;
     case 5:
-        spriteId = CreateSizeScreenTrainerPic(PlayerGenderToFrontTrainerPicId(gSaveBlock2Ptr->playerGender), 152, 56, 0);
-        gSprites[spriteId].oam.affineMode = ST_OAM_AFFINE_NORMAL;
-        gSprites[spriteId].oam.matrixNum = 1;
-        gSprites[spriteId].oam.priority = 0;
-        gSprites[spriteId].y2 = gPokedexEntries[sPokedexListItem->dexNum].trainerOffset;
-        SetOamMatrix(1, gPokedexEntries[sPokedexListItem->dexNum].trainerScale, 0, 0, gPokedexEntries[sPokedexListItem->dexNum].trainerScale);
-        LoadPalette(sSizeScreenSilhouette_Pal, (gSprites[spriteId].oam.paletteNum + 16) * 16, 0x20);
-        gTasks[taskId].tTrainerSpriteId = spriteId;
-        gMain.state++;
+        {
+            u32 preservedPalettes = 0;
+            
+            if (gTasks[taskId].data[2] != 0)
+                preservedPalettes = 0x14; //  each bit represents a palette index
+            if (gTasks[taskId].data[1] != 0)
+                preservedPalettes |= (1 << (gSprites[gTasks[taskId].tMonSpriteId].oam.paletteNum + 16));
+            BeginNormalPaletteFade(~preservedPalettes, 0, 16, 0, RGB_BLACK);
+            SetVBlankCallback(gPokedexVBlankCB);
+            gMain.state++;
+        }
         break;
     case 6:
-        spriteId = CreateMonSpriteFromNationalDexNumber(sPokedexListItem->dexNum, 88, 56, 1);
-        gSprites[spriteId].oam.affineMode = ST_OAM_AFFINE_NORMAL;
-        gSprites[spriteId].oam.matrixNum = 2;
-        gSprites[spriteId].oam.priority = 0;
-        gSprites[spriteId].y2 = gPokedexEntries[sPokedexListItem->dexNum].pokemonOffset;
-        SetOamMatrix(2, gPokedexEntries[sPokedexListItem->dexNum].pokemonScale, 0, 0, gPokedexEntries[sPokedexListItem->dexNum].pokemonScale);
-        LoadPalette(sSizeScreenSilhouette_Pal, (gSprites[spriteId].oam.paletteNum + 16) * 16, 0x20);
-        gTasks[taskId].tMonSpriteId = spriteId;
-        CopyWindowToVram(WIN_INFO, COPYWIN_FULL);
-        CopyBgTilemapBufferToVram(1);
-        CopyBgTilemapBufferToVram(2);
-        CopyBgTilemapBufferToVram(3);
-        gMain.state++;
-        break;
-    case 7:
-        BeginNormalPaletteFade(PALETTES_ALL & ~(0x14), 0, 0x10, 0, RGB_BLACK);
-        SetVBlankCallback(gPokedexVBlankCB);
-        gMain.state++;
-        break;
-    case 8:
         SetGpuReg(REG_OFFSET_BLDCNT, 0);
         SetGpuReg(REG_OFFSET_BLDALPHA, 0);
         SetGpuReg(REG_OFFSET_BLDY, 0);
@@ -3799,42 +3825,30 @@ static void Task_LoadSizeScreen(u8 taskId)
         ShowBg(3);
         gMain.state++;
         break;
-    case 9:
+    case 7:
         if (!gPaletteFade.active)
-        {
-            sPokedexView->screenSwitchState = 0;
-            gMain.state = 0;
-            gTasks[taskId].func = Task_HandleSizeScreenInput;
-        }
+            gMain.state++;
+        break;
+    case 8:
+        gMain.state++;
+        break;
+    case 9:
+        sPokedexView->screenSwitchState = 0;
+        gTasks[taskId].data[0] = 0;
+        gTasks[taskId].data[1] = 0;
+        gTasks[taskId].data[2] = 1;
+        gTasks[taskId].func = Task_HandleEvoScreenInput;
+        gMain.state = 0;
         break;
     }
 }
 
-static void Task_HandleSizeScreenInput(u8 taskId)
-{
-    if (JOY_NEW(B_BUTTON))
-    {
-        BeginNormalPaletteFade(PALETTES_ALL & ~(0x14), 0, 0, 0x10, RGB_BLACK);
-        sPokedexView->screenSwitchState = 1;
-        gTasks[taskId].func = Task_SwitchScreensFromSizeScreen;
-        PlaySE(SE_PC_OFF);
-    }
-    else if (JOY_NEW(DPAD_LEFT)
-     || (JOY_NEW(L_BUTTON) && gSaveBlock2Ptr->optionsButtonMode == OPTIONS_BUTTON_MODE_LR))
-    {
-        BeginNormalPaletteFade(PALETTES_ALL & ~(0x14), 0, 0, 0x10, RGB_BLACK);
-        sPokedexView->screenSwitchState = 2;
-        gTasks[taskId].func = Task_SwitchScreensFromSizeScreen;
-        PlaySE(SE_DEX_PAGE);
-    }
-}
-
-static void Task_SwitchScreensFromSizeScreen(u8 taskId)
+static void Task_SwitchScreensFromEvoScreen(u8 taskId)
 {
     if (!gPaletteFade.active)
     {
+        FreeCryScreen();
         FreeAndDestroyMonPicSprite(gTasks[taskId].tMonSpriteId);
-        FreeAndDestroyTrainerPicSprite(gTasks[taskId].tTrainerSpriteId);
         switch (sPokedexView->screenSwitchState)
         {
         default:
@@ -3846,6 +3860,388 @@ static void Task_SwitchScreensFromSizeScreen(u8 taskId)
             break;
         }
     }
+}
+
+static void Task_HandleEvoScreenInput(u8 taskId)
+{
+    if (JOY_NEW(B_BUTTON))
+    {
+        BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
+        m4aMPlayContinue(&gMPlayInfo_BGM);
+        sPokedexView->screenSwitchState = 1;
+        gTasks[taskId].func = Task_SwitchScreensFromCryScreen;
+        PlaySE(SE_PC_OFF);
+        return;
+    }
+    else if ((JOY_NEW(DPAD_UP) || JOY_NEW(DPAD_DOWN)) && !IsCryPlaying())
+    {
+        // Scroll up/down if the current page isn't Bulbasaur's/NATIONAL_DEX_COUNT's
+        if (JOY_NEW(DPAD_UP))
+        {
+            int i;
+            for (i = sPokedexListItem->dexNum - 1; i > NATIONAL_DEX_NONE; i--)
+            {
+                if (GetSetPokedexFlag(NationalPokedexNumToSpecies(i), FLAG_GET_CAUGHT))
+                {
+                    sPokedexListItem->dexNum = i;
+                    gTasks[taskId].func = Task_LoadEvoScreenWaitForFade;
+                    PlaySE(SE_DEX_SCROLL);
+                    break;
+                }
+            }
+        }
+        else if (JOY_NEW(DPAD_DOWN))
+        {
+            int i;
+            for (i = sPokedexListItem->dexNum + 1; i < NATIONAL_DEX_COUNT; i++)
+            {
+                if (GetSetPokedexFlag(NationalPokedexNumToSpecies(i), FLAG_GET_CAUGHT))
+                {
+                    sPokedexListItem->dexNum = i;
+                    gTasks[taskId].func = Task_LoadEvoScreenWaitForFade;
+                    PlaySE(SE_DEX_SCROLL);
+                    break;
+                }
+            }
+        }
+    }
+    else if (JOY_NEW(DPAD_LEFT) || (JOY_NEW(L_BUTTON) && gSaveBlock2Ptr->optionsButtonMode == OPTIONS_BUTTON_MODE_LR))
+    {
+        BeginNormalPaletteFade(PALETTES_ALL & ~(0x14), 0, 0, 0x10, RGB_BLACK);
+        sPokedexView->screenSwitchState = 2;
+        gTasks[taskId].func = Task_SwitchScreensFromEvoScreen;
+        PlaySE(SE_DEX_PAGE);
+    }
+}
+
+static void Task_LoadEvoScreenWaitForFade(u8 taskId)
+{
+    if (!gPaletteFade.active)
+    {
+        FreeAndDestroyMonPicSprite(gTasks[taskId].tMonSpriteId);
+        gTasks[taskId].func = Task_LoadEvoScreen;
+    }
+}
+
+#undef tMonSpriteId
+
+static void HandleTargetSpeciesPrint(u8 taskId, u16 targetSpecies, u16 previousTargetSpecies, u8 base_x, u8 base_y, u8 base_y_offset, u8 base_i, bool8 isEevee)
+{
+    u8 maxI = 6;
+    bool8 seen = GetSetPokedexFlag(SpeciesToNationalPokedexNum(targetSpecies), FLAG_GET_SEEN);
+
+    if (seen)
+        StringCopy(gStringVar3, gSpeciesNames[targetSpecies]); //evolution mon name
+    else
+        StringCopy(gStringVar3, gText_ThreeQuestionMarks); //show questionmarks instead of name
+    StringExpandPlaceholders(gStringVar3, gText_EVO_Name); //evolution mon name
+    PrintInfoScreenTextSmall(gStringVar3, base_x, base_y + base_y_offset*base_i); //evolution mon name
+
+    //Print mon icon in the top row
+    if (isEevee)
+    {
+        maxI = 9;
+        if (targetSpecies == previousTargetSpecies)
+            return;
+        else if (targetSpecies == SPECIES_GLACEON)
+            base_i -= 1;
+        else if (targetSpecies == SPECIES_SYLVEON)
+            base_i -= 2;
+    }
+
+    if (base_i < maxI) 
+    {
+        LoadMonIconPalette(targetSpecies); //Loads pallete for current mon
+        if (isEevee)
+            gTasks[taskId].data[4+base_i] = CreateMonIcon(targetSpecies, SpriteCB_MonIcon, 40 + 26*base_i, 31, 4, 0); //Create pokemon sprite
+        else
+            gTasks[taskId].data[4+base_i] = CreateMonIcon(targetSpecies, SpriteCB_MonIcon, 45 + 32*base_i, 31, 4, 0); //Create pokemon sprite
+        gSprites[gTasks[taskId].data[4+base_i]].oam.priority = 0;
+    }
+}
+
+static void CreateCaughtBallEvolutionScreen(u16 targetSpecies, u8 x, u8 y, u16 unused)
+{
+    bool8 owned = GetSetPokedexFlag(SpeciesToNationalPokedexNum(targetSpecies), FLAG_GET_CAUGHT);
+
+    if (owned)
+        BlitBitmapToWindow(0, sCaughtBall_Gfx, x, y-1, 8, 16);
+    else
+        PrintInfoScreenTextSmall(gText_OneDash, x+1, y-1);
+}
+
+static void HandlePreEvolutionSpeciesPrint(u8 taskId, u16 preSpecies, u16 species, u8 base_x, u8 base_y, u8 base_y_offset, u8 base_i)
+{
+    bool8 seen = GetSetPokedexFlag(SpeciesToNationalPokedexNum(preSpecies), FLAG_GET_SEEN);
+
+    StringCopy(gStringVar1, gSpeciesNames[species]); //evolution mon name
+    if (seen)
+        StringCopy(gStringVar2, gSpeciesNames[preSpecies]); //evolution mon name
+    else
+        StringCopy(gStringVar2, gText_ThreeQuestionMarks); //show questionmarks instead of name
+
+    StringExpandPlaceholders(gStringVar3, gText_EVO_PreEvo); //evolution mon name
+    PrintInfoScreenTextSmall(gStringVar3, base_x, base_y + base_y_offset*base_i); //evolution mon name
+
+    if (base_i < 3) 
+    {
+        LoadMonIconPalette(preSpecies); //Loads pallete for current mon
+        gTasks[taskId].data[4+base_i] = CreateMonIcon(preSpecies, SpriteCB_MonIcon, 18 + 32*base_i, 31, 4, 0); //Create pokemon sprite
+        gSprites[gTasks[taskId].data[4+base_i]].oam.priority = 0;
+    }
+}
+
+static u8 PrintPreEvolutions(u8 taskId, u16 species)
+{
+    u32 i, j;
+    u8 base_x = 16;
+    u8 base_y = 51;
+    u8 base_y_offset = 9;
+    u16 preEvolutionOne = 0;
+    u16 preEvolutionTwo = 0;
+    u8 numPreEvolutions = 0;
+
+    //Calculate previous evolution
+    for (i = 0; i < NUM_SPECIES; i++)
+    {
+        for (j = 0; j < EVOS_PER_MON; j++)
+        {
+            if (gEvolutionTable[i][j].targetSpecies == species)
+            {
+                preEvolutionOne = i;
+                numPreEvolutions += 1;
+                break;
+            }
+        }
+    }
+
+    //Calculate if previous evolution also has a previous evolution
+    if (numPreEvolutions != 0)
+    {
+        for (i = 0; i < NUM_SPECIES; i++)
+        {
+            for (j = 0; j < EVOS_PER_MON; j++)
+            {
+                if (gEvolutionTable[i][j].targetSpecies == preEvolutionOne)
+                {
+                    preEvolutionTwo = i;
+                    numPreEvolutions += 1;
+                    CreateCaughtBallEvolutionScreen(preEvolutionTwo, base_x - 9, base_y + base_y_offset*0, 0);
+                    HandlePreEvolutionSpeciesPrint(taskId, preEvolutionTwo, preEvolutionOne, base_x, base_y, base_y_offset, 0);
+                    break;
+                }
+            }
+        }
+    }
+
+    // Print ball and name
+    if (preEvolutionOne != 0)
+    {
+        CreateCaughtBallEvolutionScreen(preEvolutionOne, base_x - 9, base_y + base_y_offset*(numPreEvolutions - 1), 0);
+        HandlePreEvolutionSpeciesPrint(taskId, preEvolutionOne, species, base_x, base_y, base_y_offset, numPreEvolutions - 1);
+    }
+
+    sPokedexView->numPreEvolutions = numPreEvolutions;
+
+    return numPreEvolutions;
+}
+
+#define EVO_SCREEN_LVL_DIGITS 2
+static u8 PrintEvolutionTargetSpeciesAndMethod(u8 taskId, u16 species, u8 depth, u8 depth_i)
+{
+    u32 i, j;
+    const struct MapHeader *mapHeader;
+    u16 targetSpecies = 0;
+    u16 previousTargetSpecies = 0;
+    u16 item;
+    bool8 left = TRUE;
+    u8 base_x = 16;
+    u8 base_x_offset = 54;
+    u8 base_y = 51;
+    u8 base_y_offset = 9;
+    u8 base_i = 0;
+    u8 times = 0;
+    u8 depth_x = 16;
+    bool8 isEevee = FALSE;
+
+    StringCopy(gStringVar1, gSpeciesNames[species]);
+
+    if (species == SPECIES_EEVEE)
+        isEevee = TRUE;
+
+    // Calculate number of possible direct evolutions (e.g. Eevee has 5 but torchic has 1)
+    for (i = 0; i < EVOS_PER_MON; i++)
+    {
+        if (gEvolutionTable[species][i].method != 0 && gEvolutionTable[species][i].method != EVO_MEGA_EVOLUTION)
+            times += 1;
+    }
+    gTasks[taskId].data[3] = times;
+
+    // If there are no evolutions print text
+    if (times == 0 && depth == 0)
+    {
+        StringExpandPlaceholders(gStringVar4, gText_EVO_NONE); 
+        PrintInfoScreenTextSmall(gStringVar4, base_x-7, base_y + base_y_offset*depth_i);
+    }
+
+    // If there are evolutions find out which and print them 1 by 1
+    for (i = 0; i < times; i++)
+    {
+        base_i = i + depth_i;
+        left = !left;
+    
+        previousTargetSpecies = targetSpecies;
+        targetSpecies = gEvolutionTable[species][i].targetSpecies;
+        CreateCaughtBallEvolutionScreen(targetSpecies, base_x + depth_x*depth-9, base_y + base_y_offset*base_i, 0);
+        HandleTargetSpeciesPrint(taskId, targetSpecies, previousTargetSpecies, base_x + depth_x*depth, base_y, base_y_offset, base_i, isEevee); // evolution mon name
+    
+        switch (gEvolutionTable[species][i].method)
+        {
+        case EVO_FRIENDSHIP:
+            ConvertIntToDecimalStringN(gStringVar2, 220, STR_CONV_MODE_LEADING_ZEROS, 3); // friendship value
+            StringExpandPlaceholders(gStringVar4, gText_EVO_FRIENDSHIP);
+            break;
+        case EVO_FRIENDSHIP_DAY:
+            StringExpandPlaceholders(gStringVar4, gText_EVO_FRIENDSHIP_DAY); 
+            break;
+        case EVO_FRIENDSHIP_NIGHT:
+            StringExpandPlaceholders(gStringVar4, gText_EVO_FRIENDSHIP_NIGHT);
+            break;
+        case EVO_LEVEL:
+            ConvertIntToDecimalStringN(gStringVar2, gEvolutionTable[species][i].param, STR_CONV_MODE_LEADING_ZEROS, EVO_SCREEN_LVL_DIGITS); // level
+            StringExpandPlaceholders(gStringVar4, gText_EVO_LEVEL);
+            break;
+        case EVO_TRADE:
+            StringExpandPlaceholders(gStringVar4, gText_EVO_TRADE);
+            break;
+        case EVO_TRADE_ITEM:
+            item = gEvolutionTable[species][i].param; // item
+            CopyItemName(item, gStringVar2); // item
+            StringExpandPlaceholders(gStringVar4, gText_EVO_TRADE_ITEM);
+            break;
+        case EVO_ITEM:
+            item = gEvolutionTable[species][i].param;
+            CopyItemName(item, gStringVar2);
+            StringExpandPlaceholders(gStringVar4, gText_EVO_ITEM);
+            break;
+        case EVO_LEVEL_ATK_GT_DEF:
+            ConvertIntToDecimalStringN(gStringVar2, gEvolutionTable[species][i].param, STR_CONV_MODE_LEADING_ZEROS, EVO_SCREEN_LVL_DIGITS); // level
+            StringExpandPlaceholders(gStringVar4, gText_EVO_LEVEL_ATK_GT_DEF);
+            break;
+        case EVO_LEVEL_ATK_EQ_DEF:
+            ConvertIntToDecimalStringN(gStringVar2, gEvolutionTable[species][i].param, STR_CONV_MODE_LEADING_ZEROS, EVO_SCREEN_LVL_DIGITS); // level
+            StringExpandPlaceholders(gStringVar4, gText_EVO_LEVEL_ATK_EQ_DEF);
+            break;
+        case EVO_LEVEL_ATK_LT_DEF:
+            ConvertIntToDecimalStringN(gStringVar2, gEvolutionTable[species][i].param, STR_CONV_MODE_LEADING_ZEROS, EVO_SCREEN_LVL_DIGITS); // level
+            StringExpandPlaceholders(gStringVar4, gText_EVO_LEVEL_ATK_LT_DEF);
+            break;
+        case EVO_LEVEL_SILCOON:
+            ConvertIntToDecimalStringN(gStringVar2, gEvolutionTable[species][i].param, STR_CONV_MODE_LEADING_ZEROS, EVO_SCREEN_LVL_DIGITS); // level
+            StringExpandPlaceholders(gStringVar4, gText_EVO_LEVEL_SILCOON);
+            break;
+        case EVO_LEVEL_CASCOON:
+            ConvertIntToDecimalStringN(gStringVar2, gEvolutionTable[species][i].param, STR_CONV_MODE_LEADING_ZEROS, EVO_SCREEN_LVL_DIGITS); // level
+            StringExpandPlaceholders(gStringVar4, gText_EVO_LEVEL_CASCOON);
+            break;
+        case EVO_LEVEL_NINJASK:
+            ConvertIntToDecimalStringN(gStringVar2, gEvolutionTable[species][i].param, STR_CONV_MODE_LEADING_ZEROS, EVO_SCREEN_LVL_DIGITS); // level
+            StringExpandPlaceholders(gStringVar4, gText_EVO_LEVEL_NINJASK);
+            break;
+        case EVO_LEVEL_SHEDINJA:
+            ConvertIntToDecimalStringN(gStringVar2, gEvolutionTable[species][i].param, STR_CONV_MODE_LEADING_ZEROS, EVO_SCREEN_LVL_DIGITS); // level
+            StringExpandPlaceholders(gStringVar4, gText_EVO_LEVEL_SHEDINJA);
+            break;
+        case EVO_BEAUTY:
+            ConvertIntToDecimalStringN(gStringVar2, gEvolutionTable[species][i].param, STR_CONV_MODE_LEADING_ZEROS, 3); // beauty
+            StringExpandPlaceholders(gStringVar4, gText_EVO_BEAUTY);
+            break;
+        case EVO_LEVEL_FEMALE:
+            ConvertIntToDecimalStringN(gStringVar2, gEvolutionTable[species][i].param, STR_CONV_MODE_LEADING_ZEROS, EVO_SCREEN_LVL_DIGITS); // level
+            StringExpandPlaceholders(gStringVar4, gText_EVO_LEVEL_FEMALE);
+            break;
+        case EVO_LEVEL_MALE:
+            ConvertIntToDecimalStringN(gStringVar2, gEvolutionTable[species][i].param, STR_CONV_MODE_LEADING_ZEROS, EVO_SCREEN_LVL_DIGITS); // level
+            StringExpandPlaceholders(gStringVar4, gText_EVO_LEVEL_MALE);
+            break;
+        case EVO_LEVEL_NIGHT:
+            ConvertIntToDecimalStringN(gStringVar2, gEvolutionTable[species][i].param, STR_CONV_MODE_LEADING_ZEROS, EVO_SCREEN_LVL_DIGITS); // level
+            StringExpandPlaceholders(gStringVar4, gText_EVO_LEVEL_NIGHT);
+            break;
+        case EVO_LEVEL_DAY:
+            ConvertIntToDecimalStringN(gStringVar2, gEvolutionTable[species][i].param, STR_CONV_MODE_LEADING_ZEROS, EVO_SCREEN_LVL_DIGITS); // level
+            StringExpandPlaceholders(gStringVar4, gText_EVO_LEVEL_DAY);
+            break;
+        case EVO_LEVEL_DUSK:
+            ConvertIntToDecimalStringN(gStringVar2, gEvolutionTable[species][i].param, STR_CONV_MODE_LEADING_ZEROS, EVO_SCREEN_LVL_DIGITS); // level
+            StringExpandPlaceholders(gStringVar4, gText_EVO_LEVEL_DUSK);
+            break;
+        case EVO_ITEM_HOLD_DAY:
+            item = gEvolutionTable[species][i].param; // item
+            CopyItemName(item, gStringVar2); // item
+            StringExpandPlaceholders(gStringVar4, gText_EVO_ITEM_HOLD_DAY);
+            break;
+        case EVO_ITEM_HOLD_NIGHT:
+            item = gEvolutionTable[species][i].param; // item
+            CopyItemName(item, gStringVar2); // item
+            StringExpandPlaceholders(gStringVar4, gText_EVO_ITEM_HOLD_NIGHT);
+            break;
+        case EVO_MOVE:
+            StringCopy(gStringVar2, gMoveNames[gEvolutionTable[species][i].param]);
+            StringExpandPlaceholders(gStringVar4, gText_EVO_MOVE);
+            break;
+        case EVO_MOVE_TYPE:
+            StringCopy(gStringVar2, gTypeNames[gEvolutionTable[species][i].param]);
+            StringExpandPlaceholders(gStringVar4, gText_EVO_MOVE_TYPE);
+            break;
+        case EVO_MAPSEC:
+            StringCopy(gStringVar2, gRegionMapEntries[gEvolutionTable[species][i].param].name);
+            StringExpandPlaceholders(gStringVar4, gText_EVO_MAPSEC);
+            break;
+        case EVO_ITEM_MALE:
+            item = gEvolutionTable[species][i].param; // item
+            CopyItemName(item, gStringVar2); // item
+            StringExpandPlaceholders(gStringVar4, gText_EVO_ITEM_MALE);
+            break;
+        case EVO_ITEM_FEMALE:
+            item = gEvolutionTable[species][i].param; // item
+            CopyItemName(item, gStringVar2); // item
+            StringExpandPlaceholders(gStringVar4, gText_EVO_ITEM_FEMALE);
+            break;
+        case EVO_LEVEL_RAIN:
+            //if (j == WEATHER_RAIN || j == WEATHER_RAIN_THUNDERSTORM || j == WEATHER_DOWNPOUR)
+            StringExpandPlaceholders(gStringVar4, gText_EVO_LEVEL_RAIN);
+            break;
+        case EVO_SPECIFIC_MON_IN_PARTY:
+            StringCopy(gStringVar2, gSpeciesNames[gEvolutionTable[species][i].param]); // mon name
+            StringExpandPlaceholders(gStringVar4, gText_EVO_SPECIFIC_MON_IN_PARTY);
+            break;
+        case EVO_LEVEL_DARK_TYPE_MON_IN_PARTY:
+            StringExpandPlaceholders(gStringVar4, gText_EVO_LEVEL_DARK_TYPE_MON_IN_PARTY);
+            break;
+        case EVO_TRADE_SPECIFIC_MON:
+            StringCopy(gStringVar2, gSpeciesNames[gEvolutionTable[species][i].param]); // mon name
+            StringExpandPlaceholders(gStringVar4, gText_EVO_TRADE_SPECIFIC_MON);
+            break;
+        case EVO_SPECIFIC_MAP:
+            mapHeader = Overworld_GetMapHeaderByGroupAndId(gEvolutionTable[species][i].param >> 8, gEvolutionTable[species][i].param & 0xFF);
+            GetMapName(gStringVar2, mapHeader->regionMapSectionId, 0);
+            StringExpandPlaceholders(gStringVar4, gText_EVO_SPECIFIC_MAP);
+            break;
+        case EVO_HELD_ITEM:
+            item = gEvolutionTable[species][i].param; // item
+            CopyItemName(item, gStringVar2); // item
+            StringExpandPlaceholders(gStringVar4, gText_EVO_HELD_ITEM);
+            break;
+        default:
+            StringExpandPlaceholders(gStringVar4, gText_ThreeQuestionMarks);
+            break;
+        } // Switch end
+        PrintInfoScreenTextSmall(gStringVar4, base_x + depth_x*depth+base_x_offset, base_y + base_y_offset*base_i); // Print actual instructions
+        depth_i += PrintEvolutionTargetSpeciesAndMethod(taskId, targetSpecies, depth+1, base_i+1);
+    } // For loop end
+
+    return times;
 }
 
 #undef tScrolling
@@ -5524,4 +5920,14 @@ static void PrintSearchParameterTitle(u32 y, const u8* str)
 static void ClearSearchParameterBoxText(void)
 {
     ClearSearchMenuRect(144, 8, 96, 96);
+}
+
+static void PrintInfoScreenTextSmall(const u8* str, u8 left, u8 top)
+{
+    u8 color[3];
+    color[0] = TEXT_COLOR_TRANSPARENT;
+    color[1] = TEXT_DYNAMIC_COLOR_6;
+    color[2] = TEXT_COLOR_LIGHT_GRAY;
+
+    AddTextPrinterParameterized4(0, 0, left, top, 0, 0, color, 0, str);
 }

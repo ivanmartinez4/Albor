@@ -322,13 +322,13 @@ $(FONTGFXDIR)/frlg_male.fwjpnfont: $(FONTGFXDIR)/japanese_frlg_male_font.png
 $(FONTGFXDIR)/frlg_female.fwjpnfont: $(FONTGFXDIR)/japanese_frlg_female_font.png
 	$(GFX) $< $@
 
+$(FONTGFXDIR)/big.latfont: $(FONTGFXDIR)/latin_big.png
+	$(GFX) $< $@
+
 
 ### Miscellaneous ###
 graphics/title_screen/pokemon_logo.gbapal: %.gbapal: %.pal
 	$(GFX) $< $@ -num_colors 224
-
-graphics/pokemon_jump/bg.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 63
 
 graphics/pokenav/region_map.8bpp: %.8bpp: %.png
 	$(GFX) $< $@ -num_tiles 233

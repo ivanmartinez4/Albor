@@ -123,10 +123,20 @@ static const u32 sRegionMapCursorLargeGfxLZ[] = INCBIN_U32("graphics/pokenav/reg
 static const u16 sRegionMapBg_Pal[] = INCBIN_U16("graphics/pokenav/region_map.gbapal");
 static const u32 sRegionMapBg_GfxLZ[] = INCBIN_U32("graphics/pokenav/region_map.8bpp.lz");
 static const u32 sRegionMapBg_TilemapLZ[] = INCBIN_U32("graphics/pokenav/region_map_map.bin.lz");
+
 static const u16 sRegionMapPlayerIcon_BrendanPal[] = INCBIN_U16("graphics/pokenav/region_map/brendan_icon.gbapal");
 static const u8 sRegionMapPlayerIcon_BrendanGfx[] = INCBIN_U8("graphics/pokenav/region_map/brendan_icon.4bpp");
 static const u16 sRegionMapPlayerIcon_MayPal[] = INCBIN_U16("graphics/pokenav/region_map/may_icon.gbapal");
 static const u8 sRegionMapPlayerIcon_MayGfx[] = INCBIN_U8("graphics/pokenav/region_map/may_icon.4bpp");
+static const u16 sRegionMapPlayerIcon_RSBrendanPal[] = INCBIN_U16("graphics/pokenav/region_map/rs_brendan_icon.gbapal");
+static const u8 sRegionMapPlayerIcon_RSBrendanGfx[] = INCBIN_U8("graphics/pokenav/region_map/rs_brendan_icon.4bpp");
+static const u16 sRegionMapPlayerIcon_RSMayPal[] = INCBIN_U16("graphics/pokenav/region_map/rs_may_icon.gbapal");
+static const u8 sRegionMapPlayerIcon_RSMayGfx[] = INCBIN_U8("graphics/pokenav/region_map/rs_may_icon.4bpp");
+static const u16 sRegionMapPlayerIcon_AdventuresBrendanPal[] = INCBIN_U16("graphics/pokenav/region_map/adventures_brendan_icon.gbapal");
+static const u8 sRegionMapPlayerIcon_AdventuresBrendanGfx[] = INCBIN_U8("graphics/pokenav/region_map/adventures_brendan_icon.4bpp");
+static const u16 sRegionMapPlayerIcon_AdventuresMayPal[] = INCBIN_U16("graphics/pokenav/region_map/adventures_may_icon.gbapal");
+static const u8 sRegionMapPlayerIcon_AdventuresMayGfx[] = INCBIN_U8("graphics/pokenav/region_map/adventures_may_icon.4bpp");
+
 static const u8 sRegionMap_MapSectionLayout[] = INCBIN_U8("graphics/pokenav/region_map_section_layout.bin");
 
 #include "data/region_map/region_map_entries.h"
@@ -1444,15 +1454,45 @@ void CreateRegionMapPlayerIcon(u16 tileTag, u16 paletteTag)
     struct SpritePalette palette = {sRegionMapPlayerIcon_BrendanPal, paletteTag};
     struct SpriteTemplate template = {tileTag, paletteTag, &sRegionMapPlayerIconOam, sRegionMapPlayerIconAnimTable, NULL, gDummySpriteAffineAnimTable, SpriteCallbackDummy};
 
+    switch (gSaveBlock2Ptr->playerCostume)
+    {
+    case DEFAULT_COSTUME:
+        if (gSaveBlock2Ptr->playerGender == FEMALE)
+        {
+            sheet.data = sRegionMapPlayerIcon_MayGfx;
+            palette.data = sRegionMapPlayerIcon_MayPal;
+        }
+        break;
+    case LEGACY_COSTUME:
+        if (gSaveBlock2Ptr->playerGender == FEMALE)
+        {
+            sheet.data = sRegionMapPlayerIcon_RSMayGfx;
+            palette.data = sRegionMapPlayerIcon_RSMayPal;
+        }
+        else
+        {
+            sheet.data = sRegionMapPlayerIcon_RSBrendanGfx;
+            palette.data = sRegionMapPlayerIcon_RSBrendanPal;
+        }
+        break;
+    case ADVENTURES_COSTUME:
+        if (gSaveBlock2Ptr->playerGender == FEMALE)
+        {
+            sheet.data = sRegionMapPlayerIcon_AdventuresMayGfx;
+            palette.data = sRegionMapPlayerIcon_AdventuresMayPal;
+        }
+        else
+        {
+            sheet.data = sRegionMapPlayerIcon_AdventuresBrendanGfx;
+            palette.data = sRegionMapPlayerIcon_AdventuresBrendanPal;
+        }
+        break;
+    }
+
     if (IsEventIslandMapSecId(gMapHeader.regionMapSectionId))
     {
         sRegionMap->playerIconSprite = NULL;
         return;
-    }
-    if (gSaveBlock2Ptr->playerGender == FEMALE)
-    {
-        sheet.data = sRegionMapPlayerIcon_MayGfx;
-        palette.data = sRegionMapPlayerIcon_MayPal;
     }
     LoadSpriteSheet(&sheet);
     LoadSpritePalette(&palette);

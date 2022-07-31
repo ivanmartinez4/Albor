@@ -1931,6 +1931,12 @@
 	various BS_ATTACKER, VARIOUS_SHELL_SIDE_ARM_CHECK
 	.endm
 
+	.macro jumpifset, flag:req, ptr:req
+	various BS_TARGET, VARIOUS_JUMP_IF_SET
+	.2byte \flag
+	.4byte \ptr
+	.endm
+
 	.macro jumpifcantfling battler:req, ptr:req
 	various \battler, VARIOUS_JUMP_IF_CANT_FLING
 	.4byte \ptr

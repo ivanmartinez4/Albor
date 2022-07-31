@@ -4,11 +4,9 @@
 #include "scanline_effect.h"
 #include "task.h"
 #include "title_screen.h"
-#include "libgcnmultiboot.h"
 #include "malloc.h"
 #include "gpu_regs.h"
 #include "link.h"
-#include "multiboot_pokemon_colosseum.h"
 #include "load_save.h"
 #include "save.h"
 #include "new_game.h"
@@ -23,6 +21,7 @@
 #include "sound.h"
 #include "util.h"
 #include "title_screen.h"
+#include "rhh_copyright.h"
 #include "constants/rgb.h"
 #include "constants/battle_anim.h"
 
@@ -126,8 +125,6 @@ extern const struct SpriteTemplate gAncientPowerRockSpriteTemplate[];
 #define TAG_FLYGON_SILHOUETTE 2002
 #define TAG_RAYQUAZA_ORB      2003
 
-#define COLOSSEUM_GAME_CODE 0x65366347 // "Gc6e" in ASCII
-
 // Used by various tasks and sprites
 #define tState data[0]
 #define sState data[0]
@@ -172,7 +169,6 @@ static EWRAM_DATA u16 sIntroCharacterGender = 0;
 static EWRAM_DATA u16 sFlygonYOffset = 0;
 
 u32 gIntroFrameCounter;
-struct GcmbStruct gMultibootProgramStruct;
 
 static const u16 sIntroDrops_Pal[]            = INCBIN_U16("graphics/intro/scene_1/drops.gbapal");
 static const u16 sIntroLogo_Pal[]             = INCBIN_U16("graphics/intro/scene_1/logo.gbapal");
@@ -1003,6 +999,16 @@ static const struct SpritePalette sSpritePalette_RayquazaOrb[] =
     {},
 };
 
+static void VBlankCB_PretIntro()
+{
+    LoadOam();
+    ProcessSpriteCopyRequests();
+    TransferPlttBuffer();
+    ScanlineEffect_InitHBlankDmaTransfer();
+    RunTasks();
+    AnimateSprites();
+    BuildOamBuffer();
+}
 
 static void VBlankCB_Intro(void)
 {
@@ -1037,11 +1043,6 @@ static void LoadCopyrightGraphics(u16 tilesetAddress, u16 tilemapAddress, u16 pa
     LoadPalette(gIntroCopyright_Pal, paletteAddress, 32);
 }
 
-static void SerialCB_CopyrightScreen(void)
-{
-    GameCubeMultiBoot_HandleSerialInterrupt(&gMultibootProgramStruct);
-}
-
 static u8 SetUpCopyrightScreen(void)
 {
     switch (gMain.state)
@@ -1059,58 +1060,65 @@ static u8 SetUpCopyrightScreen(void)
         CpuFill32(0, (void *)OAM, OAM_SIZE);
         CpuFill16(0, (void *)(PLTT + 2), PLTT_SIZE - 2);
         ResetPaletteFade();
-        LoadCopyrightGraphics(0, 0x3800, 0);
         ScanlineEffect_Stop();
         ResetTasks();
         ResetSpriteData();
         FreeAllSpritePalettes();
-        BeginNormalPaletteFade(PALETTES_ALL, 0, 16, 0, RGB_WHITEALPHA);
         SetGpuReg(REG_OFFSET_BG0CNT, BGCNT_PRIORITY(0)
                                    | BGCNT_CHARBASE(0)
                                    | BGCNT_SCREENBASE(7)
                                    | BGCNT_16COLOR
                                    | BGCNT_TXT256x256);
         EnableInterrupts(INTR_FLAG_VBLANK);
-        SetVBlankCallback(VBlankCB_Intro);
         REG_DISPCNT = DISPCNT_MODE_0 | DISPCNT_OBJ_1D_MAP | DISPCNT_BG0_ON;
-        SetSerialCallback(SerialCB_CopyrightScreen);
-        GameCubeMultiBoot_Init(&gMultibootProgramStruct);
+
+        gMain.state++;
+        break;
+
+    case 1:
+        RhhIntro_InitCopyrightBgs();
+        BeginNormalPaletteFade(0xFFFFFFFF, 0, 0x10, 0, RGB_WHITEALPHA);
+        SetVBlankCallback(VBlankCB_PretIntro);
     default:
+        RunTasks();
         UpdatePaletteFade();
         gMain.state++;
-        GameCubeMultiBoot_Main(&gMultibootProgramStruct);
         break;
-    case 140:
-        GameCubeMultiBoot_Main(&gMultibootProgramStruct);
-        if (gMultibootProgramStruct.gcmb_field_2 != 1)
-        {
-            BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
-            gMain.state++;
-        }
+
+    case 30:
+        RhhIntro_LoadCopyrightBgGraphics();
+        BeginNormalPaletteFade(0x00000001, 0, 0x10, 0, RGB_BLACK);
+        UpdatePaletteFade();
+        gMain.state++;
         break;
-    case 141:
+
+    case 31:
+        RhhIntro_LoadCopyrightSpriteGraphics();
+        RhhIntro_CreateCopyRightSprites();
+        UpdatePaletteFade();
+        gMain.state++;
+        break;
+
+    case 45:
+        RhhIntro_ShowRhhCredits();
+        UpdatePaletteFade();
+        gMain.state++;
+        break;
+
+    case 253:
+        BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
+        gMain.state++;
+        break;
+    case 254:
         if (UpdatePaletteFade())
             break;
+        RhhIntro_DestroyRhhCreditSprites();
+        gMain.state++;
+        break;
+
+    case 255:
         CreateTask(Task_Scene1_Load, 0);
         SetMainCallback2(MainCB2_Intro);
-        if (gMultibootProgramStruct.gcmb_field_2 != 0)
-        {
-            if (gMultibootProgramStruct.gcmb_field_2 == 2)
-            {
-                // check the multiboot ROM header game code to see if we already did this
-                if (*(u32 *)(EWRAM_START + 0xAC) == COLOSSEUM_GAME_CODE)
-                {
-                    CpuCopy16(&gMultiBootProgram_PokemonColosseum_Start, (void *)EWRAM_START, sizeof(gMultiBootProgram_PokemonColosseum_Start));
-                    *(u32 *)(EWRAM_START + 0xAC) = COLOSSEUM_GAME_CODE;
-                }
-                GameCubeMultiBoot_ExecuteProgram(&gMultibootProgramStruct);
-            }
-        }
-        else
-        {
-            GameCubeMultiBoot_Quit();
-            SetSerialCallback(SerialCB);
-        }
         return 0;
     }
 
@@ -1127,6 +1135,7 @@ void CB2_InitCopyrightScreenAfterBootup(void)
         LoadGameSave(SAVE_NORMAL);
         if (gSaveFileStatus == SAVE_STATUS_EMPTY || gSaveFileStatus == SAVE_STATUS_CORRUPT)
             Sav2_ClearSetDefault();
+        gDisableMusic = (gSaveBlock2Ptr->optionsSound == 2);
         SetPokemonCryStereo(gSaveBlock2Ptr->optionsSound);
         InitHeap(gHeap, HEAP_SIZE);
     }

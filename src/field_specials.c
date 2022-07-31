@@ -65,6 +65,14 @@
 #include "constants/weather.h"
 #include "constants/metatile_labels.h"
 #include "palette.h"
+#include "wild_encounter.h"
+#include "fldeff.h"
+#include "pokedex.h"
+#include "daycare.h"
+#include "constants/daycare.h"
+#include "item.h"
+#include "item_menu.h"
+#include "battle_setup.h"
 
 EWRAM_DATA bool8 gBikeCyclingChallenge = FALSE;
 EWRAM_DATA u8 gBikeCollisions = 0;
@@ -90,9 +98,9 @@ void SetPlayerGotFirstFans(void);
 u16 GetNumFansOfPlayerInTrainerFanClub(void);
 
 static void RecordCyclingRoadResults(u32, u8);
-static void LoadLinkPartnerObjectEventSpritePalette(u8, u8, u8);
-static void Task_PetalburgGymSlideOpenRoomDoors(u8);
-static void PetalburgGymSetDoorMetatiles(u8, u16);
+static void LoadLinkPartnerObjectEventSpritePalette(u16 graphicsId, u8 localEventId, u8 paletteNum);
+static void Task_PetalburgGymSlideOpenRoomDoors(u8 taskId);
+static void PetalburgGymSetDoorMetatiles(u8 roomNumber, u16 metatileId);
 static void Task_PCTurnOnEffect(u8);
 static void PCTurnOnEffect_0(struct Task *);
 static void PCTurnOnEffect_1(s16, s8, s8);
@@ -128,6 +136,17 @@ static u8 DidPlayerGetFirstFans(void);
 static void SetInitialFansOfPlayer(void);
 static u16 PlayerGainRandomTrainerFan(void);
 static void BufferFanClubTrainerName_(struct LinkBattleRecords *, u8, u8);
+
+static const u8 *const sDayOfWeekTable[] =
+{
+    gText_Sunday,
+    gText_Monday,
+    gText_Tuesday,
+    gText_Wednesday,
+    gText_Thursday,
+    gText_Friday,
+    gText_Saturday
+};
 
 void Special_ShowDiploma(void)
 {
@@ -502,7 +521,7 @@ void SpawnLinkPartnerObjectEvent(void)
     };
     u8 myLinkPlayerNumber;
     u8 playerFacingDirection;
-    u8 linkSpriteId;
+    u16 linkSpriteId;
     u8 i;
 
     myLinkPlayerNumber = GetMultiplayerId();
@@ -563,7 +582,7 @@ void SpawnLinkPartnerObjectEvent(void)
     }
 }
 
-static void LoadLinkPartnerObjectEventSpritePalette(u8 graphicsId, u8 localEventId, u8 paletteNum)
+static void LoadLinkPartnerObjectEventSpritePalette(u16 graphicsId, u8 localEventId, u8 paletteNum)
 {
     u8 adjustedPaletteNum;
     // Note: This temp var is necessary; paletteNum += 6 doesn't match.
@@ -880,7 +899,7 @@ void PetalburgGymUnlockRoomDoors(void)
 
 void ShowFieldMessageStringVar4(void)
 {
-    ShowFieldMessage(gStringVar4);
+    ShowFieldMessage(gStringVar7);
 }
 
 void StorePlayerCoordsInVars(void)
@@ -968,14 +987,22 @@ void FieldShowRegionMap(void)
 
 void DoPCTurnOnEffect(void)
 {
-    if (FuncIsActiveTask(Task_PCTurnOnEffect) != TRUE)
+    extern struct MapPosition gPlayerFacingPosition;
+    GetXYCoordsOneStepInFrontOfPlayer(&gPlayerFacingPosition.x, &gPlayerFacingPosition.y);
+
+    if (MapGridGetMetatileIdAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y) == METATILE_BrendansMaysHouse_BrendanPC_Off
+     || MapGridGetMetatileIdAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y) == METATILE_BrendansMaysHouse_MayPC_Off
+     || MapGridGetMetatileIdAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y) == METATILE_Building_PC_Off)
     {
-        u8 taskId = CreateTask(Task_PCTurnOnEffect, 8);
-        gTasks[taskId].data[0] = 0;
-        gTasks[taskId].data[1] = taskId;
-        gTasks[taskId].data[2] = 0;
-        gTasks[taskId].data[3] = 0;
-        gTasks[taskId].data[4] = 0;
+        if (FuncIsActiveTask(Task_PCTurnOnEffect) != TRUE)
+        {
+            u8 taskId = CreateTask(Task_PCTurnOnEffect, 8);
+            gTasks[taskId].data[0] = 0;
+            gTasks[taskId].data[1] = taskId;
+            gTasks[taskId].data[2] = 0;
+            gTasks[taskId].data[3] = 0;
+            gTasks[taskId].data[4] = 0;
+        }
     }
 }
 
@@ -1054,29 +1081,39 @@ static void PCTurnOffEffect(void)
     s8 dy = 0;
     u16 tileId = 0;
     u8 playerDirection = GetPlayerFacingDirection();
-    switch (playerDirection)
+
+    extern struct MapPosition gPlayerFacingPosition;
+    GetXYCoordsOneStepInFrontOfPlayer(&gPlayerFacingPosition.x, &gPlayerFacingPosition.y);
+
+    if (MapGridGetMetatileIdAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y) == METATILE_BrendansMaysHouse_BrendanPC_On
+     || MapGridGetMetatileIdAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y) == METATILE_BrendansMaysHouse_MayPC_On
+     || MapGridGetMetatileIdAt(gPlayerFacingPosition.x, gPlayerFacingPosition.y) == METATILE_Building_PC_On)
     {
-    case DIR_NORTH:
-        dx = 0;
-        dy = -1;
-        break;
-    case DIR_WEST:
-        dx = -1;
-        dy = -1;
-        break;
-    case DIR_EAST:
-        dx = 1;
-        dy = -1;
-        break;
+        switch (playerDirection)
+        {
+            case DIR_NORTH:
+                dx = 0;
+                dy = -1;
+                break;
+            case DIR_WEST:
+                dx = -1;
+                dy = -1;
+                break;
+            case DIR_EAST:
+                dx = 1;
+                dy = -1;
+                break;
+        }
+
+        if (gSpecialVar_0x8004 == PC_LOCATION_OTHER)
+            tileId = METATILE_Building_PC_Off;
+        else if (gSpecialVar_0x8004 == PC_LOCATION_BRENDANS_HOUSE)
+            tileId = METATILE_BrendansMaysHouse_BrendanPC_Off;
+        else if (gSpecialVar_0x8004 == PC_LOCATION_MAYS_HOUSE)
+            tileId = METATILE_BrendansMaysHouse_MayPC_Off;
+        MapGridSetMetatileIdAt(gSaveBlock1Ptr->pos.x + dx + 7, gSaveBlock1Ptr->pos.y + dy + 7, tileId | MAPGRID_COLLISION_MASK);
+        DrawWholeMapView();
     }
-    if (gSpecialVar_0x8004 == PC_LOCATION_OTHER)
-        tileId = METATILE_Building_PC_Off;
-    else if (gSpecialVar_0x8004 == PC_LOCATION_BRENDANS_HOUSE)
-        tileId = METATILE_BrendansMaysHouse_BrendanPC_Off;
-    else if (gSpecialVar_0x8004 == PC_LOCATION_MAYS_HOUSE)
-        tileId = METATILE_BrendansMaysHouse_MayPC_Off;
-    MapGridSetMetatileIdAt(gSaveBlock1Ptr->pos.x + dx + MAP_OFFSET, gSaveBlock1Ptr->pos.y + dy + MAP_OFFSET, tileId | MAPGRID_COLLISION_MASK);
-    DrawWholeMapView();
 }
 
 void DoLotteryCornerComputerEffect(void)
@@ -1952,7 +1989,6 @@ bool8 UsedPokemonCenterWarp(void)
         MAP_EVER_GRANDE_CITY_POKEMON_CENTER_1F,
         MAP_EVER_GRANDE_CITY_POKEMON_LEAGUE_1F,
         MAP_BATTLE_FRONTIER_POKEMON_CENTER_1F,
-        MAP_UNION_ROOM,
         0xFFFF
     };
 
@@ -3509,32 +3545,6 @@ bool8 AbnormalWeatherHasExpired(void)
 // All mart employees have a local id of 1, so function always returns 1
 u32 GetMartEmployeeObjectEventId(void)
 {
-    static const u8 sPokeMarts[][3] =
-    {
-        { MAP_GROUP(OLDALE_TOWN_MART),     MAP_NUM(OLDALE_TOWN_MART),     LOCALID_OLDALE_MART_CLERK },
-        { MAP_GROUP(LAVARIDGE_TOWN_MART),  MAP_NUM(LAVARIDGE_TOWN_MART),  LOCALID_LAVARIDGE_MART_CLERK },
-        { MAP_GROUP(FALLARBOR_TOWN_MART),  MAP_NUM(FALLARBOR_TOWN_MART),  LOCALID_FALLARBOR_MART_CLERK },
-        { MAP_GROUP(VERDANTURF_TOWN_MART), MAP_NUM(VERDANTURF_TOWN_MART), LOCALID_VERDANTURF_MART_CLERK },
-        { MAP_GROUP(PETALBURG_CITY_MART),  MAP_NUM(PETALBURG_CITY_MART),  LOCALID_PETALBURG_MART_CLERK },
-        { MAP_GROUP(SLATEPORT_CITY_MART),  MAP_NUM(SLATEPORT_CITY_MART),  LOCALID_SLATEPORT_MART_CLERK },
-        { MAP_GROUP(MAUVILLE_CITY_MART),   MAP_NUM(MAUVILLE_CITY_MART),   LOCALID_MAUVILLE_MART_CLERK },
-        { MAP_GROUP(RUSTBORO_CITY_MART),   MAP_NUM(RUSTBORO_CITY_MART),   LOCALID_RUSTBORO_MART_CLERK },
-        { MAP_GROUP(FORTREE_CITY_MART),    MAP_NUM(FORTREE_CITY_MART),    LOCALID_FORTREE_MART_CLERK },
-        { MAP_GROUP(MOSSDEEP_CITY_MART),   MAP_NUM(MOSSDEEP_CITY_MART),   LOCALID_MOSSDEEP_MART_CLERK },
-        { MAP_GROUP(SOOTOPOLIS_CITY_MART), MAP_NUM(SOOTOPOLIS_CITY_MART), LOCALID_SOOTOPOLIS_MART_CLERK },
-        { MAP_GROUP(BATTLE_FRONTIER_MART), MAP_NUM(BATTLE_FRONTIER_MART), LOCALID_BATTLE_FRONTIER_MART_CLERK }
-    };
-
-    u8 i;
-    for (i = 0; i < ARRAY_COUNT(sPokeMarts); i++)
-    {
-        if (gSaveBlock1Ptr->location.mapGroup == sPokeMarts[i][0])
-        {
-            if (gSaveBlock1Ptr->location.mapNum == sPokeMarts[i][1])
-                return sPokeMarts[i][2];
-        }
-    }
-    return 1;
 }
 
 bool32 IsTrainerRegistered(void)
@@ -4191,29 +4201,387 @@ u8 Script_TryGainNewFanFromCounter(void)
     return TryGainNewFanFromCounter(gSpecialVar_0x8004);
 }
 
+u8 CheckChainFishingStreak(void)
+{
+    return gChainFishingStreak;
+}
 
- #include "save.h" // <-- SECTOR_DATA_SIZE is defined there.
- void CheckSaveBlock1Size(void)
- {
-     u32 currSb1Size = (sizeof(struct SaveBlock1));
-     u32 maxSb1Size = (SECTOR_DATA_SIZE * 4);
-     ConvertIntToDecimalStringN(gStringVar1, currSb1Size, STR_CONV_MODE_LEFT_ALIGN, 6);
-     ConvertIntToDecimalStringN(gStringVar2, maxSb1Size, STR_CONV_MODE_LEFT_ALIGN, 6);
- }
+void SwapPlayersCostume(void)
+{
+    struct ObjectEvent *objEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
+    gSaveBlock2Ptr->playerCostume = VarGet(VAR_TEMP_1);
+    ObjectEventSetGraphicsId(objEvent, GetPlayerAvatarGraphicsIdByCurrentState());
+    ObjectEventTurn(objEvent, objEvent->movementDirection);
+    BlendPalettes(0xFFFFFFFF, 16, 0);
+}
 
- void CheckSaveBlock2Size(void)
- {
-     u32 currSb2Size = (sizeof(struct SaveBlock2));
-     u32 maxSb2Size = SECTOR_DATA_SIZE;
-     ConvertIntToDecimalStringN(gStringVar1, currSb2Size, STR_CONV_MODE_LEFT_ALIGN, 6);
-     ConvertIntToDecimalStringN(gStringVar2, maxSb2Size, STR_CONV_MODE_LEFT_ALIGN, 6);
- }
+u32 GetCurrentMap(void)
+{
+    return (gSaveBlock1Ptr->location.mapGroup << 8) | gSaveBlock1Ptr->location.mapNum;
+}
 
- void CheckPokemonStorageSize(void)
- {
-     u32 currPkmnStorageSize = (sizeof(struct PokemonStorage));
-     u32 maxPkmnStorageSize = (SECTOR_DATA_SIZE * 9);
-     ConvertIntToDecimalStringN(gStringVar1, currPkmnStorageSize, STR_CONV_MODE_LEFT_ALIGN, 6);
-     ConvertIntToDecimalStringN(gStringVar2, maxPkmnStorageSize, STR_CONV_MODE_LEFT_ALIGN, 6);
- }
- 
+// Checks the EVs of a Pokémon in gSpecialVar_0x8004 and stores them in the 6 text buffers
+void CheckMonEVs(void)
+{
+    u8 hpEV = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_HP_EV, &hpEV);
+    u8 attackEV = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_ATK_EV, &attackEV);
+    u8 defenseEV = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_DEF_EV, &defenseEV);
+    u8 speedEV = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPEED_EV, &speedEV);
+    u8 spAttackEV = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPATK_EV, &spAttackEV);
+    u8 spDefenseEV = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPDEF_EV, &spDefenseEV);
+
+    ConvertIntToDecimalStringN(gStringVar1, hpEV, STR_CONV_MODE_LEFT_ALIGN, 3);
+    ConvertIntToDecimalStringN(gStringVar2, attackEV, STR_CONV_MODE_LEFT_ALIGN, 3);
+    ConvertIntToDecimalStringN(gStringVar3, defenseEV, STR_CONV_MODE_LEFT_ALIGN, 3);
+    ConvertIntToDecimalStringN(gStringVar4, speedEV, STR_CONV_MODE_LEFT_ALIGN, 3);
+    ConvertIntToDecimalStringN(gStringVar5, spAttackEV, STR_CONV_MODE_LEFT_ALIGN, 3);
+    ConvertIntToDecimalStringN(gStringVar6, spDefenseEV, STR_CONV_MODE_LEFT_ALIGN, 3);
+}
+
+// Checks the IVs of a Pokémon in gSpecialVar_0x8004 and stores them in the 6 text buffers
+void CheckMonIVs(void)
+{
+    u8 hpIV = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_HP_IV, &hpIV);
+    u8 attackIV = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_ATK_IV, &attackIV);
+    u8 defenseIV = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_DEF_IV, &defenseIV);
+    u8 speedIV = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPEED_IV, &speedIV);
+    u8 spAttackIV = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPATK_IV, &spAttackIV);
+    u8 spDefenseIV = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPDEF_IV, &spDefenseIV);
+
+    ConvertIntToDecimalStringN(gStringVar1, hpIV, STR_CONV_MODE_LEFT_ALIGN, 3);
+    ConvertIntToDecimalStringN(gStringVar2, attackIV, STR_CONV_MODE_LEFT_ALIGN, 3);
+    ConvertIntToDecimalStringN(gStringVar3, defenseIV, STR_CONV_MODE_LEFT_ALIGN, 3);
+    ConvertIntToDecimalStringN(gStringVar4, speedIV, STR_CONV_MODE_LEFT_ALIGN, 3);
+    ConvertIntToDecimalStringN(gStringVar5, spAttackIV, STR_CONV_MODE_LEFT_ALIGN, 3);
+    ConvertIntToDecimalStringN(gStringVar6, spDefenseIV, STR_CONV_MODE_LEFT_ALIGN, 3);
+}
+
+u8 GetPlayersCurrentCostume(void)
+{
+    return gSaveBlock2Ptr->playerCostume;
+}
+
+const u8 *GetCurrentDayString(u8 dayOfWeek)
+{
+    return sDayOfWeekTable[dayOfWeek];
+}
+
+void SetMonFriendship(void)
+{
+    struct Pokemon *mon = &gPlayerParty[gSpecialVar_0x8004];
+    u8 newFriendshipVal;
+
+    newFriendshipVal = gSpecialVar_0x8005;
+    SetMonData(mon, MON_DATA_FRIENDSHIP, &newFriendshipVal);
+}
+
+void DeleteChosenPartyMon(void)
+{
+    u16 partyIndex = VarGet(gSpecialVar_0x8004);
+    struct Pokemon *pokemon;
+
+    pokemon = &gPlayerParty[partyIndex];
+    ZeroMonData(pokemon);
+    CompactPartySlots();
+}
+
+static const u8 sText_ColorDarkGreyShadowLightGrey[] = _("{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}");
+static const u8 sText_StatsHP[] =    _("HP: ");
+static const u8 sText_StatsAtk[] =   _("ATK: ");
+static const u8 sText_StatsDef[] =   _("DEF: ");
+static const u8 sText_StatsSpAtk[] = _("SAT: ");
+static const u8 sText_StatsSpDef[] = _("SDF: ");
+static const u8 sText_StatsSpeed[] = _("SPE: ");
+static const u8 sText_StatsIv[] = _(", IV:");
+static const u8 sText_StatsEv[] = _(", EV:");
+
+void BufferChosenMonStats(void)
+{
+    u8 sTextBuffer1[64];
+    u8 sTextBuffer2[64];
+    u8 sTextBuffer3[64];
+    u8 sTextBuffer4[64];
+    u8 slot = gSpecialVar_0x8004;
+
+    StringCopy(sTextBuffer1, sText_ColorDarkGreyShadowLightGrey);
+    StringAppend(sTextBuffer1, sText_StatsHP);
+    ConvertIntToDecimalStringN(sTextBuffer2, GetMonData(&gPlayerParty[slot], MON_DATA_MAX_HP, NULL), STR_CONV_MODE_RIGHT_ALIGN, 4);
+    StringAppend(sTextBuffer1, gText_EmptySpace); // Padding for alignment reasons
+    StringAppend(sTextBuffer1, gText_EmptySpace); // Padding for alignment reasons
+    StringAppend(sTextBuffer1, sTextBuffer2);
+    StringAppend(sTextBuffer1, sText_StatsIv);
+    ConvertIntToDecimalStringN(sTextBuffer3, GetMonData(&gPlayerParty[slot], MON_DATA_HP_IV, NULL), STR_CONV_MODE_RIGHT_ALIGN, 4);
+    StringAppend(sTextBuffer1, sTextBuffer3);
+    StringAppend(sTextBuffer1, sText_StatsEv);
+    ConvertIntToDecimalStringN(sTextBuffer4, GetMonData(&gPlayerParty[slot], MON_DATA_HP_EV, NULL), STR_CONV_MODE_RIGHT_ALIGN, 4);
+    StringAppend(sTextBuffer1, sTextBuffer4);
+    StringCopy(gStringVar1, sTextBuffer1);
+
+    StringCopy(sTextBuffer1, sText_ColorDarkGreyShadowLightGrey);
+    StringAppend(sTextBuffer1, sText_StatsAtk);
+    ConvertIntToDecimalStringN(sTextBuffer2, GetMonData(&gPlayerParty[slot], MON_DATA_ATK, NULL), STR_CONV_MODE_RIGHT_ALIGN, 4);
+    StringAppend(sTextBuffer1, sTextBuffer2);
+    StringAppend(sTextBuffer1, sText_StatsIv);
+    ConvertIntToDecimalStringN(sTextBuffer3, GetMonData(&gPlayerParty[slot], MON_DATA_ATK_IV, NULL), STR_CONV_MODE_RIGHT_ALIGN, 4);
+    StringAppend(sTextBuffer1, sTextBuffer3);
+    StringAppend(sTextBuffer1, sText_StatsEv);
+    ConvertIntToDecimalStringN(sTextBuffer4, GetMonData(&gPlayerParty[slot], MON_DATA_ATK_EV, NULL), STR_CONV_MODE_RIGHT_ALIGN, 4);
+    StringAppend(sTextBuffer1, sTextBuffer4);
+    StringCopy(gStringVar2, sTextBuffer1);
+
+    StringCopy(sTextBuffer1, sText_ColorDarkGreyShadowLightGrey);
+    StringAppend(sTextBuffer1, sText_StatsDef);
+    ConvertIntToDecimalStringN(sTextBuffer2, GetMonData(&gPlayerParty[slot], MON_DATA_DEF, NULL), STR_CONV_MODE_RIGHT_ALIGN, 4);
+    StringAppend(sTextBuffer1, sTextBuffer2);
+    StringAppend(sTextBuffer1, sText_StatsIv);
+    ConvertIntToDecimalStringN(sTextBuffer3, GetMonData(&gPlayerParty[slot], MON_DATA_DEF_IV, NULL), STR_CONV_MODE_RIGHT_ALIGN, 4);
+    StringAppend(sTextBuffer1, sTextBuffer3);
+    StringAppend(sTextBuffer1, sText_StatsEv);
+    ConvertIntToDecimalStringN(sTextBuffer4, GetMonData(&gPlayerParty[slot], MON_DATA_DEF_EV, NULL), STR_CONV_MODE_RIGHT_ALIGN, 4);
+    StringAppend(sTextBuffer1, sTextBuffer4);
+    StringCopy(gStringVar3, sTextBuffer1);
+
+    StringCopy(sTextBuffer1, sText_ColorDarkGreyShadowLightGrey);
+    StringAppend(sTextBuffer1, sText_StatsSpAtk);
+    ConvertIntToDecimalStringN(sTextBuffer2, GetMonData(&gPlayerParty[slot], MON_DATA_SPATK, NULL), STR_CONV_MODE_RIGHT_ALIGN, 4);
+    StringAppend(sTextBuffer1, sTextBuffer2);
+    StringAppend(sTextBuffer1, sText_StatsIv);
+    ConvertIntToDecimalStringN(sTextBuffer3, GetMonData(&gPlayerParty[slot], MON_DATA_SPATK_IV, NULL), STR_CONV_MODE_RIGHT_ALIGN, 4);
+    StringAppend(sTextBuffer1, sTextBuffer3);
+    StringAppend(sTextBuffer1, sText_StatsEv);
+    ConvertIntToDecimalStringN(sTextBuffer4, GetMonData(&gPlayerParty[slot], MON_DATA_SPATK_EV, NULL), STR_CONV_MODE_RIGHT_ALIGN, 4);
+    StringAppend(sTextBuffer1, sTextBuffer4);
+    StringCopy(gStringVar4, sTextBuffer1);
+
+    StringCopy(sTextBuffer1, sText_ColorDarkGreyShadowLightGrey);
+    StringAppend(sTextBuffer1, sText_StatsSpDef);
+    ConvertIntToDecimalStringN(sTextBuffer2, GetMonData(&gPlayerParty[slot], MON_DATA_SPDEF, NULL), STR_CONV_MODE_RIGHT_ALIGN, 4);
+    StringAppend(sTextBuffer1, sTextBuffer2);
+    StringAppend(sTextBuffer1, sText_StatsIv);
+    ConvertIntToDecimalStringN(sTextBuffer3, GetMonData(&gPlayerParty[slot], MON_DATA_SPDEF_IV, NULL), STR_CONV_MODE_RIGHT_ALIGN, 4);
+    StringAppend(sTextBuffer1, sTextBuffer3);
+    StringAppend(sTextBuffer1, sText_StatsEv);
+    ConvertIntToDecimalStringN(sTextBuffer4, GetMonData(&gPlayerParty[slot], MON_DATA_SPDEF_EV, NULL), STR_CONV_MODE_RIGHT_ALIGN, 4);
+    StringAppend(sTextBuffer1, sTextBuffer4);
+    StringCopy(gStringVar5, sTextBuffer1);
+
+    StringCopy(sTextBuffer1, sText_ColorDarkGreyShadowLightGrey);
+    StringAppend(sTextBuffer1, sText_StatsSpeed);
+    ConvertIntToDecimalStringN(sTextBuffer2, GetMonData(&gPlayerParty[slot], MON_DATA_SPEED, NULL), STR_CONV_MODE_RIGHT_ALIGN, 4);
+    StringAppend(sTextBuffer1, sTextBuffer2);
+    StringAppend(sTextBuffer1, sText_StatsIv);
+    ConvertIntToDecimalStringN(sTextBuffer3, GetMonData(&gPlayerParty[slot], MON_DATA_SPEED_IV, NULL), STR_CONV_MODE_RIGHT_ALIGN, 4);
+    StringAppend(sTextBuffer1, sTextBuffer3);
+    StringAppend(sTextBuffer1, sText_StatsEv);
+    ConvertIntToDecimalStringN(sTextBuffer4, GetMonData(&gPlayerParty[slot], MON_DATA_SPEED_EV, NULL), STR_CONV_MODE_RIGHT_ALIGN, 4);
+    StringAppend(sTextBuffer1, sTextBuffer4);
+    StringCopy(gStringVar6, sTextBuffer1);
+}
+
+void ChangeMonStatus(void)
+{
+    u8 status = STATUS1_NONE;
+
+    switch (VarGet(VAR_TEMP_6))
+    {
+    case STATUS1_POISON:
+        status = STATUS1_POISON;
+        break;
+    case STATUS1_PARALYSIS:
+        status = STATUS1_PARALYSIS;
+        break;
+    case STATUS1_SLEEP:
+        status = STATUS1_SLEEP;
+        break;
+    case STATUS1_FREEZE:
+        status = STATUS1_FREEZE;
+        break;
+    case STATUS1_BURN:
+        status = STATUS1_BURN;
+        break;
+    default:
+        break;
+    }
+
+    SetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_STATUS, &status);
+}
+
+u16 CheckMonStatus(void)
+{
+    return GetMonAilment(&gPlayerParty[gSpecialVar_0x8004]);
+}
+
+u16 GetPlayerCostumeId(void)
+{
+    return GetPlayerAvatarGraphicsIdByStateIdAndGender(PLAYER_AVATAR_STATE_NORMAL, gSaveBlock2Ptr->playerGender);
+}
+
+bool8 GetSeenMon(void)
+{
+    return GetSetPokedexFlag(SpeciesToNationalPokedexNum(VarGet(VAR_TEMP_1)), FLAG_GET_SEEN);
+}
+
+bool8 GetCaughtMon(void)
+{
+    return GetSetPokedexFlag(SpeciesToNationalPokedexNum(VarGet(VAR_TEMP_1)), FLAG_GET_CAUGHT);
+}
+
+bool8 SetSeenMon(void)
+{
+    GetSetPokedexFlag(SpeciesToNationalPokedexNum(VarGet(VAR_TEMP_1)), FLAG_SET_SEEN);
+}
+
+bool8 SetCaughtMon(void)
+{
+    GetSetPokedexFlag(SpeciesToNationalPokedexNum(VarGet(VAR_TEMP_1)), FLAG_SET_SEEN);
+    GetSetPokedexFlag(SpeciesToNationalPokedexNum(VarGet(VAR_TEMP_1)), FLAG_SET_CAUGHT);
+}
+
+u8 GiveSpecialEgg(void)
+{
+    int monData = 0, i = 0;
+
+    for (i = 0; i < PARTY_SIZE + 1; i++)
+    {
+        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES2, NULL) == SPECIES_NONE)
+        {
+            CreateEgg(&gPlayerParty[i], VarGet(VAR_TEMP_1), FALSE);
+            monData = VarGet(VAR_TEMP_2);
+            SetMonData(&gPlayerParty[i], MON_DATA_MET_LOCATION, &monData);
+            monData = VarGet(VAR_TEMP_3);
+            SetMonData(&gPlayerParty[i], MON_DATA_MOVE1, &monData);
+            monData = VarGet(VAR_TEMP_4);
+            SetMonData(&gPlayerParty[i], MON_DATA_MOVE2, &monData);
+            monData = VarGet(VAR_TEMP_5);
+            SetMonData(&gPlayerParty[i], MON_DATA_MOVE3, &monData);
+            monData = VarGet(VAR_TEMP_6);
+            SetMonData(&gPlayerParty[i], MON_DATA_MOVE4, &monData);
+            MonRestorePP(&gPlayerParty[i]);
+            break;
+        }
+    }
+
+    if (i >= PARTY_SIZE)
+        return SendMonToPC(&gPlayerParty[i]);
+    
+    CopyMon(&gPlayerParty[i], &gPlayerParty[i], sizeof(&gPlayerParty[i]));
+    gPlayerPartyCount = i + 1;
+    return MON_GIVEN_TO_PARTY;
+}
+
+void ChooseItemFromBag(void)
+{
+    switch (VarGet(VAR_TEMP_1))
+    {
+    case ITEMS_POCKET:
+    case BALLS_POCKET:
+    case TMHM_POCKET:
+    case BERRIES_POCKET:
+    case KEYITEMS_POCKET:
+        GoToBagMenu(ITEMMENULOCATION_CHOOSE_ITEM, VarGet(VAR_TEMP_1), CB2_ReturnToFieldContinueScript);
+    default:
+        break;
+    }
+}
+
+static const u8 sFossilMonsList[] =
+{
+    [SPECIES_KABUTO] = 1,
+    [SPECIES_OMANYTE] = 1,
+    [SPECIES_AERODACTYL] = 1,
+    [SPECIES_ANORITH] = 1,
+    [SPECIES_LILEEP] = 1,
+    [SPECIES_CRANIDOS] = 1,
+    [SPECIES_SHIELDON] = 1,
+};
+
+bool32 HasCaughtFossilMon(void)
+{
+    u32 i;
+    u16 species;
+    struct Pokemon *pokemon;
+
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        pokemon = &gPlayerParty[i];
+        if (GetMonData(pokemon, MON_DATA_SANITY_HAS_SPECIES) && !GetMonData(pokemon, MON_DATA_IS_EGG))
+        {
+            species = GetMonData(pokemon, MON_DATA_SPECIES);
+            if (sFossilMonsList[species])
+            {
+                return TRUE;
+            }
+        }
+    }
+
+    return FALSE;
+}
+
+static const u16 sGymTrainerList[] =
+{
+    TRAINER_JOSH,     // Rustboro City Gym Trainer
+    TRAINER_TOMMY,    // Rustboro City Gym Trainer
+    TRAINER_MARC,     // Rustboro City Gym Trainer
+    TRAINER_TAKAO,    // Dewford Town Gym Trainer
+    TRAINER_JOCELYN,  // Dewford Town Gym Trainer
+    TRAINER_LAURA,    // Dewford Town Gym Trainer
+    TRAINER_BRENDEN,  // Dewford Town Gym Trainer
+    TRAINER_CRISTIAN, // Dewford Town Gym Trainer
+    TRAINER_LILITH,   // Dewford Town Gym Trainer
+    TRAINER_KIRK,     // Mauville City Gym Trainer
+    TRAINER_SHAWN,    // Mauville City Gym Trainer
+    TRAINER_BEN,      // Mauville City Gym Trainer
+    TRAINER_VIVIAN,   // Mauville City Gym Trainer
+    TRAINER_ANGELO,   // Mauville City Gym Trainer
+    TRAINER_COLE,     // Lavaridge Town Gym Trainer
+    TRAINER_GERALD,   // Lavaridge Town Gym Trainer
+    TRAINER_AXLE,     // Lavaridge Town Gym Trainer
+    TRAINER_DANIELLE, // Lavaridge Town Gym Trainer
+    TRAINER_KEEGAN,   // Lavaridge Town Gym Trainer
+    TRAINER_JACE,     // Lavaridge Town Gym Trainer
+    TRAINER_JEFF,     // Lavaridge Town Gym Trainer
+    TRAINER_ELI,      // Lavaridge Town Gym Trainer
+    TRAINER_RANDALL,  // Petalburg City Gym Trainer
+    TRAINER_MARY,     // Petalburg City Gym Trainer
+    TRAINER_PARKER,   // Petalburg City Gym Trainer
+    TRAINER_ALEXIA,   // Petalburg City Gym Trainer
+    TRAINER_GEORGE,   // Petalburg City Gym Trainer
+    TRAINER_JODY,     // Petalburg City Gym Trainer
+    TRAINER_BERKE,    // Petalburg City Gym Trainer
+    TRAINER_JARED,    // Fortree City Gym Trainer
+    TRAINER_EDWARDO,  // Fortree City Gym Trainer
+    TRAINER_FLINT,    // Fortree City Gym Trainer
+    TRAINER_ASHLEY,   // Fortree City Gym Trainer
+    TRAINER_HUMBERTO, // Fortree City Gym Trainer
+    TRAINER_DARIUS,   // Fortree City Gym Trainer
+    TRAINER_PRESTON,  // Mossdeep City Gym Trainer
+    TRAINER_VIRGIL,   // Mossdeep City Gym Trainer
+    TRAINER_BLAKE,    // Mossdeep City Gym Trainer
+    TRAINER_HANNAH,   // Mossdeep City Gym Trainer
+    TRAINER_SAMANTHA, // Mossdeep City Gym Trainer
+    TRAINER_MAURA,    // Mossdeep City Gym Trainer
+    TRAINER_SYLVIA,   // Mossdeep City Gym Trainer
+    TRAINER_NATE,     // Mossdeep City Gym Trainer
+    TRAINER_MACEY,    // Mossdeep City Gym Trainer
+    TRAINER_CLIFFORD, // Mossdeep City Gym Trainer
+    TRAINER_NICHOLAS, // Mossdeep City Gym Trainer
+    TRAINER_KATHLEEN, // Mossdeep City Gym Trainer
+    TRAINER_ANDREA,   // Sootopolis City Gym Trainer
+    TRAINER_CRISSY,   // Sootopolis City Gym Trainer
+    TRAINER_BRIANNA,  // Sootopolis City Gym Trainer
+    TRAINER_CONNIE,   // Sootopolis City Gym Trainer
+    TRAINER_BRIDGET,  // Sootopolis City Gym Trainer
+    TRAINER_OLIVIA,   // Sootopolis City Gym Trainer
+    TRAINER_TIFFANY,  // Sootopolis City Gym Trainer
+    TRAINER_BETHANY,  // Sootopolis City Gym Trainer
+    TRAINER_ANNIKA,   // Sootopolis City Gym Trainer
+    TRAINER_DAPHNE,   // Sootopolis City Gym Trainer
+};
+
+void ClearGymTrainerFlags(void)
+{
+    int i;
+
+    for (i = 0; i < NELEMS(sGymTrainerList); i++)
+        ClearTrainerFlag(sGymTrainerList[i]);
+}

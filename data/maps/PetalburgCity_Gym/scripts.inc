@@ -176,8 +176,8 @@ PetalburgCity_Gym_EventScript_BeginWallyTutorial::
 	call_if_eq VAR_0x8008, 3, PetalburgCity_Gym_EventScript_WallyFacePlayer
 	msgbox PetalburgCity_Gym_Text_WouldYouReallyComeWithMe, MSGBOX_DEFAULT
 	closemessage
-	setflag FLAG_DONT_TRANSITION_MUSIC
 	playbgm MUS_FOLLOW_ME, FALSE
+	setflag FLAG_DONT_TRANSITION_MUSIC
 	call_if_eq VAR_0x8008, 0, PetalburgCity_Gym_EventScript_ExitGymWithWallySouth
 	call_if_eq VAR_0x8008, 1, PetalburgCity_Gym_EventScript_ExitGymWithWallyNorth
 	call_if_eq VAR_0x8008, 2, PetalburgCity_Gym_EventScript_ExitGymWithWallyWest
@@ -344,7 +344,14 @@ PetalburgCity_Gym_EventScript_GiveFacade2::
 	end
 
 PetalburgCity_Gym_EventScript_NormanRematch::
+	specialvar VAR_RESULT, GetPlayersCurrentCostume
+	goto_if_eq VAR_RESULT, 2, PetalburgCity_Gym_EventScript_PlayersNewClothes
 	trainerbattle_rematch_double TRAINER_NORMAN_1, PetalburgCity_Gym_Text_NormanPreRematch, PetalburgCity_Gym_Text_NormanRematchDefeat, PetalburgCity_Gym_Text_NormanRematchNeedTwoMons
+	msgbox PetalburgCity_Gym_Text_NormanPostRematch, MSGBOX_AUTOCLOSE
+	end
+
+PetalburgCity_Gym_EventScript_PlayersNewClothes:
+	trainerbattle_rematch_double TRAINER_NORMAN_1, PetalburgCity_Gym_Text_NormanPreRematchWithExtraFlavor, PetalburgCity_Gym_Text_NormanRematchDefeat, PetalburgCity_Gym_Text_NormanRematchNeedTwoMonsWithExtraFlavor
 	msgbox PetalburgCity_Gym_Text_NormanPostRematch, MSGBOX_AUTOCLOSE
 	end
 
@@ -443,8 +450,8 @@ PetalburgCity_Gym_EventScript_WallysDadArrives::
 	call_if_eq VAR_0x8008, 3, PetalburgCity_Gym_EventScript_WallysDadFaceNormanWest
 	msgbox PetalburgCity_Gym_Text_LetMeBorrowPlayer, MSGBOX_DEFAULT
 	closemessage
-	setflag FLAG_DONT_TRANSITION_MUSIC
 	playbgm MUS_FOLLOW_ME, FALSE
+	setflag FLAG_DONT_TRANSITION_MUSIC
 	call_if_eq VAR_0x8008, 1, PetalburgCity_Gym_EventScript_ExitGymWithWallysDadNorth
 	call_if_eq VAR_0x8008, 2, PetalburgCity_Gym_EventScript_ExitGymWithWallysDadEast
 	call_if_eq VAR_0x8008, 3, PetalburgCity_Gym_EventScript_ExitGymWithWallysDadWest
@@ -1540,11 +1547,25 @@ PetalburgCity_Gym_Text_GymStatueCertified:
 	.string "Norman's certified Trainers:\n"
 	.string "{PLAYER}$"
 
+PetalburgCity_Gym_Text_NormanPreRematchWithExtraFlavor:
+	.string "DAD: {PLAYER}…\n"
+	.string "I had a feeling that you would come.\p"
+	.string "I see you're wearing the clothes I\n"
+	.string "bought you. I'm glad you liked them.\p"
+	.string "If you came here, you must be ready\n"
+	.string "to accept my challenge.\p"
+	.string "You do understand, don't you?\p"
+	.string "Inside a GYM, it doesn't matter that\n"
+	.string "we are a parent and child.\p"
+	.string "…No, because we are parent and child,\n"
+	.string "we owe it to each other to do the best\l"
+	.string "we can. Isn't that right, {PLAYER}?$"
+
 PetalburgCity_Gym_Text_NormanPreRematch:
 	.string "Dad: {PLAYER}…\n"
 	.string "I had a feeling that you would come.\p"
-	.string "I would never refuse to accept\n"
-	.string "a challenge from you.\p"
+	.string "If you came here, you must be ready\n"
+	.string "to accept my challenge.\p"
 	.string "You do understand, don't you?\p"
 	.string "Inside a Gym, it doesn't matter that\n"
 	.string "we are a parent and child.\p"
@@ -1566,8 +1587,8 @@ PetalburgCity_Gym_Text_NormanPostRematch:
 PetalburgCity_Gym_Text_NormanRematchNeedTwoMons:
 	.string "Dad: {PLAYER}…\n"
 	.string "I had a feeling that you would come.\p"
-	.string "I would never refuse to accept\n"
-	.string "a challenge from you.\p"
+	.string "If you came here, you must be ready\n"
+	.string "to accept my challenge.\p"
 	.string "You do understand, don't you?\p"
 	.string "Inside a Gym, it doesn't matter that\n"
 	.string "we are a parent and child.\p"
@@ -1577,3 +1598,18 @@ PetalburgCity_Gym_Text_NormanRematchNeedTwoMons:
 	.string "Sorry, but you'll have to come back\n"
 	.string "with at least two Pokémon.$"
 
+PetalburgCity_Gym_Text_NormanRematchNeedTwoMonsWithExtraFlavor: @ 820764A
+	.string "DAD: {PLAYER}…\n"
+	.string "I had a feeling that you would come.\p"
+	.string "I see you're wearing the clothes I\n"
+	.string "bought you. I'm glad you liked them.\p"
+	.string "If you came here, you must be ready\n"
+	.string "to accept my challenge.\p"
+	.string "You do understand, don't you?\p"
+	.string "Inside a GYM, it doesn't matter that\n"
+	.string "we are a parent and child.\p"
+	.string "Hm? Wait a second, {PLAYER}.\p"
+	.string "Do you only have one POKéMON that is\n"
+	.string "capable of battle?\p"
+	.string "Sorry, but you'll have to come back\n"
+	.string "with at least two POKéMON.$"

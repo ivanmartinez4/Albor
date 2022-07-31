@@ -576,9 +576,12 @@ static void BuyMenuPrintPriceInList(u8 windowId, u32 itemId, u8 y)
                 5);
         }
 
-        StringExpandPlaceholders(gStringVar4, gText_PokedollarVar1);
-        x = GetStringRightAlignXOffset(FONT_NARROW, gStringVar4, 0x78);
-        AddTextPrinterParameterized4(windowId, FONT_NARROW, x, y, 0, 0, sShopBuyMenuTextColors[1], TEXT_SKIP_DRAW, gStringVar4);
+        if (ItemId_GetPocket(itemId) == POCKET_TM_HM && (CheckBagHasItem(itemId, 1) || CheckPCHasItem(itemId, 1)))
+            StringCopy(gStringVar7, gText_SoldOut2);
+        else
+            StringExpandPlaceholders(gStringVar7, gText_PokedollarVar1);
+        x = GetStringRightAlignXOffset(FONT_NARROW, gStringVar7, 0x78);
+        AddTextPrinterParameterized4(windowId, FONT_NARROW, x, y, 0, 0, sShopBuyMenuTextColors[1], TEXT_SKIP_DRAW, gStringVar7);
     }
 }
 
@@ -951,7 +954,9 @@ static void Task_BuyMenu(u8 taskId)
                 sShopData->totalCost = gDecorations[itemId].price;
             }
 
-            if (!IsEnoughMoney(&gSaveBlock1Ptr->money, sShopData->totalCost))
+            if (ItemId_GetPocket(itemId) == POCKET_TM_HM && (CheckBagHasItem(itemId, 1) || CheckPCHasItem(itemId, 1)))
+                BuyMenuDisplayMessage(taskId, gText_SoldOut, BuyMenuReturnToItemList);
+            else if (!IsEnoughMoney(&gSaveBlock1Ptr->money, sShopData->totalCost))
             {
                 BuyMenuDisplayMessage(taskId, gText_YouDontHaveMoney, BuyMenuReturnToItemList);
             }
@@ -966,8 +971,11 @@ static void Task_BuyMenu(u8 taskId)
                     CopyItemName(itemId, gStringVar1);
                     if (ItemId_GetPocket(itemId) == POCKET_TM_HM)
                     {
-                        StringCopy(gStringVar2, gMoveNames[ItemIdToBattleMoveId(itemId)]);
-                        BuyMenuDisplayMessage(taskId, gText_Var1CertainlyHowMany2, Task_BuyHowManyDialogueInit);
+                        ConvertIntToDecimalStringN(gStringVar2, sShopData->totalCost, STR_CONV_MODE_LEFT_ALIGN, 6);
+                        StringExpandPlaceholders(gStringVar7, gText_YouWantedVar1ThatllBeVar2);
+                        tItemCount = 1;
+                        sShopData->totalCost = (ItemId_GetPrice(tItemId) >> IsPokeNewsActive(POKENEWS_SLATEPORT)) * tItemCount;
+                        BuyMenuDisplayMessage(taskId, gStringVar7, BuyMenuConfirmPurchase);
                     }
                     else
                     {
@@ -980,11 +988,11 @@ static void Task_BuyMenu(u8 taskId)
                     ConvertIntToDecimalStringN(gStringVar2, sShopData->totalCost, STR_CONV_MODE_LEFT_ALIGN, 6);
 
                     if (sMartInfo.martType == MART_TYPE_DECOR)
-                        StringExpandPlaceholders(gStringVar4, gText_Var1IsItThatllBeVar2);
+                        StringExpandPlaceholders(gStringVar7, gText_Var1IsItThatllBeVar2);
                     else // MART_TYPE_DECOR2
-                        StringExpandPlaceholders(gStringVar4, gText_YouWantedVar1ThatllBeVar2);
+                        StringExpandPlaceholders(gStringVar7, gText_YouWantedVar1ThatllBeVar2);
 
-                    BuyMenuDisplayMessage(taskId, gStringVar4, BuyMenuConfirmPurchase);
+                    BuyMenuDisplayMessage(taskId, gStringVar7, BuyMenuConfirmPurchase);
                 }
             }
             break;
@@ -1001,8 +1009,8 @@ static void Task_BuyHowManyDialogueInit(u8 taskId)
 
     DrawStdFrameWithCustomTileAndPalette(3, FALSE, 1, 13);
     ConvertIntToDecimalStringN(gStringVar1, quantityInBag, STR_CONV_MODE_RIGHT_ALIGN, MAX_ITEM_DIGITS + 1);
-    StringExpandPlaceholders(gStringVar4, gText_InBagVar1);
-    BuyMenuPrint(3, gStringVar4, 0, 1, 0, 0);
+    StringExpandPlaceholders(gStringVar7, gText_InBagVar1);
+    BuyMenuPrint(3, gStringVar7, 0, 1, 0, 0);
     tItemCount = 1;
     DrawStdFrameWithCustomTileAndPalette(4, FALSE, 1, 13);
     BuyMenuPrintItemQuantityAndPrice(taskId);
@@ -1073,8 +1081,8 @@ static void BuyMenuTryMakePurchase(u8 taskId)
     {
         if (AddBagItem(tItemId, tItemCount) == TRUE)
         {
-            BuyMenuDisplayMessage(taskId, gText_HereYouGoThankYou, BuyMenuSubtractMoney);
             RecordItemPurchase(taskId);
+            BuyMenuDisplayMessage(taskId, gText_HereYouGoThankYou, BuyMenuSubtractMoney);
         }
         else
         {
@@ -1121,16 +1129,14 @@ static void Task_ReturnToItemListAfterItemPurchase(u8 taskId)
     if (JOY_NEW(A_BUTTON | B_BUTTON))
     {
         PlaySE(SE_SELECT);
-        if ((ItemId_GetPocket(tItemId) == POCKET_POKE_BALLS) && tItemCount > 9 && AddBagItem(ITEM_PREMIER_BALL, tItemCount / 10) == TRUE)
+        if (ItemId_GetPocket(tItemId) == POCKET_POKE_BALLS
+         && tItemCount > 9
+         && AddBagItem(ITEM_PREMIER_BALL, tItemCount / 10) == TRUE)
         {
-          if (tItemCount > 19)
-          {
-            BuyMenuDisplayMessage(taskId, gText_ThrowInPremierBalls, BuyMenuReturnToItemList);
-          }
-          else
-          {
-            BuyMenuDisplayMessage(taskId, gText_ThrowInPremierBall, BuyMenuReturnToItemList);
-          }
+            if (tItemCount > 19)
+                BuyMenuDisplayMessage(taskId, gText_ThrowInPremierBalls, BuyMenuReturnToItemList);
+            else
+                BuyMenuDisplayMessage(taskId, gText_ThrowInPremierBall, BuyMenuReturnToItemList);
         }
         else
         {
@@ -1153,6 +1159,7 @@ static void BuyMenuReturnToItemList(u8 taskId)
     s16 *data = gTasks[taskId].data;
 
     ClearDialogWindowAndFrameToTransparent(5, 0);
+    RedrawListMenu(tListTaskId);
     BuyMenuPrintCursor(tListTaskId, 1);
     PutWindowTilemap(1);
     PutWindowTilemap(2);
@@ -1168,8 +1175,8 @@ static void BuyMenuPrintItemQuantityAndPrice(u8 taskId)
     FillWindowPixelBuffer(4, PIXEL_FILL(1));
     PrintMoneyAmount(4, 32, 1, sShopData->totalCost, TEXT_SKIP_DRAW);
     ConvertIntToDecimalStringN(gStringVar1, tItemCount, STR_CONV_MODE_LEADING_ZEROS, BAG_ITEM_CAPACITY_DIGITS);
-    StringExpandPlaceholders(gStringVar4, gText_xVar1);
-    BuyMenuPrint(4, gStringVar4, 0, 1, 0, 0);
+    StringExpandPlaceholders(gStringVar7, gText_xVar1);
+    BuyMenuPrint(4, gStringVar7, 0, 1, 0, 0);
 }
 
 static void ExitBuyMenu(u8 taskId)
