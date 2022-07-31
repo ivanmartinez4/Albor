@@ -1867,10 +1867,6 @@ const u16 gTradeGba_Pal[] = INCBIN_U16("graphics/trade/gba.gbapal");
 const u16 gTradeGba2_Pal[] = INCBIN_U16("graphics/trade/gba_pal2.gbapal");
 const u8 gTradeGba_Gfx[] = INCBIN_U8("graphics/trade/gba.4bpp");
 
-static const u16 sEmptyPal[16] = {0};
-
-#include "data/graphics/berry_fix.h"
-
 // Trade
 const u16 gTradeMenu_Pal[] = INCBIN_U16("graphics/trade/menu.gbapal");
 const u16 gTradeCursor_Pal[] = INCBIN_U16("graphics/trade/cursor.gbapal");

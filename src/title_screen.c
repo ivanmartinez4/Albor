@@ -12,7 +12,6 @@
 #include "main_menu.h"
 #include "palette.h"
 #include "reset_rtc_screen.h"
-#include "berry_fix_program.h"
 #include "sound.h"
 #include "sprite.h"
 #include "task.h"
@@ -34,7 +33,6 @@
 #define CLEAR_SAVE_BUTTON_COMBO (B_BUTTON | SELECT_BUTTON | DPAD_UP)
 #define RESET_RTC_BUTTON_COMBO (B_BUTTON | SELECT_BUTTON | DPAD_LEFT)
 #define SOUND_TEST_BUTTON_COMBO (B_BUTTON | SELECT_BUTTON | DPAD_RIGHT)
-#define BERRY_UPDATE_BUTTON_COMBO (B_BUTTON | SELECT_BUTTON)
 #define A_B_START_SELECT (A_BUTTON | B_BUTTON | START_BUTTON | SELECT_BUTTON)
 
 static void MainCB2(void);
@@ -45,7 +43,6 @@ static void CB2_GoToMainMenu(void);
 static void CB2_GoToClearSaveDataScreen(void);
 static void CB2_GoToResetRtcScreen(void);
 static void CB2_GoToSoundCheckScreen(void);
-static void CB2_GoToBerryFixScreen(void);
 static void CB2_GoToCopyrightScreen(void);
 static void UpdateLegendaryMarkingColor(u8);
 
@@ -751,12 +748,6 @@ static void Task_TitleScreenPhase3(u8 taskId)
         BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 0x10, RGB_BLACK);
         SetMainCallback2(CB2_GoToSoundCheckScreen);
     }
-    else if (JOY_HELD(BERRY_UPDATE_BUTTON_COMBO) == BERRY_UPDATE_BUTTON_COMBO)
-    {
-        FadeOutBGM(4);
-        BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 0x10, RGB_BLACK);
-        SetMainCallback2(CB2_GoToBerryFixScreen);
-    }
     else
     {
         SetGpuReg(REG_OFFSET_BG2Y_L, 0);
@@ -807,15 +798,6 @@ static void CB2_GoToSoundCheckScreen(void)
         SetMainCallback2(CB2_StartSoundCheckMenu);
     AnimateSprites();
     BuildOamBuffer();
-}
-
-static void CB2_GoToBerryFixScreen(void)
-{
-    if (!UpdatePaletteFade())
-    {
-        m4aMPlayAllStop();
-        SetMainCallback2(CB2_InitBerryFixProgram);
-    }
 }
 
 static void UpdateLegendaryMarkingColor(u8 frameNum)
