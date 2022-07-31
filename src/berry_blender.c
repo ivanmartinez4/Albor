@@ -104,7 +104,7 @@ enum {
 #define PALTAG_MISC              46546
 
 // Last berry that an NPC can put in
-#define NUM_NPC_BERRIES ITEM_TO_BERRY(ITEM_ASPEAR_BERRY)
+#define NUM_NPC_BERRIES ITEM_TO_BERRY(ITEM_ORAN_BERRY)
 
 struct BlenderBerry
 {
@@ -1516,21 +1516,10 @@ static void SetOpponentsBerryData(u16 playerBerryItemId, u8 playersNum, struct B
     u16 berryMasterDiff;
     u16 i;
 
-    if (playerBerryItemId == ITEM_ENIGMA_BERRY_E_READER)
-    {
-        for (i = 0; i < FLAVOR_COUNT; i++)
-        {
-            if (playerBerry->flavors[opponentSetId] > playerBerry->flavors[i])
-                opponentSetId = i;
-        }
-        opponentSetId += NUM_NPC_BERRIES;
-    }
-    else
-    {
-        opponentSetId = ITEM_TO_BERRY(playerBerryItemId) - 1;
-        if (opponentSetId >= NUM_NPC_BERRIES)
-            opponentSetId = (opponentSetId % NUM_NPC_BERRIES) + NUM_NPC_BERRIES;
-    }
+    opponentSetId = ITEM_TO_BERRY(playerBerryItemId) - 1;
+    if (opponentSetId >= NUM_NPC_BERRIES)
+        opponentSetId = (opponentSetId % NUM_NPC_BERRIES) + NUM_NPC_BERRIES;
+        
     for (i = 0; i < playersNum - 1; i++)
     {
         opponentBerryId = sOpponentBerrySets[opponentSetId][i];
@@ -2264,7 +2253,7 @@ static u32 CalculatePokeblockColor(struct BlenderBerry* berries, s16* _flavors, 
         for (j = 0; j < numPlayers; j++)
         {
             if (berries[i].itemId == berries[j].itemId && i != j
-                && (berries[i].itemId != ITEM_ENIGMA_BERRY_E_READER || AreBlenderBerriesSame(berries, i, j)))
+                && (AreBlenderBerriesSame(berries, i, j)))
                     return PBLOCK_CLR_BLACK;
         }
     }

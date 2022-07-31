@@ -2969,11 +2969,6 @@ static const u8 sStarfBerryDesc[] = _(
     "sharply boosts a\n"
     "stat in a pinch.");
 
-static const u8 sEnigmaBerryDesc[] = _(
-    "A hold item that\n"
-    "heals from super\n"
-    "effective moves.");
-
 static const u8 sMicleBerryDesc[] = _(
     "When held, it ups\n"
     "the Accuracy of a\n"
@@ -3003,11 +2998,6 @@ static const u8 sMarangaBerryDesc[] = _(
     "If hit by a special\n"
     "move, it raises the\n"
     "Sp. Def. a bit.");
-
-static const u8 sEnigmaBerryEReaderDesc[] = _(
-    "{POKEBLOCK} ingredient.\n"
-    "Plant in loamy soil\n"
-    "to grow a mystery.");
 
 // TMs/HMs
 static const u8 sTM01Desc[] = _(

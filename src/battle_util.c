@@ -618,10 +618,7 @@ bool8 TryRunFromBattle(u8 battler)
     u8 pyramidMultiplier;
     u8 speedVar;
 
-    if (gBattleMons[battler].item == ITEM_ENIGMA_BERRY_E_READER)
-        holdEffect = gEnigmaBerries[battler].holdEffect;
-    else
-        holdEffect = ItemId_GetHoldEffect(gBattleMons[battler].item);
+    holdEffect = ItemId_GetHoldEffect(gBattleMons[battler].item);
 
     gPotentialItemEffectBattler = battler;
 
@@ -7714,18 +7711,13 @@ u32 GetBattlerHoldEffect(u8 battlerId, bool32 checkNegating)
 
     if (B_ENABLE_DEBUG && gBattleStruct->debugHoldEffects[battlerId] != 0 && gBattleMons[battlerId].item)
         return gBattleStruct->debugHoldEffects[battlerId];
-    else if (gBattleMons[battlerId].item == ITEM_ENIGMA_BERRY)
-        return gEnigmaBerries[battlerId].holdEffect;
     else
         return ItemId_GetHoldEffect(gBattleMons[battlerId].item);
 }
 
 u32 GetBattlerHoldEffectParam(u8 battlerId)
 {
-    if (gBattleMons[battlerId].item == ITEM_ENIGMA_BERRY)
-        return gEnigmaBerries[battlerId].holdEffectParam;
-    else
-        return ItemId_GetHoldEffectParam(gBattleMons[battlerId].item);
+    return ItemId_GetHoldEffectParam(gBattleMons[battlerId].item);
 }
 
 bool32 IsMoveMakingContact(u16 move, u8 battlerAtk)
@@ -8024,7 +8016,6 @@ const struct TypePower gNaturalGiftTable[] =
     [ITEM_TO_BERRY(ITEM_APICOT_BERRY)] = {TYPE_GROUND, 100},
     [ITEM_TO_BERRY(ITEM_LANSAT_BERRY)] = {TYPE_FLYING, 100},
     [ITEM_TO_BERRY(ITEM_STARF_BERRY)] = {TYPE_PSYCHIC, 100},
-    [ITEM_TO_BERRY(ITEM_ENIGMA_BERRY)] = {TYPE_BUG, 100},
     [ITEM_TO_BERRY(ITEM_MICLE_BERRY)] = {TYPE_ROCK, 100},
     [ITEM_TO_BERRY(ITEM_CUSTAP_BERRY)] = {TYPE_GHOST, 100},
     [ITEM_TO_BERRY(ITEM_JABOCA_BERRY)] = {TYPE_DRAGON, 100},
@@ -9470,13 +9461,6 @@ bool32 CanMegaEvolve(u8 battlerId)
     {
         if (B_ENABLE_DEBUG && gBattleStruct->debugHoldEffects[battlerId])
             holdEffect = gBattleStruct->debugHoldEffects[battlerId];
-#ifdef ITEM_EXPANSION
-        else if (itemId == ITEM_ENIGMA_BERRY_E_READER)
-            holdEffect = gEnigmaBerries[battlerId].holdEffect;
-#else
-        else if (itemId == ITEM_ENIGMA_BERRY)
-            holdEffect = gEnigmaBerries[battlerId].holdEffect;
-#endif
         else
             holdEffect = ItemId_GetHoldEffect(itemId);
 
@@ -9587,11 +9571,8 @@ bool32 CanBattlerGetOrLoseItem(u8 battlerId, u16 itemId)
     u16 species = gBattleMons[battlerId].species;
     u16 holdEffect = ItemId_GetHoldEffect(itemId);
 
-    // Mail can be stolen now
-    if (itemId == ITEM_ENIGMA_BERRY_E_READER)
-        return FALSE;
     // Primal Reversion inducing items cannot be lost if pokemon's base species can undergo primal reversion with it.
-    else if (holdEffect == HOLD_EFFECT_PRIMAL_ORB && (GetPrimalReversionSpecies(GET_BASE_SPECIES_ID(species), itemId) != SPECIES_NONE))
+    if (holdEffect == HOLD_EFFECT_PRIMAL_ORB && (GetPrimalReversionSpecies(GET_BASE_SPECIES_ID(species), itemId) != SPECIES_NONE))
         return FALSE;
     // Mega stone cannot be lost if pokemon's base species can mega evolve with it.
     else if (holdEffect == HOLD_EFFECT_MEGA_STONE && (GetMegaEvolutionSpecies(GET_BASE_SPECIES_ID(species), itemId) != SPECIES_NONE))

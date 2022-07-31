@@ -9,7 +9,7 @@ gMysteryEventScriptCmdTable::
 	.4byte MEScrCmd_setstatus           @ 0x04
 	.4byte MEScrCmd_runscript           @ 0x05
 	.4byte MEScrCmd_initramscript       @ 0x06
-	.4byte MEScrCmd_setenigmaberry      @ 0x07
+	.4byte MEScrCmd_crc                 @ 0x07
 	.4byte MEScrCmd_giveribbon          @ 0x08
 	.4byte MEScrCmd_givenationaldex     @ 0x09
 	.4byte MEScrCmd_addrareword         @ 0x0a
@@ -18,5 +18,4 @@ gMysteryEventScriptCmdTable::
 	.4byte MEScrCmd_addtrainer          @ 0x0d
 	.4byte MEScrCmd_enableresetrtc      @ 0x0e
 	.4byte MEScrCmd_checksum            @ 0x0f
-	.4byte MEScrCmd_crc                 @ 0x10
 gMysteryEventScriptCmdTableEnd::

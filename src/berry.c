@@ -14,7 +14,6 @@
 #include "constants/event_object_movement.h"
 #include "constants/items.h"
 
-static u32 GetEnigmaBerryChecksum(struct EnigmaBerry *enigmaBerry);
 static bool32 BerryTreeGrow(struct BerryTree *tree);
 static u16 BerryTypeToItemId(u16 berry);
 static u8 BerryTreeGetNumStagesWatered(struct BerryTree *tree);
@@ -145,8 +144,6 @@ static const u8 sBerryDescriptionPart1_Lansat[] = _("Said to be a legendary Berr
 static const u8 sBerryDescriptionPart2_Lansat[] = _("Holding it supposedly brings joy.");
 static const u8 sBerryDescriptionPart1_Starf[] = _("So strong, it was abandoned at the");
 static const u8 sBerryDescriptionPart2_Starf[] = _("world's edge. Considered a mirage.");
-static const u8 sBerryDescriptionPart1_Enigma[] = _("A completely enigmatic Berry.");
-static const u8 sBerryDescriptionPart2_Enigma[] = _("Appears to have the power of stars.");
 static const u8 sBerryDescriptionPart1_Micle[] = _("It makes other food eaten at the");
 static const u8 sBerryDescriptionPart2_Micle[] = _("same time taste sweet.");
 static const u8 sBerryDescriptionPart1_Custap[] = _("The flesh underneath the Custap");
@@ -1242,24 +1239,6 @@ const struct Berry gBerries[] =
         .smoothness = 30,
     },
 
-    [ITEM_ENIGMA_BERRY - FIRST_BERRY_INDEX] =
-    {
-        .name = _("Enigma"),
-        .firmness = BERRY_FIRMNESS_HARD,
-        .size = 155,
-        .maxYield = 5,
-        .minYield = 2,
-        .description1 = sBerryDescriptionPart1_Enigma,
-        .description2 = sBerryDescriptionPart2_Enigma,
-        .stageDuration = 24,
-        .spicy = 40,
-        .dry = 10,
-        .sweet = 0,
-        .bitter = 0,
-        .sour = 0,
-        .smoothness = 60,
-    },
-
     [ITEM_MICLE_BERRY - FIRST_BERRY_INDEX] =
     {
         .name = _("Micle"),
@@ -1367,72 +1346,15 @@ const struct Berry gBerries[] =
         .sour = 10,
         .smoothness = 60,
     },
-
-    [ITEM_ENIGMA_BERRY_E_READER - FIRST_BERRY_INDEX] =
-    {
-        .name = _("Enigma"),
-        .firmness = BERRY_FIRMNESS_UNKNOWN,
-        .size = 0,
-        .maxYield = 2,
-        .minYield = 1,
-        .description1 = sBerryDescriptionPart1_Enigma,
-        .description2 = sBerryDescriptionPart2_Enigma,
-        .stageDuration = 24,
-        .spicy = 40,
-        .dry = 40,
-        .sweet = 40,
-        .bitter = 40,
-        .sour = 40,
-        .smoothness = 40,
-    },
 };
 
 const struct BerryTree gBlankBerryTree = {};
 
-void SetEnigmaBerry(u8 *src)
-{
-    u32 i;
-    u8 *dest = (u8*)&gSaveBlock1Ptr->enigmaBerry;
-
-    for (i = 0; i < sizeof(gSaveBlock1Ptr->enigmaBerry); i++)
-        dest[i] = src[i];
-}
-
-static u32 GetEnigmaBerryChecksum(struct EnigmaBerry *enigmaBerry)
-{
-    u32 i;
-    u32 checksum;
-    u8 *dest;
-
-    dest = (u8*)enigmaBerry;
-    checksum = 0;
-    for (i = 0; i < sizeof(gSaveBlock1Ptr->enigmaBerry) - sizeof(gSaveBlock1Ptr->enigmaBerry.checksum); i++)
-        checksum += dest[i];
-
-    return checksum;
-}
-
-bool32 IsEnigmaBerryValid(void)
-{
-    if (!gSaveBlock1Ptr->enigmaBerry.berry.stageDuration)
-        return FALSE;
-    if (!gSaveBlock1Ptr->enigmaBerry.berry.maxYield)
-        return FALSE;
-    if (GetEnigmaBerryChecksum(&gSaveBlock1Ptr->enigmaBerry) != gSaveBlock1Ptr->enigmaBerry.checksum)
-        return FALSE;
-    return TRUE;
-}
-
 const struct Berry *GetBerryInfo(u8 berry)
 {
-    if (berry == ITEM_TO_BERRY(ITEM_ENIGMA_BERRY_E_READER) && IsEnigmaBerryValid())
-        return (struct Berry*)(&gSaveBlock1Ptr->enigmaBerry.berry);
-    else
-    {
-        if (berry == BERRY_NONE || berry > ITEM_TO_BERRY(LAST_BERRY_INDEX))
-            berry = ITEM_TO_BERRY(FIRST_BERRY_INDEX);
-        return &gBerries[berry - 1];
-    }
+    if (berry == BERRY_NONE || berry > ITEM_TO_BERRY(LAST_BERRY_INDEX))
+        berry = ITEM_TO_BERRY(FIRST_BERRY_INDEX);
+    return &gBerries[berry - 1];
 }
 
 struct BerryTree *GetBerryTreeInfo(u8 id)

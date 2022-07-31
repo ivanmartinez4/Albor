@@ -4155,10 +4155,7 @@ static bool8 IsHPRecoveryItem(u16 item)
 {
     const u8 *effect;
 
-    if (item == ITEM_ENIGMA_BERRY_E_READER)
-        effect = gSaveBlock1Ptr->enigmaBerry.itemEffect;
-    else
-        effect = gItemEffectTable[item - ITEM_POTION];
+    effect = gItemEffectTable[item - ITEM_POTION];
 
     if (effect[4] & ITEM4_HEAL_HP)
         return TRUE;
@@ -4682,10 +4679,7 @@ void ItemUseCB_PPRecovery(u8 taskId, TaskFunc task)
     const u8 *effect;
     u16 item = gSpecialVar_ItemId;
 
-    if (item == ITEM_ENIGMA_BERRY_E_READER)
-        effect = gSaveBlock1Ptr->enigmaBerry.itemEffect;
-    else
-        effect = gItemEffectTable[item - ITEM_POTION];
+    effect = gItemEffectTable[item - ITEM_POTION];
 
     if (!(effect[4] & ITEM4_HEAL_PP_ONE))
     {
@@ -5506,9 +5500,6 @@ u8 GetItemEffectType(u16 item)
         return ITEM_EFFECT_NONE;
 
     // Read the item's effect properties.
-    if (item == ITEM_ENIGMA_BERRY_E_READER)
-        itemEffect = gSaveBlock1Ptr->enigmaBerry.itemEffect;
-    else
         itemEffect = gItemEffectTable[item - ITEM_POTION];
 
 #ifndef ITEM_EXPANSION

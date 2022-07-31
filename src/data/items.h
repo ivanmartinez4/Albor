@@ -7707,19 +7707,6 @@ const struct Item gItems[] =
         .flingPower = 10,
     },
 
-    [ITEM_ENIGMA_BERRY] =
-    {
-        .name = _("Enigma Berry"),
-        .itemId = ITEM_ENIGMA_BERRY,
-        .price = 20,
-        .holdEffect = HOLD_EFFECT_ENIGMA_BERRY,
-        .description = sEnigmaBerryDesc,
-        .pocket = POCKET_BERRIES,
-        .type = ITEM_USE_BAG_MENU,
-        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
-        .flingPower = 10,
-    },
-
     [ITEM_MICLE_BERRY] =
     {
         .name = _("Micle Berry"),
@@ -7797,20 +7784,6 @@ const struct Item gItems[] =
         .pocket = POCKET_BERRIES,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
-        .flingPower = 10,
-    },
-
-    [ITEM_ENIGMA_BERRY_E_READER] =
-    {
-        .name = _("Enigma Berry"),
-        .itemId = ITEM_ENIGMA_BERRY,
-        .price = 20,
-        .description = sEnigmaBerryEReaderDesc,
-        .pocket = POCKET_BERRIES,
-        .type = ITEM_USE_BAG_MENU, // Type handled by ItemUseOutOfBattle_EnigmaBerry
-        .fieldUseFunc = ItemUseOutOfBattle_EnigmaBerry,
-        .battleUsage = ITEM_B_USE_MEDICINE,
-        .battleUseFunc = ItemUseInBattle_EnigmaBerry,
         .flingPower = 10,
     },
 

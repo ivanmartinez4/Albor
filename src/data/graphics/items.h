@@ -1660,9 +1660,6 @@ const u32 gItemIconPalette_LansatBerry[] = INCBIN_U32("graphics/items/icon_palet
 const u32 gItemIcon_StarfBerry[] = INCBIN_U32("graphics/items/icons/starf_berry.4bpp.lz");
 const u32 gItemIconPalette_StarfBerry[] = INCBIN_U32("graphics/items/icon_palettes/starf_berry.gbapal.lz");
 
-const u32 gItemIcon_EnigmaBerry[] = INCBIN_U32("graphics/items/icons/enigma_berry.4bpp.lz");
-const u32 gItemIconPalette_EnigmaBerry[] = INCBIN_U32("graphics/items/icon_palettes/enigma_berry.gbapal.lz");
-
 const u32 gItemIcon_MicleBerry[] = INCBIN_U32("graphics/items/icons/micle_berry.4bpp.lz");
 const u32 gItemIconPalette_MicleBerry[] = INCBIN_U32("graphics/items/icon_palettes/micle_berry.gbapal.lz");
 

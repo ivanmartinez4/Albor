@@ -207,7 +207,6 @@ EWRAM_DATA struct WishFutureKnock gWishFutureKnock = {0};
 EWRAM_DATA u16 gIntroSlideFlags = 0;
 EWRAM_DATA u8 gSentPokesToOpponent[2] = {0};
 EWRAM_DATA u16 gExpShareExp = 0;
-EWRAM_DATA struct BattleEnigmaBerry gEnigmaBerries[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA struct BattleScripting gBattleScripting = {0};
 EWRAM_DATA struct BattleStruct *gBattleStruct = NULL;
 EWRAM_DATA u8 *gLinkBattleSendBuffer = NULL;
@@ -594,150 +593,6 @@ static void BufferPartyVsScreenHealth_AtStart(void)
     gBattleStruct->multiBuffer.linkBattlerHeader.vsScreenHealthFlagsHi |= FlagGet(FLAG_SYS_FRONTIER_PASS) << 7;
 }
 
-static void SetPlayerBerryDataInBattleStruct(void)
-{
-    s32 i;
-    struct BattleStruct *battleStruct = gBattleStruct;
-    struct BattleEnigmaBerry *battleBerry = &battleStruct->multiBuffer.linkBattlerHeader.battleEnigmaBerry;
-
-    if (IsEnigmaBerryValid() == TRUE)
-    {
-        for (i = 0; i < BERRY_NAME_LENGTH; i++)
-            battleBerry->name[i] = gSaveBlock1Ptr->enigmaBerry.berry.name[i];
-        battleBerry->name[i] = EOS;
-
-        for (i = 0; i < BERRY_ITEM_EFFECT_COUNT; i++)
-            battleBerry->itemEffect[i] = gSaveBlock1Ptr->enigmaBerry.itemEffect[i];
-
-        battleBerry->holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
-        battleBerry->holdEffectParam = gSaveBlock1Ptr->enigmaBerry.holdEffectParam;
-    }
-    else
-    {
-        const struct Berry *berryData = GetBerryInfo(ItemIdToBerryType(ITEM_ENIGMA_BERRY_E_READER));
-
-        for (i = 0; i < BERRY_NAME_LENGTH; i++)
-            battleBerry->name[i] = berryData->name[i];
-        battleBerry->name[i] = EOS;
-
-        for (i = 0; i < BERRY_ITEM_EFFECT_COUNT; i++)
-            battleBerry->itemEffect[i] = 0;
-
-        battleBerry->holdEffect = HOLD_EFFECT_NONE;
-        battleBerry->holdEffectParam = 0;
-    }
-}
-
-static void SetAllPlayersBerryData(void)
-{
-    s32 i;
-    s32 j;
-
-    if (!(gBattleTypeFlags & BATTLE_TYPE_LINK))
-    {
-        if (IsEnigmaBerryValid() == TRUE)
-        {
-            for (i = 0; i < BERRY_NAME_LENGTH; i++)
-            {
-                gEnigmaBerries[0].name[i] = gSaveBlock1Ptr->enigmaBerry.berry.name[i];
-                gEnigmaBerries[2].name[i] = gSaveBlock1Ptr->enigmaBerry.berry.name[i];
-            }
-            gEnigmaBerries[0].name[i] = EOS;
-            gEnigmaBerries[2].name[i] = EOS;
-
-            for (i = 0; i < BERRY_ITEM_EFFECT_COUNT; i++)
-            {
-                gEnigmaBerries[0].itemEffect[i] = gSaveBlock1Ptr->enigmaBerry.itemEffect[i];
-                gEnigmaBerries[2].itemEffect[i] = gSaveBlock1Ptr->enigmaBerry.itemEffect[i];
-            }
-
-            gEnigmaBerries[0].holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
-            gEnigmaBerries[2].holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
-            gEnigmaBerries[0].holdEffectParam = gSaveBlock1Ptr->enigmaBerry.holdEffectParam;
-            gEnigmaBerries[2].holdEffectParam = gSaveBlock1Ptr->enigmaBerry.holdEffectParam;
-        }
-        else
-        {
-            const struct Berry *berryData = GetBerryInfo(ItemIdToBerryType(ITEM_ENIGMA_BERRY_E_READER));
-
-            for (i = 0; i < BERRY_NAME_LENGTH; i++)
-            {
-                gEnigmaBerries[0].name[i] = berryData->name[i];
-                gEnigmaBerries[2].name[i] = berryData->name[i];
-            }
-            gEnigmaBerries[0].name[i] = EOS;
-            gEnigmaBerries[2].name[i] = EOS;
-
-            for (i = 0; i < BERRY_ITEM_EFFECT_COUNT; i++)
-            {
-                gEnigmaBerries[0].itemEffect[i] = 0;
-                gEnigmaBerries[2].itemEffect[i] = 0;
-            }
-
-            gEnigmaBerries[0].holdEffect = 0;
-            gEnigmaBerries[2].holdEffect = 0;
-            gEnigmaBerries[0].holdEffectParam = 0;
-            gEnigmaBerries[2].holdEffectParam = 0;
-        }
-    }
-    else
-    {
-        s32 numPlayers;
-        struct BattleEnigmaBerry *src;
-        u8 battlerId;
-
-        if (gBattleTypeFlags & BATTLE_TYPE_MULTI)
-        {
-            if (gBattleTypeFlags & BATTLE_TYPE_BATTLE_TOWER)
-                numPlayers = 2;
-            else
-                numPlayers = 4;
-
-            for (i = 0; i < numPlayers; i++)
-            {
-                src = (struct BattleEnigmaBerry *)(gBlockRecvBuffer[i] + 2);
-                battlerId = gLinkPlayers[i].id;
-
-                for (j = 0; j < BERRY_NAME_LENGTH; j++)
-                    gEnigmaBerries[battlerId].name[j] = src->name[j];
-                gEnigmaBerries[battlerId].name[j] = EOS;
-
-                for (j = 0; j < BERRY_ITEM_EFFECT_COUNT; j++)
-                    gEnigmaBerries[battlerId].itemEffect[j] = src->itemEffect[j];
-
-                gEnigmaBerries[battlerId].holdEffect = src->holdEffect;
-                gEnigmaBerries[battlerId].holdEffectParam = src->holdEffectParam;
-            }
-        }
-        else
-        {
-            for (i = 0; i < 2; i++)
-            {
-                src = (struct BattleEnigmaBerry *)(gBlockRecvBuffer[i] + 2);
-
-                for (j = 0; j < BERRY_NAME_LENGTH; j++)
-                {
-                    gEnigmaBerries[i].name[j] = src->name[j];
-                    gEnigmaBerries[i + 2].name[j] = src->name[j];
-                }
-                gEnigmaBerries[i].name[j] = EOS;
-                gEnigmaBerries[i + 2].name[j] = EOS;
-
-                for (j = 0; j < BERRY_ITEM_EFFECT_COUNT; j++)
-                {
-                    gEnigmaBerries[i].itemEffect[j] = src->itemEffect[j];
-                    gEnigmaBerries[i + 2].itemEffect[j] = src->itemEffect[j];
-                }
-
-                gEnigmaBerries[i].holdEffect = src->holdEffect;
-                gEnigmaBerries[i + 2].holdEffect = src->holdEffect;
-                gEnigmaBerries[i].holdEffectParam = src->holdEffectParam;
-                gEnigmaBerries[i + 2].holdEffectParam = src->holdEffectParam;
-            }
-        }
-    }
-}
-
 // This was inlined in Ruby/Sapphire
 static void FindLinkBattleMaster(u8 numPlayers, u8 multiPlayerId)
 {
@@ -834,7 +689,6 @@ static void CB2_HandleStartBattle(void)
                     *(&gBattleStruct->multiBuffer.linkBattlerHeader.versionSignatureLo) = 0;
                     *(&gBattleStruct->multiBuffer.linkBattlerHeader.versionSignatureHi) = 3;
                     BufferPartyVsScreenHealth_AtStart();
-                    SetPlayerBerryDataInBattleStruct();
 
                     if (gTrainerBattleOpponent_A == TRAINER_UNION_ROOM)
                     {
@@ -854,7 +708,6 @@ static void CB2_HandleStartBattle(void)
             if (!(gBattleTypeFlags & BATTLE_TYPE_RECORDED))
                 gBattleTypeFlags |= BATTLE_TYPE_IS_MASTER;
             gBattleCommunication[MULTIUSE_STATE] = 15;
-            SetAllPlayersBerryData();
         }
         break;
     case 2:
@@ -864,7 +717,6 @@ static void CB2_HandleStartBattle(void)
 
             ResetBlockReceivedFlags();
             FindLinkBattleMaster(2, playerMultiplayerId);
-            SetAllPlayersBerryData();
             taskId = CreateTask(InitLinkBattleVsScreen, 0);
             gTasks[taskId].data[1] = 0x10E;
             gTasks[taskId].data[2] = 0x5A;
@@ -1054,7 +906,6 @@ static void CB2_HandleStartMultiPartnerBattle(void)
                     *(&gBattleStruct->multiBuffer.linkBattlerHeader.versionSignatureLo) = 0;
                     *(&gBattleStruct->multiBuffer.linkBattlerHeader.versionSignatureHi) = 3;
                     BufferPartyVsScreenHealth_AtStart();
-                    SetPlayerBerryDataInBattleStruct();
                     SendBlock(BitmaskAllOtherLinkPlayers(), &gBattleStruct->multiBuffer.linkBattlerHeader, sizeof(gBattleStruct->multiBuffer.linkBattlerHeader));
                     gBattleCommunication[MULTIUSE_STATE] = 2;
                 }
@@ -1068,7 +919,6 @@ static void CB2_HandleStartMultiPartnerBattle(void)
             if (!(gBattleTypeFlags & BATTLE_TYPE_RECORDED))
                 gBattleTypeFlags |= BATTLE_TYPE_IS_MASTER;
             gBattleCommunication[MULTIUSE_STATE] = 13;
-            SetAllPlayersBerryData();
         }
         break;
     case 2:
@@ -1078,7 +928,6 @@ static void CB2_HandleStartMultiPartnerBattle(void)
 
             ResetBlockReceivedFlags();
             FindLinkBattleMaster(2, playerMultiplayerId);
-            SetAllPlayersBerryData();
             taskId = CreateTask(InitLinkBattleVsScreen, 0);
             gTasks[taskId].data[1] = 0x10E;
             gTasks[taskId].data[2] = 0x5A;
@@ -1444,7 +1293,6 @@ static void CB2_HandleStartMultiBattle(void)
                     *(&gBattleStruct->multiBuffer.linkBattlerHeader.versionSignatureLo) = 0;
                     *(&gBattleStruct->multiBuffer.linkBattlerHeader.versionSignatureHi) = 3;
                     BufferPartyVsScreenHealth_AtStart();
-                    SetPlayerBerryDataInBattleStruct();
 
                     SendBlock(BitmaskAllOtherLinkPlayers(), &gBattleStruct->multiBuffer.linkBattlerHeader, sizeof(gBattleStruct->multiBuffer.linkBattlerHeader));
                     gBattleCommunication[MULTIUSE_STATE]++;
@@ -1458,7 +1306,6 @@ static void CB2_HandleStartMultiBattle(void)
             if (!(gBattleTypeFlags & BATTLE_TYPE_RECORDED))
                 gBattleTypeFlags |= BATTLE_TYPE_IS_MASTER;
             gBattleCommunication[MULTIUSE_STATE] = 7;
-            SetAllPlayersBerryData();
         }
         break;
     case 2:
@@ -1466,7 +1313,6 @@ static void CB2_HandleStartMultiBattle(void)
         {
             ResetBlockReceivedFlags();
             FindLinkBattleMaster(4, playerMultiplayerId);
-            SetAllPlayersBerryData();
             var = CreateTask(InitLinkBattleVsScreen, 0);
             gTasks[var].data[1] = 0x10E;
             gTasks[var].data[2] = 0x5A;
@@ -3725,10 +3571,7 @@ u8 IsRunningFromBattleImpossible(void)
 {
     u32 holdEffect, i;
 
-    if (gBattleMons[gActiveBattler].item == ITEM_ENIGMA_BERRY_E_READER)
-        holdEffect = gEnigmaBerries[gActiveBattler].holdEffect;
-    else
-        holdEffect = ItemId_GetHoldEffect(gBattleMons[gActiveBattler].item);
+    holdEffect = ItemId_GetHoldEffect(gBattleMons[gActiveBattler].item);
 
     gPotentialItemEffectBattler = gActiveBattler;
 
