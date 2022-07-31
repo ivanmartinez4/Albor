@@ -4,23 +4,23 @@
 
 It is a romhack that uses pokeemerald-expansion for recreate the experience of Hoenn with a lot ot QoL, graphical changes and balance/difficult tweaks, with the goal to make an entertainment but challenging adventure.
 
-## What is new?
+## New content with credits.
 
--A brand new battle engine with modern standards.
+-A brand new battle engine with modern standards (Rh-hideout's team).
 
 -A lot of custom shinies.
 
--DNS system.
+-DNS system(Aarant).
 
--Pokémon's good-looking icons.
+-Pokémon's good-looking icons(Aarant).
 
--Following Pokémon.
+-Following Pokémon (Aarant).
 
 -Balance stats with emphasis on weaker pokémon.
 
--Decapitalization.
+-Decapitalization (AsparagusEduardo).
 
--Music expansion from HGSS and DPPT.
+-Music expansion from HGSS and DPPT (CyanSMP64).
 
 -Shiny rate has been increased to 1/512.
 
@@ -34,15 +34,10 @@ It is a romhack that uses pokeemerald-expansion for recreate the experience of H
 
 -Egg hatch level is now 1.
 
-## Credits:
+-Clock in the start menu.
+
+-Display party mon icons in save screen.
+
+## Special Credits:
 
 -Pret's team for pokeemerald (including wiki).
-
--Rh-hideout's team for pokeemerald-expansion.
-
--Aarant for follower's system, DNS system and icons.
-
--CyanSMP64 for music expansion.
-
--AsparagusEduardo for decapitalization.
-
