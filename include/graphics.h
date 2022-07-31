@@ -8433,8 +8433,6 @@ extern const u32 gItemIcon_PokemonBoxLink[];
 extern const u32 gItemIconPalette_PokemonBoxLink[];
 extern const u32 gItemIcon_CoinCase[];
 extern const u32 gItemIconPalette_CoinCase[];
-extern const u32 gItemIcon_PowderJar[];
-extern const u32 gItemIconPalette_PowderJar[];
 extern const u32 gItemIcon_WailmerPail[];
 extern const u32 gItemIconPalette_WailmerPail[];
 extern const u32 gItemIcon_PokeRadar[];
@@ -10041,11 +10039,6 @@ extern const u16 gPokenavConditionCancel_Pal[];
 extern const u8 gUsePokeblockUpDown_Gfx[];
 extern const u16 gUsePokeblockUpDown_Pal[];
 extern const u16 gUsePokeblockCondition_Pal[];
-
-// Berry Crush
-extern const u32 gBerryCrush_Crusher_Gfx[];
-extern const u16 gBerryCrush_Crusher_Pal[];
-extern const u32 gBerryCrush_TextWindows_Tilemap[];
 
 // Pokenav
 extern const u32 gPokenavMessageBox_Gfx[];

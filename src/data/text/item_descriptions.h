@@ -3598,11 +3598,6 @@ static const u8 sCoinCaseDesc[] = _(
     "A case that holds\n"
     "up to 9,999 Coins.");
 
-static const u8 sPowderJarDesc[] = _(
-    "Stores Berry\n"
-    "Powder made using\n"
-    "a Berry Crusher.");
-
 static const u8 sWailmerPailDesc[] = _(
     "A tool used for\n"
     "watering Berries\n"

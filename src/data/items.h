@@ -9595,19 +9595,6 @@ const struct Item gItems[] =
         .fieldUseFunc = ItemUseOutOfBattle_CoinCase,
     },
 
-    [ITEM_POWDER_JAR] =
-    {
-        .name = _("Powder Jar"),
-        .itemId = ITEM_POWDER_JAR,
-        .price = 0,
-        .description = sPowderJarDesc,
-        .importance = 1,
-        .registrability = TRUE,
-        .pocket = POCKET_KEY_ITEMS,
-        .type = ITEM_USE_BAG_MENU,
-        .fieldUseFunc = ItemUseOutOfBattle_PowderJar,
-    },
-
     [ITEM_WAILMER_PAIL] =
     {
         .name = _("Wailmer Pail"),

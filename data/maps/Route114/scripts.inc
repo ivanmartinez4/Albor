@@ -24,14 +24,14 @@ Route114_EventScript_Man::
 	faceplayer
 	dotimebasedevents
 	goto_if_set FLAG_DAILY_ROUTE_114_RECEIVED_BERRY, Route114_EventScript_ReceivedBerry
-	msgbox Route114_Text_LoveUsingBerryCrushShareBerry, MSGBOX_DEFAULT
+	msgbox Route114_Text_LoveBerriesShareBerry, MSGBOX_DEFAULT
 	random NUM_ROUTE_114_MAN_BERRIES
 	addvar VAR_RESULT, NUM_ROUTE_114_MAN_BERRIES_SKIPPED
 	addvar VAR_RESULT, FIRST_BERRY_INDEX
 	giveitem VAR_RESULT
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
 	setflag FLAG_DAILY_ROUTE_114_RECEIVED_BERRY
-	msgbox Route114_Text_TryBerryCrushWithFriends, MSGBOX_DEFAULT
+	msgbox Route114_Text_TryBerryBlenderWithFriends, MSGBOX_DEFAULT
 	release
 	end
 

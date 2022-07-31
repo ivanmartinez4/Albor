@@ -75,8 +75,6 @@ SECTIONS {
         src/mystery_gift_link.o(.text);
         src/wonder_news.o(.text);
         src/union_room_chat.o(.text);
-        src/berry_crush.o(.text);
-        src/berry_powder.o(.text);
         src/minigame_countdown.o(.text);
         src/rtc.o(.text);
         src/main_menu.o(.text);
@@ -467,8 +465,6 @@ SECTIONS {
         src/mystery_gift_scripts.o(.rodata);
         src/wonder_news.o(.rodata);
         src/union_room_chat.o(.rodata);
-        src/berry_crush.o(.rodata);
-        src/berry_powder.o(.rodata);
         src/minigame_countdown.o(.rodata);
         src/rtc.o(.rodata);
         src/main_menu.o(.rodata);

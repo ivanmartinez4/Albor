@@ -23,11 +23,10 @@
 #define ACTIVITY_WONDER_NEWS_DUP    7 //
 #define ACTIVITY_CARD               8
 #define ACTIVITY_BERRY_BLENDER      9
-#define ACTIVITY_BERRY_CRUSH        10
+#define ACTIVITY_BATTLE_TOWER_OPEN  10
 #define ACTIVITY_RECORD_CORNER      11
 #define ACTIVITY_SEARCH             12
 #define ACTIVITY_SPIN_TRADE         13
-#define ACTIVITY_BATTLE_TOWER_OPEN  14
 
 // Player response
 #define ACTIVITY_ACCEPT             17
@@ -54,7 +53,7 @@
 #define LINK_GROUP_MULTI_BATTLE         2
 #define LINK_GROUP_TRADE                3
 #define LINK_GROUP_BATTLE_TOWER_OPEN    4
-#define LINK_GROUP_BERRY_CRUSH          5
+#define LINK_GROUP_TOUGH_CONTEST        5
 #define LINK_GROUP_BATTLE_TOWER         6
 #define LINK_GROUP_WONDER_CARD          7
 #define LINK_GROUP_WONDER_NEWS          8
@@ -68,8 +67,7 @@
 #define LINK_GROUP_BEAUTY_CONTEST       16
 #define LINK_GROUP_CUTE_CONTEST         17
 #define LINK_GROUP_SMART_CONTEST        18
-#define LINK_GROUP_TOUGH_CONTEST        19
-#define NUM_LINK_GROUP_TYPES            20
+#define NUM_LINK_GROUP_TYPES            19
 
 #define UR_TRADE_MATCH  0
 #define UR_TRADE_NOTYPE 1

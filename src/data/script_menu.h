@@ -444,14 +444,6 @@ static const struct MenuAction MultichoiceList_Tent[] =
     {gText_BlueTent},
 };
 
-static const struct MenuAction MultichoiceList_LinkServicesNoBerry[] =
-{
-    {gText_TradeCenter},
-    {gText_Colosseum},
-    {gText_RecordCorner},
-    {gText_Exit},
-};
-
 static const struct MenuAction MultichoiceList_YesNoInfo[] =
 {
     {gText_Yes},
@@ -472,7 +464,6 @@ static const struct MenuAction MultichoiceList_LinkServicesNoRecord[] =
 {
     {gText_TradeCenter},
     {gText_Colosseum},
-    {gText_BerryCrush3},
     {gText_Exit},
 };
 
@@ -481,7 +472,6 @@ static const struct MenuAction MultichoiceList_LinkServicesAll[] =
     {gText_TradeCenter},
     {gText_Colosseum},
     {gText_RecordCorner},
-    {gText_BerryCrush3},
     {gText_Exit},
 };
 
@@ -807,8 +797,6 @@ static const struct MultichoiceListStruct sMultichoiceLists[] =
     [MULTI_TOURNEY_WITH_RECORD]        = MULTICHOICE(MultichoiceList_TourneyWithRecord),
     [MULTI_CABLE_CLUB_NO_RECORD_MIX]   = MULTICHOICE(MultichoiceList_LinkServicesNoRecordBerry),
     [MULTI_WIRELESS_NO_RECORD_BERRY]   = MULTICHOICE(MultichoiceList_LinkServicesNoRecordBerry),
-    [MULTI_CABLE_CLUB_WITH_RECORD_MIX] = MULTICHOICE(MultichoiceList_LinkServicesNoBerry),
-    [MULTI_WIRELESS_NO_BERRY]          = MULTICHOICE(MultichoiceList_LinkServicesNoBerry),
     [MULTI_WIRELESS_NO_RECORD]         = MULTICHOICE(MultichoiceList_LinkServicesNoRecord),
     [MULTI_WIRELESS_ALL_SERVICES]      = MULTICHOICE(MultichoiceList_LinkServicesAll),
     [MULTI_WIRELESS_MINIGAME]          = MULTICHOICE(MultichoiceList_WirelessMinigame),
@@ -882,7 +870,6 @@ static const u8 sLinkServicesMultichoiceIds[] =
     MULTI_CABLE_CLUB_NO_RECORD_MIX,
     MULTI_WIRELESS_NO_RECORD_BERRY,
     MULTI_CABLE_CLUB_WITH_RECORD_MIX,
-    MULTI_WIRELESS_NO_BERRY,
     MULTI_WIRELESS_NO_RECORD,
     MULTI_WIRELESS_ALL_SERVICES
 };
@@ -913,18 +900,10 @@ static const u8 *const sCableClubOptions_WithRecordMix[] =
     CableClub_Text_RecordCornerUsingLinkCable,
     CableClub_Text_CancelSelectedItem,
 };
-static const u8 *const sWirelessOptionsNoBerryCrush[] =
-{
-    CableClub_Text_YouMayTradeHere,
-    CableClub_Text_YouMayBattleHere,
-    CableClub_Text_CanMixRecords,
-    CableClub_Text_CancelSelectedItem,
-};
 static const u8 *const sWirelessOptions_NoRecordMix[] =
 {
     CableClub_Text_YouMayTradeHere,
     CableClub_Text_YouMayBattleHere,
-    CableClub_Text_CanMakeBerryPowder,
     CableClub_Text_CancelSelectedItem,
 };
 static const u8 *const sWirelessOptions_AllServices[] =
@@ -932,18 +911,11 @@ static const u8 *const sWirelessOptions_AllServices[] =
     CableClub_Text_YouMayTradeHere,
     CableClub_Text_YouMayBattleHere,
     CableClub_Text_CanMixRecords,
-    CableClub_Text_CanMakeBerryPowder,
     CableClub_Text_CancelSelectedItem,
 };
 static const u8 *const sCableClubOptions_NoRecordMix[] =
 {
     CableClub_Text_TradeUsingLinkCable,
     CableClub_Text_BattleUsingLinkCable,
-    CableClub_Text_CancelSelectedItem,
-};
-static const u8 *const sWirelessOptions_NoRecordMixBerryCrush[] =
-{
-    CableClub_Text_YouMayTradeHere,
-    CableClub_Text_YouMayBattleHere,
     CableClub_Text_CancelSelectedItem,
 };

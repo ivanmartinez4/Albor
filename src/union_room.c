@@ -1,7 +1,6 @@
 #include "global.h"
 #include "malloc.h"
 #include "battle.h"
-#include "berry_crush.h"
 #include "bg.h"
 #include "cable_club.h"
 #include "data.h"
@@ -324,7 +323,6 @@ static void GetAwaitingCommunicationText(u8 *dst, u8 caseId)
     case ACTIVITY_BATTLE_DOUBLE:
     case ACTIVITY_BATTLE_MULTI:
     case ACTIVITY_TRADE:
-    case ACTIVITY_BERRY_CRUSH:
     case ACTIVITY_BATTLE_TOWER:
     case ACTIVITY_BATTLE_TOWER_OPEN:
     case ACTIVITY_RECORD_CORNER:
@@ -351,7 +349,6 @@ static bool32 IsActivityWithVariableGroupSize(u32 caseId)
 {
     switch (caseId)
     {
-    case ACTIVITY_BERRY_CRUSH:
     case ACTIVITY_RECORD_CORNER:
     case ACTIVITY_BERRY_BLENDER:
     case ACTIVITY_CONTEST_COOL:
@@ -743,7 +740,6 @@ static void Leader_GetAcceptNewMemberPrompt(u8 *dst, u8 caseId)
         StringExpandPlaceholders(dst, sText_PlayerContactedYouShareX);
         break;
     case ACTIVITY_BATTLE_MULTI:
-    case ACTIVITY_BERRY_CRUSH:
     case ACTIVITY_RECORD_CORNER:
     case ACTIVITY_BERRY_BLENDER:
     case ACTIVITY_CONTEST_COOL:
@@ -785,7 +781,6 @@ static void GetYouAskedToJoinGroupPleaseWaitMessage(u8 *dst, u8 caseId)
         StringExpandPlaceholders(dst, sText_AwaitingPlayersResponse);
         break;
     case ACTIVITY_BATTLE_MULTI:
-    case ACTIVITY_BERRY_CRUSH:
     case ACTIVITY_RECORD_CORNER:
     case ACTIVITY_BERRY_BLENDER:
     case ACTIVITY_CONTEST_COOL:
@@ -812,7 +807,6 @@ static void GetGroupLeaderSentAnOKMessage(u8 *dst, u8 caseId)
         StringExpandPlaceholders(dst, sText_PlayerSentBackOK);
         break;
     case ACTIVITY_BATTLE_MULTI:
-    case ACTIVITY_BERRY_CRUSH:
     case ACTIVITY_RECORD_CORNER:
     case ACTIVITY_BERRY_BLENDER:
     case ACTIVITY_CONTEST_COOL:
@@ -1083,7 +1077,6 @@ static void Task_TryJoinLinkGroup(u8 taskId)
             case ACTIVITY_BATTLE_MULTI:
             case ACTIVITY_TRADE:
             case ACTIVITY_CHAT:
-            case ACTIVITY_BERRY_CRUSH:
             case ACTIVITY_SPIN_TRADE:
             case ACTIVITY_BATTLE_TOWER:
             case ACTIVITY_BATTLE_TOWER_OPEN:
@@ -1634,7 +1627,6 @@ static void Task_StartActivity(u8 taskId)
     case ACTIVITY_BATTLE_DOUBLE:
     case ACTIVITY_BATTLE_MULTI:
     case ACTIVITY_TRADE:
-    case ACTIVITY_BERRY_CRUSH:
     case ACTIVITY_SPIN_TRADE:
     case ACTIVITY_RECORD_CORNER:
         SaveLinkTrainerNames();
@@ -1709,10 +1701,6 @@ static void Task_StartActivity(u8 taskId)
     case ACTIVITY_CARD | IN_UNION_ROOM:
         CreateTrainerCardInBuffer(gBlockSendBuffer, FALSE);
         SetMainCallback2(CB2_ShowCard);
-        break;
-    case ACTIVITY_BERRY_CRUSH:
-        WarpForWirelessMinigame(USING_BERRY_CRUSH, 9, 1);
-        StartBerryCrush(CB2_LoadMap);
         break;
     }
 

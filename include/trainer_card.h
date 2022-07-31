@@ -46,7 +46,6 @@ struct TrainerCard
     /*0x38*/ u8 version;
     /*0x3A*/ bool16 linkHasAllFrontierSymbols;
     /*0x3C*/ union {
-                u32 berryCrush;
                 u32 frontier;
              } linkPoints; // This field is used differently by FRLG vs Emerald
     /*0x40*/ u32 unionRoomNum;

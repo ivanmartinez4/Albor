@@ -8,9 +8,8 @@
 #define USING_RECORD_CORNER  4
 #define USING_MULTI_BATTLE   5
 #define USING_UNION_ROOM     6
-#define USING_BERRY_CRUSH    7
+#define USING_BATTLE_TOWER   7
 #define USING_MINIGAME       8
-#define USING_BATTLE_TOWER   9
 
 // Return states for the group of specials that use CreateLinkupTask
 // A few also used by TryBecomeLinkLeader and TryJoinLinkGroup
