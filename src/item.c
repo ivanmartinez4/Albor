@@ -965,6 +965,7 @@ u8 ItemId_GetFlingPower(u16 itemId)
 void ItemId_GetHoldEffectParam_Script()
 {
     VarSet(VAR_RESULT, ItemId_GetHoldEffectParam(VarGet(VAR_0x8004)));
+}
 // Item Description Header
 bool8 GetSetItemObtained(u16 item, u8 caseId)
 {
