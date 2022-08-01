@@ -3765,26 +3765,6 @@ u16 GetUnionRoomTrainerClass(void)
 
 static u16 CalculateBoxMonChecksum(struct BoxPokemon *boxMon)
 {
-    /*u16 checksum = 0;
-    union PokemonSubstruct *substruct0 = GetSubstruct(boxMon, 0);
-    union PokemonSubstruct *substruct1 = GetSubstruct(boxMon, 1);
-    union PokemonSubstruct *substruct2 = GetSubstruct(boxMon, 2);
-    union PokemonSubstruct *substruct3 = GetSubstruct(boxMon, 3);
-    s32 i;
-
-    for (i = 0; i < (s32)ARRAY_COUNT(substruct0->raw); i++)
-        checksum += substruct0->raw[i];
-
-    for (i = 0; i < (s32)ARRAY_COUNT(substruct1->raw); i++)
-        checksum += substruct1->raw[i];
-
-    for (i = 0; i < (s32)ARRAY_COUNT(substruct2->raw); i++)
-        checksum += substruct2->raw[i];
-
-    for (i = 0; i < (s32)ARRAY_COUNT(substruct3->raw); i++)
-        checksum += substruct3->raw[i];
-
-    return checksum;*/
     return 0;
 }
 
@@ -4959,7 +4939,7 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
       // If the pokemon is shiny or if changing the PID would make it shiny, preserve its shiny value
       if (IsShinyOtIdPersonality(otId, pid) || IsShinyOtIdPersonality(otId, pidTemp))
         preserveShiny = TRUE;
-      if (substruct0->species == SPECIES_UNOWN) // Preserve Unown letter
+      if (boxMon->species == SPECIES_UNOWN) // Preserve Unown letter
         preserveLetter = TRUE;
       if (preserveShiny && preserveLetter) { // honestly though, how many shiny Unown are out there ?
         while (pidTemp > pid) {
