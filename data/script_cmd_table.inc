@@ -224,6 +224,8 @@ gScriptCmdTable::
 	.4byte ScrCmd_buffertrainerclassname    @ 0xdd
 	.4byte ScrCmd_buffertrainername         @ 0xde
 	.4byte ScrCmd_pokenavcall               @ 0xdf
+	.4byte ScrCmd_showitemdesc              @ 0xe0
+	.4byte ScrCmd_hideitemdesc              @ 0xe1
 
 gScriptCmdTableEnd::
 	.4byte ScrCmd_nop
