@@ -714,8 +714,6 @@ u8 GetMostSuitableMonToSwitchInto(void)
 
     if (*(gBattleStruct->monToSwitchIntoId + gActiveBattler) != PARTY_SIZE)
         return *(gBattleStruct->monToSwitchIntoId + gActiveBattler);
-    if (gBattleTypeFlags & BATTLE_TYPE_ARENA)
-        return gBattlerPartyIndexes[gActiveBattler] + 1;
 
     if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
     {
