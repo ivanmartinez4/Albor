@@ -205,8 +205,8 @@ gScriptCmdTable::
 	.4byte ScrCmd_nop1                      @ 0xca
 	.4byte ScrCmd_nop1                      @ 0xcb
 	.4byte ScrCmd_nop1                      @ 0xcc
-	.4byte ScrCmd_setmoneventlegal          @ 0xcd
-	.4byte ScrCmd_checkmoneventlegal        @ 0xce
+	.4byte ScrCmd_bufferitemnameplural      @ 0xcd
+    .4byte ScrCmd_callfunc                  @ 0xce
 	.4byte ScrCmd_trywondercardscript       @ 0xcf
 	.4byte ScrCmd_nop1                      @ 0xd0
 	.4byte ScrCmd_warpspinenter             @ 0xd1
@@ -225,8 +225,6 @@ gScriptCmdTable::
 	.4byte ScrCmd_buffertrainername         @ 0xde
 	.4byte ScrCmd_pokenavcall               @ 0xdf
 	.4byte ScrCmd_buffercontestname         @ 0xe0
-	.4byte ScrCmd_bufferitemnameplural      @ 0xe1
-    .4byte ScrCmd_callfunc                  @ 0xe2
 
 gScriptCmdTableEnd::
 	.4byte ScrCmd_nop

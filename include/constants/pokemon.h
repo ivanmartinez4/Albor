@@ -92,7 +92,7 @@
 #define MAX_STAT_STAGE    12
 
 // Shiny odds
-#define SHINY_ODDS 64 // Actual probability is SHINY_ODDS/65536
+#define SHINY_ODDS 64
 
 // Flags for Get(Box)MonData / Set(Box)MonData
 #define MON_DATA_PERSONALITY        0
@@ -175,15 +175,14 @@
 #define MON_DATA_EARTH_RIBBON      77
 #define MON_DATA_WORLD_RIBBON      78
 #define MON_DATA_NATURE            79
-#define MON_DATA_EVENT_LEGAL       80
-#define MON_DATA_KNOWN_MOVES       81
-#define MON_DATA_RIBBON_COUNT      82
-#define MON_DATA_RIBBONS           83
-#define MON_DATA_ATK2              84
-#define MON_DATA_DEF2              85
-#define MON_DATA_SPEED2            86
-#define MON_DATA_SPATK2            87
-#define MON_DATA_SPDEF2            88
+#define MON_DATA_KNOWN_MOVES       80
+#define MON_DATA_RIBBON_COUNT      81
+#define MON_DATA_RIBBONS           82
+#define MON_DATA_ATK2              83
+#define MON_DATA_DEF2              84
+#define MON_DATA_SPEED2            85
+#define MON_DATA_SPATK2            86
+#define MON_DATA_SPDEF2            87
 
 // Ribbon IDs used by TV and Pokénav
 #define CHAMPION_RIBBON       0

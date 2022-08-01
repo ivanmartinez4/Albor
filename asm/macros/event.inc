@@ -1581,18 +1581,21 @@
 	.4byte \value
 	.endm
 
-	@ Sets the eventLegal bit for the Pokemon in the specified slot of the player's party.
-	.macro setmoneventlegal slot:req
+	@ Writes the name of the specified item to the specified buffer. If 'item' is a Berry or ITEM_POKE_BALL
+	@ and if the quantity is 2 or more, the buffered string will be pluralized ("IES" or "S" appended).
+	@ If the specified item is >= ITEMS_COUNT then the name of ITEM_NONE ("????????") is buffered instead.
+	.macro bufferitemnameplural stringVarId:req, item:req, quantity:req
 	.byte 0xcd
-	.2byte \slot
+	stringvar \stringVarId
+	.2byte \item
+	.2byte \quantity
 	.endm
 
-	@ Checks if the eventLegal bit is set for the Pokemon in the specified slot of the player's party. If it isn't set,
-	@ VAR_RESULT is TRUE. If the bit is set (or if the specified slot is empty or invalid), VAR_RESULT is FALSE.
-	.macro checkmoneventlegal slot:req
-	.byte 0xce
-	.2byte \slot
-	.endm
+  @ Like callnative, but function expects a ctx
+  .macro callfunc func:req
+  .byte 0xce
+  .4byte \func
+  .endm
 
 	@ Jumps to the ram script saved from a Wonder Card. If there is no valid saved Wonder Card or if the
 	@ ram script is invalid then this does nothing.
@@ -1717,22 +1720,6 @@
 	stringvar \stringVarId
 	.2byte \category
 	.endm
-
-	@ Writes the name of the specified item to the specified buffer. If 'item' is a Berry or ITEM_POKE_BALL
-	@ and if the quantity is 2 or more, the buffered string will be pluralized ("IES" or "S" appended).
-	@ If the specified item is >= ITEMS_COUNT then the name of ITEM_NONE ("????????") is buffered instead.
-	.macro bufferitemnameplural stringVarId:req, item:req, quantity:req
-	.byte 0xe1
-	stringvar \stringVarId
-	.2byte \item
-	.2byte \quantity
-	.endm
-
-  @ Like callnative, but function expects a ctx
-  .macro callfunc func:req
-  .byte 0xe2
-  .4byte \func
-  .endm
 
 @ Supplementary
 
@@ -1934,14 +1921,6 @@
 	braillemessage \text
 	waitbuttonpress
 	closebraillemessage
-	.endm
-
-	@ Creates an "event legal" Pokémon for an encounter
-	.macro seteventmon species:req, level:req, item=ITEM_NONE
-	setvar VAR_0x8004, \species
-	setvar VAR_0x8005, \level
-	setvar VAR_0x8006, \item
-	special CreateEventLegalEnemyMon
 	.endm
 
 	@ Set up a totem boost for the next battle.
