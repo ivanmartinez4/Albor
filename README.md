@@ -42,6 +42,12 @@ It is a romhack that uses pokeemerald-expansion for recreate the experience of H
 
 -Autorun (Ghoulslash).
 
+-Overworld expansion (Ghoulslash)
+
+-Item description header (Ghoulslash).
+
+-DexNav (Ghoulslash). 
+
 ## Special Credits:
 
 -Pret's team for pokeemerald (including wiki).
