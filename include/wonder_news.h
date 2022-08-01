@@ -8,8 +8,4 @@ enum {
     WONDER_NEWS_SENT,
 };
 
-
-void InitSavedWonderNews(void);
-void GenerateRandomWonderNews(u32 newsType);
-
 #endif //GUARD_WONDER_NEWS_H

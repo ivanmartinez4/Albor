@@ -135,12 +135,10 @@ struct UnionRoomChat
     u8 bufferCursorPos;
     u8 receivedPlayerIndex;
     u8 exitType; // CHAT_EXIT_*
-    bool8 changedRegisteredTexts;
     u8 afterSaveTimer;
     u8 messageEntryBuffer[2 * MAX_MESSAGE_LENGTH + 1];
     u8 receivedMessage[64];
     u8 hostName[64];
-    u8 registeredTexts[UNION_ROOM_KB_ROW_COUNT][21];
     u8 filler4[5];
     u8 sendMessageBuffer[40];
     u16 tryQuitAgainTimer;
@@ -215,13 +213,11 @@ static void Chat_Register(void);
 static void Chat_SaveAndExit(void);
 static void SetChatFunction(u16);
 static bool32 HandleDPadInput(void);
-static void AppendTextToMessage(void);
 static void DeleteLastMessageCharacter(void);
 static void SwitchCaseOfLastMessageCharacter(void);
 static bool32 ChatMessageIsNotEmpty(void);
 static void RegisterTextAtRow(void);
 static void ResetMessageEntryBuffer(void);
-static void SaveRegisteredTexts(void);
 static u8 *GetEndOfMessagePtr(void);
 static u8 *GetLastCharOfMessagePtr(void);
 static void PrepareSendBuffer_Null(u8 *);
@@ -913,10 +909,7 @@ static void InitUnionRoomChat(struct UnionRoomChat *chat)
     chat->linkPlayerCount = GetLinkPlayerCount();
     chat->multiplayerId = GetMultiplayerId();
     chat->exitType = CHAT_EXIT_NONE;
-    chat->changedRegisteredTexts = FALSE;
     PrepareSendBuffer_Null(chat->sendMessageBuffer);
-    for (i = 0; i < UNION_ROOM_KB_ROW_COUNT; i++)
-        StringCopy(chat->registeredTexts[i], gSaveBlock1Ptr->registeredTexts[i]);
 }
 
 static void FreeUnionRoomChat(void)
@@ -1054,7 +1047,6 @@ static void Chat_HandleInput(void)
         }
         else if (JOY_NEW(A_BUTTON))
         {
-            AppendTextToMessage();
             StartDisplaySubtask(CHATDISPLAY_FUNC_UPDATE_MSG, 0);
             StartDisplaySubtask(CHATDISPLAY_FUNC_CURSOR_BLINK, 1);
             sChat->funcState = 1;
@@ -1486,15 +1478,8 @@ static void Chat_SaveAndExit(void)
     switch (sChat->funcState)
     {
     case 0:
-        if (!sChat->changedRegisteredTexts)
-        {
-            sChat->funcState = 12;
-        }
-        else
-        {
-            StartDisplaySubtask(CHATDISPLAY_FUNC_DESTROY_YESNO, 0);
-            sChat->funcState = 1;
-        }
+        StartDisplaySubtask(CHATDISPLAY_FUNC_DESTROY_YESNO, 0);
+        sChat->funcState = 1;
         break;
     case 1:
         if (!IsDisplaySubtaskActive(0))
@@ -1546,7 +1531,6 @@ static void Chat_SaveAndExit(void)
         if (!IsDisplaySubtaskActive(0))
         {
             StartDisplaySubtask(CHATDISPLAY_FUNC_PRINT_SAVING, 0);
-            SaveRegisteredTexts();
             sChat->funcState = 7;
         }
         break;
@@ -1645,61 +1629,6 @@ static bool32 HandleDPadInput(void)
     return TRUE;
 }
 
-static void AppendTextToMessage(void)
-{
-    int i;
-    const u8 *charsStr;
-    int strLength;
-    u8 *str;
-    u8 buffer[21];
-
-    if (sChat->currentPage != UNION_ROOM_KB_PAGE_REGISTER)
-    {
-        // Going to append a single character
-        charsStr = sUnionRoomKeyboardText[sChat->currentPage][sChat->currentRow];
-        for (i = 0; i < sChat->currentCol; i++)
-        {
-            if (*charsStr == CHAR_EXTRA_SYMBOL)
-                charsStr++;
-            charsStr++;
-        }
-
-        strLength = 1;
-    }
-    else
-    {
-        // Going to append registered text string
-        u8 *tempStr = StringCopy(buffer, sChat->registeredTexts[sChat->currentRow]);
-        tempStr[0] = CHAR_SPACE;
-        tempStr[1] = EOS;
-        charsStr = buffer;
-        strLength = StringLength_Multibyte(buffer);
-    }
-
-    sChat->lastBufferCursorPos = sChat->bufferCursorPos;
-    if (!charsStr)
-        return;
-
-    str = GetEndOfMessagePtr();
-    while (--strLength != -1 && sChat->bufferCursorPos < MAX_MESSAGE_LENGTH)
-    {
-        if (*charsStr == CHAR_EXTRA_SYMBOL)
-        {
-            *str = *charsStr;
-            charsStr++;
-            str++;
-        }
-
-        *str = *charsStr;
-        charsStr++;
-        str++;
-
-        sChat->bufferCursorPos++;
-    }
-
-    *str = EOS;
-}
-
 static void DeleteLastMessageCharacter(void)
 {
     sChat->lastBufferCursorPos = sChat->bufferCursorPos;
@@ -1737,8 +1666,6 @@ static bool32 ChatMessageIsNotEmpty(void)
 static void RegisterTextAtRow(void)
 {
     u8 *src = GetLimitedMessageStartPtr();
-    StringCopy(sChat->registeredTexts[sChat->currentRow], src);
-    sChat->changedRegisteredTexts = TRUE;
 }
 
 static void ResetMessageEntryBuffer(void)
@@ -1748,16 +1675,9 @@ static void ResetMessageEntryBuffer(void)
     sChat->bufferCursorPos = 0;
 }
 
-static void SaveRegisteredTexts(void)
-{
-    int i;
-    for (i = 0; i < UNION_ROOM_KB_ROW_COUNT; i++)
-        StringCopy(gSaveBlock1Ptr->registeredTexts[i], sChat->registeredTexts[i]);
-}
-
 static u8 *GetRegisteredTextByRow(int row)
 {
-    return sChat->registeredTexts[row];
+    return;
 }
 
 static u8 *GetEndOfMessagePtr(void)
@@ -1992,20 +1912,6 @@ static int GetShouldShowCaseToggleIcon(void)
 static u8 *GetChatHostName(void)
 {
     return sChat->hostName;
-}
-
-void InitUnionRoomChatRegisteredTexts(void)
-{
-    StringCopy(gSaveBlock1Ptr->registeredTexts[0], gText_Hello);
-    StringCopy(gSaveBlock1Ptr->registeredTexts[1], gText_Pokemon2);
-    StringCopy(gSaveBlock1Ptr->registeredTexts[2], gText_Trade);
-    StringCopy(gSaveBlock1Ptr->registeredTexts[3], gText_Battle);
-    StringCopy(gSaveBlock1Ptr->registeredTexts[4], gText_Lets);
-    StringCopy(gSaveBlock1Ptr->registeredTexts[5], gText_Ok);
-    StringCopy(gSaveBlock1Ptr->registeredTexts[6], gText_Sorry);
-    StringCopy(gSaveBlock1Ptr->registeredTexts[7], gText_YaySmileEmoji);
-    StringCopy(gSaveBlock1Ptr->registeredTexts[8], gText_ThankYou);
-    StringCopy(gSaveBlock1Ptr->registeredTexts[9], gText_ByeBye);
 }
 
 #define tState               data[0]

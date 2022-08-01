@@ -5,7 +5,7 @@
 
 struct TrainerHillTrainer
 {
-    u8 name[TRAINER_NAME_LENGTH + 1];
+    u8 name[HILL_TRAINER_NAME_LENGTH];
     u8 facilityClass;
     u16 speechBefore[EASY_CHAT_BATTLE_WORDS_COUNT];
     u16 speechWin[EASY_CHAT_BATTLE_WORDS_COUNT];

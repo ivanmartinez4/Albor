@@ -641,37 +641,6 @@ typedef union OldMan
     u8 filler[0x40];
 } OldMan;
 
-#define LINK_B_RECORDS_COUNT 5
-
-struct LinkBattleRecord
-{
-    u8 name[PLAYER_NAME_LENGTH + 1];
-    u16 trainerId;
-    u16 wins;
-    u16 losses;
-    u16 draws;
-};
-
-struct LinkBattleRecords
-{
-    struct LinkBattleRecord entries[LINK_B_RECORDS_COUNT];
-    u8 languages[LINK_B_RECORDS_COUNT];
-};
-
-struct RecordMixingGiftData
-{
-    u8 unk0;
-    u8 quantity;
-    u16 itemId;
-    u8 filler4[8];
-};
-
-struct RecordMixingGift
-{
-    int checksum;
-    struct RecordMixingGiftData data;
-};
-
 struct ContestWinner
 {
     u32 personality;
@@ -837,19 +806,6 @@ struct WonderCardMetadata
     u16 stampData[2][MAX_STAMP_CARD_STAMPS]; // First element is STAMP_SPECIES, second is STAMP_ID
 };
 
-struct MysteryGiftSave
-{
-    u32 newsCrc;
-    struct WonderNews news;
-    u32 cardCrc;
-    struct WonderCard card;
-    u32 cardMetadataCrc;
-    struct WonderCardMetadata cardMetadata;
-    u16 questionnaireWords[NUM_QUESTIONNAIRE_WORDS];
-    struct WonderNewsMetadata newsMetadata;
-    u32 trainerIds[2][5]; // Saved ids for 10 trainers, 5 each for battles and trades 
-}; // 0x36C 0x3598
-
 struct SaveBlock1
 {
     /*0x00*/ struct Coords16 pos;
@@ -916,18 +872,14 @@ struct SaveBlock1
     /*0x2e64*/ struct DewfordTrend dewfordTrends[SAVED_TRENDS_COUNT];
     /*0x2e90*/ struct ContestWinner contestWinners[NUM_CONTEST_WINNERS]; // see CONTEST_WINNER_*
     /*0x3030*/ struct DayCare daycare;
-    /*0x3150*/ struct LinkBattleRecords linkBattleRecords;
     /*0x31A8*/ u8 giftRibbons[GIFT_RIBBONS_COUNT];
     /*0x31DC*/ struct Roamer roamer;
-    /*0x322C*/ struct MysteryGiftSave mysteryGift;
     /*0x3???*/ u8 dexSeen[NUM_DEX_FLAG_BYTES];
     /*0x3???*/ u8 dexCaught[NUM_DEX_FLAG_BYTES];
     /*0x3???*/ u32 trainerHillTimes[NUM_TRAINER_HILL_MODES];
     /*0x3???*/ struct RamScript ramScript;
-    /*0x3???*/ struct RecordMixingGift recordMixingGift;
     /*0x3???*/ LilycoveLady lilycoveLady;
     /*0x3???*/ struct TrainerNameRecord trainerNameRecords[20];
-    /*0x3???*/ u8 registeredTexts[UNION_ROOM_KB_ROW_COUNT][21];
     /*0x3???*/ struct TrainerHillSave trainerHill;
     /*0x3???*/ struct WaldaPhrase waldaPhrase;
                u8 dexNavSearchLevels[NUM_SPECIES];

@@ -103,7 +103,7 @@ static const struct GFRomHeader sGFRomHeader = {
     .pokedexFlag = FLAG_RECEIVED_POKEDEX_FROM_BIRCH,
     .pokedexCount = NATIONAL_DEX_COUNT,
     .playerNameLength = PLAYER_NAME_LENGTH,
-    .trainerNameLength = TRAINER_NAME_LENGTH,
+    .trainerNameLength = 10,
     .pokemonNameLength1 = POKEMON_NAME_LENGTH,
     .pokemonNameLength2 = POKEMON_NAME_LENGTH,
     // Two of the below 12s are likely move/ability name length, given their presence in this header

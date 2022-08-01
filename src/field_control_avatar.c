@@ -82,7 +82,7 @@ void FieldClearPlayerInput(struct FieldInput *input)
     input->tookStep = FALSE;
     input->pressedBButton = FALSE;
     input->pressedRButton = FALSE;
-    input->input_field_1_1 = FALSE;
+    input->pressedLButton = FALSE;
     input->input_field_1_2 = FALSE;
     input->input_field_1_3 = FALSE;
     input->dpadDirection = 0;
@@ -197,8 +197,8 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
         return TRUE;
     
     if (input->pressedRButton && EnableAutoRun())
-
         return TRUE;
+
     if (input->pressedLButton && TryStartDexnavSearch())
         return TRUE;
 

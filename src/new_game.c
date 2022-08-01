@@ -40,7 +40,6 @@
 #include "secret_base.h"
 #include "player_pc.h"
 #include "field_specials.h"
-#include "mystery_gift.h"
 #include "union_room_chat.h"
 #include "constants/items.h"
 #include "constants/map_groups.h"
@@ -171,7 +170,6 @@ void NewGameInitData(void)
     ResetLinkContestBoolean();
     ResetGameStats();
     ClearAllContestWinnerPics();
-    ClearPlayerLinkBattleRecords();
     InitSeedotSizeRecord();
     InitLotadSizeRecord();
     gPlayerPartyCount = 0;
@@ -191,12 +189,10 @@ void NewGameInitData(void)
     ResetLotteryCorner();
     WarpToTruck();
     ScriptContext2_RunNewScript(EventScript_ResetAllMapFlags);
-    InitUnionRoomChatRegisteredTexts();
     InitLilycoveLady();
     ResetAllApprenticeData();
     ClearRankingHallRecords();
     InitMatchCallCounters();
-    ClearMysteryGift();
     WipeTrainerNameRecords();
     ResetTrainerHillResults();
     ResetContestLinkResults();

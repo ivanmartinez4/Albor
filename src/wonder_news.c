@@ -1,5 +1,4 @@
 #include "global.h"
-#include "mystery_gift.h"
 #include "random.h"
 #include "event_data.h"
 #include "wonder_news.h"
@@ -25,36 +24,6 @@ static void IncrementGetNewsCounter(struct WonderNewsMetadata *);
 static u32 GetNewsValByNewsType(struct WonderNewsMetadata *);
 static void IncrementSentNewsCounter(struct WonderNewsMetadata *);
 static void ResetSentNewsCounter(struct WonderNewsMetadata *);
-
-void GenerateRandomWonderNews(u32 newsType)
-{
-    struct WonderNewsMetadata *data = GetSavedWonderNewsMetadata();
-
-    data->newsType = newsType;
-    switch (newsType)
-    {
-    case WONDER_NEWS_NONE:
-        break;
-    case WONDER_NEWS_RECV_FRIEND:
-    case WONDER_NEWS_RECV_WIRELESS:
-        data->rand = (Random() % 15) + 16;
-        break;
-    case WONDER_NEWS_SENT:
-        data->rand = (Random() % 15) + 1;
-        break;
-    }
-}
-
-void InitSavedWonderNews(void)
-{
-    struct WonderNewsMetadata *data = GetSavedWonderNewsMetadata();
-
-    data->newsType = WONDER_NEWS_NONE;
-    data->sentCounter = 0;
-    data->getCounter = 0;
-    data->rand = 0;
-    VarSet(VAR_WONDER_NEWS_COUNTER, 0);
-}
 
 static u32 GetNewsId(struct WonderNewsMetadata *data)
 {

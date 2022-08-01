@@ -22,7 +22,6 @@
 #include "link.h"
 #include "list_menu.h"
 #include "main.h"
-#include "mystery_gift.h"
 #include "match_call.h"
 #include "menu.h"
 #include "overworld.h"
@@ -55,7 +54,6 @@
 #include "constants/items.h"
 #include "constants/heal_locations.h"
 #include "constants/map_types.h"
-#include "constants/mystery_gift.h"
 #include "constants/script_menu.h"
 #include "constants/slot_machine.h"
 #include "constants/songs.h"
@@ -127,7 +125,6 @@ static void Task_CloseBattlePikeCurtain(u8);
 static u8 DidPlayerGetFirstFans(void);
 static void SetInitialFansOfPlayer(void);
 static u16 PlayerGainRandomTrainerFan(void);
-static void BufferFanClubTrainerName_(struct LinkBattleRecords *, u8, u8);
 
 static const u8 *const sDayOfWeekTable[] =
 {
@@ -1580,25 +1577,6 @@ void BufferLottoTicketNumber(void)
         gStringVar1[2] = CHAR_0;
         gStringVar1[3] = CHAR_0;
         ConvertIntToDecimalStringN(gStringVar1 + 4, gSpecialVar_Result, STR_CONV_MODE_LEFT_ALIGN, CountDigits(gSpecialVar_Result));
-    }
-}
-
-u16 GetMysteryGiftCardStat(void)
-{
-    switch (gSpecialVar_Result)
-    {
-    case GET_NUM_STAMPS:
-        return MysteryGift_GetCardStat(CARD_STAT_NUM_STAMPS);
-    case GET_MAX_STAMPS:
-        return MysteryGift_GetCardStat(CARD_STAT_MAX_STAMPS);
-    case GET_CARD_BATTLES_WON:
-        return MysteryGift_GetCardStat(CARD_STAT_BATTLES_WON);
-    case GET_CARD_BATTLES_LOST: // Never occurs
-        return MysteryGift_GetCardStat(CARD_STAT_BATTLES_LOST);
-    case GET_CARD_NUM_TRADES: // Never occurs
-        return MysteryGift_GetCardStat(CARD_STAT_NUM_TRADES);
-    default:
-        return 0;
     }
 }
 
@@ -3836,7 +3814,7 @@ bool8 InPokemonCenter(void)
     There are initially 4 members of the Fan Club (+ an interviewer), none of whom are fans of the player
     After becoming the champion there will be 8 members of the Fan Club, 3 of whom are automatically fans of the player
     After this point, if a club member is a fan of the player they will sit at the front table and comment on the player
-    If they are not fans of the player, they will sit at the far table and can make comments about a different trainer (see BufferFanClubTrainerName)
+    If they are not fans of the player, they will sit at the far table and can make comments about a different trainer
 
     ## Gaining/losing fans
     After every link battle the player will gain a fan if they won, or lose a fan if they lost
@@ -4073,80 +4051,6 @@ static void SetInitialFansOfPlayer(void)
     SET_TRAINER_FAN_CLUB_FLAG(FANCLUB_MEMBER6);
     SET_TRAINER_FAN_CLUB_FLAG(FANCLUB_MEMBER1);
     SET_TRAINER_FAN_CLUB_FLAG(FANCLUB_MEMBER3);
-}
-
-void BufferFanClubTrainerName(void)
-{
-    u8 whichLinkTrainer = 0;
-    u8 whichNPCTrainer = 0;
-    switch (gSpecialVar_0x8004)
-    {
-    case FANCLUB_MEMBER1:
-        break;
-    case FANCLUB_MEMBER2:
-        break;
-    case FANCLUB_MEMBER3:
-        whichLinkTrainer = 0;
-        whichNPCTrainer = 3;
-        break;
-    case FANCLUB_MEMBER4:
-        whichLinkTrainer = 0;
-        whichNPCTrainer = 1;
-        break;
-    case FANCLUB_MEMBER5:
-        whichLinkTrainer = 1;
-        whichNPCTrainer = 0;
-        break;
-    case FANCLUB_MEMBER6:
-        whichLinkTrainer = 0;
-        whichNPCTrainer = 4;
-        break;
-    case FANCLUB_MEMBER7:
-        whichLinkTrainer = 1;
-        whichNPCTrainer = 5;
-        break;
-    case FANCLUB_MEMBER8:
-        break;
-    }
-    BufferFanClubTrainerName_(&gSaveBlock1Ptr->linkBattleRecords, whichLinkTrainer, whichNPCTrainer);
-}
-
-static void BufferFanClubTrainerName_(struct LinkBattleRecords *linkRecords, u8 whichLinkTrainer, u8 whichNPCTrainer)
-{
-    struct LinkBattleRecord *record = &linkRecords->entries[whichLinkTrainer];
-    if (record->name[0] == EOS)
-    {
-        switch (whichNPCTrainer)
-        {
-        case 0:
-            StringCopy(gStringVar1, gText_Wallace);
-            break;
-        case 1:
-            StringCopy(gStringVar1, gText_Steven);
-            break;
-        case 2:
-            StringCopy(gStringVar1, gText_Brawly);
-            break;
-        case 3:
-            StringCopy(gStringVar1, gText_Winona);
-            break;
-        case 4:
-            StringCopy(gStringVar1, gText_Phoebe);
-            break;
-        case 5:
-            StringCopy(gStringVar1, gText_Glacia);
-            break;
-        default:
-            StringCopy(gStringVar1, gText_Wallace);
-            break;
-        }
-    }
-    else
-    {
-        StringCopyN(gStringVar1, record->name, PLAYER_NAME_LENGTH);
-        gStringVar1[PLAYER_NAME_LENGTH] = EOS;
-        ConvertInternationalString(gStringVar1, linkRecords->languages[whichLinkTrainer]);
-    }
 }
 
 void UpdateTrainerFansAfterLinkBattle(void)
