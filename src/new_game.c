@@ -199,4 +199,5 @@ void NewGameInitData(void)
     WipeTrainerNameRecords();
     ResetTrainerHillResults();
     ResetContestLinkResults();
+    gSaveBlock2Ptr->autoRun = FALSE;
 }
