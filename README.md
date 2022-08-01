@@ -34,9 +34,13 @@ It is a romhack that uses pokeemerald-expansion for recreate the experience of H
 
 -Egg hatch level is now 1.
 
--Clock in the start menu.
+-Clock in the start menu (Lunos).
 
--Display party mon icons in save screen.
+-Display party mon icons in save screen (Lunos).
+
+-Box expansion to 20 boxes (Ghoulslash).
+
+-Autorun (Ghoulslash).
 
 ## Special Credits:
 
