@@ -1770,13 +1770,13 @@ void ListMenuLoadStdPalAt(u8 palOffset, u8 palId)
     {
         case 0:
         default:
-            palette = gMenuInfoElements1_Pal;
+            palette = gMenuInfoElements_Pal;
             break;
         case 1:
-            palette = gMenuInfoElements2_Pal;
+            palette = gMenuInfoElements_Pal;
             break;
         case 2:
-            palette = gMenuInfoElements3_Pal;
+            palette = gMenuInfoElements_Pal;
             break;
     }
 

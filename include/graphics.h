@@ -8487,9 +8487,7 @@ extern const u32 gItemIcon_ReturnToFieldArrow[];
 extern const u32 gItemIconPalette_ReturnToFieldArrow[];
 
 //menu graphics
-extern const u16 gMenuInfoElements1_Pal[16];
-extern const u16 gMenuInfoElements2_Pal[16];
-extern const u16 gMenuInfoElements3_Pal[16];
+extern const u16 gMenuInfoElements_Pal[16];
 extern const u8 gMenuInfoElements_Gfx[];
 
 // item menu graphics
@@ -10034,6 +10032,7 @@ extern const u16 gObjectEventPal_Brendan[];
 extern const u16 gObjectEventPal_May[];
 extern const u16 gObjectEventPal_RubySapphireBrendan[];
 extern const u16 gObjectEventPal_RubySapphireMay[];
+extern const u16 gObjectEventPal_ExclamationMark[];
 
 // Mail
 extern const u16 gMailPalette_Orange[];
