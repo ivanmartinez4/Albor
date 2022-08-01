@@ -527,14 +527,6 @@ gMetatileAttributes_BattleTent::
 	.incbin "data/tilesets/secondary/battle_tent/metatile_attributes.bin"
 
 	.align 1
-gMetatiles_MysteryEventsHouse::
-	.incbin "data/tilesets/secondary/mystery_events_house/metatiles.bin"
-
-	.align 1
-gMetatileAttributes_MysteryEventsHouse::
-	.incbin "data/tilesets/secondary/mystery_events_house/metatile_attributes.bin"
-
-	.align 1
 gMetatiles_UnionRoom::
 	.incbin "data/tilesets/secondary/union_room/metatiles.bin"
 

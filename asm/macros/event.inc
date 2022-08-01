@@ -86,10 +86,12 @@
 	.byte 0x0d
 	.endm
 
-	@ Sets the Mystery Event script status (MEVENT_STATUS_*).
-	.macro setmysteryeventstatus value:req
+	@ Buffers the name of the contest category to the buffer.
+	@ For example a category of CONTEST_CATEGORY_COOL will buffer the string "COOLNESS CONTEST".
+	.macro buffercontestname stringVarId:req, category:req
 	.byte 0x0e
-	.byte \value
+	stringvar \stringVarId
+	.2byte \category
 	.endm
 
 	@ Sets the value at the specified script data index to a fixed 4-byte value.
@@ -1711,14 +1713,6 @@
 	.macro pokenavcall text:req
 	.byte 0xdf
 	.4byte \text
-	.endm
-
-	@ Buffers the name of the contest category to the buffer.
-	@ For example a category of CONTEST_CATEGORY_COOL will buffer the string "COOLNESS CONTEST".
-	.macro buffercontestname stringVarId:req, category:req
-	.byte 0xe0
-	stringvar \stringVarId
-	.2byte \category
 	.endm
 
 @ Supplementary

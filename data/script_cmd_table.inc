@@ -14,7 +14,7 @@ gScriptCmdTable::
 	.4byte ScrCmd_callstd_if                @ 0x0b
 	.4byte ScrCmd_returnram                 @ 0x0c
 	.4byte ScrCmd_endram                    @ 0x0d
-	.4byte ScrCmd_setmysteryeventstatus     @ 0x0e
+	.4byte ScrCmd_buffercontestname         @ 0x0e
 	.4byte ScrCmd_loadword                  @ 0x0f
 	.4byte ScrCmd_loadbyte                  @ 0x10
 	.4byte ScrCmd_setptr                    @ 0x11
@@ -224,7 +224,6 @@ gScriptCmdTable::
 	.4byte ScrCmd_buffertrainerclassname    @ 0xdd
 	.4byte ScrCmd_buffertrainername         @ 0xde
 	.4byte ScrCmd_pokenavcall               @ 0xdf
-	.4byte ScrCmd_buffercontestname         @ 0xe0
 
 gScriptCmdTableEnd::
 	.4byte ScrCmd_nop

@@ -87,7 +87,6 @@
 #define LINKTYPE_TRADE_SETUP           0x1133
 #define LINKTYPE_TRADE_DISCONNECTED    0x1144
 #define LINKTYPE_BATTLE                0x2211
-#define LINKTYPE_UNUSED_BATTLE         0x2222 // Unused, inferred from gap
 #define LINKTYPE_SINGLE_BATTLE         0x2233
 #define LINKTYPE_DOUBLE_BATTLE         0x2244
 #define LINKTYPE_MULTI_BATTLE          0x2255
@@ -98,8 +97,6 @@
 #define LINKTYPE_RECORD_MIX_AFTER      0x3322
 #define LINKTYPE_BERRY_BLENDER_SETUP   0x4411
 #define LINKTYPE_BERRY_BLENDER         0x4422
-#define LINKTYPE_MYSTERY_EVENT         0x5501
-#define LINKTYPE_UNUSED_EREADER        0x5502 // Unused, inferred from gap
 #define LINKTYPE_EREADER               0x5503
 #define LINKTYPE_CONTEST_GMODE         0x6601
 #define LINKTYPE_CONTEST_EMODE         0x6602

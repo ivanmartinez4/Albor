@@ -790,17 +790,6 @@ gTileset_BattleTent::
 	.4byte NULL @ animation callback
 
 	.align 2
-gTileset_MysteryEventsHouse::
-	.byte TRUE @ is compressed
-	.byte TRUE @ is secondary tileset
-	.2byte 0 @ padding
-	.4byte gTilesetTiles_MysteryEventsHouse
-	.4byte gTilesetPalettes_MysteryEventsHouse
-	.4byte gMetatiles_MysteryEventsHouse
-	.4byte gMetatileAttributes_MysteryEventsHouse
-	.4byte NULL @ animation callback
-
-	.align 2
 gTileset_UnionRoom::
 	.byte TRUE @ is compressed
 	.byte TRUE @ is secondary tileset

@@ -26,10 +26,6 @@ Questionnaire_Text_YouKnowThoseWordsEvent::
 	.string "That means you must know about\n"
 	.string "the Mystery Event.$"
 
-Questionnaire_Text_YouCanAccessMysteryEvent::
-	.string "Once you save your game, you can\n"
-	.string "access the Mystery Event.$"
-
 MysteryGift_Text_TheresATicketForYou::
 	.string "Thank you for using the Mystery\n"
 	.string "Event System.\p"

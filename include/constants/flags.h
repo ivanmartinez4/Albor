@@ -1430,7 +1430,7 @@
 #define FLAG_LANDMARK_FIERY_PATH                    (SYSTEM_FLAGS + 0x4A)
 
 #define FLAG_SYS_PC_LANETTE                         (SYSTEM_FLAGS + 0x4B)
-#define FLAG_SYS_MYSTERY_EVENT_ENABLE               (SYSTEM_FLAGS + 0x4C)
+#define FLAG_SYS_UNUSED_0x4C                        (SYSTEM_FLAGS + 0x4C)
 #define FLAG_SYS_ENC_UP_ITEM                        (SYSTEM_FLAGS + 0x4D)
 #define FLAG_SYS_ENC_DOWN_ITEM                      (SYSTEM_FLAGS + 0x4E)
 #define FLAG_SYS_BRAILLE_DIG                        (SYSTEM_FLAGS + 0x4F)

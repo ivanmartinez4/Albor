@@ -1615,29 +1615,6 @@ gTilesetPalettes_BattleTent::
 	.incbin "data/tilesets/secondary/battle_tent/palettes/15.gbapal"
 
 	.align 2
-gTilesetTiles_MysteryEventsHouse::
-	.incbin "data/tilesets/secondary/mystery_events_house/tiles.4bpp.lz"
-
-	.align 2
-gTilesetPalettes_MysteryEventsHouse::
-	.incbin "data/tilesets/secondary/mystery_events_house/palettes/00.gbapal"
-	.incbin "data/tilesets/secondary/mystery_events_house/palettes/01.gbapal"
-	.incbin "data/tilesets/secondary/mystery_events_house/palettes/02.gbapal"
-	.incbin "data/tilesets/secondary/mystery_events_house/palettes/03.gbapal"
-	.incbin "data/tilesets/secondary/mystery_events_house/palettes/04.gbapal"
-	.incbin "data/tilesets/secondary/mystery_events_house/palettes/05.gbapal"
-	.incbin "data/tilesets/secondary/mystery_events_house/palettes/06.gbapal"
-	.incbin "data/tilesets/secondary/mystery_events_house/palettes/07.gbapal"
-	.incbin "data/tilesets/secondary/mystery_events_house/palettes/08.gbapal"
-	.incbin "data/tilesets/secondary/mystery_events_house/palettes/09.gbapal"
-	.incbin "data/tilesets/secondary/mystery_events_house/palettes/10.gbapal"
-	.incbin "data/tilesets/secondary/mystery_events_house/palettes/11.gbapal"
-	.incbin "data/tilesets/secondary/mystery_events_house/palettes/12.gbapal"
-	.incbin "data/tilesets/secondary/mystery_events_house/palettes/13.gbapal"
-	.incbin "data/tilesets/secondary/mystery_events_house/palettes/14.gbapal"
-	.incbin "data/tilesets/secondary/mystery_events_house/palettes/15.gbapal"
-
-	.align 2
 gTilesetPalettes_UnionRoom::
 	.incbin "data/tilesets/secondary/union_room/palettes/00.gbapal"
 	.incbin "data/tilesets/secondary/union_room/palettes/01.gbapal"

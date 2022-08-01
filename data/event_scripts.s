@@ -310,8 +310,6 @@ gStdScripts_End::
 	.include "data/maps/SootopolisCity_House6/scripts.inc"
 	.include "data/maps/SootopolisCity_House7/scripts.inc"
 	.include "data/maps/SootopolisCity_LotadAndSeedotHouse/scripts.inc"
-	.include "data/maps/SootopolisCity_MysteryEventsHouse_1F/scripts.inc"
-	.include "data/maps/SootopolisCity_MysteryEventsHouse_B1F/scripts.inc"
 	.include "data/maps/EverGrandeCity_SidneysRoom/scripts.inc"
 	.include "data/maps/EverGrandeCity_PhoebesRoom/scripts.inc"
 	.include "data/maps/EverGrandeCity_GlaciasRoom/scripts.inc"
