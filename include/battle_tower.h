@@ -82,5 +82,6 @@ u8 SetFacilityPtrsGetLevel(void);
 u8 GetFrontierEnemyMonLevel(u8 lvlMode);
 s32 GetHighestLevelInPlayerParty(void);
 u16 FacilityClassToGraphicsId(u8 facilityClass);
+void TrySetLinkBattleTowerEnemyPartyLevel(void);
 
 #endif //GUARD_BATTLE_TOWER_H

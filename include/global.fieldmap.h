@@ -218,6 +218,7 @@ struct ObjectEvent
     /*0x1F*/ u8 previousMetatileBehavior;
     /*0x20*/ u8 previousMovementDirection;
     /*0x21*/ u8 directionSequenceIndex;
+    /*0x04*/ u8 spriteId;
     /*0x22*/ union __attribute__((packed)) {
         u8 playerCopyableMovement; // COPY_MOVE_*
         struct __attribute__((packed)) {
