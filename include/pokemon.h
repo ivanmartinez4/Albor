@@ -9,130 +9,68 @@
 #define GET_BASE_SPECIES_ID(speciesId) (GetFormSpeciesId(speciesId, 0))
 #define FORM_SPECIES_END (0xffff)
 
-struct PokemonSubstruct0
-{
-    /*0x00*/ u16 species;
-    /*0x02*/ u16 heldItem;
-    /*0x04*/ u32 experience;
-    /*0x08*/ u8 ppBonuses;
-    /*0x09*/ u8 friendship;
-    /*0x0A*/ u16 pokeball:5; //31 balls
-             u16 filler:11;
-}; /* size = 12 */
-
-struct PokemonSubstruct1
-{
-    /*0x00*/ u16 moves[MAX_MON_MOVES];
-    /*0x08*/ u8 pp[MAX_MON_MOVES];
-}; /* size = 12 */
-
-struct PokemonSubstruct2
-{
-    /*0x00*/ u8 hpEV;
-    /*0x01*/ u8 attackEV;
-    /*0x02*/ u8 defenseEV;
-    /*0x03*/ u8 speedEV;
-    /*0x04*/ u8 spAttackEV;
-    /*0x05*/ u8 spDefenseEV;
-    /*0x06*/ u8 cool;
-    /*0x07*/ u8 beauty;
-    /*0x08*/ u8 cute;
-    /*0x09*/ u8 smart;
-    /*0x0A*/ u8 tough;
-    /*0x0B*/ u8 sheen;
-}; /* size = 12 */
-
-struct PokemonSubstruct3
-{
- /* 0x00 */ u8 pokerus;
- /* 0x01 */ u8 metLocation;
-
- /* 0x02 */ u16 metLevel:7;
- /* 0x02 */ u16 metGame:4;
- /* 0x03 */ u16 otGender:1;
-
- /* 0x04 */ u32 hpIV:5;
- /* 0x04 */ u32 attackIV:5;
- /* 0x05 */ u32 defenseIV:5;
- /* 0x05 */ u32 speedIV:5;
- /* 0x05 */ u32 spAttackIV:5;
- /* 0x06 */ u32 spDefenseIV:5;
- /* 0x07 */ u32 isEgg:1;
-
- /* 0x08 */ u32 coolRibbon:3;
- /* 0x08 */ u32 beautyRibbon:3;
- /* 0x08 */ u32 cuteRibbon:3;
- /* 0x09 */ u32 smartRibbon:3;
- /* 0x09 */ u32 toughRibbon:3;
- /* 0x09 */ u32 championRibbon:1;
- /* 0x0A */ u32 winningRibbon:1;
- /* 0x0A */ u32 victoryRibbon:1;
- /* 0x0A */ u32 artistRibbon:1;
- /* 0x0A */ u32 effortRibbon:1;
- /* 0x0A */ u32 marineRibbon:1; // never distributed
- /* 0x0A */ u32 landRibbon:1; // never distributed
- /* 0x0A */ u32 skyRibbon:1; // never distributed
- /* 0x0A */ u32 countryRibbon:1; // distributed during Pokémon Festa '04 and '05 to tournament winners
- /* 0x0B */ u32 nationalRibbon:1;
- /* 0x0B */ u32 earthRibbon:1;
- /* 0x0B */ u32 worldRibbon:1; // distributed during Pokémon Festa '04 and '05 to tournament winners
- /* 0x0B */ u32 abilityNum:2;
-}; /* size = 12 */
-
-// Number of bytes in the largest Pokémon substruct.
-// They are assumed to be the same size, and will be padded to
-// the largest size by the union.
-// By default they are all 12 bytes.
-#define NUM_SUBSTRUCT_BYTES (max(sizeof(struct PokemonSubstruct0),     \
-                             max(sizeof(struct PokemonSubstruct1),     \
-                             max(sizeof(struct PokemonSubstruct2),     \
-                                 sizeof(struct PokemonSubstruct3)))))
-
-union PokemonSubstruct
-{
-    struct PokemonSubstruct0 type0;
-    struct PokemonSubstruct1 type1;
-    struct PokemonSubstruct2 type2;
-    struct PokemonSubstruct3 type3;
-    u16 raw[NUM_SUBSTRUCT_BYTES / 2]; // /2 because it's u16, not u8
-};
-
 struct BoxPokemon
 {
-    u32 personality;
-    u32 otId;
-    u8 nickname[POKEMON_NAME_LENGTH];
-    u8 language;
-    u8 isBadEgg:1;
-    u8 hasSpecies:1;
-    u8 isEgg:1;
-    u8 unused:5;
-    u8 otName[PLAYER_NAME_LENGTH];
-    u8 markings;
-    u16 checksum;
-    u16 unknown;
-
-    union
-    {
-        u32 raw[(NUM_SUBSTRUCT_BYTES * 4) / 4]; // *4 because there are 4 substructs, /4 because it's u32, not u8
-        union PokemonSubstruct substructs[4];
-    } secure;
-};
+    /*0x00*/ u32 personality;
+    /*0x04*/ u32 otId;
+    /*0x08*/ u8 nickname[POKEMON_NAME_LENGTH];
+    /*0x12*/ u8 language:3; // 7 languages
+             u8 pokerus:5;  // 1-0xF is the timer. 0x10 is set when timer runs out
+    /*0x13*/ u8 isBadEgg:1;
+             u8 hasSpecies:1;
+             u8 isEgg:1;
+             u8 markings:4; // 15 combinations as per sAnims_MarkingCombo
+    /*0x14*/ u8 otName[PLAYER_NAME_LENGTH];
+    /*0x1B*/ u8 metLocation;    // better to not limit the number of map sections. this is actually used for friendship growth, too
+    /*0x1C*/ u32 species:11;    // up to 2047 species. could probably go down to 10 bits...
+             u32 heldItem:10;   // up to 1023 items. could probably be 9 bits if hold items are limited to IDs below 511
+             u32 metLevel:7;
+             u32 metGame:4;
+    /*0x20*/ u32 experience:21;
+             u32 spAttackIV:5;
+             u32 spDefenseIV:5;
+             u32 otGender:1;
+    /*0x24*/ u32 move1:10;  // 1023 moves
+             u32 move2:10;  // bits 11-20
+             u32 move3:10;  // bits 21-30
+             u32 unused24:2;
+    /*0x28*/ u16 move4:10;  // bits 31-40
+             u16 hpIV:5;        // 41-45 
+             u16 unused22:1;    
+    /*0x2A*/ u16 attackIV:5;    // 46-50
+             u16 defenseIV:5;   // 51-55
+             u16 speedIV:5;     // 56-60
+             u16 unused2A:1;
+    /*0x2C*/ u8 ppBonuses;
+    /*0x2D*/ u8 friendship;
+    /*0x2E*/ u8 pokeball:6;
+             u8 abilityNum:2;
+    /*0x2F*/ u8 hpEV;
+    /*0x30*/ u8 attackEV;
+    /*0x31*/ u8 defenseEV;
+    /*0x32*/ u8 speedEV;
+    /*0x33*/ u8 spAttackEV;
+    /*0x34*/ u8 spDefenseEV; 
+    /*0x35*/ u8 pp1:6;
+             u8 pp2:6;
+             u8 pp3:6;
+             u8 pp4:6;
+}; /* size = 0x3C (60) bytes */
 
 struct Pokemon
 {
-    struct BoxPokemon box;
-    u32 status;
-    u8 level;
-    u8 mail;
-    u16 hp;
-    u16 maxHP;
-    u16 attack;
-    u16 defense;
-    u16 speed;
-    u16 spAttack;
-    u16 spDefense;
-};
+    /*0x00*/ struct BoxPokemon box;
+    /*0x3C*/ u32 status;
+    /*0x40*/ u8 level;
+    /*0x41*/ u8 mail;
+    /*0x42*/ u16 hp;
+    /*0x44*/ u16 maxHP;
+    /*0x46*/ u16 attack;
+    /*0x48*/ u16 defense;
+    /*0x4A*/ u16 speed;
+    /*0x4C*/ u16 spAttack;
+    /*0x4E*/ u16 spDefense;
+}; /* size = 80 */
 
 struct MonSpritesGfxManager
 {
