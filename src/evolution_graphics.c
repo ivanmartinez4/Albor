@@ -10,7 +10,7 @@
 #include "palette.h"
 #include "constants/rgb.h"
 
-static void SpriteCB_Sparkle_Dummy(struct Sprite* sprite);
+static void SpriteCB_Sparkle_Dummy(struct Sprite *sprite);
 
 static void Task_Sparkles_SpiralUpward_Init(u8 taskId);
 static void Task_Sparkles_SpiralUpward(u8 taskId);
@@ -115,7 +115,7 @@ static void SetEvoSparklesMatrices(void)
 #define sTrigIdx   data[6]
 #define sTimer     data[7]
 
-static void SpriteCB_Sparkle_SpiralUpward(struct Sprite* sprite)
+static void SpriteCB_Sparkle_SpiralUpward(struct Sprite *sprite)
 {
     if (sprite->y > 8)
     {
@@ -155,7 +155,7 @@ static void CreateSparkle_SpiralUpward(u8 trigIdx)
     }
 }
 
-static void SpriteCB_Sparkle_ArcDown(struct Sprite* sprite)
+static void SpriteCB_Sparkle_ArcDown(struct Sprite *sprite)
 {
     if (sprite->y < 88)
     {
@@ -184,7 +184,7 @@ static void CreateSparkle_ArcDown(u8 trigIdx)
     }
 }
 
-static void SpriteCB_Sparkle_CircleInward(struct Sprite* sprite)
+static void SpriteCB_Sparkle_CircleInward(struct Sprite *sprite)
 {
     if (sprite->sAmplitude > 8)
     {
@@ -213,7 +213,7 @@ static void CreateSparkle_CircleInward(u8 trigIdx, u8 speed)
     }
 }
 
-static void SpriteCB_Sparkle_Spray(struct Sprite* sprite)
+static void SpriteCB_Sparkle_Spray(struct Sprite *sprite)
 {
     if (!(sprite->sTimer & 3))
         sprite->y++;
@@ -480,7 +480,7 @@ static void Task_Sparkles_SprayAndFlashTrade(u8 taskId)
 #undef tTimer
 #undef tSpecies
 
-static void SpriteCB_EvolutionMonSprite(struct Sprite* sprite)
+static void SpriteCB_EvolutionMonSprite(struct Sprite *sprite)
 {
 
 }

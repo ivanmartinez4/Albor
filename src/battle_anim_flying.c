@@ -410,7 +410,7 @@ void AnimAirWaveCrescent(struct Sprite *sprite)
     }
     else
     {
-        SetAverageBattlerPositions(gBattleAnimTarget, 1, &sprite->data[2], &sprite->data[4]);
+        SetAverageBattlerPositions(gBattleAnimTarget, TRUE, &sprite->data[2], &sprite->data[4]);
     }
 
     sprite->data[2] = sprite->data[2] + gBattleAnimArgs[2];
@@ -550,7 +550,7 @@ static void AnimFallingFeather(struct Sprite *sprite)
     data->unkA = (gBattleAnimArgs[2] >> 8) & 0xFF;
     data->unk4 = gBattleAnimArgs[3];
     data->unk6 = gBattleAnimArgs[4];
-    *(u16*)(data->unkC) = gBattleAnimArgs[5];
+    *(u16 *)(data->unkC) = gBattleAnimArgs[5];
 
     if (data->unk2 >= 64 && data->unk2 <= 191)
     {
@@ -853,7 +853,7 @@ static void AnimWhirlwindLine(struct Sprite * sprite)
     u8 mult;
 
     if (gBattleAnimArgs[2] == ANIM_ATTACKER)
-        InitSpritePosToAnimAttacker(sprite, 0);
+        InitSpritePosToAnimAttacker(sprite, FALSE);
     else
         InitSpritePosToAnimTarget(sprite, FALSE);
 
@@ -918,7 +918,7 @@ static void AnimBounceBallShrink(struct Sprite *sprite)
     switch (sprite->data[0])
     {
     case 0:
-        InitSpritePosToAnimAttacker(sprite, 1);
+        InitSpritePosToAnimAttacker(sprite, TRUE);
         gSprites[GetAnimBattlerSpriteId(ANIM_ATTACKER)].invisible = TRUE;
         ++sprite->data[0];
         break;
@@ -956,7 +956,7 @@ void AnimBounceBallLand(struct Sprite *sprite)
 
 static void AnimDiveBall(struct Sprite *sprite)
 {
-    InitSpritePosToAnimAttacker(sprite, 1);
+    InitSpritePosToAnimAttacker(sprite, TRUE);
     sprite->data[0] = gBattleAnimArgs[2];
     sprite->data[1] = gBattleAnimArgs[3];
     sprite->callback = AnimDiveBall_Step1;
@@ -1014,7 +1014,7 @@ static void AnimDiveWaterSplash(struct Sprite *sprite)
 
         sprite->data[1] = 0x200;
 
-        TrySetSpriteRotScale(sprite, 0, 0x100, sprite->data[1], 0);
+        TrySetSpriteRotScale(sprite, FALSE, 0x100, sprite->data[1], 0);
         sprite->data[0]++;
         break;
     case 1:
@@ -1025,7 +1025,7 @@ static void AnimDiveWaterSplash(struct Sprite *sprite)
 
         sprite->data[2]++;
 
-        TrySetSpriteRotScale(sprite, 0, 0x100, sprite->data[1], 0);
+        TrySetSpriteRotScale(sprite, FALSE, 0x100, sprite->data[1], 0);
 
         matrixNum = sprite->oam.matrixNum;
 
@@ -1123,7 +1123,7 @@ static void AnimSkyAttackBird(struct Sprite *sprite)
     rotation = ArcTan2Neg(posx - sprite->x, posy - sprite->y);
     rotation -= 16384;
 
-    TrySetSpriteRotScale(sprite, 1, 0x100, 0x100, rotation);
+    TrySetSpriteRotScale(sprite, TRUE, 0x100, 0x100, rotation);
 
     sprite->callback = AnimSkyAttackBird_Step;
 }

@@ -462,7 +462,7 @@ static const struct WindowTemplate sWindowTemplates[] =
 };
 
 // - 1 excludes PBLOCK_CLR_NONE
-static const u32* const sPokeblocksPals[] =
+static const u32 *const sPokeblocksPals[] =
 {
     [PBLOCK_CLR_RED - 1]       = gPokeblockRed_Pal,
     [PBLOCK_CLR_BLUE - 1]      = gPokeblockBlue_Pal,
@@ -656,7 +656,7 @@ static bool8 LoadPokeblockFeedScene(void)
         gMain.state++;
         break;
     case 10:
-        DrawStdFrameWithCustomTileAndPalette(0, 1, 1, 14);
+        DrawStdFrameWithCustomTileAndPalette(0, TRUE, 1, 14);
         gMain.state++;
         break;
     case 11:
@@ -901,7 +901,7 @@ static void Task_FadeOutPokeblockFeed(u8 taskId)
 #define sAccel   data[1]
 #define sSpecies data[2]
 
-static u8 CreateMonSprite(struct Pokemon* mon)
+static u8 CreateMonSprite(struct Pokemon *mon)
 {
     u16 species = GetMonData(mon, MON_DATA_SPECIES2);
     u8 spriteId = CreateSprite(&gMultiuseSpriteTemplate, MON_X, MON_Y, 2);
@@ -933,7 +933,7 @@ static void StartMonJumpForPokeblock(u8 spriteId)
     gSprites[spriteId].callback = SpriteCB_MonJumpForPokeblock;
 }
 
-static void SpriteCB_MonJumpForPokeblock(struct Sprite* sprite)
+static void SpriteCB_MonJumpForPokeblock(struct Sprite *sprite)
 {
     sprite->x += 4;
     sprite->y += sprite->sSpeed;
@@ -978,7 +978,7 @@ static u8 CreatePokeblockSprite(void)
     return spriteId;
 }
 
-static void SpriteCB_ThrownPokeblock(struct Sprite* sprite)
+static void SpriteCB_ThrownPokeblock(struct Sprite *sprite)
 {
     sprite->x -= 4;
     sprite->y += sprite->sSpeed;

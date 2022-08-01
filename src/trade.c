@@ -4807,7 +4807,7 @@ static void CheckPartnersMonForRibbons(void)
         FlagSet(FLAG_SYS_RIBBON_GET);
 }
 
-void InitTradeBg(void)
+void LoadTradeAnimGfx(void)
 {
     InitTradeBgInternal();
 }

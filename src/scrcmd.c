@@ -1328,7 +1328,7 @@ bool8 ScrCmd_messageinstant(struct ScriptContext *ctx)
     if (msg == NULL)
         msg = (const u8 *)ctx->data[0];
     LoadMessageBoxAndBorderGfx();
-    DrawDialogueFrame(0, 1);
+    DrawDialogueFrame(0, TRUE);
     AddTextPrinterParameterized(0, FONT_NORMAL, msg, 0, 1, 0, NULL);
     return FALSE;
 }
@@ -1550,7 +1550,7 @@ bool8 ScrCmd_braillemessage(struct ScriptContext *ctx)
     winTemplate = CreateWindowTemplate(0, xWindow, yWindow + 1, width, height, 0xF, 0x1);
     sBrailleWindowId = AddWindow(&winTemplate);
     LoadUserWindowBorderGfx(sBrailleWindowId, 0x214, 0xE0);
-    DrawStdWindowFrame(sBrailleWindowId, 0);
+    DrawStdWindowFrame(sBrailleWindowId, FALSE);
     PutWindowTilemap(sBrailleWindowId);
     FillWindowPixelBuffer(sBrailleWindowId, PIXEL_FILL(1));
     AddTextPrinterParameterized(sBrailleWindowId, FONT_BRAILLE, gStringVar4, xText, yText, TEXT_SKIP_DRAW, NULL);
@@ -2273,7 +2273,7 @@ bool8 ScrCmd_lockfortrainer(struct ScriptContext *ctx)
 
 bool8 ScrCmd_trywondercardscript(struct ScriptContext *ctx)
 {
-    const u8* script = GetSavedRamScriptIfValid();
+    const u8 *script = GetSavedRamScriptIfValid();
 
     if (script)
     {
@@ -2312,7 +2312,7 @@ bool8 ScrCmd_setmonmetlocation(struct ScriptContext *ctx)
 
 static void CloseBrailleWindow(void)
 {
-    ClearStdWindowAndFrame(sBrailleWindowId, 1);
+    ClearStdWindowAndFrame(sBrailleWindowId, TRUE);
     RemoveWindow(sBrailleWindowId);
 }
 

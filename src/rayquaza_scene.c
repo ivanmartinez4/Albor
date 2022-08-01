@@ -1626,7 +1626,7 @@ static void Task_DuoFightAnim(u8 taskId)
         StopMapMusic();
     }
 
-    BlendPalettes(PALETTES_ALL, 0x10, 0);
+    BlendPalettes(PALETTES_ALL, 0x10, RGB_BLACK);
     BeginNormalPaletteFade(PALETTES_ALL, 0, 0x10, 0, RGB_BLACK);
     SetVBlankCallback(VBlankCB_DuoFight);
     PlaySE(SE_DOWNPOUR);
@@ -2283,7 +2283,7 @@ static void Task_RayDescendsAnim(u8 taskId)
     LoadDescendsSceneGfx();
     SetGpuRegBits(REG_OFFSET_BLDCNT, BLDCNT_TGT1_BG0 | BLDCNT_TGT2_BG1 | BLDCNT_TGT2_BG2 | BLDCNT_TGT2_BG3 | BLDCNT_TGT2_OBJ | BLDCNT_EFFECT_BLEND);
     SetGpuReg(REG_OFFSET_BLDALPHA, BLDALPHA_BLEND(0, 16));
-    BlendPalettes(PALETTES_ALL, 0x10, 0);
+    BlendPalettes(PALETTES_ALL, 0x10, RGB_BLACK);
     SetVBlankCallback(VBlankCB_RayquazaScene);
     sRayScene->revealedLightLine = 0;
     sRayScene->revealedLightTimer = 0;
@@ -2500,7 +2500,7 @@ static void Task_RayChargesAnim(u8 taskId)
     InitChargesSceneBgs();
     LoadChargesSceneGfx();
     SetWindowsHideVertBorders();
-    BlendPalettes(PALETTES_ALL, 0x10, 0);
+    BlendPalettes(PALETTES_ALL, 0x10, RGB_BLACK);
     SetVBlankCallback(VBlankCB_RayquazaScene);
     tState = 0;
     tTimer = 0;
@@ -2696,7 +2696,7 @@ static void Task_RayChasesAwayAnim(u8 taskId)
     ClearGpuRegBits(REG_OFFSET_DISPCNT, DISPCNT_BG2_ON);
     SetGpuReg(REG_OFFSET_BLDCNT, BLDCNT_TGT1_BG0 | BLDCNT_TGT2_BG1 | BLDCNT_EFFECT_BLEND);
     SetGpuReg(REG_OFFSET_BLDALPHA, BLDALPHA_BLEND(9, 14));
-    BlendPalettes(PALETTES_ALL, 0x10, 0);
+    BlendPalettes(PALETTES_ALL, 0x10, RGB_BLACK);
     SetVBlankCallback(VBlankCB_RayquazaScene);
     tState = 0;
     tTimer = 0;

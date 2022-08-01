@@ -95,10 +95,10 @@ void InitBattleControllers(void)
     }
 
     for (i = 0; i < sizeof(gBattleStruct->tvMovePoints); i++)
-        *((u8*)(&gBattleStruct->tvMovePoints) + i) = 0;
+        *((u8 *)(&gBattleStruct->tvMovePoints) + i) = 0;
 
     for (i = 0; i < sizeof(gBattleStruct->tv); i++)
-        *((u8*)(&gBattleStruct->tv) + i) = 0;
+        *((u8 *)(&gBattleStruct->tv) + i) = 0;
 }
 
 static void InitSinglePlayerBtlControllers(void)
@@ -923,7 +923,7 @@ void BtlController_EmitSetMonData(u8 bufferId, u8 requestId, u8 monToCheck, u8 b
     sBattleBuffersTransferData[1] = requestId;
     sBattleBuffersTransferData[2] = monToCheck;
     for (i = 0; i < bytes; i++)
-        sBattleBuffersTransferData[3 + i] = *(u8*)(data++);
+        sBattleBuffersTransferData[3 + i] = *(u8 *)(data++);
     PrepareBufferDataTransfer(bufferId, sBattleBuffersTransferData, 3 + bytes);
 }
 
@@ -1028,14 +1028,14 @@ void BtlController_EmitMoveAnimation(u8 bufferId, u16 move, u8 turnOfMove, u16 m
 void BtlController_EmitPrintString(u8 bufferId, u16 stringID)
 {
     s32 i;
-    struct BattleMsgData* stringInfo;
+    struct BattleMsgData *stringInfo;
 
     sBattleBuffersTransferData[0] = CONTROLLER_PRINTSTRING;
     sBattleBuffersTransferData[1] = gBattleOutcome;
     sBattleBuffersTransferData[2] = stringID;
     sBattleBuffersTransferData[3] = (stringID & 0xFF00) >> 8;
 
-    stringInfo = (struct BattleMsgData*)(&sBattleBuffersTransferData[4]);
+    stringInfo = (struct BattleMsgData *)(&sBattleBuffersTransferData[4]);
     stringInfo->currentMove = gCurrentMove;
     stringInfo->originallyUsedMove = gChosenMove;
     stringInfo->lastItem = gLastUsedItem;
@@ -1067,7 +1067,7 @@ void BtlController_EmitPrintSelectionString(u8 bufferId, u16 stringID)
     sBattleBuffersTransferData[2] = stringID;
     sBattleBuffersTransferData[3] = (stringID & 0xFF00) >> 8;
 
-    stringInfo = (struct BattleMsgData*)(&sBattleBuffersTransferData[4]);
+    stringInfo = (struct BattleMsgData *)(&sBattleBuffersTransferData[4]);
     stringInfo->currentMove = gCurrentMove;
     stringInfo->originallyUsedMove = gChosenMove;
     stringInfo->lastItem = gLastUsedItem;
@@ -1116,7 +1116,7 @@ void BtlController_EmitChooseMove(u8 bufferId, bool8 isDoubleBattle, bool8 NoPpN
     sBattleBuffersTransferData[2] = NoPpNumber;
     sBattleBuffersTransferData[3] = 0;
     for (i = 0; i < sizeof(*movePpData); i++)
-        sBattleBuffersTransferData[4 + i] = *((u8*)(movePpData) + i);
+        sBattleBuffersTransferData[4 + i] = *((u8 *)(movePpData) + i);
     PrepareBufferDataTransfer(bufferId, sBattleBuffersTransferData, sizeof(*movePpData) + 4);
 }
 
@@ -1199,7 +1199,7 @@ void BtlController_EmitDataTransfer(u8 bufferId, u16 size, void *data)
     sBattleBuffersTransferData[2] = size;
     sBattleBuffersTransferData[3] = (size & 0xFF00) >> 8;
     for (i = 0; i < size; i++)
-        sBattleBuffersTransferData[4 + i] = *(u8*)(data++);
+        sBattleBuffersTransferData[4 + i] = *(u8 *)(data++);
     PrepareBufferDataTransfer(bufferId, sBattleBuffersTransferData, size + 4);
 }
 
@@ -1313,7 +1313,7 @@ void BtlController_EmitDrawPartyStatusSummary(u8 bufferId, struct HpAndStatus* h
     sBattleBuffersTransferData[2] = (flags & PARTY_SUMM_SKIP_DRAW_DELAY) >> 7; // If true, skip delay after drawing. True during intro
     sBattleBuffersTransferData[3] = CONTROLLER_DRAWPARTYSTATUSSUMMARY;
     for (i = 0; i < (s32)(sizeof(struct HpAndStatus) * PARTY_SIZE); i++)
-        sBattleBuffersTransferData[4 + i] = *(i + (u8*)(hpAndStatus));
+        sBattleBuffersTransferData[4 + i] = *(i + (u8 *)(hpAndStatus));
     PrepareBufferDataTransfer(bufferId, sBattleBuffersTransferData, sizeof(struct HpAndStatus) * PARTY_SIZE + 4);
 }
 

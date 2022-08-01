@@ -26,6 +26,11 @@ extern u8 gSelectedMonPartyId;
 extern MainCallback gPostMenuFieldCallback;
 extern u8 gSelectedOrderFromParty[MAX_FRONTIER_PARTY_SIZE];
 extern u8 gBattlePartyCurrentOrder[PARTY_SIZE / 2];
+extern const struct SpriteSheet sSpriteSheet_HeldItem;
+extern const struct SpritePalette sSpritePalette_HeldItem;
+
+extern const struct SpriteSheet gSpriteSheet_HeldItem;
+extern const u16 gHeldItemPalette[];
 
 extern void (*gItemUseCB)(u8, TaskFunc);
 
@@ -36,8 +41,8 @@ bool8 IsMultiBattle(void);
 u8 GetCursorSelectionMonId(void);
 u8 GetPartyMenuType(void);
 void Task_HandleChooseMonInput(u8 taskId);
-u8* GetMonNickname(struct Pokemon *mon, u8 *dest);
-u8 DisplayPartyMenuMessage(const u8* str, bool8 keepOpen);
+u8 *GetMonNickname(struct Pokemon *mon, u8 *dest);
+u8 DisplayPartyMenuMessage(const u8 *str, bool8 keepOpen);
 bool8 IsPartyMenuTextPrinterActive(void);
 void PartyMenuModifyHP(u8 taskId, u8 slot, s8 hpIncrement, s16 HPDifference, TaskFunc task);
 u8 GetAilmentFromStatus(u32 status);
