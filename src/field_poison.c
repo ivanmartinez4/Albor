@@ -97,7 +97,7 @@ static void Task_TryFieldPoisonWhiteOut(u8 taskId)
                 gSpecialVar_Result = FLDPSN_NO_WHITEOUT;
                 UpdateFollowingPokemon();
             }
-            EnableBothScriptContexts();
+            ScriptContext_Enable();
             DestroyTask(taskId);
             break;
     }
