@@ -1901,7 +1901,7 @@ static void LoadPalettes(void)
 {
     LoadPalette(gNamingScreenMenu_Pal, 0, 0xC0);
     LoadPalette(sKeyboard_Pal, 0xA0, sizeof(sKeyboard_Pal));
-    LoadPalette(GetTextWindowPalette(2), 0xB0, 0x20);
+    LoadPalette(GetTextWindowPalette(5), 0xB0, 0x20);
 }
 
 static void DrawBgTilemap(u8 bg, const void *src)

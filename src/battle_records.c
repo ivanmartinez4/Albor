@@ -284,7 +284,7 @@ static void CB2_ShowTrainerHillRecords(void)
         break;
     case 3:
         LoadTrainerHillRecordsWindowGfx(3);
-        LoadPalette(GetTextWindowPalette(0), 0xF0, 0x20);
+        LoadPalette(GetTextWindowPalette(3), 0xF0, 0x20);
         gMain.state++;
         break;
     case 4:
