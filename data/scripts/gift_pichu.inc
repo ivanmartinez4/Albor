@@ -29,7 +29,7 @@ SurfPichu_FullParty:
 
 SurfPichu_GiveEgg:
 	giveegg SPECIES_PICHU
-	setmonmetlocation VAR_GIFT_PICHU_SLOT, METLOC_FATEFUL_ENCOUNTER
+	setmonmetlocation VAR_GIFT_PICHU_SLOT, METLOC_IN_GAME_TRADE
 	vgoto_if_eq VAR_GIFT_PICHU_SLOT, 1, SurfPichu_Slot1
 	vgoto_if_eq VAR_GIFT_PICHU_SLOT, 2, SurfPichu_Slot2
 	vgoto_if_eq VAR_GIFT_PICHU_SLOT, 3, SurfPichu_Slot3

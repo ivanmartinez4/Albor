@@ -306,6 +306,7 @@ const u8 *const gContestEffectDescriptionPointers[] =
 };
 
 const u8 *const gContestEffectFourLineDescriptionPointers[] =
+{
     [CONTEST_EFFECT_BETTER_WITH_GOOD_CONDITION]            = gText_FourLine_AppealWorksWellIfConditionGood,
     [CONTEST_EFFECT_NEXT_APPEAL_EARLIER]                   = gText_FourLine_NextAppealMadeEarlier,
     [CONTEST_EFFECT_NEXT_APPEAL_LATER]                     = gText_FourLine_NextAppealMadeLater,
@@ -346,6 +347,7 @@ const u8 *const gContestMoveTypeTextPointers[] =
 };
 // Takes the .attentionLevel of a contestant as an index. Only 0-5 are used
 static const u8 *const sRoundResultTexts[] =
+{
     gText_MonFailedToStandOutAtAll,
     gText_MonDidntStandOutVeryMuch,
     gText_MonAttractedALotOfAttention,
@@ -368,8 +370,10 @@ static const u8 *const sRoundResultTexts[] =
     gText_EmptyContestString,
     gText_JammedAppealsMadeEvenLessNoticeable,
     gText_EveryonesAppealsMadeSame
+};
 
 static const u8 *const sAppealResultTexts[] =
+{
     [CONTEST_STRING_MORE_CONSCIOUS]            = gText_BecameMoreConsciousOfOtherMons,
     [CONTEST_STRING_NO_APPEAL]                 = gText_MonCantMakeAnAppealAfterThis,
     [CONTEST_STRING_OBLIVIOUS_TO_OTHERS]       = gText_BecameObliviousToOtherMons,

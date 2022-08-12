@@ -69,7 +69,6 @@
 #define CONFIG_DECAPITALIZE_MENU_STRINGS                TRUE
 #define CONFIG_DECAPITALIZE_MET_LOCATION_STRINGS        FALSE
 #define CONFIG_DECAPITALIZE_MOVE_DESCRIPTION_STRINGS    FALSE
-#define CONFIG_FATEFUL_ENCOUNTER_MARK                   TRUE
 #define CONFIG_ITEM_NAME_TEXT_ALIGN                     TEXT_ALIGN_CENTER
 
 // Make sure gBallIconTable in src/data/item_icon_table.h is ordered correctly.  Default does not match RHH
@@ -169,7 +168,6 @@ static EWRAM_DATA struct PokemonSummaryScreenData
         u8 nature;
         u8 ppBonuses;
         u8 sanity;
-        bool8 fatefulEncounter;
         u8 OTName[17];
         u32 OTID;
         u8 sheen;
@@ -473,7 +471,6 @@ enum
     PSS_COLOR_FEMALE_GENDER_SYMBOL,
     PSS_COLOR_SHINY_STARS,
     PSS_COLOR_POKERUS_CURED,
-    PSS_COLOR_FATEFUL_TRIANGLE,
     PP_UNK_1,
     PP_UNK_2,
     PP_UNK_3,
@@ -492,7 +489,6 @@ static const u8 sTextColors[][3] =
     [PSS_COLOR_FEMALE_GENDER_SYMBOL]    = {0, 5, 6},
     [PSS_COLOR_SHINY_STARS]             = {0, 5, 5},
     [PSS_COLOR_POKERUS_CURED]           = {0, 9, 9},
-    [PSS_COLOR_FATEFUL_TRIANGLE]       = {0, 10, 10},
     /* Probably left from Pokémon Polar,
     check if they are actually needed so
     we can remove them if unused */
@@ -992,7 +988,6 @@ static const u32 * const sPageTilemaps[] =
 
 const u8 sText_Shiny[] = _("{SUM_SHINY}");
 const u8 sText_Pokerus[] = _("{SUM_IMMUNE}");
-const u8 sText_Fateful[] = _("{SUM_FATEFUL}");
 const u8 sText_NatureUp[] = _("{SUM_UP}");
 const u8 sText_NatureDown[] = _("{SUM_DOWN}");
 const u8 sText_OTName[] = _("OT");
@@ -1207,7 +1202,7 @@ void ShowPokemonSummaryScreen(u8 mode, void *mons, u8 monIndex, u8 maxMonIndex, 
     SummaryScreen_SetAnimDelayTaskId(TASK_NONE);
 
     if (gMonSpritesGfxPtr == NULL)
-        CreateMonSpritesGfxManager(MON_SPR_GFX_MANAGER_A, MON_SPR_GFX_MODE_NORMAL);
+        CreateMonSpritesGfxManager();
 
     SetMainCallback2(CB2_InitSummaryScreen);
 }
@@ -1454,7 +1449,7 @@ static bool8 DecompressGraphics(void)
         sMonSummaryScreen->switchCounter++;
         break;
     case 4:
-        LoadCompressedSpriteSheet(&sSpriteSheet_MoveTypes);
+        LoadCompressedSpriteSheet(&gSpriteSheet_MoveTypes);
         sMonSummaryScreen->switchCounter++;
         break;
     case 5:
@@ -1593,7 +1588,6 @@ static bool8 ExtractMonDataToSummaryStruct(struct Pokemon *mon)
         break;
     default:
         sum->ribbonCount = GetMonData(mon, MON_DATA_RIBBON_COUNT);
-        sum->fatefulEncounter = GetMonData(mon, MON_DATA_EVENT_LEGAL);
         if (sum->isEgg)
         {
             sMonSummaryScreen->minPageIndex = PSS_PAGE_MEMO;
@@ -2680,15 +2674,8 @@ static void PrintNotEggInfo(void)
     }
     if (IsMonShiny(mon))
         PrintTextOnWindow(PSS_LABEL_PANE_LEFT_TOP, sText_Shiny, 62, 18, 0, PSS_COLOR_SHINY_STARS);
-    #if CONFIG_FATEFUL_ENCOUNTER_MARK
-    if (summary->fatefulEncounter)
-        PrintTextOnWindow(PSS_LABEL_PANE_LEFT_TOP, sText_Fateful, 52, 18, 0, PSS_COLOR_FATEFUL_TRIANGLE);
-    if (!CheckPartyPokerus(mon, 0) && CheckPartyHasHadPokerus(mon, 0))
-        PrintTextOnWindow(PSS_LABEL_PANE_LEFT_TOP, sText_Pokerus, 43, 18, 0, PSS_COLOR_POKERUS_CURED);
-    #else
     if (!CheckPartyPokerus(mon, 0) && CheckPartyHasHadPokerus(mon, 0))
         PrintTextOnWindow(PSS_LABEL_PANE_LEFT_TOP, sText_Pokerus, 52, 18, 0, PSS_COLOR_POKERUS_CURED);
-    #endif
 
     if (sMonSummaryScreen->summary.item == ITEM_NONE)
         StringCopy(gStringVar1, sText_None);
@@ -2903,10 +2890,6 @@ static void BufferMonTrainerMemo(void)
         {
             GetMapNameHoennKanto(metLocationString, MAPSEC_MIRAGE_ISLAND);
         }
-        else if (sum->metGame == VERSION_GAMECUBE)
-        {
-            GetMapNameOrre(metLocationString, sum->metLocation, sum->fatefulEncounter);
-        }
         else
         {
             GetMapNameHoennKanto(metLocationString, sum->metLocation);
@@ -2922,7 +2905,7 @@ static void BufferMonTrainerMemo(void)
                  else
                     text = gText_TrainerMemo_ReceivedFrom; //Duking's Plusle
             }
-            else if (sum->fatefulEncounter && sum->metLocation == 0 && (sum->species == SPECIES_EEVEE || sum->species == SPECIES_VAPOREON || sum->species == SPECIES_JOLTEON || sum->species == SPECIES_FLAREON || sum->species == SPECIES_ESPEON || sum->species == SPECIES_UMBREON))
+            else if (sum->metLocation == 0 && (sum->species == SPECIES_EEVEE || sum->species == SPECIES_VAPOREON || sum->species == SPECIES_JOLTEON || sum->species == SPECIES_FLAREON || sum->species == SPECIES_ESPEON || sum->species == SPECIES_UMBREON))
             {
                 DynamicPlaceholderTextUtil_SetPlaceholderPtr(4, sum->OTName);
                 text = gText_TrainerMemo_ObtainedFromDad; //XD starter
@@ -2948,11 +2931,6 @@ static void BufferMonTrainerMemo(void)
             else
                 text = gText_TrainerMemo_HatchedUntrusted;
             #endif
-        }
-        else if (sum->metLocation == METLOC_FATEFUL_ENCOUNTER)
-        {
-            DynamicPlaceholderTextUtil_SetPlaceholderPtr(4, metLocationString);
-            text = gText_TrainerMemo_Fateful;
         }
         else if (sum->metLocation != METLOC_IN_GAME_TRADE)
         {
@@ -2988,11 +2966,6 @@ static void BufferMonTrainerMemo(void)
             else
                 text = gText_TrainerMemo_HatchedUntrusted;
             #endif
-        }
-        else if (sum->metLocation == METLOC_FATEFUL_ENCOUNTER)
-        {
-            DynamicPlaceholderTextUtil_SetPlaceholderPtr(4, metLocationString);
-            text = gText_TrainerMemo_Fateful;
         }
         else if (sum->metLocation != METLOC_IN_GAME_TRADE)
         {
@@ -3177,13 +3150,9 @@ static void BufferEggMemo(void)
     #if CONFIG_EXPANDED_MET_LOCATIONS
     if (sMonSummaryScreen->summary.sanity != 1)
     {
-        if (sum->metLocation == METLOC_FATEFUL_ENCOUNTER)
+        if (DidMonComeFromFRLG())
         {
-            u8 boxOT[17] = _("AZUSA");
-            if (!StringCompareWithoutExtCtrlCodes(boxOT, sum->OTName) && sum->OTID == 0)
-                text = gText_TrainerMemo_EggFromBrigette;
-            else
-                text = gText_TrainerMemo_EggFateful;
+            text = gText_TrainerMemo_EggFromKanto;
         }
         #if CONFIG_TRUST_OUTSIDERS == FALSE
         else if (!DoesMonOTMatchOwner())
@@ -3197,10 +3166,6 @@ static void BufferEggMemo(void)
                 text = gText_TrainerMemo_EggFromHotSprings;
             else
                 text = gText_TrainerMemo_EggFromTraveler;
-        }
-        else if (DidMonComeFromFRLG())
-        {
-            text = gText_TrainerMemo_EggFromKanto;
         }
         else
         {
@@ -3214,9 +3179,12 @@ static void BufferEggMemo(void)
     #else
     if (sMonSummaryScreen->summary.sanity != 1)
     {
-        if (sum->metLocation == METLOC_FATEFUL_ENCOUNTER)
+        if (sum->metLocation == METLOC_SPECIAL_EGG)
         {
-            text = gText_TrainerMemo_EggFateful;
+            if (DidMonComeFromRSE())
+                text = gText_TrainerMemo_EggFromHotSprings;
+            else
+                text = gText_TrainerMemo_EggFromTraveler;
         }
         #if CONFIG_TRUST_OUTSIDERS == FALSE
         else if (!DoesMonOTMatchOwner())
@@ -3224,13 +3192,6 @@ static void BufferEggMemo(void)
             text = gText_TrainerMemo_EggTraded;
         }
         #endif
-        else if (sum->metLocation == METLOC_SPECIAL_EGG)
-        {
-            if (DidMonComeFromRSE())
-                text = gText_TrainerMemo_EggFromHotSprings;
-            else
-                text = gText_TrainerMemo_EggFromTraveler;
-        }
         else
         {
             text = gText_TrainerMemo_EggFromDayCare;
@@ -3914,7 +3875,7 @@ static u8 LoadMonGfxAndSprite(struct Pokemon *mon, s16 *state)
             else
             {
                 HandleLoadSpecialPokePic(&gMonFrontPicTable[summary->species2],
-                                         MonSpritesGfxManager_GetSpritePtr(MON_SPR_GFX_MANAGER_A, B_POSITION_OPPONENT_LEFT),
+                                         MonSpritesGfxManager_GetSpritePtr(B_POSITION_OPPONENT_LEFT),
                                          summary->species2,
                                          summary->pid);
             }
@@ -3929,9 +3890,9 @@ static u8 LoadMonGfxAndSprite(struct Pokemon *mon, s16 *state)
             else
             {
                 if (sMonSummaryScreen->monList.mons == gPlayerParty || sMonSummaryScreen->mode == SUMMARY_MODE_BOX || sMonSummaryScreen->unk40EF == TRUE)
-                    HandleLoadSpecialPokePic_2(&gMonFrontPicTable[summary->species2], MonSpritesGfxManager_GetSpritePtr(MON_SPR_GFX_MANAGER_A, B_POSITION_OPPONENT_LEFT), summary->species2, summary->pid);
+                    HandleLoadSpecialPokePic_2(&gMonFrontPicTable[summary->species2], MonSpritesGfxManager_GetSpritePtr(B_POSITION_OPPONENT_LEFT), summary->species2, summary->pid);
                 else
-                    HandleLoadSpecialPokePic_DontHandleDeoxys(&gMonFrontPicTable[summary->species2], MonSpritesGfxManager_GetSpritePtr(MON_SPR_GFX_MANAGER_A, B_POSITION_OPPONENT_LEFT), summary->species2, summary->pid);
+                    HandleLoadSpecialPokePic_DontHandleDeoxys(&gMonFrontPicTable[summary->species2], MonSpritesGfxManager_GetSpritePtr(B_POSITION_OPPONENT_LEFT), summary->species2, summary->pid);
             }
         #endif
         }
@@ -4540,7 +4501,7 @@ static u8 WhatRegionWasMonCaughtIn(struct Pokemon *mon)
         return REGION_ORRE;
     else if ((metLocation >= KANTO_MAPSEC_START && metLocation <= KANTO_MAPSEC_END) || metLocation == MAPSEC_BIRTH_ISLAND || metLocation == MAPSEC_NAVEL_ROCK)
         return REGION_KANTO;
-    else if (metLocation == MAPSEC_FARAWAY_ISLAND || metLocation == METLOC_FATEFUL_ENCOUNTER || metLocation == METLOC_IN_GAME_TRADE)
+    else if (metLocation == MAPSEC_FARAWAY_ISLAND || metLocation == METLOC_IN_GAME_TRADE)
         return REGION_UNKNOWN;
     else if (originGame == 0 || originGame == 6 || originGame == 9 || originGame == 13 || originGame == 14)
         return REGION_UNKNOWN;
