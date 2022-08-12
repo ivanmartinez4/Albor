@@ -51,6 +51,71 @@ extern const u8 gText_BadlyStartlesMonsGoodAppeals[];
 extern const u8 gText_AppealBestMoreCrowdExcited[];
 extern const u8 gText_TemporarilyStopCrowdExcited[];
 
+// gContestEffectFourLineDescriptionPointers
+extern const u8 gText_FourLine_HighlyAppealingMove[];
+extern const u8 gText_FourLine_UserMoreEasilyStartled[];
+extern const u8 gText_FourLine_GreatAppealButNoMoreToEnd[];
+extern const u8 gText_FourLine_UsedRepeatedlyWithoutBoringJudge[];
+extern const u8 gText_FourLine_AvoidStartledByOthersOnce[];
+extern const u8 gText_FourLine_AvoidStartledByOthers[];
+extern const u8 gText_FourLine_AvoidStartledByOthersLittle[];
+extern const u8 gText_FourLine_UserLessLikelyStartled[];
+extern const u8 gText_FourLine_SlightlyStartleFrontMon[];
+extern const u8 gText_FourLine_SlightlyStartleAppealed[];
+extern const u8 gText_FourLine_StartleAppealedBeforeUser[];
+extern const u8 gText_FourLine_StartleAllAppealed[];
+extern const u8 gText_FourLine_BadlyStartleFrontMon[];
+extern const u8 gText_FourLine_BadlyStartleAppealed[];
+extern const u8 gText_FourLine_StartleAppealedBeforeUser2[];
+extern const u8 gText_FourLine_StartleAllAppealed2[];
+extern const u8 gText_FourLine_ShiftJudgesAttentionFromOthers[];
+extern const u8 gText_FourLine_StartleMonHasJudgesAttention[];
+extern const u8 gText_FourLine_JamOthersMissesTurn[];
+extern const u8 gText_FourLine_StartleMonsMadeSameTypeAppeal[];
+extern const u8 gText_FourLine_BadlyStartleCoolAppeals[];
+extern const u8 gText_FourLine_BadlyStartleBeautyAppeals[];
+extern const u8 gText_FourLine_BadlyStartleCuteAppeals[];
+extern const u8 gText_FourLine_BadlyStartleSmartAppeals[];
+extern const u8 gText_FourLine_BadlyStartleToughAppeals[];
+extern const u8 gText_FourLine_MakeMonAfterUserNervous[];
+extern const u8 gText_FourLine_MakeAllMonsAfterUserNervous[];
+extern const u8 gText_FourLine_WorsenConditionOfThoseMadeAppeals[];
+extern const u8 gText_FourLine_BadlyStartleMonsGoodCondition[];
+extern const u8 gText_FourLine_AppealGreatIfPerformedFirst[];
+extern const u8 gText_FourLine_AppealGreatIfPerformedLast[];
+extern const u8 gText_FourLine_AppealAsGoodAsThoseBeforeIt[];
+extern const u8 gText_FourLine_AppealAsGoodAsOneBeforeIt[];
+extern const u8 gText_FourLine_AppealBetterLaterItsPerformed[];
+extern const u8 gText_FourLine_AppealVariesDependingOnTiming[];
+extern const u8 gText_FourLine_WorksWellIfSameTypeAsBefore[];
+extern const u8 gText_FourLine_WorksWellIfDifferentTypeAsBefore[];
+extern const u8 gText_FourLine_AffectedByAppealInFront[];
+extern const u8 gText_FourLine_UpsConditionHelpsPreventNervousness[];
+extern const u8 gText_FourLine_AppealWorksWellIfConditionGood[];
+extern const u8 gText_FourLine_NextAppealMadeEarlier[];
+extern const u8 gText_FourLine_NextAppealMadeLater[];
+extern const u8 gText_FourLine_TurnOrderMoreEasilyScrambled[];
+extern const u8 gText_FourLine_ScrambleOrderOfNextAppeals[];
+extern const u8 gText_FourLine_AppealExcitesAudienceInAnyContest[];
+extern const u8 gText_FourLine_BadlyStartlesMonsGoodAppeals[];
+extern const u8 gText_FourLine_AppealBestMoreCrowdExcited[];
+extern const u8 gText_FourLine_TemporarilyStopCrowdExcited[];
+
+// sUnusedComboMoveNameTexts
+extern const u8 gText_RainDance[];
+extern const u8 gText_Rage[];
+extern const u8 gText_FocusEnergy[];
+extern const u8 gText_Hypnosis[];
+extern const u8 gText_Softboiled[];
+extern const u8 gText_HornAttack[];
+extern const u8 gText_SwordsDance[];
+extern const u8 gText_Conversion[];
+extern const u8 gText_SunnyDay[];
+extern const u8 gText_Rest2[];
+extern const u8 gText_Vicegrip[];
+extern const u8 gText_DefenseCurl[];
+extern const u8 gText_LockOn[];
+
 // gContestMoveTypeTextPointers
 extern const u8 gContestMoveTypeCoolText[];
 extern const u8 gContestMoveTypeBeautyText[];
@@ -240,66 +305,79 @@ const u8 *const gContestEffectDescriptionPointers[] =
     [CONTEST_EFFECT_DONT_EXCITE_AUDIENCE]                  = gText_TemporarilyStopCrowdExcited
 };
 
-const u8 *const gContestMoveTypeTextPointers[] =
-{
-    [CONTEST_CATEGORY_COOL]   = gContestMoveTypeCoolText,
-    [CONTEST_CATEGORY_BEAUTY] = gContestMoveTypeBeautyText,
-    [CONTEST_CATEGORY_CUTE]   = gContestMoveTypeCuteText,
-    [CONTEST_CATEGORY_SMART]  = gContestMoveTypeSmartText,
-    [CONTEST_CATEGORY_TOUGH]  = gContestMoveTypeToughText
+const u8 *const gContestEffectFourLineDescriptionPointers[] =
+    [CONTEST_EFFECT_BETTER_WITH_GOOD_CONDITION]            = gText_FourLine_AppealWorksWellIfConditionGood,
+    [CONTEST_EFFECT_NEXT_APPEAL_EARLIER]                   = gText_FourLine_NextAppealMadeEarlier,
+    [CONTEST_EFFECT_NEXT_APPEAL_LATER]                     = gText_FourLine_NextAppealMadeLater,
+    [CONTEST_EFFECT_MAKE_SCRAMBLING_TURN_ORDER_EASIER]     = gText_FourLine_TurnOrderMoreEasilyScrambled,
+    [CONTEST_EFFECT_SCRAMBLE_NEXT_TURN_ORDER]              = gText_FourLine_ScrambleOrderOfNextAppeals,
+    [CONTEST_EFFECT_EXCITE_AUDIENCE_IN_ANY_CONTEST]        = gText_FourLine_AppealExcitesAudienceInAnyContest,
+    [CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS]  = gText_FourLine_BadlyStartlesMonsGoodAppeals,
+    [CONTEST_EFFECT_BETTER_WHEN_AUDIENCE_EXCITED]          = gText_FourLine_AppealBestMoreCrowdExcited,
+    [CONTEST_EFFECT_DONT_EXCITE_AUDIENCE]                  = gText_FourLine_TemporarilyStopCrowdExcited
 };
 
+// Unreferenced array of pointers to move names.
+// All of the moves except Conversion are combo starters, so this may have
+// been an early list of combo starters.
+static const u8 *const sUnusedComboMoveNameTexts[] =
+{
+    gText_RainDance,
+    gText_RainDance,
+    gText_Rage,
+    gText_FocusEnergy,
+    gText_Hypnosis,
+    gText_Softboiled,
+    gText_HornAttack,
+    gText_SwordsDance,
+    gText_Conversion,
+    gText_SunnyDay,
+    gText_Rest2,
+    gText_Vicegrip,
+    gText_DefenseCurl,
+    gText_LockOn
+};
+
+const u8 *const gContestMoveTypeTextPointers[] =
+{
+    [CONTEST_CATEGORY_BEAUTY] = gContestMoveTypeBeautyText,
+    [CONTEST_CATEGORY_CUTE]   = gContestMoveTypeCuteText,
+    [CONTEST_CATEGORY_TOUGH]  = gContestMoveTypeToughText
+};
 // Takes the .attentionLevel of a contestant as an index. Only 0-5 are used
 static const u8 *const sRoundResultTexts[] =
-{
     gText_MonFailedToStandOutAtAll,
     gText_MonDidntStandOutVeryMuch,
-    gText_MonCaughtALittleAttention,
     gText_MonAttractedALotOfAttention,
     gText_MonCommandedTotalAttention,
-    gText_MonHasntMadeItsAppeal,
     gText_JudgesViewsOnMonHeldFirm, // here below unused
     gText_MonsXChangedPerceptions,
-    gText_EmptyContestString,
     gText_MonsAppealEffectWoreOff,
     gText_SpecialAppealsEffectWoreOff,
-    gText_EveryonesAppealsMadeToLookSame,
     gText_CheapenedMonsAppeal,
     gText_CheapenedAppealOfThoseAhead,
-    gText_StoleAttentionAwayFromMon,
     gText_CheapenedMonsAppeal2,
     gText_SeverelyCheapenedOtherAppeals,
-    gText_AnticipationSwelledForMonsAppealNext,
     gText_CheapenedAppealOfThoseAhead2,
     gText_CheapenedJudgesFavoriteAppeal,
-    gText_AppealsOfOthersCheapenedByHalf,
     gText_StoodOutToMakeUpForBeingJammed,
     gText_CantParticipateInAppealsAnyMore,
-    gText_TouchedJudgeForFantasticAppeal,
     gText_AnticipationRoseForUpcomingAppeals,
     gText_StoodOutAsMuchAsSpecialAppeals,
-    gText_StoodOutAsMuchAsMon,
-    gText_EmptyContestString,
     gText_EmptyContestString,
     gText_EmptyContestString,
     gText_JammedAppealsMadeEvenLessNoticeable,
     gText_EveryonesAppealsMadeSame
-};
 
 static const u8 *const sAppealResultTexts[] =
-{
     [CONTEST_STRING_MORE_CONSCIOUS]            = gText_BecameMoreConsciousOfOtherMons,
     [CONTEST_STRING_NO_APPEAL]                 = gText_MonCantMakeAnAppealAfterThis,
-    [CONTEST_STRING_SETTLE_DOWN]               = gText_SettledDownJustLittleBit,
     [CONTEST_STRING_OBLIVIOUS_TO_OTHERS]       = gText_BecameObliviousToOtherMons,
     [CONTEST_STRING_LESS_AWARE]                = gText_BecameLessAwareOfOtherMons,
-    [CONTEST_STRING_STOPPED_CARING]            = gText_StoppedCaringAboutOtherMons,
     [CONTEST_STRING_STARTLE_ATTEMPT]           = gText_TriedToStartleOtherMons,
     [CONTEST_STRING_DAZZLE_ATTEMPT]            = gText_TriedToDazzleOthers,
-    [CONTEST_STRING_JUDGE_LOOK_AWAY2]          = gText_JudgeLookedAwayFromMon,
     [CONTEST_STRING_UNNERVE_ATTEMPT]           = gText_TriedToUnnerveNextMon,
     [CONTEST_STRING_NERVOUS]                   = gText_MonBecameNervous,
-    [CONTEST_STRING_UNNERVE_WAITING]           = gText_AppealTriedToUnnerveWaitingMons,
     [CONTEST_STRING_TAUNT_WELL]                = gText_TauntedMonsDoingWell,
     [CONTEST_STRING_REGAINED_FORM]             = gText_MonRegainedItsForm,
     [CONTEST_STRING_JAM_WELL]                  = gText_TriedToJamMonDoingWell,
