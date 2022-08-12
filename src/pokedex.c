@@ -1150,7 +1150,7 @@ static const u8 sText_No000[] = _("{NO}000");
 static const u8 sCaughtBall_Gfx[] = INCBIN_U8("graphics/pokedex/caught_ball.4bpp");
 static const u8 sText_TenDashes[] = _("----------");
 
-ALIGNED(4) static const u8 sExpandedPlaceholder_PokedexDescription[] = _("");
+ALIGNED(4) static const u8 gExpandedPlaceholder_PokedexDescription[] = _("");
 
 #include "data/pokemon/pokedex_text.h"
 #include "data/pokemon/pokedex_entries.h"
@@ -4685,12 +4685,12 @@ static void CreateTypeIconSprites(void)
 {
     u8 i;
 
-    LoadCompressedSpriteSheet(&sSpriteSheet_MoveTypes);
+    LoadCompressedSpriteSheet(&gSpriteSheet_MoveTypes);
     LoadCompressedPalette(gMoveTypes_Pal, 0x1D0, 0x60);
     for (i = 0; i < 2; i++)
     {
         if (sPokedexView->typeIconSpriteIds[i] == 0xFF)
-            sPokedexView->typeIconSpriteIds[i] = CreateSprite(&sSpriteTemplate_MoveTypes, 10, 10, 2);
+            sPokedexView->typeIconSpriteIds[i] = CreateSprite(&gSpriteTemplate_MoveTypes, 10, 10, 2);
     
         SetSpriteInvisibility(i, TRUE);
     }
@@ -7633,11 +7633,11 @@ static void Task_LoadEvolutionScreen(u8 taskId)
         //Print evo info and icons
         gTasks[taskId].data[3] = 0;
         PrintEvolutionTargetSpeciesAndMethod(taskId, NationalPokedexNumToSpeciesHGSS(sPokedexListItem->dexNum), 0, sPokedexView->numPreEvolutions);
-        LoadSpritePalette(&sSpritePalette_Arrow);
+        LoadSpritePalette(&gSpritePalette_Arrow);
         GetSeenFlagTargetSpecies();
         if (sPokedexView->sEvoScreenData.numAllEvolutions != 0 && sPokedexView->sEvoScreenData.numSeen != 0)
         {
-            sPokedexView->sEvoScreenData.arrowSpriteId = CreateSprite(&sSpriteTemplate_Arrow, 7, 58, 0);
+            sPokedexView->sEvoScreenData.arrowSpriteId = CreateSprite(&gSpriteTemplate_Arrow, 7, 58, 0);
             gSprites[sPokedexView->sEvoScreenData.arrowSpriteId].animNum = 2;
         }
         gMain.state++;
@@ -8510,7 +8510,7 @@ static void Task_LoadFormsScreen(u8 taskId)
         //Print form icons
         gTasks[taskId].data[3] = 0;
         PrintForms(taskId, NationalPokedexNumToSpeciesHGSS(sPokedexListItem->dexNum));
-        LoadSpritePalette(&sSpritePalette_Arrow);
+        LoadSpritePalette(&gSpritePalette_Arrow);
         gMain.state++;
         break;
     case 5:
