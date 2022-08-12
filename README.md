@@ -48,6 +48,10 @@ It is a romhack that uses pokeemerald-expansion for recreate the experience of H
 
 -DexNav (Ghoulslash). 
 
+-Summary Screen DPPT Style (CitrusBolt).
+
+-Intro Scene (Samu).
+
 ## Special Credits:
 
 -Pret's team for pokeemerald (including wiki).
