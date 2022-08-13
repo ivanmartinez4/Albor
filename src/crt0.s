@@ -4,6 +4,12 @@
 
 	.arm
 
+	.4byte gEgg1PaletteTable
+	.4byte gEgg2PaletteTable
+	.4byte 0x00000000
+	.4byte 0x00000000
+
+	.arm
 	.align 2, 0
 	.global Init
 Init:

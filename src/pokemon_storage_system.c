@@ -3999,10 +3999,24 @@ static void CreateDisplayMonSprite(void)
 
 static void LoadDisplayMonGfx(u16 species, u32 pid)
 {
+    const struct CompressedSpritePalette *pal1, *pal2;
+
     if (sStorage->displayMonSprite == NULL)
         return;
 
-    if (species != SPECIES_NONE)
+    if (species == SPECIES_EGG)
+    {
+        pal1 = &gEgg1PaletteTable[sStorage->filler2[0]];
+        pal2 = &gEgg2PaletteTable[sStorage->filler2[1]];
+        LoadSpecialPokePic(&gMonFrontPicTable[species], sStorage->tileBuffer, species, pid, TRUE);
+        LZ77UnCompWram(pal1->data, sStorage->displayMonPalBuffer);
+        LZ77UnCompWram(pal2->data, gDecompressionBuffer);
+        CpuCopy32(sStorage->tileBuffer, sStorage->displayMonTilePtr, MON_PIC_SIZE);
+        LoadPalette(sStorage->displayMonPalBuffer, sStorage->displayMonPalOffset, 0x10);
+        LoadPalette(gDecompressionBuffer, sStorage->displayMonPalOffset + 8, 0x10);
+        sStorage->displayMonSprite->invisible = FALSE;
+    }
+    else if (species != SPECIES_NONE)
     {
         LoadSpecialPokePic(&gMonFrontPicTable[species], sStorage->tileBuffer, species, pid, TRUE);
         // LZ77UnCompWram(sStorage->displayMonPalette, sStorage->displayMonPalBuffer);
@@ -7064,6 +7078,8 @@ static void SetDisplayMonData(void *pokemon, u8 mode)
             sStorage->displayMonPalette = GetMonFrontSpritePal(mon);
             gender = GetMonGender(mon);
             sStorage->displayMonItemId = GetMonData(mon, MON_DATA_HELD_ITEM);
+            sStorage->filler2[0] = gBaseStats[GetMonData(mon, MON_DATA_SPECIES)].type1;
+            sStorage->filler2[1] = gBaseStats[GetMonData(mon, MON_DATA_SPECIES)].type2;
         }
     }
     else if (mode == MODE_BOX)
@@ -7080,7 +7096,6 @@ static void SetDisplayMonData(void *pokemon, u8 mode)
             else
                 sStorage->displayMonIsEgg = GetBoxMonData(boxMon, MON_DATA_IS_EGG);
 
-
             GetBoxMonData(boxMon, MON_DATA_NICKNAME, sStorage->displayMonName);
             StringGet_Nickname(sStorage->displayMonName);
             sStorage->displayMonLevel = GetLevelFromBoxMonExp(boxMon);
@@ -7089,6 +7104,8 @@ static void SetDisplayMonData(void *pokemon, u8 mode)
             sStorage->displayMonPalette = GetMonSpritePalFromSpeciesAndPersonality(sStorage->displayMonSpecies, otId, sStorage->displayMonPersonality);
             gender = GetGenderFromSpeciesAndPersonality(sStorage->displayMonSpecies, sStorage->displayMonPersonality);
             sStorage->displayMonItemId = GetBoxMonData(boxMon, MON_DATA_HELD_ITEM);
+            sStorage->filler2[0] = gBaseStats[GetBoxMonData(boxMon, MON_DATA_SPECIES)].type1;
+            sStorage->filler2[1] = gBaseStats[GetBoxMonData(boxMon, MON_DATA_SPECIES)].type2;
         }
     }
     else

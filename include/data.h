@@ -168,4 +168,7 @@ extern const struct FollowerMsgInfo gFollowerCuriousMessages[];
 extern const struct FollowerMsgInfo gFollowerMusicMessages[];
 extern const struct FollowerMsgInfo gFollowerPoisonedMessages[];
 
+extern const struct CompressedSpritePalette gEgg1PaletteTable[];
+extern const struct CompressedSpritePalette gEgg2PaletteTable[];
+
 #endif // GUARD_DATA_H
