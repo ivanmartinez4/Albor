@@ -552,7 +552,7 @@ void DecompressGlyphTile(const void *src_, void *dest_)
     *(dest++) = ((sFontHalfRowLookupTable[sFontHalfRowOffsets[temp & 0xFF]]) << 16) | (sFontHalfRowLookupTable[sFontHalfRowOffsets[temp >> 8]]);
 }
 
-inline static void GLYPH_COPY(u8 *windowTiles, u32 widthOffset, u32 j, u32 i, u32 *glyphPixels, s32 width, s32 height)
+inline static void GLYPH_COPY(u8 *windowTiles, u32 widthOffset, u32 j, u64 i, u32 *glyphPixels, s32 width, s32 height)
 {
     u32 xAdd, pixelData, bits, toOrr, dummyX, dummyY;
     s64 yAdd;
@@ -1729,7 +1729,7 @@ static void DecompressGlyph_Short(u16 glyphId, bool32 isJapanese)
     else
     {
         glyphs = gFontShortLatinGlyphs + (0x20 * glyphId);
-        gCurGlyph.width = gFontNormalLatinGlyphWidths[glyphId];
+        gCurGlyph.width = gFontShortLatinGlyphWidths[glyphId];
 
         if (gCurGlyph.width <= 8)
         {
@@ -1770,7 +1770,7 @@ static void DecompressGlyph_Normal(u16 glyphId, bool32 isJapanese)
     }
     else
     {
-        glyphs = gFontShortLatinGlyphs + (0x20 * glyphId);
+        glyphs = gFontNormalLatinGlyphs + (0x20 * glyphId);
         gCurGlyph.width = gFontNormalLatinGlyphWidths[glyphId];
 
         if (gCurGlyph.width <= 8)
