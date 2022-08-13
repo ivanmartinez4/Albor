@@ -62,6 +62,10 @@ It is a romhack that uses pokeemerald-expansion for recreate the experience of H
 
 -Survive Poison in OW (Lunos).
 
+-Always inherit nature when holding an Everstone (Takyon).
+
+-Fast surfing and underwater (Ghoulslash).
+
 -Balance Stats/Abilities/Moves, with enphasis on weaker Pokémon. To see it all, go to src/data/pokemon/base_stats.c in this repository, but basically all the Pokémon have a minimum of 480 BST.
 
 ## Special Credits:
