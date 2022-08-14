@@ -66,6 +66,18 @@ It is a romhack that uses pokeemerald-expansion for recreate the experience of H
 
 -Fast surfing and underwater (Ghoulslash).
 
+-Color of the message box can be personalized through the options menu.
+
+-One time purchase TMs (Lunos).
+
+-Deoxys changes form in OW (Lunos).
+
+-Gen 4 bike (Lunos & Blurose).
+
+-Rock climb in the OW (Ghoulslash).
+
+-Party Screen Quick Swap with Select (Lunos).
+
 -Balance Stats/Abilities/Moves, with enphasis on weaker Pokémon. To see it all, go to src/data/pokemon/base_stats.c in this repository, but basically all the Pokémon have a minimum of 480 BST.
 
 ## Special Credits:
