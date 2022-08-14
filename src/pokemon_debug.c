@@ -1138,7 +1138,7 @@ void CB2_Debug_Pokemon(void)
             gReservedSpritePaletteCount = 8;
             ResetAllPicSprites();
             BlendPalettes(PALETTES_ALL, 16, RGB_BLACK);
-            LoadPalette(GetTextWindowPalette(3), 15*16, 0x40);
+            LoadPalette(GetTextWindowPalette(), 15*16, 0x40);
 
             FillBgTilemapBufferRect(0, 0, 0, 0, 32, 20, 15);
             InitBgsFromTemplates(0, sBgTemplates, ARRAY_COUNT(sBgTemplates));

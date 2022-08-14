@@ -48,16 +48,9 @@ static const u16 sTextWindowFrame18_Pal[] = INCBIN_U16("graphics/text_window/18.
 static const u16 sTextWindowFrame19_Pal[] = INCBIN_U16("graphics/text_window/19.gbapal");
 static const u16 sTextWindowFrame20_Pal[] = INCBIN_U16("graphics/text_window/20.gbapal");
 
-static const u16 sTextWindowPalettes[][16] =
-{
-    INCBIN_U16("graphics/text_window/message_box.gbapal"),
-    INCBIN_U16("graphics/text_window/text_pal1.gbapal"),
-    INCBIN_U16("graphics/text_window/text_pal2.gbapal"),
-    INCBIN_U16("graphics/text_window/text_pal3.gbapal"),
-    INCBIN_U16("graphics/text_window/text_pal4.gbapal"),
-    INCBIN_U16("graphics/text_window/text_pal5.gbapal"),
-    INCBIN_U16("graphics/text_window/text_pal6.gbapal")
-};
+static const u16 gMessageBox_PalGreen[] =  INCBIN_U16("graphics/text_window/message_box_green.gbapal");
+static const u16 gMessageBox_PalBlue[]  =  INCBIN_U16("graphics/text_window/message_box_blue.gbapal");
+static const u16 gMessageBox_PalRed[]   =  INCBIN_U16("graphics/text_window/message_box_red.gbapal");
 
 static const struct TilesPal sWindowFrames[WINDOW_FRAMES_COUNT] =
 {
@@ -164,36 +157,38 @@ void rbox_fill_rectangle(u8 windowId)
     FillBgTilemapBufferRect(bgLayer, 0, tilemapLeft - 1, tilemapTop - 1, width + 2, height + 2, 0x11);
 }
 
-const u16 *GetTextWindowPalette(u8 id)
+const u16 *GetTextWindowPalette(void)
 {
-    switch (id)
+    switch (gSaveBlock2Ptr->optionsBorderColor)
     {
     case OPTIONS_BORDER_COLOR_GREEN:
-        id = 0;
-        break;
+       return 
+    gMessageBox_PalGreen;
     case OPTIONS_BORDER_COLOR_RED:
-       id = 0x10;
-       break;
+       return 
+    gMessageBox_PalRed;
     case OPTIONS_BORDER_COLOR_BLUE:
-       id = 0x20;
-       break;      
-    case 3:
-        id = 0x30;
-        break;
-    case 4:
-        id = 0x40;
-        break;
-    case 5:
-        id = 0x50;
-        break;
+       return 
+    gMessageBox_PalBlue;   
+    break;
     }
-
-    return (const u16 *)(sTextWindowPalettes) + id;
 }
 
 const u16 *GetOverworldTextboxPalettePtr(void)
 {
-    return gMessageBox_Pal;
+    switch (gSaveBlock2Ptr->optionsBorderColor)
+    {
+    case OPTIONS_BORDER_COLOR_GREEN:
+       return 
+    gMessageBox_PalGreen;
+    case OPTIONS_BORDER_COLOR_RED:
+       return 
+    gMessageBox_PalRed;
+    case OPTIONS_BORDER_COLOR_BLUE:
+       return 
+    gMessageBox_PalBlue;   
+    break;
+    }
 }
 
 // Effectively LoadUserWindowBorderGfx but specifying the bg directly instead of a window from that bg

@@ -695,7 +695,7 @@ static void Task_Hof_DisplayPlayer(u8 taskId)
     gTasks[taskId].tPlayerSpriteID = CreateTrainerPicSprite(PlayerGenderToFrontTrainerPicId_Debug(gSaveBlock2Ptr->playerGender, TRUE), TRUE, 120, 72, 6, TAG_NONE);
     AddWindow(&sHof_WindowTemplate);
     LoadWindowGfx(1, gSaveBlock2Ptr->optionsWindowFrameType, 0x21D, 0xD0);
-    LoadPalette(GetTextWindowPalette(4), 0xE0, 0x20);
+    LoadPalette(GetTextWindowPalette(), 0xE0, 0x20);
     gTasks[taskId].tFrameCount = 120;
     gTasks[taskId].func = Task_Hof_WaitAndPrintPlayerInfo;
 }
