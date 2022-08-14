@@ -40,6 +40,8 @@ const struct SpriteTemplate gFieldEffectObjectTemplate_SlitherTracks;
 const struct SpriteTemplate gFieldEffectObjectTemplate_BugTracks;
 const struct SpriteTemplate gFieldEffectObjectTemplate_SpotTracks;
 const struct SpriteTemplate gFieldEffectObjectTemplate_CaveDust;
+const struct SpriteTemplate gFieldEffectObjectTemplate_RockClimbBlob;
+const struct SpriteTemplate gFieldEffectObjectTemplate_RockClimbDust;
 
 const struct SpriteTemplate *const gFieldEffectObjectTemplatePointers[] = {
     [FLDEFFOBJ_SHADOW_S]              = &gFieldEffectObjectTemplate_ShadowSmall,
@@ -81,6 +83,7 @@ const struct SpriteTemplate *const gFieldEffectObjectTemplatePointers[] = {
     [FLDEFFOBJ_RAYQUAZA]              = &gFieldEffectObjectTemplate_Rayquaza,
     [FLDEFFOBJ_TRACKS_SLITHER]        = &gFieldEffectObjectTemplate_SlitherTracks,
     [FLDEFFOBJ_TRACKS_SPOT]           = &gFieldEffectObjectTemplate_SpotTracks,
-    [FLDEFFOBJ_TRACKS_BUG]            = &gFieldEffectObjectTemplate_BugTracks,
     [FLDEFFOBJ_CAVE_DUST]             = &gFieldEffectObjectTemplate_CaveDust,
+    [FLDEFFOBJ_ROCK_CLIMB_BLOB]       = &gFieldEffectObjectTemplate_RockClimbBlob,
+    [FLDEFFOBJ_ROCK_CLIMB_DUST]       = &gFieldEffectObjectTemplate_RockClimbDust,
 };
