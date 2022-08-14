@@ -3999,24 +3999,10 @@ static void CreateDisplayMonSprite(void)
 
 static void LoadDisplayMonGfx(u16 species, u32 pid)
 {
-    const struct CompressedSpritePalette *pal1, *pal2;
-
     if (sStorage->displayMonSprite == NULL)
         return;
 
-    if (species == SPECIES_EGG)
-    {
-        pal1 = &gEgg1PaletteTable[sStorage->filler[0]];
-        pal2 = &gEgg2PaletteTable[sStorage->filler[1]];
-        LoadSpecialPokePic(&gMonFrontPicTable[species], sStorage->tileBuffer, species, pid, TRUE);
-        LZ77UnCompWram(pal1->data, sStorage->displayMonPalBuffer);
-        LZ77UnCompWram(pal2->data, gDecompressionBuffer);
-        CpuCopy32(sStorage->tileBuffer, sStorage->displayMonTilePtr, MON_PIC_SIZE);
-        LoadPalette(sStorage->displayMonPalBuffer, sStorage->displayMonPalOffset, 0x10);
-        LoadPalette(gDecompressionBuffer, sStorage->displayMonPalOffset + 8, 0x10);
-        sStorage->displayMonSprite->invisible = FALSE;
-    }
-    else if (species != SPECIES_NONE)
+    if (species != SPECIES_NONE)
     {
         LoadSpecialPokePic(&gMonFrontPicTable[species], sStorage->tileBuffer, species, pid, TRUE);
         // LZ77UnCompWram(sStorage->displayMonPalette, sStorage->displayMonPalBuffer);
@@ -7093,6 +7079,7 @@ static void SetDisplayMonData(void *pokemon, u8 mode)
                 sStorage->displayMonIsEgg = TRUE;
             else
                 sStorage->displayMonIsEgg = GetBoxMonData(boxMon, MON_DATA_IS_EGG);
+
 
             GetBoxMonData(boxMon, MON_DATA_NICKNAME, sStorage->displayMonName);
             StringGet_Nickname(sStorage->displayMonName);

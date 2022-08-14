@@ -457,7 +457,7 @@ u8 GetPocketByItemId(u16 itemId)
     return ItemId_GetPocket(itemId);
 }
 
-void ClearItemSlots(struct ItemSlot *itemSlots, u8 itemCount)
+void ClearItemSlots(struct ItemSlot *itemSlots, u16 itemCount)
 {
     u16 i;
 

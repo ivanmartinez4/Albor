@@ -483,8 +483,6 @@ static void Task_EggHatch(u8 taskId)
 
 static void CB2_LoadEggHatch(void)
 {
-    const struct CompressedSpritePalette *pal1, *pal2;
-
     switch (gMain.state)
     {
     case 0:
@@ -534,10 +532,7 @@ static void CB2_LoadEggHatch(void)
     case 3:
         LoadSpriteSheet(&sEggHatch_Sheet);
         LoadSpriteSheet(&sEggShards_Sheet);
-        //LoadSpritePalette(&sEgg_SpritePalette);
-        pal1 = &gEgg1PaletteTable[gBaseStats[GetMonData(&gPlayerParty[sEggHatchData->eggPartyId], MON_DATA_SPECIES)].type1];
-        pal2 = &gEgg2PaletteTable[gBaseStats[GetMonData(&gPlayerParty[sEggHatchData->eggPartyId], MON_DATA_SPECIES)].type2];
-        LoadCompressedEggHatchSpritePalette(pal1, pal2);
+        LoadSpritePalette(&sEgg_SpritePalette);
         gMain.state++;
         break;
     case 4:
