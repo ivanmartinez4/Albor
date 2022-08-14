@@ -193,26 +193,6 @@ Route103_EventScript_Boy::
 	msgbox Route103_Text_ShouldHaveBroughtPotion, MSGBOX_NPC
 	end
 
-Route103_EventScript_Egg:
-	random 3
-	switch VAR_RESULT
-	case 0, Route103_EventScript_Egg_Bulbasaur
-	case 1, Route103_EventScript_Egg_Geodude
-	case 2, Route103_EventScript_Egg_Gastly
-	end
-
-Route103_EventScript_Egg_Bulbasaur::
-    giveegg SPECIES_BULBASAUR
-	end
-
-Route103_EventScript_Egg_Geodude::
-    giveegg SPECIES_GEODUDE
-	end
-
-Route103_EventScript_Egg_Gastly::
-    giveegg SPECIES_GASTLY
-	end 
-
 Route103_EventScript_Man::
 	msgbox Route103_Text_ShortcutToOldale, MSGBOX_NPC
 	end

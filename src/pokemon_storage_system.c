@@ -434,7 +434,7 @@ struct PokemonStorageSystemData
     u16 scrollTimer;
     u8 wallpaperOffset;
     u8 scrollToBoxIdUnused;
-    u8 eggPalette[22];
+    u8 filler[22];
     u8 boxTitleTiles[1024];
     u8 boxTitleCycleId;
     u8 wallpaperLoadState; // Written to, but never read.
@@ -4006,8 +4006,8 @@ static void LoadDisplayMonGfx(u16 species, u32 pid)
 
     if (species == SPECIES_EGG)
     {
-        pal1 = &gEgg1PaletteTable[sStorage->eggPalette[0]];
-        pal2 = &gEgg2PaletteTable[sStorage->eggPalette[1]];
+        pal1 = &gEgg1PaletteTable[sStorage->filler[0]];
+        pal2 = &gEgg2PaletteTable[sStorage->filler[1]];
         LoadSpecialPokePic(&gMonFrontPicTable[species], sStorage->tileBuffer, species, pid, TRUE);
         LZ77UnCompWram(pal1->data, sStorage->displayMonPalBuffer);
         LZ77UnCompWram(pal2->data, gDecompressionBuffer);
