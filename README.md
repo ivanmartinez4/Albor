@@ -78,6 +78,10 @@ It is a romhack that uses pokeemerald-expansion for recreate the experience of H
 
 -Party Screen Quick Swap with Select (Lunos).
 
+-Sideways Stairs and Stair Warps (Ghoulslash).
+
+-Wild Pokémon have been increased (in number and in level). More variety from the beginning is the goal.
+
 -Balance Stats/Abilities/Moves, with enphasis on weaker Pokémon. To see it all, go to src/data/pokemon/base_stats.c in this repository, but basically all the Pokémon have a minimum of 480 BST.
 
 ## Special Credits:
