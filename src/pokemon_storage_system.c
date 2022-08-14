@@ -434,7 +434,7 @@ struct PokemonStorageSystemData
     u16 scrollTimer;
     u8 wallpaperOffset;
     u8 scrollToBoxIdUnused;
-    u8 filler1[22];
+    u8 eggPalette[22];
     u8 boxTitleTiles[1024];
     u8 boxTitleCycleId;
     u8 wallpaperLoadState; // Written to, but never read.
@@ -4006,8 +4006,8 @@ static void LoadDisplayMonGfx(u16 species, u32 pid)
 
     if (species == SPECIES_EGG)
     {
-        pal1 = &gEgg1PaletteTable[sStorage->filler2[0]];
-        pal2 = &gEgg2PaletteTable[sStorage->filler2[1]];
+        pal1 = &gEgg1PaletteTable[sStorage->eggPalette[0]];
+        pal2 = &gEgg2PaletteTable[sStorage->eggPalette[1]];
         LoadSpecialPokePic(&gMonFrontPicTable[species], sStorage->tileBuffer, species, pid, TRUE);
         LZ77UnCompWram(pal1->data, sStorage->displayMonPalBuffer);
         LZ77UnCompWram(pal2->data, gDecompressionBuffer);
@@ -7078,8 +7078,6 @@ static void SetDisplayMonData(void *pokemon, u8 mode)
             sStorage->displayMonPalette = GetMonFrontSpritePal(mon);
             gender = GetMonGender(mon);
             sStorage->displayMonItemId = GetMonData(mon, MON_DATA_HELD_ITEM);
-            sStorage->filler2[0] = gBaseStats[GetMonData(mon, MON_DATA_SPECIES)].type1;
-            sStorage->filler2[1] = gBaseStats[GetMonData(mon, MON_DATA_SPECIES)].type2;
         }
     }
     else if (mode == MODE_BOX)
@@ -7104,8 +7102,6 @@ static void SetDisplayMonData(void *pokemon, u8 mode)
             sStorage->displayMonPalette = GetMonSpritePalFromSpeciesAndPersonality(sStorage->displayMonSpecies, otId, sStorage->displayMonPersonality);
             gender = GetGenderFromSpeciesAndPersonality(sStorage->displayMonSpecies, sStorage->displayMonPersonality);
             sStorage->displayMonItemId = GetBoxMonData(boxMon, MON_DATA_HELD_ITEM);
-            sStorage->filler2[0] = gBaseStats[GetBoxMonData(boxMon, MON_DATA_SPECIES)].type1;
-            sStorage->filler2[1] = gBaseStats[GetBoxMonData(boxMon, MON_DATA_SPECIES)].type2;
         }
     }
     else

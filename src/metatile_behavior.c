@@ -87,7 +87,7 @@ static const u8 sTileBitAttributes[NUM_METATILE_BEHAVIORS] =
     [MB_WATER_DOOR]                      = TILE_FLAG_UNUSED | TILE_FLAG_SURFABLE,
     [MB_WATER_SOUTH_ARROW_WARP]          = TILE_FLAG_UNUSED | TILE_FLAG_SURFABLE,
     [MB_DEEP_SOUTH_WARP]                 = TILE_FLAG_UNUSED,
-    [MB_ROCK_CLIMB] =                    = TILE_FLAG_UNUSED,
+    [MB_ROCK_CLIMB]                      = TILE_FLAG_UNUSED,
     [MB_BRIDGE_OVER_POND_LOW]            = TILE_FLAG_UNUSED,
     [MB_BRIDGE_OVER_POND_MED]            = TILE_FLAG_UNUSED,
     [MB_BRIDGE_OVER_POND_HIGH]           = TILE_FLAG_UNUSED,
