@@ -624,8 +624,10 @@
 #define STRINGID_ZMOVESTATUP                          622
 #define STRINGID_ZMOVEHPTRAP                          623
 #define STRINGID_TERRAINREMOVED                       624
+#define STRINGID_PKMNDROPPEDITEM                      625
+#define STRINGID_BAGISFULL                            626
 
-#define BATTLESTRINGS_COUNT                           625
+#define BATTLESTRINGS_COUNT                           627
 
 // This is the string id that gBattleStringsTable starts with.
 // String ids before this (e.g. STRINGID_INTROMSG) are not in the table,
@@ -903,5 +905,8 @@
 #define B_MSG_Z_RECOVER_HP    4
 #define B_MSG_Z_STAT_UP       5
 #define B_MSG_Z_HP_TRAP       6
+// gItemDroppedStringIds
+#define B_MSG_ITEM_DROPPED   0
+#define B_MSG_BAG_IS_FULL    1
 
 #endif // GUARD_CONSTANTS_BATTLE_STRING_IDS_H
