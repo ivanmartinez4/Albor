@@ -80,7 +80,22 @@ It is a romhack that uses pokeemerald-expansion for recreate the experience of H
 
 -Sideways Stairs and Stair Warps (Ghoulslash).
 
--Wild Pokémon have been increased (in number and in level). More variety from the beginning is the goal.
+-Defeat wild Pokémon gives you items (AgustinGDLV).
+
+-Wild Pokémon have been increased (in number and level). More variety from the beginning is the goal.
+
+-Bag expansion.
+
+-Balance type chart: 
+*Bug changes --> Poison hits x2 Bug/Ghost hits x0.5 Bug/Bug hits x2 Fairy/Bug hits x1 Ghost/Fairy hits x0.5 Bug.
+*Ice changes --> Flying hits x0.5 Ice/Water hits x0.5 Ice/Ice types gets 1.5 boost of physical defense in Hail.
+*Grass changes --> Grass hits x1 Dragon.
+*Fire changes --> Fire hits x0 Dragon.
+*Steel changes --> Normal hits x1 Steel/ Psychic hits x2 Steel.
+*Psychic changes --> Psychic types can't be confused.
+*Fighting changes --> Fighting types don't recive weather damage.
+
+-Weather rework --> The weather lasts until the Pokémon with the ability has been fainted. If If the weather has been invoked by a move, it lasts 6t turns (9 if Smooth Rock or similar). To compensate this, the damage boost is 1.3 (instead of 1.5).
 
 -Balance Stats/Abilities/Moves, with enphasis on weaker Pokémon. To see it all, go to src/data/pokemon/base_stats.c in this repository, but basically all the Pokémon have a minimum of 480 BST.
 
