@@ -82,6 +82,14 @@ It is a romhack that uses pokeemerald-expansion for recreate the experience of H
 
 -Defeat wild Pokémon gives you items (AgustinGDLV).
 
+-Better reflection system (Ghoulslash).
+
+-Set style is forced.
+
+-The interactions in the PokeCénter are speed up.
+
+-Shuckle makes juice (AsparagusEduardo).
+
 -Wild Pokémon have been increased (in number and level). More variety from the beginning is the goal.
 
 -Bag expansion.
