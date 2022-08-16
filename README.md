@@ -90,6 +90,8 @@ It is a romhack that uses pokeemerald-expansion for recreate the experience of H
 
 -Shuckle makes juice (AsparagusEduardo).
 
+-Modern sprites (MrDollSteak).
+
 -Wild Pokémon have been increased (in number and level). More variety from the beginning is the goal.
 
 -Bag expansion.
