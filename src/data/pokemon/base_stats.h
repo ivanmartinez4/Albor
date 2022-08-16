@@ -24131,11 +24131,15 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_RAICHU_ALOLAN] =
     {
         .baseHP        = 60,
-        .baseAttack    = 85,
-        .baseDefense   = 50,
-        .baseSpeed     = 110,
-        .baseSpAttack  = 95,
-        .baseSpDefense = 85,
+        .baseAttack    = 60,
+        .baseDefense   = 70,
+        .baseSpAttack  = 100,
+        .baseSpDefense = 110,
+        #if P_UPDATED_STATS >= GEN_6
+            .baseSpeed     = 140,
+        #else
+            .baseSpeed     = 100,
+        #endif
         .type1 = TYPE_ELECTRIC,
         .type2 = TYPE_PSYCHIC,
         .catchRate = 75,
@@ -24526,17 +24530,17 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_MAROWAK_ALOLAN] =
     {
-        .baseHP        = 60,
-        .baseAttack    = 80,
-        .baseDefense   = 110,
-        .baseSpeed     = 45,
+        .baseHP        = 70,
+        .baseAttack    = 110,
+        .baseDefense   = 60,
+        .baseSpeed     = 95,
         .baseSpAttack  = 50,
-        .baseSpDefense = 80,
+        .baseSpDefense = 95,
         .type1 = TYPE_FIRE,
         .type2 = TYPE_GHOST,
         .catchRate = 75,
         .expYield = 149,
-        .evYield_Defense   = 2,
+        .evYield_Attack   = 2,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
         .friendship = 70,

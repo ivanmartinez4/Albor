@@ -127,7 +127,7 @@ const struct MonCoords gMonBackPicCoords[] =
     [SPECIES_ARBOK] =
     {
         .size = MON_COORDS_SIZE(64, 64),
-        .y_offset = 4,
+        .y_offset = 1,
     },
     [SPECIES_PIKACHU] =
     {
@@ -302,7 +302,7 @@ const struct MonCoords gMonBackPicCoords[] =
     [SPECIES_ARCANINE] =
     {
         .size = MON_COORDS_SIZE(64, 56),
-        .y_offset = 6,
+        .y_offset = 4,
     },
     [SPECIES_POLIWAG] =
     {
@@ -322,7 +322,7 @@ const struct MonCoords gMonBackPicCoords[] =
     [SPECIES_ABRA] =
     {
         .size = MON_COORDS_SIZE(56, 48),
-        .y_offset = 11,
+        .y_offset = 12,
     },
     [SPECIES_KADABRA] =
     {
@@ -332,7 +332,7 @@ const struct MonCoords gMonBackPicCoords[] =
     [SPECIES_ALAKAZAM] =
     {
         .size = MON_COORDS_SIZE(64, 56),
-        .y_offset = 5,
+        .y_offset = 6,
     },
     [SPECIES_MACHOP] =
     {
@@ -717,7 +717,7 @@ const struct MonCoords gMonBackPicCoords[] =
     [SPECIES_AERODACTYL] =
     {
         .size = MON_COORDS_SIZE(64, 48),
-        .y_offset = 8,
+        .y_offset = 10,
     },
     [SPECIES_SNORLAX] =
     {
@@ -912,7 +912,7 @@ const struct MonCoords gMonBackPicCoords[] =
     [SPECIES_AMPHAROS] =
     {
         .size = MON_COORDS_SIZE(56, 64),
-        .y_offset = 1,
+        .y_offset = 3,
     },
     [SPECIES_BELLOSSOM] =
     {
@@ -957,7 +957,7 @@ const struct MonCoords gMonBackPicCoords[] =
     [SPECIES_AIPOM] =
     {
         .size = MON_COORDS_SIZE(64, 64),
-        .y_offset = 9,
+        .y_offset = 3,
     },
     [SPECIES_SUNKERN] =
     {
@@ -1802,7 +1802,7 @@ const struct MonCoords gMonBackPicCoords[] =
     [SPECIES_AGGRON] =
     {
         .size = MON_COORDS_SIZE(64, 56),
-        .y_offset = 7,
+        .y_offset = 5,
     },
     [SPECIES_CASTFORM] =
     {
@@ -4775,7 +4775,7 @@ const struct MonCoords gMonBackPicCoords[] =
     [SPECIES_SANDSLASH_ALOLAN] =
     {
         .size = MON_COORDS_SIZE(64, 56),
-        .y_offset = 6,
+        .y_offset = 5,
     },
     [SPECIES_VULPIX_ALOLAN] =
     {
