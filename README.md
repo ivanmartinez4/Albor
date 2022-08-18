@@ -96,6 +96,8 @@ It is a romhack that uses pokeemerald-expansion for recreate the experience of H
 
 -Eggs inherit 4 IVs from parents (6 if Destiny Knot).
 
+-Item effectiveness is showed in battle.
+
 -Modern sprites (MrDollSteak).
 
 -Wild Pokémon have been increased (in number and level). More variety from the beginning is the goal.
