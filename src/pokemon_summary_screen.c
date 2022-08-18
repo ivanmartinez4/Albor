@@ -2564,14 +2564,7 @@ static void Task_ConfirmHMCantForget(u8 taskId)
 
 static bool8 CanReplaceMove(void)
 {
-    if (CONFIG_CAN_FORGET_HM_MOVES)
-        return TRUE;
-    else if (sMonSummaryScreen->firstMoveIndex == MAX_MON_MOVES
-        || sMonSummaryScreen->newMove == MOVE_NONE
-        || IsMoveHm(sMonSummaryScreen->summary.moves[sMonSummaryScreen->firstMoveIndex]) != TRUE)
-        return TRUE;
-    else
-        return FALSE;
+    return TRUE;
 }
 
 static void PrintTextOnWindow(u8 windowId, const u8 *string, u8 x, u8 y, u8 lineSpacing, u8 colorId)
