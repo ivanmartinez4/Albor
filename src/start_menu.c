@@ -49,6 +49,78 @@
 #include "constants/songs.h"
 #include "rtc.h"
 
+
+const u8 gMenuIcons_Pokedex[] = INCBIN_U8("graphics/menu_icons/pokedex.4bpp");
+const u8 gMenuIcons_Options[] = INCBIN_U8("graphics/menu_icons/options.4bpp");
+const u8 gMenuIcons_Save[] = INCBIN_U8("graphics/menu_icons/save.4bpp");
+const u8 gMenuIcons_Pokenav[] = INCBIN_U8("graphics/menu_icons/pokenav.4bpp");
+const u8 gMenuIcons_Pokemon[] = INCBIN_U8("graphics/menu_icons/pokemon.4bpp");
+const u8 gMenuIcons_Bag[] = INCBIN_U8("graphics/menu_icons/bag.4bpp");
+const u8 gMenuIcons_TrainerCard[] = INCBIN_U8("graphics/menu_icons/trainercard.4bpp");
+const u8 gMenuIcons_RunningShoes[] = INCBIN_U8("graphics/menu_icons/running_shoes.4bpp");
+const u8 gStartMenuNormalPal[] = INCBIN_U8("graphics/menu_icons/startmenu.gbapal");
+const u8 gStartMenuBWPal[] = INCBIN_U8("graphics/menu_icons/bwstartmenu.gbapal");
+
+
+static EWRAM_DATA u8 iconPokedex = 0;
+static EWRAM_DATA u8 iconPokemon = 0;
+static EWRAM_DATA u8 iconBag = 0;
+static EWRAM_DATA u8 iconTrainerCard = 0;
+static EWRAM_DATA u8 iconSave = 0;
+static EWRAM_DATA u8 iconOptions = 0;
+static EWRAM_DATA u8 iconPokenav = 0;
+static EWRAM_DATA u8 iconRunningShoes = 0;
+
+
+extern const struct SpriteSheet spriteSheetPokeDex;
+extern const struct SpritePalette spritePalettePokeDex;
+extern const struct SpriteTemplate spriteTemplatePokedexDex;
+extern const struct SpriteSheet spriteSheetPokedexBW;
+extern const struct SpritePalette spritePalettePokedexBW;
+extern const struct SpriteTemplate spriteTemplatePokedexBW;
+extern const struct SpriteSheet spriteSheetPokemon;
+extern const struct SpritePalette spritePalettePokemon;
+extern const struct SpriteTemplate spriteTemplatePokemon;
+extern const struct SpriteSheet spriteSheetPokemonBW;
+extern const struct SpritePalette spritePalettePokemonBW;
+extern const struct SpriteTemplate spriteTemplatePokemonBW;
+extern const struct SpriteSheet spriteSheetBag;
+extern const struct SpritePalette spritePaletteBag;
+extern const struct SpriteTemplate spriteTemplateBag;
+extern const struct SpriteSheet spriteSheetBagBW;
+extern const struct SpritePalette spritePaletteBagBW;
+extern const struct SpriteTemplate spriteTemplateBagBW;
+extern const struct SpriteSheet spriteSheetTrainerCard;
+extern const struct SpritePalette spritePaletteTrainerCard;
+extern const struct SpriteTemplate spriteTemplateTrainerCard;
+extern const struct SpriteSheet spriteSheetTrainerCardBW;
+extern const struct SpritePalette spritePaletteTrainerCardBW;
+extern const struct SpriteTemplate spriteTemplateTrainerCardBW;
+extern const struct SpriteSheet spriteSheetSave;
+extern const struct SpritePalette spritePaletteSave;
+extern const struct SpriteTemplate spriteTemplateSave;
+extern const struct SpriteSheet spriteSheetSaveBW;
+extern const struct SpritePalette spritePaletteSaveBW;
+extern const struct SpriteTemplate spriteTemplateSaveBW;
+extern const struct SpriteSheet spriteSheetOptions;
+extern const struct SpritePalette spritePaletteOptions;
+extern const struct SpriteTemplate spriteTemplateOptions;
+extern const struct SpriteSheet spriteSheetOptionsBW;
+extern const struct SpritePalette spritePaletteOptionsBW;
+extern const struct SpriteTemplate spriteTemplateOptionsBW;
+extern const struct SpriteSheet spriteSheetPokenav;
+extern const struct SpritePalette spritePalettePokenav;
+extern const struct SpriteTemplate spriteTemplatePokenav;
+extern const struct SpriteSheet spriteSheetPokenavBW;
+extern const struct SpritePalette spritePalettePokenavBW;
+extern const struct SpriteTemplate spriteTemplatePokenavBW;
+extern const struct SpriteSheet spriteSheetRunningShoes;
+extern const struct SpritePalette spritePaletteRunningShoes;
+extern const struct SpriteTemplate spriteTemplateRunningShoes;
+extern const struct SpriteSheet spriteSheetRunningShoesBW;
+extern const struct SpritePalette spritePaletteRunningShoesBW;
+extern const struct SpriteTemplate spriteTemplateRunningShoesBW;
+
 // Menu actions
 enum
 {
