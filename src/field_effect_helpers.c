@@ -224,6 +224,8 @@ static void UpdateObjectReflectionSprite(struct Sprite *reflectionSprite)
     reflectionSprite->x = mainSprite->x;
     // reflectionSprite->data[2] holds an additional vertical offset, used by the high bridges on Route 120
     reflectionSprite->y = mainSprite->y + GetReflectionVerticalOffset(objectEvent) + reflectionSprite->data[2];
+    if (mainSprite->oam.size > 0x02)
+        reflectionSprite->y = mainSprite->y + 62 + reflectionSprite->sReflectionVerticalOffset;
     reflectionSprite->centerToCornerVecX = mainSprite->centerToCornerVecX;
     reflectionSprite->centerToCornerVecY = mainSprite->centerToCornerVecY;
     reflectionSprite->x2 = mainSprite->x2;

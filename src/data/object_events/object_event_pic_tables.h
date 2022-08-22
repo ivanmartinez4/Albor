@@ -3137,12 +3137,12 @@ static const struct SpriteFrameImage sPicTable_Snorlax[] = {
     overworld_frame(gObjectEventPic_Snorlax, 4, 4, 5),
 };
 static const struct SpriteFrameImage sPicTable_Articuno[] = {
-    overworld_frame(gObjectEventPic_Articuno, 4, 4, 0),
-    overworld_frame(gObjectEventPic_Articuno, 4, 4, 1),
-    overworld_frame(gObjectEventPic_Articuno, 4, 4, 2),
-    overworld_frame(gObjectEventPic_Articuno, 4, 4, 3),
-    overworld_frame(gObjectEventPic_Articuno, 4, 4, 4),
-    overworld_frame(gObjectEventPic_Articuno, 4, 4, 5),
+    overworld_frame(gObjectEventPic_Articuno, 8, 8, 0),
+    overworld_frame(gObjectEventPic_Articuno, 8, 8, 1),
+    overworld_frame(gObjectEventPic_Articuno, 8, 8, 2),
+    overworld_frame(gObjectEventPic_Articuno, 8, 8, 3),
+    overworld_frame(gObjectEventPic_Articuno, 8, 8, 4),
+    overworld_frame(gObjectEventPic_Articuno, 8, 8, 5),
 };
 static const struct SpriteFrameImage sPicTable_Zapdos[] = {
     overworld_frame(gObjectEventPic_Zapdos, 4, 4, 0),

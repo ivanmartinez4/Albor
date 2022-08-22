@@ -727,7 +727,7 @@ const struct MonCoords gMonBackPicCoords[] =
     [SPECIES_ARTICUNO] =
     {
         .size = MON_COORDS_SIZE(64, 56),
-        .y_offset = 12,
+        .y_offset = 5,
     },
     [SPECIES_ZAPDOS] =
     {
@@ -847,7 +847,7 @@ const struct MonCoords gMonBackPicCoords[] =
     [SPECIES_ARIADOS] =
     {
         .size = MON_COORDS_SIZE(64, 48),
-        .y_offset = 11,
+        .y_offset = 9,
     },
     [SPECIES_CROBAT] =
     {
@@ -927,7 +927,7 @@ const struct MonCoords gMonBackPicCoords[] =
     [SPECIES_AZUMARILL] =
     {
         .size = MON_COORDS_SIZE(64, 64),
-        .y_offset = 8,
+        .y_offset = 6,
     },
     [SPECIES_SUDOWOODO] =
     {
@@ -1632,7 +1632,7 @@ const struct MonCoords gMonBackPicCoords[] =
     [SPECIES_AZURILL] =
     {
         .size = MON_COORDS_SIZE(64, 56),
-        .y_offset = 10,
+        .y_offset = 3,
     },
     [SPECIES_SPOINK] =
     {
@@ -1792,7 +1792,7 @@ const struct MonCoords gMonBackPicCoords[] =
     [SPECIES_ARON] =
     {
         .size = MON_COORDS_SIZE(48, 40),
-        .y_offset = 17,
+        .y_offset = 12,
     },
     [SPECIES_LAIRON] =
     {
@@ -1837,7 +1837,7 @@ const struct MonCoords gMonBackPicCoords[] =
     [SPECIES_ARMALDO] =
     {
         .size = MON_COORDS_SIZE(64, 64),
-        .y_offset = 5,
+        .y_offset = 0,
     },
     [SPECIES_RALTS] =
     {
