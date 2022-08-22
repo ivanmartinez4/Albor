@@ -294,13 +294,13 @@ EventScript_DisableAutoRun::
     msgbox AutoRunDisabled MSGBOX_SIGN
     end
 AutoRunDisabled:
-    .string "Auto-run disabled{COLOR DARK_GRAY}.$"
+    .string "Auto-run {COLOR RED}disabled.$"
     
 EventScript_EnableAutoRun::
     msgbox AutoRunEnabled MSGBOX_SIGN
     end
 AutoRunEnabled:
-    .string "Auto-run {COLOR GREEN}enabled{COLOR DARK_GRAY}.$"
+    .string "Auto-run {COLOR GREEN}enabled.$"
 
 EventScript_UseRockClimb::
 	lockall

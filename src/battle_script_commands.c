@@ -1154,39 +1154,39 @@ static const u16 sNaturePowerMoves[BATTLE_TERRAIN_COUNT] =
 
 static const u16 sPickupItems[] =
 {
-    ITEM_POTION,
-    ITEM_ANTIDOTE,
-    ITEM_SUPER_POTION,
-    ITEM_GREAT_BALL,
+    ITEM_ORAN_BERRY,
+    ITEM_BUG_GEM,
+    ITEM_GROUND_GEM,
+    ITEM_ULTRA_BALL,
     ITEM_REPEL,
     ITEM_ESCAPE_ROPE,
-    ITEM_X_ATTACK,
-    ITEM_FULL_HEAL,
-    ITEM_ULTRA_BALL,
-    ITEM_HYPER_POTION,
+    ITEM_GRASS_GEM,
+    ITEM_FIRE_GEM,
+    ITEM_WATER_GEM,
+    ITEM_DRAGON_GEM,
     ITEM_RARE_CANDY,
     ITEM_PROTEIN,
     ITEM_REVIVE,
     ITEM_HP_UP,
     ITEM_FULL_RESTORE,
-    ITEM_MAX_REVIVE,
+    ITEM_FLYING_GEM,
     ITEM_PP_UP,
-    ITEM_MAX_ELIXIR,
+    ITEM_ROCK_GEM,
 };
 
 static const u16 sRarePickupItems[] =
 {
-    ITEM_HYPER_POTION,
+    ITEM_ICE_GEM,
     ITEM_NUGGET,
     ITEM_KINGS_ROCK,
-    ITEM_FULL_RESTORE,
-    ITEM_ETHER,
+    ITEM_FAIRY_GEM,
+    ITEM_DARK_GEM,
     ITEM_WHITE_HERB,
-    ITEM_TM44_REST,
-    ITEM_ELIXIR,
-    ITEM_TM01_FOCUS_PUNCH,
+    ITEM_RARE_CANDY,
+    ITEM_GHOST_GEM,
+    ITEM_FIGHTING_GEM,
     ITEM_LEFTOVERS,
-    ITEM_TM26_EARTHQUAKE,
+    ITEM_NORMAL_GEM,
 };
 
 static const u8 sPickupProbabilities[] =
@@ -6628,13 +6628,6 @@ static void Cmd_yesnoboxlearnmove(void)
             else
             {
                 u16 moveId = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_MOVE1 + movePosition);
-                if (IsHMMove2(moveId))
-                {
-                    PrepareStringBattle(STRINGID_HMMOVESCANTBEFORGOTTEN, gActiveBattler);
-                    gBattleScripting.learnMoveState = 6;
-                }
-                else
-                {
                     gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
 
                     PREPARE_MOVE_BUFFER(gBattleTextBuff2, moveId)
@@ -6656,7 +6649,6 @@ static void Cmd_yesnoboxlearnmove(void)
                     }
                 }
             }
-        }
         break;
     case 5:
         HandleBattleWindow(24, 8, 29, 13, WINDOW_CLEAR);

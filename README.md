@@ -24,7 +24,7 @@ It is a romhack that uses pokeemerald-expansion for recreate the experience of H
 
 -Shiny rate has been increased to 1/512.
 
--Chain fishing.
+-Chain fishing (Ghoulslash).
 
 -EVs can be increased by vitamins to the max, like in the newer generations.
 
@@ -90,11 +90,19 @@ It is a romhack that uses pokeemerald-expansion for recreate the experience of H
 
 -Shuckle makes juice (AsparagusEduardo).
 
+-All moves are forgettable (Lunos).
+
+-Move item in party screen (Zeturic).
+
+-Eggs inherit 4 IVs from parents (6 if Destiny Knot).
+
+-Item effectiveness is showed in battle.
+
 -Modern sprites (MrDollSteak).
 
 -Wild Pokémon have been increased (in number and level). More variety from the beginning is the goal.
 
--Bag expansion.
+-Bag expansion (250 of each item).
 
 -Balance type chart: 
 *Bug changes --> Poison hits x2 Bug/Ghost hits x0.5 Bug/Bug hits x2 Fairy/Bug hits x1 Ghost/Fairy hits x0.5 Bug.
