@@ -189,7 +189,7 @@ void NewGameInitData(void)
     ResetFanClub();
     ResetLotteryCorner();
     WarpToTruck();
-    ScriptContext2_RunNewScript(EventScript_ResetAllMapFlags);
+    RunScriptImmediately(EventScript_ResetAllMapFlags);
     InitLilycoveLady();
     ResetAllApprenticeData();
     ClearRankingHallRecords();

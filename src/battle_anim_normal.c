@@ -293,7 +293,7 @@ const struct SpriteTemplate gPersistHitSplatSpriteTemplate =
     .callback = AnimHitSplatPersistent,
 };
 
-static void AnimMovePowerSwapGuardSwapWait(struct Sprite* sprite)
+static void AnimMovePowerSwapGuardSwapWait(struct Sprite *sprite)
 {
     if (TranslateAnimHorizontalArc(sprite))
         DestroyAnimSprite(sprite);
@@ -305,7 +305,7 @@ static void AnimMovePowerSwapGuardSwapWait(struct Sprite* sprite)
 // arg 3: from user to target / target to user
 // arg 4: wave period
 // arg 5: wave amplitude
-static void AnimMovePowerSwapGuardSwap(struct Sprite* sprite)
+static void AnimMovePowerSwapGuardSwap(struct Sprite *sprite)
 {
     StartSpriteAnim(sprite, gBattleAnimArgs[2]);
     if(gBattleAnimArgs[3] == 0)

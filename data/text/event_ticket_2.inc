@@ -1,5 +1,5 @@
 EventTicket_Text_OldSeaMapTooFar:
-    .string "What's up, youngster?\p"
+	.string "What's up, youngster?\p"
 	.string "What, it's you who's supposed to have\n"
 	.string "a tattered old map?\p"
 	.string "Let's have a look.\n"
@@ -68,4 +68,4 @@ FarawayIsland_Entrance_Text_Sign:
 	.string "…ith that hope, I depar…”$"
 
 FarawayIsland_Interior_Text_Mew:
-    .string "Myuu…$"
+	.string "Myuu…$"

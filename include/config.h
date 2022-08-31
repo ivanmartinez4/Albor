@@ -19,8 +19,10 @@
 
 #ifdef ENGLISH
 #define UNITS_METRIC
+#define CHAR_DEC_SEPARATOR CHAR_COMMA // Period is used as a decimal separator only in the UK and the US.
 #else
 #define UNITS_IMPERIAL
+#define CHAR_DEC_SEPARATOR CHAR_PERIOD
 #endif
 
 // Uncomment to fix some identified minor bugs
@@ -33,5 +35,13 @@
 #define UBFIX
 #endif
 #endif
+
+// Compatibility definition for other projects to detect pokeemerald-expansion
+#define RHH_EXPANSION
+
+// Legacy branch-based defines included for backwards compatibility
+#define BATTLE_ENGINE
+#define POKEMON_EXPANSION
+#define ITEM_EXPANSION
 
 #endif // GUARD_CONFIG_H
