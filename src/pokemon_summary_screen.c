@@ -58,11 +58,9 @@
 #define TEXT_ALIGN_RIGHT  2
 
 // Config options - Note that some config options need external modifications to fully work, such as CONFIG_CAN_FORGET_HM_MOVES, CONFIG_PHYSICAL_SPECIAL_SPLIT, and CONFIG_DECAPITALIZE_MET_LOCATION_STRINGS
-#define CONFIG_CAN_FORGET_HM_MOVES                      TRUE
 #define CONFIG_CAN_SWITCH_PAGES_WHILE_DETAILS_ARE_UP    TRUE
 #define CONFIG_PHYSICAL_SPECIAL_SPLIT                   TRUE   // Takes precendence over CONFIG_SHOW_ICONS_FOR_OLD_SPLIT
 #define CONFIG_SHOW_ICONS_FOR_OLD_SPLIT                 FALSE
-#define CONFIG_EXPANDED_MET_LOCATIONS                   TRUE
 #define CONFIG_TRUST_OUTSIDERS                          TRUE
 #define CONFIG_SHOW_HIDDEN_POWER_STATS                  TRUE
 #define CONFIG_DECAPITALIZE_TITLE_STRINGS               TRUE
@@ -150,7 +148,6 @@ static EWRAM_DATA struct PokemonSummaryScreenData
         u8 abilityNum;
         u8 metLocation;
         u8 metLevel;
-        u8 metGame;
         u32 pid;
         u32 exp;
         u16 moves[MAX_MON_MOVES];
@@ -266,9 +263,6 @@ static void SwapBoxMonMoves(struct BoxPokemon *mon, u8 moveIndex1, u8 moveIndex2
 static void Task_SetHandleReplaceMoveInput(u8 taskId);
 static void Task_HandleReplaceMoveInput(u8 taskId);
 static void Task_SwitchPageInReplaceMove(u8 taskId);
-static void Task_ConfirmHMCantForget(u8 taskId);
-static bool8 CanReplaceMove(void);
-static void ShowCantForgetHMsWindow(u8 taskId);
 static void ResetWindows(void);
 static void PrintMonInfo(void);
 static void PrintNotEggInfo(void);
@@ -283,11 +277,6 @@ static void BufferNatureString(void);
 static void BufferCharacteristicString(void);
 static void GetMetLevelString(u8 *a);
 static bool8 DoesMonOTMatchOwner(void);
-static bool8 DidMonComeFromGBAGames(void);
-static bool8 DidMonComeFromRSE(void);
-static bool8 DidMonComeFromFRLG(void);
-static bool8 DidMonComeFromCD(void);
-static bool8 DidMonComeFromDPPt(void);
 static bool8 IsInGamePartnerMon(void);
 static void PrintEggOTID(void);
 static void BufferEggState(void);
@@ -334,7 +323,6 @@ static void ConfigureExpBarSprites(void);
 static void DestroyExpBarSprites(void);
 static void SetExpBarSprites(void);
 static void PrintInfoBar(u8 pageIndex, bool8 detailsShown);
-static u8 WhatRegionWasMonCaughtIn(struct Pokemon *mon);
 static u8 *GetMapNameHoennKanto(u8 *dest, u16 mapSecId);
 static u8 *GetMapNameOrre(u8 *dest, u16 mapSecId, bool8 isXD);
 
@@ -1559,7 +1547,6 @@ static bool8 ExtractMonDataToSummaryStruct(struct Pokemon *mon)
         sum->OTID = GetMonData(mon, MON_DATA_OT_ID);
         sum->metLocation = GetMonData(mon, MON_DATA_MET_LOCATION);
         sum->metLevel = GetMonData(mon, MON_DATA_MET_LEVEL);
-        sum->metGame = GetMonData(mon, MON_DATA_MET_GAME);
         sum->friendship = GetMonData(mon, MON_DATA_FRIENDSHIP);
         break;
     case 4:
@@ -2456,20 +2443,11 @@ static void Task_HandleReplaceMoveInput(u8 taskId)
             }
             else if (JOY_NEW(A_BUTTON))
             {
-                if (CanReplaceMove() == TRUE)
-                {
-                    StopPokemonAnimations();
-                    PlaySE(SE_SELECT);
-                    sMoveSlotToReplace = sMonSummaryScreen->firstMoveIndex;
-                    gSpecialVar_0x8005 = sMoveSlotToReplace;
-                    BeginCloseSummaryScreen(taskId);
-                }
-                else
-                {
-                    PlaySE(SE_FAILURE);
-                    ShowCantForgetHMsWindow(taskId);
-                    gTasks[taskId].func = Task_ConfirmHMCantForget;
-                }
+                StopPokemonAnimations();
+                PlaySE(SE_SELECT);
+                sMoveSlotToReplace = sMonSummaryScreen->firstMoveIndex;
+                gSpecialVar_0x8005 = sMoveSlotToReplace;
+                BeginCloseSummaryScreen(taskId);
             }
             else if (JOY_NEW(B_BUTTON))
             {
@@ -2550,23 +2528,6 @@ static void Task_SwitchPageInReplaceMove(u8 taskId)
     }
 }
 
-static void Task_ConfirmHMCantForget(u8 taskId)
-{
-    s16* data = gTasks[taskId].data;
-
-    if (MenuHelpers_ShouldWaitForLinkRecv() != TRUE && gPaletteFade.active != TRUE && JOY_NEW(A_BUTTON))
-    {
-        data[0] = 4;
-        ChangeSelectedMove(data, 0, &sMonSummaryScreen->firstMoveIndex);
-        gTasks[taskId].func = Task_HandleReplaceMoveInput;
-    }
-}
-
-static bool8 CanReplaceMove(void)
-{
-    return TRUE;
-}
-
 static void PrintTextOnWindow(u8 windowId, const u8 *string, u8 x, u8 y, u8 lineSpacing, u8 colorId)
 {
     AddTextPrinterParameterized4(windowId, 1, x, y, 0, lineSpacing, sTextColors[colorId], 0, string);
@@ -2575,30 +2536,6 @@ static void PrintTextOnWindow(u8 windowId, const u8 *string, u8 x, u8 y, u8 line
 static void PrintTextOnWindowSigned(u8 windowId, const u8 *string, u8 x, s8 y, u8 lineSpacing, u8 colorId)
 {
     AddTextPrinterParameterized4Signed(windowId, 1, x, y, 0, lineSpacing, sTextColors[colorId], 0, string);
-}
-
-static void ShowCantForgetHMsWindow(u8 taskId)
-{
-    if (sMonSummaryScreen->currPageIndex == PSS_PAGE_BATTLE_MOVES)
-    {
-        FillWindowPixelBuffer(PSS_LABEL_PANE_LEFT_MOVE, PIXEL_FILL(0));
-        PrintTextOnWindow(PSS_LABEL_PANE_LEFT_MOVE, sText_Power, 8, POWER_AND_ACCURACY_Y, 0, 1);
-        PrintTextOnWindow(PSS_LABEL_PANE_LEFT_MOVE, sText_Accuracy, 8, POWER_AND_ACCURACY_Y_2, 0, 1);
-    }
-    else
-    {
-        FillBgTilemapBufferRect(1, TILE_EMPTY_HEART, 9, 8, 4, 4, 3);
-        PrintTextOnWindow(PSS_LABEL_PANE_LEFT_MOVE, sText_Appeal, 8, POWER_AND_ACCURACY_Y, 0, 1);
-        PrintTextOnWindow(PSS_LABEL_PANE_LEFT_MOVE, sText_Jam, 8, POWER_AND_ACCURACY_Y_2, 0, 1);
-        CopyBgTilemapBufferToVram(1);
-    }
-
-    #if CONFIG_PHYSICAL_SPECIAL_SPLIT || CONFIG_SHOW_ICONS_FOR_OLD_SPLIT
-    gSprites[sMonSummaryScreen->spriteIds[SPRITE_ARR_ID_SPLIT]].invisible = TRUE;
-    #endif
-
-    PrintTextOnWindow(PSS_LABEL_PANE_LEFT_MOVE, gText_HMMovesCantBeForgotten2, 2, 64, 0, 0);
-    PutWindowTilemap(PSS_LABEL_PANE_LEFT_MOVE);
 }
 
 u8 GetMoveSlotToReplace(void)
@@ -2846,89 +2783,8 @@ static void BufferMonTrainerMemo(void)
         u8 *metLocationString = Alloc(32);
         GetMetLevelString(metLevelString);
 
-        #if CONFIG_EXPANDED_MET_LOCATIONS
-        DynamicPlaceholderTextUtil_SetPlaceholderPtr(5, gRegionStringPointers[WhatRegionWasMonCaughtIn(mon)]);
-
-        if (sum->metLocation == MAPSEC_AQUA_HIDEOUT_OLD && sum->metGame == VERSION_SAPPHIRE)
-        {
-            GetMapNameGeneric(metLocationString, MAPSEC_AQUA_HIDEOUT);
-        }
-        else if (sum->metLocation == MAPSEC_AQUA_HIDEOUT_OLD && sum->metGame == VERSION_RUBY)
-        {
-            GetMapNameGeneric(metLocationString, MAPSEC_MAGMA_HIDEOUT);
-        }
-        else if (sum->metLocation == MAPSEC_BATTLE_FRONTIER && (sum->metGame == VERSION_SAPPHIRE || sum->metGame == VERSION_RUBY))
-        {
-            StringCopy(metLocationString, gMapName_BattleTower);
-        }
-        else if (sum->metLocation == MAPSEC_ROUTE_130 && DidMonComeFromRSE() && (sum->species == SPECIES_WYNAUT || sum->species == SPECIES_WOBBUFFET) && sum->metLevel > 0)
-        {
-            GetMapNameHoennKanto(metLocationString, MAPSEC_MIRAGE_ISLAND);
-        }
-        else
-        {
-            GetMapNameHoennKanto(metLocationString, sum->metLocation);
-        }
-
-        if (sum->metGame == VERSION_GAMECUBE)
-        {
-            if (sum->metLocation == METLOC_IN_GAME_TRADE)
-            {
-                DynamicPlaceholderTextUtil_SetPlaceholderPtr(4, sum->OTName);
-                if (sum->species == SPECIES_ESPEON || sum->species == SPECIES_UMBREON)
-                    text = gText_TrainerMemo_OldFriend; //Colosseum starter
-                 else
-                    text = gText_TrainerMemo_ReceivedFrom; //Duking's Plusle
-            }
-            else if (sum->metLocation == 0 && (sum->species == SPECIES_EEVEE || sum->species == SPECIES_VAPOREON || sum->species == SPECIES_JOLTEON || sum->species == SPECIES_FLAREON || sum->species == SPECIES_ESPEON || sum->species == SPECIES_UMBREON))
-            {
-                DynamicPlaceholderTextUtil_SetPlaceholderPtr(4, sum->OTName);
-                text = gText_TrainerMemo_ObtainedFromDad; //XD starter
-            }
-            else
-            {
-                DynamicPlaceholderTextUtil_SetPlaceholderPtr(4, metLocationString);
-                #if CONFIG_TRUST_OUTSIDERS
-                text = gText_TrainerMemo_Standard;
-                #else
-                text = gText_TrainerMemo_Untrusted;
-                #endif
-            }
-        }
-        else if (sum->metLevel == 0)
-        {
-            DynamicPlaceholderTextUtil_SetPlaceholderPtr(4, metLocationString);
-            #if CONFIG_TRUST_OUTSIDERS
-            text = gText_TrainerMemo_Hatched;
-            #else
-            if (DoesMonOTMatchOwner())
-                text = gText_TrainerMemo_Hatched;
-            else
-                text = gText_TrainerMemo_HatchedUntrusted;
-            #endif
-        }
-        else if (sum->metLocation != METLOC_IN_GAME_TRADE)
-        {
-            DynamicPlaceholderTextUtil_SetPlaceholderPtr(4, metLocationString);
-            #if CONFIG_TRUST_OUTSIDERS
-            text = gText_TrainerMemo_Standard;
-            #else
-            if (DoesMonOTMatchOwner())
-                text = gText_TrainerMemo_Standard;
-            else
-                text = gText_TrainerMemo_Untrusted;
-            #endif
-        }
-        else
-        {
-            text = gText_TrainerMemo_Trade;
-        }
-        #else
         DynamicPlaceholderTextUtil_SetPlaceholderPtr(5, sRegionString_Unknown);
         GetMapNameHandleAquaHideout(metLocationString, sum->metLocation);
-
-        if (!DidMonComeFromGBAGames())
-            StringCopy(metLocationString, sMapName_DistantLand);
 
         if (sum->metLevel == 0)
         {
@@ -2958,7 +2814,6 @@ static void BufferMonTrainerMemo(void)
         {
             text = gText_TrainerMemo_Trade;
         }
-        #endif
 
         DynamicPlaceholderTextUtil_ExpandPlaceholders(gStringVar4, text);
         Free(metLevelString);
@@ -3060,30 +2915,6 @@ static bool8 DoesMonOTMatchOwner(void)
         return TRUE;
 }
 
-static bool8 DidMonComeFromGBAGames(void)
-{
-    struct PokeSummary *sum = &sMonSummaryScreen->summary;
-    if (sum->metGame >= VERSION_SAPPHIRE && sum->metGame <= VERSION_LEAF_GREEN)
-        return TRUE;
-    return FALSE;
-}
-
-static bool8 DidMonComeFromRSE(void)
-{
-    struct PokeSummary *sum = &sMonSummaryScreen->summary;
-    if (sum->metGame >= VERSION_SAPPHIRE && sum->metGame <= VERSION_EMERALD)
-        return TRUE;
-    return FALSE;
-}
-
-static bool8 DidMonComeFromFRLG(void)
-{
-    struct PokeSummary *sum = &sMonSummaryScreen->summary;
-    if (sum->metGame == VERSION_FIRE_RED || sum->metGame == VERSION_LEAF_GREEN)
-        return TRUE;
-    return FALSE;
-}
-
 static bool8 IsInGamePartnerMon(void)
 {
     if ((gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER) && gMain.inBattle)
@@ -3125,22 +2956,15 @@ static void BufferEggMemo(void)
     #if CONFIG_EXPANDED_MET_LOCATIONS
     if (sMonSummaryScreen->summary.sanity != 1)
     {
-        if (DidMonComeFromFRLG())
-        {
-            text = gText_TrainerMemo_EggFromKanto;
-        }
         #if CONFIG_TRUST_OUTSIDERS == FALSE
-        else if (!DoesMonOTMatchOwner())
+        if (!DoesMonOTMatchOwner())
         {
             text = gText_TrainerMemo_EggTraded;
         }
         #endif
         else if (sum->metLocation == METLOC_SPECIAL_EGG)
         {
-            if (DidMonComeFromRSE())
-                text = gText_TrainerMemo_EggFromHotSprings;
-            else
-                text = gText_TrainerMemo_EggFromTraveler;
+            text = gText_TrainerMemo_EggFromTraveler;
         }
         else
         {
@@ -3156,10 +2980,7 @@ static void BufferEggMemo(void)
     {
         if (sum->metLocation == METLOC_SPECIAL_EGG)
         {
-            if (DidMonComeFromRSE())
-                text = gText_TrainerMemo_EggFromHotSprings;
-            else
-                text = gText_TrainerMemo_EggFromTraveler;
+            text = gText_TrainerMemo_EggFromTraveler;
         }
         #if CONFIG_TRUST_OUTSIDERS == FALSE
         else if (!DoesMonOTMatchOwner())
@@ -4468,25 +4289,6 @@ static void PrintInfoBar(u8 pageIndex, bool8 detailsShown)
     x = GetStringRightAlignXOffset(0, gStringVar2, 150);
     AddTextPrinterParameterized4(PSS_LABEL_PANE_TITLE, 0, x, 0, 0, 0, sTextColors[PSS_COLOR_WHITE_BLACK_SHADOW], 0, gStringVar2);
     PutWindowTilemap(PSS_LABEL_PANE_TITLE);
-}
-
-static u8 WhatRegionWasMonCaughtIn(struct Pokemon *mon)
-{
-    u8 originGame, versionModifier, metLocation;
-
-    originGame = GetMonData(mon, MON_DATA_MET_GAME, 0);
-    metLocation = GetMonData(mon, MON_DATA_MET_LOCATION, 0);
-
-    if (originGame == VERSION_GAMECUBE)
-        return REGION_ORRE;
-    else if ((metLocation >= KANTO_MAPSEC_START && metLocation <= KANTO_MAPSEC_END) || metLocation == MAPSEC_BIRTH_ISLAND || metLocation == MAPSEC_NAVEL_ROCK)
-        return REGION_KANTO;
-    else if (metLocation == MAPSEC_FARAWAY_ISLAND || metLocation == METLOC_IN_GAME_TRADE)
-        return REGION_UNKNOWN;
-    else if (originGame == 0 || originGame == 6 || originGame == 9 || originGame == 13 || originGame == 14)
-        return REGION_UNKNOWN;
-    else
-        return REGION_HOENN;
 }
 
 static u8 *GetMapNameHoennKanto(u8 *dest, u16 regionMapId)

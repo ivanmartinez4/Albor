@@ -132,7 +132,7 @@
 #define MON_DATA_POKERUS           34
 #define MON_DATA_MET_LOCATION      35
 #define MON_DATA_MET_LEVEL         36
-#define MON_DATA_MET_GAME          37
+#define MON_DATA_SPDEF2            37
 #define MON_DATA_POKEBALL          38
 #define MON_DATA_HP_IV             39
 #define MON_DATA_ATK_IV            40
@@ -182,7 +182,6 @@
 #define MON_DATA_DEF2              84
 #define MON_DATA_SPEED2            85
 #define MON_DATA_SPATK2            86
-#define MON_DATA_SPDEF2            87
 
 // Ribbon IDs used by TV and Pokénav
 #define CHAMPION_RIBBON       0

@@ -3280,7 +3280,6 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     value = GetCurrentRegionMapSectionId();
     SetBoxMonData(boxMon, MON_DATA_MET_LOCATION, &value);
     SetBoxMonData(boxMon, MON_DATA_MET_LEVEL, &level);
-    SetBoxMonData(boxMon, MON_DATA_MET_GAME, &gGameVersion);
     value = ITEM_POKE_BALL;
     SetBoxMonData(boxMon, MON_DATA_POKEBALL, &value);
     SetBoxMonData(boxMon, MON_DATA_OT_GENDER, &gSaveBlock2Ptr->playerGender);
@@ -4468,9 +4467,6 @@ u32 GetBoxMonData(struct BoxPokemon *boxMon, s32 field, u8 *data)
     case MON_DATA_MET_LEVEL:
         retVal = boxMon->metLevel;
         break;
-    case MON_DATA_MET_GAME:
-        retVal = boxMon->metGame;
-        break;
     case MON_DATA_POKEBALL:
         retVal = boxMon->pokeball;
         break;
@@ -4831,9 +4827,6 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
         boxMon->metLevel = metLevel;
         break;
     }
-    case MON_DATA_MET_GAME:
-        SET8(boxMon->metGame);
-        break;
     case MON_DATA_POKEBALL:
     {
         u8 pokeball = *data;

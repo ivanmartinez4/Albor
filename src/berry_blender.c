@@ -3003,7 +3003,7 @@ static void ProcessLinkPlayerCmds(void)
                     case LINKCMD_CONT_BLOCK: // Selected "No"
                         sBerryBlender->playerContinueResponses[i] = LINKCMD_CONT_BLOCK;
                         break;
-                    case LINKCMD_BLENDER_PLAY_AGAIN: // Selected "Yes"
+                    case LINKCMD_BLENDER_PLAY_AGAIN: // Selected "Sí"
                         sBerryBlender->playerContinueResponses[i] = LINKCMD_BLENDER_PLAY_AGAIN;
                         break;
                     case LINKCMD_BLENDER_NO_BERRIES:

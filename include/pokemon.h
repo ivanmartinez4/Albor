@@ -25,7 +25,6 @@ struct BoxPokemon
     /*0x1C*/ u32 species:11;    // up to 2047 species. could probably go down to 10 bits...
              u32 heldItem:10;   // up to 1023 items. could probably be 9 bits if hold items are limited to IDs below 511
              u32 metLevel:7;
-             u32 metGame:4;
     /*0x20*/ u32 experience:21;
              u32 spAttackIV:5;
              u32 spDefenseIV:5;
@@ -33,14 +32,11 @@ struct BoxPokemon
     /*0x24*/ u32 move1:10;  // 1023 moves
              u32 move2:10;  // bits 11-20
              u32 move3:10;  // bits 21-30
-             u32 unused24:2;
     /*0x28*/ u16 move4:10;  // bits 31-40
              u16 hpIV:5;        // 41-45 
-             u16 unused22:1;    
     /*0x2A*/ u16 attackIV:5;    // 46-50
              u16 defenseIV:5;   // 51-55
              u16 speedIV:5;     // 56-60
-             u16 unused2A:1;
     /*0x2C*/ u8 ppBonuses;
     /*0x2D*/ u8 friendship;
     /*0x2E*/ u8 pokeball:6;

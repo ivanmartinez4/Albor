@@ -325,7 +325,6 @@ static void CreateHatchedMon(struct Pokemon *egg, struct Pokemon *temp)
 
     // The language is initially read from the Egg but is later overwritten below
     language = GetMonData(egg, MON_DATA_LANGUAGE);
-    gameMet = GetMonData(egg, MON_DATA_MET_GAME);
     markings = GetMonData(egg, MON_DATA_MARKINGS);
     pokerus = GetMonData(egg, MON_DATA_POKERUS);
 
@@ -339,7 +338,6 @@ static void CreateHatchedMon(struct Pokemon *egg, struct Pokemon *temp)
 
     language = GAME_LANGUAGE;
     SetMonData(temp, MON_DATA_LANGUAGE, &language);
-    SetMonData(temp, MON_DATA_MET_GAME, &gameMet);
     SetMonData(temp, MON_DATA_MARKINGS, &markings);
 
     friendship = 120;

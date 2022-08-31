@@ -1,4 +1,4 @@
-static const u8 sNoneDescription[] = _("No special ability.");
+static const u8 sNoneDescription[] = _("Ninguna habilidad en especial.");
 static const u8 sStenchDescription[] = _("May cause a foe to flinch.");
 static const u8 sDrizzleDescription[] = _("Summons rain in battle.");
 static const u8 sSpeedBoostDescription[] = _("Gradually boosts Speed.");

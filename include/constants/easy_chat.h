@@ -1095,7 +1095,7 @@
 #define EC_WORD_OLD            (EC_GROUP_TRENDY_SAYING << 9) | 0x1e
 #define EC_WORD_YOUNG          (EC_GROUP_TRENDY_SAYING << 9) | 0x1f
 #define EC_WORD_UGLY           (EC_GROUP_TRENDY_SAYING << 9) | 0x20
-#define NUM_ADDITIONAL_PHRASES  33
+#define NUM_ADDITIONAL_PHRASES  1
 
 // Special Berry Masters Wife phrases
 #define NOT_SPECIAL_PHRASE          0
