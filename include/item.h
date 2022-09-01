@@ -33,6 +33,7 @@ struct BagPocket
 
 extern const struct Item gItems[];
 extern struct BagPocket gBagPockets[];
+extern struct ItemSlot gTmHmItemSlots[BAG_TMHM_COUNT];
 
 void ApplyNewEncryptionKeyToBagItems(u32 newKey);
 void ApplyNewEncryptionKeyToBagItems_(u32 newKey);
@@ -88,5 +89,6 @@ enum ItemObtainFlags
     FLAG_SET_OBTAINED,
 };
 bool8 GetSetItemObtained(u16 item, u8 caseId);
+void DeserializeTmHmItemSlots(void);
 
 #endif // GUARD_ITEM_H

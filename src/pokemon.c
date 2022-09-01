@@ -7151,6 +7151,7 @@ bool8 TryIncrementMonLevel(struct Pokemon *mon)
 
 u8 CanLearnTeachableMove(u16 species, u16 move)
 {
+    const u8 *learnableMoves;
     if (species == SPECIES_EGG)
     {
         return FALSE;
@@ -7166,6 +7167,7 @@ u8 CanLearnTeachableMove(u16 species, u16 move)
         }
         return FALSE;
     }
+    return FALSE;
 }
 
 u8 GetMoveRelearnerMoves(struct Pokemon *mon, u16 *moves)
