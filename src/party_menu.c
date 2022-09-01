@@ -2008,8 +2008,6 @@ u8 GetMonAilment(struct Pokemon *mon)
     ailment = GetAilmentFromStatus(GetMonData(mon, MON_DATA_STATUS));
     if (ailment != AILMENT_NONE)
         return ailment;
-    if (CheckPartyPokerus(mon, 0))
-        return AILMENT_PKRS;
     return AILMENT_NONE;
 }
 
@@ -4258,7 +4256,6 @@ static void UpdatePartyMonAilmentGfx(u8 status, struct PartyMenuBox *menuBox)
     switch (status)
     {
     case AILMENT_NONE:
-    case AILMENT_PKRS:
         gSprites[menuBox->statusSpriteId].invisible = TRUE;
         break;
     default:

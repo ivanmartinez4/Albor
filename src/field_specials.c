@@ -1406,14 +1406,6 @@ bool8 ScriptCheckFreePokemonStorageSpace(void)
     return CheckFreePokemonStorageSpace();
 }
 
-bool8 IsPokerusInParty(void)
-{
-    if (!CheckPartyPokerus(gPlayerParty, (1 << PARTY_SIZE) - 1))
-        return FALSE;
-
-    return TRUE;
-}
-
 #define horizontalPan  data[0]
 #define delayCounter   data[1]
 #define numShakes      data[2]
@@ -4009,7 +4001,7 @@ const u8 *GetCurrentDayString(u8 dayOfWeek)
  void CheckSaveBlock1Size(void)
  {
      u32 currSb1Size = (sizeof(struct SaveBlock1));
-     u32 maxSb1Size = (SECTOR_DATA_SIZE * 4);
+     u32 maxSb1Size = (SECTOR_DATA_SIZE * 3);
      ConvertIntToDecimalStringN(gStringVar1, currSb1Size, STR_CONV_MODE_LEFT_ALIGN, 6);
      ConvertIntToDecimalStringN(gStringVar2, maxSb1Size, STR_CONV_MODE_LEFT_ALIGN, 6);
  }
@@ -4025,7 +4017,7 @@ const u8 *GetCurrentDayString(u8 dayOfWeek)
  void CheckPokemonStorageSize(void)
  {
      u32 currPkmnStorageSize = (sizeof(struct PokemonStorage));
-     u32 maxPkmnStorageSize = (SECTOR_DATA_SIZE * 9);
+     u32 maxPkmnStorageSize = (SECTOR_DATA_SIZE * 12);
      ConvertIntToDecimalStringN(gStringVar1, currPkmnStorageSize, STR_CONV_MODE_LEFT_ALIGN, 6);
      ConvertIntToDecimalStringN(gStringVar2, maxPkmnStorageSize, STR_CONV_MODE_LEFT_ALIGN, 6);
  }

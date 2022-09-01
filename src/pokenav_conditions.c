@@ -3,7 +3,6 @@
 #include "decompress.h"
 #include "main.h"
 #include "menu_specialized.h"
-#include "mon_markings.h"
 #include "pokenav.h"
 #include "pokemon.h"
 #include "pokemon_storage_system.h"
@@ -28,7 +27,6 @@ struct Pokenav_ConditionMenu
     u8 nameText[CONDITION_MONS_LOADED][64];
     struct ConditionGraph graph;
     u8 numSparkles[CONDITION_MONS_LOADED];
-    u8 monMarks[CONDITION_MONS_LOADED];
     s8 loadId;
     s8 nextLoadIdDown;
     s8 nextLoadIdUp;
@@ -40,7 +38,6 @@ static void InitPartyConditionListParameters(void);
 static void InitSearchResultsConditionList(void);
 static u32 HandleConditionMenuInput(struct Pokenav_ConditionMenu *);
 static u32 GetConditionReturnCallback(struct Pokenav_ConditionMenu *);
-static u32 OpenMarkingsMenu(struct Pokenav_ConditionMenu *);
 static u8 ConditionGraphHandleDpadInput(struct Pokenav_ConditionMenu *);
 static u8 SwitchConditionSummaryIndex(bool8);
 static void CopyMonNameGenderLocation(s16, u8);
@@ -108,40 +105,7 @@ static u32 HandleConditionMenuInput(struct Pokenav_ConditionMenu *menu)
                     ret = CONDITION_FUNC_RETURN;
                 }
             }
-            else
-            {
-                // In Search mode pressing A brings up the markings menu
-                PlaySE(SE_SELECT);
-                ret = CONDITION_FUNC_ADD_MARKINGS;
-                menu->callback = OpenMarkingsMenu;
-            }
         }
-    }
-
-    return ret;
-}
-
-static u32 OpenMarkingsMenu(struct Pokenav_ConditionMenu *menu)
-{
-    struct PokenavMonList *monListPtr;
-    u8 markings;
-    u32 ret = CONDITION_FUNC_NONE, boxId, monId;
-
-    if (!HandleMonMarkingsMenuInput())
-    {
-        menu->monMarks[menu->loadId] = GetMonMarkingsData();
-        monListPtr = GetSubstructPtr(POKENAV_SUBSTRUCT_MON_LIST);
-        boxId = monListPtr->monData[monListPtr->currIndex].boxId;
-        monId = monListPtr->monData[monListPtr->currIndex].monId;
-        markings = menu->monMarks[menu->loadId];
-
-        if (boxId == TOTAL_BOXES_COUNT)
-            SetMonData(&gPlayerParty[monId], MON_DATA_MARKINGS, &markings);
-        else
-            SetBoxMonDataAt(boxId, monId, MON_DATA_MARKINGS, &markings);
-
-        menu->callback = HandleConditionMenuInput;
-        ret = CONDITION_FUNC_CLOSE_MARKINGS;
     }
 
     return ret;
@@ -504,7 +468,6 @@ static void GetMonConditionGraphData(s16 listId, u8 loadId)
         menu->graph.conditions[loadId][CONDITION_CUTE] = GetBoxOrPartyMonData(boxId, monId, MON_DATA_CUTE, NULL);
         menu->graph.conditions[loadId][CONDITION_BEAUTY] = GetBoxOrPartyMonData(boxId, monId, MON_DATA_BEAUTY, NULL);
         menu->numSparkles[loadId] = GET_NUM_CONDITION_SPARKLES(GetBoxOrPartyMonData(boxId, monId, MON_DATA_SHEEN, NULL));
-        menu->monMarks[loadId] = GetBoxOrPartyMonData(boxId, monId, MON_DATA_MARKINGS, NULL);
         ConditionGraph_CalcPositions(menu->graph.conditions[loadId], menu->graph.savedPositions[loadId]);
     }
     else
@@ -611,16 +574,6 @@ bool32 IsConditionMenuSearchMode(void)
         return TRUE;
     else
         return FALSE;
-}
-
-// Markings are only shown in search mode
-u8 TryGetMonMarkId(void)
-{
-    struct Pokenav_ConditionMenu *menu = GetSubstructPtr(POKENAV_SUBSTRUCT_CONDITION_GRAPH_MENU);
-    if (menu->inSearchMode == TRUE)
-        return menu->monMarks[menu->loadId];
-    else
-        return 0;
 }
 
 u8 GetNumConditionMonSparkles(void)

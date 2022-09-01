@@ -864,15 +864,6 @@ gText_ComeBackWithSecretPower::
 	.string "We'll accept you as a member and sell\n"
 	.string "you good stuff in secrecy.$"
 
-gText_PokerusExplanation::
-	.string "Your Pokémon may be infected with\n"
-	.string "Pokérus.\p"
-	.string "Little is known about the Pokérus\n"
-	.string "except that they are microscopic life-\l"
-	.string "forms that attach to Pokémon.\p"
-	.string "While infected, Pokémon are said to\n"
-	.string "grow exceptionally well.$"
-
 	.include "data/text/surf.inc"
 
 gText_DoorOpenedFarAway::

@@ -103,7 +103,7 @@
 #define MON_DATA_SANITY_HAS_SPECIES 5
 #define MON_DATA_SANITY_IS_EGG      6
 #define MON_DATA_OT_NAME            7
-#define MON_DATA_MARKINGS           8
+#define MON_DATA_SPATK2             8
 #define MON_DATA_CHECKSUM           9
 #define MON_DATA_ENCRYPT_SEPARATOR 10
 #define MON_DATA_SPECIES           11
@@ -129,7 +129,7 @@
 #define MON_DATA_SPDEF_EV          31
 #define MON_DATA_FRIENDSHIP        32
 #define MON_DATA_SMART             33
-#define MON_DATA_POKERUS           34
+#define MON_DATA_SPEED2            34
 #define MON_DATA_MET_LOCATION      35
 #define MON_DATA_MET_LEVEL         36
 #define MON_DATA_SPDEF2            37
@@ -180,8 +180,6 @@
 #define MON_DATA_RIBBONS           82
 #define MON_DATA_ATK2              83
 #define MON_DATA_DEF2              84
-#define MON_DATA_SPEED2            85
-#define MON_DATA_SPATK2            86
 
 // Ribbon IDs used by TV and Pokénav
 #define CHAMPION_RIBBON       0

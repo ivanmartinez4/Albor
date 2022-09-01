@@ -75,7 +75,6 @@
 	.include "src/battle_anim_utility_funcs.o"
 	.include "src/battle_intro.o"
 	.include "src/easy_chat.o"
-	.include "src/mon_markings.o"
 	.include "src/mauville_old_man.o"
 	.include "src/mail.o"
 	.include "src/menu_helpers.o"

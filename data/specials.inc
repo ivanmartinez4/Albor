@@ -309,7 +309,6 @@ gSpecials::
 	def_special DoSealedChamberShakingEffect_Long
 	def_special ShowDeptStoreElevatorFloorSelect
 	def_special InteractWithShieldOrTVDecoration
-	def_special IsPokerusInParty
 	def_special SetSootopolisGymCrackedIceMetatiles
 	def_special ShakeCamera
 	def_special StartGroudonKyogreBattle
@@ -492,9 +491,6 @@ gSpecials::
 	def_special Script_DoRayquazaScene @ Listed twice
 	def_special LoopWingFlapSE
 	def_special DestroyMewEmergingGrassSprite
-	def_special TryBufferWaldaPhrase
-	def_special DoWaldaNamingScreen
-	def_special TryGetWallpaperWithWaldaPhrase
 	def_special PlayerNotAtTrainerHillEntrance
 	def_special GetBattlePyramidHint
 	def_special LoadLinkContestPlayerPalettes

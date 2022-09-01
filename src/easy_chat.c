@@ -1449,11 +1449,6 @@ void ShowEasyChatScreen(void)
         words = gSaveBlock1Ptr->mail[gSpecialVar_0x8005].words;
         break;
     case EASY_CHAT_TYPE_BARD_SONG:
-        bard = &gSaveBlock1Ptr->oldMan.bard;
-        for (i = 0; i < BARD_SONG_LENGTH; i ++)
-            bard->temporaryLyrics[i] = bard->songLyrics[i];
-
-        words = bard->temporaryLyrics;
         break;
     case EASY_CHAT_TYPE_INTERVIEW:
         words = gSaveBlock1Ptr->tvShows[gSpecialVar_0x8005].bravoTrainer.words;

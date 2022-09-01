@@ -1,7 +1,7 @@
 #ifndef GUARD_POKEMON_STORAGE_SYSTEM_H
 #define GUARD_POKEMON_STORAGE_SYSTEM_H
 
-#define TOTAL_BOXES_COUNT       20
+#define TOTAL_BOXES_COUNT       28
 #define IN_BOX_ROWS             5 // Number of rows, 6 Pokémon per row
 #define IN_BOX_COLUMNS          6 // Number of columns, 5 Pokémon per column
 #define IN_BOX_COUNT            (IN_BOX_ROWS * IN_BOX_COLUMNS)
@@ -61,18 +61,6 @@ u32 CountStorageNonEggMons(void);
 u32 CountAllStorageMons(void);
 bool32 AnyStorageMonWithMove(u16 moveId);
 
-void ResetWaldaWallpaper(void);
-void SetWaldaWallpaperLockedOrUnlocked(bool32 unlocked);
-bool32 IsWaldaWallpaperUnlocked(void);
-u32 GetWaldaWallpaperPatternId(void);
-void SetWaldaWallpaperPatternId(u8 id);
-u32 GetWaldaWallpaperIconId(void);
-void SetWaldaWallpaperIconId(u8 id);
-u16 *GetWaldaWallpaperColorsPtr(void);
-void SetWaldaWallpaperColors(u16 color1, u16 color2);
-u8 *GetWaldaPhrasePtr(void);
-void SetWaldaPhrase(const u8 *src);
-bool32 IsWaldaPhraseEmpty(void);
 u8 CountPartyNonEggMons(void);
 void CB2_ReturnToPokeStorage(void);
 
