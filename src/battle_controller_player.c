@@ -3296,25 +3296,20 @@ static void Task_StartSendOutAnim(u8 taskId)
         u8 savedActiveBattler = gActiveBattler;
 
         gActiveBattler = gTasks[taskId].tBattlerId;
-        if (!TwoIntroMons(gActiveBattler) && !(gBattleTypeFlags & BATTLE_TYPE_MULTI))
+        if (!IsDoubleBattle() || (gBattleTypeFlags & BATTLE_TYPE_MULTI))
         {
-            gBattleBufferA[gActiveBattler][1] = gBattlerPartyIndexes[gActiveBattler];
+            gBattleResources->bufferA[gActiveBattler][1] = gBattlerPartyIndexes[gActiveBattler];
             StartSendOutAnimFollower(gActiveBattler, FALSE, ShouldDoSlideInAnim());
         }
         else
         {
-            gBattleBufferA[gActiveBattler][1] = gBattlerPartyIndexes[gActiveBattler];
-            StartSendOutAnimF+(gActiveBattler, FALSE, ShouldDoSlideInAnim());
+            gBattleResources->bufferA[gActiveBattler][1] = gBattlerPartyIndexes[gActiveBattler];
+            StartSendOutAnimFollower(gActiveBattler, FALSE, ShouldDoSlideInAnim());
             gActiveBattler ^= BIT_FLANK;
             gBattleResources->bufferA[gActiveBattler][1] = gBattlerPartyIndexes[gActiveBattler];
             BattleLoadPlayerMonSpriteGfx(&gPlayerParty[gBattlerPartyIndexes[gActiveBattler]], gActiveBattler);
             StartSendOutAnimFollower(gActiveBattler, FALSE, ShouldDoSlideInAnim());
             gActiveBattler ^= BIT_FLANK;
-        }
-        else
-        {
-            gBattleResources->bufferA[gActiveBattler][1] = gBattlerPartyIndexes[gActiveBattler];
-            StartSendOutAnim(gActiveBattler, FALSE);
         }
         gBattlerControllerFuncs[gActiveBattler] = Intro_TryShinyAnimShowHealthbox;
         gActiveBattler = savedActiveBattler;
