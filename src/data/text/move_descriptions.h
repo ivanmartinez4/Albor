@@ -3765,11 +3765,7 @@ static const u8 sMoveFourLineDescription_Gust[] = _("Strikes the foe\nwith a gus
 static const u8 sMoveFourLineDescription_WingAttack[] = _("The foe is struck\nwith large, imposing\nwings spread wide.");
 static const u8 sMoveFourLineDescription_Whirlwind[] = _("The foe is made to\nswitch out with an\nally. In the wild,\nthe battle ends.");
 static const u8 sMoveFourLineDescription_Fly[] = _("A 2-turn move that\nhits on the 2nd\nturn. Use it to fly\nto any known town.");
-#if defined(BATTLE_ENGINE) && B_BINDING_TURNS >= GEN_5
 static const u8 sMoveFourLineDescription_Bind[] = _("A long body or\ntentacles are used\nto bind the foe for\nfour or five turns.");
-#else
-static const u8 sMoveFourLineDescription_Bind[] = _("A long body or\ntentacles are used\nto bind the foe for\ntwo to five turns.");
-#endif
 static const u8 sMoveFourLineDescription_Slam[] = _("The foe is struck\nwith a long tail,\nvines, etc.");
 static const u8 sMoveFourLineDescription_VineWhip[] = _("The foe is struck\nwith slender, whip-\nlike vines.");
 static const u8 sMoveFourLineDescription_Stomp[] = _("The foe is stomped\nwith a big foot.\nIt may make the\nfoe flinch.");
@@ -3784,11 +3780,7 @@ static const u8 sMoveFourLineDescription_FuryAttack[] = _("The foe is jabbed\nre
 static const u8 sMoveFourLineDescription_HornDrill[] = _("The horn is rotated\nlike a drill to ram.\nThe foe will faint\nif it hits.");
 static const u8 sMoveFourLineDescription_Tackle[] = _("A physical attack\nin which the user\ncharges, full body,\ninto the foe.");
 static const u8 sMoveFourLineDescription_BodySlam[] = _("The user drops its\nfull body on the\nfoe. It may leave\nthe foe paralyzed.");
-#if defined(BATTLE_ENGINE) && B_BINDING_TURNS >= GEN_5
 static const u8 sMoveFourLineDescription_Wrap[] = _("A long body or\nvines are used to\nwrap the foe for\nfour or five turns.");
-#else
-static const u8 sMoveFourLineDescription_Wrap[] = _("A long body or\nvines are used to\nwrap the foe for\ntwo to five turns.");
-#endif
 static const u8 sMoveFourLineDescription_TakeDown[] = _("A reckless, full-\nbody charge attack\nthat also hurts the\nuser a little.");
 static const u8 sMoveFourLineDescription_Thrash[] = _("The user rampages\nabout for two to\nthree turns, then\nbecomes confused.");
 static const u8 sMoveFourLineDescription_DoubleEdge[] = _("A reckless, life-\nrisking tackle that\nalso hurts the user\na little.");
@@ -3836,11 +3828,7 @@ static const u8 sMoveFourLineDescription_SleepPowder[] = _("A sleep-inducing\ndu
 static const u8 sMoveFourLineDescription_PetalDance[] = _("The user attacks\nwith petals for two\nto three turns,\nthen gets confused.");
 static const u8 sMoveFourLineDescription_StringShot[] = _("The foe is bound\nwith strings shot\nfrom the mouth to\nreduce its Speed.");
 static const u8 sMoveFourLineDescription_DragonRage[] = _("The foe is hit with\na shock wave that\nalways inflicts 40-\nHP damage.");
-#if defined(BATTLE_ENGINE) && B_BINDING_TURNS >= GEN_5
 static const u8 sMoveFourLineDescription_FireSpin[] = _("The foe is trapped\nin an intense spiral\nof fire that rages\nfour or five turns.");
-#else
-static const u8 sMoveFourLineDescription_FireSpin[] = _("The foe is trapped\nin an intense spiral\nof fire that rages\ntwo to five turns.");
-#endif
 static const u8 sMoveFourLineDescription_ThunderShock[] = _("An electric shock\nattack that may\nalso leave the foe\nparalyzed.");
 static const u8 sMoveFourLineDescription_Thunderbolt[] = _("A strong electrical\nattack that may\nalso leave the foe\nparalyzed.");
 static const u8 sMoveFourLineDescription_ThunderWave[] = _("A weak electric\nshock that is sure\nto cause paralysis\nif it hits.");
@@ -3885,11 +3873,7 @@ static const u8 sMoveFourLineDescription_Sludge[] = _("Toxic sludge is\nhurled a
 static const u8 sMoveFourLineDescription_BoneClub[] = _("The foe is clubbed\nwith a bone held in\nhand. It may make\nthe foe flinch.");
 static const u8 sMoveFourLineDescription_FireBlast[] = _("The foe is hit with\nan intense flame.\nIt may leave the\ntarget with a burn.");
 static const u8 sMoveFourLineDescription_Waterfall[] = _("A powerful charge\nattack. It can also\nbe used to climb\na waterfall.");
-#if defined(BATTLE_ENGINE) && B_BINDING_TURNS >= GEN_5
 static const u8 sMoveFourLineDescription_Clamp[] = _("The foe is clamped\nand squeezed by\nthe user's shell for\nfour or five turns.");
-#else
-static const u8 sMoveFourLineDescription_Clamp[] = _("The foe is clamped\nand squeezed by\nthe user's shell for\ntwo to five turns.");
-#endif
 static const u8 sMoveFourLineDescription_Swift[] = _("Star-shaped rays\nthat never miss are\nfired at all foes in\nbattle.");
 static const u8 sMoveFourLineDescription_SkullBash[] = _("The user raises its\nDefense in the 1st\nturn, then attacks\nin the 2nd turn.");
 static const u8 sMoveFourLineDescription_SpikeCannon[] = _("Sharp spikes are\nfired at the foe to\nstrike two to five\ntimes.");
@@ -4011,11 +3995,7 @@ static const u8 sMoveFourLineDescription_AncientPower[] = _("An ancient power is
 static const u8 sMoveFourLineDescription_ShadowBall[] = _("A shadowy blob is\nhurled at the foe.\nMay also lower the\nfoe's Sp. Def.");
 static const u8 sMoveFourLineDescription_FutureSight[] = _("Two turns after\nthis move is used,\nthe foe is attacked\npsychically.");
 static const u8 sMoveFourLineDescription_RockSmash[] = _("An attack that may\nalso cut Defense.\nIt can also smash\ncracked boulders.");
-#if defined(BATTLE_ENGINE) && B_BINDING_TURNS >= GEN_5
 static const u8 sMoveFourLineDescription_Whirlpool[] = _("The foe is trapped\nin a fast, vicious\nwhirlpool for four\nor five turns.");
-#else
-static const u8 sMoveFourLineDescription_Whirlpool[] = _("The foe is trapped\nin a fast, vicious\nwhirlpool for two\nto five turns.");
-#endif
 static const u8 sMoveFourLineDescription_BeatUp[] = _("All party Pokémon\njoin in the attack.\nThe more allies,\nthe more damage.");
 static const u8 sMoveFourLineDescription_FakeOut[] = _("An attack that hits\nfirst and causes\nflinching. Usable\nonly on 1st turn.");
 static const u8 sMoveFourLineDescription_Uproar[] = _("The user attacks in\nan uproar that\nprevents sleep for\ntwo to five turns.");
@@ -4093,11 +4073,7 @@ static const u8 sMoveFourLineDescription_SignalBeam[] = _("The foe is hit with\n
 static const u8 sMoveFourLineDescription_ShadowPunch[] = _("The user throws a\npunch from the\nshadows. It cannot\nbe evaded.");
 static const u8 sMoveFourLineDescription_Extrasensory[] = _("The user attacks\nwith an odd power\nthat may make the\nfoe flinch.");
 static const u8 sMoveFourLineDescription_SkyUppercut[] = _("The user attacks\nwith an uppercut\nthrown skywards\nwith force.");
-#if defined(BATTLE_ENGINE) && B_BINDING_TURNS >= GEN_5
 static const u8 sMoveFourLineDescription_SandTomb[] = _("The foe is trapped\ninside a painful\nsandstorm for four\nor five turns.");
-#else
-static const u8 sMoveFourLineDescription_SandTomb[] = _("The foe is trapped\ninside a painful\nsandstorm for two\nto five turns.");
-#endif
 static const u8 sMoveFourLineDescription_SheerCold[] = _("The foe is attacked\nwith ultimate cold\nthat causes fainting\nif it hits.");
 static const u8 sMoveFourLineDescription_MuddyWater[] = _("The user attacks\nwith muddy water.\nIt may also lower\nthe foe's accuracy.");
 static const u8 sMoveFourLineDescription_BulletSeed[] = _("The user shoots\nseeds at the foe.\nTwo to five seeds\nare shot at once.");
@@ -4133,11 +4109,7 @@ static const u8 sMoveFourLineDescription_Gust[] = _("Strikes the foe\nwith a gus
 static const u8 sMoveFourLineDescription_WingAttack[] = _("The foe is struck\nwith large, imposing\nwings spread wide.");
 static const u8 sMoveFourLineDescription_Whirlwind[] = _("The foe is made to\nswitch out with an\nally. In the wild,\nthe battle ends.");
 static const u8 sMoveFourLineDescription_Fly[] = _("A 2-turn move that\nhits on the 2nd\nturn. Use it to fly\nto any known town.");
-#if defined(BATTLE_ENGINE) && B_BINDING_TURNS >= GEN_5
 static const u8 sMoveFourLineDescription_Bind[] = _("A long body or\ntentacles are used\nto bind the foe for\nfour or five turns.");
-#else
-static const u8 sMoveFourLineDescription_Bind[] = _("A long body or\ntentacles are used\nto bind the foe for\ntwo to five turns.");
-#endif
 static const u8 sMoveFourLineDescription_Slam[] = _("The foe is struck\nwith a long tail,\nvines, etc.");
 static const u8 sMoveFourLineDescription_VineWhip[] = _("The foe is struck\nwith slender, whip-\nlike vines.");
 static const u8 sMoveFourLineDescription_Stomp[] = _("The foe is stomped\nwith a big foot.\nIt may make the\nfoe flinch.");
@@ -4152,11 +4124,7 @@ static const u8 sMoveFourLineDescription_FuryAttack[] = _("The foe is jabbed\nre
 static const u8 sMoveFourLineDescription_HornDrill[] = _("The horn is rotated\nlike a drill to ram.\nThe foe will faint\nif it hits.");
 static const u8 sMoveFourLineDescription_Tackle[] = _("A physical attack\nin which the user\ncharges, full body,\ninto the foe.");
 static const u8 sMoveFourLineDescription_BodySlam[] = _("The user drops its\nfull body on the\nfoe. It may leave\nthe foe paralyzed.");
-#if defined(BATTLE_ENGINE) && B_BINDING_TURNS >= GEN_5
 static const u8 sMoveFourLineDescription_Wrap[] = _("A long body or\nvines are used to\nwrap the foe for\nfour or five turns.");
-#else
-static const u8 sMoveFourLineDescription_Wrap[] = _("A long body or\nvines are used to\nwrap the foe for\ntwo to five turns.");
-#endif
 static const u8 sMoveFourLineDescription_TakeDown[] = _("A reckless, full-\nbody charge attack\nthat also hurts the\nuser a little.");
 static const u8 sMoveFourLineDescription_Thrash[] = _("The user rampages\nabout for two to\nthree turns, then\nbecomes confused.");
 static const u8 sMoveFourLineDescription_DoubleEdge[] = _("A reckless, life-\nrisking tackle that\nalso hurts the user\na little.");
@@ -4204,11 +4172,7 @@ static const u8 sMoveFourLineDescription_SleepPowder[] = _("A sleep-inducing\ndu
 static const u8 sMoveFourLineDescription_PetalDance[] = _("The user attacks\nwith petals for two\nto three turns,\nthen gets confused.");
 static const u8 sMoveFourLineDescription_StringShot[] = _("The foe is bound\nwith strings shot\nfrom the mouth to\nreduce its SPEED.");
 static const u8 sMoveFourLineDescription_DragonRage[] = _("The foe is hit with\na shock wave that\nalways inflicts 40-\nHP damage.");
-#if defined(BATTLE_ENGINE) && B_BINDING_TURNS >= GEN_5
 static const u8 sMoveFourLineDescription_FireSpin[] = _("The foe is trapped\nin an intense spiral\nof fire that rages\nfour or five turns.");
-#else
-static const u8 sMoveFourLineDescription_FireSpin[] = _("The foe is trapped\nin an intense spiral\nof fire that rages\ntwo to five turns.");
-#endif
 static const u8 sMoveFourLineDescription_ThunderShock[] = _("An electric shock\nattack that may\nalso leave the foe\nparalyzed.");
 static const u8 sMoveFourLineDescription_Thunderbolt[] = _("A strong electrical\nattack that may\nalso leave the foe\nparalyzed.");
 static const u8 sMoveFourLineDescription_ThunderWave[] = _("A weak electric\nshock that is sure\nto cause paralysis\nif it hits.");
@@ -4253,11 +4217,7 @@ static const u8 sMoveFourLineDescription_Sludge[] = _("Toxic sludge is\nhurled a
 static const u8 sMoveFourLineDescription_BoneClub[] = _("The foe is clubbed\nwith a bone held in\nhand. It may make\nthe foe flinch.");
 static const u8 sMoveFourLineDescription_FireBlast[] = _("The foe is hit with\nan intense flame.\nIt may leave the\ntarget with a burn.");
 static const u8 sMoveFourLineDescription_Waterfall[] = _("A powerful charge\nattack. It can also\nbe used to climb\na waterfall.");
-#if defined(BATTLE_ENGINE) && B_BINDING_TURNS >= GEN_5
 static const u8 sMoveFourLineDescription_Clamp[] = _("The foe is clamped\nand squeezed by\nthe user's shell for\nfour or five turns.");
-#else
-static const u8 sMoveFourLineDescription_Clamp[] = _("The foe is clamped\nand squeezed by\nthe user's shell for\ntwo to five turns.");
-#endif
 static const u8 sMoveFourLineDescription_Swift[] = _("Star-shaped rays\nthat never miss are\nfired at all foes in\nbattle.");
 static const u8 sMoveFourLineDescription_SkullBash[] = _("The user raises its\nDEFENSE in the 1st\nturn, then attacks\nin the 2nd turn.");
 static const u8 sMoveFourLineDescription_SpikeCannon[] = _("Sharp spikes are\nfired at the foe to\nstrike two to five\ntimes.");
@@ -4379,11 +4339,7 @@ static const u8 sMoveFourLineDescription_AncientPower[] = _("An ancient power is
 static const u8 sMoveFourLineDescription_ShadowBall[] = _("A shadowy blob is\nhurled at the foe.\nMay also lower the\nfoe's SP. DEF.");
 static const u8 sMoveFourLineDescription_FutureSight[] = _("Two turns after\nthis move is used,\nthe foe is attacked\npsychically.");
 static const u8 sMoveFourLineDescription_RockSmash[] = _("An attack that may\nalso cut DEFENSE.\nIt can also smash\ncracked boulders.");
-#if defined(BATTLE_ENGINE) && B_BINDING_TURNS >= GEN_5
 static const u8 sMoveFourLineDescription_Whirlpool[] = _("The foe is trapped\nin a fast, vicious\nwhirlpool for four\nor five turns.");
-#else
-static const u8 sMoveFourLineDescription_Whirlpool[] = _("The foe is trapped\nin a fast, vicious\nwhirlpool for two\nto five turns.");
-#endif
 static const u8 sMoveFourLineDescription_BeatUp[] = _("All party POKéMON\njoin in the attack.\nThe more allies,\nthe more damage.");
 static const u8 sMoveFourLineDescription_FakeOut[] = _("An attack that hits\nfirst and causes\nflinching. Usable\nonly on 1st turn.");
 static const u8 sMoveFourLineDescription_Uproar[] = _("The user attacks in\nan uproar that\nprevents sleep for\ntwo to five turns.");
@@ -4461,11 +4417,7 @@ static const u8 sMoveFourLineDescription_SignalBeam[] = _("The foe is hit with\n
 static const u8 sMoveFourLineDescription_ShadowPunch[] = _("The user throws a\npunch from the\nshadows. It cannot\nbe evaded.");
 static const u8 sMoveFourLineDescription_Extrasensory[] = _("The user attacks\nwith an odd power\nthat may make the\nfoe flinch.");
 static const u8 sMoveFourLineDescription_SkyUppercut[] = _("The user attacks\nwith an uppercut\nthrown skywards\nwith force.");
-#if defined(BATTLE_ENGINE) && B_BINDING_TURNS >= GEN_5
 static const u8 sMoveFourLineDescription_SandTomb[] = _("The foe is trapped\ninside a painful\nsandstorm for four\nor five turns.");
-#else
-static const u8 sMoveFourLineDescription_SandTomb[] = _("The foe is trapped\ninside a painful\nsandstorm for two\nto five turns.");
-#endif
 static const u8 sMoveFourLineDescription_SheerCold[] = _("The foe is attacked\nwith ultimate cold\nthat causes fainting\nif it hits.");
 static const u8 sMoveFourLineDescription_MuddyWater[] = _("The user attacks\nwith muddy water.\nIt may also lower\nthe foe's accuracy.");
 static const u8 sMoveFourLineDescription_BulletSeed[] = _("The user shoots\nseeds at the foe.\nTwo to five seeds\nare shot at once.");
@@ -4495,7 +4447,6 @@ static const u8 sMoveFourLineDescription_PsychoBoost[] = _("An intense attack\nt
 
 #endif
 
-#ifdef BATTLE_ENGINE
 static const u8 sMoveFourLineDescription_Roost[] = _("The user lands and\nrests its body. It\nrestores up to half\nof its max HP.");
 static const u8 sMoveFourLineDescription_Gravity[] = _("Gravity is upped for\nfive turns, making\nflight unusuable and\nnegating Levitate.");
 static const u8 sMoveFourLineDescription_MiracleEye[] = _("Negates a foe's\nevasion, as well as\nits immunity to\nPsychic-type moves.");
@@ -4600,11 +4551,7 @@ static const u8 sMoveFourLineDescription_DoubleHit[] = _("The user slams the\nfo
 static const u8 sMoveFourLineDescription_RoarOfTime[] = _("A blast which\ndistorts even time.\nThe user must rest\non the next turn.");
 static const u8 sMoveFourLineDescription_SpacialRend[] = _("The foe, and the\nspace around it, is\ntorn. Critical hits\nland more easily.");
 static const u8 sMoveFourLineDescription_CrushGrip[] = _("The user crushes\nthe foe. The more\nHP the foe has, the\nstronger this move.");
-#if B_BINDING_TURNS >= GEN_5
 static const u8 sMoveFourLineDescription_MagmaStorm[] = _("The foe becomes\ntrapped within a\nmaelstrom of fire\nfor 4 or 5 turns.");
-#else
-static const u8 sMoveFourLineDescription_MagmaStorm[] = _("The foe becomes\ntrapped within a\nmaelstrom of fire\nfor 2 to 5 turns.");
-#endif
 static const u8 sMoveFourLineDescription_DarkVoid[] = _("The foe is dragged\ninto a world of\ntotal darkness that\nputs it to sleep.");
 static const u8 sMoveFourLineDescription_SeedFlare[] = _("A shock wave is\nloosed at the foe.\nThis may lower the\nfoe's Sp. Def.");
 static const u8 sMoveFourLineDescription_OminousWind[] = _("A gust of repulsive\nwind is blasted at\nthe foe. This may\nup the user's stats.");
@@ -4748,11 +4695,7 @@ static const u8 sMoveFourLineDescription_Celebrate[] = _("The Pokémon\ncongratu
 static const u8 sMoveFourLineDescription_HoldHands[] = _("The user and ally\nhold hands. This\nmakes them very\nhappy.");
 static const u8 sMoveFourLineDescription_BabyDollEyes[] = _("Before it can move,\nthe foe's Attack\nstat is lowered by\nan adorable stare.");
 static const u8 sMoveFourLineDescription_Nuzzle[] = _("The user's\nelectrified cheeks\nnuzzle the foe,\nparalyzing the foe.");
-#if B_BINDING_TURNS >= GEN_5
 static const u8 sMoveFourLineDescription_Infestation[] = _("The foe is infested\nfor 4 or 5 turns.\nThe foe cannot flee\nduring this time.");
-#else
-static const u8 sMoveFourLineDescription_Infestation[] = _("The foe is infested\nfor 2 to 5 turns.\nThe foe cannot flee\nduring this time.");
-#endif
 static const u8 sMoveFourLineDescription_PowerUpPunch[] = _("The user strikes,\nstrengthening its\nfists. This raises\ntheir Attack stat.");
 static const u8 sMoveFourLineDescription_OblivionWing[] = _("The user absorbs\nover half of the\ndamage taken by its\ntarget.");
 static const u8 sMoveFourLineDescription_ThousandArrows[] = _("This move also hits\nfoes that are in\nthe air, and knocks\nthem down.");
@@ -4903,7 +4846,6 @@ static const u8 sMoveFourLineDescription_ThunderousKick[] = _("Moves like lightn
 static const u8 sMoveFourLineDescription_GlacialLance[] = _("Strikes by hurling\na blizzard-cloaked\nicicle lance at\nopposing Pokémon.");
 static const u8 sMoveFourLineDescription_AstralBarrage[] = _("Strikes by sending\na frightful amount\nof small ghosts at\nopposing Pokémon.");
 static const u8 sMoveFourLineDescription_EerieSpell[] = _("Attacks with its\ntremendous psychic\npower. Foe's last\nmove has 3 PP cut.");
-#endif
 
 const u8 *const gMoveFourLineDescriptionPointers[MOVES_COUNT - 1] = {
     [MOVE_POUND         - 1] = sMoveFourLineDescription_Pound,
@@ -4916,11 +4858,7 @@ const u8 *const gMoveFourLineDescriptionPointers[MOVES_COUNT - 1] = {
     [MOVE_ICE_PUNCH     - 1] = sMoveFourLineDescription_IcePunch,
     [MOVE_THUNDER_PUNCH - 1] = sMoveFourLineDescription_ThunderPunch,
     [MOVE_SCRATCH       - 1] = sMoveFourLineDescription_Scratch,
-#if defined(BATTLE_ENGINE) || defined(POKEMON_EXPANSION)
     [MOVE_VISE_GRIP     - 1] = sMoveFourLineDescription_ViceGrip,
-#else
-    [MOVE_VICE_GRIP     - 1] = sMoveFourLineDescription_ViceGrip,
-#endif
     [MOVE_GUILLOTINE    - 1] = sMoveFourLineDescription_Guillotine,
     [MOVE_RAZOR_WIND    - 1] = sMoveFourLineDescription_RazorWind,
     [MOVE_SWORDS_DANCE  - 1] = sMoveFourLineDescription_SwordsDance,
@@ -5045,11 +4983,7 @@ const u8 *const gMoveFourLineDescriptionPointers[MOVES_COUNT - 1] = {
     [MOVE_AMNESIA       - 1] = sMoveFourLineDescription_Amnesia,
     [MOVE_KINESIS       - 1] = sMoveFourLineDescription_Kinesis,
     [MOVE_SOFT_BOILED   - 1] = sMoveFourLineDescription_SoftBoiled,
-#if defined(BATTLE_ENGINE) || defined(POKEMON_EXPANSION)
     [MOVE_HIGH_JUMP_KICK  - 1] = sMoveFourLineDescription_HiJumpKick,
-#else
-    [MOVE_HI_JUMP_KICK  - 1] = sMoveFourLineDescription_HiJumpKick,
-#endif
     [MOVE_GLARE         - 1] = sMoveFourLineDescription_Glare,
     [MOVE_DREAM_EATER   - 1] = sMoveFourLineDescription_DreamEater,
     [MOVE_POISON_GAS    - 1] = sMoveFourLineDescription_PoisonGas,
@@ -5098,11 +5032,7 @@ const u8 *const gMoveFourLineDescriptionPointers[MOVES_COUNT - 1] = {
     [MOVE_PROTECT       - 1] = sMoveFourLineDescription_Protect,
     [MOVE_MACH_PUNCH    - 1] = sMoveFourLineDescription_MachPunch,
     [MOVE_SCARY_FACE    - 1] = sMoveFourLineDescription_ScaryFace,
-#if defined(BATTLE_ENGINE) || defined(POKEMON_EXPANSION)
     [MOVE_FEINT_ATTACK  - 1] = sMoveFourLineDescription_FaintAttack,
-#else
-    [MOVE_FAINT_ATTACK  - 1] = sMoveFourLineDescription_FaintAttack,
-#endif
     [MOVE_SWEET_KISS    - 1] = sMoveFourLineDescription_SweetKiss,
     [MOVE_BELLY_DRUM    - 1] = sMoveFourLineDescription_BellyDrum,
     [MOVE_SLUDGE_BOMB   - 1] = sMoveFourLineDescription_SludgeBomb,
@@ -5182,11 +5112,7 @@ const u8 *const gMoveFourLineDescriptionPointers[MOVES_COUNT - 1] = {
     [MOVE_MEMENTO       - 1] = sMoveFourLineDescription_Memento,
     [MOVE_FACADE        - 1] = sMoveFourLineDescription_Facade,
     [MOVE_FOCUS_PUNCH   - 1] = sMoveFourLineDescription_FocusPunch,
-#if defined(BATTLE_ENGINE) || defined(POKEMON_EXPANSION)
     [MOVE_SMELLING_SALTS - 1] = sMoveFourLineDescription_SmellingSalt,
-#else
-    [MOVE_SMELLING_SALT - 1] = sMoveFourLineDescription_SmellingSalt,
-#endif
     [MOVE_FOLLOW_ME     - 1] = sMoveFourLineDescription_FollowMe,
     [MOVE_NATURE_POWER  - 1] = sMoveFourLineDescription_NaturePower,
     [MOVE_CHARGE        - 1] = sMoveFourLineDescription_Charge,
@@ -5276,7 +5202,6 @@ const u8 *const gMoveFourLineDescriptionPointers[MOVES_COUNT - 1] = {
     [MOVE_WATER_PULSE   - 1] = sMoveFourLineDescription_WaterPulse,
     [MOVE_DOOM_DESIRE   - 1] = sMoveFourLineDescription_DoomDesire,
     [MOVE_PSYCHO_BOOST  - 1] = sMoveFourLineDescription_PsychoBoost,
-#ifdef BATTLE_ENGINE
     [MOVE_ROOST             - 1] = sMoveFourLineDescription_Roost,
     [MOVE_GRAVITY           - 1] = sMoveFourLineDescription_Gravity,
     [MOVE_MIRACLE_EYE       - 1] = sMoveFourLineDescription_MiracleEye,
@@ -5679,5 +5604,4 @@ const u8 *const gMoveFourLineDescriptionPointers[MOVES_COUNT - 1] = {
     [MOVE_GLACIAL_LANCE     - 1] = sMoveFourLineDescription_GlacialLance,
     [MOVE_ASTRAL_BARRAGE    - 1] = sMoveFourLineDescription_AstralBarrage,
     [MOVE_EERIE_SPELL       - 1] = sMoveFourLineDescription_EerieSpell,
-#endif
 };

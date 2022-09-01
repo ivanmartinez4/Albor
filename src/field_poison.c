@@ -56,6 +56,7 @@ static bool32 MonFaintedFromPoison(u8 partyIdx)
     if (IsMonValidSpecies(pokemon) && GetMonData(pokemon, MON_DATA_HP) == 1 && GetAilmentFromStatus(GetMonData(pokemon, MON_DATA_STATUS)) == AILMENT_PSN)
     {
         return TRUE;
+    }
 
     return FALSE;
 }
@@ -100,6 +101,7 @@ static void Task_TryFieldPoisonWhiteOut(u8 taskId)
             ScriptContext_Enable();
             DestroyTask(taskId);
             break;
+        }
     }
 }
 
@@ -129,6 +131,7 @@ s32 DoPoisonFieldEffect(void)
             if (hp == 1 || --hp == 1)
             {
                 numFainted++;
+            }
 
             SetMonData(pokemon, MON_DATA_HP, &hp);
             numPoisoned++;

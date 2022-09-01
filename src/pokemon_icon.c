@@ -2794,7 +2794,6 @@ const u8 *GetMonIconTiles(u16 species, u32 personality)
 
     if (ShouldShowFemaleDifferences(species, personality))
         iconSprite = gMonIconTableFemale[species];
-    }
     return iconSprite;
 }
 

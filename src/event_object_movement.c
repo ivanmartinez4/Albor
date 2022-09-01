@@ -2157,11 +2157,7 @@ bool8 ScrFunc_getfolloweraction(struct ScriptContext *ctx) // Essentially a big 
   }
 
   emotion = RandomWeightedIndex(emotion_weight, FOLLOWER_EMOTION_LENGTH);
-  #ifdef BATTLE_ENGINE
   if ((mon->status & STATUS1_PSN_ANY) && GetMonAbility(mon) != ABILITY_POISON_HEAL)
-  #else
-  if (mon->status & STATUS1_PSN_ANY)
-  #endif
     emotion = FOLLOWER_EMOTION_POISONED;
   multi = Random() % followerBasicMessages[emotion].length;
   // With 50% chance, select special message using reservoir sampling

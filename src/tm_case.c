@@ -995,17 +995,10 @@ static void PrintStringTMCaseOnWindow3(void)
 
 static void DrawMoveInfoUIMarkers(void)
 {
-    #ifndef POKEMON_EXPANSION
         BlitMenuInfoIcon(4, 19, 0, 0); // "Type" sprite
         BlitMenuInfoIcon(4, 20, 0, 12); // "Power" sprite
         BlitMenuInfoIcon(4, 21, 0, 24); // "Accuracy" sprite
         BlitMenuInfoIcon(4, 22, 0, 36); // "PP" sprite
-    #else
-        BlitMenuInfoIcon(4, 20, 0, 0); // "Type" sprite
-        BlitMenuInfoIcon(4, 21, 0, 12); // "Power" sprite
-        BlitMenuInfoIcon(4, 22, 0, 24); // "Accuracy" sprite
-        BlitMenuInfoIcon(4, 23, 0, 36); // "PP" sprite
-    #endif
     CopyWindowToVram(4, 2);
 }
 
@@ -1149,11 +1142,7 @@ static void DrawPartyMonIcons(void)
         species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES);
 
         //create icon sprite
-        #ifndef POKEMON_EXPANSION
-            spriteIdData[i] = CreateMonIcon(species, SpriteCb_MonIcon, icon_x, icon_y, 1, GetMonData(&gPlayerParty[0], MON_DATA_PERSONALITY), TRUE);
-        #else
             spriteIdData[i] = CreateMonIcon(species, SpriteCb_MonIcon, icon_x, icon_y, 1, GetMonData(&gPlayerParty[0], MON_DATA_PERSONALITY));
-        #endif
 
         //Set priority, stop movement and save original palette position
         gSprites[spriteIdData[i]].oam.priority = 0;
@@ -1166,11 +1155,12 @@ static void TintPartyMonIcons(u8 tm)
 {
     u8 i;
     u16 species;
+    u16 move;
 
     for (i = 0; i < gPlayerPartyCount; i++)
     {
         species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES);
-        if (!CanSpeciesLearnTMHM(species, tm))
+        if (!CanLearnTeachableMove(species, move))
         {
             gSprites[spriteIdData[i]].oam.paletteNum = 7 + spriteIdPalette[i];
         }

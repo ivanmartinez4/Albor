@@ -981,25 +981,25 @@ const u8 sText_Pokerus[] = _("{SUM_IMMUNE}");
 const u8 sText_NatureUp[] = _("{SUM_UP}");
 const u8 sText_NatureDown[] = _("{SUM_DOWN}");
 const u8 sText_OTName[] = _("OT");
-const u8 sText_OTID[] = _("ID No.");
-const u8 sText_HP[] = _("HP");
-const u8 sText_PP[] = _("PP");
+const u8 sText_OTID[] = _("ID Nº.");
+const u8 sText_HP[] = _("PS");
+const u8 sText_PP[] = _("PPz");
 #if CONFIG_DECAPITALIZE_TITLE_STRINGS
-const u8 sText_TitleInfo[] = _("Pokémon Info");
-const u8 sText_TitleMemo[] = _("Trainer Memo");
-const u8 sText_TitleSkills[] = _("Pokémon Stats");
-const u8 sText_TitleBattleMoves[] = _("Battle Moves");
-const u8 sText_TitleCondition[] = _("Condition");
+const u8 sText_TitleInfo[] = _("Información");
+const u8 sText_TitleMemo[] = _("Características");
+const u8 sText_TitleSkills[] = _("Estadísticas");
+const u8 sText_TitleBattleMoves[] = _("Ataques");
+const u8 sText_TitleCondition[] = _("Condición");
 const u8 sText_TitleContestMoves[] = _("Contest Moves");
-const u8 sText_TitleRibbons[] = _("Ribbons");
-const u8 sText_TitleIVs[] = _("Pokémon IVs");
-const u8 sText_TitleEVs[] = _("Pokémon EVs");
-const u8 sText_TitlePage[] = _("{DPAD_LEFTRIGHT}Page");
-const u8 sText_TitlePageDetail[] = _("{DPAD_LEFTRIGHT}Page {A_BUTTON}Detail");
-const u8 sText_TitlePickSwitch[] = _("{DPAD_UPDOWN}Pick {A_BUTTON}Switch");
-const u8 sText_TitlePageIVs[] = _("{DPAD_LEFTRIGHT}Page {A_BUTTON}IVs");
-const u8 sText_TitlePageEVs[] = _("{DPAD_LEFTRIGHT}Page {A_BUTTON}EVs");
-const u8 sText_TitlePageStats[] = _("{DPAD_LEFTRIGHT}Page {A_BUTTON}Stats");
+const u8 sText_TitleRibbons[] = _("Cintas");
+const u8 sText_TitleIVs[] = _("Valores individuales");
+const u8 sText_TitleEVs[] = _("Puntos de esfuerzo");
+const u8 sText_TitlePage[] = _("{DPAD_LEFTRIGHT}Pág.");
+const u8 sText_TitlePageDetail[] = _("{DPAD_LEFTRIGHT}Pág. {A_BUTTON}Detalle");
+const u8 sText_TitlePickSwitch[] = _("{DPAD_UPDOWN}Elegir {A_BUTTON}Cambiar");
+const u8 sText_TitlePageIVs[] = _("{DPAD_LEFTRIGHT}Pág. {A_BUTTON}IVs");
+const u8 sText_TitlePageEVs[] = _("{DPAD_LEFTRIGHT}Pág. {A_BUTTON}EVs");
+const u8 sText_TitlePageStats[] = _("{DPAD_LEFTRIGHT}Pág. {A_BUTTON}Est.");
 #else
 const u8 sText_TitleInfo[] = _("POKéMON INFO");
 const u8 sText_TitleMemo[] = _("TRAINER MEMO");
@@ -1018,30 +1018,30 @@ const u8 sText_TitlePageEVs[] = _("{DPAD_LEFTRIGHT}PAGE {A_BUTTON}EVS");
 const u8 sText_TitlePageStats[] = _("{DPAD_LEFTRIGHT}PAGE {A_BUTTON}STATS");
 #endif
 #if CONFIG_DECAPITALIZE_MENU_STRINGS
-const u8 sText_None[] = _("None");
-const u8 sText_Cancel[] = _("Cancel");
-const u8 sText_Power[] = _("Power");
-const u8 sText_Accuracy[] = _("Accuracy");
+const u8 sText_None[] = _("Ninguno");
+const u8 sText_Cancel[] = _("Cancelar");
+const u8 sText_Power[] = _("Potencia");
+const u8 sText_Accuracy[] = _("Precisión");
 const u8 sText_Appeal[] = _("Appeal");
 const u8 sText_Jam[] = _("Jam");
-const u8 sText_DexNo[] = _("Pokédex No.");
-const u8 sText_Species[] = _("Name");
-const u8 sText_Type[] = _("Type");
-const u8 sText_ExpPoints[] = _("Exp. Points");
-const u8 sText_ToNextLevel[] = _("To Next Lv.");
-const u8 sText_Attack[] = _("Attack");
-const u8 sText_Defense[] = _("Defense");
-const u8 sText_SpecialAttack[] = _("Sp. Atk");
-const u8 sText_SpecialDefense[] = _("Sp. Def");
-const u8 sText_Speed[] = _("Speed");
-const u8 sText_Ability[] = _("Ability");
+const u8 sText_DexNo[] = _("Pokédex Nº.");
+const u8 sText_Species[] = _("Nombre");
+const u8 sText_Type[] = _("Tipo");
+const u8 sText_ExpPoints[] = _("Puntos exp.");
+const u8 sText_ToNextLevel[] = _("al siguiente nv.");
+const u8 sText_Attack[] = _("Ataque");
+const u8 sText_Defense[] = _("Defensa");
+const u8 sText_SpecialAttack[] = _("At. esp.");
+const u8 sText_SpecialDefense[] = _("Def. esp.");
+const u8 sText_Speed[] = _("Velocidad");
+const u8 sText_Ability[] = _("Habilidad");
 const u8 sText_Sheen[] = _("Sheen");
 const u8 sText_Cool[] = _("Cool");
 const u8 sText_Beauty[] = _("Beauty");
 const u8 sText_Cute[] = _("Cute");
 const u8 sText_Smart[] = _("Smart");
 const u8 sText_Tough[] = _("Tough");
-const u8 sText_HeldItem[] = _("Held Item");
+const u8 sText_HeldItem[] = _("Obj. equipado");
 #else
 const u8 sText_None[] = _("NONE");
 const u8 sText_Cancel[] = _("CANCEL");
@@ -3646,7 +3646,7 @@ static u8 LoadMonGfxAndSprite(struct Pokemon *mon, s16 *state)
     case 0:
         if (gMain.inBattle)
         {
-            HandleLoadSpecialPokePic(&gMonFrontPicTable[summary->species2],
+            HandleLoadSpecialPokePic(TRUE,
                                      gMonSpritesGfxPtr->sprites.ptr[B_POSITION_OPPONENT_LEFT],
                                      summary->species2,
                                      summary->pid);
@@ -3662,7 +3662,7 @@ static u8 LoadMonGfxAndSprite(struct Pokemon *mon, s16 *state)
             }
             else
             {
-                HandleLoadSpecialPokePic(&gMonFrontPicTable[summary->species2],
+                HandleLoadSpecialPokePic(TRUE,
                                          MonSpritesGfxManager_GetSpritePtr(B_POSITION_OPPONENT_LEFT),
                                          summary->species2,
                                          summary->pid);
