@@ -23,6 +23,7 @@
 #include "malloc.h"
 #include "menu.h"
 #include "menu_helpers.h"
+#include "mon_markings.h"
 #include "party_menu.h"
 #include "palette.h"
 #include "pokeball.h"
@@ -136,6 +137,7 @@ static EWRAM_DATA struct PokemonSummaryScreenData
         struct BoxPokemon *boxMons;
     } monList;
     /*0x04*/ MainCallback callback;
+    /*0x08*/ struct Sprite *markingsSprite;
     /*0x0C*/ struct Pokemon currentMon;
     /*0x70*/ struct PokeSummary
     {
@@ -303,6 +305,8 @@ static u8 LoadMonGfxAndSprite(struct Pokemon *, s16 *);
 static u8 CreateMonSprite(struct Pokemon *);
 static void SpriteCB_Pokemon(struct Sprite *);
 static void StopPokemonAnimations(void);
+static void CreateMonMarkingsSprite(struct Pokemon *mon);
+static void RemoveAndCreateMonMarkingsSprite(struct Pokemon *mon);
 static void CreateCaughtBallSprite(struct Pokemon *mon);
 static void CreateHeldItemSprite(struct Pokemon *mon);
 static void CreateSetStatusSprite(void);
@@ -456,6 +460,7 @@ enum
     PSS_COLOR_MALE_GENDER_SYMBOL,
     PSS_COLOR_FEMALE_GENDER_SYMBOL,
     PSS_COLOR_SHINY_STARS,
+    PSS_COLOR_POKERUS_CURED,
     PP_UNK_1,
     PP_UNK_2,
     PP_UNK_3,
@@ -473,6 +478,7 @@ static const u8 sTextColors[][3] =
     [PSS_COLOR_MALE_GENDER_SYMBOL]      = {0, 3, 4},
     [PSS_COLOR_FEMALE_GENDER_SYMBOL]    = {0, 5, 6},
     [PSS_COLOR_SHINY_STARS]             = {0, 5, 5},
+    [PSS_COLOR_POKERUS_CURED]           = {0, 9, 9},
     /* Probably left from Pokémon Polar,
     check if they are actually needed so
     we can remove them if unused */
@@ -506,9 +512,10 @@ static const u8 sMemoMiscTextColor[] = _("{COLOR 7}{SHADOW 8}");
 #define TAG_MOVE_SELECTOR   30000
 #define TAG_MON_STATUS      30001
 #define TAG_MOVE_TYPES      30002
-#define TAG_SPLIT_ICONS     30003
-#define TAG_HEALTH_BAR      30004
-#define TAG_EXP_BAR         30005
+#define TAG_MON_MARKINGS    30003
+#define TAG_SPLIT_ICONS     30004
+#define TAG_HEALTH_BAR      30005
+#define TAG_EXP_BAR         30006
 
 static const struct OamData sOamData_MoveTypes =
 {
@@ -805,6 +812,10 @@ static const union AnimCmd sSpriteAnim_StatusBurn[] = {
     ANIMCMD_FRAME(16, 0, FALSE, FALSE),
     ANIMCMD_END
 };
+static const union AnimCmd sSpriteAnim_StatusPokerus[] = {
+    ANIMCMD_FRAME(20, 0, FALSE, FALSE),
+    ANIMCMD_END
+};
 static const union AnimCmd sSpriteAnim_StatusFaint[] = {
     ANIMCMD_FRAME(24, 0, FALSE, FALSE),
     ANIMCMD_END
@@ -815,6 +826,7 @@ static const union AnimCmd *const sSpriteAnimTable_StatusCondition[] = {
     sSpriteAnim_StatusSleep,
     sSpriteAnim_StatusFrozen,
     sSpriteAnim_StatusBurn,
+    sSpriteAnim_StatusPokerus,
     sSpriteAnim_StatusFaint,
 };
 static const struct CompressedSpriteSheet sStatusIconsSpriteSheet =
@@ -837,7 +849,8 @@ static const struct SpriteTemplate sSpriteTemplate_StatusCondition =
     .images = NULL,
     .affineAnims = gDummySpriteAffineAnimTable,
     .callback = SpriteCallbackDummy
-};;
+};
+static const u16 sSummaryMarkingsPalette[] = INCBIN_U16("graphics/summary_screen/markings.gbapal");
 
 static const struct OamData sOamData_ExpHealthBars = {
     .y = 0,
@@ -964,6 +977,7 @@ static const u32 * const sPageTilemaps[] =
 };
 
 const u8 sText_Shiny[] = _("{SUM_SHINY}");
+const u8 sText_Pokerus[] = _("{SUM_IMMUNE}");
 const u8 sText_NatureUp[] = _("{SUM_UP}");
 const u8 sText_NatureDown[] = _("{SUM_DOWN}");
 const u8 sText_OTName[] = _("Entrenador");
@@ -1292,6 +1306,8 @@ static bool8 LoadGraphics(void)
         }
         break;
     case 15:
+        CreateMonMarkingsSprite(&sMonSummaryScreen->currentMon);
+        gMain.state++;
         break;
     case 16:
         CreateCaughtBallSprite(&sMonSummaryScreen->currentMon);
@@ -1330,6 +1346,8 @@ static bool8 LoadGraphics(void)
             SetSpriteInvisibility(SPRITE_ARR_ID_ITEM, TRUE);
             SetSpriteInvisibility(SPRITE_ARR_ID_STATUS, TRUE);
             StopPokemonAnimations();
+            sMonSummaryScreen->markingsSprite->x = 257;
+            sMonSummaryScreen->markingsSprite->y = 332;
         }
         gMain.state++;
         break;
@@ -1763,6 +1781,7 @@ static void Task_ChangeSummaryMon(u8 taskId)
             return;
         break;
     case 7:
+        RemoveAndCreateMonMarkingsSprite(&sMonSummaryScreen->currentMon);
         break;
     case 8:
         CreateCaughtBallSprite(&sMonSummaryScreen->currentMon);
@@ -1965,6 +1984,8 @@ static void Task_SwitchToMoveDetails(u8 taskId)
             SetSpriteInvisibility(SPRITE_ARR_ID_ITEM, TRUE);
             SetSpriteInvisibility(SPRITE_ARR_ID_STATUS, TRUE);
             StopPokemonAnimations();
+            sMonSummaryScreen->markingsSprite->x = 257;
+            sMonSummaryScreen->markingsSprite->y = 332;
             ClearWindowTilemap(PSS_LABEL_PANE_LEFT_MOVE);
             ScheduleBgCopyTilemapToVram(0);
             data[0]++;
@@ -2218,6 +2239,8 @@ static void Task_SwitchFromMoveDetails(u8 taskId)
                 SetSpriteInvisibility(SPRITE_ARR_ID_ITEM, FALSE);
 
             CreateSetStatusSprite();
+            sMonSummaryScreen->markingsSprite->x = 24;
+            sMonSummaryScreen->markingsSprite->y = 132;
             PrintInfoBar(sMonSummaryScreen->currPageIndex, FALSE);
             data[0]++;
             break;
@@ -2567,6 +2590,8 @@ static void PrintNotEggInfo(void)
     }
     if (IsMonShiny(mon))
         PrintTextOnWindow(PSS_LABEL_PANE_LEFT_TOP, sText_Shiny, 62, 18, 0, PSS_COLOR_SHINY_STARS);
+    if (!CheckPartyPokerus(mon, 0) && CheckPartyHasHadPokerus(mon, 0))
+        PrintTextOnWindow(PSS_LABEL_PANE_LEFT_TOP, sText_Pokerus, 52, 18, 0, PSS_COLOR_POKERUS_CURED);
 
     if (sMonSummaryScreen->summary.item == ITEM_NONE)
         StringCopy(gStringVar1, sText_None);
@@ -3262,6 +3287,8 @@ static void PrintMoveDetails(u16 move)
     SetSpriteInvisibility(SPRITE_ARR_ID_MON, TRUE);
     SetSpriteInvisibility(SPRITE_ARR_ID_ITEM, TRUE);
     SetSpriteInvisibility(SPRITE_ARR_ID_STATUS, TRUE);
+    sMonSummaryScreen->markingsSprite->x = 257;
+    sMonSummaryScreen->markingsSprite->y = 332;
     FillWindowPixelBuffer(PSS_LABEL_PANE_LEFT_MOVE, PIXEL_FILL(0));
 
     SetSpriteInvisibility(SPRITE_ARR_ID_MON_ICON, FALSE);
@@ -3727,6 +3754,27 @@ static void StopPokemonAnimations(void)  // A subtle effect, this function stops
         u16 id = i + paletteIndex;
         gPlttBufferUnfaded[id] = gPlttBufferFaded[id];
     }
+}
+
+static void CreateMonMarkingsSprite(struct Pokemon *mon)
+{
+    struct Sprite *sprite = CreateMonMarkingAllCombosSprite(TAG_MON_MARKINGS, TAG_MON_MARKINGS, sSummaryMarkingsPalette);
+
+    sMonSummaryScreen->markingsSprite = sprite;
+    if (sprite != NULL)
+    {
+        StartSpriteAnim(sprite, GetMonData(mon, MON_DATA_MARKINGS));
+        sMonSummaryScreen->markingsSprite->x = 24;
+        sMonSummaryScreen->markingsSprite->y = 132;
+        sMonSummaryScreen->markingsSprite->oam.priority = 1;
+    }
+}
+
+static void RemoveAndCreateMonMarkingsSprite(struct Pokemon *mon)
+{
+    DestroySprite(sMonSummaryScreen->markingsSprite);
+    FreeSpriteTilesByTag(TAG_MON_MARKINGS);
+    CreateMonMarkingsSprite(mon);
 }
 
 static void CreateCaughtBallSprite(struct Pokemon *mon)

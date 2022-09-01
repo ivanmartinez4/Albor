@@ -334,3 +334,57 @@ static const u32 sWallpaperIcon_Latis[]        = INCBIN_U32("graphics/pokemon_st
 static const u32 sWallpaperIcon_Minun[]        = INCBIN_U32("graphics/pokemon_storage/wallpapers/icons/minun.4bpp.lz");
 static const u32 sWallpaperIcon_Togepi[]       = INCBIN_U32("graphics/pokemon_storage/wallpapers/icons/togepi.4bpp.lz");
 static const u32 sWallpaperIcon_Magma[]        = INCBIN_U32("graphics/pokemon_storage/wallpapers/icons/magma.4bpp.lz");
+
+static const struct Wallpaper sWaldaWallpapers[] =
+{
+    WALLPAPER_ENTRY(Zigzagoon),
+    WALLPAPER_ENTRY(Screen),
+    WALLPAPER_ENTRY_G(Horizontal),
+    WALLPAPER_ENTRY(Diagonal),
+    WALLPAPER_ENTRY(Block),
+    WALLPAPER_ENTRY_G(Ribbon),
+    WALLPAPER_ENTRY(Pokecenter2),
+    WALLPAPER_ENTRY(Frame),
+    WALLPAPER_ENTRY(Blank),
+    WALLPAPER_ENTRY(Circles),
+    WALLPAPER_ENTRY(Azumarill),
+    WALLPAPER_ENTRY(Pikachu),
+    WALLPAPER_ENTRY(Legendary),
+    WALLPAPER_ENTRY(Dusclops),
+    WALLPAPER_ENTRY(Ludicolo),
+    WALLPAPER_ENTRY(Whiscash),
+};
+
+static const u32 *const sWaldaWallpaperIcons[] =
+{
+    sWallpaperIcon_Aqua,
+    sWallpaperIcon_Heart,
+    sWallpaperIcon_FiveStar,
+    sWallpaperIcon_Brick,
+    sWallpaperIcon_FourStar,
+    sWallpaperIcon_Asterisk,
+    sWallpaperIcon_Dot,
+    gWallpaperIcon_Cross,
+    sWallpaperIcon_LineCircle,
+    sWallpaperIcon_PokeBall,
+    sWallpaperIcon_Maze,
+    sWallpaperIcon_Footprint,
+    sWallpaperIcon_BigAsterisk,
+    sWallpaperIcon_Circle,
+    sWallpaperIcon_Koffing,
+    sWallpaperIcon_Ribbon,
+    gWallpaperIcon_Bolt,
+    sWallpaperIcon_FourCircles,
+    sWallpaperIcon_Lotad,
+    sWallpaperIcon_Crystal,
+    sWallpaperIcon_Pichu,
+    sWallpaperIcon_Diglett,
+    sWallpaperIcon_Luvdisc,
+    sWallpaperIcon_StarInCircle,
+    sWallpaperIcon_Spinda,
+    sWallpaperIcon_Latis,
+    gWallpaperIcon_Plusle,
+    sWallpaperIcon_Minun,
+    sWallpaperIcon_Togepi,
+    sWallpaperIcon_Magma,
+};

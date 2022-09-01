@@ -7,6 +7,7 @@
 #include "graphics.h"
 #include "menu.h"
 #include "menu_specialized.h"
+#include "mon_markings.h"
 #include "palette.h"
 #include "pokenav.h"
 #include "scanline_effect.h"
@@ -18,6 +19,8 @@ static u32 LoopedTask_TransitionMons(s32);
 static u32 LoopedTask_ExitConditionGraphMenu(s32);
 static u32 LoopedTask_MoveCursorNoTransition(s32);
 static u32 LoopedTask_SlideMonOut(s32);
+static u32 LoopedTask_OpenMonMarkingsWindow(s32);
+static u32 LoopedTask_CloseMonMarkingsWindow(s32);
 
 static u8 sInitialLoadId; // Never read
 
@@ -25,6 +28,7 @@ const u16 gConditionGraphData_Pal[] = INCBIN_U16("graphics/pokenav/condition/gra
 const u16 gConditionText_Pal[] = INCBIN_U16("graphics/pokenav/condition/text.gbapal");
 static const u32 sConditionGraphData_Gfx[] = INCBIN_U32("graphics/pokenav/condition/graph_data.4bpp.lz");
 static const u32 sConditionGraphData_Tilemap[] = INCBIN_U32("graphics/pokenav/condition/graph_data.bin.lz");
+static const u16 sMonMarkings_Pal[] = INCBIN_U16("graphics/pokenav/condition/mon_markings.gbapal");
 
 static const struct BgTemplate sMenuBgTemplates[3] =
 {
@@ -86,6 +90,8 @@ static const LoopedTask sLoopedTaskFuncs[] =
     [CONDITION_FUNC_RETURN]         = LoopedTask_ExitConditionGraphMenu,
     [CONDITION_FUNC_NO_TRANSITION]  = LoopedTask_MoveCursorNoTransition,
     [CONDITION_FUNC_SLIDE_MON_OUT]  = LoopedTask_SlideMonOut,
+    [CONDITION_FUNC_ADD_MARKINGS]   = LoopedTask_OpenMonMarkingsWindow,
+    [CONDITION_FUNC_CLOSE_MARKINGS] = LoopedTask_CloseMonMarkingsWindow
 };
 
 struct Pokenav_ConditionMenuGfx
@@ -102,6 +108,8 @@ struct Pokenav_ConditionMenuGfx
     void *monGfxPtr;
     u8 nameGenderWindowId;
     u8 listIndexWindowId;
+    struct MonMarkingsMenu marksMenu;
+    struct Sprite *monMarksSprite;
     struct Sprite *conditionSparkleSprites[MAX_CONDITION_SPARKLES];
     u8 windowModeState;
     u8 filler2[0xFA3];
@@ -112,6 +120,7 @@ extern s8 GetConditionGraphMenuCurrentLoadIndex(void); // This function's declar
 static u32 LoopedTask_OpenConditionGraphMenu(s32);
 static u32 GetConditionGraphMenuLoopedTaskActive(void);
 static void CreateConditionMonPic(u8);
+static void CreateMonMarkingsOrPokeballIndicators(void);
 static bool32 UpdateConditionGraphMenuWindows(u8, u16, bool8);
 static void VBlankCB_PokenavConditionGraph(void);
 static void DoConditionGraphEnterTransition(void);
@@ -223,6 +232,9 @@ static u32 LoopedTask_OpenConditionGraphMenu(s32 state)
         return LT_INC_AND_PAUSE;
     case 7:
         CreateConditionMonPic(0);
+        return LT_INC_AND_PAUSE;
+    case 8:
+        CreateMonMarkingsOrPokeballIndicators();
         return LT_INC_AND_PAUSE;
     case 9:
         if (IsConditionMenuSearchMode() == TRUE)
@@ -466,6 +478,44 @@ static u32 LoopedTask_SlideMonOut(s32 state)
     return LT_FINISH;
 }
 
+static u32 LoopedTask_OpenMonMarkingsWindow(s32 state)
+{
+    switch (state)
+    {
+    case 0:
+        OpenMonMarkingsMenu(TryGetMonMarkId(), 176, 32);
+        return LT_INC_AND_CONTINUE;
+    case 1:
+        PrintHelpBarText(HELPBAR_CONDITION_MARKINGS);
+        return LT_INC_AND_CONTINUE;
+    case 2:
+        if (WaitForHelpBar() == TRUE)
+            return LT_PAUSE;
+        return LT_INC_AND_CONTINUE;
+    }
+
+    return LT_FINISH;
+}
+
+static u32 LoopedTask_CloseMonMarkingsWindow(s32 state)
+{
+    switch (state)
+    {
+    case 0:
+        FreeMonMarkingsMenu();
+        return LT_INC_AND_CONTINUE;
+    case 1:
+        PrintHelpBarText(HELPBAR_CONDITION_MON_STATUS);
+        return LT_INC_AND_CONTINUE;
+    case 2:
+        if (WaitForHelpBar() == TRUE)
+            return LT_PAUSE;
+        return LT_INC_AND_CONTINUE;
+    }
+
+    return LT_FINISH;
+}
+
 static bool32 UpdateConditionGraphMenuWindows(u8 mode, u16 bufferIndex, bool8 winMode)
 {
     u8 text[32];
@@ -551,9 +601,112 @@ void HighlightCurrentPartyIndexPokeball(struct Sprite *sprite)
         sprite->oam.paletteNum = IndexOfSpritePaletteTag(TAG_CONDITION_CANCEL);
 }
 
+void MonMarkingsCallback(struct Sprite *sprite)
+{
+    StartSpriteAnim(sprite, TryGetMonMarkId());
+}
+
+static void CreateMonMarkingsOrPokeballIndicators(void)
+{
+    struct SpriteSheet sprSheets[4];
+    struct SpriteTemplate sprTemplate;
+    struct SpritePalette sprPals[3];
+    struct SpriteSheet sprSheet;
+    struct Sprite *sprite;
+    u16 i, spriteId;
+    struct Pokenav_ConditionMenuGfx *menu = GetSubstructPtr(POKENAV_SUBSTRUCT_CONDITION_GRAPH_MENU_GFX);
+
+    LoadConditionSelectionIcons(sprSheets, &sprTemplate, sprPals);
+    if (IsConditionMenuSearchMode() == TRUE)
+    {
+        // Search Mode, load markings menu
+        menu->marksMenu.baseTileTag = TAG_CONDITION_MARKINGS_MENU;
+        menu->marksMenu.basePaletteTag = TAG_CONDITION_MARKINGS_MENU;
+        InitMonMarkingsMenu(&menu->marksMenu);
+        BufferMonMarkingsMenuTiles();
+        sprite = CreateMonMarkingAllCombosSprite(TAG_CONDITION_MON_MARKINGS, TAG_CONDITION_MON_MARKINGS, sMonMarkings_Pal);
+        sprite->oam.priority = 3;
+        sprite->x = 192;
+        sprite->y = 32;
+        sprite->callback = MonMarkingsCallback;
+        menu->monMarksSprite = sprite;
+        PokenavFillPalette(IndexOfSpritePaletteTag(TAG_CONDITION_MON_MARKINGS), 0);
+    }
+    else
+    {
+        // Party Mode, load Pokéball selection icons
+        LoadSpriteSheets(sprSheets);
+        Pokenav_AllocAndLoadPalettes(sprPals);
+
+        // Add icons for occupied slots
+        for (i = 0; i < GetMonListCount() - 1; i++)
+        {
+            spriteId = CreateSprite(&sprTemplate, 226, (i * 20) + 8, 0);
+            if (spriteId != MAX_SPRITES)
+            {
+                menu->partyPokeballSpriteIds[i] = spriteId;
+                gSprites[spriteId].data[0] = i;
+                gSprites[spriteId].callback = SpriteCB_PartyPokeball;
+            }
+            else
+            {
+                menu->partyPokeballSpriteIds[i] = SPRITE_NONE;
+            }
+        }
+
+        // Add icons for empty slots
+        sprTemplate.tileTag = TAG_CONDITION_BALL_PLACEHOLDER;
+        sprTemplate.callback = SpriteCallbackDummy;
+        for (; i < PARTY_SIZE; i++)
+        {
+            spriteId = CreateSprite(&sprTemplate, 230, (i * 20) + 8, 0);
+            if (spriteId != MAX_SPRITES)
+            {
+                menu->partyPokeballSpriteIds[i] = spriteId;
+                gSprites[spriteId].oam.size = 0;
+            }
+            else
+            {
+                menu->partyPokeballSpriteIds[i] = SPRITE_NONE;
+            }
+        }
+
+        // Add cancel icon
+        sprTemplate.tileTag = TAG_CONDITION_CANCEL;
+        sprTemplate.callback = HighlightCurrentPartyIndexPokeball;
+        spriteId = CreateSprite(&sprTemplate, 222, (i * 20) + 8, 0);
+        if (spriteId != MAX_SPRITES)
+        {
+            menu->partyPokeballSpriteIds[i] = spriteId;
+            gSprites[spriteId].oam.shape = SPRITE_SHAPE(32x16);
+            gSprites[spriteId].oam.size = SPRITE_SIZE(32x16);
+        }
+        else
+        {
+            menu->partyPokeballSpriteIds[i] = SPRITE_NONE;
+        }
+    }
+
+    LoadConditionSparkle(&sprSheet, &sprPals[0]);
+    LoadSpriteSheet(&sprSheet);
+    sprPals[1].data = NULL;
+    Pokenav_AllocAndLoadPalettes(sprPals);
+}
+
 static void FreeConditionMenuGfx(struct Pokenav_ConditionMenuGfx *menu)
 {
     u8 i;
+
+    if (IsConditionMenuSearchMode() == TRUE)
+    {
+        DestroySprite(menu->monMarksSprite);
+        FreeSpriteTilesByTag(TAG_CONDITION_MARKINGS_MENU);
+        FreeSpriteTilesByTag(TAG_CONDITION_MON_MARKINGS);
+        FreeSpritePaletteByTag(TAG_CONDITION_MARKINGS_MENU);
+        FreeSpritePaletteByTag(TAG_CONDITION_MON_MARKINGS);
+    }
+    else
+    {
         for (i = 0; i < PARTY_SIZE + 1; i++)
             DestroySprite(&gSprites[menu->partyPokeballSpriteIds[i]]);
 
@@ -562,6 +715,7 @@ static void FreeConditionMenuGfx(struct Pokenav_ConditionMenuGfx *menu)
         FreeSpriteTilesByTag(TAG_CONDITION_BALL_PLACEHOLDER);
         FreeSpritePaletteByTag(TAG_CONDITION_BALL);
         FreeSpritePaletteByTag(TAG_CONDITION_CANCEL);
+    }
 
     if (menu->monPicSpriteId != SPRITE_NONE)
     {
@@ -677,4 +831,14 @@ static void DoConditionGraphExitTransition(void)
 
     if (IsConditionMenuSearchMode() || GetConditionGraphCurrentListIndex() != GetMonListCount() - 1)
         ConditionGraph_SetNewPositions(graph, graph->savedPositions[GetConditionGraphMenuCurrentLoadIndex()], graph->savedPositions[CONDITION_GRAPH_LOAD_MAX - 1]);
+}
+
+u8 GetMonMarkingsData(void)
+{
+    struct Pokenav_ConditionMenuGfx *menu = GetSubstructPtr(POKENAV_SUBSTRUCT_CONDITION_GRAPH_MENU_GFX);
+
+    if (IsConditionMenuSearchMode() == 1)
+        return menu->marksMenu.markings;
+    else
+        return 0;
 }

@@ -73,10 +73,23 @@ static const u8 *const sGiddyQuestions[GIDDY_MAX_QUESTIONS] = {
 
 static void SetupBard(void)
 {
+    u16 i;
+    struct MauvilleManBard *bard = &gSaveBlock1Ptr->oldMan.bard;
+
+    bard->id = MAUVILLE_MAN_BARD;
+    bard->hasChangedSong = FALSE;
+    bard->language = gGameLanguage;
+    for (i = 0; i < BARD_SONG_LENGTH; i++)
+        bard->songLyrics[i] = sDefaultBardSongLyrics[i];
 }
 
 static void SetupHipster(void)
 {
+    struct MauvilleManHipster *hipster = &gSaveBlock1Ptr->oldMan.hipster;
+
+    hipster->id = MAUVILLE_MAN_HIPSTER;
+    hipster->alreadySpoken = FALSE;
+    hipster->language = gGameLanguage;
 }
 
 static void SetupStoryteller(void)
@@ -86,6 +99,11 @@ static void SetupStoryteller(void)
 
 static void SetupGiddy(void)
 {
+    struct MauvilleManGiddy *giddy = &gSaveBlock1Ptr->oldMan.giddy;
+
+    giddy->id = MAUVILLE_MAN_GIDDY;
+    giddy->taleCounter = 0;
+    giddy->language = gGameLanguage;
 }
 
 static void SetupTrader(void)
@@ -95,27 +113,110 @@ static void SetupTrader(void)
 
 void SetMauvilleOldMan(void)
 {
+    u16 trainerId = (gSaveBlock2Ptr->playerTrainerId[1] << 8) | gSaveBlock2Ptr->playerTrainerId[0];
+
+
+    // Determine man based on the last digit of the player's trainer ID.
+    switch ((trainerId % 10) / 2)
+    {
+    case MAUVILLE_MAN_BARD:
+        SetupBard();
+        break;
+    case MAUVILLE_MAN_HIPSTER:
+        SetupHipster();
+        break;
+    case MAUVILLE_MAN_TRADER:
+        SetupTrader();
+        break;
+    case MAUVILLE_MAN_STORYTELLER:
+        SetupStoryteller();
+        break;
+    case MAUVILLE_MAN_GIDDY:
+        SetupGiddy();
+        break;
+    }
+    SetMauvilleOldManObjEventGfx();
 }
 
 u8 GetCurrentMauvilleOldMan(void)
 {
+    return gSaveBlock1Ptr->oldMan.common.id;
 }
 
 void Script_GetCurrentMauvilleMan(void)
 {
+    gSpecialVar_Result = GetCurrentMauvilleOldMan();
 }
 
 void HasBardSongBeenChanged(void)
 {
+    gSpecialVar_Result = (&gSaveBlock1Ptr->oldMan.bard)->hasChangedSong;
 }
 
 void SaveBardSongLyrics(void)
 {
+    u16 i;
+    struct MauvilleManBard *bard = &gSaveBlock1Ptr->oldMan.bard;
+
+    StringCopy(bard->playerName, gSaveBlock2Ptr->playerName);
+
+    for (i = 0; i < TRAINER_ID_LENGTH; i++)
+        bard->playerTrainerId[i] = gSaveBlock2Ptr->playerTrainerId[i];
+
+    for (i = 0; i < BARD_SONG_LENGTH; i++)
+        bard->songLyrics[i] = bard->temporaryLyrics[i];
+
+    bard->hasChangedSong = TRUE;
 }
 
 // Copies lyrics into gStringVar4
 static void PrepareSongText(void)
 {
+    struct MauvilleManBard *bard = &gSaveBlock1Ptr->oldMan.bard;
+    u16 * lyrics = gSpecialVar_0x8004 == 0 ? bard->songLyrics : bard->temporaryLyrics;
+    u8 *wordEnd = gStringVar4;
+    u8 *str = wordEnd;
+    u16 lineNum;
+
+    // Put three words on each line
+    for (lineNum = 0; lineNum < 2; lineNum++)
+    {
+        wordEnd = CopyEasyChatWord(wordEnd, *(lyrics++));
+        while (wordEnd != str)
+        {
+            if (*str == CHAR_SPACE)
+                *str = CHAR_BARD_WORD_DELIMIT;
+            str++;
+        }
+
+        str++;
+        *(wordEnd++) = CHAR_SPACE;
+
+        wordEnd = CopyEasyChatWord(wordEnd, *(lyrics++));
+        while (wordEnd != str)
+        {
+            if (*str == CHAR_SPACE)
+                *str = CHAR_BARD_WORD_DELIMIT;
+            str++;
+        }
+
+        str++;
+        *(wordEnd++) = CHAR_NEWLINE;
+
+        wordEnd = CopyEasyChatWord(wordEnd, *(lyrics++));
+        while (wordEnd != str)
+        {
+            if (*str == CHAR_SPACE)
+                *str = CHAR_BARD_WORD_DELIMIT;
+            str++;
+        }
+
+        if (lineNum == 0)
+        {
+            *(wordEnd++) = EXT_CTRL_CODE_BEGIN;
+            *(wordEnd++) = EXT_CTRL_CODE_FILL_WINDOW;
+        }
+    }
 }
 
 void PlayBardSong(void)
@@ -126,10 +227,12 @@ void PlayBardSong(void)
 
 void GetHipsterSpokenFlag(void)
 {
+    gSpecialVar_Result = (&gSaveBlock1Ptr->oldMan.hipster)->alreadySpoken;
 }
 
 void SetHipsterSpokenFlag(void)
 {
+    (&gSaveBlock1Ptr->oldMan.hipster)->alreadySpoken = TRUE;
 }
 
 void HipsterTryTeachWord(void)
@@ -149,33 +252,156 @@ void HipsterTryTeachWord(void)
 
 void GiddyShouldTellAnotherTale(void)
 {
+    struct MauvilleManGiddy *giddy = &gSaveBlock1Ptr->oldMan.giddy;
+
+    if (giddy->taleCounter == GIDDY_MAX_TALES)
+    {
+        gSpecialVar_Result = FALSE;
+        giddy->taleCounter = 0;
+    }
+    else
+    {
+        gSpecialVar_Result = TRUE;
+    }
 }
 
 void GenerateGiddyLine(void)
 {
+    struct MauvilleManGiddy *giddy = &gSaveBlock1Ptr->oldMan.giddy;
+
+    if (giddy->taleCounter == 0)
+        InitGiddyTaleList();
+
+    // A line from Giddy is either a line following this format:
+    // "{random word} is so {adjective}! Don't you agree?",
+    // or one of the texts in sGiddyQuestions.
+    if (giddy->randomWords[giddy->taleCounter] != EC_EMPTY_WORD)
+    {
+        u8 *stringPtr;
+        u32 adjective = Random();
+        adjective %= ARRAY_COUNT(sGiddyAdjectives);
+
+        stringPtr = CopyEasyChatWord(gStringVar4, giddy->randomWords[giddy->taleCounter]);
+        stringPtr = StringCopy(stringPtr, GiddyText_Is);
+        stringPtr = StringCopy(stringPtr, sGiddyAdjectives[adjective]);
+        StringCopy(stringPtr, GiddyText_DontYouAgree);
+    }
+    else
+    {
+        StringCopy(gStringVar4, sGiddyQuestions[giddy->questionList[giddy->questionNum++]]);
+    }
+
+    // 10% chance for Giddy to stop telling tales.
+    if (!(Random() % 10))
+        giddy->taleCounter = GIDDY_MAX_TALES;
+    else
+        giddy->taleCounter++;
+
+    gSpecialVar_Result = TRUE;
 }
 
 static void InitGiddyTaleList(void)
 {
+    struct MauvilleManGiddy *giddy = &gSaveBlock1Ptr->oldMan.giddy;
+    u16 wordGroupsAndCount[][2] = {
+        {EC_GROUP_POKEMON,   0},
+        {EC_GROUP_LIFESTYLE, 0},
+        {EC_GROUP_HOBBIES,   0},
+        {EC_GROUP_MOVE_1,    0},
+        {EC_GROUP_MOVE_2,    0},
+        {EC_GROUP_POKEMON_NATIONAL, 0}
+    };
+    u16 i;
+    u16 totalWords;
+    u16 temp;
+    u16 var; // re-used
+
+    // Shuffle question list
+    for (i = 0; i < GIDDY_MAX_QUESTIONS; i++)
+        giddy->questionList[i] = i;
+    for (i = 0; i < GIDDY_MAX_QUESTIONS; i++)
+    {
+        var = Random() % (i + 1);
+        SWAP(giddy->questionList[i], giddy->questionList[var], temp);
+    }
+
+    // Count total number of words in above word groups
+    totalWords = 0;
+    for (i = 0; i < ARRAY_COUNT(wordGroupsAndCount); i++)
+    {
+        wordGroupsAndCount[i][1] = EasyChat_GetNumWordsInGroup(wordGroupsAndCount[i][0]);
+        totalWords += wordGroupsAndCount[i][1];
+    }
+
+    giddy->questionNum = 0;
+    temp = 0;
+    for (i = 0; i < GIDDY_MAX_TALES; i++)
+    {
+        var = Random() % 10;
+        if (var < 3 && temp < GIDDY_MAX_QUESTIONS)
+        {
+            // 30% chance for word to be empty (in which case Giddy
+            // will say one of his non-random questions), unless
+            // the limit for questions has been reached already.
+            giddy->randomWords[i] = EC_EMPTY_WORD;
+            temp++;
+        }
+        else
+        {
+            // Pick a random word id, then advance through the word
+            // groups until the group where that id landed.
+            s16 randWord = Random() % totalWords;
+            for (var = 0; i < ARRAY_COUNT(wordGroupsAndCount); var++)
+                if ((randWord -= wordGroupsAndCount[var][1]) <= 0)
+                    break;
+            if (var == ARRAY_COUNT(wordGroupsAndCount))
+                var = 0;
+
+            // Save the randomly selected word
+            giddy->randomWords[i] = GetRandomEasyChatWordFromUnlockedGroup(wordGroupsAndCount[var][0]);
+        }
+    }
 }
 static void ResetBardFlag(void)
 {
+    (&gSaveBlock1Ptr->oldMan.bard)->hasChangedSong = FALSE;
 }
 
 static void ResetHipsterFlag(void)
 {
+    (&gSaveBlock1Ptr->oldMan.hipster)->alreadySpoken = FALSE;
 }
 
 static void ResetTraderFlag(void)
 {
+    Trader_ResetFlag();
 }
 
 static void ResetStorytellerFlag(void)
 {
+    Storyteller_ResetFlag();
 }
 
 void ResetMauvilleOldManFlag(void)
 {
+    switch (GetCurrentMauvilleOldMan())
+    {
+    case MAUVILLE_MAN_BARD:
+        ResetBardFlag();
+        break;
+    case MAUVILLE_MAN_HIPSTER:
+        ResetHipsterFlag();
+        break;
+    case MAUVILLE_MAN_STORYTELLER:
+        ResetStorytellerFlag();
+        break;
+    case MAUVILLE_MAN_TRADER:
+        ResetTraderFlag();
+        break;
+    case MAUVILLE_MAN_GIDDY:
+        break;
+    }
+    SetMauvilleOldManObjEventGfx();
 }
 
 // States and task data for Task_BardSong.
@@ -231,6 +457,18 @@ static void BardSing(struct Task *task, struct BardSong *song)
     {
     case BARD_STATE_INIT:
     {
+        struct MauvilleManBard *bard = &gSaveBlock1Ptr->oldMan.bard;
+        u16 *lyrics;
+        s32 i;
+
+        // Copy lyrics
+        if (gSpecialVar_0x8004 == 0)
+            lyrics = bard->songLyrics;
+        else
+            lyrics = bard->temporaryLyrics;
+        for (i = 0; i < BARD_SONG_LENGTH; i++)
+            song->lyrics[i] = lyrics[i];
+        song->currWord = 0;
     }
         break;
     case BARD_STATE_WAIT_BGM:
@@ -340,6 +578,40 @@ static void Task_BardSong(u8 taskId)
         break;
     case BARD_STATE_GET_WORD:
     {
+        struct MauvilleManBard *bard = &gSaveBlock1Ptr->oldMan.bard;
+        u8 *str = &gStringVar4[task->tCharIndex];
+        u16 wordLen = 0;
+
+        // Read letters until delimiter
+        while (*str != CHAR_SPACE
+            && *str != CHAR_NEWLINE
+            && *str != EXT_CTRL_CODE_BEGIN
+            && *str != EOS)
+        {
+            str++;
+            wordLen++;
+        }
+
+        if (!task->tUseTemporaryLyrics)
+            sUnknownBardRelated = MACRO2(bard->songLyrics[task->tCurrWord]);
+        else
+            sUnknownBardRelated = MACRO2(bard->temporaryLyrics[task->tCurrWord]);
+
+        gBardSong.length /= wordLen;
+        if (gBardSong.length <= 0)
+            gBardSong.length = 1;
+        task->tCurrWord++;
+
+        if (task->tDelay == 0)
+        {
+            task->tState = BARD_STATE_HANDLE_WORD;
+            task->tWordState = 0;
+        }
+        else
+        {
+            task->tState = BARD_STATE_PAUSE;
+            task->tWordState = 0;
+        }
     }
         break;
     case BARD_STATE_PAUSE:
@@ -423,6 +695,157 @@ static void Task_BardSong(u8 taskId)
 void SetMauvilleOldManObjEventGfx(void)
 {
     VarSet(VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_BARD);
+}
+
+// Language fixers?
+
+void SanitizeMauvilleOldManForRuby(union OldMan * oldMan)
+{
+    s32 i;
+    u8 playerName[PLAYER_NAME_LENGTH + 1];
+
+    switch (oldMan->common.id)
+    {
+    case MAUVILLE_MAN_TRADER:
+    {
+        struct MauvilleOldManTrader * trader = &oldMan->trader;
+        for (i = 0; i < NUM_TRADER_ITEMS; i++)
+        {
+            if (trader->language[i] == LANGUAGE_JAPANESE)
+                ConvertInternationalString(trader->playerNames[i], LANGUAGE_JAPANESE);
+        }
+        break;
+    }
+    case MAUVILLE_MAN_STORYTELLER:
+    {
+        struct MauvilleManStoryteller * storyteller = &oldMan->storyteller;
+        for (i = 0; i < NUM_STORYTELLER_TALES; i++)
+        {
+            if (storyteller->gameStatIDs[i] != 0)
+            {
+                memcpy(playerName, storyteller->trainerNames[i], PLAYER_NAME_LENGTH);
+                playerName[PLAYER_NAME_LENGTH] = EOS;
+                if (IsStringJapanese(playerName))
+                {
+                    memset(playerName, CHAR_SPACE, PLAYER_NAME_LENGTH + 1);
+                    StringCopy(playerName, gText_Friend);
+                    memcpy(storyteller->trainerNames[i], playerName, PLAYER_NAME_LENGTH);
+                    storyteller->language[i] = GAME_LANGUAGE;
+                }
+            }
+        }
+        break;
+    }
+    }
+}
+
+void SanitizeReceivedEmeraldOldMan(union OldMan * oldMan, u32 version, u32 language)
+{
+    u8 playerName[PLAYER_NAME_LENGTH + 1];
+    s32 i;
+    if (oldMan->common.id == MAUVILLE_MAN_STORYTELLER && language == LANGUAGE_JAPANESE)
+    {
+        struct MauvilleManStoryteller * storyteller = &oldMan->storyteller;
+
+        for (i = 0; i < NUM_STORYTELLER_TALES; i++)
+        {
+            if (storyteller->gameStatIDs[i] != 0)
+            {
+                memcpy(playerName, storyteller->trainerNames[i], PLAYER_NAME_LENGTH);
+                playerName[PLAYER_NAME_LENGTH] = EOS;
+                if (IsStringJapanese(playerName))
+                    storyteller->language[i] = LANGUAGE_JAPANESE;
+                else
+                    storyteller->language[i] = GAME_LANGUAGE;
+            }
+        }
+    }
+}
+
+void SanitizeReceivedRubyOldMan(union OldMan * oldMan, u32 version, u32 language)
+{
+    bool32 isRuby = (version == VERSION_SAPPHIRE || version == VERSION_RUBY);
+
+    switch (oldMan->common.id)
+    {
+    case MAUVILLE_MAN_TRADER:
+    {
+        struct MauvilleOldManTrader * trader = &oldMan->trader;
+        s32 i;
+
+        if (isRuby)
+        {
+            for (i = 0; i < NUM_TRADER_ITEMS; i++)
+            {
+                u8 *str = trader->playerNames[i];
+                if (str[0] == EXT_CTRL_CODE_BEGIN && str[1] == EXT_CTRL_CODE_JPN)
+                {
+                    StripExtCtrlCodes(str);
+                    trader->language[i] = LANGUAGE_JAPANESE;
+                }
+                else
+                    trader->language[i] = language;
+            }
+        }
+        else
+        {
+            for (i = 0; i < NUM_TRADER_ITEMS; i++)
+            {
+                if (trader->language[i] == LANGUAGE_JAPANESE)
+                {
+                    StripExtCtrlCodes(trader->playerNames[i]);
+                }
+            }
+        }
+    }
+    break;
+    case MAUVILLE_MAN_STORYTELLER:
+    {
+
+        struct MauvilleManStoryteller * storyteller = &oldMan->storyteller;
+        s32 i;
+
+        if (isRuby)
+        {
+            for (i = 0; i < NUM_STORYTELLER_TALES; i++)
+            {
+                if (storyteller->gameStatIDs[i] != 0)
+                    storyteller->language[i] = language;
+            }
+        }
+    }
+    break;
+    case MAUVILLE_MAN_BARD:
+    {
+        struct MauvilleManBard * bard = &oldMan->bard;
+
+        if (isRuby)
+        {
+            bard->language = language;
+        }
+    }
+    break;
+    case MAUVILLE_MAN_HIPSTER:
+    {
+        struct MauvilleManHipster * hipster = &oldMan->hipster;
+
+        if (isRuby)
+        {
+            hipster->language = language;
+        }
+    }
+    break;
+    case MAUVILLE_MAN_GIDDY:
+    {
+        struct MauvilleManGiddy * giddy = &oldMan->giddy;
+
+        if (isRuby)
+        {
+            giddy->language = language;
+        }
+    }
+    break;
+    }
 }
 
 struct Story
@@ -658,10 +1081,24 @@ static const s32 sNumStories = ARRAY_COUNT(sStorytellerStories);
 
 static void StorytellerSetup(void)
 {
+    s32 i;
+    sStorytellerPtr = &gSaveBlock1Ptr->oldMan.storyteller;
+
+    sStorytellerPtr->id = MAUVILLE_MAN_STORYTELLER;
+    sStorytellerPtr->alreadyRecorded = FALSE;
+    for (i = 0; i < NUM_STORYTELLER_TALES; i++)
+    {
+        sStorytellerPtr->gameStatIDs[i] = 0;
+        sStorytellerPtr->trainerNames[0][i] = EOS;  // Maybe they meant storyteller->trainerNames[i][0] instead?
+    }
 }
 
 static void Storyteller_ResetFlag(void)
 {
+    sStorytellerPtr = &gSaveBlock1Ptr->oldMan.storyteller;
+
+    sStorytellerPtr->id = MAUVILLE_MAN_STORYTELLER;
+    sStorytellerPtr->alreadyRecorded = FALSE;
 }
 
 static u32 StorytellerGetGameStat(u8 stat)
@@ -889,20 +1326,38 @@ void Script_StorytellerDisplayStory(void)
 
 u8 StorytellerGetFreeStorySlot(void)
 {
+    sStorytellerPtr = &gSaveBlock1Ptr->oldMan.storyteller;
+    return GetFreeStorySlot();
 }
 
 // Returns TRUE if stat has increased
 bool8 StorytellerUpdateStat(void)
 {
+    u8 stat;
+    sStorytellerPtr = &gSaveBlock1Ptr->oldMan.storyteller;
+    stat = sStorytellerPtr->gameStatIDs[sSelectedStory];
+
+    if (HasTrainerStatIncreased(sSelectedStory) == TRUE)
+    {
+        StorytellerRecordNewStat(sSelectedStory, stat);
+        return TRUE;
+    }
     return FALSE;
 }
 
 bool8 HasStorytellerAlreadyRecorded(void)
 {
-    return FALSE;
+    sStorytellerPtr = &gSaveBlock1Ptr->oldMan.storyteller;
+
+    if (sStorytellerPtr->alreadyRecorded == FALSE)
+        return FALSE;
+    else
+        return TRUE;
 }
 
 bool8 Script_StorytellerInitializeRandomStat(void)
 {
+    sStorytellerPtr = &gSaveBlock1Ptr->oldMan.storyteller;
+    return StorytellerInitializeRandomStat();
 }
 

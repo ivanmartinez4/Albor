@@ -2649,6 +2649,8 @@ const struct ObjectEventGraphicsInfo *GetObjectEventGraphicsInfo(u16 graphicsId)
 
     if (graphicsId == OBJ_EVENT_GFX_BARD)
     {
+        bard = GetCurrentMauvilleOldMan();
+        return gMauvilleOldManGraphicsInfoPointers[bard];
     }
 
     if (graphicsId >= NUM_OBJ_EVENT_GFX)

@@ -10264,6 +10264,9 @@ extern const u8 gMailTilemap_Fab[];
 extern const u8 gMailTiles_Retro[];
 extern const u8 gMailTilemap_Retro[];
 
+extern const u8 gMonMarkingsMenu_Gfx[];
+extern const u16 gMonMarkingsMenu_Pal[];
+
 // Poké Ball Summary Icons
 extern const u32 gBallIcon_Poke[];
 extern const u32 gBallIconPalette_Poke[];

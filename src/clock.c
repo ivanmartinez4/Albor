@@ -45,6 +45,7 @@ static void UpdatePerDay(struct Time *localTime)
         UpdateDewfordTrendPerDay(daysSince);
         UpdateTVShowsPerDay(daysSince);
         UpdateWeatherPerDay(daysSince);
+        UpdatePartyPokerusTime(daysSince);
         UpdateMirageRnd(daysSince);
         UpdateBirchState(daysSince);
         UpdateFrontierManiac(daysSince);

@@ -173,6 +173,7 @@ enum
     HELPBAR_MAP_ZOOMED_IN,
     HELPBAR_CONDITION_MON_LIST,
     HELPBAR_CONDITION_MON_STATUS,
+    HELPBAR_CONDITION_MARKINGS,
     HELPBAR_MC_TRAINER_LIST,
     HELPBAR_MC_CALL_MENU,
     HELPBAR_MC_CHECK_PAGE,
@@ -254,6 +255,8 @@ enum
     CONDITION_FUNC_RETURN,
     CONDITION_FUNC_NO_TRANSITION,
     CONDITION_FUNC_SLIDE_MON_OUT,
+    CONDITION_FUNC_ADD_MARKINGS,
+    CONDITION_FUNC_CLOSE_MARKINGS,
 };
 
 enum
@@ -448,6 +451,7 @@ u16 GetConditionGraphCurrentListIndex(void);
 u16 GetMonListCount(void);
 u8 GetNumConditionMonSparkles(void);
 bool32 LoadNextConditionMenuMonData(u8 mode);
+u8 TryGetMonMarkId(void);
 u8 *GetConditionMonNameText(u8 id);
 u8 *GetConditionMonLocationText(u8 id);
 u16 GetConditionMonDataBuffer(void);
@@ -459,6 +463,7 @@ bool32 OpenConditionGraphMenu(void);
 void CreateConditionGraphMenuLoopedTask(s32);
 u32 IsConditionGraphMenuLoopedTaskActive(void);
 void FreeConditionGraphMenuSubstruct2(void);
+u8 GetMonMarkingsData(void);
 
 // pokenav_conditions_search_results.c
 u32 PokenavCallback_Init_ConditionSearch(void);

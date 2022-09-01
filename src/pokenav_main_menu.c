@@ -89,6 +89,7 @@ static const u8 *const sHelpBarTexts[HELPBAR_COUNT] =
     [HELPBAR_MAP_ZOOMED_IN]        = gText_PokenavMap_ZoomedInButtons,
     [HELPBAR_CONDITION_MON_LIST]   = gText_PokenavCondition_MonListButtons,
     [HELPBAR_CONDITION_MON_STATUS] = gText_PokenavCondition_MonStatusButtons,
+    [HELPBAR_CONDITION_MARKINGS]   = gText_PokenavCondition_MarkingButtons,
     [HELPBAR_MC_TRAINER_LIST]      = gText_PokenavMatchCall_TrainerListButtons,
     [HELPBAR_MC_CALL_MENU]         = gText_PokenavMatchCall_CallMenuButtons,
     [HELPBAR_MC_CHECK_PAGE]        = gText_PokenavMatchCall_CheckTrainerButtons,

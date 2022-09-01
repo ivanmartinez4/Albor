@@ -201,6 +201,7 @@ SECTIONS {
         src/battle_intro.o(.text);
         src/bike.o(.text);
         src/easy_chat.o(.text);
+        src/mon_markings.o(.text);
         src/mauville_old_man.o(.text);
         src/mail.o(.text);
         src/menu_helpers.o(.text);
@@ -325,6 +326,7 @@ SECTIONS {
         src/ereader_screen.o(.text);
         src/trainer_hill.o(.text);
         src/rayquaza_scene.o(.text);
+        src/walda_phrase.o(.text);
         src/contest_link_util.o(.text);
         src/gym_leader_rematch.o(.text);
         src/battle_transition_frontier.o(.text);
@@ -569,6 +571,7 @@ SECTIONS {
         src/battle_intro.o(.rodata);
         src/bike.o(.rodata);
         src/easy_chat.o(.rodata);
+        src/mon_markings.o(.rodata);
         src/mauville_old_man.o(.rodata);
         src/mail.o(.rodata);
         src/menu_helpers.o(.rodata);
@@ -675,6 +678,7 @@ SECTIONS {
         src/ereader_screen.o(.rodata);
         src/trainer_hill.o(.rodata);
         src/rayquaza_scene.o(.rodata);
+        src/walda_phrase.o(.rodata);
         src/gym_leader_rematch.o(.rodata);
         src/battle_transition_frontier.o(.rodata);
         src/text_input_strings.o(.rodata);
