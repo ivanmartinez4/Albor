@@ -2288,16 +2288,6 @@ void ShouldReadyContestArtist(void)
 
 u8 CountPlayerMuseumPaintings(void)
 {
-    int i;
-    u8 count = 0;
-
-    for (i = 0; i < NUM_CONTEST_WINNERS - MUSEUM_CONTEST_WINNERS_START; i++)
-    {
-        if (gSaveBlock1Ptr->contestWinners[MUSEUM_CONTEST_WINNERS_START + i].species)
-            count++;
-    }
-
-    return count;
 }
 
 static void ExitContestPainting(void)
