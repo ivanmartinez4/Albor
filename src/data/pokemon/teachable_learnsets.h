@@ -10670,6 +10670,7 @@ static const u16 sTorchicTeachableLearnset[] = {
     MOVE_SWAGGER,
     MOVE_SWIFT,
     MOVE_SWORDS_DANCE,
+    MOVE_U_TURN,
     MOVE_UNAVAILABLE,
 };
 
