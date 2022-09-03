@@ -28,7 +28,7 @@
 #define SE_BANG                            20 // SE_BAN
 #define SE_PIN                             21 // SE_PIN (General "good", commonly for "!")
 #define SE_BOO                             22 // SE_BOO (General "bad")
-#define SE_BALL                            23 // SE_BOWA (Giving Poké Ball to nurse, Poké Ball shake, etc)
+#define SE_BALL                            23 // SE_BOWA (Giving Pokéball to nurse, Pokéball shake, etc)
 #define SE_CONTEST_PLACE                   24 // SE_JYUNI
 #define SE_A                               25 // SE_A (Bard sounds)
 #define SE_I                               26 // SE_I

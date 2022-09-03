@@ -885,7 +885,7 @@ gTVPokemonTodayFailedText01::
 gTVPokemonTodayFailedText02::
 	.string "The Pokémon managed to get away!\p"
 	.string "It ended up wasting this many\n"
-	.string "Poké Balls: {STR_VAR_2}!\p"
+	.string "Pokéballs: {STR_VAR_2}!\p"
 	.string "You should have seen the expression\n"
 	.string "of frustration on {STR_VAR_1}'s face when\l"
 	.string "the Pokémon took off!$"
@@ -894,7 +894,7 @@ gTVPokemonTodayFailedText03::
 	.string "But {STR_VAR_1} goofed and made the\n"
 	.string "Pokémon faint!\p"
 	.string "It ended up wasting this many\n"
-	.string "Poké Balls: {STR_VAR_2}!\p"
+	.string "Pokéballs: {STR_VAR_2}!\p"
 	.string "You should have seen the expression\n"
 	.string "of stunned dismay on {STR_VAR_1}'s face\l"
 	.string "when the Pokémon fainted!$"
@@ -949,7 +949,7 @@ gTVPokemonTodaySuccessfulText01::
 
 gTVPokemonTodaySuccessfulText02::
 	.string "Big Bro: The Trainer had to throw this\n"
-	.string "many Poké Balls to catch it: {STR_VAR_3}!\p"
+	.string "many Pokéballs to catch it: {STR_VAR_3}!\p"
 	.string "It finally took a single {STR_VAR_2}\n"
 	.string "to catch it!$"
 
@@ -1423,7 +1423,7 @@ gTVBreakingNewsText08::
 
 gTVBreakingNewsText09::
 	.string "However, {STR_VAR_1} seemed to run\n"
-	.string "out of Poké Balls.\p"
+	.string "out of Pokéballs.\p"
 	.string "The Trainer had to break off\n"
 	.string "the battle with the rare {STR_VAR_2}.\p"
 	.string "In that instant, {STR_VAR_3}\n"
@@ -1655,7 +1655,7 @@ gTVTrainerFanClubText00::
 
 gTVTrainerFanClubText01::
 	.string "Fans: Their cool way of throwing\n"
-	.string "Poké Balls!$"
+	.string "Pokéballs!$"
 
 gTVTrainerFanClubText02::
 	.string "Fans: Their adorable way of running!$"
@@ -2725,7 +2725,7 @@ GabbyAndTy_Text_YouStompedUsInterviewAgain:
 
 GabbyAndTy_Text_YouThrewABallAtUsInterviewAgain:
 	.string "The last time we battled, didn't you\n"
-	.string "throw a Poké Ball at us?\p"
+	.string "throw a Pokéball at us?\p"
 	.string "We were shocked! So we told everyone,\n"
 	.string "just everyone, about it!\p"
 	.string "Anyway, what do you think?\n"
@@ -2877,7 +2877,7 @@ gTVInSearchOfTrainersText04::
 
 gTVInSearchOfTrainersText05::
 	.string "There's only one thing to be said.\n"
-	.string "Don't you dare throw a Poké Ball during\l"
+	.string "Don't you dare throw a Pokéball during\l"
 	.string "a Trainer battle!\p"
 	.string "{PLAYER} is certainly strong, but has\n"
 	.string "no clue about the basic rules.\p"

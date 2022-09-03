@@ -1,7 +1,7 @@
 static const u8 sDummyDesc[] = _(
     "?????");
 
-// Poké Balls
+// Pokéballs
 static const u8 sPokeBallDesc[] = _(
     "A tool used for\n"
     "catching wild\n"
@@ -10,7 +10,7 @@ static const u8 sPokeBallDesc[] = _(
 static const u8 sGreatBallDesc[] = _(
     "A good Ball with a\n"
     "higher catch rate\n"
-    "than a Poké Ball.");
+    "than a Pokéball.");
 
 static const u8 sUltraBallDesc[] = _(
     "A better Ball with\n"
@@ -113,7 +113,7 @@ static const u8 sDreamBallDesc[] = _(
     "well on sleeping\n"
     "Pokémon.");
 #else
-    "A Poké Ball used in\n"
+    "A Pokéball used in\n"
     "the Entree Forest.");
 #endif
 

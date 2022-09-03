@@ -1003,7 +1003,7 @@ Route104_Text_WhatsItLikeAtBottomOfSea:
 	.string "of the sea?$"
 
 Route104_Text_ThrowBallAtWeakenedPokemon:
-	.string "If you're going to throw a Poké Ball,\n"
+	.string "If you're going to throw a Pokéball,\n"
 	.string "weaken the wild Pokémon first.\p"
 	.string "It will be easier to catch if it's been\n"
 	.string "poisoned, burned, or lulled to sleep.$"
@@ -1011,7 +1011,7 @@ Route104_Text_ThrowBallAtWeakenedPokemon:
 Route104_Text_OnlyThrowBallAtWildPokemon:
 	.string "You're a thief if you try to steal\n"
 	.string "someone else's Pokémon.\p"
-	.string "You should throw Poké Balls only at\n"
+	.string "You should throw Pokéballs only at\n"
 	.string "wild Pokémon.$"
 
 Route104_Text_ImNotATrainer:

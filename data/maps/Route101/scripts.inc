@@ -250,7 +250,7 @@ Route101_Text_PleaseHelp:
 	.string "Hello! You over there!\n"
 	.string "Please! Help!\p"
 	.string "In my Bag!\n"
-	.string "There's a Poké Ball!$"
+	.string "There's a Pokéball!$"
 
 Route101_Text_DontLeaveMe:
 	.string "Wh-Where are you going?!\n"

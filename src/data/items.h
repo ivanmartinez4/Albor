@@ -11,11 +11,11 @@ const struct Item gItems[] =
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
 
-// Poké Balls
+// Pokéballs
 
     [ITEM_POKE_BALL] =
     {
-        .name = _("Poké Ball"),
+        .name = _("Pokéball"),
         .itemId = ITEM_POKE_BALL,
         .price = 200,
         .description = sPokeBallDesc,

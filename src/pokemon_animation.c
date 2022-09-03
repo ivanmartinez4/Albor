@@ -1082,7 +1082,7 @@ static void ResetSpriteAfterAnim(struct Sprite *sprite)
 #ifdef BUGFIX
     else
     {
-        // FIX: Reset these back to normal after they were changed so Poké Ball catch/release
+        // FIX: Reset these back to normal after they were changed so Pokéball catch/release
         // animations without a screen transition in between don't break
         sprite->affineAnims = gAffineAnims_BattleSpriteOpponentSide;
     }

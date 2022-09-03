@@ -1258,7 +1258,7 @@ static void SpriteCB_Ball_Bounce(struct Sprite *sprite)
 #define sPhase     data[5]
 #define sTimer     data[5] // re-use
 
-// Animates the Poké Ball dropping to ground and bouncing.
+// Animates the Pokéball dropping to ground and bouncing.
 static void SpriteCB_Ball_Bounce_Step(struct Sprite *sprite)
 {
     bool8 lastBounce;
@@ -1702,10 +1702,10 @@ static void SpriteCB_CaptureStar_Flicker(struct Sprite *sprite)
 #define sFrame   data[0]
 #define sOffsetY data[1]
 
-// Poké Ball didn't catch - starts:
+// Pokéball didn't catch - starts:
 // - Ball particle animations
 // - Wild mon fade to normal color
-// - Wild mon emerge from Poké Ball
+// - Wild mon emerge from Pokéball
 static void SpriteCB_Ball_Release_Step(struct Sprite *sprite)
 {
     u8 ballId;
@@ -1723,7 +1723,7 @@ static void SpriteCB_Ball_Release_Step(struct Sprite *sprite)
         break;
     }
 
-    // Animate Pokémon emerging from Poké Ball
+    // Animate Pokémon emerging from Pokéball
     gSprites[gBattlerSpriteIds[gBattleAnimTarget]].invisible = FALSE;
     StartSpriteAffineAnim(&gSprites[gBattlerSpriteIds[gBattleAnimTarget]], BATTLER_AFFINE_EMERGE);
     AnimateSprite(&gSprites[gBattlerSpriteIds[gBattleAnimTarget]]);
@@ -1781,7 +1781,7 @@ static void SpriteCB_Ball_Block(struct Sprite *sprite)
 
 #define sFrame data[0] // re-use
 
-// Poké Ball moves down off screen after being blocked. The x-speed oscillates.
+// Pokéball moves down off screen after being blocked. The x-speed oscillates.
 static void SpriteCB_Ball_Block_Step(struct Sprite *sprite)
 {
     s16 dy = sprite->sDy + 0x800;

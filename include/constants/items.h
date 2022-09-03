@@ -3,7 +3,7 @@
 
 #define ITEM_NONE 0
 
-// Poké Balls
+// Pokéballs
 #define ITEM_POKE_BALL 1
 #define ITEM_GREAT_BALL 2
 #define ITEM_ULTRA_BALL 3

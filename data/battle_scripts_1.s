@@ -146,6 +146,7 @@ gBattleScriptsForMoveEffects::
 	.4byte BattleScript_EffectPresent                 @ EFFECT_PRESENT
 	.4byte BattleScript_EffectHit                     @ EFFECT_FRUSTRATION
 	.4byte BattleScript_EffectSafeguard               @ EFFECT_SAFEGUARD
+	.4byte BattleScript_EffectHit                     @ EFFECT_UNUSED_125
 	.4byte BattleScript_EffectMagnitude               @ EFFECT_MAGNITUDE
 	.4byte BattleScript_EffectBatonPass               @ EFFECT_BATON_PASS
 	.4byte BattleScript_EffectHit                     @ EFFECT_PURSUIT
@@ -2015,12 +2016,11 @@ BattleScript_EffectHitSwitchTarget:
 	resultmessage
 	waitmessage B_WAIT_TIME_LONG
 	tryfaintmon BS_TARGET
-	moveendcase MOVEEND_MAGICIAN	@ possibly others?
+	moveendall
 	jumpifability BS_TARGET, ABILITY_SUCTION_CUPS, BattleScript_AbilityPreventsPhasingOut
 	jumpifstatus3 BS_TARGET, STATUS3_ROOTED, BattleScript_PrintMonIsRooted
 	tryhitswitchtarget BattleScript_EffectHitSwitchTargetMoveEnd
 BattleScript_EffectHitSwitchTargetMoveEnd:
-	moveendall
 	end
 
 BattleScript_EffectClearSmog:
@@ -7458,6 +7458,7 @@ BattleScript_MagicCoatBounce::
 	printfromtable gMagicCoatBounceStringIds
 	waitmessage B_WAIT_TIME_LONG
 	orword gHitMarker, HITMARKER_ATTACKSTRING_PRINTED | HITMARKER_NO_PPDEDUCT | HITMARKER_ALLOW_NO_PP
+	bicword gHitMarker, HITMARKER_NO_ATTACKSTRING
 	setmagiccoattarget BS_ATTACKER
 	return
 
@@ -9384,6 +9385,16 @@ BattleScript_ArenaTurnBeginning::
 	pause B_WAIT_TIME_LONG
 	arenaerasereftextbox
 	volumeup
+	end2
+
+@ Unused
+BattleScript_ArenaNothingDecided::
+	playse SE_DING_DONG
+	arenadrawreftextbox
+	arenajudgmentstring B_MSG_REF_NOTHING_IS_DECIDED
+	arenawaitmessage B_MSG_REF_NOTHING_IS_DECIDED
+	pause B_WAIT_TIME_LONG
+	arenaerasereftextbox
 	end2
 
 BattleScript_ArenaDoJudgment::

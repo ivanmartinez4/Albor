@@ -4,7 +4,7 @@ const u32 gItemIconPalette_QuestionMark[] = INCBIN_U32("graphics/items/icon_pale
 const u32 gItemIcon_ReturnToFieldArrow[] = INCBIN_U32("graphics/items/icons/return_to_field_arrow.4bpp.lz");
 const u32 gItemIconPalette_ReturnToFieldArrow[] = INCBIN_U32("graphics/items/icon_palettes/return_to_field_arrow.gbapal.lz");
 
-// Poké Balls
+// Pokéballs
 
 const u32 gItemIcon_PokeBall[] = INCBIN_U32("graphics/items/icons/poke_ball.4bpp.lz");
 const u32 gItemIconPalette_PokeBall[] = INCBIN_U32("graphics/items/icon_palettes/poke_ball.gbapal.lz");
@@ -1925,7 +1925,7 @@ const u32 gItemIconPalette_Ruby[] = INCBIN_U32("graphics/items/icon_palettes/rub
 
 const u32 gItemIconPalette_Sapphire[] = INCBIN_U32("graphics/items/icon_palettes/sapphire.gbapal.lz");
 
-// Poké Ball Summary Icons
+// Pokéball Summary Icons
 const u32 gBallIcon_Poke[] = INCBIN_U32("graphics/summary_screen/ball_icons/poke.4bpp.lz");
 const u32 gBallIconPalette_Poke[] = INCBIN_U32("graphics/summary_screen/ball_icons/poke.gbapal.lz");
 const u32 gBallIcon_Safari[] = INCBIN_U32("graphics/summary_screen/ball_icons/safari.4bpp.lz");

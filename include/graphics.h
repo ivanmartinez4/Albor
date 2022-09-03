@@ -7421,7 +7421,7 @@ extern const u32 gRaySceneChasesAway_Bg_Pal[];
 extern const u32 gRaySceneChasesAway_Light_Gfx[];
 extern const u32 gRaySceneChasesAway_Ring_Gfx[];
 
-// Poké Balls
+// Pokéballs
 extern const u32 gItemIcon_PokeBall[];
 extern const u32 gItemIconPalette_PokeBall[];
 extern const u32 gItemIcon_GreatBall[];
@@ -10267,7 +10267,7 @@ extern const u8 gMailTilemap_Retro[];
 extern const u8 gMonMarkingsMenu_Gfx[];
 extern const u16 gMonMarkingsMenu_Pal[];
 
-// Poké Ball Summary Icons
+// Pokéball Summary Icons
 extern const u32 gBallIcon_Poke[];
 extern const u32 gBallIconPalette_Poke[];
 extern const u32 gBallIcon_Safari[];

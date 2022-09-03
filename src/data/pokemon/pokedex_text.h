@@ -600,7 +600,7 @@ const u8 gKinglerPokedexText[] = _(
 
 const u8 gVoltorbPokedexText[] = _(
     "It bears an uncanny and unexplained\n"
-    "resemblance to a Poké Ball. Because it\n"
+    "resemblance to a Pokéball. Because it\n"
     "explodes at the slightest shock, even\n"
     "veteran Trainers treat it with caution.");
 
@@ -3541,13 +3541,13 @@ const u8 gEscavalierPokedexText[] = _(
 
 const u8 gFoongusPokedexText[] = _(
     "It lures Pokémon in with its pattern that\n"
-    "looks just like a Poké Ball, then releases\n"
+    "looks just like a Pokéball, then releases\n"
     "its poison spores. Why it resembles a\n"
-    "Poké Ball is unknown.");
+    "Pokéball is unknown.");
 
 const u8 gAmoongussPokedexText[] = _(
     "It lures prey close by dancing and waving\n"
-    "its arm caps, which resemble Poké Balls,\n"
+    "its arm caps, which resemble Pokéballs,\n"
     "in a swaying motion, but very few Pokémon\n"
     "are fooled by this.");
 
