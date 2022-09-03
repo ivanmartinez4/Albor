@@ -163,6 +163,20 @@ static s8 Daycare_FindEmptySpot(struct DayCare *daycare)
 
 static void StorePokemonInDaycare(struct Pokemon *mon, struct DaycareMon *daycareMon)
 {
+    if (MonHasMail(mon))
+    {
+        u8 mailId;
+
+        StringCopy(daycareMon->mail.otName, gSaveBlock2Ptr->playerName);
+        GetMonNickname2(mon, daycareMon->mail.monName);
+        StripExtCtrlCodes(daycareMon->mail.monName);
+        daycareMon->mail.gameLanguage = GAME_LANGUAGE;
+        daycareMon->mail.monLanguage = GetMonData(mon, MON_DATA_LANGUAGE);
+        mailId = GetMonData(mon, MON_DATA_MAIL);
+        daycareMon->mail.message = gSaveBlock1Ptr->mail[mailId];
+        TakeMailFromMon(mon);
+    }
+
     daycareMon->mon = mon->box;
     BoxMonRestorePP(&daycareMon->mon);
     daycareMon->steps = 0;

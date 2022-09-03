@@ -994,6 +994,148 @@ static void Trade_Memcpy(void *dataDest, const void *dataSrc, u32 count)
 
 static bool8 BufferTradeParties(void)
 {
+    u8 id = GetMultiplayerId();
+    int i;
+    struct Pokemon *mon;
+
+    switch (sTradeMenuData->bufferPartyState)
+    {
+    case 0:
+        // The parties are sent in pairs rather than all at once
+        Trade_Memcpy(gBlockSendBuffer, &gPlayerParty[0], 2 * sizeof(struct Pokemon));
+        sTradeMenuData->bufferPartyState++;
+        sTradeMenuData->timer = 0;
+        break;
+    case 1:
+        if (IsLinkTradeTaskFinished())
+        {
+            if (_GetBlockReceivedStatus() == 0)
+            {
+                sTradeMenuData->bufferPartyState++;
+            }
+            else
+            {
+                TradeResetReceivedFlags();
+                sTradeMenuData->bufferPartyState++;
+            }
+        }
+        break;
+    case 3:
+        if (id == 0)
+            RequestLinkData(BLOCK_REQ_SIZE_200);
+        sTradeMenuData->bufferPartyState++;
+        break;
+    case 4:
+        if (_GetBlockReceivedStatus() == 3)
+        {
+            Trade_Memcpy(&gEnemyParty[0], gBlockRecvBuffer[id ^ 1], 2 * sizeof(struct Pokemon));
+            TradeResetReceivedFlags();
+            sTradeMenuData->bufferPartyState++;
+        }
+        break;
+    case 5:
+        Trade_Memcpy(gBlockSendBuffer, &gPlayerParty[2], 2 * sizeof(struct Pokemon));
+        sTradeMenuData->bufferPartyState++;
+        break;
+    case 7:
+        if (id == 0)
+            RequestLinkData(BLOCK_REQ_SIZE_200);
+        sTradeMenuData->bufferPartyState++;
+        break;
+    case 8:
+        if (_GetBlockReceivedStatus() == 3)
+        {
+            Trade_Memcpy(&gEnemyParty[2], gBlockRecvBuffer[id ^ 1],  2 * sizeof(struct Pokemon));
+            TradeResetReceivedFlags();
+            sTradeMenuData->bufferPartyState++;
+        }
+        break;
+    case 9:
+        Trade_Memcpy(gBlockSendBuffer, &gPlayerParty[4], 2 * sizeof(struct Pokemon));
+        sTradeMenuData->bufferPartyState++;
+        break;
+    case 11:
+        if (id == 0)
+            RequestLinkData(BLOCK_REQ_SIZE_200);
+        sTradeMenuData->bufferPartyState++;
+        break;
+    case 12:
+        if (_GetBlockReceivedStatus() == 3)
+        {
+            Trade_Memcpy(&gEnemyParty[4], gBlockRecvBuffer[id ^ 1], 2 * sizeof(struct Pokemon));
+            TradeResetReceivedFlags();
+            sTradeMenuData->bufferPartyState++;
+        }
+        break;
+    case 13:
+        Trade_Memcpy(gBlockSendBuffer, gSaveBlock1Ptr->mail, PARTY_SIZE * sizeof(struct Mail) + 4);
+        sTradeMenuData->bufferPartyState++;
+        break;
+    case 15:
+        if (id == 0)
+            RequestLinkData(BLOCK_REQ_SIZE_220);
+        sTradeMenuData->bufferPartyState++;
+        break;
+    case 16:
+        if (_GetBlockReceivedStatus() == 3)
+        {
+            Trade_Memcpy(gTradeMail, gBlockRecvBuffer[id ^ 1], PARTY_SIZE * sizeof(struct Mail));
+            TradeResetReceivedFlags();
+            sTradeMenuData->bufferPartyState++;
+        }
+        break;
+    case 17:
+        Trade_Memcpy(gBlockSendBuffer, gSaveBlock1Ptr->giftRibbons, sizeof(sTradeMenuData->giftRibbons));
+        sTradeMenuData->bufferPartyState++;
+        break;
+    case 19:
+        if (id == 0)
+            RequestLinkData(BLOCK_REQ_SIZE_40);
+        sTradeMenuData->bufferPartyState++;
+        break;
+    case 20:
+        if (_GetBlockReceivedStatus() == 3)
+        {
+            Trade_Memcpy(sTradeMenuData->giftRibbons, gBlockRecvBuffer[id ^ 1], sizeof(sTradeMenuData->giftRibbons));
+            TradeResetReceivedFlags();
+            sTradeMenuData->bufferPartyState++;
+        }
+        break;
+    case 21:
+        for (i = 0, mon = gEnemyParty; i < PARTY_SIZE; mon++, i++)
+        {
+            u8 name[POKEMON_NAME_LENGTH + 1];
+            u16 species = GetMonData(mon, MON_DATA_SPECIES);
+
+            if (species != SPECIES_NONE)
+            {
+                if (species == SPECIES_SHEDINJA && GetMonData(mon, MON_DATA_LANGUAGE) != LANGUAGE_JAPANESE)
+                {
+                    GetMonData(mon, MON_DATA_NICKNAME, name);
+
+                    if (!StringCompareWithoutExtCtrlCodes(name, sJPText_Shedinja))
+                    {
+                        SetMonData(mon, MON_DATA_NICKNAME, gSpeciesNames[SPECIES_SHEDINJA]);
+                    }
+                }
+            }
+        }
+        return TRUE;
+    // Delay until next state
+    case 2:
+    case 6:
+    case 10:
+    case 14:
+    case 18:
+        sTradeMenuData->timer++;
+        if (sTradeMenuData->timer > 10)
+        {
+            sTradeMenuData->timer = 0;
+            sTradeMenuData->bufferPartyState++;
+        }
+        break;
+    }
+    return FALSE;
 }
 
 static void DrawIsThisTradeOkay(void)
@@ -2176,6 +2318,16 @@ static void SetTradePartyHPBarSprites(void)
 
 static void SaveTradeGiftRibbons(void)
 {
+    int i;
+
+    for (i = 0; i < (int)ARRAY_COUNT(sTradeMenuData->giftRibbons); i++)
+    {
+        if (gSaveBlock1Ptr->giftRibbons[i] == 0 && sTradeMenuData->giftRibbons[i] != 0)
+        {
+            if (sTradeMenuData->giftRibbons[i] < 64)
+                gSaveBlock1Ptr->giftRibbons[i] = sTradeMenuData->giftRibbons[i];
+        }
+    }
 }
 
 static u32 CanTradeSelectedMon(struct Pokemon *playerParty, int partyCount, int monIdx)
@@ -2863,6 +3015,29 @@ static void TryEnableNationalDexFromLinkPartner(void)
 
 static void TradeMons(u8 playerPartyIdx, u8 partnerPartyIdx)
 {
+    u8 friendship;
+
+    struct Pokemon *playerMon = &gPlayerParty[playerPartyIdx];
+    u16 playerMail = GetMonData(playerMon, MON_DATA_MAIL);
+
+    struct Pokemon *partnerMon = &gEnemyParty[partnerPartyIdx];
+    u16 partnerMail = GetMonData(partnerMon, MON_DATA_MAIL);
+
+    if (playerMail != MAIL_NONE)
+        ClearMail(&gSaveBlock1Ptr->mail[playerMail]);
+
+    SWAP(*playerMon, *partnerMon, sTradeData->tempMon);
+
+    friendship = 70;
+    if (!GetMonData(playerMon, MON_DATA_IS_EGG))
+        SetMonData(playerMon, MON_DATA_FRIENDSHIP, &friendship);
+
+    if (partnerMail != MAIL_NONE)
+        GiveMailToMon(playerMon, &gTradeMail[partnerMail]);
+
+    UpdatePokedexForReceivedMon(playerPartyIdx);
+    if (gReceivedRemoteLinkPlayers)
+        TryEnableNationalDexFromLinkPartner();
 }
 
 static void TrySendTradeFinishData(void)

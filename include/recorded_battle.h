@@ -34,7 +34,9 @@ void RecordedBattle_SetPlaybackFinished(void);
 bool8 RecordedBattle_CanStopPlayback(void);
 void GetRecordedBattleRecordMixFriendName(u8 *dst);
 u8 GetRecordedBattleRecordMixFriendClass(void);
+u8 GetRecordedBattleApprenticeId(void);
 u8 GetRecordedBattleRecordMixFriendLanguage(void);
+u8 GetRecordedBattleApprenticeLanguage(void);
 void RecordedBattle_SaveBattleOutcome(void);
 u16 *GetRecordedBattleEasyChatSpeech(void);
 

@@ -3275,6 +3275,13 @@ static void Task_WriteMailToGiveMonAfterText(u8 taskId)
 
 static void CB2_WriteMailToGiveMon(void)
 {
+    u8 mail = GetMonData(&gPlayerParty[gPartyMenu.slotId], MON_DATA_MAIL);
+
+    DoEasyChatScreen(
+        EASY_CHAT_TYPE_MAIL,
+        gSaveBlock1Ptr->mail[mail].words,
+        CB2_ReturnToPartyMenuFromWritingMail,
+        EASY_CHAT_PERSON_DISPLAY_NONE);
 }
 
 static void CB2_ReturnToPartyMenuFromWritingMail(void)
@@ -3446,6 +3453,7 @@ static void CursorCb_Read(u8 taskId)
 
 static void CB2_ReadHeldMail(void)
 {
+    ReadMail(&gSaveBlock1Ptr->mail[GetMonData(&gPlayerParty[gPartyMenu.slotId], MON_DATA_MAIL)], CB2_ReturnToPartyMenuFromReadingMail, TRUE);
 }
 
 static void CB2_ReturnToPartyMenuFromReadingMail(void)
@@ -5917,6 +5925,15 @@ static void Task_UpdateHeldItemSpriteAndClosePartyMenu(u8 taskId)
 
 static void CB2_WriteMailToGiveMonFromBag(void)
 {
+    u8 mail;
+
+    GiveItemToMon(&gPlayerParty[gPartyMenu.slotId], gPartyMenu.bagItem);
+    mail = GetMonData(&gPlayerParty[gPartyMenu.slotId], MON_DATA_MAIL);
+    DoEasyChatScreen(
+        EASY_CHAT_TYPE_MAIL,
+        gSaveBlock1Ptr->mail[mail].words,
+        CB2_ReturnToPartyOrBagMenuFromWritingMail,
+        EASY_CHAT_PERSON_DISPLAY_NONE);
 }
 
 static void CB2_ReturnToPartyOrBagMenuFromWritingMail(void)
@@ -6030,6 +6047,23 @@ void ChooseMonToGiveMailFromMailbox(void)
 
 static void TryGiveMailToSelectedMon(u8 taskId)
 {
+    struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
+    struct Mail *mail;
+
+    gPartyMenuUseExitCallback = FALSE;
+    mail = &gSaveBlock1Ptr->mail[gPlayerPCItemPageInfo.itemsAbove + PARTY_SIZE + gPlayerPCItemPageInfo.cursorPos];
+    if (GetMonData(mon, MON_DATA_HELD_ITEM) != ITEM_NONE)
+    {
+        DisplayPartyMenuMessage(gText_PkmnHoldingItemCantHoldMail, TRUE);
+    }
+    else
+    {
+        GiveMailToMon(mon, mail);
+        ClearMail(mail);
+        DisplayPartyMenuMessage(gText_MailTransferredFromMailbox, TRUE);
+    }
+    ScheduleBgCopyTilemapToVram(2);
+    gTasks[taskId].func = Task_UpdateHeldItemSpriteAndClosePartyMenu;
 }
 
 void InitChooseHalfPartyForBattle(u8 unused)

@@ -27,6 +27,7 @@
 #include "battle_records.h"
 #include "item.h"
 #include "pokedex.h"
+#include "apprentice.h"
 #include "frontier_util.h"
 #include "pokedex.h"
 #include "save.h"
@@ -103,6 +104,13 @@ static void ClearPokedexFlags(void)
 
 void ClearAllContestWinnerPics(void)
 {
+    s32 i;
+
+    ClearContestWinnerPicsInContestHall();
+
+    // Clear Museum paintings
+    for (i = MUSEUM_CONTEST_WINNERS_START; i < NUM_CONTEST_WINNERS; i++)
+        gSaveBlock1Ptr->contestWinners[i] = sContestWinnerPicDummy;
 }
 
 static void ClearFrontierRecord(void)
@@ -149,14 +157,22 @@ void NewGameInitData(void)
     ClearSav1();
     ClearAllMail();
     gSaveBlock2Ptr->specialSaveWarpFlags = 0;
+    gSaveBlock2Ptr->gcnLinkFlags = 0;
     InitPlayerTrainerId();
     PlayTimeCounter_Reset();
     ClearPokedexFlags();
     InitEventData();
+    ClearTVShowData();
+    ResetGabbyAndTy();
+    ClearSecretBases();
     ClearBerryTrees();
     SetMoney(&gSaveBlock1Ptr->money, 10000);
     SetCoins(0);
+    ResetLinkContestBoolean();
     ResetGameStats();
+    ClearAllContestWinnerPics();
+    InitSeedotSizeRecord();
+    InitLotadSizeRecord();
     gPlayerPartyCount = 0;
     ZeroPlayerPartyMons();
     ResetPokemonStorageSystem();
@@ -167,12 +183,22 @@ void NewGameInitData(void)
     NewGameInitPCItems();
     ClearPokeblocks();
     ClearDecorationInventories();
+    InitEasyChatPhrases();
+    SetMauvilleOldMan();
+    InitDewfordTrend();
+    ResetFanClub();
+    ResetLotteryCorner();
     WarpToTruck();
     RunScriptImmediately(EventScript_ResetAllMapFlags);
+    InitLilycoveLady();
+    ResetAllApprenticeData();
+    ClearRankingHallRecords();
     InitMatchCallCounters();
+    WipeTrainerNameRecords();
     ResetTrainerHillResults();
+    ResetContestLinkResults();
     gSaveBlock2Ptr->autoRun = FALSE;
     memset(&gSaveBlock2Ptr->itemFlags, 0, sizeof(gSaveBlock2Ptr->itemFlags));
-    memset(gSaveBlock2Ptr->dexNavSearchLevels, 0, sizeof(gSaveBlock2Ptr->dexNavSearchLevels));
-    gSaveBlock2Ptr->dexNavChain = 0;
+    memset(gSaveBlock1Ptr->dexNavSearchLevels, 0, sizeof(gSaveBlock1Ptr->dexNavSearchLevels));
+    gSaveBlock1Ptr->dexNavChain = 0;
 }

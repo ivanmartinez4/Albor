@@ -1272,7 +1272,11 @@ u16 GetSlotMachineId(void)
         SLOT_MACHINE_LUCKIEST
     };
 
-    return sSlotMachineIds[SLOT_MACHINE_COUNT];
+    u32 rnd = gSaveBlock1Ptr->dewfordTrends[0].trendiness + gSaveBlock1Ptr->dewfordTrends[0].rand + sSlotMachineRandomSeeds[gSpecialVar_0x8004];
+    if (IsPokeNewsActive(POKENEWS_GAME_CORNER))
+        return sSlotMachineServiceDayIds[rnd % SLOT_MACHINE_COUNT];
+
+    return sSlotMachineIds[rnd % SLOT_MACHINE_COUNT];
 }
 
 bool8 FoundAbandonedShipRoom1Key(void)

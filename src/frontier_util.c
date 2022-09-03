@@ -18,6 +18,7 @@
 #include "new_game.h"
 #include "link.h"
 #include "tv.h"
+#include "apprentice.h"
 #include "pokedex.h"
 #include "recorded_battle.h"
 #include "data.h"
@@ -1478,6 +1479,52 @@ static void ShowPyramidResultsWindow(void)
 // Link contest records. Why is it in this file?
 static void ShowLinkContestResultsWindow(void)
 {
+    const u8 *str;
+    s32 i, j;
+    s32 x;
+
+    gRecordsWindowId = AddWindow(&sLinkContestResultsWindowTemplate);
+    DrawStdWindowFrame(gRecordsWindowId, FALSE);
+    FillWindowPixelBuffer(gRecordsWindowId, PIXEL_FILL(1));
+
+    StringExpandPlaceholders(gStringVar4, gText_LinkContestResults);
+    x = GetStringCenterAlignXOffset(FONT_NORMAL, gStringVar4, 208);
+    AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, gStringVar4, x, 1, TEXT_SKIP_DRAW, NULL);
+
+    str = gText_1st;
+    x = GetStringRightAlignXOffset(FONT_NORMAL, str, 38) + 50;
+    AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, str, x, 25, TEXT_SKIP_DRAW, NULL);
+
+    str = gText_2nd;
+    x = GetStringRightAlignXOffset(FONT_NORMAL, str, 38) + 88;
+    AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, str, x, 25, TEXT_SKIP_DRAW, NULL);
+
+    str = gText_3rd;
+    x = GetStringRightAlignXOffset(FONT_NORMAL, str, 38) + 126;
+    AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, str, x, 25, TEXT_SKIP_DRAW, NULL);
+
+    str = gText_4th;
+    x = GetStringRightAlignXOffset(FONT_NORMAL, str, 38) + 164;
+    AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, str, x, 25, TEXT_SKIP_DRAW, NULL);
+
+    x = 6;
+    AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, gText_Cool, x, 41, TEXT_SKIP_DRAW, NULL);
+    AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, gText_Beauty, x, 57, TEXT_SKIP_DRAW, NULL);
+    AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, gText_Cute, x, 73, TEXT_SKIP_DRAW, NULL);
+    AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, gText_Smart, x, 89, TEXT_SKIP_DRAW, NULL);
+    AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, gText_Tough, x, 105, TEXT_SKIP_DRAW, NULL);
+
+    for (i = 0; i < CONTEST_CATEGORIES_COUNT; i++)
+    {
+        for (j = 0; j < CONTESTANT_COUNT; j++)
+        {
+            ConvertIntToDecimalStringN(gStringVar4, gSaveBlock2Ptr->contestLinkResults[i][j], STR_CONV_MODE_RIGHT_ALIGN, 4);
+            AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, gStringVar4, (j * 38) + 64, (i * 16) + 41, TEXT_SKIP_DRAW, NULL);
+        }
+    }
+
+    PutWindowTilemap(gRecordsWindowId);
+    CopyWindowToVram(gRecordsWindowId, COPYWIN_FULL);
 }
 
 static void CheckPutFrontierTVShowOnAir(void)
@@ -1647,6 +1694,83 @@ u8 GetFrontierBrainStatus(void)
 
 void CopyFrontierTrainerText(u8 whichText, u16 trainerId)
 {
+    switch (whichText)
+    {
+    case FRONTIER_BEFORE_TEXT:
+        if (trainerId == TRAINER_EREADER)
+            FrontierSpeechToString(gSaveBlock2Ptr->frontier.ereaderTrainer.greeting);
+        else if (trainerId == TRAINER_FRONTIER_BRAIN)
+            CopyFrontierBrainText(FALSE);
+        else if (trainerId < FRONTIER_TRAINERS_COUNT)
+            FrontierSpeechToString(gFacilityTrainers[trainerId].speechBefore);
+        else if (trainerId < TRAINER_RECORD_MIXING_APPRENTICE)
+            FrontierSpeechToString(gSaveBlock2Ptr->frontier.towerRecords[trainerId - TRAINER_RECORD_MIXING_FRIEND].greeting);
+        else
+            BufferApprenticeChallengeText(trainerId - TRAINER_RECORD_MIXING_APPRENTICE);
+        break;
+    case FRONTIER_PLAYER_LOST_TEXT:
+        if (trainerId == TRAINER_EREADER)
+        {
+            FrontierSpeechToString(gSaveBlock2Ptr->frontier.ereaderTrainer.farewellPlayerLost);
+        }
+        else if (trainerId == TRAINER_FRONTIER_BRAIN)
+        {
+            CopyFrontierBrainText(FALSE);
+        }
+        else if (trainerId < FRONTIER_TRAINERS_COUNT)
+        {
+            FrontierSpeechToString(gFacilityTrainers[trainerId].speechWin);
+        }
+        else if (trainerId < TRAINER_RECORD_MIXING_APPRENTICE)
+        {
+            if (gBattleTypeFlags & BATTLE_TYPE_RECORDED)
+                FrontierSpeechToString(GetRecordedBattleEasyChatSpeech());
+            else
+                FrontierSpeechToString(gSaveBlock2Ptr->frontier.towerRecords[trainerId - TRAINER_RECORD_MIXING_FRIEND].speechWon);
+        }
+        else
+        {
+            if (gBattleTypeFlags & BATTLE_TYPE_RECORDED)
+                FrontierSpeechToString(GetRecordedBattleEasyChatSpeech());
+            else
+                FrontierSpeechToString(gSaveBlock2Ptr->apprentices[trainerId - TRAINER_RECORD_MIXING_APPRENTICE].speechWon);
+        }
+        break;
+    case FRONTIER_PLAYER_WON_TEXT:
+        if (trainerId == TRAINER_EREADER)
+        {
+            FrontierSpeechToString(gSaveBlock2Ptr->frontier.ereaderTrainer.farewellPlayerWon);
+        }
+        else if (trainerId == TRAINER_FRONTIER_BRAIN)
+        {
+            CopyFrontierBrainText(TRUE);
+        }
+        else if (trainerId < FRONTIER_TRAINERS_COUNT)
+        {
+            FrontierSpeechToString(gFacilityTrainers[trainerId].speechLose);
+        }
+        else if (trainerId < TRAINER_RECORD_MIXING_APPRENTICE)
+        {
+            if (gBattleTypeFlags & BATTLE_TYPE_RECORDED)
+                FrontierSpeechToString(GetRecordedBattleEasyChatSpeech());
+            else
+                FrontierSpeechToString(gSaveBlock2Ptr->frontier.towerRecords[trainerId - TRAINER_RECORD_MIXING_FRIEND].speechLost);
+        }
+        else
+        {
+            if (gBattleTypeFlags & BATTLE_TYPE_RECORDED)
+            {
+                trainerId = GetRecordedBattleApprenticeId();
+                FrontierSpeechToString(gApprentices[trainerId].speechLost);
+            }
+            else
+            {
+                trainerId = gSaveBlock2Ptr->apprentices[trainerId - TRAINER_RECORD_MIXING_APPRENTICE].id;
+                FrontierSpeechToString(gApprentices[trainerId].speechLost);
+            }
+        }
+        break;
+    }
 }
 
 void ResetWinStreaks(void)
@@ -2095,8 +2219,148 @@ static void SetFacilityBrainObjectEvent(void)
     SetFrontierBrainObjEventGfx(VarGet(VAR_FRONTIER_FACILITY));
 }
 
+// Battle Frontier Ranking Hall records.
+static void Print1PRecord(s32 position, s32 x, s32 y, struct RankingHall1P *hallRecord, s32 hallFacilityId)
+{
+    u8 text[32];
+    u16 winStreak;
+
+    AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, gText_123Dot[position], x * 8, (8 * (y + 5 * position)) + 1, TEXT_SKIP_DRAW, NULL);
+    hallRecord->name[PLAYER_NAME_LENGTH] = EOS;
+    if (hallRecord->winStreak)
+    {
+        TVShowConvertInternationalString(text, hallRecord->name, hallRecord->language);
+        AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, text, (x + 2) * 8, (8 * (y + 5 * position)) + 1, TEXT_SKIP_DRAW, NULL);
+        winStreak = hallRecord->winStreak;
+        if (winStreak > MAX_STREAK)
+            winStreak = MAX_STREAK;
+        ConvertIntToDecimalStringN(gStringVar2, winStreak, STR_CONV_MODE_RIGHT_ALIGN, 4);
+        StringExpandPlaceholders(gStringVar4, sHallFacilityToRecordsText[hallFacilityId]);
+        AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, gStringVar4, GetStringRightAlignXOffset(FONT_NORMAL, sHallFacilityToRecordsText[hallFacilityId], 0xC8), (8 * (y + 5 * position)) + 1, TEXT_SKIP_DRAW, NULL);
+    }
+}
+
+static void Print2PRecord(s32 position, s32 x, s32 y, struct RankingHall2P *hallRecord)
+{
+    u8 text[32];
+    u16 winStreak;
+
+    AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, gText_123Dot[position], x * 8, (8 * (y + 5 * position)) + 1, TEXT_SKIP_DRAW, NULL);
+    if (hallRecord->winStreak)
+    {
+        hallRecord->name1[PLAYER_NAME_LENGTH] = EOS;
+        hallRecord->name2[PLAYER_NAME_LENGTH] = EOS;
+        TVShowConvertInternationalString(text, hallRecord->name1, hallRecord->language);
+        AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, text, (x + 2) * 8, (8 * (y + 5 * position - 1)) + 1, TEXT_SKIP_DRAW, NULL);
+        if (IsStringJapanese(hallRecord->name2))
+            TVShowConvertInternationalString(text, hallRecord->name2, LANGUAGE_JAPANESE);
+        else
+            StringCopy(text, hallRecord->name2);
+        AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, text, (x + 4) * 8, (8 * (y + 5 * position + 1)) + 1, TEXT_SKIP_DRAW, NULL);
+
+        winStreak = hallRecord->winStreak;
+        if (winStreak > MAX_STREAK)
+            winStreak = MAX_STREAK;
+        ConvertIntToDecimalStringN(gStringVar2, winStreak, STR_CONV_MODE_RIGHT_ALIGN, 4);
+        StringExpandPlaceholders(gStringVar4, sHallFacilityToRecordsText[RANKING_HALL_TOWER_LINK]);
+        AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, gStringVar4, GetStringRightAlignXOffset(FONT_NORMAL, sHallFacilityToRecordsText[RANKING_HALL_TOWER_LINK], 0xC8), (8 * (y + 5 * position)) + 1, TEXT_SKIP_DRAW, NULL);
+    }
+}
+
+static void Fill1PRecords(struct RankingHall1P *dst, s32 hallFacilityId, s32 lvlMode)
+{
+    s32 i, j;
+    struct RankingHall1P record1P[HALL_RECORDS_COUNT + 1];
+    struct PlayerHallRecords *playerHallRecords = calloc(1, sizeof(struct PlayerHallRecords));
+    GetPlayerHallRecords(playerHallRecords);
+
+    for (i = 0; i < HALL_RECORDS_COUNT; i++)
+        record1P[i] = gSaveBlock2Ptr->hallRecords1P[hallFacilityId][lvlMode][i];
+
+    record1P[HALL_RECORDS_COUNT] = playerHallRecords->onePlayer[hallFacilityId][lvlMode];
+
+    for (i = 0; i < HALL_RECORDS_COUNT; i++)
+    {
+        s32 highestWinStreak = 0;
+        s32 highestId = 0;
+        for (j = 0; j < HALL_RECORDS_COUNT + 1; j++)
+        {
+            if (record1P[j].winStreak > highestWinStreak)
+            {
+                highestId = j;
+                highestWinStreak = record1P[j].winStreak;
+            }
+        }
+        if (record1P[HALL_RECORDS_COUNT].winStreak >= highestWinStreak)
+            highestId = HALL_RECORDS_COUNT;
+
+        dst[i] = record1P[highestId];
+        record1P[highestId].winStreak = 0;
+    }
+
+    free(playerHallRecords);
+}
+
+static void Fill2PRecords(struct RankingHall2P *dst, s32 lvlMode)
+{
+    s32 i, j;
+    struct RankingHall2P record2P[HALL_RECORDS_COUNT + 1];
+    struct PlayerHallRecords *playerHallRecords = calloc(1, sizeof(struct PlayerHallRecords));
+    GetPlayerHallRecords(playerHallRecords);
+
+    for (i = 0; i < HALL_RECORDS_COUNT; i++)
+        record2P[i] = gSaveBlock2Ptr->hallRecords2P[lvlMode][i];
+
+    record2P[HALL_RECORDS_COUNT] = playerHallRecords->twoPlayers[lvlMode];
+
+    for (i = 0; i < HALL_RECORDS_COUNT; i++)
+    {
+        s32 highestWinStreak = 0;
+        s32 highestId = 0;
+        for (j = 0; j < HALL_RECORDS_COUNT; j++)
+        {
+            if (record2P[j].winStreak > highestWinStreak)
+            {
+                highestId = j;
+                highestWinStreak = record2P[j].winStreak;
+            }
+        }
+        if (record2P[HALL_RECORDS_COUNT].winStreak >= highestWinStreak)
+            highestId = HALL_RECORDS_COUNT;
+
+        dst[i] = record2P[highestId];
+        record2P[highestId].winStreak = 0;
+    }
+
+    free(playerHallRecords);
+}
+
 static void PrintHallRecords(s32 hallFacilityId, s32 lvlMode)
 {
+    s32 i;
+    s32 x;
+    struct RankingHall1P records1P[HALL_RECORDS_COUNT];
+    struct RankingHall2P records2P[HALL_RECORDS_COUNT];
+
+    StringCopy(gStringVar1, sRecordsWindowChallengeTexts[hallFacilityId][0]);
+    StringExpandPlaceholders(gStringVar4, sRecordsWindowChallengeTexts[hallFacilityId][1]);
+    AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, gStringVar4, 0, 1, TEXT_SKIP_DRAW, NULL);
+    x = GetStringRightAlignXOffset(FONT_NORMAL, sLevelModeText[lvlMode], DISPLAY_WIDTH - 32);
+    AddTextPrinterParameterized(gRecordsWindowId, FONT_NORMAL, sLevelModeText[lvlMode], x, 1, TEXT_SKIP_DRAW, NULL);
+    if (hallFacilityId == RANKING_HALL_TOWER_LINK)
+    {
+        gSaveBlock2Ptr->frontier.opponentNames[0][PLAYER_NAME_LENGTH] = EOS;
+        gSaveBlock2Ptr->frontier.opponentNames[1][PLAYER_NAME_LENGTH] = EOS;
+        Fill2PRecords(records2P, lvlMode);
+        for (i = 0; i < HALL_RECORDS_COUNT; i++)
+            Print2PRecord(i, 1, 4, &records2P[i]);
+    }
+    else
+    {
+        Fill1PRecords(records1P, hallFacilityId, lvlMode);
+        for (i = 0; i < HALL_RECORDS_COUNT; i++)
+            Print1PRecord(i, 1, 4, &records1P[i], hallFacilityId);
+    }
 }
 
 void ShowRankingHallRecordsWindow(void)
@@ -2118,6 +2382,40 @@ void ScrollRankingHallRecordsWindow(void)
 
 void ClearRankingHallRecords(void)
 {
+    s32 i, j, k;
+
+    // UB: Passing 0 as a pointer instead of a pointer holding a value of 0.
+#ifdef UBFIX
+    u8 emptyId[TRAINER_ID_LENGTH] = {0};
+    #define ZERO emptyId
+#else
+    #define ZERO 0
+#endif
+
+    for (i = 0; i < HALL_FACILITIES_COUNT; i++)
+    {
+        for (j = 0; j < FRONTIER_LVL_MODE_COUNT; j++)
+        {
+            for (k = 0; k < HALL_RECORDS_COUNT; k++)
+            {
+                CopyTrainerId(gSaveBlock2Ptr->hallRecords1P[i][j][k].id, ZERO);
+                gSaveBlock2Ptr->hallRecords1P[i][j][k].name[0] = EOS;
+                gSaveBlock2Ptr->hallRecords1P[i][j][k].winStreak = 0;
+            }
+        }
+    }
+
+    for (j = 0; j < FRONTIER_LVL_MODE_COUNT; j++)
+    {
+        for (k = 0; k < HALL_RECORDS_COUNT; k++)
+        {
+            CopyTrainerId(gSaveBlock2Ptr->hallRecords2P[j][k].id1, ZERO);
+            CopyTrainerId(gSaveBlock2Ptr->hallRecords2P[j][k].id2, ZERO);
+            gSaveBlock2Ptr->hallRecords2P[j][k].name1[0] = EOS;
+            gSaveBlock2Ptr->hallRecords2P[j][k].name2[0] = EOS;
+            gSaveBlock2Ptr->hallRecords2P[j][k].winStreak = 0;
+        }
+    }
 }
 
 void SaveGameFrontier(void)

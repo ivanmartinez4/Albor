@@ -63,6 +63,7 @@ struct GFRomHeader
     const struct BattleMove * moves;
     const struct CompressedSpriteSheet * ballGfx;
     const struct CompressedSpritePalette * ballPalettes;
+    u32 gcnLinkFlagsOffset;
     u32 gameClearFlag;
     u32 ribbonFlag;
     u8 bagCountItems;
@@ -72,6 +73,7 @@ struct GFRomHeader
     u8 bagCountBerries;
     u8 pcItemsCount;
     u32 pcItemsOffset;
+    u32 giftRibbonsOffset;
     const u8 *moveDescriptions;
     u32 unk20;
 };
@@ -136,6 +138,7 @@ static const struct GFRomHeader sGFRomHeader = {
     .moves = gBattleMoves,
     .ballGfx = gBallSpriteSheets,
     .ballPalettes = gBallSpritePalettes,
+    .gcnLinkFlagsOffset = offsetof(struct SaveBlock2, gcnLinkFlags),
     .gameClearFlag = FLAG_SYS_GAME_CLEAR,
     .ribbonFlag = FLAG_SYS_RIBBON_GET,
     .bagCountItems = BAG_ITEMS_COUNT,
@@ -145,6 +148,7 @@ static const struct GFRomHeader sGFRomHeader = {
     .bagCountBerries = BAG_BERRIES_COUNT,
     .pcItemsCount = PC_ITEMS_COUNT,
     .pcItemsOffset = offsetof(struct SaveBlock1, pcItems),
+    .giftRibbonsOffset = offsetof(struct SaveBlock1, giftRibbons),
     .moveDescriptions = NULL,
     .unk20 = 0x00000000, // 0xFFFFFFFF in FRLG
 };
