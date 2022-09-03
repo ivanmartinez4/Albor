@@ -314,12 +314,6 @@ bool8 AddBagItem(u16 itemId, u16 count)
             break;
         }
 
-        if (pocket == TMHM_POCKET)
-        {
-            if (!CheckBagHasItem(ITEM_TM_CASE, 1))
-                AddBagItem(ITEM_TM_CASE, 1);
-        }
-
         for (i = 0; i < itemPocket->capacity; i++)
         {
             if (newItems[i].itemId == itemId)

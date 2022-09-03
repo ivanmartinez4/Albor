@@ -1802,14 +1802,6 @@ const u8 gText_FORMS_Buttons_Submenu_PE[]           = _("{DPAD_NONE}Formas {A_BU
 const u8 gText_FORMS_Buttons_Submenu_Decapped_PE[]  = _("{START_BUTTON}Evoluciones");
 const u8 gText_FORMS_NONE[]                         = _("{STR_VAR_1} no tiene formas alternativas.");
 
-// fr_tm_case_port
-const u8 gText_TMCase[] =               _("Caja de MTs");
-const u8 gText_Close[] =                _("Cerrar");
-const u8 gText_TMCaseWillBePutAway[] =  _("The TM CASE will be\nput away.");
-const u8 gText_FontSmall[] =            _("{FONT_SMALL}");
-const u8 gText_FontShort[] =            _("{FONT_SHORT}");
-const u8 gText_TMCase_Blue[] =          _("{COLOR_HIGHLIGHT_SHADOW BLUE TRANSPARENT LIGHT_BLUE}{STR_VAR_2}");
-
 // Exp. Share
 const u8 gText_ExpShareOn[] = _("Encendido el repartidor de experiencia.\pTu equipo ganará ahora\nuna porción de los puntos de experiencia.{PAUSE_UNTIL_PRESS}");
 const u8 gText_ExpShareOff[] = _("Apagado el repartidor de experiencia\pTu equipo ya no ganará\nuna porción de los puntos de experiencia.{PAUSE_UNTIL_PRESS}");
