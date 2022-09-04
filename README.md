@@ -1,108 +1,102 @@
-# Pokémon Clear Emerald
+# Pokémon Alción
 
-## What is this?
+## ¿Qué es esto?
 
-It is a romhack that uses pokeemerald-expansion for recreate the experience of Hoenn with a lot ot QoL, graphical changes and balance/difficult tweaks, with the goal to make an entertainment but challenging adventure.
+Es un romhack en desarrollo que tiene como base la pokeemerald-expansion, con muchos QoL implementados, y con el objetivo de crear un juego de Pokémon con una nueva historia en un mundo abierto.
 
-## New content with credits.
+## Nuevo contenido y créditos.
 
--A brand new battle engine with modern standards (Rh-hideout's team).
+-El motor de batalla (Equipo de Rh-hideout).
 
--A lot of custom shinies.
+-Shinies personalizados.
 
--DNS system(Aarant).
+-Sistema de día y noche(Aarant). Se le ha añadido también la salida y puesta de Sol.
 
--Pokémon's good-looking icons(Aarant).
+-Iconos Pokémon adaptados a las últimas generaciones, y que usan las paletas de sus sprites de batalla(Aarant).
 
--Following Pokémon (Aarant).
+-Los Pokémon te siguen (Aarant).
 
--Balance stats with emphasis on weaker pokémon.
+-Se han balanceado la mayoría de Pokémon, con énfasis en los más débiles.
 
--Decapitalization (AsparagusEduardo).
+-Decapitalización (AsparagusEduardo).
 
--Music expansion from HGSS and DPPT (CyanSMP64).
+-Expansión de música a HGGS y DPPT (CyanSMP64).
 
--Shiny rate has been increased to 1/512.
+-Porcentaje de shinies actualizado a 1/512.
 
--Chain fishing (Ghoulslash).
+-Cadenas de pesca que permiten mayor cantidad de shinies (Ghoulslash).
 
--EVs can be increased by vitamins to the max, like in the newer generations.
+-Los puntos de esfuerzo pueden ser llevados al máximo con vitaminas.
 
--EVs limit is now 504, and the max EV for stat is 252, so just two stats can be maxed.
+-El límite de puntos de esfuerzo máximo es 504, y por estadística es 252, solo dos estadísticas pueden estar al máximo.
 
--QoL like repeated medicine use or Pokecenters disregard eggs.
+-Uso repetido de medicinas, y los centros pokémon no tienen en cuenta los huevos.
 
--Egg hatch level is now 1.
+-El nivel de eclosión de huevos es 1.
 
--Clock in the start menu (Lunos).
+-Reloj en el menú de start (Lunos).
 
--Display party mon icons in save screen (Lunos).
+-Tu equipo Pokémon se ve en el menú de inicio  (Lunos).
 
--Box expansion to 20 boxes (Ghoulslash).
+-Expansión de cajas Pokémon hasta 30.
 
--Autorun (Ghoulslash).
+-Sistema de autorun (Ghoulslash).
 
--Overworld expansion (Ghoulslash)
+-Expansión de objetos en el OW. (Ghoulslash)
 
--Item description header (Ghoulslash).
+-Descripción de objetos la primera vez que los obtienes (Ghoulslash).
 
--DexNav (Ghoulslash). 
+-DéxNav (Ghoulslash). 
 
--Summary Screen DPPT Style (CitrusBolt).
+-Pantalla de sumario estilo DPPT (CitrusBolt).
 
--Intro Scene (Samu).
-
--TM Case (TheXaman).
+-Créditos iniciales (Samu).
 
 -Pokédex (TheXaman).
 
--Party Menu DS Style (TheXaman).
+-Menú de equipo estilo DS (TheXaman).
 
--Wrapping in summary screen (Zeturic).
+-Se vuelve al inicio en la pantalla de equipo si avanzas más del último miembro (Zeturic).
 
--Survive Poison in OW (Lunos).
+-Los Pokémon sobreviven al veneno en el OW (Lunos).
 
--Always inherit nature when holding an Everstone (Takyon).
+-Se hereda la naturaleza en la crianza siempre que se esté llevando una piedraeterna (Takyon).
 
--Fast surfing and underwater (Ghoulslash).
+-Velocidad rápida de surfeo/buceo (Ghoulslash).
 
--Color of the message box can be personalized through the options menu.
+-El color de los bordes del texto puede ser personalizado en las opciones.
 
--One time purchase TMs (Lunos).
+-Cambio de forma de Deoxys en el OW (Lunos).
 
--Deoxys changes form in OW (Lunos).
+-Bici estilo gen 4 (Lunos & Blurose).
 
--Gen 4 bike (Lunos & Blurose).
+-Treparrocas en el OW (Ghoulslash).
 
--Rock climb in the OW (Ghoulslash).
+-Cambio rápido en la pantalla de equipo con Select (Lunos).
 
--Party Screen Quick Swap with Select (Lunos).
+-Escaleras laterales y subida y bajada de escaleras estilo FRLG (Ghoulslash).
 
--Sideways Stairs and Stair Warps (Ghoulslash).
+-Los Pokémon salvajes te dan objetos si los derrotas (AgustinGDLV).
 
--Defeat wild Pokémon gives you items (AgustinGDLV).
+-Mejor sistema de reflejo (Ghoulslash).
 
--Better reflection system (Ghoulslash).
+-No se puede cambiar el estilo de batalla fijo.
 
--Set style is forced.
+-Las interacciones con las enfermeras se han acelerado.
 
--The interactions in the PokeCénter are speed up.
+-Shuckle hace zumo de baya (AsparagusEduardo).
 
--Shuckle makes juice (AsparagusEduardo).
+-Todos los movimientos son olvidables (Lunos).
 
--All moves are forgettable (Lunos).
+-Se puede mover objetos entre los miembros del equipo (Zeturic).
 
--Move item in party screen (Zeturic).
+-Los huevos heredan 4 IVs de los padres (6 si tienen lazo destino equipado).
 
--Eggs inherit 4 IVs from parents (6 if Destiny Knot).
+-Efectividad de los movimientos se muestra en batalla.
 
--Item effectiveness is showed in battle.
+-Sprites modernos (MrDollSteak).
 
--Modern sprites (MrDollSteak).
-
--Wild Pokémon have been increased (in number and level). More variety from the beginning is the goal.
-
--Bag expansion (250 of each item).
+-Expansión de mochila (100 objetos posibles, 999 de cada uno).
 
 -Balance type chart: 
 *Bug changes --> Poison hits x2 Bug/Ghost hits x0.5 Bug/Bug hits x2 Fairy/Bug hits x1 Ghost/Fairy hits x0.5 Bug.
@@ -114,9 +108,3 @@ It is a romhack that uses pokeemerald-expansion for recreate the experience of H
 *Fighting changes --> Fighting types don't recive weather damage.
 
 -Weather rework --> The weather lasts until the Pokémon with the ability has been fainted. If If the weather has been invoked by a move, it lasts 6t turns (9 if Smooth Rock or similar). To compensate this, the damage boost is 1.3 (instead of 1.5).
-
--Balance Stats/Abilities/Moves, with enphasis on weaker Pokémon. To see it all, go to src/data/pokemon/base_stats.c in this repository, but basically all the Pokémon have a minimum of 480 BST.
-
-## Special Credits:
-
--Pret's team for pokeemerald (including wiki).
