@@ -3547,7 +3547,7 @@ const u8 gFoongusPokedexText[] = _(
 
 const u8 gAmoongussPokedexText[] = _(
     "It lures prey close by dancing and waving\n"
-    "its arm caps, which resemble Pokéballs,\n"
+    "its arm caps, which resemble Poké Balls,\n"
     "in a swaying motion, but very few Pokémon\n"
     "are fooled by this.");
 

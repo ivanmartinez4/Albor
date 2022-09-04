@@ -1,7 +1,7 @@
 static const u8 sDummyDesc[] = _(
     "?????");
 
-// Pokéballs
+// Poké Balls
 static const u8 sPokeBallDesc[] = _(
     "A tool used for\n"
     "catching wild\n"

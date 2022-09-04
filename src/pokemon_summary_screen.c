@@ -23,7 +23,6 @@
 #include "malloc.h"
 #include "menu.h"
 #include "menu_helpers.h"
-#include "mon_markings.h"
 #include "party_menu.h"
 #include "palette.h"
 #include "pokeball.h"
@@ -137,7 +136,6 @@ static EWRAM_DATA struct PokemonSummaryScreenData
         struct BoxPokemon *boxMons;
     } monList;
     /*0x04*/ MainCallback callback;
-    /*0x08*/ struct Sprite *markingsSprite;
     /*0x0C*/ struct Pokemon currentMon;
     /*0x70*/ struct PokeSummary
     {
@@ -305,8 +303,6 @@ static u8 LoadMonGfxAndSprite(struct Pokemon *, s16 *);
 static u8 CreateMonSprite(struct Pokemon *);
 static void SpriteCB_Pokemon(struct Sprite *);
 static void StopPokemonAnimations(void);
-static void CreateMonMarkingsSprite(struct Pokemon *mon);
-static void RemoveAndCreateMonMarkingsSprite(struct Pokemon *mon);
 static void CreateCaughtBallSprite(struct Pokemon *mon);
 static void CreateHeldItemSprite(struct Pokemon *mon);
 static void CreateSetStatusSprite(void);
@@ -512,10 +508,9 @@ static const u8 sMemoMiscTextColor[] = _("{COLOR 7}{SHADOW 8}");
 #define TAG_MOVE_SELECTOR   30000
 #define TAG_MON_STATUS      30001
 #define TAG_MOVE_TYPES      30002
-#define TAG_MON_MARKINGS    30003
-#define TAG_SPLIT_ICONS     30004
-#define TAG_HEALTH_BAR      30005
-#define TAG_EXP_BAR         30006
+#define TAG_SPLIT_ICONS     30003
+#define TAG_HEALTH_BAR      30004
+#define TAG_EXP_BAR         30005
 
 static const struct OamData sOamData_MoveTypes =
 {
@@ -850,7 +845,6 @@ static const struct SpriteTemplate sSpriteTemplate_StatusCondition =
     .affineAnims = gDummySpriteAffineAnimTable,
     .callback = SpriteCallbackDummy
 };
-static const u16 sSummaryMarkingsPalette[] = INCBIN_U16("graphics/summary_screen/markings.gbapal");
 
 static const struct OamData sOamData_ExpHealthBars = {
     .y = 0,
@@ -992,8 +986,8 @@ const u8 sText_TitleBattleMoves[] = _("Ataques");
 const u8 sText_TitleCondition[] = _("Condición");
 const u8 sText_TitleContestMoves[] = _("Contest Moves");
 const u8 sText_TitleRibbons[] = _("Cintas");
-const u8 sText_TitleIVs[] = _("Valores individuales");
-const u8 sText_TitleEVs[] = _("Puntos de esfuerzo");
+const u8 sText_TitleIVs[] = _("Valores ind.");
+const u8 sText_TitleEVs[] = _("Puntos esf.");
 const u8 sText_TitlePage[] = _("{DPAD_LEFTRIGHT}Pág.");
 const u8 sText_TitlePageDetail[] = _("{DPAD_LEFTRIGHT}Pág. {A_BUTTON}Detalle");
 const u8 sText_TitlePickSwitch[] = _("{DPAD_UPDOWN}Elegir {A_BUTTON}Cambiar");
@@ -1306,7 +1300,6 @@ static bool8 LoadGraphics(void)
         }
         break;
     case 15:
-        CreateMonMarkingsSprite(&sMonSummaryScreen->currentMon);
         gMain.state++;
         break;
     case 16:
@@ -1346,8 +1339,6 @@ static bool8 LoadGraphics(void)
             SetSpriteInvisibility(SPRITE_ARR_ID_ITEM, TRUE);
             SetSpriteInvisibility(SPRITE_ARR_ID_STATUS, TRUE);
             StopPokemonAnimations();
-            sMonSummaryScreen->markingsSprite->x = 257;
-            sMonSummaryScreen->markingsSprite->y = 332;
         }
         gMain.state++;
         break;
@@ -1781,7 +1772,6 @@ static void Task_ChangeSummaryMon(u8 taskId)
             return;
         break;
     case 7:
-        RemoveAndCreateMonMarkingsSprite(&sMonSummaryScreen->currentMon);
         break;
     case 8:
         CreateCaughtBallSprite(&sMonSummaryScreen->currentMon);
@@ -1984,8 +1974,6 @@ static void Task_SwitchToMoveDetails(u8 taskId)
             SetSpriteInvisibility(SPRITE_ARR_ID_ITEM, TRUE);
             SetSpriteInvisibility(SPRITE_ARR_ID_STATUS, TRUE);
             StopPokemonAnimations();
-            sMonSummaryScreen->markingsSprite->x = 257;
-            sMonSummaryScreen->markingsSprite->y = 332;
             ClearWindowTilemap(PSS_LABEL_PANE_LEFT_MOVE);
             ScheduleBgCopyTilemapToVram(0);
             data[0]++;
@@ -2239,8 +2227,6 @@ static void Task_SwitchFromMoveDetails(u8 taskId)
                 SetSpriteInvisibility(SPRITE_ARR_ID_ITEM, FALSE);
 
             CreateSetStatusSprite();
-            sMonSummaryScreen->markingsSprite->x = 24;
-            sMonSummaryScreen->markingsSprite->y = 132;
             PrintInfoBar(sMonSummaryScreen->currPageIndex, FALSE);
             data[0]++;
             break;
@@ -3287,8 +3273,6 @@ static void PrintMoveDetails(u16 move)
     SetSpriteInvisibility(SPRITE_ARR_ID_MON, TRUE);
     SetSpriteInvisibility(SPRITE_ARR_ID_ITEM, TRUE);
     SetSpriteInvisibility(SPRITE_ARR_ID_STATUS, TRUE);
-    sMonSummaryScreen->markingsSprite->x = 257;
-    sMonSummaryScreen->markingsSprite->y = 332;
     FillWindowPixelBuffer(PSS_LABEL_PANE_LEFT_MOVE, PIXEL_FILL(0));
 
     SetSpriteInvisibility(SPRITE_ARR_ID_MON_ICON, FALSE);
@@ -3754,27 +3738,6 @@ static void StopPokemonAnimations(void)  // A subtle effect, this function stops
         u16 id = i + paletteIndex;
         gPlttBufferUnfaded[id] = gPlttBufferFaded[id];
     }
-}
-
-static void CreateMonMarkingsSprite(struct Pokemon *mon)
-{
-    struct Sprite *sprite = CreateMonMarkingAllCombosSprite(TAG_MON_MARKINGS, TAG_MON_MARKINGS, sSummaryMarkingsPalette);
-
-    sMonSummaryScreen->markingsSprite = sprite;
-    if (sprite != NULL)
-    {
-        StartSpriteAnim(sprite, GetMonData(mon, MON_DATA_MARKINGS));
-        sMonSummaryScreen->markingsSprite->x = 24;
-        sMonSummaryScreen->markingsSprite->y = 132;
-        sMonSummaryScreen->markingsSprite->oam.priority = 1;
-    }
-}
-
-static void RemoveAndCreateMonMarkingsSprite(struct Pokemon *mon)
-{
-    DestroySprite(sMonSummaryScreen->markingsSprite);
-    FreeSpriteTilesByTag(TAG_MON_MARKINGS);
-    CreateMonMarkingsSprite(mon);
 }
 
 static void CreateCaughtBallSprite(struct Pokemon *mon)

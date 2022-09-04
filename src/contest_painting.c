@@ -154,11 +154,6 @@ static const u16 sBgPalette[] = {RGB_BLACK, RGB_BLACK};
 
 void SetContestWinnerForPainting(int contestWinnerId)
 {
-    u8 *saveIdx = &gCurContestWinnerSaveIdx;
-    u8 *isForArtist = &gCurContestWinnerIsForArtist;
-    gCurContestWinner = gSaveBlock1Ptr->contestWinners[contestWinnerId - 1];
-    *saveIdx = contestWinnerId - 1;
-    *isForArtist = FALSE;
 }
 
 void CB2_ContestPainting(void)

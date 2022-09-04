@@ -1011,7 +1011,7 @@ Route104_Text_ThrowBallAtWeakenedPokemon:
 Route104_Text_OnlyThrowBallAtWildPokemon:
 	.string "You're a thief if you try to steal\n"
 	.string "someone else's Pokémon.\p"
-	.string "You should throw Pokéballs only at\n"
+	.string "You should throw Poké Balls only at\n"
 	.string "wild Pokémon.$"
 
 Route104_Text_ImNotATrainer:

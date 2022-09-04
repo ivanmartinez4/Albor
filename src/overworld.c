@@ -1458,12 +1458,11 @@ void CB1_Overworld(void)
         DoCB1_Overworld(gMain.newKeys, gMain.heldKeys);
 }
 
-#define TINT_NIGHT Q_8_8(0.456) | Q_8_8(0.456) << 8 | Q_8_8(0.615) << 16
-
 const struct BlendSettings gTimeOfDayBlend[] =
 {
-  [TIME_OF_DAY_NIGHT] = {.coeff = 10, .blendColor = TINT_NIGHT, .isTint = TRUE},
-  [TIME_OF_DAY_TWILIGHT] = {.coeff = 4, .blendColor = 0xA8B0E0, .isTint = TRUE},
+  [TIME_OF_DAY_NIGHT] = {.coeff = 6, .blendColor = 0xeda176, .isTint = TRUE},
+  [TIME_OF_DAY_SUNRISE] = {.coeff = 4, .blendColor = 0xf0f6ac, .isTint = TRUE},
+  [TIME_OF_DAY_SUNSET] = {.coeff = 4, .blendColor = 0x2f4f8d, .isTint = TRUE},
   [TIME_OF_DAY_DAY] = {.coeff = 0, .blendColor = 0},
 };
 
@@ -1472,38 +1471,44 @@ u8 UpdateTimeOfDay(void) {
     RtcCalcLocalTime();
     hours = gLocalTime.hours;
     minutes = gLocalTime.minutes;
-    if (hours < 4) { // night
+    if (hours < 5) { // night (0-5)
         currentTimeBlend.weight = 256;
         currentTimeBlend.altWeight = 0;
         gTimeOfDay = currentTimeBlend.time0 = currentTimeBlend.time1 = TIME_OF_DAY_NIGHT;
-    } else if (hours < 7) { // night->twilight
+    } else if (hours < 7) { // night->sunrise (5-7)
         currentTimeBlend.time0 = TIME_OF_DAY_NIGHT;
-        currentTimeBlend.time1 = TIME_OF_DAY_TWILIGHT;
-        currentTimeBlend.weight = 256 - 256 * ((hours - 4) * 60 + minutes) / ((7-4)*60);
+        currentTimeBlend.time1 = TIME_OF_DAY_SUNRISE;
+        currentTimeBlend.weight = 256 - 256 * ((hours - 5) * 60 + minutes) / ((7-5)*60);
         currentTimeBlend.altWeight = (256 - currentTimeBlend.weight) / 2;
-        gTimeOfDay = TIME_OF_DAY_DAY;
-    } else if (hours < 10) { // twilight->day
-        currentTimeBlend.time0 = TIME_OF_DAY_TWILIGHT;
+        gTimeOfDay = TIME_OF_DAY_SUNRISE;
+    } else if (hours < 9) { // sunrise (7-9)
+        currentTimeBlend.weight = currentTimeBlend.altWeight = 256;
+        gTimeOfDay = currentTimeBlend.time0 = currentTimeBlend.time1 = TIME_OF_DAY_SUNRISE;
+    } else if (hours < 10) { // sunrise->day (9-10)
+        currentTimeBlend.time0 = TIME_OF_DAY_SUNRISE;
         currentTimeBlend.time1 = TIME_OF_DAY_DAY;
-        currentTimeBlend.weight = 256 - 256 * ((hours - 7) * 60 + minutes) / ((10-7)*60);
+        currentTimeBlend.weight = 256 - 256 * ((hours - 9) * 60 + minutes) / ((10-9)*60);
         currentTimeBlend.altWeight = (256 - currentTimeBlend.weight) / 2 + 128;
         gTimeOfDay = TIME_OF_DAY_DAY;
-    } else if (hours < 18) { // day
+    } else if (hours < 18) { // day (10-18)
         currentTimeBlend.weight = currentTimeBlend.altWeight = 256;
         gTimeOfDay = currentTimeBlend.time0 = currentTimeBlend.time1 = TIME_OF_DAY_DAY;
-    } else if (hours < 20) { // day->twilight
+    } else if (hours < 20) { // day->sunset (18-20)
         currentTimeBlend.time0 = TIME_OF_DAY_DAY;
-        currentTimeBlend.time1 = TIME_OF_DAY_TWILIGHT;
+        currentTimeBlend.time1 = TIME_OF_DAY_SUNSET;
         currentTimeBlend.weight = 256 - 256 * ((hours - 18) * 60 + minutes) / ((20-18)*60);
         currentTimeBlend.altWeight = currentTimeBlend.weight / 2 + 128;
-        gTimeOfDay = TIME_OF_DAY_TWILIGHT;
-    } else if (hours < 22) { // twilight->night
-        currentTimeBlend.time0 = TIME_OF_DAY_TWILIGHT;
+        gTimeOfDay = TIME_OF_DAY_SUNSET;
+    } else if (hours < 21) { // sunset (20-21)
+        currentTimeBlend.weight = currentTimeBlend.altWeight = 256;
+        gTimeOfDay = currentTimeBlend.time0 = currentTimeBlend.time1 = TIME_OF_DAY_SUNSET;
+    } else if (hours < 22) { // sunset->night (21-22)
+        currentTimeBlend.time0 = TIME_OF_DAY_SUNSET;
         currentTimeBlend.time1 = TIME_OF_DAY_NIGHT;
-        currentTimeBlend.weight = 256 - 256 * ((hours - 20) * 60 + minutes) / ((22-20)*60);
+        currentTimeBlend.weight = 256 - 256 * ((hours - 21) * 60 + minutes) / ((22-21)*60);
         currentTimeBlend.altWeight = currentTimeBlend.weight / 2;
         gTimeOfDay = TIME_OF_DAY_NIGHT;
-    } else { // 22-24, night
+    } else { // 22-24, night (22-24)
         currentTimeBlend.weight = 256;
         currentTimeBlend.altWeight = 0;
         gTimeOfDay = currentTimeBlend.time0 = currentTimeBlend.time1 = TIME_OF_DAY_NIGHT;

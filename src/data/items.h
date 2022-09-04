@@ -11,7 +11,7 @@ const struct Item gItems[] =
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
 
-// Pokéballs
+// Poké Balls
 
     [ITEM_POKE_BALL] =
     {

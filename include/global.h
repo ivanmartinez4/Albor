@@ -204,29 +204,6 @@ struct PyramidBag
     u16 quantity[FRONTIER_LVL_MODE_COUNT][PYRAMID_BAG_ITEMS_COUNT];
 };
 
-struct ApprenticeMon
-{
-    u16 species;
-    u16 moves[MAX_MON_MOVES];
-    u16 item;
-};
-
-// This is for past players Apprentices or Apprentices received via Record Mix.
-// For the current Apprentice, see struct PlayersApprentice
-struct Apprentice
-{
-    u8 id:5;
-    u8 lvlMode:2; // + 1
-    u8 numQuestions;
-    u8 number;
-    struct ApprenticeMon party[MULTI_PARTY_SIZE];
-    u16 speechWon[EASY_CHAT_BATTLE_WORDS_COUNT];
-    u8 playerId[TRAINER_ID_LENGTH];
-    u8 playerName[PLAYER_NAME_LENGTH];
-    u8 language;
-    u32 checksum;
-};
-
 struct BattleTowerPokemon
 {
     u16 species;
@@ -396,45 +373,6 @@ struct BattleFrontier
     /*0xEFC*/ struct DomeMonData domePlayerPartyData[FRONTIER_PARTY_SIZE];
 };
 
-struct ApprenticeQuestion
-{
-    u8 questionId:2;
-    u8 monId:2;
-    u8 moveSlot:2;
-    u8 suggestedChange:2; // TRUE if told to use held item or second move, FALSE if told to use no item or first move
-    u16 data; // used both as an itemId and a moveId
-};
-
-struct PlayersApprentice
-{
-    /*0xB0*/ u8 id;
-    /*0xB1*/ u8 lvlMode:2;  //0: Unassigned, 1: Lv 50, 2: Open Lv
-    /*0xB1*/ u8 questionsAnswered:4;
-    /*0xB1*/ u8 leadMonId:2;
-    /*0xB2*/ u8 party:3;
-    /*0xB2*/ u8 saveId:2;
-    /*0xB4*/ u8 speciesIds[MULTI_PARTY_SIZE];
-    /*0xB8*/ struct ApprenticeQuestion questions[APPRENTICE_MAX_QUESTIONS];
-};
-
-struct RankingHall1P
-{
-    u8 id[TRAINER_ID_LENGTH];
-    u16 winStreak;
-    u8 name[PLAYER_NAME_LENGTH + 1];
-    u8 language;
-};
-
-struct RankingHall2P
-{
-    u8 id1[TRAINER_ID_LENGTH];
-    u8 id2[TRAINER_ID_LENGTH];
-    u16 winStreak;
-    u8 name1[PLAYER_NAME_LENGTH + 1];
-    u8 name2[PLAYER_NAME_LENGTH + 1];
-    u8 language;
-};
-
 #include "constants/items.h"
 #define ITEM_FLAGS_COUNT ((ITEMS_COUNT / 8) + ((ITEMS_COUNT % 8) ? 1 : 0))
 
@@ -459,16 +397,12 @@ struct SaveBlock2
     /*0x18*/ struct Pokedex pokedex;
     /*0x98*/ struct Time localTimeOffset;
     /*0xA0*/ struct Time lastBerryTreeUpdate;
-    /*0xA8*/ u32 gcnLinkFlags; // Read by Pokemon Colosseum/XD
     /*0xAC*/ u32 encryptionKey;
-    /*0xB0*/ struct PlayersApprentice playerApprentice;
-    /*0xDC*/ struct Apprentice apprentices[APPRENTICE_COUNT];
-    /*0x21C*/ struct RankingHall1P hallRecords1P[HALL_FACILITIES_COUNT][FRONTIER_LVL_MODE_COUNT][HALL_RECORDS_COUNT]; // From record mixing.
-    /*0x57C*/ struct RankingHall2P hallRecords2P[FRONTIER_LVL_MODE_COUNT][HALL_RECORDS_COUNT]; // From record mixing.
-    /*0x624*/ u16 contestLinkResults[CONTEST_CATEGORIES_COUNT][CONTESTANT_COUNT];
     /*0x64C*/ struct BattleFrontier frontier;
     /*0xF2C*/ bool8 autoRun;
     /*0xF2C*/ u8 itemFlags[ITEM_FLAGS_COUNT];
+               u8 dexNavSearchLevels[NUM_SPECIES];
+               u8 dexNavChain;
 }; // sizeof=0xF2C
 
 extern struct SaveBlock2 *gSaveBlock2Ptr;
@@ -834,7 +768,6 @@ struct SaveBlock1
               u8 bagPocket_TMHMPadding[242]; //do not touch the save layout, take 242 bytes of free space
     /*0x790*/ struct ItemSlot bagPocket_Berries[BAG_BERRIES_COUNT];
     /*0x848*/ struct Pokeblock pokeblocks[POKEBLOCKS_COUNT];
-    /*0x9BC*/ u16 berryBlenderRecords[3];
     /*0x9C8*/ u16 trainerRematchStepCounter;
     /*0x9CA*/ u8 trainerRematches[MAX_REMATCH_ENTRIES];
     /*0xA30*/ struct ObjectEvent objectEvents[OBJECT_EVENTS_COUNT];
@@ -843,49 +776,10 @@ struct SaveBlock1
     /*0x139C*/ u16 vars[VARS_COUNT];
     /*0x159C*/ u32 gameStats[NUM_GAME_STATS];
     /*0x169C*/ struct BerryTree berryTrees[BERRY_TREES_COUNT];
-    /*0x1A9C*/ struct SecretBase secretBases[SECRET_BASES_COUNT];
-    /*0x271C*/ u8 playerRoomDecorations[DECOR_MAX_PLAYERS_HOUSE];
-    /*0x2728*/ u8 playerRoomDecorationPositions[DECOR_MAX_PLAYERS_HOUSE];
-    /*0x2734*/ u8 decorationDesks[10];
-    /*0x273E*/ u8 decorationChairs[10];
-    /*0x2748*/ u8 decorationPlants[10];
-    /*0x2752*/ u8 decorationOrnaments[30];
-    /*0x2770*/ u8 decorationMats[30];
-    /*0x278E*/ u8 decorationPosters[10];
-    /*0x2798*/ u8 decorationDolls[40];
-    /*0x27C0*/ u8 decorationCushions[10];
-    /*0x27CC*/ TVShow tvShows[TV_SHOWS_COUNT];
-    /*0x2B50*/ PokeNews pokeNews[POKE_NEWS_COUNT];
-    /*0x2B90*/ u16 outbreakPokemonSpecies;
-    /*0x2B92*/ u8 outbreakLocationMapNum;
-    /*0x2B93*/ u8 outbreakLocationMapGroup;
-    /*0x2B94*/ u8 outbreakPokemonLevel;
-    /*0x2B98*/ u16 outbreakPokemonMoves[MAX_MON_MOVES];
-    /*0x2BA1*/ u8 outbreakPokemonProbability;
-    /*0x2BA2*/ u16 outbreakDaysLeft;
-    /*0x2BA4*/ struct GabbyAndTyData gabbyAndTyData;
-    /*0x2BB0*/ u16 easyChatProfile[EASY_CHAT_BATTLE_WORDS_COUNT];
-    /*0x2BBC*/ u16 easyChatBattleStart[EASY_CHAT_BATTLE_WORDS_COUNT];
-    /*0x2BC8*/ u16 easyChatBattleWon[EASY_CHAT_BATTLE_WORDS_COUNT];
-    /*0x2BD4*/ u16 easyChatBattleLost[EASY_CHAT_BATTLE_WORDS_COUNT];
-    /*0x2BE0*/ struct Mail mail[MAIL_COUNT];
-    /*0x2E20*/ u8 additionalPhrases[NUM_ADDITIONAL_PHRASE_BYTES]; // bitfield for 33 additional phrases in easy chat system
-    /*0x2E28*/ OldMan oldMan;
-    /*0x2e64*/ struct DewfordTrend dewfordTrends[SAVED_TRENDS_COUNT];
-    /*0x2e90*/ struct ContestWinner contestWinners[NUM_CONTEST_WINNERS]; // see CONTEST_WINNER_*
     /*0x3030*/ struct DayCare daycare;
-    /*0x31A8*/ u8 giftRibbons[GIFT_RIBBONS_COUNT];
-    /*0x31DC*/ struct Roamer roamer;
     /*0x3???*/ u8 dexSeen[NUM_DEX_FLAG_BYTES];
     /*0x3???*/ u8 dexCaught[NUM_DEX_FLAG_BYTES];
-    /*0x3???*/ u32 trainerHillTimes[NUM_TRAINER_HILL_MODES];
     /*0x3???*/ struct RamScript ramScript;
-    /*0x3???*/ LilycoveLady lilycoveLady;
-    /*0x3???*/ struct TrainerNameRecord trainerNameRecords[20];
-    /*0x3???*/ struct TrainerHillSave trainerHill;
-    /*0x3???*/ struct WaldaPhrase waldaPhrase;
-               u8 dexNavSearchLevels[NUM_SPECIES];
-               u8 dexNavChain;
     // sizeof: 0x3???
 };
 

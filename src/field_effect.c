@@ -511,7 +511,7 @@ static const union AnimCmd sAnim_Flicker[] =
     ANIMCMD_END
 };
 
-// Flicker on and off, for the Pokéballs / monitors during the PokéCenter heal effect
+// Flicker on and off, for the Poké Balls / monitors during the PokéCenter heal effect
 static const union AnimCmd *const sAnims_Flicker[] =
 {
     sAnim_Static,

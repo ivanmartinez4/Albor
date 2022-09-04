@@ -7421,7 +7421,7 @@ extern const u32 gRaySceneChasesAway_Bg_Pal[];
 extern const u32 gRaySceneChasesAway_Light_Gfx[];
 extern const u32 gRaySceneChasesAway_Ring_Gfx[];
 
-// Pokéballs
+// Poké Balls
 extern const u32 gItemIcon_PokeBall[];
 extern const u32 gItemIconPalette_PokeBall[];
 extern const u32 gItemIcon_GreatBall[];

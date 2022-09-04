@@ -518,7 +518,7 @@
 #define FLAG_UNUSED_0x1E2                    0x1E2 // Unused Flag
 #define FLAG_UNUSED_0x1E3                    0x1E3 // Unused Flag
 
-// Mystery Gift Flags (Unesed)
+// Mystery Gift Flags (Unused)
 #define FLAG_MYSTERY_GIFT_DONE               0x1E4
 #define FLAG_MYSTERY_GIFT_1                  0x1E5
 #define FLAG_MYSTERY_GIFT_2                  0x1E6
@@ -742,7 +742,7 @@
 
 // Event Flags
 #define FLAG_HIDE_ROUTE_101_BIRCH_STARTERS_BAG                      0x2BC
-#define FLAG_HIDE_APPRENTICE                                        0x2BD
+#define FLAG_HIDE_UNUSED_0x2BD                                      0x2BD
 #define FLAG_HIDE_POKEMON_CENTER_2F_MYSTERY_GIFT_MAN                0x2BE
 #define FLAG_HIDE_UNION_ROOM_PLAYER_1                               0x2BF
 #define FLAG_HIDE_UNION_ROOM_PLAYER_2                               0x2C0
@@ -1585,7 +1585,7 @@
 #define FLAG_DAILY_BERRY_MASTERS_WIFE               (DAILY_FLAGS_START + 0x11)
 #define FLAG_DAILY_SOOTOPOLIS_RECEIVED_BERRY        (DAILY_FLAGS_START + 0x12)
 #define FLAG_UNUSED_0x933                           (DAILY_FLAGS_START + 0x13) // Unused Flag
-#define FLAG_DAILY_APPRENTICE_LEAVES                (DAILY_FLAGS_START + 0x14)
+#define FLAG_UNUSED_0x934                           (DAILY_FLAGS_START + 0x14) // Unused Flag
 
 #define FLAG_UNUSED_0x935                           (DAILY_FLAGS_START + 0x15) // Unused Flag
 #define FLAG_UNUSED_0x936                           (DAILY_FLAGS_START + 0x16) // Unused Flag
