@@ -1778,9 +1778,9 @@ static void Task_TryIncrementWins(u8 taskId)
     case 2: // never happens
         if (IsFanfareTaskInactive())
         {
-            u32 wins = GetGameStat(GAME_STAT_CONSECUTIVE_ROULETTE_WINS);
+            u32 wins = GetGameStat(GAME_STAT_UNUSED_29);
             if (wins < ++gTasks[taskId].tConsecutiveWins)
-                SetGameStat(GAME_STAT_CONSECUTIVE_ROULETTE_WINS, gTasks[taskId].tConsecutiveWins);
+                SetGameStat(GAME_STAT_UNUSED_29, gTasks[taskId].tConsecutiveWins);
             StartTaskAfterDelayOrInput(taskId, Task_PrintPayout, NO_DELAY, A_BUTTON | B_BUTTON);
         }
         break;

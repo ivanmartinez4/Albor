@@ -598,7 +598,7 @@ static void Task_ShowContestResults(u8 taskId)
             SaveLinkContestResults();
             if (gContestFinalStandings[gContestPlayerMonIndex] == 0)
             {
-                IncrementGameStat(GAME_STAT_WON_LINK_CONTEST);
+                IncrementGameStat(GAME_STAT_UNUSED_35);
                 gSpecialVar_0x8005 = TVSHOW_CONTEST_LIVE_UPDATES;
                 InterviewBefore();
                 if (gSpecialVar_Result != TRUE)
@@ -652,9 +652,9 @@ static void Task_ShowContestResults(u8 taskId)
         }
         else
         {
-            IncrementGameStat(GAME_STAT_ENTERED_CONTEST);
+            IncrementGameStat(GAME_STAT_UNUSED_36);
             if (gContestFinalStandings[gContestPlayerMonIndex] == 0)
-                IncrementGameStat(GAME_STAT_WON_CONTEST);
+                IncrementGameStat(GAME_STAT_UNUSED_37);
 
             SaveContestWinner(gSpecialVar_ContestRank); // Save for lobby painting
             SaveContestWinner(CONTEST_SAVE_FOR_ARTIST);

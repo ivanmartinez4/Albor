@@ -33,7 +33,7 @@ LilycoveCity_DepartmentStore_1F_EventScript_LotteryClerk::
 	applymovement LOCALID_LOTTERY_CLERK, Common_Movement_FacePlayer
 	waitmovement 0
 	goto_if_eq VAR_0x8004, 0, LilycoveCity_DepartmentStore_1F_EventScript_NoMatch
-	incrementgamestat GAME_STAT_WON_POKEMON_LOTTERY
+	incrementgamestat GAME_STAT_UNUSED_46
 	call_if_eq VAR_0x8006, 0, LilycoveCity_DepartmentStore_1F_EventScript_TicketMatchPartyMon
 	call_if_eq VAR_0x8006, 1, LilycoveCity_DepartmentStore_1F_EventScript_TicketMatchPCMon
 	bufferitemname STR_VAR_1, VAR_0x8005

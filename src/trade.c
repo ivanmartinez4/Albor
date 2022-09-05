@@ -4458,7 +4458,7 @@ static void CB2_SaveAndEndTrade(void)
         break;
     case 50:
         if (!InUnionRoom())
-            IncrementGameStat(GAME_STAT_POKEMON_TRADES);
+            IncrementGameStat(GAME_STAT_UNUSED_21);
         SetContinueGameWarpStatusToDynamicWarp();
         LinkFullSave_Init();
         gMain.state++;
@@ -4769,7 +4769,7 @@ static void CB2_SaveAndEndWirelessTrade(void)
             gMain.state = 3;
             StringExpandPlaceholders(gStringVar4, gText_SavingDontTurnOffPower);
             DrawTextOnTradeWindow(0, gStringVar4, 0);
-            IncrementGameStat(GAME_STAT_POKEMON_TRADES);
+            IncrementGameStat(GAME_STAT_UNUSED_21);
             LinkFullSave_Init();
             sTradeData->timer = 0;
         }

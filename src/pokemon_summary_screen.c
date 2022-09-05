@@ -77,9 +77,6 @@ enum {
     PSS_PAGE_MEMO,
     PSS_PAGE_SKILLS,
     PSS_PAGE_BATTLE_MOVES,
-    //PSS_PAGE_CONDITION,       moved temporarily
-    PSS_PAGE_CONTEST_MOVES,
-    PSS_PAGE_CONDITION,
     PSS_PAGE_COUNT,
 };
 
@@ -498,8 +495,6 @@ static void (*const sTextPrinterFunctions[])(void) =
     [PSS_PAGE_MEMO] = PrintMemoPage,
     [PSS_PAGE_SKILLS] = PrintSkillsPage,
     [PSS_PAGE_BATTLE_MOVES] = PrintBattleMoves,
-    [PSS_PAGE_CONDITION] = PrintConditionPage,
-    [PSS_PAGE_CONTEST_MOVES] = PrintContestMoves
 };
 
 static const u8 sMemoNatureTextColor[] = _("{COLOR 5}{SHADOW 6}");
@@ -1161,7 +1156,7 @@ void ShowPokemonSummaryScreen(u8 mode, void *mons, u8 monIndex, u8 maxMonIndex, 
     case SUMMARY_MODE_NORMAL:
     case SUMMARY_MODE_BOX:
         sMonSummaryScreen->trueMinPageIndex = PSS_PAGE_INFO;
-        sMonSummaryScreen->trueMaxPageIndex = PSS_PAGE_CONTEST_MOVES;
+        sMonSummaryScreen->trueMaxPageIndex = PSS_PAGE_BATTLE_MOVES;
         break;
     case SUMMARY_MODE_LOCK_MOVES:
         sMonSummaryScreen->trueMinPageIndex = PSS_PAGE_INFO;
@@ -1171,7 +1166,7 @@ void ShowPokemonSummaryScreen(u8 mode, void *mons, u8 monIndex, u8 maxMonIndex, 
     case SUMMARY_MODE_SELECT_MOVE:    // Index limiters aren't actually used in this case, but we'll keep them for clarity
         sMonSummaryScreen->trueMinPageIndex = PSS_PAGE_BATTLE_MOVES;
         if (CONFIG_CAN_SWITCH_PAGES_WHILE_DETAILS_ARE_UP)
-            sMonSummaryScreen->trueMaxPageIndex = PSS_PAGE_CONTEST_MOVES;
+            sMonSummaryScreen->trueMaxPageIndex = PSS_PAGE_BATTLE_MOVES;
         else
             sMonSummaryScreen->trueMaxPageIndex = PSS_PAGE_BATTLE_MOVES;
         sMonSummaryScreen->lockMonFlag = TRUE;
@@ -1639,7 +1634,7 @@ static void Task_HandleInput(u8 taskId)
         }
         else if (JOY_NEW(A_BUTTON))
         {
-            if (sMonSummaryScreen->currPageIndex == PSS_PAGE_BATTLE_MOVES || sMonSummaryScreen->currPageIndex == PSS_PAGE_CONTEST_MOVES)
+            if (sMonSummaryScreen->currPageIndex == PSS_PAGE_BATTLE_MOVES)
             {
                 PlaySE(SE_SELECT);
                 SwitchToMoveSelection(taskId);
@@ -2019,11 +2014,7 @@ static void Task_HandleInput_MoveSelect(u8 taskId)
         {
             if (sMonSummaryScreen->maxPageIndex > PSS_PAGE_BATTLE_MOVES)
             {
-                if (sMonSummaryScreen->currPageIndex == PSS_PAGE_BATTLE_MOVES)
-                    sMonSummaryScreen->currPageIndex = PSS_PAGE_CONTEST_MOVES;
-                else
-                    sMonSummaryScreen->currPageIndex = PSS_PAGE_BATTLE_MOVES;
-
+                sMonSummaryScreen->currPageIndex = PSS_PAGE_BATTLE_MOVES;
                 LZDecompressWram(sPageTilemaps[sMonSummaryScreen->currPageIndex], sMonSummaryScreen->bgTilemapBufferPage);
                 PlaySE(SE_SELECT);
                 data[0] = 0;
@@ -2410,11 +2401,7 @@ static void Task_HandleReplaceMoveInput(u8 taskId)
             {
                 if (sMonSummaryScreen->maxPageIndex > PSS_PAGE_BATTLE_MOVES)
                 {
-                    if (sMonSummaryScreen->currPageIndex == PSS_PAGE_BATTLE_MOVES)
-                        sMonSummaryScreen->currPageIndex = PSS_PAGE_CONTEST_MOVES;
-                    else
-                        sMonSummaryScreen->currPageIndex = PSS_PAGE_BATTLE_MOVES;
-
+                    sMonSummaryScreen->currPageIndex = PSS_PAGE_BATTLE_MOVES;
                     LZDecompressWram(sPageTilemaps[sMonSummaryScreen->currPageIndex], sMonSummaryScreen->bgTilemapBufferPage);
                     PlaySE(SE_SELECT);
                     data[0] = 0;
@@ -3378,12 +3365,6 @@ static void PrintMoveDetails(u16 move)
     }
     else
     {
-        if (sMonSummaryScreen->currPageIndex == PSS_PAGE_CONTEST_MOVES)
-        {
-            FillBgTilemapBufferRect(1, 109, 9, 8, 4, 4, 3);
-            CopyBgTilemapBufferToVram(1);
-        }
-
         ClearWindowTilemap(PSS_LABEL_PANE_LEFT_MOVE);
     }
 
@@ -3470,10 +3451,6 @@ static void SetTypeIcons(void)
         break;
     case PSS_PAGE_BATTLE_MOVES:
         SetMoveTypeIcons();
-        SetNewMoveTypeIcon();
-        break;
-    case PSS_PAGE_CONTEST_MOVES:
-        SetContestMoveTypeIcons();
         SetNewMoveTypeIcon();
         break;
     }
@@ -3794,7 +3771,7 @@ static void CreateMoveSelectorSprites(u8 idArrayStart)
     u8 i;
     u8 *spriteIds = &sMonSummaryScreen->spriteIds[idArrayStart];
 
-    if (sMonSummaryScreen->currPageIndex == PSS_PAGE_BATTLE_MOVES || sMonSummaryScreen->currPageIndex == PSS_PAGE_CONTEST_MOVES)
+    if (sMonSummaryScreen->currPageIndex == PSS_PAGE_BATTLE_MOVES)
     {
         u8 subpriority = 1;
         if (idArrayStart == SPRITE_ARR_ID_MOVE_SELECTOR1)
@@ -4196,17 +4173,6 @@ static void PrintInfoBar(u8 pageIndex, bool8 detailsShown)
             break;
         case PSS_PAGE_BATTLE_MOVES:
             StringCopy(gStringVar1, sText_TitleBattleMoves);
-            if (detailsShown)
-                StringCopy(gStringVar2, sText_TitlePickSwitch);
-            else
-                StringCopy(gStringVar2, sText_TitlePageDetail);
-            break;
-        case PSS_PAGE_CONDITION:
-            StringCopy(gStringVar1, sText_TitleCondition);
-            StringCopy(gStringVar2, sText_TitlePage);
-            break;
-        case PSS_PAGE_CONTEST_MOVES:
-            StringCopy(gStringVar1, sText_TitleContestMoves);
             if (detailsShown)
                 StringCopy(gStringVar2, sText_TitlePickSwitch);
             else

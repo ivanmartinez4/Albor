@@ -8,6 +8,7 @@
 #include "main.h"
 #include "menu.h"
 #include "menu_helpers.h"
+#include "overworld.h"
 #include "palette.h"
 #include "pokedex.h"
 #include "pokemon_icon.h"
@@ -1853,14 +1854,9 @@ void BufferSaveMenuText(u8 textId, u8 *dest, u8 color)
         case SAVE_MENU_LOCATION:
             GetMapNameGeneric(string, gMapHeader.regionMapSectionId);
             break;
-        case SAVE_MENU_BADGES:
-            for (curFlag = FLAG_BADGE01_GET, flagCount = 0, endOfString = string + 1; curFlag < FLAG_BADGE01_GET + NUM_BADGES; curFlag++)
-            {
-                if (FlagGet(curFlag))
-                    flagCount++;
-            }
-            *string = flagCount + CHAR_0;
-            *endOfString = EOS;
+        case SAVE_MENU_BATTLES:
+            string = ConvertIntToDecimalStringN(string, GetGameStat(GAME_STAT_TOTAL_BATTLES), STR_CONV_MODE_LEFT_ALIGN, 3);
+            *string = EOS;
             break;
     }
 }

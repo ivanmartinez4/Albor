@@ -1,6 +1,6 @@
 Interview_EventScript_EndInterview::
 	special InterviewAfter
-	incrementgamestat GAME_STAT_GOT_INTERVIEWED
+	incrementgamestat GAME_STAT_UNUSED_6
 	release
 	end
 

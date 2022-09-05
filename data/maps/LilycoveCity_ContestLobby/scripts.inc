@@ -84,7 +84,7 @@ LilycoveCity_ContestLobby_EventScript_ConfirmDontTakePainting::
 	end
 
 LilycoveCity_ContestLobby_EventScript_ReceivedArtistRibbon::
-	incrementgamestat GAME_STAT_RECEIVED_RIBBONS
+	incrementgamestat GAME_STAT_UNUSED_42
 	special BufferContestWinnerMonName
 	applymovement LOCALID_ARTIST, LilycoveCity_ContestLobby_Movement_ArtistBeginToExit
 	waitmovement 0
@@ -252,7 +252,7 @@ LilycoveCity_ContestLobby_EventScript_ConfirmDontTakePaintingLink::
 	end
 
 LilycoveCity_ContestLobby_EventScript_ReceivedLinkArtistRibbon::
-	incrementgamestat GAME_STAT_RECEIVED_RIBBONS
+	incrementgamestat GAME_STAT_UNUSED_42
 	setflag FLAG_SYS_RIBBON_GET
 	special BufferContestWinnerMonName
 	applymovement LOCALID_ARTIST_LINK, LilycoveCity_ContestLobby_Movement_LinkArtistBeginExit

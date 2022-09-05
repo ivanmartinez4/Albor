@@ -1411,13 +1411,7 @@ static void ShowSaveInfoWindow(void)
     sSaveInfoWindowId = AddWindow(&saveInfoWindow);
     DrawStdWindowFrame(sSaveInfoWindowId, FALSE);
 
-    gender = gSaveBlock2Ptr->playerGender;
-    color = TEXT_COLOR_RED;  // Red when female, blue when male.
-
-    if (gender == MALE)
-    {
-        color = TEXT_COLOR_BLUE;
-    }
+    color = TEXT_COLOR_RED;
 
     // Print region name
     yOffset = 1;
@@ -1434,7 +1428,7 @@ static void ShowSaveInfoWindow(void)
     // Print badge count
     yOffset += 16;
     AddTextPrinterParameterized(sSaveInfoWindowId, FONT_NORMAL, gText_SavingBadges, 0, yOffset, TEXT_SKIP_DRAW, NULL);
-    BufferSaveMenuText(SAVE_MENU_BADGES, gStringVar4, color);
+    BufferSaveMenuText(SAVE_MENU_BATTLES, gStringVar4, color);
     xOffset = GetStringRightAlignXOffset(FONT_NORMAL, gStringVar4, 0x70);
     AddTextPrinterParameterized(sSaveInfoWindowId, FONT_NORMAL, gStringVar4, xOffset, yOffset, TEXT_SKIP_DRAW, NULL);
 

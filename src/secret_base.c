@@ -568,7 +568,7 @@ void ClearAndLeaveSecretBase(void)
 
 void MoveOutOfSecretBase(void)
 {
-    IncrementGameStat(GAME_STAT_MOVED_SECRET_BASE);
+    IncrementGameStat(GAME_STAT_UNUSED_20);
     ClearAndLeaveSecretBase();
 }
 

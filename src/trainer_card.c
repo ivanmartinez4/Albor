@@ -651,7 +651,7 @@ u32 CountPlayerTrainerStars(void)
 {
     u8 stars = 0;
 
-    if (GetGameStat(GAME_STAT_ENTERED_HOF))
+    if (GetGameStat(GAME_STAT_UNUSED_20))
         stars++;
     if (HasAllHoennMons())
         stars++;
@@ -689,7 +689,7 @@ static void SetPlayerCardData(struct TrainerCard *trainerCard, u8 cardType)
     trainerCard->playTimeMinutes = gSaveBlock2Ptr->playTimeMinutes;
 
     playTime = GetGameStat(GAME_STAT_FIRST_HOF_PLAY_TIME);
-    if (!GetGameStat(GAME_STAT_ENTERED_HOF))
+    if (!GetGameStat(GAME_STAT_UNUSED_20))
         playTime = 0;
 
     trainerCard->hofDebutHours = playTime >> 16;
@@ -708,10 +708,10 @@ static void SetPlayerCardData(struct TrainerCard *trainerCard, u8 cardType)
 
     trainerCard->trainerId = (gSaveBlock2Ptr->playerTrainerId[1] << 8) | gSaveBlock2Ptr->playerTrainerId[0];
 
-    trainerCard->linkBattleWins = GetCappedGameStat(GAME_STAT_LINK_BATTLE_WINS, 9999);
-    trainerCard->linkBattleLosses = GetCappedGameStat(GAME_STAT_LINK_BATTLE_LOSSES, 9999);
+    trainerCard->linkBattleWins = GetCappedGameStat(GAME_STAT_UNUSED_23, 9999);
+    trainerCard->linkBattleLosses = GetCappedGameStat(GAME_STAT_UNUSED_24, 9999);
 
-    trainerCard->pokemonTrades = GetCappedGameStat(GAME_STAT_POKEMON_TRADES, 0xFFFF);
+    trainerCard->pokemonTrades = GetCappedGameStat(GAME_STAT_UNUSED_21, 0xFFFF);
 
     trainerCard->money = GetMoney(&gSaveBlock1Ptr->money);
 
@@ -724,8 +724,8 @@ static void SetPlayerCardData(struct TrainerCard *trainerCard, u8 cardType)
         trainerCard->battleTowerStraightWins = 0;
     // Seems like GF got CARD_TYPE_FRLG and CARD_TYPE_RS wrong.
     case CARD_TYPE_FRLG:
-        trainerCard->contestsWithFriends = GetCappedGameStat(GAME_STAT_WON_LINK_CONTEST, 999);
-        trainerCard->pokeblocksWithFriends = GetCappedGameStat(GAME_STAT_POKEBLOCKS_WITH_FRIENDS, 0xFFFF);
+        trainerCard->contestsWithFriends = GetCappedGameStat(GAME_STAT_UNUSED_35, 999);
+        trainerCard->pokeblocksWithFriends = GetCappedGameStat(GAME_STAT_UNUSED_34, 0xFFFF);
         if (CountPlayerMuseumPaintings() >= CONTEST_CATEGORIES_COUNT)
             trainerCard->hasAllPaintings = TRUE;
         trainerCard->stars = GetRubyTrainerStars(trainerCard);

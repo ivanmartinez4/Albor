@@ -62,7 +62,7 @@ int GameClear(void)
 
     if (ribbonGet == TRUE)
     {
-        IncrementGameStat(GAME_STAT_RECEIVED_RIBBONS);
+        IncrementGameStat(GAME_STAT_UNUSED_42);
         FlagSet(FLAG_SYS_RIBBON_GET);
 
         for (i = 1; i < 6; i++)

@@ -1,6 +1,6 @@
 EventScript_TV::
 	lockall
-	incrementgamestat GAME_STAT_WATCHED_TV
+	incrementgamestat GAME_STAT_UNUSED_44
 	special ResetTVShowState
 	specialvar VAR_RESULT, CheckForPlayersHouseNews
 	goto_if_eq VAR_RESULT, PLAYERS_HOUSE_TV_MOVIE, EventScript_PlayersHouseMovie

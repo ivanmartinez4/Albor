@@ -83,13 +83,13 @@ static void UpdateLinkBattleGameStats(s32 battleOutcome)
     switch (battleOutcome)
     {
     case B_OUTCOME_WON:
-        stat = GAME_STAT_LINK_BATTLE_WINS;
+        stat = GAME_STAT_UNUSED_23;
         break;
     case B_OUTCOME_LOST:
-        stat = GAME_STAT_LINK_BATTLE_LOSSES;
+        stat = GAME_STAT_UNUSED_24;
         break;
     case B_OUTCOME_DREW:
-        stat = GAME_STAT_LINK_BATTLE_DRAWS;
+        stat = GAME_STAT_UNUSED_25;
         break;
     default:
         return;

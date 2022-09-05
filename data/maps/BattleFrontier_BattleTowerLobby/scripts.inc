@@ -224,7 +224,7 @@ BattleFrontier_BattleTowerLobby_EventScript_SaveBeforeSinglesChallenge::
 	call Common_EventScript_SaveGame
 	setvar VAR_TEMP_0, 255
 	goto_if_eq VAR_RESULT, 0, BattleFrontier_BattleTowerLobby_EventScript_CancelChallengeSaveFailed
-	incrementgamestat GAME_STAT_ENTERED_BATTLE_TOWER
+	incrementgamestat GAME_STAT_UNUSED_30
 	setvar VAR_BRAVO_TRAINER_BATTLE_TOWER_ON, TRUE
 	goto BattleFrontier_BattleTowerLobby_EventScript_EnterElevator
 	end
@@ -288,7 +288,7 @@ BattleFrontier_BattleTowerLobby_EventScript_SaveBeforeDoublesChallenge::
 	call Common_EventScript_SaveGame
 	setvar VAR_TEMP_0, 255
 	goto_if_eq VAR_RESULT, 0, BattleFrontier_BattleTowerLobby_EventScript_CancelChallengeSaveFailed
-	incrementgamestat GAME_STAT_ENTERED_BATTLE_TOWER
+	incrementgamestat GAME_STAT_UNUSED_30
 	setvar VAR_BRAVO_TRAINER_BATTLE_TOWER_ON, FALSE
 	goto BattleFrontier_BattleTowerLobby_EventScript_EnterElevator
 	end
@@ -353,7 +353,7 @@ BattleFrontier_BattleTowerLobby_EventScript_SaveBeforeMultisChallenge::
 	call Common_EventScript_SaveGame
 	setvar VAR_TEMP_0, 255
 	goto_if_eq VAR_RESULT, 0, BattleFrontier_BattleTowerLobby_EventScript_CancelChallengeSaveFailed
-	incrementgamestat GAME_STAT_ENTERED_BATTLE_TOWER
+	incrementgamestat GAME_STAT_UNUSED_30
 	setvar VAR_BRAVO_TRAINER_BATTLE_TOWER_ON, FALSE
 	goto BattleFrontier_BattleTowerLobby_EventScript_EnterElevator
 	end
@@ -418,7 +418,6 @@ BattleFrontier_BattleTowerLobby_EventScript_SaveBeforeLinkMultisChallenge::
 	call Common_EventScript_SaveGame
 	setvar VAR_TEMP_0, 255
 	goto_if_eq VAR_RESULT, 0, BattleFrontier_BattleTowerLobby_EventScript_CancelChallengeSaveFailed
-	incrementgamestat GAME_STAT_ENTERED_BATTLE_TOWER
 	specialvar VAR_RESULT, IsWirelessAdapterConnected
 	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_BattleTowerLobby_EventScript_TryWirelessLink
 	goto BattleFrontier_BattleTowerLobby_EventScript_TryCableLink
@@ -796,7 +795,7 @@ BattleFrontier_BattleTowerLobby_EventScript_FriendAlsoSelectedMons::
 	return
 
 BattleFrontier_BattleTowerLobby_EventScript_CableLinkSuccessful::
-	incrementgamestat GAME_STAT_ENTERED_BATTLE_TOWER
+	incrementgamestat GAME_STAT_UNUSED_30
 	setvar VAR_BRAVO_TRAINER_BATTLE_TOWER_ON, FALSE
 	message BattleFrontier_BattleTowerLobby_Text_SaveGameBeforeShowingIn
 	waitmessage
@@ -849,7 +848,7 @@ BattleFrontier_BattleTowerLobby_EventScript_TryJoinGroup::
 	return
 
 BattleFrontier_BattleTowerLobby_EventScript_WirelessLinkSuccessful::
-	incrementgamestat GAME_STAT_ENTERED_BATTLE_TOWER
+	incrementgamestat GAME_STAT_UNUSED_30
 	setvar VAR_BRAVO_TRAINER_BATTLE_TOWER_ON, FALSE
 	message BattleFrontier_BattleTowerLobby_Text_SaveGameBeforeShowingIn
 	waitmessage

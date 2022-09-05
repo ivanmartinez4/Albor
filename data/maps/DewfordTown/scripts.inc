@@ -622,7 +622,7 @@ DewfordTown_EventScript_RejectTrendyPhrase::
 	end
 
 DewfordTown_EventScript_GiveNewTrendyPhrase::
-	incrementgamestat GAME_STAT_STARTED_TRENDS
+	incrementgamestat GAME_STAT_UNUSED_20
 	goto_if_eq VAR_0x8004, FALSE, DewfordTown_EventScript_PhraseNotTrendyEnough
 	msgbox DewfordTown_Text_OfCourseIKnowAboutThat, MSGBOX_DEFAULT
 	release

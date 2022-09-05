@@ -719,8 +719,8 @@ u8 HandleSavingData(u8 saveType)
             EraseFlashSector(i);
         // fallthrough
     case SAVE_HALL_OF_FAME:
-        if (GetGameStat(GAME_STAT_ENTERED_HOF) < 999)
-            IncrementGameStat(GAME_STAT_ENTERED_HOF);
+        if (GetGameStat(GAME_STAT_UNUSED_20) < 999)
+            IncrementGameStat(GAME_STAT_UNUSED_20);
 
         // Write the full save slot first
         CopyPartyAndObjectsToSave();

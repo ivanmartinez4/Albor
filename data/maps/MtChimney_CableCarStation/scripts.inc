@@ -45,7 +45,7 @@ MtChimney_CableCarStation_EventScript_RideCableCar::
 	waitmovement 0
 	setvar VAR_0x8004, TRUE  @ Going down
 	setvar VAR_CABLE_CAR_STATION_STATE, 2
-	incrementgamestat GAME_STAT_RODE_CABLE_CAR
+	incrementgamestat GAME_STAT_UNUSED_48
 	special CableCarWarp
 	special CableCar
 	waitstate

@@ -205,7 +205,7 @@ LavaridgeTown_EventScript_HotSpringsTrigger::
 	end
 
 LavaridgeTown_EventScript_EnteredHotSprings::
-	incrementgamestat GAME_STAT_ENTERED_HOT_SPRINGS
+	incrementgamestat GAME_STAT_UNUSED_49
 	end
 
 LavaridgeTown_EventScript_ExpertM::

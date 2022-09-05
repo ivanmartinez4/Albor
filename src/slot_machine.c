@@ -1578,7 +1578,7 @@ static bool8 SlotTask_EndPayout(struct Task *task)
         sSlotMachine->state = SLOTTASK_RESET_BET_TILES;
 
         if (sSlotMachine->matches & ((1 << MATCH_RED_7) | (1 << MATCH_BLUE_7)))
-            IncrementGameStat(GAME_STAT_SLOT_JACKPOTS);
+            IncrementGameStat(GAME_STAT_UNUSED_28);
 
         if (sSlotMachine->matches & (1 << MATCH_REPLAY))
         {

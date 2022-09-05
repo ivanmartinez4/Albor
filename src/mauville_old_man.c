@@ -440,7 +440,7 @@ static const struct Story sStorytellerStories[] = {
         MauvilleCity_PokemonCenter_1F_Text_SavedGameStory
     },
     {
-        GAME_STAT_STARTED_TRENDS, 1,
+        GAME_STAT_UNUSED_2, 1,
         MauvilleCity_PokemonCenter_1F_Text_TrendsStartedTitle,
         MauvilleCity_PokemonCenter_1F_Text_TrendsStartedAction,
         MauvilleCity_PokemonCenter_1F_Text_TrendsStartedStory
@@ -458,7 +458,7 @@ static const struct Story sStorytellerStories[] = {
         MauvilleCity_PokemonCenter_1F_Text_BikeTradesStory
     },
     {
-        GAME_STAT_GOT_INTERVIEWED, 1,
+        GAME_STAT_UNUSED_6, 1,
         MauvilleCity_PokemonCenter_1F_Text_InterviewsTitle,
         MauvilleCity_PokemonCenter_1F_Text_InterviewsAction,
         MauvilleCity_PokemonCenter_1F_Text_InterviewsStory
@@ -506,7 +506,7 @@ static const struct Story sStorytellerStories[] = {
         MauvilleCity_PokemonCenter_1F_Text_RestedAtHomeStory
     },
     {
-        GAME_STAT_ENTERED_SAFARI_ZONE, 1,
+        GAME_STAT_UNUSED_17, 1,
         MauvilleCity_PokemonCenter_1F_Text_SafariGamesTitle,
         MauvilleCity_PokemonCenter_1F_Text_SafariGamesAction,
         MauvilleCity_PokemonCenter_1F_Text_SafariGamesStory
@@ -524,7 +524,7 @@ static const struct Story sStorytellerStories[] = {
         MauvilleCity_PokemonCenter_1F_Text_UsedRockSmashStory
     },
     {
-        GAME_STAT_MOVED_SECRET_BASE, 1,
+        GAME_STAT_UNUSED_20, 1,
         MauvilleCity_PokemonCenter_1F_Text_MovedBasesTitle,
         MauvilleCity_PokemonCenter_1F_Text_MovedBasesAction,
         MauvilleCity_PokemonCenter_1F_Text_MovedBasesStory
@@ -542,37 +542,37 @@ static const struct Story sStorytellerStories[] = {
         MauvilleCity_PokemonCenter_1F_Text_UsedStruggleStory
     },
     {
-        GAME_STAT_SLOT_JACKPOTS, 1,
+        GAME_STAT_UNUSED_28, 1,
         MauvilleCity_PokemonCenter_1F_Text_SlotJackpotsTitle,
         MauvilleCity_PokemonCenter_1F_Text_SlotJackpotsAction,
         MauvilleCity_PokemonCenter_1F_Text_SlotJackpotsStory
     },
     {
-        GAME_STAT_CONSECUTIVE_ROULETTE_WINS, 2,
+        GAME_STAT_UNUSED_29, 2,
         MauvilleCity_PokemonCenter_1F_Text_RouletteWinsTitle,
         MauvilleCity_PokemonCenter_1F_Text_RouletteWinsAction,
         MauvilleCity_PokemonCenter_1F_Text_RouletteWinsStory
     },
     {
-        GAME_STAT_ENTERED_BATTLE_TOWER, 1,
+        GAME_STAT_UNUSED_30, 1,
         MauvilleCity_PokemonCenter_1F_Text_BattleTowerChallengesTitle,
         MauvilleCity_PokemonCenter_1F_Text_BattleTowerChallengesAction,
         MauvilleCity_PokemonCenter_1F_Text_BattleTowerChallengesStory
     },
     {
-        GAME_STAT_POKEBLOCKS, 1,
+        GAME_STAT_UNUSED_33, 1,
         MauvilleCity_PokemonCenter_1F_Text_MadePokeblocksTitle,
         MauvilleCity_PokemonCenter_1F_Text_MadePokeblocksAction,
         MauvilleCity_PokemonCenter_1F_Text_MadePokeblocksStory
     },
     {
-        GAME_STAT_ENTERED_CONTEST, 1,
+        GAME_STAT_UNUSED_36, 1,
         MauvilleCity_PokemonCenter_1F_Text_EnteredContestsTitle,
         MauvilleCity_PokemonCenter_1F_Text_EnteredContestsAction,
         MauvilleCity_PokemonCenter_1F_Text_EnteredContestsStory
     },
     {
-        GAME_STAT_WON_CONTEST, 1,
+        GAME_STAT_UNUSED_37, 1,
         MauvilleCity_PokemonCenter_1F_Text_WonContestsTitle,
         MauvilleCity_PokemonCenter_1F_Text_WonContestsAction,
         MauvilleCity_PokemonCenter_1F_Text_WonContestsStory
@@ -584,7 +584,7 @@ static const struct Story sStorytellerStories[] = {
         MauvilleCity_PokemonCenter_1F_Text_TimesShoppedStory
     },
     {
-        GAME_STAT_USED_ITEMFINDER, 1,
+        GAME_STAT_UNUSED_39, 1,
         MauvilleCity_PokemonCenter_1F_Text_UsedItemFinderTitle,
         MauvilleCity_PokemonCenter_1F_Text_UsedItemFinderAction,
         MauvilleCity_PokemonCenter_1F_Text_UsedItemFinderStory
@@ -602,7 +602,7 @@ static const struct Story sStorytellerStories[] = {
         MauvilleCity_PokemonCenter_1F_Text_CheckedPokedexStory
     },
     {
-        GAME_STAT_RECEIVED_RIBBONS, 1,
+        GAME_STAT_UNUSED_42, 1,
         MauvilleCity_PokemonCenter_1F_Text_ReceivedRibbonsTitle,
         MauvilleCity_PokemonCenter_1F_Text_ReceivedRibbonsAction,
         MauvilleCity_PokemonCenter_1F_Text_ReceivedRibbonsStory
@@ -614,19 +614,19 @@ static const struct Story sStorytellerStories[] = {
         MauvilleCity_PokemonCenter_1F_Text_LedgesJumpedStory
     },
     {
-        GAME_STAT_WATCHED_TV, 1,
+        GAME_STAT_UNUSED_44, 1,
         MauvilleCity_PokemonCenter_1F_Text_TVWatchedTitle,
         MauvilleCity_PokemonCenter_1F_Text_TVWatchedAction,
         MauvilleCity_PokemonCenter_1F_Text_TVWatchedStory
     },
     {
-        GAME_STAT_CHECKED_CLOCK, 1,
+        GAME_STAT_UNUSED_45, 1,
         MauvilleCity_PokemonCenter_1F_Text_CheckedClockTitle,
         MauvilleCity_PokemonCenter_1F_Text_CheckedClockAction,
         MauvilleCity_PokemonCenter_1F_Text_CheckedClockStory
     },
     {
-        GAME_STAT_WON_POKEMON_LOTTERY, 1,
+        GAME_STAT_UNUSED_46, 1,
         MauvilleCity_PokemonCenter_1F_Text_WonLotteryTitle,
         MauvilleCity_PokemonCenter_1F_Text_WonLotteryAction,
         MauvilleCity_PokemonCenter_1F_Text_WonLotteryStory
@@ -638,13 +638,13 @@ static const struct Story sStorytellerStories[] = {
         MauvilleCity_PokemonCenter_1F_Text_UsedDaycareStory
     },
     {
-        GAME_STAT_RODE_CABLE_CAR, 1,
+        GAME_STAT_UNUSED_48, 1,
         MauvilleCity_PokemonCenter_1F_Text_RodeCableCarTitle,
         MauvilleCity_PokemonCenter_1F_Text_RodeCableCarAction,
         MauvilleCity_PokemonCenter_1F_Text_RodeCableCarStory
     },
     {
-        GAME_STAT_ENTERED_HOT_SPRINGS, 1,
+        GAME_STAT_UNUSED_49, 1,
         MauvilleCity_PokemonCenter_1F_Text_HotSpringsTitle,
         MauvilleCity_PokemonCenter_1F_Text_HotSpringsAction,
         MauvilleCity_PokemonCenter_1F_Text_HotSpringsStory
