@@ -45,7 +45,6 @@
 
 extern const u8 EventScript_ResetAllMapFlags[];
 
-static void ClearFrontierRecord(void);
 static void WarpToTruck(void);
 
 EWRAM_DATA bool8 gDifferentSaveFile = FALSE;
@@ -105,14 +104,6 @@ void ClearAllContestWinnerPics(void)
 {
 }
 
-static void ClearFrontierRecord(void)
-{
-    CpuFill32(0, &gSaveBlock2Ptr->frontier, sizeof(gSaveBlock2Ptr->frontier));
-
-    gSaveBlock2Ptr->frontier.opponentNames[0][0] = EOS;
-    gSaveBlock2Ptr->frontier.opponentNames[1][0] = EOS;
-}
-
 static void WarpToTruck(void)
 {
     SetWarpDestination(MAP_GROUP(INSIDE_OF_TRUCK), MAP_NUM(INSIDE_OF_TRUCK), WARP_ID_NONE, -1, -1);
@@ -145,7 +136,6 @@ void NewGameInitData(void)
     ZeroPlayerPartyMons();
     ZeroEnemyPartyMons();
     ResetPokedex();
-    ClearFrontierRecord();
     ClearSav1();
     ClearAllMail();
     gSaveBlock2Ptr->specialSaveWarpFlags = 0;

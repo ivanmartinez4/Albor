@@ -559,35 +559,6 @@ static bool8 TryLinkTimeout(u8 taskId)
 
 void TryBattleLinkup(void)
 {
-    u8 minPlayers = 2;
-    u8 maxPlayers = 2;
-
-    switch (gSpecialVar_0x8004)
-    {
-    case USING_SINGLE_BATTLE:
-        minPlayers = 2;
-        gLinkType = LINKTYPE_SINGLE_BATTLE;
-        break;
-    case USING_DOUBLE_BATTLE:
-        minPlayers = 2;
-        gLinkType = LINKTYPE_DOUBLE_BATTLE;
-        break;
-    case USING_MULTI_BATTLE:
-        minPlayers = 4;
-        maxPlayers = 4;
-        gLinkType = LINKTYPE_MULTI_BATTLE;
-        break;
-    case USING_BATTLE_TOWER:
-        minPlayers = 2;
-        if (gSaveBlock2Ptr->frontier.lvlMode == FRONTIER_LVL_50)
-            gLinkType = LINKTYPE_BATTLE_TOWER_50;
-        else
-            gLinkType = LINKTYPE_BATTLE_TOWER_OPEN;
-
-        break;
-    }
-
-    CreateLinkupTask(minPlayers, maxPlayers);
 }
 
 #undef tMinPlayers
@@ -712,35 +683,6 @@ void TryContestEModeLinkup(void)
 
 u8 CreateTask_ReestablishCableClubLink(void)
 {
-    if (FuncIsActiveTask(Task_ReestablishLink) != FALSE)
-        return 0xFF;
-
-    switch (gSpecialVar_0x8004)
-    {
-    case USING_SINGLE_BATTLE:
-        gLinkType = LINKTYPE_SINGLE_BATTLE;
-        break;
-    case USING_DOUBLE_BATTLE:
-        gLinkType = LINKTYPE_DOUBLE_BATTLE;
-        break;
-    case USING_MULTI_BATTLE:
-        gLinkType = LINKTYPE_MULTI_BATTLE;
-        break;
-    case USING_BATTLE_TOWER:
-        if (gSaveBlock2Ptr->frontier.lvlMode == FRONTIER_LVL_50)
-            gLinkType = LINKTYPE_BATTLE_TOWER_50;
-        else
-            gLinkType = LINKTYPE_BATTLE_TOWER_OPEN;
-        break;
-    case USING_TRADE_CENTER:
-        gLinkType = LINKTYPE_TRADE;
-        break;
-    case USING_RECORD_CORNER:
-        gLinkType = LINKTYPE_RECORD_MIX_AFTER;
-        break;
-    }
-
-    return CreateTask(Task_ReestablishLink, 80);
 }
 
 static void Task_ReestablishLink(u8 taskId)

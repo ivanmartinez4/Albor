@@ -52,8 +52,6 @@ struct HallofFameTeam
     struct HallofFameMon mon[PARTY_SIZE];
 };
 
-STATIC_ASSERT(sizeof(struct HallofFameTeam) * HALL_OF_FAME_MAX_TEAMS <= SECTOR_DATA_SIZE * NUM_HOF_SECTORS, HallOfFameFreeSpace);
-
 struct HofGfx
 {
     u16 state;
@@ -475,41 +473,6 @@ static void Task_Hof_InitMonData(u8 taskId)
 
 static void Task_Hof_InitTeamSaveData(u8 taskId)
 {
-    u16 i;
-    struct HallofFameTeam *lastSavedTeam = (struct HallofFameTeam *)(gDecompressionBuffer);
-
-    if (!gHasHallOfFameRecords)
-    {
-        memset(gDecompressionBuffer, 0, SECTOR_SIZE * NUM_HOF_SECTORS);
-    }
-    else
-    {
-        if (LoadGameSave(SAVE_HALL_OF_FAME) != SAVE_STATUS_OK)
-            memset(gDecompressionBuffer, 0, SECTOR_SIZE * NUM_HOF_SECTORS);
-    }
-
-    for (i = 0; i < HALL_OF_FAME_MAX_TEAMS; i++, lastSavedTeam++)
-    {
-        if (lastSavedTeam->mon[0].species == SPECIES_NONE)
-            break;
-    }
-    if (i >= HALL_OF_FAME_MAX_TEAMS)
-    {
-        struct HallofFameTeam *afterTeam = (struct HallofFameTeam *)(gDecompressionBuffer);
-        struct HallofFameTeam *beforeTeam = (struct HallofFameTeam *)(gDecompressionBuffer);
-        afterTeam++;
-        for (i = 0; i < HALL_OF_FAME_MAX_TEAMS - 1; i++, beforeTeam++, afterTeam++)
-        {
-            *beforeTeam = *afterTeam;
-        }
-        lastSavedTeam--;
-    }
-    *lastSavedTeam = *sHofMonPtr;
-
-    DrawDialogueFrame(0, FALSE);
-    AddTextPrinterParameterized2(0, FONT_NORMAL, gText_SavingDontTurnOffPower, 0, NULL, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY);
-    CopyWindowToVram(0, COPYWIN_FULL);
-    gTasks[taskId].func = Task_Hof_TrySaveData;
 }
 
 static void Task_Hof_TrySaveData(u8 taskId)
@@ -790,94 +753,10 @@ static void StartCredits(void)
 
 void CB2_DoHallOfFamePC(void)
 {
-    switch (gMain.state)
-    {
-    case 0:
-    default:
-        SetVBlankCallback(NULL);
-        ClearVramOamPltt_LoadHofPal();
-        sHofGfxPtr = AllocZeroed(sizeof(*sHofGfxPtr));
-        gMain.state = 1;
-        break;
-    case 1:
-        LoadHofGfx();
-        gMain.state++;
-        break;
-    case 2:
-        SetGpuReg(REG_OFFSET_BLDCNT, 0);
-        SetGpuReg(REG_OFFSET_BLDALPHA, 0);
-        SetGpuReg(REG_OFFSET_BLDY, 0);
-        InitHofBgs();
-        gMain.state++;
-        break;
-    case 3:
-        if (!LoadHofBgs())
-        {
-            struct HallofFameTeam *fameTeam = (struct HallofFameTeam *)(gDecompressionBuffer);
-            fameTeam->mon[0] = sDummyFameMon;
-            ComputerScreenOpenEffect(0, 0, 0);
-            SetVBlankCallback(VBlankCB_HallOfFame);
-            gMain.state++;
-        }
-        break;
-    case 4:
-        RunTasks();
-        AnimateSprites();
-        BuildOamBuffer();
-        UpdatePaletteFade();
-        if (!IsComputerScreenOpenEffectActive())
-            gMain.state++;
-        break;
-    case 5:
-        {
-            u8 taskId, i;
-
-            SetGpuReg(REG_OFFSET_BLDCNT, BLDCNT_TGT1_BG1 | BLDCNT_EFFECT_BLEND | BLDCNT_TGT2_ALL);
-            SetGpuReg(REG_OFFSET_BLDALPHA, BLDALPHA_BLEND(16, 7));
-            SetGpuReg(REG_OFFSET_BLDY, 0);
-            taskId = CreateTask(Task_HofPC_CopySaveData, 0);
-
-            for (i = 0; i < PARTY_SIZE; i++)
-            {
-                gTasks[taskId].tMonSpriteId(i) = SPRITE_NONE;
-            }
-
-            sHofMonPtr = AllocZeroed(SECTOR_SIZE * NUM_HOF_SECTORS);
-            SetMainCallback2(CB2_HallOfFame);
-        }
-        break;
-    }
 }
 
 static void Task_HofPC_CopySaveData(u8 taskId)
 {
-    HofPCTopBar_AddWindow(0, 30, 0, 12, 0x226);
-    if (LoadGameSave(SAVE_HALL_OF_FAME) != SAVE_STATUS_OK)
-    {
-        gTasks[taskId].func = Task_HofPC_PrintDataIsCorrupted;
-    }
-    else
-    {
-        u16 i;
-        struct HallofFameTeam *savedTeams;
-
-        CpuCopy16(gDecompressionBuffer, sHofMonPtr, SECTOR_SIZE * NUM_HOF_SECTORS);
-        savedTeams = sHofMonPtr;
-        for (i = 0; i < HALL_OF_FAME_MAX_TEAMS; i++, savedTeams++)
-        {
-            if (savedTeams->mon[0].species == SPECIES_NONE)
-                break;
-        }
-
-        if (i < HALL_OF_FAME_MAX_TEAMS)
-            gTasks[taskId].tCurrTeamNo = i - 1;
-        else
-            gTasks[taskId].tCurrTeamNo = HALL_OF_FAME_MAX_TEAMS - 1;
-
-        gTasks[taskId].tCurrPageNo = GetGameStat(GAME_STAT_UNUSED_20);
-
-        gTasks[taskId].func = Task_HofPC_DrawSpritesPrintText;
-    }
 }
 
 static void Task_HofPC_DrawSpritesPrintText(u8 taskId)

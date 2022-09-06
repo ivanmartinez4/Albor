@@ -301,15 +301,6 @@ static bool32 IsRecordedBattleSaveValid(struct RecordedBattleSave *save)
 
 static bool32 RecordedBattleToSave(struct RecordedBattleSave *battleSave, struct RecordedBattleSave *saveSector)
 {
-    memset(saveSector, 0, SECTOR_SIZE);
-    memcpy(saveSector, battleSave, sizeof(*battleSave));
-
-    saveSector->checksum = CalcByteArraySum((void *)(saveSector), sizeof(*saveSector) - 4);
-
-    if (TryWriteSpecialSaveSector(SECTOR_ID_RECORDED_BATTLE, (void *)(saveSector)) != SAVE_STATUS_OK)
-        return FALSE;
-    else
-        return TRUE;
 }
 
 bool32 MoveRecordedBattleToSaveData(void)
@@ -318,15 +309,6 @@ bool32 MoveRecordedBattleToSaveData(void)
 
 static bool32 TryCopyRecordedBattleSaveData(struct RecordedBattleSave *dst, struct SaveSector *saveBuffer)
 {
-    if (TryReadSpecialSaveSector(SECTOR_ID_RECORDED_BATTLE, (void *)(saveBuffer)) != SAVE_STATUS_OK)
-        return FALSE;
-
-    memcpy(dst, saveBuffer, sizeof(struct RecordedBattleSave));
-
-    if (!IsRecordedBattleSaveValid(dst))
-        return FALSE;
-
-    return TRUE;
 }
 
 static bool32 CopyRecordedBattleFromSave(struct RecordedBattleSave *dst)
@@ -340,15 +322,6 @@ static bool32 CopyRecordedBattleFromSave(struct RecordedBattleSave *dst)
 
 static void CB2_RecordedBattleEnd(void)
 {
-    gSaveBlock2Ptr->frontier.lvlMode = sLvlMode;
-    gBattleOutcome = 0;
-    gBattleTypeFlags = 0;
-    gTrainerBattleOpponent_A = 0;
-    gTrainerBattleOpponent_B = 0;
-    gPartnerTrainerId = 0;
-
-    RecordedBattle_RestoreSavedParties();
-    SetMainCallback2(sCallback2_AfterRecordedBattle);
 }
 
 #define tFramesToWait data[0]
@@ -365,62 +338,6 @@ static void Task_StartAfterCountdown(u8 taskId)
 
 static void SetVariablesForRecordedBattle(struct RecordedBattleSave *src)
 {
-    bool8 var;
-    s32 i, j;
-
-    ZeroPlayerPartyMons();
-    ZeroEnemyPartyMons();
-
-    for (i = 0; i < PARTY_SIZE; i++)
-    {
-        gPlayerParty[i] = src->playerParty[i];
-        gEnemyParty[i] = src->opponentParty[i];
-    }
-
-    for (i = 0; i < MAX_BATTLERS_COUNT; i++)
-    {
-        for (var = FALSE, j = 0; j < PLAYER_NAME_LENGTH + 1; j++)
-        {
-            gLinkPlayers[i].name[j] = src->playersName[i][j];
-            if (src->playersName[i][j] == EOS)
-                var = TRUE;
-        }
-        gLinkPlayers[i].gender = src->playersGender[i];
-        gLinkPlayers[i].language = src->playersLanguage[i];
-        gLinkPlayers[i].id = src->playersBattlers[i];
-        gLinkPlayers[i].trainerId = src->playersTrainerId[i];
-
-        if (var)
-            ConvertInternationalString(gLinkPlayers[i].name, gLinkPlayers[i].language);
-    }
-
-    gRecordedBattleRngSeed = src->rngSeed;
-    gBattleTypeFlags = src->battleFlags | BATTLE_TYPE_RECORDED;
-    gTrainerBattleOpponent_A = src->opponentA;
-    gTrainerBattleOpponent_B = src->opponentB;
-    gPartnerTrainerId = src->partnerId;
-    gRecordedBattleMultiplayerId = src->multiplayerId;
-    sLvlMode = gSaveBlock2Ptr->frontier.lvlMode;
-    sFrontierFacility = src->frontierFacility;
-    sFrontierBrainSymbol = src->frontierBrainSymbol;
-    sBattleScene = src->battleScene;
-    sTextSpeed = src->textSpeed;
-    sAI_Scripts = src->AI_scripts;
-
-    for (i = 0; i < PLAYER_NAME_LENGTH + 1; i++)
-        sRecordMixFriendName[i] = src->recordMixFriendName[i];
-
-    sRecordMixFriendClass = src->recordMixFriendClass;
-    sRecordMixFriendLanguage = src->recordMixFriendLanguage;
-
-    for (i = 0; i < EASY_CHAT_BATTLE_WORDS_COUNT; i++)
-        sEasyChatSpeech[i] = src->easyChatSpeech[i];
-
-    gSaveBlock2Ptr->frontier.lvlMode = src->lvlMode;
-
-    for (i = 0; i < MAX_BATTLERS_COUNT; i++)
-        for (j = 0; j < BATTLER_RECORD_SIZE; j++)
-            sBattleRecords[i][j] = src->battleRecord[i][j];
 }
 
 void PlayRecordedBattle(void (*CB2_After)(void))

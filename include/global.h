@@ -398,7 +398,6 @@ struct SaveBlock2
     /*0x98*/ struct Time localTimeOffset;
     /*0xA0*/ struct Time lastBerryTreeUpdate;
     /*0xAC*/ u32 encryptionKey;
-    /*0x64C*/ struct BattleFrontier frontier;
     /*0xF2C*/ bool8 autoRun;
     /*0xF2C*/ u8 itemFlags[ITEM_FLAGS_COUNT];
                u8 dexNavSearchLevels[NUM_SPECIES];
@@ -767,7 +766,6 @@ struct SaveBlock1
               u8 bagPocket_TMHMOwnedFlags[14]; //allow for a total of 112 TMs/HMs
               u8 bagPocket_TMHMPadding[242]; //do not touch the save layout, take 242 bytes of free space
     /*0x790*/ struct ItemSlot bagPocket_Berries[BAG_BERRIES_COUNT];
-    /*0x848*/ struct Pokeblock pokeblocks[POKEBLOCKS_COUNT];
     /*0x9C8*/ u16 trainerRematchStepCounter;
     /*0x9CA*/ u8 trainerRematches[MAX_REMATCH_ENTRIES];
     /*0xA30*/ struct ObjectEvent objectEvents[OBJECT_EVENTS_COUNT];

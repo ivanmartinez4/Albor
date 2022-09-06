@@ -577,45 +577,6 @@ static void LeaveFrontierPass(void)
 
 static u32 AllocateFrontierPassData(void (*callback)(void))
 {
-    u8 i;
-
-    if (sPassData != NULL)
-        return ERR_ALREADY_DONE;
-
-    sPassData = AllocZeroed(sizeof(*sPassData));
-    if (sPassData == NULL)
-        return ERR_ALLOC_FAILED;
-
-    sPassData->callback = callback;
-    i = GetCurrentRegionMapSectionId();
-    if (i != MAPSEC_BATTLE_FRONTIER && i != MAPSEC_ARTISAN_CAVE)
-    {
-        // Player is not in the frontier, set
-        // cursor position to the Trainer Card
-        sPassData->cursorX = 176;
-        sPassData->cursorY = 104;
-    }
-    else
-    {
-        // Player is in the frontier, set
-        // cursor position to the frontier map
-        sPassData->cursorX = 176;
-        sPassData->cursorY = 48;
-    }
-
-    sPassData->battlePoints = gSaveBlock2Ptr->frontier.battlePoints;
-    sPassData->hasBattleRecord = CanCopyRecordedBattleSaveData();
-    sPassData->areaToShow = CURSOR_AREA_NOTHING;
-    sPassData->trainerStars = CountPlayerTrainerStars();
-    for (i = 0; i < NUM_FRONTIER_FACILITIES; i++)
-    {
-        if (FlagGet(FLAG_SYS_TOWER_SILVER + i * 2))
-            sPassData->facilitySymbols[i]++;
-        if (FlagGet(FLAG_SYS_TOWER_GOLD + i * 2))
-            sPassData->facilitySymbols[i]++;
-    }
-
-    return SUCCESS;
 }
 
 static u32 FreeFrontierPassData(void)
