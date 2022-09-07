@@ -90,7 +90,7 @@
 #define CONTEST_CATEGORIES_COUNT  5
 
 // string lengths
-#define ITEM_NAME_LENGTH 15
+#define ITEM_NAME_LENGTH 18
 #define POKEMON_NAME_LENGTH 11
 #define PLAYER_NAME_LENGTH 7
 #define MAIL_WORDS_COUNT 1
