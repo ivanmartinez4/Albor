@@ -291,22 +291,22 @@ const u8 gTypeNames[NUMBER_OF_MON_TYPES][TYPE_NAME_LENGTH + 1] =
 {
     [TYPE_NORMAL] = _("Normal"),
     [TYPE_FIGHTING] = _("Lucha"),
-    [TYPE_FLYING] = _("Flying"),
+    [TYPE_FLYING] = _("Volador"),
     [TYPE_POISON] = _("Veneno"),
     [TYPE_GROUND] = _("Tierra"),
     [TYPE_ROCK] = _("Roca"),
     [TYPE_BUG] = _("Bicho"),
-    [TYPE_GHOST] = _("Fant."),
+    [TYPE_GHOST] = _("Fantasma"),
     [TYPE_STEEL] = _("Acero"),
     [TYPE_MYSTERY] = _("???"),
     [TYPE_FIRE] = _("Fuego"),
     [TYPE_WATER] = _("Agua"),
     [TYPE_GRASS] = _("Planta"),
-    [TYPE_ELECTRIC] = _("Elect."),
-    [TYPE_PSYCHIC] = _("Psíq."),
+    [TYPE_ELECTRIC] = _("Eléctrico"),
+    [TYPE_PSYCHIC] = _("Psíquico"),
     [TYPE_ICE] = _("Hielo"),
     [TYPE_DRAGON] = _("Dragón"),
-    [TYPE_DARK] = _("Sin."),
+    [TYPE_DARK] = _("Siniestro"),
     [TYPE_FAIRY] = _("Hada"),
 };
 
@@ -474,7 +474,7 @@ static void CB2_InitBattleInternal(void)
 
     gBattle_WIN0H = DISPLAY_WIDTH;
 
-    if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER && gPartnerTrainerId != TRAINER_STEVEN_PARTNER && gPartnerTrainerId < TRAINER_CUSTOM_PARTNER)
+    if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER && gPartnerTrainerId != TRAINER_NONE_PARTNER && gPartnerTrainerId < TRAINER_CUSTOM_PARTNER)
     {
         gBattle_WIN0V = DISPLAY_HEIGHT - 1;
         gBattle_WIN1H = DISPLAY_WIDTH;
@@ -1593,6 +1593,24 @@ void CB2_QuitRecordedBattle(void)
 #define sState data[0]
 #define sDelay data[4]
 
+u8 GetHighestPartyMemberLevel(void)
+{
+    u8 highestLevel = 0;
+    u8 level;
+    u8 partyCount = CalculatePlayerPartyCount();
+    u8 i;
+
+    for (i = 0; i < partyCount; i++)
+    {
+       level =  GetMonData(&gPlayerParty[i], MON_DATA_LEVEL);
+       if (level > highestLevel)
+       {
+           highestLevel = level;
+       }
+    }
+    return highestLevel;
+}
+
 static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 firstTrainer)
 {
     u32 nameHash = 0;
@@ -1600,6 +1618,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
     u8 fixedIV;
     s32 i, j;
     u8 monsCount;
+    u8 level;
 
     if (trainerNum == TRAINER_SECRET_BASE)
         return 0;
@@ -1647,7 +1666,17 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 
                 personalityValue += nameHash << 8;
                 fixedIV = partyData[i].iv * MAX_PER_STAT_IVS / 255;
-                CreateMon(&party[i], partyData[i].species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                level = GetHighestPartyMemberLevel() + partyData[i].lvl;
+                if (level > 100)
+                {
+                    level = 100;
+                }
+                if (level < 1)
+                {
+                    level = 1;
+                }
+
+                CreateMon(&party[i], partyData[i].species, level, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
                 break;
             }
             case F_TRAINER_PARTY_CUSTOM_MOVESET:
@@ -1659,7 +1688,17 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 
                 personalityValue += nameHash << 8;
                 fixedIV = partyData[i].iv * MAX_PER_STAT_IVS / 255;
-                CreateMon(&party[i], partyData[i].species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                level = GetHighestPartyMemberLevel() + partyData[i].lvl;
+                if (level > 100)
+                {
+                    level = 100;
+                }
+                if (level < 1)
+                {
+                    level = 1;
+                }
+
+                CreateMon(&party[i], partyData[i].species, level, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
 
                 for (j = 0; j < MAX_MON_MOVES; j++)
                 {
@@ -1677,7 +1716,17 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 
                 personalityValue += nameHash << 8;
                 fixedIV = partyData[i].iv * MAX_PER_STAT_IVS / 255;
-                CreateMon(&party[i], partyData[i].species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                level = GetHighestPartyMemberLevel() + partyData[i].lvl;
+                if (level > 100)
+                {
+                    level = 100;
+                }
+                if (level < 1)
+                {
+                    level = 1;
+                }
+
+                CreateMon(&party[i], partyData[i].species, level, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
 
                 SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
                 break;
@@ -1691,7 +1740,17 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 
                 personalityValue += nameHash << 8;
                 fixedIV = partyData[i].iv * MAX_PER_STAT_IVS / 255;
-                CreateMon(&party[i], partyData[i].species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                level = GetHighestPartyMemberLevel() + partyData[i].lvl;
+                if (level > 100)
+                {
+                    level = 100;
+                }
+                if (level < 1)
+                {
+                    level = 1;
+                }
+
+                CreateMon(&party[i], partyData[i].species, level, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
 
                 SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
 

@@ -1283,7 +1283,7 @@ static void PlayerPartnerHandleDrawTrainerPic(void)
     s16 xPos, yPos;
     u32 trainerPicId;
 
-    if (gPartnerTrainerId == TRAINER_STEVEN_PARTNER)
+    if (gPartnerTrainerId == TRAINER_NONE_PARTNER)
     {
         trainerPicId = TRAINER_BACK_PIC_STEVEN;
         xPos = 90;
@@ -1303,7 +1303,7 @@ static void PlayerPartnerHandleDrawTrainerPic(void)
     }
 
     // Use back pic only if the partner is Steven
-    if (gPartnerTrainerId == TRAINER_STEVEN_PARTNER || gPartnerTrainerId >= TRAINER_CUSTOM_PARTNER)
+    if (gPartnerTrainerId == TRAINER_NONE_PARTNER || gPartnerTrainerId >= TRAINER_CUSTOM_PARTNER)
     {
         DecompressTrainerBackPic(trainerPicId, gActiveBattler);
         SetMultiuseSpriteTemplateToTrainerBack(trainerPicId, GetBattlerPosition(gActiveBattler));
@@ -1779,7 +1779,7 @@ static void PlayerPartnerHandleIntroTrainerBallThrow(void)
     StartSpriteAnim(&gSprites[gBattlerSpriteIds[gActiveBattler]], 1);
 
     paletteNum = AllocSpritePalette(0xD6F9);
-    if (gPartnerTrainerId == TRAINER_STEVEN_PARTNER)
+    if (gPartnerTrainerId == TRAINER_NONE_PARTNER)
     {
         u8 spriteId = TRAINER_BACK_PIC_STEVEN;
         LoadCompressedPalette(gTrainerBackPicPaletteTable[spriteId].data, 0x100 + paletteNum * 16, 32);

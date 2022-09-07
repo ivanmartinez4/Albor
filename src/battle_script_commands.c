@@ -14,6 +14,7 @@
 #include "random.h"
 #include "battle_controllers.h"
 #include "battle_interface.h"
+#include "battle_main.h"
 #include "text.h"
 #include "sound.h"
 #include "pokedex.h"
@@ -4197,7 +4198,7 @@ static bool32 NoAliveMonsForPlayerAndPartner(void)
     u32 i;
     u32 HP_count = 0;
 
-    if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER && (gPartnerTrainerId == TRAINER_STEVEN_PARTNER || gPartnerTrainerId >= TRAINER_CUSTOM_PARTNER))
+    if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER && (gPartnerTrainerId == TRAINER_NONE_PARTNER || gPartnerTrainerId >= TRAINER_CUSTOM_PARTNER))
     {
         for (i = 0; i < PARTY_SIZE; i++)
         {
@@ -4219,7 +4220,7 @@ static bool32 NoAliveMonsForPlayer(void)
     u32 HP_count = 0;
 
     // Get total HP for the player's party to determine if the player has lost
-    if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER && (gPartnerTrainerId == TRAINER_STEVEN_PARTNER || gPartnerTrainerId >= TRAINER_CUSTOM_PARTNER))
+    if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER && (gPartnerTrainerId == TRAINER_NONE_PARTNER || gPartnerTrainerId >= TRAINER_CUSTOM_PARTNER))
     {
         // In multi battle with Steven, skip his Pokémon
         for (i = 0; i < MULTI_PARTY_SIZE; i++)
@@ -6793,25 +6794,25 @@ static u32 GetTrainerMoneyToGive(u16 trainerId)
         case 0:
             {
                 const struct TrainerMonNoItemDefaultMoves *party = gTrainers[trainerId].party.NoItemDefaultMoves;
-                lastMonLevel = party[gTrainers[trainerId].partySize - 1].lvl;
+                lastMonLevel = GetHighestPartyMemberLevel() + party[gTrainers[trainerId].partySize - 1].lvl;
             }
             break;
         case F_TRAINER_PARTY_CUSTOM_MOVESET:
             {
                 const struct TrainerMonNoItemCustomMoves *party = gTrainers[trainerId].party.NoItemCustomMoves;
-                lastMonLevel = party[gTrainers[trainerId].partySize - 1].lvl;
+                lastMonLevel = GetHighestPartyMemberLevel() + party[gTrainers[trainerId].partySize - 1].lvl;
             }
             break;
         case F_TRAINER_PARTY_HELD_ITEM:
             {
                 const struct TrainerMonItemDefaultMoves *party = gTrainers[trainerId].party.ItemDefaultMoves;
-                lastMonLevel = party[gTrainers[trainerId].partySize - 1].lvl;
+                lastMonLevel = GetHighestPartyMemberLevel() +  party[gTrainers[trainerId].partySize - 1].lvl;
             }
             break;
         case F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_HELD_ITEM:
             {
                 const struct TrainerMonItemCustomMoves *party = gTrainers[trainerId].party.ItemCustomMoves;
-                lastMonLevel = party[gTrainers[trainerId].partySize - 1].lvl;
+                lastMonLevel = GetHighestPartyMemberLevel() + party[gTrainers[trainerId].partySize - 1].lvl;
             }
             break;
         }

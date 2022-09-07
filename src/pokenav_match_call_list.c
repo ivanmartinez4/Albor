@@ -204,58 +204,6 @@ static u32 CB2_HandleCallExitInput(struct Pokenav_MatchCallMenu *state)
 
 static u32 LoopedTask_BuildMatchCallList(s32 taskState)
 {
-    int i, j;
-    struct Pokenav_MatchCallMenu *state = GetSubstructPtr(POKENAV_SUBSTRUCT_MATCH_CALL_MAIN);
-    switch (taskState)
-    {
-    case 0:
-        state->headerId = 0;
-        state->numRegistered = 0;
-        return LT_INC_AND_CONTINUE;
-    case 1:
-        // Load special trainers (e.g. Rival, gym leaders)
-        for (i = 0, j = state->headerId; i < 30; i++, j++)
-        {
-            if (MatchCall_GetEnabled(j))
-            {
-                state->matchCallEntries[state->numRegistered].headerId = j;
-                state->matchCallEntries[state->numRegistered].isSpecialTrainer = TRUE;
-                state->matchCallEntries[state->numRegistered].mapSec = MatchCall_GetMapSec(j);
-                state->numRegistered++;
-            }
-
-            if (++state->headerId >= MC_HEADER_COUNT)
-            {
-                state->numSpecialTrainers = state->headerId;
-                state->headerId = 0;
-                return LT_INC_AND_CONTINUE;
-            }
-        }
-
-        return LT_CONTINUE;
-    case 2:
-        // Load normal trainers
-        for (i = 0, j = state->headerId; i < 30; i++, j++)
-        {
-            if (!MatchCall_HasRematchId(state->headerId) && IsRematchEntryRegistered(state->headerId))
-            {
-                state->matchCallEntries[state->numRegistered].headerId = state->headerId;
-                state->matchCallEntries[state->numRegistered].isSpecialTrainer = FALSE;
-                state->matchCallEntries[state->numRegistered].mapSec = GetMatchTableMapSectionId(j);
-                state->numRegistered++;
-            }
-
-            if (++state->headerId > REMATCH_TABLE_ENTRIES - 1)
-                return LT_INC_AND_CONTINUE;
-        }
-
-        return LT_CONTINUE;
-    case 3:
-        state->initFinished = TRUE;
-        break;
-    }
-
-    return LT_FINISH;
 }
 
 bool32 IsRematchEntryRegistered(int rematchIndex)

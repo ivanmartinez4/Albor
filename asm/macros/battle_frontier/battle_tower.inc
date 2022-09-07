@@ -116,14 +116,14 @@
 	
 	.macro multi_2_vs_2 trainer1Id:req, trainer1LoseText:req, trainer2Id:req, trainer2LoseText:req, partnerId:req, partnerPicId:req
 	special SavePlayerParty
-	trainerbattle TRAINER_BATTLE_SET_TRAINER_A, \trainer1Id, 0, NULL, \trainer1LoseText @ set first trainer mons
-	trainerbattle TRAINER_BATTLE_SET_TRAINER_B, \trainer2Id, 0, NULL, \trainer2LoseText @ set second trainer mons
+@	trainerbattle TRAINER_BATTLE_SET_TRAINER_A, \trainer1Id, 0, NULL, \trainer1LoseText @ set first trainer mons
+@	trainerbattle TRAINER_BATTLE_SET_TRAINER_B, \trainer2Id, 0, NULL, \trainer2LoseText @ set second trainer mons
 	multi_do MULTI_BATTLE_2_VS_2, \partnerId, \partnerPicId
 	.endm
 	
 	.macro multi_2_vs_1 trainer1Id:req, trainer1LoseText:req, partnerId:req, partnerPicId:req
 	special SavePlayerParty
-	trainerbattle TRAINER_BATTLE_SET_TRAINER_A, \trainer1Id, 0, NULL, \trainer1LoseText @ set first trainer mons
+@	trainerbattle TRAINER_BATTLE_SET_TRAINER_A, \trainer1Id, 0, NULL, \trainer1LoseText @ set first trainer mons
 	multi_do MULTI_BATTLE_2_VS_1, \partnerId, \partnerPicId
 	.endm
 	
@@ -147,14 +147,14 @@
 	
 	.macro multi_fixed_2_vs_2 trainer1Id:req, trainer1LoseText:req, trainer2Id:req, trainer2LoseText:req, partnerId:req, partnerPicId:req
 	special SavePlayerParty
-	trainerbattle TRAINER_BATTLE_SET_TRAINER_A, \trainer1Id, 0, NULL, \trainer1LoseText @ set first trainer mons
-	trainerbattle TRAINER_BATTLE_SET_TRAINER_B, \trainer2Id, 0, NULL, \trainer2LoseText @ set second trainer mons
+@	trainerbattle TRAINER_BATTLE_SET_TRAINER_A, \trainer1Id, 0, NULL, \trainer1LoseText @ set first trainer mons
+@	trainerbattle TRAINER_BATTLE_SET_TRAINER_B, \trainer2Id, 0, NULL, \trainer2LoseText @ set second trainer mons
 	multi_do_fixed MULTI_BATTLE_2_VS_2, \partnerId, \partnerPicId
 	.endm
 	
 	.macro multi_fixed_2_vs_1 trainer1Id:req, trainer1LoseText:req, partnerId:req, partnerPicId:req
 	special SavePlayerParty
-	trainerbattle TRAINER_BATTLE_SET_TRAINER_A, \trainer1Id, 0, NULL, \trainer1LoseText @ set first trainer mons
+@	trainerbattle TRAINER_BATTLE_SET_TRAINER_A, \trainer1Id, 0, NULL, \trainer1LoseText @ set first trainer mons
 	multi_do_fixed MULTI_BATTLE_2_VS_1, \partnerId, \partnerPicId
 	.endm
 	

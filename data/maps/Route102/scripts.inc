@@ -18,10 +18,10 @@ Route102_EventScript_Boy::
 	end
 
 Route102_EventScript_Calvin::
-	trainerbattle_single TRAINER_CALVIN_1, Route102_Text_CalvinIntro, Route102_Text_CalvinDefeated, Route102_EventScript_CalvinRegisterMatchCallAfterBattle
+@@	trainerbattle_single TRAINER_CALVIN_1, Route102_Text_CalvinIntro, Route102_Text_CalvinDefeated, Route102_EventScript_CalvinRegisterMatchCallAfterBattle
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	goto_if_eq VAR_RESULT, TRUE, Route102_EventScript_CalvinRematch
-	setvar VAR_0x8004, TRAINER_CALVIN_1
+@	setvar VAR_0x8004, TRAINER_CALVIN_1
 	specialvar VAR_RESULT, IsTrainerRegistered
 	goto_if_eq VAR_RESULT, FALSE, Route102_EventScript_CalvinTryRegister
 	msgbox Route102_Text_CalvinPostBattle, MSGBOX_DEFAULT
@@ -37,7 +37,7 @@ Route102_EventScript_CalvinRegisterMatchCallAfterBattle::
 
 Route102_EventScript_CalvinRegisterMatchCall::
 	msgbox Route102_Text_CalvinRegisterShort, MSGBOX_DEFAULT
-	register_matchcall TRAINER_CALVIN_1
+@	register_matchcall TRAINER_CALVIN_1
 	release
 	end
 
@@ -49,27 +49,27 @@ Route102_EventScript_CalvinTryRegister::
 
 Route102_EventScript_CalvinRegister::
 	msgbox Route102_Text_CalvinRegister, MSGBOX_DEFAULT
-	register_matchcall TRAINER_CALVIN_1
+@	register_matchcall TRAINER_CALVIN_1
 	release
 	end
 
 Route102_EventScript_CalvinRematch::
-	trainerbattle_rematch TRAINER_CALVIN_1, Route102_Text_CalvinRematchIntro, Route102_Text_CalvinRematchDefeated
+@@	trainerbattle_rematch TRAINER_CALVIN_1, Route102_Text_CalvinRematchIntro, Route102_Text_CalvinRematchDefeated
 	msgbox Route102_Text_CalvinRematchPostBattle, MSGBOX_AUTOCLOSE
 	end
 
 Route102_EventScript_Rick::
-	trainerbattle_single TRAINER_RICK, Route102_Text_RickIntro, Route102_Text_RickDefeated
+@@	trainerbattle_single TRAINER_RICK, Route102_Text_RickIntro, Route102_Text_RickDefeated
 	msgbox Route102_Text_RickPostBattle, MSGBOX_AUTOCLOSE
 	end
 
 Route102_EventScript_Tiana::
-	trainerbattle_single TRAINER_TIANA, Route102_Text_TianaIntro, Route102_Text_TianaDefeated
+@@	trainerbattle_single TRAINER_TIANA, Route102_Text_TianaIntro, Route102_Text_TianaDefeated
 	msgbox Route102_Text_TianaPostBattle, MSGBOX_AUTOCLOSE
 	end
 
 Route102_EventScript_Allen::
-	trainerbattle_single TRAINER_ALLEN, Route102_Text_AllenIntro, Route102_Text_AllenDefeated
+@@	trainerbattle_single TRAINER_ALLEN, Route102_Text_AllenIntro, Route102_Text_AllenDefeated
 	msgbox Route102_Text_AllenPostBattle, MSGBOX_AUTOCLOSE
 	end
 
