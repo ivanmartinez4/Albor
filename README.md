@@ -96,15 +96,17 @@ Es un romhack en desarrollo que tiene como base la pokeemerald-expansion, con mu
 
 -Sprites modernos (MrDollSteak).
 
--Expansión de mochila (100 objetos posibles, 999 de cada uno).
+-Expansión de mochila (999 de cada objeto).
 
--Balance type chart: 
-*Bug changes --> Poison hits x2 Bug/Ghost hits x0.5 Bug/Bug hits x2 Fairy/Bug hits x1 Ghost/Fairy hits x0.5 Bug.
-*Ice changes --> Flying hits x0.5 Ice/Water hits x0.5 Ice/Ice types gets 1.5 boost of physical defense in Hail.
-*Grass changes --> Grass hits x1 Dragon.
-*Fire changes --> Fire hits x0 Dragon.
-*Steel changes --> Normal hits x1 Steel/ Psychic hits x2 Steel.
-*Psychic changes --> Psychic types can't be confused.
-*Fighting changes --> Fighting types don't recive weather damage.
+-Nuevos sprites de Poké balls (Farore).
 
--Weather rework --> The weather lasts until the Pokémon with the ability has been fainted. If If the weather has been invoked by a move, it lasts 6t turns (9 if Smooth Rock or similar). To compensate this, the damage boost is 1.3 (instead of 1.5).
+-Balance tabla de tipos: 
+*Cambios a Bicho --> Veneno le pega muy efectivo a Bicho. / Bicho resiste Fantasma. / Bicho le pega muy efectivo a Hada. / Bicho le pega neutro a Fantasma. / Bicho resiste Hada.
+*Cambios a Hielo --> Hielo resiste a Volador. / Hielo resiste a Agua. / Pokémon tipo Hielo reciben un boost del 50% de defensa física en granizo.
+*Cambios a Planta --> Planta le pega neutro a Dragón.
+*Cambios a Fuego --> Dragón es inmune a Fuego.
+*Cambios a Acero --> Normal le pega neutro a Acero. / Psíquico le pega muy efectivo a Acero.
+*Cambios a Psíquico --> Los Pokémon tipo Psíquico no pueden ser confundidos.
+*Cambios a Lucha --> Pokémon de tipo Lucha no reciben ningún daño climático.
+
+-Cambios a los climas --> Los climas invocados por habilidad duran hasta que el Pokémon que lo haya invocado sea devilitado. Si ha sido invocado por movimiento, dura 6 turnos (o 9 con objetos climáticos). A cambio, el aumento de daño de clima soleado y lluvioso pasa a ser del 30% (en vez del 50%).
