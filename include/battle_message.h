@@ -3,7 +3,7 @@
 
 #include "constants/battle_config.h"
 
-#define TEXT_BUFF_ARRAY_COUNT   17
+#define TEXT_BUFF_ARRAY_COUNT   18
 
 // for 0xFD
 #define B_TXT_BUFF1 0x0
