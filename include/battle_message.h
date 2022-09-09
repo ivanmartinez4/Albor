@@ -3,11 +3,7 @@
 
 #include "constants/battle_config.h"
 
-#if B_EXPANDED_ABILITY_NAMES == TRUE
-    #define TEXT_BUFF_ARRAY_COUNT   17
-#else
-    #define TEXT_BUFF_ARRAY_COUNT   16
-#endif
+#define TEXT_BUFF_ARRAY_COUNT   17
 
 // for 0xFD
 #define B_TXT_BUFF1 0x0

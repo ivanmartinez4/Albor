@@ -7845,10 +7845,10 @@ const struct BaseStats gBaseStats[] =
     [SPECIES_SWELLOW] =
     {
         .baseHP        = 100,
-        .baseAttack    = 120,
+        .baseAttack    = 110,
         .baseDefense   = 95,
         .baseSpeed     = 105,
-        .baseSpDefense = 50,
+        .baseSpDefense = 60,
         #if P_UPDATED_STATS >= GEN_7
             .baseSpAttack  = 50,
         #else
@@ -8713,8 +8713,8 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_MANECTRIC] =
     {
-        .baseHP        = 70,
-        .baseAttack    = 70,
+        .baseHP        = 80,
+        .baseAttack    = 60,
         .baseDefense   = 60,
         .baseSpeed     = 120,
         .baseSpAttack  = 110,
