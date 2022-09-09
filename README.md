@@ -102,11 +102,17 @@ Es un romhack en desarrollo que tiene como base la pokeemerald-expansion, con mu
 
 -Balance tabla de tipos: 
 *Cambios a Bicho --> Veneno le pega muy efectivo a Bicho. / Bicho resiste Fantasma. / Bicho le pega muy efectivo a Hada. / Bicho le pega neutro a Fantasma. / Bicho resiste Hada.
+
 *Cambios a Hielo --> Hielo resiste a Volador. / Hielo resiste a Agua. / Pokémon tipo Hielo reciben un boost del 50% de defensa física en granizo.
+
 *Cambios a Planta --> Planta le pega neutro a Dragón.
+
 *Cambios a Fuego --> Dragón es inmune a Fuego.
+
 *Cambios a Acero --> Normal le pega neutro a Acero. / Psíquico le pega muy efectivo a Acero.
+
 *Cambios a Psíquico --> Los Pokémon tipo Psíquico no pueden ser confundidos.
+
 *Cambios a Lucha --> Pokémon de tipo Lucha no reciben ningún daño climático.
 
 -Cambios a los climas --> Los climas invocados por habilidad duran hasta que el Pokémon que lo haya invocado sea devilitado. Si ha sido invocado por movimiento, dura 6 turnos (o 9 con objetos climáticos). A cambio, el aumento de daño de clima soleado y lluvioso pasa a ser del 30% (en vez del 50%).
