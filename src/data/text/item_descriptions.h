@@ -2644,44 +2644,28 @@ static const u8 sUtilityUmbrellaDesc[] = _(
 
 // Berries
 static const u8 sCheriBerryDesc[] = _(
-    "A hold item that\n"
-    "heals paralysis\n"
-    "in battle.");
+    "Cura la parálisis.");
 
 static const u8 sChestoBerryDesc[] = _(
-    "A hold item that\n"
-    "awakens Pokémon\n"
-    "in battle.");
+    "Despierta del sueño.");
 
 static const u8 sPechaBerryDesc[] = _(
-    "A hold item that\n"
-    "heals poisoning\n"
-    "in battle.");
+    "Cura el envenenamiento.");
 
 static const u8 sRawstBerryDesc[] = _(
-    "A hold item that\n"
-    "heals a burn in\n"
-    "battle.");
+    "Cura las quemaduras.");
 
 static const u8 sAspearBerryDesc[] = _(
-    "A hold item that\n"
-    "defrosts Pokémon\n"
-    "in battle.");
+    "Cura el congelamiento.");
 
 static const u8 sLeppaBerryDesc[] = _(
-    "A hold item that\n"
-    "restores 10 PP in\n"
-    "battle.");
+    "Restaura PPs.");
 
 static const u8 sOranBerryDesc[] = _(
-    "A hold item that\n"
-    "restores 10 HP in\n"
-    "battle.");
+    "Restaura 50 PS.");
 
 static const u8 sPersimBerryDesc[] = _(
-    "A hold item that\n"
-    "heals confusion\n"
-    "in battle.");
+    "Cura la confusión.");
 
 static const u8 sLumBerryDesc[] = _(
     "A hold item that\n"
@@ -2689,15 +2673,7 @@ static const u8 sLumBerryDesc[] = _(
     "problem in battle.");
 
 static const u8 sSitrusBerryDesc[] = _(
-#if I_SITRUS_BERRY_HEAL >= GEN_4
-    "A hold item that\n"
-    "restores the user's\n"
-    "HP a little.");
-#else
-    "A hold item that\n"
-    "restores 30 HP in\n"
-    "battle.");
-#endif
+    "Restaura 1/3 PS.");
 
 static const u8 sFigyBerryDesc[] = _(
     "A hold item that\n"
@@ -2750,34 +2726,34 @@ static const u8 sPinapBerryDesc[] = _(
     "to grow Pinap.");
 
 static const u8 sPomegBerryDesc[] = _(
-    "Makes a Pokémon\n"
-    "friendly but lowers\n"
-    "base HP.");
+    "Reduce puntos de\n"
+    "esfuerzo en PS,\n"
+    "y aumenta felicidad.");
 
 static const u8 sKelpsyBerryDesc[] = _(
-    "Makes a Pokémon\n"
-    "friendly but lowers\n"
-    "base Attack.");
+    "Reduce puntos de\n"
+    "esfuerzo en ataque,\n"
+    "y aumenta felicidad.");
 
 static const u8 sQualotBerryDesc[] = _(
-    "Makes a Pokémon\n"
-    "friendly but lowers\n"
-    "base Defense.");
+    "Reduce puntos de\n"
+    "esfuerzo en defensa,\n"
+    "y aumenta felicidad.");
 
 static const u8 sHondewBerryDesc[] = _(
-    "Makes a Pokémon\n"
-    "friendly but lowers\n"
-    "base Sp. Atk.");
+    "Reduce puntos de\n"
+    "esfuerzo en at. esp.,\n"
+    "y aumenta felicidad.");
 
 static const u8 sGrepaBerryDesc[] = _(
-    "Makes a Pokémon\n"
-    "friendly but lowers\n"
-    "base Sp. Def.");
+    "Reduce puntos de\n"
+    "esfuerzo en df. esp.,\n"
+    "y aumenta felicidad.");
 
 static const u8 sTamatoBerryDesc[] = _(
-    "Makes a Pokémon\n"
-    "friendly but lowers\n"
-    "base Speed.");
+    "Reduce puntos de\n"
+    "esfuerzo en velocidad,\n"
+    "y aumenta felicidad.");
 
 static const u8 sCornnBerryDesc[] = _(
     "{POKEBLOCK} ingredient.\n"
@@ -2825,129 +2801,103 @@ static const u8 sBelueBerryDesc[] = _(
     "to grow Belue.");
 
 static const u8 sChilanBerryDesc[] = _(
-    "A hold item that\n"
-    "weakens a Normal\n"
-    "move.");
+    "Reduce daño de tipo Normal.");
 
 static const u8 sOccaBerryDesc[] = _(
-    "A hold item that\n"
-    "weakens a Fire\n"
-    "move if weak to it.");
+    "Reduce daño muy\n"
+    "efectivo de Fuego.");
 
 static const u8 sPasshoBerryDesc[] = _(
-    "A hold item that\n"
-    "weakens a Water\n"
-    "move if weak to it.");
+    "Reduce daño muy\n"
+    "efectivo de Agua.");
 
 static const u8 sWacanBerryDesc[] = _(
-    "A hold item that\n"
-    "weakens a Electric\n"
-    "move if weak to it.");
+    "Reduce daño muy\n"
+    "efectivo de Eléctrico.");
 
 static const u8 sRindoBerryDesc[] = _(
-    "A hold item that\n"
-    "weakens a Grass\n"
-    "move if weak to it.");
+    "Reduce daño muy\n"
+    "efectivo de Planta.");
 
 static const u8 sYacheBerryDesc[] = _(
-    "A hold item that\n"
-    "weakens a Ice\n"
-    "move if weak to it.");
+    "Reduce daño muy\n"
+    "efectivo de Hielo.");
 
 static const u8 sChopleBerryDesc[] = _(
-    "A hold item that\n"
-    "weakens a Fighting\n"
-    "move if weak to it.");
+    "Reduce daño muy\n"
+    "efectivo de Lucha.");
 
 static const u8 sKebiaBerryDesc[] = _(
-    "A hold item that\n"
-    "weakens a Poison\n"
-    "move if weak to it.");
+    "Reduce daño muy\n"
+    "efectivo de Veneno.");
 
 static const u8 sShucaBerryDesc[] = _(
-    "A hold item that\n"
-    "weakens a Ground\n"
-    "move if weak to it.");
+    "Reduce daño muy\n"
+    "efectivo de Tierra.");
 
 static const u8 sCobaBerryDesc[] = _(
-    "A hold item that\n"
-    "weakens a Flying\n"
-    "move if weak to it.");
+    "Reduce daño muy\n"
+    "efectivo de Volador.");
 
 static const u8 sPayapaBerryDesc[] = _(
-    "A hold item that\n"
-    "weakens a Psychic\n"
-    "move if weak to it.");
+    "Reduce daño muy\n"
+    "efectivo de Psíquico.");
 
 static const u8 sTangaBerryDesc[] = _(
-    "A hold item that\n"
-    "weakens a Bug\n"
-    "move if weak to it.");
+    "Reduce daño muy\n"
+    "efectivo de Bicho.");
 
 static const u8 sChartiBerryDesc[] = _(
-    "A hold item that\n"
-    "weakens a Rock\n"
-    "move if weak to it.");
+    "Reduce daño muy\n"
+    "efectivo de Roca.");
 
 static const u8 sKasibBerryDesc[] = _(
-    "A hold item that\n"
-    "weakens a Ghost\n"
-    "move if weak to it.");
+    "Reduce daño muy\n"
+    "efectivo de Fantasma.");
 
 static const u8 sHabanBerryDesc[] = _(
-    "A hold item that\n"
-    "weakens a Dragon\n"
-    "move if weak to it.");
+    "Reduce daño muy\n"
+    "efectivo de Dragón.");
 
 static const u8 sColburBerryDesc[] = _(
-    "A hold item that\n"
-    "weakens a Dark\n"
-    "move if weak to it.");
+    "Reduce daño muy\n"
+    "efectivo de Siniestro.");
 
 static const u8 sBabiriBerryDesc[] = _(
-    "A hold item that\n"
-    "weakens a Steel\n"
-    "move if weak to it.");
+    "Reduce daño muy\n"
+    "efectivo de Acero.");
 
 static const u8 sRoseliBerryDesc[] = _(
-    "A hold item that\n"
-    "weakens a Fairy\n"
-    "move if weak to it.");
+    "Reduce daño muy\n"
+    "efectivo de Hada.");
 
 static const u8 sLiechiBerryDesc[] = _(
-    "A hold item that\n"
-    "raises Attack in\n"
-    "a pinch.");
+    "Sube el ataque\n"
+    "con poca salud.");
 
 static const u8 sGanlonBerryDesc[] = _(
-    "A hold item that\n"
-    "raises Defense in\n"
-    "a pinch.");
+    "Sube la defensa\n"
+    "con poca salud.");
 
 static const u8 sSalacBerryDesc[] = _(
-    "A hold item that\n"
-    "raises Speed in\n"
-    "a pinch.");
+    "Sube la velocidad\n"
+    "con poca salud.");
 
 static const u8 sPetayaBerryDesc[] = _(
-    "A hold item that\n"
-    "raises Sp. Atk in\n"
-    "a pinch.");
+    "Sube el ataque esp.\n"
+    "con poca salud.");
 
 static const u8 sApicotBerryDesc[] = _(
-    "A hold item that\n"
-    "raises Sp. Def in\n"
-    "a pinch.");
+    "Sube la defensa esp.\n"
+    "con poca salud.");
 
 static const u8 sLansatBerryDesc[] = _(
-    "A hold item that\n"
-    "ups the critical-\n"
-    "hit rate in a pinch.");
+    "Sube el índice de\n"
+    "crítico con poca salud.");
 
 static const u8 sStarfBerryDesc[] = _(
-    "A hold item that\n"
-    "sharply boosts a\n"
-    "stat in a pinch.");
+    "Sube mucho una estadística\n"
+    "al azar con poca salud.");
 
 static const u8 sMicleBerryDesc[] = _(
     "When held, it ups\n"
@@ -2970,14 +2920,14 @@ static const u8 sRowapBerryDesc[] = _(
     "the attacker a bit.");
 
 static const u8 sKeeBerryDesc[] = _(
-    "If hit by a physical\n"
-    "move, it raises the\n"
-    "Defense a bit.");
+    "Sube la defensa\n"
+    "si es golpeado\n"
+    "por un ataque físico.");
 
 static const u8 sMarangaBerryDesc[] = _(
-    "If hit by a special\n"
-    "move, it raises the\n"
-    "Sp. Def. a bit.");
+    "Sube la defensa esp.\n"
+    "si es golpeado\n"
+    "por un ataque especial.");
 
 // TMs/HMs
 static const u8 sTM01Desc[] = _(
