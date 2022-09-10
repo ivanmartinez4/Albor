@@ -50,11 +50,11 @@
 #define TV_SHOWS_COUNT 2
 #define POKE_NEWS_COUNT 2
 #define PC_ITEMS_COUNT 50
-#define BAG_ITEMS_COUNT 100
+#define BAG_ITEMS_COUNT 180
 #define BAG_KEYITEMS_COUNT 20
-#define BAG_POKEBALLS_COUNT 20
+#define BAG_POKEBALLS_COUNT 19
 #define BAG_TMHM_COUNT 108
-#define BAG_BERRIES_COUNT 68
+#define BAG_BERRIES_COUNT 44
 #define OBJECT_EVENT_TEMPLATES_COUNT 64
 #define DECOR_MAX_SECRET_BASE 1
 #define DECOR_MAX_PLAYERS_HOUSE 1
@@ -155,6 +155,6 @@
 #define CONNECTION_EMERGE   6
 
 #define SLOW_MOVEMENT_ON_STAIRS         TRUE
-#define FOLLOW_ME_IMPLEMENTED           FALSE    //for stairs movement. see ObjectMovingOnRockStairs in src/field_player_avatar.c
+#define FOLLOW_ME_IMPLEMENTED           TRUE    //for stairs movement. see ObjectMovingOnRockStairs in src/field_player_avatar.c
 
 #endif // GUARD_CONSTANTS_GLOBAL_H

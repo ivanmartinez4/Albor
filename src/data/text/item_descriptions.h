@@ -3,39 +3,27 @@ static const u8 sDummyDesc[] = _(
 
 // Poké Balls
 static const u8 sPokeBallDesc[] = _(
-    "A tool used for\n"
-    "catching wild\n"
-    "Pokémon.");
+    "Índice de captura: x1.");
 
 static const u8 sGreatBallDesc[] = _(
-    "A good Ball with a\n"
-    "higher catch rate\n"
-    "than a Pokéball.");
+    "Índice de captura: x2.");
 
 static const u8 sUltraBallDesc[] = _(
-    "A better Ball with\n"
-    "a higher catch rate\n"
-    "than a Great Ball.");
+    "Índice de captura: x3.");
 
 static const u8 sMasterBallDesc[] = _(
-    "The best Ball that\n"
-    "catches a Pokémon\n"
-    "without fail.");
+    "Índice de captura: Nunca falla.");
 
 static const u8 sPremierBallDesc[] = _(
-    "A rare Ball made\n"
-    "in commemoration\n"
-    "of some event.");
+    "Índice de captura: x2.");
 
 static const u8 sHealBallDesc[] = _(
-    "A remedial Ball\n"
-    "that restores\n"
-    "caught Pokémon.");
+    "Índice de captura: x2,\n"
+    "y cura al Pokémon.");
 
 static const u8 sNetBallDesc[] = _(
-    "A Ball that works\n"
-    "well on Water- and\n"
-    "Bug-type Pokémon.");
+    "Índice de captura: x4\n"
+    "para tipos Bicho y Agua.");
 
 static const u8 sNestBallDesc[] = _(
     "A Ball that works\n"
@@ -43,39 +31,34 @@ static const u8 sNestBallDesc[] = _(
     "Pokémon.");
 
 static const u8 sDiveBallDesc[] = _(
-    "A Ball that works\n"
-    "better on Pokémon\n"
-    "on the ocean floor.");
+    "Índice de captura: x4\n"
+    "en el agua.");
 
 static const u8 sDuskBallDesc[] = _(
-    "Works well if\n"
-    "used in a\n"
-    "dark place.");
+    "Índice de captura: x4\n"
+    "si está oscuro.");
 
 static const u8 sTimerBallDesc[] = _(
-    "A Ball that gains\n"
-    "power in battles\n"
-    "taking many turns.");
+    "Índice de captura: +0,1\n"
+    "por turno, sin límite.");
 
 static const u8 sQuickBallDesc[] = _(
-    "Works well if\n"
-    "used on the\n"
-    "first turn.");
+    "Índice de captura: x8\n"
+    "primer turno, x4 segundo,\n"
+    "x2 tercero, x1 el resto.");
 
 static const u8 sRepeatBallDesc[] = _(
-    "A Ball that works\n"
-    "better on Pokémon\n"
-    "caught before.");
+    "Índice de captura: x5\n"
+    "si ya tienes al Pokémon.");
 
 static const u8 sLuxuryBallDesc[] = _(
-    "A cozy Ball that\n"
-    "makes Pokémon\n"
-    "more friendly.");
+    "Índice de captura: x2,\n"
+    "y mejora la felicidad.");
 
 static const u8 sLevelBallDesc[] = _(
-    "A Ball that works\n"
-    "well on lower\n"
-    "level Pokémon.");
+    "Índice de captura: escala\n"
+    "conforme aumenta diferencia\n"
+    "de nivel hasta x8.");
 
 static const u8 sLureBallDesc[] = _(
     "A Ball that works\n"
@@ -83,9 +66,8 @@ static const u8 sLureBallDesc[] = _(
     "up Pokémon.");
 
 static const u8 sMoonBallDesc[] = _(
-    "A Ball that works\n"
-    "well on Moon\n"
-    "Stone users.");
+    "Índice de captura: x4,\n"
+    "si evoluciona con Piedra lunar.");
 
 static const u8 sFriendBallDesc[] = _(
     "A Ball that makes\n"
@@ -93,25 +75,23 @@ static const u8 sFriendBallDesc[] = _(
     "when caught.");
 
 static const u8 sLoveBallDesc[] = _(
-    "Works well on\n"
-    "Pokémon of the\n"
-    "opposite gender.");
+    "Índice de captura: x8\n"
+    "si misma especie y distinto género.");
 
 static const u8 sFastBallDesc[] = _(
-    "Works well on\n"
-    "very fast\n"
-    "Pokémon.");
+    "Índice de captura: x4\n"
+    "si +100 vel., x6 si +120\n"
+    "y x8 si +140.");
 
 static const u8 sHeavyBallDesc[] = _(
-    "Works well on\n"
-    "very heavy\n"
-    "Pokémon.");
+    "Índice de captura: aumenta\n"
+    "conforme mayor peso\n"
+    "hasta x8.");
 
 static const u8 sDreamBallDesc[] = _(
 #if B_DREAM_BALL_MODIFIER >= GEN_8
-    "A Ball that works\n"
-    "well on sleeping\n"
-    "Pokémon.");
+    "Índice de captura: x4\n"
+    "si está dormido.");
 #else
     "A Pokéball used in\n"
     "the Entree Forest.");
