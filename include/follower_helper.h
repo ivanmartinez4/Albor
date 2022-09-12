@@ -124,6 +124,6 @@ enum {
     COND_MSG_COUNT,
 };
 
-extern const struct FollowerMsgInfoExtended gFollowerConditionalMessages[COND_MSG_COUNT];
+extern const struct FollowerMsgInfoExtended gFollowerConditionalMessages[COND_MSG_COUNT + 2];
 
 #endif //GUARD_FOLLOWER_HELPER_H
