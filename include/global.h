@@ -399,6 +399,9 @@ struct SaveBlock2
     /*0xA0*/ struct Time lastBerryTreeUpdate;
     /*0xAC*/ u32 encryptionKey;
     /*0xF2C*/ bool8 autoRun;
+    /*0x9C8*/ u16 trainerRematchStepCounter;
+    /*0x9CA*/ u8 trainerRematches[MAX_REMATCH_ENTRIES];
+    /*0x1270*/ u8 flags[NUM_FLAG_BYTES];
     /*0xF2C*/ u8 itemFlags[ITEM_FLAGS_COUNT];
                u8 dexNavSearchLevels[NUM_SPECIES];
                u8 dexNavChain;
@@ -766,11 +769,8 @@ struct SaveBlock1
               u8 bagPocket_TMHMOwnedFlags[14]; //allow for a total of 112 TMs/HMs
               u8 bagPocket_TMHMPadding[242]; //do not touch the save layout, take 242 bytes of free space
     /*0x790*/ struct ItemSlot bagPocket_Berries[BAG_BERRIES_COUNT];
-    /*0x9C8*/ u16 trainerRematchStepCounter;
-    /*0x9CA*/ u8 trainerRematches[MAX_REMATCH_ENTRIES];
     /*0xA30*/ struct ObjectEvent objectEvents[OBJECT_EVENTS_COUNT];
     /*0xC70*/ struct ObjectEventTemplate objectEventTemplates[OBJECT_EVENT_TEMPLATES_COUNT];
-    /*0x1270*/ u8 flags[NUM_FLAG_BYTES];
     /*0x139C*/ u16 vars[VARS_COUNT];
     /*0x159C*/ u32 gameStats[NUM_GAME_STATS];
     /*0x169C*/ struct BerryTree berryTrees[BERRY_TREES_COUNT];

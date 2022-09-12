@@ -6794,25 +6794,25 @@ static u32 GetTrainerMoneyToGive(u16 trainerId)
         case 0:
             {
                 const struct TrainerMonNoItemDefaultMoves *party = gTrainers[trainerId].party.NoItemDefaultMoves;
-                lastMonLevel = GetHighestPartyMemberLevel() + party[gTrainers[trainerId].partySize - 1].lvl;
+                lastMonLevel = GetHighestLevelInPlayerParty() + party[gTrainers[trainerId].partySize - 1].lvl;
             }
             break;
         case F_TRAINER_PARTY_CUSTOM_MOVESET:
             {
                 const struct TrainerMonNoItemCustomMoves *party = gTrainers[trainerId].party.NoItemCustomMoves;
-                lastMonLevel = GetHighestPartyMemberLevel() + party[gTrainers[trainerId].partySize - 1].lvl;
+                lastMonLevel = GetHighestLevelInPlayerParty() + party[gTrainers[trainerId].partySize - 1].lvl;
             }
             break;
         case F_TRAINER_PARTY_HELD_ITEM:
             {
                 const struct TrainerMonItemDefaultMoves *party = gTrainers[trainerId].party.ItemDefaultMoves;
-                lastMonLevel = GetHighestPartyMemberLevel() +  party[gTrainers[trainerId].partySize - 1].lvl;
+                lastMonLevel = GetHighestLevelInPlayerParty() +  party[gTrainers[trainerId].partySize - 1].lvl;
             }
             break;
         case F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_HELD_ITEM:
             {
                 const struct TrainerMonItemCustomMoves *party = gTrainers[trainerId].party.ItemCustomMoves;
-                lastMonLevel = GetHighestPartyMemberLevel() + party[gTrainers[trainerId].partySize - 1].lvl;
+                lastMonLevel = GetHighestLevelInPlayerParty() + party[gTrainers[trainerId].partySize - 1].lvl;
             }
             break;
         }

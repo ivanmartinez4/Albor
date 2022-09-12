@@ -195,24 +195,19 @@ static u8 ChooseWildMonIndex_Fishing(u8 rod)
     return wildMonIndex;
 }
 
-static u8 ChooseWildMonLevel(const struct WildPokemon *wildPokemon)
+static u8 ChooseWildMonLevel(void)
 {
-    u8 min;
-    u8 max;
+    u8 playerMaxLevel = GetHighestLevelInPlayerParty();
+    u8 min = playerMaxLevel - 4;
+    u8 max = playerMaxLevel - 2;
     u8 range;
     u8 rand;
+    
+    if (playerMaxLevel < 5)
+    {
+    min = 1;
+    }
 
-    // Make sure minimum level is less than maximum level
-    if (wildPokemon->maxLevel >= wildPokemon->minLevel)
-    {
-        min = wildPokemon->minLevel;
-        max = wildPokemon->maxLevel;
-    }
-    else
-    {
-        min = wildPokemon->maxLevel;
-        max = wildPokemon->minLevel;
-    }
     range = max - min + 1;
     rand = Random() % range;
 
@@ -388,7 +383,7 @@ static bool8 TryGenerateWildMon(const struct WildPokemonInfo *wildMonInfo, u8 ar
         break;
     }
 
-    level = ChooseWildMonLevel(&wildMonInfo->wildPokemon[wildMonIndex]);
+    level = ChooseWildMonLevel();
     if (flags & WILD_CHECK_REPEL && !IsWildLevelAllowedByRepel(level))
         return FALSE;
     if (gMapHeader.mapLayoutId != LAYOUT_BATTLE_FRONTIER_BATTLE_PIKE_ROOM_WILD_MONS && flags & WILD_CHECK_KEEN_EYE && !IsAbilityAllowingEncounter(level))
@@ -401,7 +396,7 @@ static bool8 TryGenerateWildMon(const struct WildPokemonInfo *wildMonInfo, u8 ar
 static u16 GenerateFishingWildMon(const struct WildPokemonInfo *wildMonInfo, u8 rod)
 {
     u8 wildMonIndex = ChooseWildMonIndex_Fishing(rod);
-    u8 level = ChooseWildMonLevel(&wildMonInfo->wildPokemon[wildMonIndex]);
+    u8 level = ChooseWildMonLevel();
 
     CreateWildMon(wildMonInfo->wildPokemon[wildMonIndex].species, level);
     return wildMonInfo->wildPokemon[wildMonIndex].species;

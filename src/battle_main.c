@@ -117,6 +117,7 @@ static void HandleEndTurn_RanFromBattle(void);
 static void HandleEndTurn_MonFled(void);
 static void HandleEndTurn_FinishBattle(void);
 static void TrySpecialEvolution(void);
+u16 HasLevelEvolution(u16 species, u8 level);
 
 EWRAM_DATA u16 gBattle_BG0_X = 0;
 EWRAM_DATA u16 gBattle_BG0_Y = 0;
@@ -1593,24 +1594,6 @@ void CB2_QuitRecordedBattle(void)
 #define sState data[0]
 #define sDelay data[4]
 
-u8 GetHighestPartyMemberLevel(void)
-{
-    u8 highestLevel = 0;
-    u8 level;
-    u8 partyCount = CalculatePlayerPartyCount();
-    u8 i;
-
-    for (i = 0; i < partyCount; i++)
-    {
-       level =  GetMonData(&gPlayerParty[i], MON_DATA_LEVEL);
-       if (level > highestLevel)
-       {
-           highestLevel = level;
-       }
-    }
-    return highestLevel;
-}
-
 static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 firstTrainer)
 {
     u32 nameHash = 0;
@@ -1666,7 +1649,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 
                 personalityValue += nameHash << 8;
                 fixedIV = partyData[i].iv * MAX_PER_STAT_IVS / 255;
-                level = GetHighestPartyMemberLevel() + partyData[i].lvl;
+                level = GetHighestLevelInPlayerParty() + partyData[i].lvl;
                 if (level > 100)
                 {
                     level = 100;
@@ -1676,7 +1659,11 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
                     level = 1;
                 }
 
-                CreateMon(&party[i], partyData[i].species, level, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                if(HasLevelEvolution(partyData[i].species, level))
+	            CreateMon(&party[i], HasLevelEvolution(partyData[i].species, level), level, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                else
+	            CreateMon(&party[i], partyData[i].species, level, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+
                 break;
             }
             case F_TRAINER_PARTY_CUSTOM_MOVESET:
@@ -1688,7 +1675,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 
                 personalityValue += nameHash << 8;
                 fixedIV = partyData[i].iv * MAX_PER_STAT_IVS / 255;
-                level = GetHighestPartyMemberLevel() + partyData[i].lvl;
+                level = GetHighestLevelInPlayerParty() + partyData[i].lvl;
                 if (level > 100)
                 {
                     level = 100;
@@ -1698,7 +1685,10 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
                     level = 1;
                 }
 
-                CreateMon(&party[i], partyData[i].species, level, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                if(HasLevelEvolution(partyData[i].species, level))
+	            CreateMon(&party[i], HasLevelEvolution(partyData[i].species, level), level, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                else
+	            CreateMon(&party[i], partyData[i].species, level, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
 
                 for (j = 0; j < MAX_MON_MOVES; j++)
                 {
@@ -1716,7 +1706,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 
                 personalityValue += nameHash << 8;
                 fixedIV = partyData[i].iv * MAX_PER_STAT_IVS / 255;
-                level = GetHighestPartyMemberLevel() + partyData[i].lvl;
+                level = GetHighestLevelInPlayerParty() + partyData[i].lvl;
                 if (level > 100)
                 {
                     level = 100;
@@ -1726,7 +1716,10 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
                     level = 1;
                 }
 
-                CreateMon(&party[i], partyData[i].species, level, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                if(HasLevelEvolution(partyData[i].species, level))
+	            CreateMon(&party[i], HasLevelEvolution(partyData[i].species, level), level, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                else
+	            CreateMon(&party[i], partyData[i].species, level, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
 
                 SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
                 break;
@@ -1740,7 +1733,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 
                 personalityValue += nameHash << 8;
                 fixedIV = partyData[i].iv * MAX_PER_STAT_IVS / 255;
-                level = GetHighestPartyMemberLevel() + partyData[i].lvl;
+                level = GetHighestLevelInPlayerParty() + partyData[i].lvl;
                 if (level > 100)
                 {
                     level = 100;
@@ -1750,7 +1743,10 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
                     level = 1;
                 }
 
-                CreateMon(&party[i], partyData[i].species, level, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                if(HasLevelEvolution(partyData[i].species, level))
+	            CreateMon(&party[i], HasLevelEvolution(partyData[i].species, level), level, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                else
+	            CreateMon(&party[i], partyData[i].species, level, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
 
                 SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
 
@@ -5182,4 +5178,16 @@ void SetTotemBoost(void)
 bool32 IsWildMonSmart(void)
 {
     return (B_SMART_WILD_AI_FLAG != 0 && FlagGet(B_SMART_WILD_AI_FLAG));
+}
+
+u16 HasLevelEvolution(u16 species, u8 level)
+{
+	if(gEvolutionTable[species][0].param && gEvolutionTable[species][0].param <= level)
+	{
+		if(HasLevelEvolution(gEvolutionTable[species][0].targetSpecies, level))
+			return HasLevelEvolution(gEvolutionTable[species][0].targetSpecies, level);
+		else
+			return gEvolutionTable[species][0].targetSpecies;
+	}
+	return 0;
 }

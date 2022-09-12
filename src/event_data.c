@@ -36,14 +36,14 @@ extern u16 *const gSpecialVars[];
 
 void InitEventData(void)
 {
-    memset(gSaveBlock1Ptr->flags, 0, sizeof(gSaveBlock1Ptr->flags));
+    memset(gSaveBlock2Ptr->flags, 0, sizeof(gSaveBlock2Ptr->flags));
     memset(gSaveBlock1Ptr->vars, 0, sizeof(gSaveBlock1Ptr->vars));
     memset(sSpecialFlags, 0, sizeof(sSpecialFlags));
 }
 
 void ClearTempFieldEventData(void)
 {
-    memset(gSaveBlock1Ptr->flags + (TEMP_FLAGS_START / 8), 0, TEMP_FLAGS_SIZE);
+    memset(gSaveBlock2Ptr->flags + (TEMP_FLAGS_START / 8), 0, TEMP_FLAGS_SIZE);
     memset(gSaveBlock1Ptr->vars + ((TEMP_VARS_START - VARS_START) * 2), 0, TEMP_VARS_SIZE);
     FlagClear(FLAG_SYS_ENC_UP_ITEM);
     FlagClear(FLAG_SYS_ENC_DOWN_ITEM);
@@ -54,7 +54,7 @@ void ClearTempFieldEventData(void)
 
 void ClearDailyFlags(void)
 {
-    memset(gSaveBlock1Ptr->flags + (DAILY_FLAGS_START / 8), 0, DAILY_FLAGS_SIZE);
+    memset(gSaveBlock2Ptr->flags + (DAILY_FLAGS_START / 8), 0, DAILY_FLAGS_SIZE);
 }
 
 void DisableNationalPokedex(void)
@@ -141,7 +141,7 @@ u8 *GetFlagPointer(u16 id)
     if (id == 0)
         return NULL;
     else if (id < SPECIAL_FLAGS_START)
-        return &gSaveBlock1Ptr->flags[id / 8];
+        return &gSaveBlock2Ptr->flags[id / 8];
     else
         return &sSpecialFlags[(id - SPECIAL_FLAGS_START) / 8];
 }

@@ -1482,7 +1482,7 @@ static void SetRematchIdForTrainer(const struct RematchTrainer *table, u32 table
             break;
     }
 
-    gSaveBlock1Ptr->trainerRematches[tableId] = i;
+    gSaveBlock2Ptr->trainerRematches[tableId] = i;
 }
 
 static bool32 UpdateRandomTrainerRematches(const struct RematchTrainer *table, u16 mapGroup, u16 mapNum)
@@ -1501,7 +1501,7 @@ static bool32 DoesSomeoneWantRematchIn_(const struct RematchTrainer *table, u16 
 
     for (i = 0; i < REMATCH_TABLE_ENTRIES; i++)
     {
-        if (table[i].mapGroup == mapGroup && table[i].mapNum == mapNum && gSaveBlock1Ptr->trainerRematches[i] != 0)
+        if (table[i].mapGroup == mapGroup && table[i].mapNum == mapNum && gSaveBlock2Ptr->trainerRematches[i] != 0)
             return TRUE;
     }
 
@@ -1529,7 +1529,7 @@ static bool8 IsFirstTrainerIdReadyForRematch(const struct RematchTrainer *table,
         return FALSE;
     if (tableId >= MAX_REMATCH_ENTRIES)
         return FALSE;
-    if (gSaveBlock1Ptr->trainerRematches[tableId] == 0)
+    if (gSaveBlock2Ptr->trainerRematches[tableId] == 0)
         return FALSE;
 
     return TRUE;
@@ -1543,7 +1543,7 @@ static bool8 IsTrainerReadyForRematch_(const struct RematchTrainer *table, u16 t
         return FALSE;
     if (tableId >= MAX_REMATCH_ENTRIES)
         return FALSE;
-    if (gSaveBlock1Ptr->trainerRematches[tableId] == 0)
+    if (gSaveBlock2Ptr->trainerRematches[tableId] == 0)
         return FALSE;
 
     return TRUE;
@@ -1596,7 +1596,7 @@ static void ClearTrainerWantRematchState(const struct RematchTrainer *table, u16
     s32 tableId = TrainerIdToRematchTableId(table, firstBattleTrainerId);
 
     if (tableId != -1)
-        gSaveBlock1Ptr->trainerRematches[tableId] = 0;
+        gSaveBlock2Ptr->trainerRematches[tableId] = 0;
 }
 
 static u32 GetTrainerMatchCallFlag(u32 trainerId)
@@ -1614,12 +1614,9 @@ static u32 GetTrainerMatchCallFlag(u32 trainerId)
 
 static void RegisterTrainerInMatchCall(void)
 {
-    if (FlagGet(FLAG_HAS_MATCH_CALL))
-    {
-        u32 matchCallFlagId = GetTrainerMatchCallFlag(gTrainerBattleOpponent_A);
-        if (matchCallFlagId != 0xFFFF)
-            FlagSet(matchCallFlagId);
-    }
+    u32 matchCallFlagId = GetTrainerMatchCallFlag(gTrainerBattleOpponent_A);
+    if (matchCallFlagId != 0xFFFF)
+        FlagSet(matchCallFlagId);
 }
 
 static bool8 WasSecondRematchWon(const struct RematchTrainer *table, u16 firstBattleTrainerId)
@@ -1634,38 +1631,19 @@ static bool8 WasSecondRematchWon(const struct RematchTrainer *table, u16 firstBa
     return TRUE;
 }
 
-static bool32 HasAtLeastFiveBadges(void)
-{
-    s32 i, count;
-
-    for (count = 0, i = 0; i < ARRAY_COUNT(sBadgeFlags); i++)
-    {
-        if (FlagGet(sBadgeFlags[i]) == TRUE)
-        {
-            if (++count >= 5)
-                return TRUE;
-        }
-    }
-
-    return FALSE;
-}
-
 #define STEP_COUNTER_MAX 255
 
 void IncrementRematchStepCounter(void)
 {
-    if (HasAtLeastFiveBadges())
-    {
         if (gSaveBlock1Ptr->trainerRematchStepCounter >= STEP_COUNTER_MAX)
             gSaveBlock1Ptr->trainerRematchStepCounter = STEP_COUNTER_MAX;
         else
             gSaveBlock1Ptr->trainerRematchStepCounter++;
-    }
 }
 
 static bool32 IsRematchStepCounterMaxed(void)
 {
-    if (HasAtLeastFiveBadges() && gSaveBlock1Ptr->trainerRematchStepCounter >= STEP_COUNTER_MAX)
+    if (gSaveBlock1Ptr->trainerRematchStepCounter >= STEP_COUNTER_MAX)
         return TRUE;
     else
         return FALSE;
@@ -1674,7 +1652,7 @@ static bool32 IsRematchStepCounterMaxed(void)
 void TryUpdateRandomTrainerRematches(u16 mapGroup, u16 mapNum)
 {
     if (IsRematchStepCounterMaxed() && UpdateRandomTrainerRematches(gRematchTable, mapGroup, mapNum) == TRUE)
-        gSaveBlock1Ptr->trainerRematchStepCounter = 0;
+        gSaveBlock2Ptr->trainerRematchStepCounter = 0;
 }
 
 bool32 DoesSomeoneWantRematchIn(u16 mapGroup, u16 mapNum)

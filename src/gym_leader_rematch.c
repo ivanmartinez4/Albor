@@ -32,7 +32,7 @@ static void UpdateGymLeaderRematchFromArray(const u16 *data, size_t size, u32 ma
     s32 rematchIndex;
     for (i = 0; i < size; i++)
     {
-        if (!gSaveBlock1Ptr->trainerRematches[data[i]])
+        if (!gSaveBlock2Ptr->trainerRematches[data[i]])
         {
             rematchIndex = GetRematchIndex(data[i]);
             if (lowestRematchIndex > rematchIndex)
@@ -45,7 +45,7 @@ static void UpdateGymLeaderRematchFromArray(const u16 *data, size_t size, u32 ma
         whichLeader = 0;
         for (i = 0; i < size; i++)
         {
-            if (!gSaveBlock1Ptr->trainerRematches[data[i]])
+            if (!gSaveBlock2Ptr->trainerRematches[data[i]])
             {
                 rematchIndex = GetRematchIndex(data[i]);
                 if (rematchIndex == lowestRematchIndex)
@@ -57,14 +57,14 @@ static void UpdateGymLeaderRematchFromArray(const u16 *data, size_t size, u32 ma
             whichLeader = Random() % whichLeader;
             for (i = 0; i < size; i++)
             {
-                if (!gSaveBlock1Ptr->trainerRematches[data[i]])
+                if (!gSaveBlock2Ptr->trainerRematches[data[i]])
                 {
                     rematchIndex = GetRematchIndex(data[i]);
                     if (rematchIndex == lowestRematchIndex)
                     {
                         if (whichLeader == 0)
                         {
-                            gSaveBlock1Ptr->trainerRematches[data[i]] = lowestRematchIndex;
+                            gSaveBlock2Ptr->trainerRematches[data[i]] = lowestRematchIndex;
                             break;
                         }
                         whichLeader--;
