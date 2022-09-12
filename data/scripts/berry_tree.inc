@@ -112,6 +112,7 @@ BerryTree_EventScript_CheckBerryFullyGrown::
 	buffernumberstring STR_VAR_2, VAR_0x8006
 	lock
 	faceplayer
+    special ObjectEventInteractionGetBerryCountString
 	goto BerryTree_EventScript_PickBerry
 
 BerryTree_EventScript_PickBerry::
@@ -161,6 +162,7 @@ BerryTree_EventScript_PlantBerry::
 	special ObjectEventInteractionPlantBerryTree
 	incrementgamestat GAME_STAT_PLANTED_BERRIES
 	special IncrementDailyPlantedBerries
+	special ObjectEventInteractionGetBerryCountString
 	return
 
 BerryTree_Text_ItsSoftLoamySoil:

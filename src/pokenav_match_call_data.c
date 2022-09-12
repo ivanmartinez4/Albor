@@ -749,7 +749,6 @@ static bool32 MatchCall_IsRematchable_Trainer(match_call_t matchCall)
 
 static bool32 MatchCall_IsRematchable_Wally(match_call_t matchCall)
 {
-    return gSaveBlock2Ptr->trainerRematches[matchCall.wally->rematchTableIdx] ? TRUE : FALSE;
 }
 
 static bool32 MatchCall_IsRematchable_Rival(match_call_t matchCall)
@@ -904,39 +903,6 @@ static void MatchCall_BufferCallMessageText(const match_call_text_data_t *textDa
 
 static void MatchCall_BufferCallMessageTextByRematchTeam(const match_call_text_data_t *textData, u16 idx, u8 *dest)
 {
-    u32 i;
-    for (i = 0; textData[i].text != NULL; i++)
-    {
-        if (textData[i].flag == 0xFFFE)
-            break;
-        if (textData[i].flag != 0xFFFF && !FlagGet(textData[i].flag))
-            break;
-    }
-    if (textData[i].flag != 0xFFFE)
-    {
-        if (i)
-            i--;
-        if (textData[i].flag2 != 0xFFFF)
-            FlagSet(textData[i].flag2);
-        StringExpandPlaceholders(dest, textData[i].text);
-    }
-    else
-    {
-        if (FlagGet(FLAG_SYS_GAME_CLEAR))
-        {
-            do
-            {
-                if (gSaveBlock2Ptr->trainerRematches[idx])
-                    i += 2;
-                else if (CountBattledRematchTeams(idx) >= 2)
-                    i += 3;
-                else
-                    i++;
-            } while (0);
-        }
-
-        StringExpandPlaceholders(dest, textData[i].text);
-    }
 }
 
 void MatchCall_GetNameAndDesc(u32 idx, const u8 **desc, const u8 **name)
