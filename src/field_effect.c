@@ -28,6 +28,7 @@
 #include "trig.h"
 #include "util.h"
 #include "constants/field_effects.h"
+#include "constants/event_objects.h"
 #include "constants/event_object_movement.h"
 #include "constants/metatile_behaviors.h"
 #include "constants/rgb.h"
@@ -1563,6 +1564,15 @@ static bool8 FallWarpEffect_End(struct Task *task)
 #define tState   data[0]
 #define tGoingUp data[1]
 
+static void HideFollowerForFieldEffect(void) {
+    struct ObjectEvent *followerObj = GetFollowerObject();
+    if (!followerObj || followerObj->invisible)
+        return;
+    ClearObjectEventMovement(followerObj, &gSprites[followerObj->spriteId]);
+    gSprites[followerObj->spriteId].animCmdIndex = 0; // Avoids a visual glitch with follower's animation frame
+    ObjectEventSetHeldMovement(followerObj, MOVEMENT_ACTION_ENTER_POKEBALL);
+}
+
 void StartEscalatorWarp(u8 metatileBehavior, u8 priority)
 {
     u8 taskId;
@@ -1583,9 +1593,10 @@ static void Task_EscalatorWarpOut(u8 taskId)
 
 static bool8 EscalatorWarpOut_Init(struct Task *task)
 {
-    FreezeObjectEvents(); // TODO: Follower pokemon interaction
+    FreezeObjectEvents();
     CameraObjectReset2();
     StartEscalator(task->tGoingUp);
+    HideFollowerForFieldEffect(); // Hide follower before warping
     task->tState++;
     return FALSE;
 }
@@ -1961,13 +1972,15 @@ static void Task_LavaridgeGymB1FWarp(u8 taskId)
 
 static bool8 LavaridgeGymB1FWarpEffect_Init(struct Task *task, struct ObjectEvent *objectEvent, struct Sprite *sprite)
 {
-    FreezeObjectEvents(); // TODO: Follower pokemon interaction
+    FreezeObjectEvents();
     CameraObjectReset2();
     SetCameraPanningCallback(NULL);
     gPlayerAvatar.preventStep = TRUE;
     objectEvent->fixedPriority = 1;
     task->data[1] = 1;
     task->data[0]++;
+    if (objectEvent->localId == OBJ_EVENT_ID_PLAYER) // Hide follower before warping
+        HideFollowerForFieldEffect();
     return TRUE;
 }
 
@@ -2078,7 +2091,7 @@ static void Task_LavaridgeGymB1FWarpExit(u8 taskId)
 static bool8 LavaridgeGymB1FWarpExitEffect_Init(struct Task *task, struct ObjectEvent *objectEvent, struct Sprite *sprite)
 {
     CameraObjectReset2();
-    FreezeObjectEvents(); // TODO: Follower pokemon interaction
+    FreezeObjectEvents();
     gPlayerAvatar.preventStep = TRUE;
     objectEvent->invisible = TRUE;
     task->data[0]++;
@@ -2154,11 +2167,13 @@ static void Task_LavaridgeGym1FWarp(u8 taskId)
 
 static bool8 LavaridgeGym1FWarpEffect_Init(struct Task *task, struct ObjectEvent *objectEvent, struct Sprite *sprite)
 {
-    FreezeObjectEvents(); // TODO: Follower pokemon interaction
+    FreezeObjectEvents();
     CameraObjectReset2();
     gPlayerAvatar.preventStep = TRUE;
     objectEvent->fixedPriority = 1;
     task->data[0]++;
+    if (objectEvent->localId == OBJ_EVENT_ID_PLAYER) // Hide follower before warping
+        HideFollowerForFieldEffect();
     return FALSE;
 }
 
@@ -2244,6 +2259,7 @@ void StartEscapeRopeFieldEffect(void)
 {
     LockPlayerFieldControls();
     FreezeObjectEvents();
+    HideFollowerForFieldEffect();
     CreateTask(Task_EscapeRopeWarpOut, 80);
 }
 
@@ -3010,11 +3026,7 @@ static void SurfFieldEffect_Init(struct Task *task)
     LockPlayerFieldControls();
     FreezeObjectEvents();
     // Put follower into pokeball before using Surf
-    if (followerObject && !followerObject->invisible) {
-      ClearObjectEventMovement(followerObject, &gSprites[followerObject->spriteId]);
-      gSprites[followerObject->spriteId].animCmdIndex = 0; // Needed because of weird animCmdIndex stuff
-      ObjectEventSetHeldMovement(followerObject, MOVEMENT_ACTION_ENTER_POKEBALL);
-    }
+    HideFollowerForFieldEffect();
     gPlayerAvatar.preventStep = TRUE;
     SetPlayerAvatarStateMask(PLAYER_AVATAR_FLAG_SURFING);
     PlayerGetDestCoords(&task->tDestX, &task->tDestY);
