@@ -13784,7 +13784,6 @@ static void Cmd_handleballthrow(void)
                     #endif
                 break;
             case ITEM_DIVE_BALL:
-                if (GetCurrentMapType() == MAP_TYPE_UNDERWATER
                 #if B_DIVE_BALL_MODIFIER >= GEN_4
                     if (GetCurrentMapType() == MAP_TYPE_UNDERWATER || gIsFishingEncounter || gIsSurfingEncounter)
                         ballMultiplier = 40;
@@ -13792,8 +13791,6 @@ static void Cmd_handleballthrow(void)
                     if (GetCurrentMapType() == MAP_TYPE_UNDERWATER)
                         ballMultiplier = 35;
                 #endif
-                )
-                    ballMultiplier = 35;
                 break;
             case ITEM_NEST_BALL:
             #if B_NEST_BALL_MODIFIER >= GEN_6

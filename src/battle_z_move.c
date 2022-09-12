@@ -192,7 +192,8 @@ bool32 IsViableZMove(u8 battlerId, u16 move)
     if (gBattleStruct->debugHoldEffects[battlerId])
         holdEffect = gBattleStruct->debugHoldEffects[battlerId];
     else
-        holdEffect = ItemId_GetHoldEffect(item);
+#endif
+    holdEffect = ItemId_GetHoldEffect(item);
     
     #ifdef ITEM_ULTRANECROZIUM_Z
     if (holdEffect == HOLD_EFFECT_Z_CRYSTAL || item == ITEM_ULTRANECROZIUM_Z)
@@ -673,4 +674,3 @@ static bool32 AreStatsMaxed(u8 battlerId, u8 n)
     }
     return TRUE;
 }
-

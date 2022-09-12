@@ -7705,7 +7705,8 @@ u32 GetBattlerHoldEffect(u8 battlerId, bool32 checkNegating)
     if (gBattleStruct->debugHoldEffects[battlerId] != 0 && gBattleMons[battlerId].item)
         return gBattleStruct->debugHoldEffects[battlerId];
     else
-        return ItemId_GetHoldEffect(gBattleMons[battlerId].item);
+#endif
+    return ItemId_GetHoldEffect(gBattleMons[battlerId].item);
 }
 
 u32 GetBattlerHoldEffectParam(u8 battlerId)
@@ -9482,7 +9483,8 @@ bool32 CanMegaEvolve(u8 battlerId)
         if (B_ENABLE_DEBUG && gBattleStruct->debugHoldEffects[battlerId])
             holdEffect = gBattleStruct->debugHoldEffects[battlerId];
         else
-            holdEffect = ItemId_GetHoldEffect(itemId);
+    #endif
+        holdEffect = ItemId_GetHoldEffect(itemId);
 
         // Can Mega Evolve via Mega Stone.
         if (holdEffect == HOLD_EFFECT_MEGA_STONE)
