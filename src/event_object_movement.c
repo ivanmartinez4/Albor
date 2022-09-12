@@ -4,6 +4,7 @@
 #include "battle_script_commands.h"
 #include "berry.h"
 #include "data.h"
+#include "debug.h"
 #include "decoration.h"
 #include "decompress.h"
 #include "event_data.h"
@@ -5705,6 +5706,13 @@ u8 GetSidewaysStairsCollision(struct ObjectEvent *objectEvent, u8 dir, u8 curren
 
 static u8 GetVanillaCollision(struct ObjectEvent *objectEvent, s16 x, s16 y, u8 direction)
 {
+    u8 direction = dir;
+
+#if DEBUG_SYSTEM_ENABLE == TRUE
+    if (FlagGet(DEBUG_FLAG_NO_COLLISION))
+        return COLLISION_NONE;
+#endif
+
     if (IsCoordOutsideObjectEventMovementRange(objectEvent, x, y))
         return COLLISION_OUTSIDE_RANGE;
     else if (MapGridGetCollisionAt(x, y) || GetMapBorderIdAt(x, y) == CONNECTION_INVALID || IsMetatileDirectionallyImpassable(objectEvent, x, y, direction))

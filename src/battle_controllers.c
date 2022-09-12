@@ -9,7 +9,6 @@
 #include "link.h"
 #include "link_rfu.h"
 #include "party_menu.h"
-#include "pokemon.h"
 #include "recorded_battle.h"
 #include "task.h"
 #include "util.h"
@@ -1041,7 +1040,7 @@ void BtlController_EmitPrintString(u8 bufferId, u16 stringID)
     stringInfo->lastItem = gLastUsedItem;
     stringInfo->lastAbility = gLastUsedAbility;
     stringInfo->scrActive = gBattleScripting.battler;
-    stringInfo->unk1605E = gBattleStruct->field_52;
+    stringInfo->bakScriptPartyIdx = gBattleStruct->scriptPartyIdx;
     stringInfo->hpScale = gBattleStruct->hpScale;
     stringInfo->itemEffectBattler = gPotentialItemEffectBattler;
     stringInfo->moveType = gBattleMoves[gCurrentMove].type;
@@ -1073,7 +1072,7 @@ void BtlController_EmitPrintSelectionString(u8 bufferId, u16 stringID)
     stringInfo->lastItem = gLastUsedItem;
     stringInfo->lastAbility = gLastUsedAbility;
     stringInfo->scrActive = gBattleScripting.battler;
-    stringInfo->unk1605E = gBattleStruct->field_52;
+    stringInfo->bakScriptPartyIdx = gBattleStruct->scriptPartyIdx;
 
     for (i = 0; i < MAX_BATTLERS_COUNT; i++)
         stringInfo->abilities[i] = gBattleMons[i].ability;

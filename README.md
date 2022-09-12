@@ -30,17 +30,9 @@ Es un romhack en desarrollo que tiene como base la pokeemerald-expansion, con mu
 
 -El límite de puntos de esfuerzo máximo es 504, y por estadística es 252, solo dos estadísticas pueden estar al máximo.
 
--Uso repetido de medicinas, y los centros pokémon no tienen en cuenta los huevos.
 
 -El nivel de eclosión de huevos es 1.
 
--Reloj en el menú de start (Lunos).
-
--Tu equipo Pokémon se ve en el menú de inicio  (Lunos).
-
--Expansión de cajas Pokémon hasta 30.
-
--Sistema de autorun (Ghoulslash).
 
 -Expansión de objetos en el OW. (Ghoulslash)
 
@@ -99,6 +91,8 @@ Es un romhack en desarrollo que tiene como base la pokeemerald-expansion, con mu
 -Expansión de mochila (999 de cada objeto).
 
 -Nuevos sprites de Poké balls (Farore).
+
+-Los Pokémon salvajes tienen nivel dinámico (entre 2 y 4 menos que tu Pokémon de mayor nivel). Los entrenadores igual, pero tienen el mismo nivel que tu Pokémon de mayor nivel.
 
 -Cambios a los climas --> Los climas invocados por habilidad duran hasta que el Pokémon que lo haya invocado sea devilitado. Si ha sido invocado por movimiento, dura 6 turnos (o 9 con objetos climáticos). A cambio, el aumento de daño de clima soleado y lluvioso pasa a ser del 30% (en vez del 50%).
 
