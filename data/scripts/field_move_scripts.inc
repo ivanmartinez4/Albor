@@ -46,16 +46,16 @@ EventScript_CancelCut::
 	end
 
 Text_WantToCut:
-	.string "This tree looks like it can be\n"
-	.string "Cut down!\p"
-	.string "Would you like to Cut it?$"
+	.string "Parece que puedes cortar\n"
+	.string "este arbolito.\p"
+	.string "¿Lo cortas?$"
 
 Text_MonUsedFieldMove:
-	.string "{STR_VAR_1} used {STR_VAR_2}!$"
+	.string "{STR_VAR_1} usó {STR_VAR_2}!$"
 
 Text_CantCut:
-	.string "This tree looks like it can be\n"
-	.string "Cut down!$"
+	.string "Este parece un árbol perfecto\n"
+	.string "para practicar corte…$"
 
 @ Interact with smashable rock
 EventScript_RockSmash::
@@ -113,12 +113,12 @@ EventScript_CancelSmash::
 	end
 
 Text_WantToSmash:
-	.string "This rock appears to be breakable.\n"
-	.string "Would you like to use Rock Smash?$"
+	.string "Esta roca parece que puede partirse.\n"
+	.string "¿Quieres hacer Golpe roca?$"
 
 Text_CantSmash:
-	.string "It's a rugged rock, but a Pokémon\n"
-	.string "may be able to smash it.$"
+	.string "Una roca dura, pero no lo suficiente\n"
+	.string "para un Pokémon que sepa Golpe roca…$"
 
 EventScript_StrengthBoulder::
 	lockall
@@ -163,22 +163,22 @@ EventScript_CancelStrength::
 	end
 
 Text_WantToStrength:
-	.string "It's a big boulder, but a Pokémon\n"
-	.string "may be able to push it aside.\p"
-	.string "Would you like to use Strength?$"
+	.string "¡Vaya roca más grande!\n"
+	.string "Seguro que mi Pokémon puede moverla.\p"
+	.string "¿Hacemos Fuerza?$"
 
 Text_MonUsedStrength:
-	.string "{STR_VAR_1} used Strength!\p"
-	.string "{STR_VAR_1}'s Strength made it\n"
-	.string "possible to move boulders around!$"
+	.string "{STR_VAR_1} hizo Fuerza!\p"
+	.string "¡La Fuerza de {STR_VAR_1}\n"
+	.string "hace posible mover las rocas!$"
 
 Text_CantStrength:
-	.string "It's a big boulder, but a Pokémon\n"
-	.string "may be able to push it aside.$"
+	.string "Es una roca muy grande, pero\n"
+	.string "un Pokémon fuerte podría moverla…$"
 
 Text_StrengthActivated:
-	.string "Strength made it possible to move\n"
-	.string "boulders around.$"
+	.string "La Fuerza hace que puedan\n"
+	.string "moverse las rocas.$"
 
 EventScript_UseWaterfall::
 	lockall
@@ -203,15 +203,15 @@ EventScript_EndWaterfall::
 	end
 
 Text_CantWaterfall:
-	.string "A wall of water is crashing down with\n"
-	.string "a mighty roar.$"
+	.string "La cascada ruge al caer\n"
+	.string "desde arriba…$"
 
 Text_WantToWaterfall:
-	.string "It's a large waterfall.\n"
-	.string "Would you like to use Waterfall?$"
+	.string "Es una gran cascada.\n"
+	.string "¿Te gustaría subirla?$"
 
 Text_MonUsedWaterfall:
-	.string "{STR_VAR_1} used Waterfall.$"
+	.string "{STR_VAR_1} usó Cascada.$"
 
 EventScript_UseDive::
 	lockall
@@ -261,43 +261,43 @@ EventScript_EndSurface::
 	end
 
 Text_CantDive:
-	.string "The sea is deep here. A Pokémon\n"
-	.string "may be able to go underwater.$"
+	.string "El mar es suficientemente profundo\n"
+	.string "para que un Pokémon pueda bucear.$"
 
 Text_WantToDive:
-	.string "The sea is deep here.\n"
-	.string "Would you like to use Dive?$"
+	.string "El mar es muy profundo aquí.\n"
+	.string "¿Buceas?$"
 
 Text_MonUsedDive:
-	.string "{STR_VAR_1} used Dive.$"
+	.string "{STR_VAR_1} usó Buceo.$"
 
 Text_CantSurface:
-	.string "Light is filtering down from above.\n"
-	.string "A Pokémon may be able to surface.$"
+	.string "La luz se filtra desde arriba.\n"
+	.string "Me voy a ahogar.$"
 
 Text_WantToSurface:
-	.string "Light is filtering down from above.\n"
-	.string "Would you like to use Dive?$"
+	.string "La luz se filtra desde arriba.\n"
+	.string "¿Te gustaría subir?$"
 
 EventScript_FailSweetScent::
 	msgbox Text_FailSweetScent, MSGBOX_SIGN
 	end
 
 Text_FailSweetScent:
-	.string "Looks like there's nothing here…$"
+	.string "Parece que no hay ningún Pokémon…$"
     
     
 EventScript_DisableAutoRun::
     msgbox AutoRunDisabled MSGBOX_SIGN
     end
 AutoRunDisabled:
-    .string "Auto-run {COLOR RED}disabled.$"
+    .string "Zapatillas {COLOR RED}quitadas.$"
     
 EventScript_EnableAutoRun::
     msgbox AutoRunEnabled MSGBOX_SIGN
     end
 AutoRunEnabled:
-    .string "Auto-run {COLOR GREEN}enabled.$"
+    .string "Zapatillas {COLOR GREEN}puestas.$"
 
 EventScript_UseRockClimb::
 	lockall
@@ -323,12 +323,12 @@ EventScript_EndRockClimb::
 	end
 	
 Text_WantToRockClimb:
-    .string "The cliff is steep.\n"
-    .string "Would you like to use Rock Climb?$"
+    .string "La subida es empinada.\n"
+    .string "¿Te gustaría hacer Treparrocas?$"
     
 Text_MonUsedRockClimb:
-    .string "{STR_VAR_1} used Rock Climb!$"
+    .string "{STR_VAR_1} usó Treparrocas!$"
     
 Text_CantRockClimb:
-    .string "The cliff is steep.\n"
-    .string "A Pokémon may be able to climb it.$"
+    .string "Vaya subida.…\n"
+    .string "Algunos Pokémon seguro que la suben.$"

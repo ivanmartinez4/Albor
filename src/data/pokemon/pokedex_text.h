@@ -4411,7 +4411,7 @@ const u8 gYungoosPokedexText[] = _(
 
 const u8 gGumshoosPokedexText[] = _(
     "When it finds a trace of its prey, it\n"
-    "patiently stakes out the location...\n"
+    "patiently stakes out the location…\n"
     "but as it's diurnal, it's always snoozing\n"
     "by nightfall.");
 

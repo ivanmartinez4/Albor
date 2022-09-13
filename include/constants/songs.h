@@ -278,7 +278,8 @@
 #define SE_PIKE_CURTAIN_CLOSE             267 // SE_CURTAIN
 #define SE_PIKE_CURTAIN_OPEN              268 // SE_CURTAIN1
 #define SE_SUDOWOODO_SHAKE                269 // SE_USSOKI
-#define END_SE                      SE_SUDOWOODO_SHAKE
+
+#define END_SE                            SE_SUDOWOODO_SHAKE
 // Bard SFX
 #define PH_TRAP_BLEND                     271
 #define PH_TRAP_HELD                      272
@@ -538,7 +539,6 @@
 #define MUS_RG_SLOW_PALLET                512 // MUS_RG_SLOWMASARA
 #define MUS_RG_TEACHY_TV_MENU             513 // MUS_RG_TVNOIZE
 
-#define END_MUS                           MUS_RG_TEACHY_TV_MENU
 #define RG_MUSIC_END                      MUS_RG_TEACHY_TV_MENU
 
 // Emerald Music
@@ -949,6 +949,8 @@
 #define MUS_HG_WIN_MINIGAME               898 // Cleared Wobbuffet Pop!
 
 #define HG_MUSIC_END                      MUS_HG_WIN_MINIGAME
+
+#define END_MUS                           MUS_HG_WIN_MINIGAME
 
 #define SONGS_END                         HG_MUSIC_END
 
