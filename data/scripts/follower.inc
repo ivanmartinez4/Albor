@@ -1,12 +1,6 @@
 gText_FollowerLovesYou::
   .string "123456789012345678901234567890123\n$"
 
-gText_FollowerLostInThought::
-  .string "{STR_VAR_1} seems lost in thought.$"
-
-gText_FollowerDefault::
-  .string "ERROR 404: Script not found.$"
-
 gText_WantsToFly::
   .string "{STR_VAR_1} looks up at the\nsky restlessly.\pWould you like to use FLY?$"
 

@@ -3607,7 +3607,7 @@ static u8 LoadMonGfxAndSprite(struct Pokemon *mon, s16 *state)
     case 0:
         if (gMain.inBattle)
         {
-            HandleLoadSpecialPokePic(TRUE,
+            HandleLoadSpecialPokePic(&gMonFrontPicTable[summary->species2],
                                      gMonSpritesGfxPtr->sprites.ptr[B_POSITION_OPPONENT_LEFT],
                                      summary->species2,
                                      summary->pid);
@@ -3616,14 +3616,14 @@ static u8 LoadMonGfxAndSprite(struct Pokemon *mon, s16 *state)
         {
             if (gMonSpritesGfxPtr != NULL)
             {
-                HandleLoadSpecialPokePic(TRUE,
+                HandleLoadSpecialPokePic(&gMonFrontPicTable[summary->species2],
                                          gMonSpritesGfxPtr->sprites.ptr[B_POSITION_OPPONENT_LEFT],
                                          summary->species2,
                                          summary->pid);
             }
             else
             {
-                HandleLoadSpecialPokePic(TRUE,
+                HandleLoadSpecialPokePic(&gMonFrontPicTable[summary->species2],
                                          MonSpritesGfxManager_GetSpritePtr(B_POSITION_OPPONENT_LEFT),
                                          summary->species2,
                                          summary->pid);
