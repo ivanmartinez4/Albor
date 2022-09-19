@@ -190,8 +190,24 @@ Route101_Movement_BirchFaceZigzagoon:
 	step_end
 
 Route101_EventScript_Youngster::
-	msgbox Route101_Text_TakeTiredPokemonToPokeCenter, MSGBOX_NPC
+	random 3
+	switch VAR_RESULT
+	case 0, HuevoZubat
+	case 1, HuevoGeodude
+	case 2, HuevoExeggcute
 	end
+
+HuevoZubat::
+   giveegg SPECIES_ZUBAT
+   end
+
+HuevoGeodude::
+   giveegg SPECIES_GEODUDE
+   end
+
+HuevoExeggcute::
+   giveegg SPECIES_EXEGGCUTE
+   end
 
 Route101_EventScript_Boy::
 	msgbox Route101_Text_WildPokemonInTallGrass, MSGBOX_NPC

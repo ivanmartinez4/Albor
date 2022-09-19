@@ -400,7 +400,7 @@ struct SaveBlock2
     /*0xAC*/ u32 encryptionKey;
     /*0xF2C*/ bool8 autoRun;
     /*0x1270*/ u8 flags[NUM_FLAG_BYTES];
-    /*0xF2C*/ u8 itemFlags[ITEM_FLAGS_COUNT];
+    /*0xF2C*/  u8 itemFlags[ITEM_FLAGS_COUNT];
                u8 dexNavSearchLevels[NUM_SPECIES];
                u8 dexNavChain;
 }; // sizeof=0xF2C

@@ -1008,7 +1008,7 @@ const u8 sText_TitlePageStats[] = _("{DPAD_LEFTRIGHT}PAGE {A_BUTTON}STATS");
 #endif
 #if CONFIG_DECAPITALIZE_MENU_STRINGS
 const u8 sText_None[] = _("Ninguno");
-const u8 sText_Cancel[] = _("Cancelar");
+const u8 sText_Cancel[] = _("Volver");
 const u8 sText_Power[] = _("Pot.");
 const u8 sText_Accuracy[] = _("Precisión");
 const u8 sText_Appeal[] = _("Appeal");
@@ -3597,7 +3597,7 @@ static void SwapMovesTypeSprites(u8 moveIndex1, u8 moveIndex2)
 
 static u8 LoadMonGfxAndSprite(struct Pokemon *mon, s16 *state)
 {
-    const struct CompressedSpritePalette *pal;
+    const struct CompressedSpritePalette *pal1, *pal2;
     struct PokeSummary *summary = &sMonSummaryScreen->summary;
 
     switch (*state)
@@ -3632,9 +3632,18 @@ static u8 LoadMonGfxAndSprite(struct Pokemon *mon, s16 *state)
         (*state)++;
         return 0xFF;
     case 1:
-        pal = GetMonSpritePalStructFromOtIdPersonality(summary->species2, summary->OTID, summary->pid);
-        LoadCompressedSpritePalette(pal);
-        SetMultiuseSpriteTemplateToPokemon(pal->tag, 1);
+        if (!summary->isEgg)
+        {
+            pal1 = GetMonSpritePalStructFromOtIdPersonality(summary->species2, summary->OTID, summary->pid);
+            LoadCompressedSpritePalette(pal1);
+        }
+        else
+        {
+            pal1 = &gEgg1PaletteTable[gBaseStats[summary->species].type1];
+            pal2 = &gEgg2PaletteTable[gBaseStats[summary->species].type2];
+            LoadCompressedEggSpritePalette(pal1, pal2);
+        }
+        SetMultiuseSpriteTemplateToPokemon(pal1->tag, 1);
         (*state)++;
         return 0xFF;
     }

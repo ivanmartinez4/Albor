@@ -135,7 +135,7 @@ const struct FollowerMsgInfo gFollowerUpsetMessages[] = {
 // Unconditional angry messages
 static const u8 sAngryMsg00[] = _("¡{STR_VAR_1} está gruñendo!");
 static const u8 sAngryMsg01[] = _("¡{STR_VAR_1} está haciendo pucheros!");
-static const u8 sAngryMsg02[] = _("{STR_VAR_1} está triste por\alguna razón.");
+static const u8 sAngryMsg02[] = _("{STR_VAR_1} está triste por\nalguna razón.");
 static const u8 sAngryMsg03[] = _("Tu {STR_VAR_1} te gira la cara.");
 static const u8 sAngryMsg04[] = _("{STR_VAR_1} está llorando.");
 

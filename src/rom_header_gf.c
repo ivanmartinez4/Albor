@@ -21,6 +21,8 @@ struct GFRomHeader
     const u8 (* monSpeciesNames)[];
     const u8 (* moveNames)[];
     const struct Decoration * decorations;
+    const struct CompressedSpritePalette * Egg1PaletteTable;
+    const struct CompressedSpritePalette * Egg2PaletteTable;
     u32 flagsOffset;
     u32 varsOffset;
     u32 pokedexOffset;
@@ -91,6 +93,8 @@ static const struct GFRomHeader sGFRomHeader = {
     .monSpeciesNames = gSpeciesNames,
     .moveNames = gMoveNames,
     .decorations = gDecorations,
+    .Egg1PaletteTable = gEgg1PaletteTable,
+    .Egg2PaletteTable = gEgg2PaletteTable,
     .flagsOffset = offsetof(struct SaveBlock2, flags),
     .varsOffset = offsetof(struct SaveBlock1, vars),
     .pokedexOffset = offsetof(struct SaveBlock2, pokedex),
