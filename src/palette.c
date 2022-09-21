@@ -73,8 +73,8 @@ static const struct PaletteStructTemplate sDummyPaletteStructTemplate = {
 };
 
 static const u8 sRoundedDownGrayscaleMap[] = {
-     0,  0,  0,  0,  0,
-     5,  5,  5,  5,  5,
+    0,  0,  0,  0,  0,
+    5,  5,  5,  5,  5,
     11, 11, 11, 11, 11,
     16, 16, 16, 16, 16,
     21, 21, 21, 21, 21,

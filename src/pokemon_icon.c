@@ -6,6 +6,7 @@
 #include "pokemon_icon.h"
 #include "sprite.h"
 #include "data.h"
+#include "decompress.h"
 
 #define POKE_ICON_BASE_PAL_TAG 56000
 
@@ -2693,13 +2694,15 @@ u8 CreateMonIconCustom(u16 species, void (*callback)(struct Sprite *), s16 x, s1
 }
 #endif
 
-u8 SetMonIconPalette(struct Pokemon *mon, struct Sprite *sprite, u8 paletteNum) {
-  if (paletteNum < 16) {
+u8 SetMonIconPalette(struct Pokemon *mon, struct Sprite *sprite, u8 paletteNum) 
+{
+    if (paletteNum < 16) 
+    {
     LoadCompressedPalette(GetMonFrontSpritePal(mon), paletteNum*16 + 0x100, 32);
     if (sprite)
       sprite->oam.paletteNum = paletteNum;
-  }
-  return paletteNum;
+    }
+    return paletteNum;
 }
 
 // Only used with mail and mystery event, which cannot really store a bit for a shiny pokemon,

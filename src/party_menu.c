@@ -280,7 +280,6 @@ static void CreatePartyMonStatusSpriteParameterized(u16, u8, struct PartyMenuBox
 static void CreatePartyMonHeldItemSprite(struct Pokemon *, struct PartyMenuBox *);
 static void CreatePartyMonPokeballSprite(struct Pokemon *, struct PartyMenuBox *);
 static void CreatePartyMonIconSprite(struct Pokemon *, struct PartyMenuBox *, u32);
-static void CreatePartyEggIconSprite(struct Pokemon *, struct PartyMenuBox *, u32);
 static void CreatePartyMonStatusSprite(struct Pokemon *, struct PartyMenuBox *);
 static u8 CreateSmallPokeballButtonSprite(u8, u8);
 static void DrawCancelConfirmButtons(void);
@@ -1076,7 +1075,7 @@ static void CreatePartyMonSprites(u8 slot)
     {
         if (GetMonData(&gPlayerParty[slot], MON_DATA_SPECIES2) == SPECIES_EGG)
         {
-            CreatePartyEggIconSprite(&gPlayerParty[slot], &sPartyMenuBoxes[slot], slot);
+            CreatePartyMonIconSprite(&gPlayerParty[slot], &sPartyMenuBoxes[slot], slot);
         }
         else
         {
@@ -4001,7 +4000,7 @@ static void CreatePartyMonIconSprite(struct Pokemon *mon, struct PartyMenuBox *m
     u16 species2;
     u8 index = slot < PARTY_SIZE ? IndexOfSpritePaletteTag(POKE_ICON_BASE_PAL_TAG + slot) : 0xFF;
 
-    species2 = GetMonData(mon, MON_DATA_SPECIES2);    
+    species2 = GetMonData(mon, MON_DATA_SPECIES2); 
     CreatePartyMonIconSpriteParameterized(species2, GetMonData(mon, MON_DATA_PERSONALITY), menuBox, 1);
     SetMonIconPalette(mon, &gSprites[menuBox->monSpriteId], index);
     UpdatePartyMonHPBar(menuBox->monSpriteId, mon);
@@ -4014,18 +4013,6 @@ static void CreatePartyMonIconSpriteParameterized(u16 species, u32 pid, struct P
         menuBox->monSpriteId = CreateMonIcon(species, SpriteCB_MonIcon, menuBox->spriteCoords[0], menuBox->spriteCoords[1], 4, pid);
         gSprites[menuBox->monSpriteId].oam.priority = priority;
     }
-}
-
-static void CreatePartyEggIconSprite(struct Pokemon *mon, struct PartyMenuBox *menuBox, u32 slot)
-{
-    const struct CompressedSpritePalette *pal1, *pal2;
-    u16 species2;
-
-    species2 = GetMonData(mon, MON_DATA_SPECIES2);    
-    CreatePartyMonIconSpriteParameterized(species2, GetMonData(mon, MON_DATA_PERSONALITY), menuBox, 1);
-    pal1 = &gEgg1PaletteTable[gBaseStats[GetMonData(mon, MON_DATA_SPECIES)].type1];
-    pal2 = &gEgg1PaletteTable[gBaseStats[GetMonData(mon, MON_DATA_SPECIES)].type2];
-    LoadCompressedEggSpritePalette(pal1, pal2);
 }
 
 static void UpdateHPBar(u8 spriteId, u16 hp, u16 maxhp)
