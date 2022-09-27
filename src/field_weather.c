@@ -485,7 +485,7 @@ static void ApplyColorMap(u8 startPalIndex, u8 numPalettes, s8 colorMapIndex)
         palOffset = startPalIndex * 16;
         UpdateAltBgPalettes(palettes & PALETTES_BG);
         // Thunder gamma-shift looks bad on night-blended palettes, so ignore time blending in some situations
-        if (!(gammaIndex > 3 && gWeatherPtr->currWeather == WEATHER_RAIN_THUNDERSTORM) && MapHasNaturalLight(gMapHeader.mapType))
+        if (!(colorMapIndex > 3 && gWeatherPtr->currWeather == WEATHER_RAIN_THUNDERSTORM) && MapHasNaturalLight(gMapHeader.mapType))
           UpdatePalettesWithTime(palettes);
         else
           CpuFastCopy(gPlttBufferUnfaded + palOffset, gPlttBufferFaded + palOffset, 32 * numPalettes);
@@ -508,9 +508,9 @@ static void ApplyColorMap(u8 startPalIndex, u8 numPalettes, s8 colorMapIndex)
                 if (sPaletteColorMapTypes[curPalIndex] == COLOR_MAP_CONTRAST ||
                     (curPalIndex >= 16 && (curPalIndex - 16 == gWeatherPtr->contrastColorMapSpritePalIndex ||
                         GetSpritePaletteTagByPaletteNum(curPalIndex - 16) >> 15)))
-                    colorMap = gWeatherPtr->altGammaShifts[colorMapIndex];
+                    colorMap = gWeatherPtr->contrastColorMaps[colorMapIndex];
                 else
-                    colorMap = gWeatherPtr->gammaShifts[colorMapIndex];
+                    colorMap = gWeatherPtr->darkenedContrastColorMaps[colorMapIndex];
 
                 for (i = 0; i < 16; i++)
                 {
@@ -597,9 +597,9 @@ static void ApplyColorMapWithBlend(u8 startPalIndex, u8 numPalettes, s8 colorMap
             u8 *colorMap;
 
             if (sPaletteColorMapTypes[curPalIndex] == COLOR_MAP_DARK_CONTRAST)
-                colorMap = gWeatherPtr->darkenedContrastColorMaps[gammaIndex];
+                colorMap = gWeatherPtr->darkenedContrastColorMaps[colorMapIndex];
             else
-                colorMap = gWeatherPtr->contrastColorMaps[gammaIndex];
+                colorMap = gWeatherPtr->contrastColorMaps[colorMapIndex];
 
             for (i = 0; i < 16; i++)
             {
@@ -907,7 +907,7 @@ void ApplyWeatherGammaShiftToPal(u8 paletteIndex) // now unused / obselete
 }
 
 void ApplyWeatherGammaShiftToPals(u8 startPalIndex, u8 numPalettes) {
-    ApplyColorMap(startPalIndex, numPalettes, gWeatherPtr->gammaIndex);
+    ApplyColorMap(startPalIndex, numPalettes, gWeatherPtr->colorMapIndex);
 }
 
 void LoadCustomWeatherSpritePalette(const u16 *palette)
