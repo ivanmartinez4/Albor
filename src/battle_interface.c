@@ -2859,8 +2859,8 @@ static const s16 sAbilityPopUpCoordsDoubles[MAX_BATTLERS_COUNT][2] =
 
 static const s16 sAbilityPopUpCoordsSingles[MAX_BATTLERS_COUNT][2] =
 {
-    {29, 97}, // player
-    {186, 57}, // opponent
+    {29, 67}, // player
+    {186, 22}, // opponent
 };
 
 static u8* AddTextPrinterAndCreateWindowOnAbilityPopUp(const u8 *str, u32 x, u32 y, u32 color1, u32 color2, u32 color3, u32 *windowId)
@@ -2947,7 +2947,7 @@ static void ClearAbilityName(u8 spriteId1, u8 spriteId2)
                         (void*)(OBJ_VRAM0) + (gSprites[spriteId1].oam.tileNum * 32) + 256,
                         (void*)(OBJ_VRAM0) + (gSprites[spriteId2].oam.tileNum * 32) + 256,
                         6, 1,
-                        4,
+                        3,
                         7, 9, 1,
                         FALSE);
 }
@@ -2967,26 +2967,13 @@ static void PrintBattlerOnAbilityPopUp(u8 battlerId, u8 spriteId1, u8 spriteId2)
             break;
     }
 
-    name = monName + i + 1;
-    if (*(name - 1) == EOS)
-        name--;
-
-    lastChar = *(name - 1);
-    name[0] = CHAR_SGL_QUOTE_RIGHT; // apostraphe
-    name++;
-    if (lastChar != CHAR_S && lastChar != CHAR_s)
-    {
-        name[0] = CHAR_s;
-        name++;
-    }
-
     name[0] = EOS;
     PrintOnAbilityPopUp((const u8 *)monName,
                         (void*)(OBJ_VRAM0) + (gSprites[spriteId1].oam.tileNum * 32),
                         (void*)(OBJ_VRAM0) + (gSprites[spriteId2].oam.tileNum * 32),
-                        7, 0,
+                        6, 0,
                         0,
-                        2, 7, 1,
+                        7, 12, 13,
                         FALSE);
 }
 
@@ -2996,16 +2983,16 @@ static void PrintAbilityOnAbilityPopUp(u32 ability, u8 spriteId1, u8 spriteId2)
                         (void*)(OBJ_VRAM0) + (gSprites[spriteId1].oam.tileNum * 32) + 256,
                         (void*)(OBJ_VRAM0) + (gSprites[spriteId2].oam.tileNum * 32) + 256,
                         6, 0,
-                        4,
-                        7, 9, 1,
+                        3,
+                        8, 14, 15,
                         TRUE);
 }
 
-#define PIXEL_COORDS_TO_OFFSET(x, y)(            \
-/*Add tiles by X*/                                \
-((y / 8) * 32 * 8)                                \
-/*Add tiles by X*/                                \
-+ ((x / 8) * 32)                                \
+#define PIXEL_COORDS_TO_OFFSET(x, y)(              \
+/*Add tiles by X*/                                 \
+((y / 8) * 32 * 8)                                 \
+/*Add tiles by X*/                                 \
++ ((x / 8) * 32)                                   \
 /*Add pixels by Y*/                                \
 + ((((y) - ((y / 8) * 8))) * 4)                    \
 /*Add pixels by X*/                                \

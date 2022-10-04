@@ -210,7 +210,8 @@ HuevoExeggcute::
    end
 
 Route101_EventScript_Boy::
-	msgbox Route101_Text_WildPokemonInTallGrass, MSGBOX_NPC
+    setwildbattle SPECIES_MASQUERAIN, 1, ITEM_NONE, SPECIES_ARCANINE, 1, ITEM_NONE
+	dowildbattle
 	end
 
 Route101_EventScript_RouteSign::
