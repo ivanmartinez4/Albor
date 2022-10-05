@@ -96,6 +96,10 @@ Es un romhack en desarrollo que tiene como base la pokeemerald-expansion, con mu
 
 -Los Pokémon salvajes tienen nivel dinámico (entre 2 y 4 menos que tu Pokémon de mayor nivel). Los entrenadores igual, pero tienen el mismo nivel que tu Pokémon de mayor nivel.
 
+-Minijuego de Pinball (Huderlem).
+
+-Sistema de misiones (psf).
+
 -Cambios a los climas --> Los climas invocados por habilidad duran hasta que el Pokémon que lo haya invocado sea devilitado. Si ha sido invocado por movimiento, dura 6 turnos (o 9 con objetos climáticos). A cambio, el aumento de daño de clima soleado y lluvioso pasa a ser del 30% (en vez del 50%).
 
 -Balance tabla de tipos: 
