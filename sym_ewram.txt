@@ -143,3 +143,4 @@
 	.include "src/debug.o"
 	.include "src/pinball.o"
 	.include "src/quests.o"
+	.include "src/sliding_puzzle.o"
