@@ -38,6 +38,7 @@
 #include "decoration_inventory.h"
 #include "secret_base.h"
 #include "player_pc.h"
+#include "quests.h"
 #include "field_specials.h"
 #include "union_room_chat.h"
 #include "constants/items.h"
@@ -165,4 +166,5 @@ void NewGameInitData(void)
     memset(&gSaveBlock2Ptr->itemFlags, 0, sizeof(gSaveBlock2Ptr->itemFlags));
     memset(gSaveBlock2Ptr->dexNavSearchLevels, 0, sizeof(gSaveBlock2Ptr->dexNavSearchLevels));
     gSaveBlock2Ptr->dexNavChain = 0;
+    QuestMenu_ResetMenuSaveData();
 }

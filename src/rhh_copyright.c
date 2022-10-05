@@ -291,7 +291,7 @@ static void SpriteCallbacK_DizzyWalking(struct Sprite* sprite)
 static void SpriteCallback_PorygonHit(struct Sprite* sprite)
 {
     sprite->x2-=2;
-    sprite ->y2 = Sin2(180 + sprite->sTimer * 4) / 128;
+    sprite->y2 = Sin2(180 + sprite->sTimer * 4) / 128;
 
     if (sprite->sTimer >= 48)
     {
