@@ -141,3 +141,4 @@
 	.include "src/dexnav.o"
 	.include "src/rhh_copyright.o"
 	.include "src/debug.o"
+	.include "src/pinball.o"
