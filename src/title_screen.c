@@ -24,10 +24,10 @@
 #include "sound_check_menu.h"
 
 #define VERSION_BANNER_RIGHT_TILEOFFSET 64
-#define VERSION_BANNER_LEFT_X 98
-#define VERSION_BANNER_RIGHT_X 162
+#define VERSION_BANNER_LEFT_X 88
+#define VERSION_BANNER_RIGHT_X 152
 #define VERSION_BANNER_Y 2
-#define VERSION_BANNER_Y_GOAL 66
+#define VERSION_BANNER_Y_GOAL 80
 #define START_BANNER_X 128
 
 #define CLEAR_SAVE_BUTTON_COMBO (B_BUTTON | SELECT_BUTTON | DPAD_UP)
@@ -49,16 +49,6 @@ static void UpdateLegendaryMarkingColor(u8);
 static void SpriteCB_VersionBannerLeft(struct Sprite *sprite);
 static void SpriteCB_VersionBannerRight(struct Sprite *sprite);
 static void SpriteCB_PressStartCopyrightBanner(struct Sprite *sprite);
-static void SpriteCB_PokemonLogoShine(struct Sprite *sprite);
-
-// const rom data
-
-static const u32 sTitleScreenRayquazaGfx[] = INCBIN_U32("graphics/title_screen/rayquaza.4bpp.lz");
-static const u32 sTitleScreenRayquazaTilemap[] = INCBIN_U32("graphics/title_screen/rayquaza.bin.lz");
-static const u32 sTitleScreenLogoShineGfx[] = INCBIN_U32("graphics/title_screen/logo_shine.4bpp.lz");
-static const u32 sTitleScreenCloudsGfx[] = INCBIN_U32("graphics/title_screen/clouds.4bpp.lz");
-
-
 
 // Used to blend "Emerald Version" as it passes over over the Pokémon banner.
 // Also used by the intro to blend the Game Freak name/logo in and out as they appear and disappear
@@ -299,55 +289,6 @@ static const struct SpritePalette sSpritePalette_PressStart[] =
     {},
 };
 
-static const struct OamData sPokemonLogoShineOamData =
-{
-    .y = DISPLAY_HEIGHT,
-    .affineMode = ST_OAM_AFFINE_OFF,
-    .objMode = ST_OAM_OBJ_NORMAL,
-    .mosaic = FALSE,
-    .bpp = ST_OAM_4BPP,
-    .shape = SPRITE_SHAPE(64x64),
-    .x = 0,
-    .matrixNum = 0,
-    .size = SPRITE_SIZE(64x64),
-    .tileNum = 0,
-    .priority = 0,
-    .paletteNum = 0,
-    .affineParam = 0,
-};
-
-static const union AnimCmd sPokemonLogoShineAnimSequence[] =
-{
-    ANIMCMD_FRAME(0, 4),
-    ANIMCMD_END,
-};
-
-static const union AnimCmd *const sPokemonLogoShineAnimTable[] =
-{
-    sPokemonLogoShineAnimSequence,
-};
-
-static const struct SpriteTemplate sPokemonLogoShineSpriteTemplate =
-{
-    .tileTag = 1002,
-    .paletteTag = 1001,
-    .oam = &sPokemonLogoShineOamData,
-    .anims = sPokemonLogoShineAnimTable,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCB_PokemonLogoShine,
-};
-
-static const struct CompressedSpriteSheet sPokemonLogoShineSpriteSheet[] =
-{
-    {
-        .data = sTitleScreenLogoShineGfx,
-        .size = 0x800,
-        .tag = 1002
-    },
-    {},
-};
-
 // code
 static void SpriteCB_VersionBannerLeft(struct Sprite *sprite)
 {
@@ -424,86 +365,6 @@ static void CreateCopyrightBanner(s16 x, s16 y)
     }
 }
 
-static void SpriteCB_PokemonLogoShine(struct Sprite *sprite)
-{
-    if (sprite->x < DISPLAY_WIDTH + 32)
-    {
-        if (sprite->data[0]) // Flash background
-        {
-            u16 backgroundColor;
-
-            if (sprite->x < DISPLAY_WIDTH / 2)
-            {
-                // Brighten background color
-                if (sprite->data[1] < 31)
-                    sprite->data[1]++;
-                if (sprite->data[1] < 31)
-                    sprite->data[1]++;
-            }
-            else
-            {
-                // Darken background color
-                if (sprite->data[1] != 0)
-                    sprite->data[1]--;
-                if (sprite->data[1] != 0)
-                    sprite->data[1]--;
-            }
-
-            backgroundColor = _RGB(sprite->data[1], sprite->data[1], sprite->data[1]);
-            if (sprite->x == DISPLAY_WIDTH / 2 + 12
-                || sprite->x == DISPLAY_WIDTH / 2 + 16
-                || sprite->x == DISPLAY_WIDTH / 2 + 20
-                || sprite->x == DISPLAY_WIDTH / 2 + 24)
-                gPlttBufferFaded[0] = RGB(24, 31, 12);
-            else
-                gPlttBufferFaded[0] = backgroundColor;
-        }
-        sprite->x += 4;
-    }
-    else
-    {
-        gPlttBufferFaded[0] = RGB_BLACK;
-        DestroySprite(sprite);
-    }
-}
-
-static void SpriteCB_PokemonLogoShine2(struct Sprite *sprite)
-{
-    if (sprite->x < DISPLAY_WIDTH + 32)
-        sprite->x += 8;
-    else
-        DestroySprite(sprite);
-}
-
-static void StartPokemonLogoShine(u8 flashBg)
-{
-    u8 spriteId;
-
-    switch (flashBg)
-    {
-    case 0:
-    case 2:
-        spriteId = CreateSprite(&sPokemonLogoShineSpriteTemplate, 0, 68, 0);
-        gSprites[spriteId].oam.objMode = ST_OAM_OBJ_WINDOW;
-        gSprites[spriteId].data[0] = flashBg;
-        break;
-    case 1:
-        spriteId = CreateSprite(&sPokemonLogoShineSpriteTemplate, 0, 68, 0);
-        gSprites[spriteId].oam.objMode = ST_OAM_OBJ_WINDOW;
-        gSprites[spriteId].data[0] = flashBg;
-        gSprites[spriteId].invisible = TRUE;
-
-        spriteId = CreateSprite(&sPokemonLogoShineSpriteTemplate, 0, 68, 0);
-        gSprites[spriteId].callback = SpriteCB_PokemonLogoShine2;
-        gSprites[spriteId].oam.objMode = ST_OAM_OBJ_WINDOW;
-
-        spriteId = CreateSprite(&sPokemonLogoShineSpriteTemplate, -80, 68, 0);
-        gSprites[spriteId].callback = SpriteCB_PokemonLogoShine2;
-        gSprites[spriteId].oam.objMode = ST_OAM_OBJ_WINDOW;
-        break;
-    }
-}
-
 static void VBlankCB(void)
 {
     ScanlineEffect_InitHBlankDmaTransfer();
@@ -546,14 +407,8 @@ void CB2_InitTitleScreen(void)
     case 1:
         // bg2
         LZ77UnCompVram(gTitleScreenPokemonLogoGfx, (void *)(BG_CHAR_ADDR(0)));
-        LZ77UnCompVram(gTitleScreenPokemonLogoTilemap, (void *)(BG_SCREEN_ADDR(9)));
-        LoadPalette(gTitleScreenBgPalettes, 0, 0x1E0);
-        // bg3
-        LZ77UnCompVram(sTitleScreenRayquazaGfx, (void *)(BG_CHAR_ADDR(2)));
-        LZ77UnCompVram(sTitleScreenRayquazaTilemap, (void *)(BG_SCREEN_ADDR(26)));
-        // bg1
-        LZ77UnCompVram(sTitleScreenCloudsGfx, (void *)(BG_CHAR_ADDR(3)));
-        LZ77UnCompVram(gTitleScreenCloudsTilemap, (void *)(BG_SCREEN_ADDR(27)));
+        LZ77UnCompVram(gTitleScreenPokemonLogoTilemap, (void *)(VRAM + 0xA000));
+        LoadPalette(gTitleScreenBgPalette, 0, 0x1E0);
         ScanlineEffect_Stop();
         ResetTasks();
         ResetSpriteData();
@@ -561,7 +416,6 @@ void CB2_InitTitleScreen(void)
         gReservedSpritePaletteCount = 9;
         LoadCompressedSpriteSheet(&sSpriteSheet_EmeraldVersion[0]);
         LoadCompressedSpriteSheet(&sSpriteSheet_PressStart[0]);
-        LoadCompressedSpriteSheet(&sPokemonLogoShineSpriteSheet[0]);
         LoadPalette(gTitleScreenEmeraldVersionPal, 0x100, 0x20);
         LoadSpritePalette(&sSpritePalette_PressStart[0]);
         gMain.state = 2;
@@ -599,9 +453,9 @@ void CB2_InitTitleScreen(void)
         SetGpuReg(REG_OFFSET_BLDY, 12);
         SetGpuReg(REG_OFFSET_BG0CNT, BGCNT_PRIORITY(3) | BGCNT_CHARBASE(2) | BGCNT_SCREENBASE(26) | BGCNT_16COLOR | BGCNT_TXT256x256);
         SetGpuReg(REG_OFFSET_BG1CNT, BGCNT_PRIORITY(2) | BGCNT_CHARBASE(3) | BGCNT_SCREENBASE(27) | BGCNT_16COLOR | BGCNT_TXT256x256);
-        SetGpuReg(REG_OFFSET_BG2CNT, BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(9) | BGCNT_256COLOR | BGCNT_AFF256x256);
+        SetGpuReg(REG_OFFSET_BG2CNT, BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(20) | BGCNT_256COLOR | BGCNT_AFF256x256);
         EnableInterrupts(INTR_FLAG_VBLANK);
-        SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_MODE_1
+        SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_MODE_0
                                     | DISPCNT_OBJ_1D_MAP
                                     | DISPCNT_BG2_ON
                                     | DISPCNT_OBJ_ON
@@ -613,7 +467,6 @@ void CB2_InitTitleScreen(void)
     case 5:
         if (!UpdatePaletteFade())
         {
-            StartPokemonLogoShine(0);
             ScanlineEffect_InitWave(0, DISPLAY_HEIGHT, 4, 4, 0, SCANLINE_EFFECT_REG_BG1HOFS, TRUE);
             SetMainCallback2(MainCB2);
         }
@@ -642,18 +495,13 @@ static void Task_TitleScreenPhase1(u8 taskId)
     if (gTasks[taskId].tCounter != 0)
     {
         u16 frameNum = gTasks[taskId].tCounter;
-        if (frameNum == 176)
-            StartPokemonLogoShine(1);
-        else if (frameNum == 64)
-            StartPokemonLogoShine(2);
-
         gTasks[taskId].tCounter--;
     }
     else
     {
         u8 spriteId;
 
-        SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_MODE_1 | DISPCNT_OBJ_1D_MAP | DISPCNT_BG2_ON | DISPCNT_OBJ_ON);
+        SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_MODE_0 | DISPCNT_OBJ_1D_MAP | DISPCNT_BG2_ON | DISPCNT_OBJ_ON);
         SetGpuReg(REG_OFFSET_WININ, 0);
         SetGpuReg(REG_OFFSET_WINOUT, 0);
         SetGpuReg(REG_OFFSET_BLDCNT, BLDCNT_TGT1_OBJ | BLDCNT_EFFECT_BLEND | BLDCNT_TGT2_ALL);
@@ -696,7 +544,7 @@ static void Task_TitleScreenPhase2(u8 taskId)
         SetGpuReg(REG_OFFSET_BLDCNT, BLDCNT_TGT1_BG1 | BLDCNT_EFFECT_BLEND | BLDCNT_TGT2_BG0 | BLDCNT_TGT2_BD);
         SetGpuReg(REG_OFFSET_BLDALPHA, BLDALPHA_BLEND(6, 15));
         SetGpuReg(REG_OFFSET_BLDY, 0);
-        SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_MODE_1
+        SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_MODE_0
                                     | DISPCNT_OBJ_1D_MAP
                                     | DISPCNT_BG0_ON
                                     | DISPCNT_BG1_ON

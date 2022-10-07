@@ -30,9 +30,9 @@ Es un romhack en desarrollo que tiene como base la pokeemerald-expansion, con mu
 
 -El límite de puntos de esfuerzo máximo es 504, y por estadística es 252, solo dos estadísticas pueden estar al máximo.
 
+-Puzzles estilo HGSS (Sphericalice).
 
 -El nivel de eclosión de huevos es 1.
-
 
 -Expansión de objetos en el OW. (Ghoulslash)
 

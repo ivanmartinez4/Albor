@@ -467,7 +467,7 @@ static void CB2_LoadSlidingPuzzle(void)
         sSlidingPuzzle->solved = gSpecialVar_0x8005;
         break;
     case 4:
-        LoadPalette(GetTextWindowPalette(2), 0xD0, 32);
+        LoadPalette(GetTextWindowPalette(), 0xD0, 32);
         if (sSlidingPuzzle->solved)
             DrawInstructionsBar(INSTRUCTION_CONTINUE);
         else
