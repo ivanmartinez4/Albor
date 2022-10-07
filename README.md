@@ -1,4 +1,4 @@
-# Pokémon Alción
+# Pokémon Albor
 
 ## ¿Qué es esto?
 
