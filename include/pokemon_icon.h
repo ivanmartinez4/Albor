@@ -25,6 +25,7 @@ u8 CreateMonIconCustom(u16 species, void (*callback)(struct Sprite *), s16 x, s1
 u8 SetMonIconPalette(struct Pokemon *, struct Sprite *, u8);
 u8 UpdateMonIconFrame(struct Sprite *sprite);
 void LoadMonIconPalette(u16 species);
+void LoadMonIconPalettePersonality(u16 species, u32 personality);
 void SpriteCB_MonIcon(struct Sprite *sprite);
 void SetPartyHPBarSprite(struct Sprite *sprite, u8 animNum);
 u8 GetMonIconPaletteIndexFromSpecies(u16 species);

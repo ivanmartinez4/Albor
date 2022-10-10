@@ -32,6 +32,8 @@ build/
 .idea/
 porymap.project.cfg
 tools/poryscript
+porymap.*.cfg
+prefabs.json
 .vscode/
 *.a
 .fuse_hidden*

@@ -1783,7 +1783,7 @@
 	.macro setzeffect
 	various BS_ATTACKER, VARIOUS_SET_Z_EFFECT
 	.endm
-	
+
 	.macro consumeberry battler:req, restoreItem=FALSE
 	various \battler, VARIOUS_CONSUME_BERRY
 	.byte \restoreItem
@@ -1975,6 +1975,14 @@
 	various BS_ATTACKER, VARIOUS_SWAP_SIDE_STATUSES
 	.endm
 
+	.macro canteleport battler:req
+	various \battler, VARIOUS_CAN_TELEPORT
+	.endm
+
+	.macro getbattlerside battler:req
+	various \battler, VARIOUS_GET_BATTLER_SIDE
+	.endm
+
 @ helpful macros
 	.macro setstatchanger stat:req, stages:req, down:req
 	setbyte sSTATCHANGER, \stat | \stages << 3 | \down << 7
@@ -2130,4 +2138,8 @@
 
 	.macro givedroppeditems
 	various BS_FAINTED, VARIOUS_GIVE_DROPPED_ITEMS
+	.endm
+	@ Used by effects that may proc Symbiosis but do not call removeitem.
+	.macro trysymbiosis
+	various BS_ATTACKER, VARIOUS_TRY_SYMBIOSIS
 	.endm

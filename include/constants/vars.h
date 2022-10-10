@@ -62,11 +62,11 @@
 #define VAR_UNUSED_0x402D                    0x402D
 #define VAR_WONDER_NEWS_COUNTER              0x402E
 
-#define VAR_FRONTIER_MANIAC_FACILITY         0x402F
-#define VAR_FRONTIER_GAMBLER_CHALLENGE       0x4030
-#define VAR_FRONTIER_GAMBLER_SET_CHALLENGE   0x4031
-#define VAR_FRONTIER_GAMBLER_AMOUNT_BET      0x4032
-#define VAR_FRONTIER_GAMBLER_STATE           0x4033
+#define VAR_FRONTIER_MANIAC_FACILITY                     0x402F
+#define VAR_FRONTIER_GAMBLER_CHALLENGE                   0x4030
+#define VAR_FRONTIER_GAMBLER_SET_CHALLENGE               0x4031
+#define VAR_FRONTIER_GAMBLER_AMOUNT_BET                  0x4032
+#define VAR_FRONTIER_GAMBLER_STATE                       0x4033
 
 #define VAR_DEOXYS_ROCK_STEP_COUNT           0x4034
 #define VAR_DEOXYS_ROCK_LEVEL                0x4035
@@ -273,8 +273,8 @@
 #define VAR_UNUSED_0x40FE                    0x40FE // Unused Var
 #define VAR_UNUSED_0x40FF                    0x40FF // Unused Var
 
-#define VARS_END                             0x40FF
-#define VARS_COUNT                           (VARS_END - VARS_START + 1)
+#define VARS_END                                         0x40FF
+#define VARS_COUNT                                       (VARS_END - VARS_START + 1)
 
 #define SPECIAL_VARS_START            0x8000
 // special vars

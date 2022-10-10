@@ -1537,7 +1537,7 @@ void ClearRankingHallRecords(void)
 void SaveGameFrontier(void)
 {
     s32 i;
-    struct Pokemon *monsParty = calloc(PARTY_SIZE, sizeof(struct Pokemon));
+    struct Pokemon *monsParty = AllocZeroed(sizeof(struct Pokemon) * PARTY_SIZE);
 
     for (i = 0; i < PARTY_SIZE; i++)
         monsParty[i] = gPlayerParty[i];
@@ -1552,7 +1552,7 @@ void SaveGameFrontier(void)
     for (i = 0; i < PARTY_SIZE; i++)
         gPlayerParty[i] = monsParty[i];
 
-    free(monsParty);
+    Free(monsParty);
 }
 
 // Frontier Brain functions.

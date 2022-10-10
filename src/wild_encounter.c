@@ -66,7 +66,7 @@ static const struct WildPokemon sWildFeebas = {20, 25, SPECIES_FEEBAS};
 
 static const u16 sRoute119WaterTileData[] =
 {
-//yMin, yMax, numSpots in previous sections 
+//yMin, yMax, numSpots in previous sections
      0,  45,  0,
     46,  91,  NUM_FISHING_SPOTS_1,
     92, 139,  NUM_FISHING_SPOTS_1 + NUM_FISHING_SPOTS_2,
@@ -850,7 +850,7 @@ bool8 TryDoDoubleWildBattle(void)
 {
     if (GetSafariZoneFlag() || GetMonsStateToDoubles() != PLAYER_HAS_TWO_USABLE_MONS)
         return FALSE;
-#if B_FLAG_FORCE_DOUBLE_WILD != 0 
+#if B_FLAG_FORCE_DOUBLE_WILD != 0
     else if (FlagGet(B_FLAG_FORCE_DOUBLE_WILD))
         return TRUE;
 #endif

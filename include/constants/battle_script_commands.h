@@ -243,6 +243,9 @@
 #define VARIOUS_SWAP_SIDE_STATUSES                  152
 #define VARIOUS_SET_Z_EFFECT                        153
 #define VARIOUS_GIVE_DROPPED_ITEMS                  154
+#define VARIOUS_TRY_SYMBIOSIS                       155
+#define VARIOUS_CAN_TELEPORT                        156
+#define VARIOUS_GET_BATTLER_SIDE                    157
 
 // Cmd_manipulatedamage
 #define DMG_CHANGE_SIGN            0
@@ -313,8 +316,9 @@
 #define MOVEEND_DANCER                            28
 #define MOVEEND_EMERGENCY_EXIT                    29
 #define MOVEEND_WEATHER_FORM                      30
-#define MOVEEND_CLEAR_BITS                        31
-#define MOVEEND_COUNT                             32
+#define MOVEEND_SYMBIOSIS                         31
+#define MOVEEND_CLEAR_BITS                        32
+#define MOVEEND_COUNT                             33
 
 // switch cases
 #define B_SWITCH_NORMAL     0

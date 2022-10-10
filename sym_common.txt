@@ -55,7 +55,7 @@ gReservedSpritePaletteCount:
 	.include "sound_check_menu.o"
 	
 	.space 0x4
-	
+
 	.include "contest_painting.o"
 	.include "field_specials.o"
 	.include "evolution_scene.o"
@@ -67,10 +67,10 @@ gReservedSpritePaletteCount:
 	.include "battle_factory_screen.o"
 	
 	.space 0x8
-	
+
 	.include "list_menu.o"
 	.include "party_menu.o"
-	
+
 	.space 0x44
 
 	.include "ereader_screen.o"

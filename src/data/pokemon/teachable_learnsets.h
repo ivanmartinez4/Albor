@@ -6209,95 +6209,8 @@ static const u16 sMewtwoTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };
 
+// Instead of reading this array for Mew, it checks for exceptions in CanLearnTeachableMove instead.
 static const u16 sMewTeachableLearnset[] = {
-    MOVE_AERIAL_ACE,
-    MOVE_ATTRACT,
-    MOVE_BLIZZARD,
-    MOVE_BRICK_BREAK,
-    MOVE_BULK_UP,
-    MOVE_BULLET_SEED,
-    MOVE_CALM_MIND,
-    MOVE_CUT,
-    MOVE_DIG,
-    MOVE_DIVE,
-    MOVE_DOUBLE_TEAM,
-    MOVE_DRAGON_CLAW,
-    MOVE_EARTHQUAKE,
-    MOVE_FACADE,
-    MOVE_FIRE_BLAST,
-    MOVE_FLAMETHROWER,
-    MOVE_FLASH,
-    MOVE_FLY,
-    MOVE_FOCUS_PUNCH,
-    MOVE_FRUSTRATION,
-    MOVE_GIGA_DRAIN,
-    MOVE_HAIL,
-    MOVE_HIDDEN_POWER,
-    MOVE_HYPER_BEAM,
-    MOVE_ICE_BEAM,
-    MOVE_IRON_TAIL,
-    MOVE_LIGHT_SCREEN,
-    MOVE_OVERHEAT,
-    MOVE_PROTECT,
-    MOVE_PSYCHIC,
-    MOVE_RAIN_DANCE,
-    MOVE_REFLECT,
-    MOVE_REST,
-    MOVE_RETURN,
-    MOVE_ROAR,
-    MOVE_ROCK_SMASH,
-    MOVE_ROCK_TOMB,
-    MOVE_SAFEGUARD,
-    MOVE_SANDSTORM,
-    MOVE_SECRET_POWER,
-    MOVE_SHADOW_BALL,
-    MOVE_SHOCK_WAVE,
-    MOVE_SKILL_SWAP,
-    MOVE_SLUDGE_BOMB,
-    MOVE_SNATCH,
-    MOVE_SOLAR_BEAM,
-    MOVE_STEEL_WING,
-    MOVE_STRENGTH,
-    MOVE_SUNNY_DAY,
-    MOVE_SURF,
-    MOVE_TAUNT,
-    MOVE_THIEF,
-    MOVE_THUNDER,
-    MOVE_THUNDERBOLT,
-    MOVE_TORMENT,
-    MOVE_TOXIC,
-    MOVE_WATERFALL,
-    MOVE_WATER_PULSE,
-    MOVE_BODY_SLAM,
-    MOVE_COUNTER,
-    MOVE_DEFENSE_CURL,
-    MOVE_DOUBLE_EDGE,
-    MOVE_DREAM_EATER,
-    MOVE_DYNAMIC_PUNCH,
-    MOVE_ENDURE,
-    MOVE_EXPLOSION,
-    MOVE_FIRE_PUNCH,
-    MOVE_FURY_CUTTER,
-    MOVE_ICE_PUNCH,
-    MOVE_ICY_WIND,
-    MOVE_MEGA_KICK,
-    MOVE_MEGA_PUNCH,
-    MOVE_METRONOME,
-    MOVE_MIMIC,
-    MOVE_MUD_SLAP,
-    MOVE_PSYCH_UP,
-    MOVE_ROCK_SLIDE,
-    MOVE_ROLLOUT,
-    MOVE_SEISMIC_TOSS,
-    MOVE_SLEEP_TALK,
-    MOVE_SNORE,
-    MOVE_SOFT_BOILED,
-    MOVE_SUBSTITUTE,
-    MOVE_SWAGGER,
-    MOVE_SWIFT,
-    MOVE_SWORDS_DANCE,
-    MOVE_THUNDER_PUNCH,
-    MOVE_THUNDER_WAVE,
     MOVE_UNAVAILABLE,
 };
 
@@ -16204,8 +16117,7 @@ static const u16 sDeoxysTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };
 
-#if P_NEW_POKEMON == TRUE
-
+#if P_GEN_4_POKEMON == TRUE
 static const u16 sTurtwigTeachableLearnset[] = {
     MOVE_ATTRACT,
     MOVE_BULLET_SEED,
@@ -20327,7 +20239,9 @@ static const u16 sArceusTeachableLearnset[] = {
     MOVE_THUNDER_WAVE,
     MOVE_UNAVAILABLE,
 };
+#endif
 
+#if P_GEN_5_POKEMON == TRUE
 static const u16 sVictiniTeachableLearnset[] = {
     MOVE_BRICK_BREAK,
     MOVE_DOUBLE_TEAM,
@@ -25418,7 +25332,9 @@ static const u16 sGenesectTeachableLearnset[] = {
     MOVE_THUNDER_WAVE,
     MOVE_UNAVAILABLE,
 };
+#endif
 
+#if P_GEN_6_POKEMON == TRUE
 static const u16 sChespinTeachableLearnset[] = {
     MOVE_AERIAL_ACE,
     MOVE_ATTRACT,
@@ -27827,7 +27743,9 @@ static const u16 sVolcanionTeachableLearnset[] = {
     MOVE_SWAGGER,
     MOVE_UNAVAILABLE,
 };
+#endif
 
+#if P_GEN_7_POKEMON == TRUE
 static const u16 sRowletTeachableLearnset[] = {
     MOVE_ATTRACT,
     MOVE_DOUBLE_TEAM,
@@ -30209,7 +30127,9 @@ static const u16 sMelmetalTeachableLearnset[] = {
     MOVE_HIDDEN_POWER,
     MOVE_UNAVAILABLE,
 };
+#endif
 
+#if P_GEN_8_POKEMON == TRUE
 static const u16 sGrookeyTeachableLearnset[] = {
     MOVE_ATTRACT,
     MOVE_FACADE,
@@ -32121,6 +32041,7 @@ static const u16 sOverqwilTeachableLearnset[] = {
 static const u16 sEnamorusTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };
+#endif
 
 static const u16 sRattataAlolanTeachableLearnset[] = {
     MOVE_BLIZZARD,
@@ -32850,6 +32771,7 @@ static const u16 sLinooneGalarianTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };
 
+#if P_GEN_5_POKEMON == TRUE
 static const u16 sDarumakaGalarianTeachableLearnset[] = {
     MOVE_ATTRACT,
     MOVE_BLIZZARD,
@@ -32959,6 +32881,7 @@ static const u16 sStunfiskGalarianTeachableLearnset[] = {
     MOVE_THUNDER_WAVE,
     MOVE_UNAVAILABLE,
 };
+#endif
 
 static const u16 sGrowlitheHisuianTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
@@ -32988,6 +32911,7 @@ static const u16 sSneaselHisuianTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };
 
+#if P_GEN_5_POKEMON == TRUE
 static const u16 sSamurottHisuianTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };
@@ -33007,7 +32931,9 @@ static const u16 sZoroarkHisuianTeachableLearnset[] = {
 static const u16 sBraviaryHisuianTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };
+#endif
 
+#if P_GEN_6_POKEMON == TRUE
 static const u16 sSliggooHisuianTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };
@@ -33019,11 +32945,12 @@ static const u16 sGoodraHisuianTeachableLearnset[] = {
 static const u16 sAvaluggHisuianTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };
+#endif
 
+#if P_GEN_7_POKEMON == TRUE
 static const u16 sDecidueyeHisuianTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };
-
 #endif
 
 static const u16 sDeoxysAttackTeachableLearnset[] = {
@@ -33146,8 +33073,7 @@ static const u16 sDeoxysSpeedTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };
 
-#if P_NEW_POKEMON == TRUE
-
+#if P_GEN_4_POKEMON == TRUE
 static const u16 sBurmySandyCloakTeachableLearnset[] = {
     MOVE_HIDDEN_POWER,
     MOVE_PROTECT,
@@ -33281,7 +33207,9 @@ static const u16 sShayminSkyTeachableLearnset[] = {
     MOVE_TOXIC,
     MOVE_UNAVAILABLE,
 };
+#endif
 
+#if P_GEN_6_POKEMON == TRUE
 static const u16 sFloetteEternalFlowerTeachableLearnset[] = {
     MOVE_ATTRACT,
     MOVE_CALM_MIND,
@@ -33374,7 +33302,9 @@ static const u16 sMeowsticFemaleTeachableLearnset[] = {
     MOVE_THUNDER_WAVE,
     MOVE_UNAVAILABLE,
 };
+#endif
 
+#if P_GEN_7_POKEMON == TRUE
 static const u16 sLycanrocMidnightTeachableLearnset[] = {
     MOVE_ATTRACT,
     MOVE_BRICK_BREAK,
@@ -33412,7 +33342,9 @@ static const u16 sLycanrocDuskTeachableLearnset[] = {
     MOVE_TOXIC,
     MOVE_UNAVAILABLE,
 };
+#endif
 
+#if P_GEN_8_POKEMON == TRUE
 static const u16 sToxtricityLowKeyTeachableLearnset[] = {
     MOVE_ATTRACT,
     MOVE_FACADE,
@@ -33553,5 +33485,4 @@ static const u16 sCalyrexShadowRiderTeachableLearnset[] = {
     MOVE_SWIFT,
     MOVE_UNAVAILABLE,
 };
-
 #endif
