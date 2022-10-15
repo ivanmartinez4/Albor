@@ -881,7 +881,7 @@ void LoadTilesetPalette(struct Tileset const *tileset, u16 destOffset, u16 size,
             else
                 LoadPaletteFast(((u16*)tileset->palettes), destOffset, size);
             gPlttBufferFaded[destOffset] = gPlttBufferUnfaded[destOffset] = RGB_BLACK; // why does it have to be black?
-            FieldmapPaletteDummy(destOffset + 1, (size - 2) >> 1);
+            ApplyGlobalTintToPaletteEntries(destOffset + 1, (size - 2) >> 1);
             low = 0;
             high = NUM_PALS_IN_PRIMARY;
         }

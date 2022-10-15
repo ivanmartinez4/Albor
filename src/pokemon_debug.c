@@ -1683,7 +1683,7 @@ static void ReloadPokemonSprites(struct PokemonDebugMenu *data)
     FreeMonIconPalettes();
 
     AllocateMonSpritesGfx();
-    LoadMonIconPalettePersonality(species, (data->isFemale ? FEMALE_PERSONALITY : MALE_PERSONALITY));
+    LoadMonIconPalette(species);
 
     //Update instructions
     PrintInstructionsOnWindow(data);

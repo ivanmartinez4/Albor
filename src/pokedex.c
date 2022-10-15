@@ -8219,7 +8219,7 @@ static void CreateStatBars(struct PokedexListItem *dexMon)
         }
 
         LoadSpriteSheet(&sheet);
-        free(gfx);
+        Free(gfx);
     }
     else if (dexMon->seen) // Just HP/ATK/DEF
     {
