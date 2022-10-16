@@ -64,9 +64,6 @@ const u16 gMetatileAttributes_PokemonSchool[] = INCBIN_U16("data/tilesets/second
 const u16 gMetatiles_PokemonFanClub[] = INCBIN_U16("data/tilesets/secondary/pokemon_fan_club/metatiles.bin");
 const u16 gMetatileAttributes_PokemonFanClub[] = INCBIN_U16("data/tilesets/secondary/pokemon_fan_club/metatile_attributes.bin");
 
-const u16 gMetatiles_Unused1[] = INCBIN_U16("data/tilesets/secondary/unused_1/metatiles.bin");
-const u16 gMetatileAttributes_Unused1[] = INCBIN_U16("data/tilesets/secondary/unused_1/metatile_attributes.bin");
-
 const u16 gMetatiles_MeteorFalls[] = INCBIN_U16("data/tilesets/secondary/meteor_falls/metatiles.bin");
 const u16 gMetatileAttributes_MeteorFalls[] = INCBIN_U16("data/tilesets/secondary/meteor_falls/metatile_attributes.bin");
 
@@ -120,9 +117,6 @@ const u16 gMetatileAttributes_GenericBuilding[] = INCBIN_U16("data/tilesets/seco
 
 const u16 gMetatiles_MauvilleGameCorner[] = INCBIN_U16("data/tilesets/secondary/mauville_game_corner/metatiles.bin");
 const u16 gMetatileAttributes_MauvilleGameCorner[] = INCBIN_U16("data/tilesets/secondary/mauville_game_corner/metatile_attributes.bin");
-
-const u16 gMetatiles_Unused2[] = INCBIN_U16("data/tilesets/secondary/unused_2/metatiles.bin");
-const u16 gMetatileAttributes_Unused2[] = INCBIN_U16("data/tilesets/secondary/unused_2/metatile_attributes.bin");
 
 const u16 gMetatiles_RustboroGym[] = INCBIN_U16("data/tilesets/secondary/rustboro_gym/metatiles.bin");
 const u16 gMetatileAttributes_RustboroGym[] = INCBIN_U16("data/tilesets/secondary/rustboro_gym/metatile_attributes.bin");
@@ -201,9 +195,6 @@ const u16 gMetatileAttributes_BattleFrontierRankingHall[] = INCBIN_U16("data/til
 
 const u16 gMetatiles_BattleTent[] = INCBIN_U16("data/tilesets/secondary/battle_tent/metatiles.bin");
 const u16 gMetatileAttributes_BattleTent[] = INCBIN_U16("data/tilesets/secondary/battle_tent/metatile_attributes.bin");
-
-const u16 gMetatiles_MysteryEventsHouse[] = INCBIN_U16("data/tilesets/secondary/mystery_events_house/metatiles.bin");
-const u16 gMetatileAttributes_MysteryEventsHouse[] = INCBIN_U16("data/tilesets/secondary/mystery_events_house/metatile_attributes.bin");
 
 const u16 gMetatiles_UnionRoom[] = INCBIN_U16("data/tilesets/secondary/union_room/metatiles.bin");
 const u16 gMetatileAttributes_UnionRoom[] = INCBIN_U16("data/tilesets/secondary/union_room/metatile_attributes.bin");

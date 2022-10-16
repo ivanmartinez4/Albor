@@ -41,12 +41,12 @@ struct Weather
             struct Sprite *sandstormSprites2[NUM_SWIRL_SANDSTORM_SPRITES];
         } s2;
     } sprites;
-    u8 gammaShifts[19][32];
-    u8 altGammaShifts[19][32];
-    s8 gammaIndex;
-    s8 gammaTargetIndex;
-    u8 gammaStepDelay;
-    u8 gammaStepFrameCounter;
+    u8 darkenedContrastColorMaps[NUM_WEATHER_COLOR_MAPS][32];
+    u8 contrastColorMaps[NUM_WEATHER_COLOR_MAPS][32];
+    s8 colorMapIndex;
+    s8 targetColorMapIndex;
+    u8 colorMapStepDelay;
+    u8 colorMapStepCounter;
     u16 fadeDestColor:15;
     u16 noShadows:1; // Certain weathers require blend coeffs that do not work nice with shadows
     u8 palProcessingState;
@@ -62,6 +62,7 @@ struct Weather
     u8 weatherGfxLoaded;
     bool8 weatherChangeComplete;
     u8 weatherPicSpritePalIndex;
+    u8 contrastColorMapSpritePalIndex;
     // Rain
     u16 rainSpriteVisibleCounter;
     u8 curRainSpriteIndex;
@@ -145,8 +146,8 @@ void StartWeather(void);
 void SetNextWeather(u8 weather);
 void SetCurrentAndNextWeather(u8 weather);
 void SetCurrentAndNextWeatherNoDelay(u8 weather);
-void ApplyWeatherColorMapIfIdle(s8 gammaIndex);
-void ApplyWeatherColorMapIfIdle_Gradual(u8 gammaIndex, u8 gammaTargetIndex, u8 gammaStepDelay);
+void ApplyWeatherColorMapIfIdle(s8 colorMapIndex);
+void ApplyWeatherColorMapIfIdle_Gradual(u8 colorMapIndex, u8 targetColorMapIndex, u8 colorMapStepDelay);
 void FadeScreen(u8 mode, s8 delay);
 bool8 IsWeatherNotFadingIn(void);
 void UpdateSpritePaletteWithWeather(u8 spritePaletteIndex, bool8 allowFog);
