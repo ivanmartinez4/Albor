@@ -2475,6 +2475,8 @@ bool8 ScrCmd_subquestmenu(struct ScriptContext *ctx)
     }
 
     return TRUE;
+}
+
 bool8 ScrCmd_namebox(struct ScriptContext *ctx) {
     const u8 *name = (const u8 *)ScriptReadWord(ctx);
 
