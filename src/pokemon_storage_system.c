@@ -116,7 +116,6 @@ enum {
     MENU_PLACE,
     MENU_SUMMARY,
     MENU_RELEASE,
-    MENU_MARK,
     MENU_JUMP,
     MENU_WALLPAPER,
     MENU_NAME,
@@ -2688,10 +2687,6 @@ static void Task_OnSelectedMon(u8 taskId)
         case MENU_SUMMARY:
             PlaySE(SE_SELECT);
             SetPokeStorageTask(Task_ShowMonSummary);
-            break;
-        case MENU_MARK:
-            PlaySE(SE_SELECT);
-            SetPokeStorageTask(Task_ShowMarkMenu);
             break;
         case MENU_TAKE:
             PlaySE(SE_SELECT);
@@ -7869,7 +7864,6 @@ static bool8 SetMenuTexts_Mon(void)
             SetMenuText(MENU_STORE);
     }
 
-    SetMenuText(MENU_MARK);
     SetMenuText(MENU_RELEASE);
     SetMenuText(MENU_CANCEL);
     return TRUE;
@@ -8143,7 +8137,6 @@ static const u8 *const sMenuTexts[] =
     [MENU_PLACE]      = gPCText_Place,
     [MENU_SUMMARY]    = gPCText_Summary,
     [MENU_RELEASE]    = gPCText_Release,
-    [MENU_MARK]       = gPCText_Mark,
     [MENU_JUMP]       = gPCText_Jump,
     [MENU_WALLPAPER]  = gPCText_Wallpaper,
     [MENU_NAME]       = gPCText_Name,

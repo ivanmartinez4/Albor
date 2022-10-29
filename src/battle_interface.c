@@ -3306,7 +3306,7 @@ static const struct SpriteSheet sSpriteSheet_LastUsedBallWindow =
 
 #define LAST_BALL_WIN_X_F       (LAST_USED_BALL_X_F - 1)
 #define LAST_BALL_WIN_X_0       (LAST_USED_BALL_X_0 - 0)
-#define LAST_USED_WIN_Y         (LAST_USED_BALL_Y - 8)
+#define LAST_USED_WIN_Y         (LAST_USED_BALL_Y - 9)
 
 #define sHide  data[0]
 
