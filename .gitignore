@@ -45,3 +45,5 @@ prefabs.json
 *.diff
 *.sym
 *.js
+agbcc/
+/*.zip
