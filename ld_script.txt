@@ -337,6 +337,7 @@ SECTIONS {
         src/pinball.o(.text);
         src/quests.o(.text);
         src/sliding_puzzle.o(.text);
+        src/field_name_box.o(.text);
     } =0
 
     script_data :
@@ -692,6 +693,7 @@ SECTIONS {
         src/pinball.o(.rodata);
         src/quests.o(.rodata);
         src/sliding_puzzle.o(.rodata);
+        src/field_name_box.o(.rodata);
     } =0
 
     song_data :

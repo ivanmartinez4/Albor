@@ -144,3 +144,4 @@
 	.include "src/pinball.o"
 	.include "src/quests.o"
 	.include "src/sliding_puzzle.o"
+	.include "src/field_name_box.o"

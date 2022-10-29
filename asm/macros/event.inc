@@ -1864,6 +1864,19 @@
 	closemessage
 	subquestmenu QUEST_MENU_COMPLETE_QUEST, \quest, \subquest
 	.endm
+    
+	@ Starts displaying a name box containing the specified text. If text is a pointer, then the string at 
+	@ that offset will be loaded and used. If text is script bank 0, then the value of script bank 0 will be treated as 
+	@ a pointer to the text. (You can use loadpointer to place a string pointer in a script bank.)
+	.macro namebox name:req
+	.byte 0xe3
+	.4byte \name
+	.endm
+    
+	@ Closes the current message box.
+	.macro hidenamebox
+	.byte 0xe4
+	.endm
 
     .macro goto_if_subquest_complete parent:req,child:req, dest:req
     subquestmenu QUEST_MENU_CHECK_COMPLETE \parent \child
