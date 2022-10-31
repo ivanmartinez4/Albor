@@ -15,7 +15,7 @@ const struct Item gItems[] =
 
     [ITEM_POKE_BALL] =
     {
-        .name = _("Poke ball"),
+        .name = _("Pokéball"),
         .itemId = ITEM_POKE_BALL,
         .price = 100,
         .description = sPokeBallDesc,
@@ -28,7 +28,7 @@ const struct Item gItems[] =
 
     [ITEM_GREAT_BALL] =
     {
-        .name = _("Super ball"),
+        .name = _("Superball"),
         .itemId = ITEM_GREAT_BALL,
         .price = 200,
         .description = sGreatBallDesc,
@@ -41,7 +41,7 @@ const struct Item gItems[] =
 
     [ITEM_ULTRA_BALL] =
     {
-        .name = _("Ultra ball"),
+        .name = _("Ultraball"),
         .itemId = ITEM_ULTRA_BALL,
         .price = 400,
         .description = sUltraBallDesc,
@@ -54,7 +54,7 @@ const struct Item gItems[] =
 
     [ITEM_MASTER_BALL] =
     {
-        .name = _("Master ball"),
+        .name = _("Masterball"),
         .itemId = ITEM_MASTER_BALL,
         .price = 0,
         .description = sMasterBallDesc,
@@ -67,7 +67,7 @@ const struct Item gItems[] =
 
     [ITEM_PREMIER_BALL] =
     {
-        .name = _("Honor ball"),
+        .name = _("Honorball"),
         .itemId = ITEM_PREMIER_BALL,
         .price = 200,
         .description = sPremierBallDesc,
@@ -80,7 +80,7 @@ const struct Item gItems[] =
 
     [ITEM_HEAL_BALL] =
     {
-        .name = _("Sana ball"),
+        .name = _("Sanaball"),
         .itemId = ITEM_HEAL_BALL,
         .price = 300,
         .description = sHealBallDesc,
@@ -93,7 +93,7 @@ const struct Item gItems[] =
 
     [ITEM_NET_BALL] =
     {
-        .name = _("Malla ball"),
+        .name = _("Mallaball"),
         .itemId = ITEM_NET_BALL,
         .price = 1000,
         .description = sNetBallDesc,
@@ -106,7 +106,7 @@ const struct Item gItems[] =
 
     [ITEM_NEST_BALL] =
     {
-        .name = _("Nido ball"),
+        .name = _("Nidoball"),
         .itemId = ITEM_NEST_BALL,
         .price = 1000,
         .description = sNestBallDesc,
@@ -119,7 +119,7 @@ const struct Item gItems[] =
 
     [ITEM_DIVE_BALL] =
     {
-        .name = _("Buceo ball"),
+        .name = _("Buceoball"),
         .itemId = ITEM_DIVE_BALL,
         .price = 1000,
         .description = sDiveBallDesc,
@@ -132,7 +132,7 @@ const struct Item gItems[] =
 
     [ITEM_DUSK_BALL] =
     {
-        .name = _("Ocaso ball"),
+        .name = _("Ocasoball"),
         .itemId = ITEM_DUSK_BALL,
         .price = 1000,
         .description = sDuskBallDesc,
@@ -145,7 +145,7 @@ const struct Item gItems[] =
 
     [ITEM_TIMER_BALL] =
     {
-        .name = _("Turno ball"),
+        .name = _("Turnoball"),
         .itemId = ITEM_TIMER_BALL,
         .price = 1000,
         .description = sTimerBallDesc,
@@ -158,7 +158,7 @@ const struct Item gItems[] =
 
     [ITEM_QUICK_BALL] =
     {
-        .name = _("Veloz ball"),
+        .name = _("Velozball"),
         .itemId = ITEM_QUICK_BALL,
         .price = 1000,
         .description = sQuickBallDesc,
@@ -171,7 +171,7 @@ const struct Item gItems[] =
 
     [ITEM_REPEAT_BALL] =
     {
-        .name = _("Acopio ball"),
+        .name = _("Acopioball"),
         .itemId = ITEM_REPEAT_BALL,
         .price = 1000,
         .description = sRepeatBallDesc,
@@ -184,7 +184,7 @@ const struct Item gItems[] =
 
     [ITEM_LUXURY_BALL] =
     {
-        .name = _("Lujo ball"),
+        .name = _("Lujoball"),
         .itemId = ITEM_LUXURY_BALL,
         .price = 1000,
         .description = sLuxuryBallDesc,
@@ -210,7 +210,7 @@ const struct Item gItems[] =
 
     [ITEM_LURE_BALL] =
     {
-        .name = _("Cebo ball"),
+        .name = _("Ceboball"),
         .itemId = ITEM_LURE_BALL,
         .price = 0,
         .description = sLureBallDesc,
@@ -223,7 +223,7 @@ const struct Item gItems[] =
 
     [ITEM_MOON_BALL] =
     {
-        .name = _("Luna ball"),
+        .name = _("Lunaball"),
         .itemId = ITEM_MOON_BALL,
         .price = 1000,
         .description = sMoonBallDesc,
@@ -236,7 +236,7 @@ const struct Item gItems[] =
 
     [ITEM_FRIEND_BALL] =
     {
-        .name = _("Amigo ball"),
+        .name = _("Amigoball"),
         .itemId = ITEM_FRIEND_BALL,
         .price = 0,
         .description = sFriendBallDesc,
@@ -249,7 +249,7 @@ const struct Item gItems[] =
 
     [ITEM_LOVE_BALL] =
     {
-        .name = _("Amor ball"),
+        .name = _("Amorball"),
         .itemId = ITEM_LOVE_BALL,
         .price = 1000,
         .description = sLoveBallDesc,
@@ -262,7 +262,7 @@ const struct Item gItems[] =
 
     [ITEM_FAST_BALL] =
     {
-        .name = _("Rapid ball"),
+        .name = _("Rapidball"),
         .itemId = ITEM_FAST_BALL,
         .price = 1000,
         .description = sFastBallDesc,
@@ -275,7 +275,7 @@ const struct Item gItems[] =
 
     [ITEM_HEAVY_BALL] =
     {
-        .name = _("Peso ball"),
+        .name = _("Pesoball"),
         .itemId = ITEM_HEAVY_BALL,
         .price = 1000,
         .description = sHeavyBallDesc,
@@ -288,7 +288,7 @@ const struct Item gItems[] =
 
     [ITEM_DREAM_BALL] =
     {
-        .name = _("Sueño ball"),
+        .name = _("Sueñoball"),
         .itemId = ITEM_DREAM_BALL,
         .price = 1000,
         .description = sDreamBallDesc,
@@ -301,7 +301,7 @@ const struct Item gItems[] =
 
     [ITEM_SAFARI_BALL] =
     {
-        .name = _("Safari Ball"),
+        .name = _("Safariball"),
         .itemId = ITEM_SAFARI_BALL,
         .price = 0,
         .description = sSafariBallDesc,
