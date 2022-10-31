@@ -7818,7 +7818,7 @@ BattleScript_MoveUsedFlinched::
 BattleScript_MoveUsedFlinchedEnd:
 	goto BattleScript_MoveEnd
 BattleScript_TryActivateSteadFast:
-	setstatchanger STAT_SPEED, 1, FALSE
+	setstatchanger STAT_SPEED, 2, FALSE
 	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_ALLOW_PTR, BattleScript_MoveUsedFlinchedEnd
 	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_MoveUsedFlinchedEnd
 	copybyte gBattlerAbility, gBattlerAttacker
@@ -8212,16 +8212,6 @@ BattleScript_HarvestActivates::
 	printstring STRINGID_HARVESTBERRY
 	waitmessage B_WAIT_TIME_LONG
 BattleScript_HarvestActivatesEnd:
-	end3
-
-BattleScript_SolarPowerActivates::
-	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
-	call BattleScript_AbilityPopUp
-	healthbarupdate BS_ATTACKER
-	datahpupdate BS_ATTACKER
-	printstring STRINGID_SOLARPOWERHPDROP
-	waitmessage B_WAIT_TIME_LONG
-	tryfaintmon BS_ATTACKER
 	end3
 
 BattleScript_HealerActivates::

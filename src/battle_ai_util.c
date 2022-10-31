@@ -38,7 +38,7 @@ static const s8 sAiAbilityRatings[ABILITIES_COUNT] =
     [ABILITY_AURA_BREAK] = 3,
     [ABILITY_BAD_DREAMS] = 4,
     [ABILITY_BATTERY] = 0,
-    [ABILITY_BATTLE_ARMOR] = 2,
+    [ABILITY_BATTLE_ARMOR] = 7,
     [ABILITY_BATTLE_BOND] = 6,
     [ABILITY_BEAST_BOOST] = 7,
     [ABILITY_BERSERK] = 5,
@@ -54,10 +54,10 @@ static const s8 sAiAbilityRatings[ABILITIES_COUNT] =
     [ABILITY_COMPETITIVE] = 5,
     [ABILITY_COMPOUND_EYES] = 7,
     [ABILITY_CONTRARY] = 8,
-    [ABILITY_CORROSION] = 5,
+    [ABILITY_CORROSION] = 6,
     [ABILITY_CURSED_BODY] = 4,
     [ABILITY_CUTE_CHARM] = 2,
-    [ABILITY_DAMP] = 2,
+    [ABILITY_DAMP] = 7,
     [ABILITY_DANCER] = 5,
     [ABILITY_DARK_AURA] = 6,
     [ABILITY_DAZZLING] = 5,
@@ -77,7 +77,7 @@ static const s8 sAiAbilityRatings[ABILITIES_COUNT] =
     [ABILITY_FAIRY_AURA] = 6,
     [ABILITY_FILTER] = 6,
     [ABILITY_FLAME_BODY] = 4,
-    [ABILITY_FLARE_BOOST] = 5,
+    [ABILITY_FLARE_BOOST] = 6,
     [ABILITY_FLASH_FIRE] = 6,
     [ABILITY_FLOWER_GIFT] = 4,
     [ABILITY_FLOWER_VEIL] = 0,
@@ -105,7 +105,7 @@ static const s8 sAiAbilityRatings[ABILITIES_COUNT] =
     [ABILITY_HYDRATION] = 4,
     [ABILITY_HYPER_CUTTER] = 3,
     [ABILITY_ICE_BODY] = 3,
-    [ABILITY_ILLUMINATE] = 0,
+    [ABILITY_ILLUMINATE] = 5,
     [ABILITY_ILLUSION] = 8,
     [ABILITY_IMMUNITY] = 4,
     [ABILITY_IMPOSTER] = 9,
@@ -117,7 +117,7 @@ static const s8 sAiAbilityRatings[ABILITIES_COUNT] =
     [ABILITY_IRON_BARBS] = 6,
     [ABILITY_IRON_FIST] = 6,
     [ABILITY_JUSTIFIED] = 4,
-    [ABILITY_KEEN_EYE] = 1,
+    [ABILITY_KEEN_EYE] = 6,
     [ABILITY_KLUTZ] = -1,
     [ABILITY_LEAF_GUARD] = 2,
     [ABILITY_LEVITATE] = 7,
@@ -181,7 +181,7 @@ static const s8 sAiAbilityRatings[ABILITIES_COUNT] =
     [ABILITY_RKS_SYSTEM] = 8,
     [ABILITY_ROCK_HEAD] = 5,
     [ABILITY_ROUGH_SKIN] = 6,
-    [ABILITY_RUN_AWAY] = 0,
+    [ABILITY_RUN_AWAY] = 6,
     [ABILITY_SAND_FORCE] = 4,
     [ABILITY_SAND_RUSH] = 6,
     [ABILITY_SAND_STREAM] = 9,
@@ -194,7 +194,7 @@ static const s8 sAiAbilityRatings[ABILITIES_COUNT] =
     [ABILITY_SHADOW_TAG] = 10,
     [ABILITY_SHED_SKIN] = 7,
     [ABILITY_SHEER_FORCE] = 8,
-    [ABILITY_SHELL_ARMOR] = 2,
+    [ABILITY_SHELL_ARMOR] = 7,
     [ABILITY_SHIELD_DUST] = 5,
     [ABILITY_SHIELDS_DOWN] = 6,
     [ABILITY_SIMPLE] = 8,
@@ -232,7 +232,7 @@ static const s8 sAiAbilityRatings[ABILITIES_COUNT] =
     [ABILITY_TANGLED_FEET] = 2,
     [ABILITY_TANGLING_HAIR] = 5,
     [ABILITY_TECHNICIAN] = 8,
-    [ABILITY_TELEPATHY] = 0,
+    [ABILITY_TELEPATHY] = 6,
     [ABILITY_TERAVOLT] = 7,
     [ABILITY_THICK_FAT] = 7,
     [ABILITY_TINTED_LENS] = 7,
@@ -610,7 +610,7 @@ bool32 IsBattlerTrapped(u8 battler, bool8 checkSwitch)
 #endif
     if (checkSwitch && holdEffect == HOLD_EFFECT_SHED_SHELL)
         return FALSE;
-    else if (!checkSwitch && GetBattlerAbility(battler) == ABILITY_RUN_AWAY)
+    else if (checkSwitch && GetBattlerAbility(battler) == ABILITY_RUN_AWAY)
         return FALSE;
     else if (!checkSwitch && holdEffect == HOLD_EFFECT_CAN_ALWAYS_RUN)
         return FALSE;
@@ -1573,6 +1573,7 @@ bool32 ShouldSetSun(u8 battlerAtk, u16 atkAbility, u16 holdEffect)
       || atkAbility == ABILITY_FORECAST
       || atkAbility == ABILITY_LEAF_GUARD
       || atkAbility == ABILITY_SOLAR_POWER
+      || atkAbility == ABILITY_EARLY_BIRD
       || atkAbility == ABILITY_HARVEST
       || HasMoveEffect(battlerAtk, EFFECT_SOLAR_BEAM)
       || HasMoveEffect(battlerAtk, EFFECT_MORNING_SUN)
@@ -2304,6 +2305,8 @@ static bool32 BattlerAffectedBySandstorm(u8 battlerId, u16 ability)
       && !IS_BATTLER_OF_TYPE(battlerId, TYPE_GROUND)
       && !IS_BATTLER_OF_TYPE(battlerId, TYPE_STEEL)
       && !IS_BATTLER_OF_TYPE(battlerId, TYPE_FIGHTING)
+      && ability != ABILITY_STICKY_HOLD
+      && ability != ABILITY_SUCTION_CUPS
       && ability != ABILITY_SAND_VEIL
       && ability != ABILITY_SAND_FORCE
       && ability != ABILITY_SAND_RUSH
@@ -2316,6 +2319,8 @@ static bool32 BattlerAffectedByHail(u8 battlerId, u16 ability)
 {
     if (!IS_BATTLER_OF_TYPE(battlerId, TYPE_ICE)
       && !IS_BATTLER_OF_TYPE(battlerId, TYPE_FIGHTING)
+      && ability != ABILITY_STICKY_HOLD
+      && ability != ABILITY_SUCTION_CUPS
       && ability != ABILITY_SNOW_CLOAK
       && ability != ABILITY_OVERCOAT
       && ability != ABILITY_ICE_BODY)
@@ -2695,7 +2700,7 @@ bool32 AI_CanPutToSleep(u8 battlerAtk, u8 battlerDef, u16 defAbility, u16 move, 
 static bool32 AI_CanPoisonType(u8 battlerAttacker, u8 battlerTarget)
 {
     return ((AI_DATA->abilities[battlerAttacker] == ABILITY_CORROSION && gBattleMoves[gCurrentMove].split == SPLIT_STATUS)
-            || !(IS_BATTLER_OF_TYPE(battlerTarget, TYPE_POISON) || IS_BATTLER_OF_TYPE(battlerTarget, TYPE_STEEL)));
+            || !(IS_BATTLER_OF_TYPE(battlerTarget, TYPE_STEEL)));
 }
 
 static bool32 AI_CanBePoisoned(u8 battlerAtk, u8 battlerDef)
@@ -2722,7 +2727,7 @@ bool32 ShouldPoisonSelf(u8 battler, u16 ability)
       || ability == ABILITY_POISON_HEAL
       || ability == ABILITY_QUICK_FEET
       || ability == ABILITY_MAGIC_GUARD
-      || (ability == ABILITY_TOXIC_BOOST && HasMoveWithSplit(battler, SPLIT_PHYSICAL))
+      || (ability == ABILITY_TOXIC_BOOST)
       || (ability == ABILITY_GUTS && HasMoveWithSplit(battler, SPLIT_PHYSICAL))
       || HasMoveEffect(battler, EFFECT_FACADE)
       || HasMoveEffect(battler, EFFECT_PSYCHO_SHIFT)))
@@ -2737,7 +2742,7 @@ bool32 AI_CanPoison(u8 battlerAtk, u8 battlerDef, u16 defAbility, u16 move, u16 
       || DoesSubstituteBlockMove(battlerAtk, battlerDef, move)
       || PartnerMoveEffectIsStatusSameTarget(BATTLE_PARTNER(battlerAtk), battlerDef, partnerMove))
         return FALSE;
-    else if (defAbility != ABILITY_CORROSION && (IS_BATTLER_OF_TYPE(battlerDef, TYPE_POISON) || IS_BATTLER_OF_TYPE(battlerDef, TYPE_STEEL)))
+    else if (defAbility != ABILITY_CORROSION && (IS_BATTLER_OF_TYPE(battlerDef, TYPE_STEEL)))
         return FALSE;
     else if (IsValidDoubleBattle(battlerAtk) && AI_DATA->abilities[BATTLE_PARTNER(battlerDef)] == ABILITY_PASTEL_VEIL)
         return FALSE;
@@ -2808,7 +2813,7 @@ bool32 ShouldBurnSelf(u8 battler, u16 ability)
      ability == ABILITY_QUICK_FEET
       || ability == ABILITY_HEATPROOF
       || ability == ABILITY_MAGIC_GUARD
-      || (ability == ABILITY_FLARE_BOOST && HasMoveWithSplit(battler, SPLIT_SPECIAL))
+      || (ability == ABILITY_FLARE_BOOST)
       || (ability == ABILITY_GUTS && HasMoveWithSplit(battler, SPLIT_PHYSICAL))
       || HasMoveEffect(battler, EFFECT_FACADE)
       || HasMoveEffect(battler, EFFECT_PSYCHO_SHIFT)))
@@ -2879,7 +2884,7 @@ bool32 ShouldTrap(u8 battlerAtk, u8 battlerDef, u16 move)
 
 bool32 ShouldFakeOut(u8 battlerAtk, u8 battlerDef, u16 move)
 {
-    if (AI_DATA->holdEffects[battlerAtk] == HOLD_EFFECT_CHOICE_BAND && CountUsablePartyMons(battlerAtk) == 0)
+    if (AI_DATA->holdEffects[battlerAtk] == HOLD_EFFECT_CHOICE_BAND && (GetBattlerAbility(gBattlerAttacker) != ABILITY_AROMA_VEIL) && CountUsablePartyMons(battlerAtk) == 0)
         return FALSE;   // don't lock attacker into fake out if can't switch out
 
     if (gDisableStructs[battlerAtk].isFirstTurn

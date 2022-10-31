@@ -4175,19 +4175,21 @@ u32 GetBattlerTotalSpeedStat(u8 battlerId)
     // weather abilities
     if (WEATHER_HAS_EFFECT)
     {
-        if (ability == ABILITY_SWIFT_SWIM       && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA && gBattleWeather & B_WEATHER_RAIN)
+        if (ability == ABILITY_SWIFT_SWIM && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA && gBattleWeather & B_WEATHER_RAIN)
             speed *= 2;
         else if (ability == ABILITY_CHLOROPHYLL && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA && gBattleWeather & B_WEATHER_SUN)
             speed *= 2;
-        else if (ability == ABILITY_SAND_RUSH   && gBattleWeather & B_WEATHER_SANDSTORM)
+        else if (ability == ABILITY_SAND_RUSH && gBattleWeather & B_WEATHER_SANDSTORM)
             speed *= 2;
-        else if (ability == ABILITY_SLUSH_RUSH  && gBattleWeather & B_WEATHER_HAIL)
+        else if (ability == ABILITY_SLUSH_RUSH && gBattleWeather & B_WEATHER_HAIL)
             speed *= 2;
+        else if (ability == ABILITY_FORECAST && gBattleWeather & B_WEATHER_ANY)
+            speed = (speed * 150) / 100;
     }
 
     // other abilities
     if (ability == ABILITY_QUICK_FEET && gBattleMons[battlerId].status1 & STATUS1_ANY)
-        speed = (speed * 150) / 100;
+        speed *= 2;
     else if (ability == ABILITY_SURGE_SURFER && gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN)
         speed *= 2;
     else if (ability == ABILITY_SLOW_START && gDisableStructs[battlerId].slowStartTimer != 0)
@@ -4251,12 +4253,20 @@ s8 GetMovePriority(u32 battlerId, u16 move)
     {
         priority++;
     }
+    else if (ability == ABILITY_TELEPATHY && gBattleMoves[move].flags & FLAG_TELEPATHY)
+    {
+        priority++;
+    }
     else if (ability == ABILITY_PRANKSTER && IS_MOVE_STATUS(move))
     {
         gProtectStructs[battlerId].pranksterElevated = 1;
         priority++;
     }
     else if (gBattleMoves[move].effect == EFFECT_GRASSY_GLIDE && gFieldStatuses & STATUS_FIELD_GRASSY_TERRAIN && IsBattlerGrounded(battlerId))
+    {
+        priority++;
+    }
+    else if (ability == ABILITY_RUN_AWAY && gBattleMoves[move].effect == EFFECT_HIT_ESCAPE) 
     {
         priority++;
     }

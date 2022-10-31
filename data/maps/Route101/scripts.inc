@@ -198,15 +198,15 @@ Route101_EventScript_Youngster::
 	end
 
 HuevoZubat::
-   giveegg SPECIES_ZUBAT
+   givemon SPECIES_MIMIKYU, 1
    end
 
 HuevoGeodude::
-   giveegg SPECIES_GEODUDE
+   givemon SPECIES_DODUO, 1
    end
 
 HuevoExeggcute::
-   giveegg SPECIES_EXEGGCUTE
+   givemon SPECIES_PARAS, 1
    end
 
 Route101_EventScript_Boy::

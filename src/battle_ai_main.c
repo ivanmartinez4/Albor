@@ -1623,6 +1623,7 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
             else if (move == MOVE_FAKE_OUT) // filter out first impression
             {
                 if ((AI_DATA->holdEffects[battlerAtk] == HOLD_EFFECT_CHOICE_BAND || AI_DATA->abilities[battlerAtk] == ABILITY_GORILLA_TACTICS)
+                  && (GetBattlerAbility(gBattlerAttacker) != ABILITY_AROMA_VEIL)
                   && (CountUsablePartyMons(battlerDef) > 0 || !CanIndexMoveFaintTarget(battlerAtk, battlerDef, AI_THINKING_STRUCT->movesetIndex, 0)))
                 {
                     if (CountUsablePartyMons(battlerAtk) == 0)
@@ -2796,7 +2797,7 @@ static s16 AI_DoubleBattle(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                     break;
                 case ABILITY_LIGHTNING_ROD:
                     if (moveType == TYPE_ELECTRIC
-                      && HasMoveWithSplit(battlerAtkPartner, SPLIT_SPECIAL)
+                      && BattlerStatCanRise(battlerAtkPartner, atkPartnerAbility, STAT_ATK)
                       && BattlerStatCanRise(battlerAtkPartner, atkPartnerAbility, STAT_SPATK))
                     {
                         RETURN_SCORE_PLUS(1);
@@ -2834,8 +2835,8 @@ static s16 AI_DoubleBattle(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                     break;
                 case ABILITY_SAP_SIPPER:
                     if (moveType == TYPE_GRASS
-                      && HasMoveWithSplit(battlerAtkPartner, SPLIT_PHYSICAL)
-                      && BattlerStatCanRise(battlerAtkPartner, atkPartnerAbility, STAT_ATK))
+                      && BattlerStatCanRise(battlerAtkPartner, atkPartnerAbility, STAT_ATK)
+                      && BattlerStatCanRise(battlerAtkPartner, atkPartnerAbility, STAT_SPATK))
                     {
                         RETURN_SCORE_PLUS(1);
                     }
@@ -2843,8 +2844,8 @@ static s16 AI_DoubleBattle(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                 case ABILITY_JUSTIFIED:
                     if (moveType == TYPE_DARK
                       && !IS_MOVE_STATUS(move)
-                      && HasMoveWithSplit(battlerAtkPartner, SPLIT_PHYSICAL)
                       && BattlerStatCanRise(battlerAtkPartner, atkPartnerAbility, STAT_ATK)
+                      && BattlerStatCanRise(battlerAtkPartner, atkPartnerAbility, STAT_SPATK)
                       && !CanIndexMoveFaintTarget(battlerAtk, battlerAtkPartner, AI_THINKING_STRUCT->movesetIndex, 1))
                     {
                         RETURN_SCORE_PLUS(1);
@@ -2918,8 +2919,8 @@ static s16 AI_DoubleBattle(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                 if (atkPartnerAbility == ABILITY_JUSTIFIED
                   && moveType == TYPE_DARK
                   && !IS_MOVE_STATUS(move)
-                  && HasMoveWithSplit(battlerAtkPartner, SPLIT_PHYSICAL)
                   && BattlerStatCanRise(battlerAtkPartner, atkPartnerAbility, STAT_ATK)
+                  && BattlerStatCanRise(battlerAtkPartner, atkPartnerAbility, STAT_SPATK)
                   && !CanIndexMoveFaintTarget(battlerAtk, battlerAtkPartner, AI_THINKING_STRUCT->movesetIndex, 0))
                 {
                     RETURN_SCORE_PLUS(1);
@@ -3114,6 +3115,8 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
         switch (AI_DATA->abilities[battlerAtk])
         {
         case ABILITY_GUTS:
+            break;
+        case ABILITY_FLARE_BOOST:
             break;
         case ABILITY_NATURAL_CURE:
             if (AI_THINKING_STRUCT->aiFlags & AI_FLAG_SMART_SWITCHING
@@ -3457,6 +3460,8 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
         if (ShouldRecover(battlerAtk, battlerDef, move, 50))
             score += 3;
         if (AI_DATA->holdEffects[battlerAtk] == HOLD_EFFECT_BIG_ROOT)
+            score++;
+        else if (AI_DATA->abilities[battlerAtk] == ABILITY_TRUANT && gDisableStructs[battlerAtk].truantCounter == 1)
             score++;
         break;
     case EFFECT_TOXIC:

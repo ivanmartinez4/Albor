@@ -267,7 +267,6 @@ extern const u8 BattleScript_SwitchInAbilityMsgRet[];
 extern const u8 BattleScript_ToxicSpikesPoisoned[];
 extern const u8 BattleScript_ToxicSpikesAbsorbed[];
 extern const u8 BattleScript_StickyWebOnSwitchIn[];
-extern const u8 BattleScript_SolarPowerActivates[];
 extern const u8 BattleScript_CursedBodyActivates[];
 extern const u8 BattleScript_MummyActivates[];
 extern const u8 BattleScript_WeakArmorActivates[];
