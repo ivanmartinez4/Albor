@@ -1784,9 +1784,9 @@
 	various BS_ATTACKER, VARIOUS_SET_Z_EFFECT
 	.endm
 
-	.macro consumeberry battler:req, restoreItem=FALSE
+	.macro consumeberry battler:req, frombattler:req
 	various \battler, VARIOUS_CONSUME_BERRY
-	.byte \restoreItem
+	.byte \frombattler
 	.endm
 
 	.macro activateitemeffects battler:req
@@ -1981,6 +1981,12 @@
 
 	.macro getbattlerside battler:req
 	various \battler, VARIOUS_GET_BATTLER_SIDE
+	.endm
+
+	.macro checkparentalbondcounter counter:req, ptr:req
+	various BS_ATTACKER, VARIOUS_CHECK_PARENTAL_BOND_COUNTER
+	.byte \counter
+	.4byte \ptr
 	.endm
 
 @ helpful macros
