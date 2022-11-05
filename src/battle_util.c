@@ -3841,7 +3841,16 @@ u8 AtkCanceller_UnableToUseMove(void)
             }
             else if (gBattleMoves[gCurrentMove].flags & FLAG_TWO_STRIKES)
             {
-                gMultiHitCounter = 2;
+                u16 ability = gBattleMons[gBattlerAttacker].ability;
+                
+                if (ability == ABILITY_DONDE_CABEN_DOS)
+                {
+                    gMultiHitCounter = 3;
+                }
+                else
+                {
+                    gMultiHitCounter = 2;
+                }
                 PREPARE_BYTE_NUMBER_BUFFER(gBattleScripting.multihitString, 1, 0)
                 if (gCurrentMove == MOVE_DRAGON_DARTS)
                 {
@@ -7893,13 +7902,9 @@ u32 GetBattlerHoldEffect(u8 battlerId, bool32 checkNegating)
     return ItemId_GetHoldEffect(gBattleMons[battlerId].item);
 }
 
-// 
 static u32 GetBattlerItemHoldEffectParam(u8 battlerId, u16 item)
 {
-    if (item == ITEM_ENIGMA_BERRY)
-        return gEnigmaBerries[battlerId].holdEffectParam;
-    else
-        return ItemId_GetHoldEffectParam(item);
+    return ItemId_GetHoldEffectParam(item);
 }
 
 u32 GetBattlerHoldEffectParam(u8 battlerId)
@@ -9273,10 +9278,7 @@ static u32 CalcFinalDmg(u32 dmg, u16 move, u8 battlerAtk, u8 battlerDef, u8 move
     // Parental Bond Second Strike
     if (gSpecialStatuses[gBattlerAttacker].parentalBondState == PARENTAL_BOND_2ND_HIT)
     {
-        if (B_PARENTAL_BOND_DMG < GEN_7)
-            MulModifier(&finalModifier, UQ_4_12(0.5));
-        else
-            MulModifier(&finalModifier, UQ_4_12(0.25));
+        MulModifier(&finalModifier, UQ_4_12(0.3));
     }
 
     // attacker's abilities

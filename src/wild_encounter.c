@@ -25,7 +25,6 @@
 #include "constants/weather.h"
 
 extern const u8 EventScript_RepelWoreOff[];
-extern const u8 EventScript_LureWoreOff[];
 
 #define MAX_ENCOUNTER_RATE 2880
 
@@ -786,24 +785,12 @@ bool8 UpdateRepelCounter(void)
     if (steps != 0)
     {
         steps--;
-        if (!isLure)
-        {
             VarSet(VAR_REPEL_STEP_COUNT, steps);
             if (steps == 0)
             {
                 ScriptContext_SetupScript(EventScript_RepelWoreOff);
                 return TRUE;
             }
-        }
-        else
-        {
-            VarSet(VAR_REPEL_STEP_COUNT, steps | REPEL_LURE_MASK);
-            if (steps == 0)
-            {
-                ScriptContext_SetupScript(EventScript_LureWoreOff);
-                return TRUE;
-            }
-        }
 
     }
     return FALSE;

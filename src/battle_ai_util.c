@@ -806,7 +806,7 @@ s32 AI_CalcDamage(u16 move, u8 battlerAtk, u8 battlerDef, u8 *typeEffectiveness,
         // Handle other multi-strike moves
         if (gBattleMoves[move].flags & FLAG_TWO_STRIKES)
             dmg *= 2;
-        else if (move == MOVE_SURGING_STRIKES || (move == MOVE_WATER_SHURIKEN && gBattleMons[battlerAtk].species == SPECIES_GRENINJA_ASH))
+        else if (move == MOVE_SURGING_STRIKES || (AI_DATA->abilities[battlerAtk] == ABILITY_DONDE_CABEN_DOS && gBattleMoves[move].flags & FLAG_TWO_STRIKES) || (move == MOVE_WATER_SHURIKEN && gBattleMons[battlerAtk].species == SPECIES_GRENINJA_ASH))
             dmg *= 3;
 
         if (dmg == 0)

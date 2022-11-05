@@ -83,7 +83,7 @@ static const u8 sText_PlayerWhiteout2[] = _("{B_PLAYER_NAME} panicked and lost �
 static const u8 sText_PlayerWhiteout2[] = _("{B_PLAYER_NAME} whited out!{PAUSE_UNTIL_PRESS}");
 #endif
 static const u8 sText_PreventsEscape[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX} prevents\nescape with {B_SCR_ACTIVE_ABILITY}!\p");
-static const u8 sText_CantEscape2[] = _("Can't escape!\p");
+static const u8 sText_CantEscape2[] = _("¡No puedes escapar!\p");
 static const u8 sText_AttackerCantEscape[] = _("¡{B_ATK_NAME_WITH_PREFIX} no puede escapar!");
 static const u8 sText_HitXTimes[] = _("¡Golpeó {B_BUFF1} veces!");
 static const u8 sText_PkmnFellAsleep[] = _("¡{B_EFF_NAME_WITH_PREFIX}\ncayó dormido!");
@@ -338,7 +338,7 @@ static const u8 sText_PlayerBattledToDrawVsTwo[] = _("Player battled to a draw a
 static const u8 sText_WildFled[] = _("{PLAY_SE SE_FLEE}{B_LINK_OPPONENT1_NAME} fled!");
 static const u8 sText_TwoWildFled[] = _("{PLAY_SE SE_FLEE}{B_LINK_OPPONENT1_NAME} and\n{B_LINK_OPPONENT2_NAME} fled!");
 static const u8 sText_NoRunningFromTrainers[] = _("No! There's no running\nfrom a Trainer battle!\p");
-static const u8 sText_CantEscape[] = _("Can't escape!\p");
+static const u8 sText_CantEscape[] = _("¡No puedes escapar!\p");
 static const u8 sText_DontLeaveBirch[] = _("Prof. Birch: Don't leave me like this!\p");
 static const u8 sText_ButNothingHappened[] = _("But nothing happened!");
 static const u8 sText_ButItFailed[] = _("But it failed!");
