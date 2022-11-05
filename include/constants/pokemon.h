@@ -322,9 +322,9 @@
 #define FLAG_DMG_IN_AIR                           (1 << 23) // If target is in the air, can hit.
 #define FLAG_DMG_UNGROUNDED_IGNORE_TYPE_IF_FLYING (1 << 24) // Makes a Ground type move do 1x damage to flying and levitating targets
 #define FLAG_THAW_USER                            (1 << 25)
-#define FLAG_HIT_IN_SUBSTITUTE                    (1 << 26) // Hyperspace Fury
+#define FLAG_CABEZA_DURA_BOOST                    (1 << 26)
 #define FLAG_PICKPOCKET_BOOST                     (1 << 27)
-#define FLAG_MAGICIAN_BOOST                       (1 << 28)
+#define FLAG_VIRAZON                              (1 << 28)
 #define FLAG_TELEPATHY                            (1 << 29)
 #define FLAG_HYPER_CUTTER_BOOST                   (1 << 30)
 #define FLAG_TOUGH_CLAWS_BOOST                    (1 << 31)

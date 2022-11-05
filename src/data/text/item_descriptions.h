@@ -867,9 +867,9 @@ static const u8 sRelicCrownDesc[] = _(
     "high price.");
 
 static const u8 sStrangeSouvenirDesc[] = _(
-    "An ornament that\n"
-    "depicts a Pokémon\n"
-    "from Alola.");
+    "Permite evolucionar\n"
+    "a Pokémon con\n"
+    "formas Alola.");
 
 // Fossils
 static const u8 sHelixFossilDesc[] = _(

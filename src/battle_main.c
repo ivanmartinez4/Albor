@@ -4253,6 +4253,21 @@ s8 GetMovePriority(u32 battlerId, u16 move)
     {
         priority++;
     }
+    else if (ability == ABILITY_LIMPIACRISTALES)
+    {
+        switch (gCurrentMove)
+        {
+        case MOVE_BARRIER:
+        case MOVE_LIGHT_SCREEN:
+        case MOVE_REFLECT:
+            priority += 3;
+            break;
+        }
+    }
+    else if (ability == ABILITY_DANCER && gBattleMoves[move].flags & FLAG_DANCE)
+    {
+        priority++;
+    }
     else if (ability == ABILITY_TELEPATHY && gBattleMoves[move].flags & FLAG_TELEPATHY)
     {
         priority++;

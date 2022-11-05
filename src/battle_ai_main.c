@@ -768,6 +768,10 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                   && (moveType == TYPE_DARK || moveType == TYPE_GHOST || moveType == TYPE_BUG))
                     RETURN_SCORE_MINUS(10);
                 break;
+            case ABILITY_VIRAZON:
+                if (TestMoveFlags(move, FLAG_VIRAZON))
+                    RETURN_SCORE_MINUS(10);
+                break;
             case ABILITY_SOUNDPROOF:
                 if (TestMoveFlags(move, FLAG_SOUND))
                     RETURN_SCORE_MINUS(10);
@@ -2860,6 +2864,14 @@ static s16 AI_DoubleBattle(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                         RETURN_SCORE_PLUS(1);
                     }
                     break;
+                case ABILITY_VIRAZON:
+                    if (TestMoveFlags(move, FLAG_VIRAZON)
+                      && BattlerStatCanRise(battlerAtkPartner, atkPartnerAbility, STAT_SPEED)
+                      && !CanIndexMoveFaintTarget(battlerAtk, battlerAtkPartner, AI_THINKING_STRUCT->movesetIndex, 1))
+                    {
+                        RETURN_SCORE_PLUS(1);
+                    }
+                    break;
                 case ABILITY_CONTRARY:
                     if (IsStatLoweringEffect(effect))
                     {
@@ -3493,6 +3505,7 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
               || HasMoveEffect(EFFECT_SNORE, battlerAtk)
               || AI_DATA->abilities[battlerAtk] == ABILITY_SHED_SKIN
               || AI_DATA->abilities[battlerAtk] == ABILITY_EARLY_BIRD
+              || (gBattleWeather & B_WEATHER_SUN && gWishFutureKnock.weatherDuration != 1 && AI_DATA->abilities[battlerAtk] == ABILITY_BANO_DE_SOL && AI_DATA->holdEffects[battlerAtk] != HOLD_EFFECT_UTILITY_UMBRELLA)
               || (gBattleWeather & B_WEATHER_RAIN && gWishFutureKnock.weatherDuration != 1 && AI_DATA->abilities[battlerAtk] == ABILITY_HYDRATION && AI_DATA->holdEffects[battlerAtk] != HOLD_EFFECT_UTILITY_UMBRELLA))
             {
                 score += 2;

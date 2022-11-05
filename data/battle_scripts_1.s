@@ -3804,7 +3804,17 @@ BattleScript_EffectDoubleHit::
 	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
 	attackstring
 	ppreduce
+	jumpifability BS_ATTACKER, ABILITY_DONDE_CABEN_DOS, BattleScript_DondeCabenDos
 	setmultihitcounter 2
+	initmultihitstring
+	sethword sMULTIHIT_EFFECT, 0
+	goto BattleScript_MultiHitLoop
+
+BattleScript_DondeCabenDos::
+	copybyte gEffectBattler, gBattlerTarget
+	call BattleScript_AbilityPopUp
+	setbyte cMULTISTRING_CHOOSER, B_MSG_TRIPLE_GOLPE
+	setmultihitcounter 3
 	initmultihitstring
 	sethword sMULTIHIT_EFFECT, 0
 	goto BattleScript_MultiHitLoop
@@ -8946,6 +8956,13 @@ BattleScript_CuteCharmActivates::
 	call BattleScript_TryDestinyKnotTarget
 	return
 
+BattleScript_ColaMalditaActivada::
+	call BattleScript_AbilityPopUp
+	status2animation BS_ATTACKER, STATUS2_CURSED
+	printstring STRINGID_PKMNWASCURSED
+	waitmessage B_WAIT_TIME_LONG
+	return
+
 BattleScript_GooeyActivates::
 	waitstate
 	call BattleScript_AbilityPopUp
@@ -8971,14 +8988,6 @@ BattleScript_BattleBondActivatesOnMoveEndAttacker::
 	handleformchange BS_ATTACKER, 2
 	printstring STRINGID_ATTACKERBECAMEASHSPECIES
 	return
-
-BattleScript_DancerActivates::
-	call BattleScript_AbilityPopUp
-	waitmessage B_WAIT_TIME_SHORT
-	setbyte sB_ANIM_TURN, 0
-	setbyte sB_ANIM_TARGETS_HIT, 0
-	orword gHitMarker, HITMARKER_ALLOW_NO_PP
-	jumptocalledmove TRUE
 
 BattleScript_SynchronizeActivates::
 	waitstate

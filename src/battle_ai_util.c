@@ -28,6 +28,7 @@ static const s8 sAiAbilityRatings[ABILITIES_COUNT] =
 {
     [ABILITY_ADAPTABILITY] = 8,
     [ABILITY_AFTERMATH] = 5,
+    [ABILITY_HUESPED] = 5,
     [ABILITY_AERILATE] = 8,
     [ABILITY_AIR_LOCK] = 5,
     [ABILITY_ANALYTIC] = 5,
@@ -37,6 +38,7 @@ static const s8 sAiAbilityRatings[ABILITIES_COUNT] =
     [ABILITY_AROMA_VEIL] = 3,
     [ABILITY_AURA_BREAK] = 3,
     [ABILITY_BAD_DREAMS] = 4,
+    [ABILITY_BANO_DE_SOL] = 4,
     [ABILITY_BATTERY] = 0,
     [ABILITY_BATTLE_ARMOR] = 7,
     [ABILITY_BATTLE_BOND] = 6,
@@ -45,6 +47,7 @@ static const s8 sAiAbilityRatings[ABILITIES_COUNT] =
     [ABILITY_BIG_PECKS] = 1,
     [ABILITY_BLAZE] = 5,
     [ABILITY_BULLETPROOF] = 7,
+    [ABILITY_CABEZA_DURA] = 6,
     [ABILITY_CHEEK_POUCH] = 4,
     [ABILITY_CHLOROPHYLL] = 6,
     [ABILITY_CLEAR_BODY] = 4,
@@ -58,7 +61,7 @@ static const s8 sAiAbilityRatings[ABILITIES_COUNT] =
     [ABILITY_CURSED_BODY] = 4,
     [ABILITY_CUTE_CHARM] = 2,
     [ABILITY_DAMP] = 7,
-    [ABILITY_DANCER] = 5,
+    [ABILITY_DANCER] = 6,
     [ABILITY_DARK_AURA] = 6,
     [ABILITY_DAZZLING] = 5,
     [ABILITY_DEFEATIST] = -1,
@@ -67,6 +70,7 @@ static const s8 sAiAbilityRatings[ABILITIES_COUNT] =
     [ABILITY_DESOLATE_LAND] = 10,
     [ABILITY_DISGUISE] = 8,
     [ABILITY_DOWNLOAD] = 7,
+    [ABILITY_RESERVA_NATURAL] = 7,
     [ABILITY_DRIZZLE] = 9,
     [ABILITY_DROUGHT] = 9,
     [ABILITY_DRY_SKIN] = 6,
@@ -74,9 +78,11 @@ static const s8 sAiAbilityRatings[ABILITIES_COUNT] =
     [ABILITY_EFFECT_SPORE] = 4,
     [ABILITY_ELECTRIC_SURGE] = 8,
     [ABILITY_EMERGENCY_EXIT] = 3,
+    [ABILITY_ESCAMA_MAGICA] = 5,
     [ABILITY_FAIRY_AURA] = 6,
     [ABILITY_FILTER] = 6,
     [ABILITY_FLAME_BODY] = 4,
+    [ABILITY_COLA_MALDITA] = 4,
     [ABILITY_FLARE_BOOST] = 6,
     [ABILITY_FLASH_FIRE] = 6,
     [ABILITY_FLOWER_GIFT] = 4,
@@ -116,6 +122,8 @@ static const s8 sAiAbilityRatings[ABILITIES_COUNT] =
     [ABILITY_INTIMIDATE] = 7,
     [ABILITY_IRON_BARBS] = 6,
     [ABILITY_IRON_FIST] = 6,
+    [ABILITY_CONSTRICTOR] = 6,
+    [ABILITY_PICUDO] = 6,
     [ABILITY_JUSTIFIED] = 4,
     [ABILITY_KEEN_EYE] = 6,
     [ABILITY_KLUTZ] = -1,
@@ -160,6 +168,7 @@ static const s8 sAiAbilityRatings[ABILITIES_COUNT] =
     [ABILITY_POISON_HEAL] = 8,
     [ABILITY_POISON_POINT] = 4,
     [ABILITY_POISON_TOUCH] = 4,
+    [ABILITY_PESTE_BUBONICA] = 4,
     [ABILITY_POWER_CONSTRUCT] = 10,
     [ABILITY_POWER_OF_ALCHEMY] = 0,
     [ABILITY_PRANKSTER] = 8,
@@ -173,6 +182,7 @@ static const s8 sAiAbilityRatings[ABILITIES_COUNT] =
     [ABILITY_QUICK_FEET] = 5,
     [ABILITY_RAIN_DISH] = 3,
     [ABILITY_RATTLED] = 3,
+    [ABILITY_VIRAZON] = 3,
     [ABILITY_RECEIVER] = 0,
     [ABILITY_RECKLESS] = 6,
     [ABILITY_REFRIGERATE] = 8,
@@ -199,6 +209,7 @@ static const s8 sAiAbilityRatings[ABILITIES_COUNT] =
     [ABILITY_SHIELDS_DOWN] = 6,
     [ABILITY_SIMPLE] = 8,
     [ABILITY_SKILL_LINK] = 7,
+    [ABILITY_DONDE_CABEN_DOS] = 7,
     [ABILITY_SLOW_START] = -2,
     [ABILITY_SLUSH_RUSH] = 5,
     [ABILITY_SNIPER] = 3,
@@ -241,6 +252,7 @@ static const s8 sAiAbilityRatings[ABILITIES_COUNT] =
     [ABILITY_TOUGH_CLAWS] = 7,
     [ABILITY_TRACE] = 6,
     [ABILITY_TRIAGE] = 7,
+    [ABILITY_LIMPIACRISTALES] = 7,
     [ABILITY_TRUANT] = -2,
     [ABILITY_TURBOBLAZE] = 7,
     [ABILITY_UNAWARE] = 6,
@@ -1575,6 +1587,7 @@ bool32 ShouldSetSun(u8 battlerAtk, u16 atkAbility, u16 holdEffect)
       || atkAbility == ABILITY_SOLAR_POWER
       || atkAbility == ABILITY_EARLY_BIRD
       || atkAbility == ABILITY_HARVEST
+      || atkAbility == ABILITY_BANO_DE_SOL
       || HasMoveEffect(battlerAtk, EFFECT_SOLAR_BEAM)
       || HasMoveEffect(battlerAtk, EFFECT_MORNING_SUN)
       || HasMoveEffect(battlerAtk, EFFECT_SYNTHESIS)
@@ -2724,6 +2737,7 @@ bool32 ShouldPoisonSelf(u8 battler, u16 ability)
 {
     if (AI_CanBePoisoned(battler, battler) && (
      ability == ABILITY_MARVEL_SCALE
+      || ability == ABILITY_ESCAMA_MAGICA
       || ability == ABILITY_POISON_HEAL
       || ability == ABILITY_QUICK_FEET
       || ability == ABILITY_MAGIC_GUARD
