@@ -326,5 +326,6 @@ void ClearSpriteCopyRequests(void);
 void ResetAffineAnimData(void);
 void RequestSpriteFrameImageCopy(u16 index, u16 tileNum, const struct SpriteFrameImage *images);
 u8 LoadEggSpritePalette(const struct SpritePalette *palette1, const struct SpritePalette *palette2);
+u8 LoadUniqueSpritePalette(const struct SpritePalette *palette, u16 species, u32 personality, bool8 isShiny);
 
 #endif //GUARD_SPRITE_H
