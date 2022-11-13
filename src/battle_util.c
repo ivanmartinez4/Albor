@@ -5505,19 +5505,6 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 effect++;
             }
             break;
-        case ABILITY_HUESPED:
-            if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
-             && gBattleMons[gBattlerTarget].hp == 0
-             && IsBattlerAlive(gBattlerAttacker))
-            {
-                gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 3;
-                if (gBattleMoveDamage == 0)
-                    gBattleMoveDamage = 1;
-                BattleScriptPushCursor();
-                gBattlescriptCurrInstr = BattleScript_AftermathDmg;
-                effect++;
-            }
-            break;
         case ABILITY_AFTERMATH:
             if (!IsAbilityOnField(ABILITY_DAMP)
              && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
@@ -5619,6 +5606,22 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 BattleScriptPushCursor();
                 gBattlescriptCurrInstr = BattleScript_AbilityStatusEffect;
                 gHitMarker |= HITMARKER_IGNORE_SAFEGUARD;
+                effect++;
+            }
+            break;
+        case ABILITY_HUESPED:
+            if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+             && gBattleMons[gBattlerAttacker].hp != 0
+             && !(IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_GRASS))
+             && !(gStatuses3[gBattlerAttacker] & STATUS3_LEECHSEED)
+             && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+             && (IsMoveMakingContact(move, gBattlerAttacker))
+             && TARGET_TURN_DAMAGED
+             && (Random() % 2) == 0)
+            {
+                gStatuses3[gBattlerAttacker] |= STATUS3_LEECHSEED;
+                BattleScriptPushCursor();
+                gBattlescriptCurrInstr = BattleScript_HuespedActivado;
                 effect++;
             }
             break;

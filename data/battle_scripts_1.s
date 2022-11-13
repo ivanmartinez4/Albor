@@ -8842,6 +8842,12 @@ BattleScript_CuteCharmActivates::
 	call BattleScript_TryDestinyKnotTarget
 	return
 
+BattleScript_HuespedActivado::
+	call BattleScript_AbilityPopUp
+	printstring STRINGID_HUESPEDSEPROPAGO
+	waitmessage B_WAIT_TIME_LONG
+	return
+
 BattleScript_ColaMalditaActivada::
 	call BattleScript_AbilityPopUp
 	status2animation BS_ATTACKER, STATUS2_CURSED
