@@ -3842,7 +3842,7 @@ u8 AtkCanceller_UnableToUseMove(void)
             else if (gBattleMoves[gCurrentMove].flags & FLAG_TWO_STRIKES)
             {
                 u16 ability = gBattleMons[gBattlerAttacker].ability;
-                
+
                 if (ability == ABILITY_DONDE_CABEN_DOS)
                 {
                     gMultiHitCounter = 3;
@@ -3852,10 +3852,6 @@ u8 AtkCanceller_UnableToUseMove(void)
                     gMultiHitCounter = 2;
                 }
                 PREPARE_BYTE_NUMBER_BUFFER(gBattleScripting.multihitString, 1, 0)
-                if (gCurrentMove == MOVE_DRAGON_DARTS)
-                {
-                    // TODO
-                }
             }
             else if (gBattleMoves[gCurrentMove].effect == EFFECT_TRIPLE_KICK || gCurrentMove == MOVE_SURGING_STRIKES)
             {
@@ -8931,7 +8927,6 @@ static u32 CalcAttackStat(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, b
             MulModifier(&modifier, UQ_4_12(1.3));
         break;
     case ABILITY_HUSTLE:
-        if (IS_MOVE_PHYSICAL(move))
             MulModifier(&modifier, UQ_4_12(1.5));
         break;
     case ABILITY_STAKEOUT:
@@ -8939,7 +8934,7 @@ static u32 CalcAttackStat(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, b
             MulModifier(&modifier, UQ_4_12(2.0));
         break;
     case ABILITY_GUTS:
-        if (gBattleMons[battlerAtk].status1 & STATUS1_ANY && IS_MOVE_PHYSICAL(move))
+        if (gBattleMons[battlerAtk].status1 & STATUS1_ANY)
             MulModifier(&modifier, UQ_4_12(1.3));
         break;
     }

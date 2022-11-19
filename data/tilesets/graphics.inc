@@ -1636,3 +1636,23 @@ gTilesetPalettes_UnionRoom::
 	.align 2
 gTilesetTiles_UnionRoom::
 	.incbin "data/tilesets/secondary/union_room/tiles.4bpp.lz"
+
+	.align 2
+gTilesetPalettes_Albor_General::
+	.incbin "data/tilesets/primary/albor_general/palettes/00.gbapal"
+	.incbin "data/tilesets/primary/albor_general/palettes/01.gbapal"
+	.incbin "data/tilesets/primary/albor_general/palettes/02.gbapal"
+	.incbin "data/tilesets/primary/albor_general/palettes/03.gbapal"
+	.incbin "data/tilesets/primary/albor_general/palettes/04.gbapal"
+	.incbin "data/tilesets/primary/albor_general/palettes/05.gbapal"
+	.incbin "data/tilesets/primary/albor_general/palettes/06.gbapal"
+	.incbin "data/tilesets/primary/albor_general/palettes/07.gbapal"
+	.incbin "data/tilesets/primary/albor_general/palettes/08.gbapal"
+	.incbin "data/tilesets/primary/albor_general/palettes/09.gbapal"
+	.incbin "data/tilesets/primary/albor_general/palettes/10.gbapal"
+	.incbin "data/tilesets/primary/albor_general/palettes/11.gbapal"
+	.incbin "data/tilesets/primary/albor_general/palettes/12.gbapal"
+
+	.align 2
+gTilesetTiles_Albor_General::
+	.incbin "data/tilesets/primary/albor_general/tiles.4bpp.lz"

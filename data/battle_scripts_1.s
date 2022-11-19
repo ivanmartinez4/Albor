@@ -9793,7 +9793,6 @@ BattleScript_TargetAbilityStatRaiseRet::
 	statbuffchange MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN, BattleScript_TargetAbilityStatRaiseRet_End
 	setgraphicalstatchangevalues
 	call BattleScript_StatUp
-
 BattleScript_TargetAbilityStatRaiseRet_End:
 	return
 
