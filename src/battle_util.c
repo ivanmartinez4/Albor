@@ -3842,7 +3842,7 @@ u8 AtkCanceller_UnableToUseMove(void)
             else if (gBattleMoves[gCurrentMove].flags & FLAG_TWO_STRIKES)
             {
                 u16 ability = gBattleMons[gBattlerAttacker].ability;
-                
+
                 if (ability == ABILITY_DONDE_CABEN_DOS)
                 {
                     gMultiHitCounter = 3;
@@ -3852,10 +3852,6 @@ u8 AtkCanceller_UnableToUseMove(void)
                     gMultiHitCounter = 2;
                 }
                 PREPARE_BYTE_NUMBER_BUFFER(gBattleScripting.multihitString, 1, 0)
-                if (gCurrentMove == MOVE_DRAGON_DARTS)
-                {
-                    // TODO
-                }
             }
             else if (gBattleMoves[gCurrentMove].effect == EFFECT_TRIPLE_KICK || gCurrentMove == MOVE_SURGING_STRIKES)
             {
@@ -5009,14 +5005,8 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 gDisableStructs[gBattlerAttacker].truantCounter ^= 1;
                 break;
             case ABILITY_BAD_DREAMS:
-                if (gBattleMons[BATTLE_PARTNER(BATTLE_OPPOSITE(battler))].status1 & STATUS1_SLEEP
-                    || gBattleMons[BATTLE_OPPOSITE(battler)].status1 & STATUS1_SLEEP
-                    || GetBattlerAbility(BATTLE_PARTNER(BATTLE_OPPOSITE(battler))) == ABILITY_COMATOSE
-                    || GetBattlerAbility(BATTLE_OPPOSITE(battler)) == ABILITY_COMATOSE)
-                {
-                    BattleScriptPushCursorAndCallback(BattleScript_BadDreamsActivates);
-                    effect++;
-                }
+                BattleScriptPushCursorAndCallback(BattleScript_BadDreamsActivates);
+                effect++;
                 break;
             case ABILITY_HEALER:
                 gBattleScripting.battler = BATTLE_PARTNER(battler);
@@ -7452,6 +7442,7 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)
     case ITEMEFFECT_MOVE_END:
         for (battlerId = 0; battlerId < gBattlersCount; battlerId++)
         {
+            gLastUsedItem = gBattleMons[battlerId].item;
             effect = ItemEffectMoveEnd(battlerId, GetBattlerHoldEffect(battlerId, TRUE));
             if (effect)
             {
@@ -8935,7 +8926,6 @@ static u32 CalcAttackStat(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, b
             MulModifier(&modifier, UQ_4_12(1.3));
         break;
     case ABILITY_HUSTLE:
-        if (IS_MOVE_PHYSICAL(move))
             MulModifier(&modifier, UQ_4_12(1.5));
         break;
     case ABILITY_STAKEOUT:
@@ -8943,7 +8933,7 @@ static u32 CalcAttackStat(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, b
             MulModifier(&modifier, UQ_4_12(2.0));
         break;
     case ABILITY_GUTS:
-        if (gBattleMons[battlerAtk].status1 & STATUS1_ANY && IS_MOVE_PHYSICAL(move))
+        if (gBattleMons[battlerAtk].status1 & STATUS1_ANY)
             MulModifier(&modifier, UQ_4_12(1.3));
         break;
     }
