@@ -46,6 +46,7 @@ static const s8 sAiAbilityRatings[ABILITIES_COUNT] =
     [ABILITY_BERSERK] = 5,
     [ABILITY_BIG_PECKS] = 1,
     [ABILITY_BLAZE] = 5,
+    [ABILITY_PODER_FLORAL] = 5,
     [ABILITY_BULLETPROOF] = 7,
     [ABILITY_CABEZA_DURA] = 6,
     [ABILITY_CHEEK_POUCH] = 4,

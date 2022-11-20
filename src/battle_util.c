@@ -8913,6 +8913,10 @@ static u32 CalcAttackStat(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, b
         if (moveType == TYPE_FIRE)
             MulModifier(&modifier, UQ_4_12(1.3));
         break;
+    case ABILITY_PODER_FLORAL:
+        if (gCurrentMove == MOVE_FLEUR_CANNON || gCurrentMove == MOVE_PETAL_DANCE)
+            MulModifier(&modifier, UQ_4_12(1.3));
+        break;
     case ABILITY_OVERGROW:
         if (moveType == TYPE_GRASS)
             MulModifier(&modifier, UQ_4_12(1.3));
