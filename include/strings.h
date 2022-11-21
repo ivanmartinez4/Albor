@@ -2870,7 +2870,7 @@ extern const u8 gJPText_WriteErrorUnableToSaveData[];
 extern const u8 gText_F700JoinedChat[];
 extern const u8 gText_F700LeftChat[];
 extern const u8 gText_Hello[];
-extern const u8 gText_Pokemon2[];
+extern const u8 gText_Nada[];
 extern const u8 gText_Trade[];
 extern const u8 gText_Battle[];
 extern const u8 gText_Lets[];
