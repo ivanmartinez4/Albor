@@ -8586,10 +8586,18 @@ static u32 CalcMoveBasePowerAfterModifiers(u16 move, u8 battlerAtk, u8 battlerDe
         break;
     case ABILITY_STEELY_SPIRIT:
         if (moveType == TYPE_STEEL)
-            MulModifier(&modifier, UQ_4_12(1.5));
+            MulModifier(&modifier, UQ_4_12(1.3));
         break;
     case ABILITY_TRANSISTOR:
         if (moveType == TYPE_ELECTRIC)
+            MulModifier(&modifier, UQ_4_12(1.3));
+        break;
+    case ABILITY_ROCOSO:
+        if (moveType == TYPE_ROCK)
+            MulModifier(&modifier, UQ_4_12(1.3));
+        break;
+    case ABILITY_CRIOGENIZACION:
+        if (moveType == TYPE_ICE)
             MulModifier(&modifier, UQ_4_12(1.3));
         break;
     case ABILITY_DRAGONS_MAW:
@@ -8622,10 +8630,6 @@ static u32 CalcMoveBasePowerAfterModifiers(u16 move, u8 battlerAtk, u8 battlerDe
             break;
         case ABILITY_POWER_SPOT:
             MulModifier(&modifier, UQ_4_12(1.3));
-            break;
-        case ABILITY_STEELY_SPIRIT:
-            if (moveType == TYPE_STEEL)
-                MulModifier(&modifier, UQ_4_12(1.5));
             break;
         }
     }
