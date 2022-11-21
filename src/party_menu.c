@@ -1063,7 +1063,7 @@ static void CreatePartyMonSprites(u8 slot)
         if (gMultiPartnerParty[actualSlot].species != SPECIES_NONE)
         {
             u8 index = slot < PARTY_SIZE ? IndexOfSpritePaletteTag(POKE_ICON_BASE_PAL_TAG + slot) : 0xFF;
-            CreatePartyMonIconSpriteParameterized(gMultiPartnerParty[actualSlot].species, gMultiPartnerParty[actualSlot].personality, &sPartyMenuBoxes[slot], 0, FALSE);
+            CreatePartyMonIconSpriteParameterized(gMultiPartnerParty[actualSlot].species, gMultiPartnerParty[actualSlot].personality, &sPartyMenuBoxes[slot], 0);
             if (index < 16) { // Like SetMonIconPalette, but by species & personality
                 LoadCompressedPalette(GetMonSpritePalFromSpeciesAndPersonality(gMultiPartnerParty[actualSlot].species, 0, gMultiPartnerParty[actualSlot].personality), index*16 + 0x100, 32);
                 gSprites[sPartyMenuBoxes[slot].monSpriteId].oam.paletteNum = index;

@@ -7674,12 +7674,7 @@ static void PutMonIconOnLvlUpBanner(void)
     iconSheet.size = 0x200;
     iconSheet.tag = TAG_LVLUP_BANNER_MON_ICON;
 
-    // iconPal = GetValidMonIconPalettePtr(species);
-    // iconPalSheet.data = iconPal;
-    // iconPalSheet.tag = TAG_LVLUP_BANNER_MON_ICON;
-
     LoadSpriteSheet(&iconSheet);
-    // LoadSpritePalette(&iconPalSheet);
 
     spriteId = CreateSprite(&sSpriteTemplate_MonIconOnLvlUpBanner, 256, 10, 0);
     gSprites[spriteId].sDestroy = FALSE;
