@@ -48,5 +48,6 @@ u8 ChooseWildMonIndex_Land(void);
 u8 ChooseWildMonIndex_WaterRock(void);
 u8 ChooseHiddenMonIndex(void);
 s32 GetHighestLevelInPlayerParty(void);
+bool32 MapHasNoEncounterData(void);
 
 #endif // GUARD_WILD_ENCOUNTER_H

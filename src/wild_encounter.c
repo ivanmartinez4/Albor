@@ -945,3 +945,8 @@ u8 ChooseHiddenMonIndex(void)
     #endif
 }
 
+bool32 MapHasNoEncounterData(void)
+{
+    return (GetCurrentMapWildMonHeaderId() == HEADER_NONE);
+}
+
