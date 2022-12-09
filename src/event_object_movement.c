@@ -474,9 +474,11 @@ const u8 gInitialMovementTypeFacingDirections[] = {
 #define OBJ_EVENT_PAL_TAG_CASTFORM_SUNNY          0x1125
 #define OBJ_EVENT_PAL_TAG_CASTFORM_RAINY          0x1126
 #define OBJ_EVENT_PAL_TAG_CASTFORM_SNOWY          0x1127
-#define OBJ_EVENT_PAL_TAG_EXCLAMATION_MARK        0x1128
-#define OBJ_EVENT_PAL_TAG_ITEM_BALL               0x1129
-#define OBJ_EVENT_PAL_TAG_ITEM_BALL_GOLD          0x112A
+#define OBJ_EVENT_PAL_TAG_CASTFORM_SANDY          0x1128
+#define OBJ_EVENT_PAL_TAG_EXCLAMATION_MARK        0x1129
+#define OBJ_EVENT_PAL_TAG_ITEM_BALL               0x112A
+#define OBJ_EVENT_PAL_TAG_ITEM_BALL_GOLD          0x112B
+
 #define OBJ_EVENT_PAL_TAG_LIGHT                   0x8001
 #define OBJ_EVENT_PAL_TAG_LIGHT_2                 0x8002
 #define OBJ_EVENT_PAL_TAG_EMOTES                  0x8003
@@ -530,15 +532,16 @@ static const struct SpritePalette sObjectEventSpritePalettes[] = {
     {gObjectEventPal_Lugia,                 OBJ_EVENT_PAL_TAG_LUGIA},
     {gObjectEventPal_RubySapphireBrendan,   OBJ_EVENT_PAL_TAG_RS_BRENDAN},
     {gObjectEventPal_RubySapphireMay,       OBJ_EVENT_PAL_TAG_RS_MAY},
-    {gObjectEventPal_CastformSunny, OBJ_EVENT_PAL_TAG_CASTFORM_SUNNY},
-    {gObjectEventPal_CastformRainy, OBJ_EVENT_PAL_TAG_CASTFORM_RAINY},
-    {gObjectEventPal_CastformSnowy, OBJ_EVENT_PAL_TAG_CASTFORM_SNOWY},
+    {gObjectEventPal_CastformSunny,         OBJ_EVENT_PAL_TAG_CASTFORM_SUNNY},
+    {gObjectEventPal_CastformRainy,         OBJ_EVENT_PAL_TAG_CASTFORM_RAINY},
+    {gObjectEventPal_CastformSnowy,         OBJ_EVENT_PAL_TAG_CASTFORM_SNOWY},
+    {gObjectEventPal_CastformSandy,         OBJ_EVENT_PAL_TAG_CASTFORM_SANDY},
     {gObjectEventPal_ExclamationMark,       OBJ_EVENT_PAL_TAG_EXCLAMATION_MARK},
-    {gObjectEventPaletteLight, OBJ_EVENT_PAL_TAG_LIGHT},
-    {gObjectEventPaletteLight2, OBJ_EVENT_PAL_TAG_LIGHT_2},
-    {gObjectEventPaletteEmotes, OBJ_EVENT_PAL_TAG_EMOTES},
-    {gObjectEventPaletteNeonLight, OBJ_EVENT_PAL_TAG_NEON_LIGHT},
-    {NULL,                  OBJ_EVENT_PAL_TAG_NONE},
+    {gObjectEventPaletteLight,              OBJ_EVENT_PAL_TAG_LIGHT},
+    {gObjectEventPaletteLight2,             OBJ_EVENT_PAL_TAG_LIGHT_2},
+    {gObjectEventPaletteEmotes,             OBJ_EVENT_PAL_TAG_EMOTES},
+    {gObjectEventPaletteNeonLight,          OBJ_EVENT_PAL_TAG_NEON_LIGHT},
+    {NULL,                                  OBJ_EVENT_PAL_TAG_NONE},
 };
 
 static const u16 sReflectionPaletteTags_Brendan[] = {
@@ -1895,6 +1898,8 @@ static u8 GetOverworldCastformForm(void) {
         return CASTFORM_WATER;
     case WEATHER_SNOW:
         return CASTFORM_ICE;
+    case WEATHER_SANDSTORM:
+        return CASTFORM_SAND;
     }
     return CASTFORM_NORMAL;
 }

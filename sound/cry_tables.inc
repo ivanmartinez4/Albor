@@ -1334,11 +1334,11 @@ gCryTable::
 	cry Cry_Glastrier
 	cry Cry_Spectrier
 	cry Cry_Calyrex
-	cry Cry_Unown //Cry_Wyrdeer
+	cry Cry_Stantler //Cry_Wyrdeer
 	cry Cry_Unown //Cry_Kleavor
 	cry Cry_Unown //Cry_Ursaluna
 	cry Cry_Unown //Cry_Basculegion
-	cry Cry_Unown //Cry_Sneasler
+	cry Cry_Sneasel //Cry_Sneasler
 	cry Cry_Unown //Cry_Overqwil
 	cry Cry_Unown //Cry_Enamorus
 .else
@@ -1636,6 +1636,7 @@ gCryTable::
 	cry Cry_Unown
 	cry Cry_Unown
 	@ Castform
+	cry Cry_Castform
 	cry Cry_Castform
 	cry Cry_Castform
 	cry Cry_Castform
@@ -3455,11 +3456,11 @@ gCryTable_Reverse::
 	cry_reverse Cry_Glastrier
 	cry_reverse Cry_Spectrier
 	cry_reverse Cry_Calyrex
-	cry_reverse Cry_Unown //Cry_Wyrdeer
+	cry_reverse Cry_Stantler //Cry_Wyrdeer
 	cry_reverse Cry_Unown //Cry_Kleavor
 	cry_reverse Cry_Unown //Cry_Ursaluna
 	cry_reverse Cry_Unown //Cry_Basculegion
-	cry_reverse Cry_Unown //Cry_Sneasler
+	cry_reverse Cry_Sneasel //Cry_Sneasler
 	cry_reverse Cry_Unown //Cry_Overqwil
 	cry_reverse Cry_Unown //Cry_Enamorus
 .else
@@ -3757,6 +3758,7 @@ gCryTable_Reverse::
 	cry_reverse Cry_Unown
 	cry_reverse Cry_Unown
 	@ Castform
+	cry_reverse Cry_Castform
 	cry_reverse Cry_Castform
 	cry_reverse Cry_Castform
 	cry_reverse Cry_Castform

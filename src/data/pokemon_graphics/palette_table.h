@@ -908,11 +908,11 @@ const struct CompressedSpritePalette gMonPaletteTable[] =
     SPECIES_PAL(GLASTRIER, gMonPalette_Glastrier),
     SPECIES_PAL(SPECTRIER, gMonPalette_Spectrier),
     SPECIES_PAL(CALYREX, gMonPalette_Calyrex),
-    SPECIES_PAL(WYRDEER, gMonPalette_CircledQuestionMark), // gMonPalette_Wyrdeer),
+    SPECIES_PAL(WYRDEER, gMonPalette_Wyrdeer),
     SPECIES_PAL(KLEAVOR, gMonPalette_Kleavor),
     SPECIES_PAL(URSALUNA, gMonPalette_Ursaluna),
     SPECIES_PAL(BASCULEGION, gMonPalette_CircledQuestionMark), // gMonPalette_Basculegion),
-    SPECIES_PAL(SNEASLER, gMonPalette_CircledQuestionMark), // gMonPalette_Sneasler),
+    SPECIES_PAL(SNEASLER, gMonPalette_Sneasler),
     SPECIES_PAL(OVERQWIL, gMonPalette_Overqwil),
     SPECIES_PAL(ENAMORUS, gMonPalette_CircledQuestionMark), // gMonPalette_Enamorus),
 #endif
@@ -1087,6 +1087,7 @@ const struct CompressedSpritePalette gMonPaletteTable[] =
     SPECIES_PAL(CASTFORM_SUNNY, gMonPalette_CastformSunny),
     SPECIES_PAL(CASTFORM_RAINY, gMonPalette_CastformRainy),
     SPECIES_PAL(CASTFORM_SNOWY, gMonPalette_CastformSnowy),
+    SPECIES_PAL(CASTFORM_SANDY, gMonPalette_CastformSandy),
 
     SPECIES_PAL(DEOXYS_ATTACK, gMonPalette_DeoxysAttack),
     SPECIES_PAL(DEOXYS_DEFENSE, gMonPalette_DeoxysDefense),

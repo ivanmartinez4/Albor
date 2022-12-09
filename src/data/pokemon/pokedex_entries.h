@@ -2580,6 +2580,18 @@ const struct PokedexEntry gPokedexEntries[] =
         .trainerOffset = 0,
     },
 
+    [NATIONAL_DEX_SNEASLER] =
+    {
+        .categoryName = _("Garra venenosa"),
+        .height = 13,
+        .weight = 430,
+        .description = gSneaslerPokedexText,
+        .pokemonScale = 356,
+        .pokemonOffset = 17,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+    },
+
     [NATIONAL_DEX_TEDDIURSA] =
     {
         .categoryName = _("Osezno"),
@@ -2804,6 +2816,18 @@ const struct PokedexEntry gPokedexEntries[] =
         .description = gStantlerPokedexText,
         .pokemonScale = 256,
         .pokemonOffset = 0,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+    },
+
+    [NATIONAL_DEX_WYRDEER] =
+    {
+        .categoryName = _("Reno"),
+        .height = 18,
+        .weight = 951,
+        .description = gWyrdeerPokedexText,
+        .pokemonScale = 356,
+        .pokemonOffset = 17,
         .trainerScale = 256,
         .trainerOffset = 0,
     },

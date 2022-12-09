@@ -908,11 +908,11 @@ const struct CompressedSpriteSheet gMonBackPicTable[] =
     SPECIES_SPRITE(GLASTRIER, gMonBackPic_Glastrier),
     SPECIES_SPRITE(SPECTRIER, gMonBackPic_Spectrier),
     SPECIES_SPRITE(CALYREX, gMonBackPic_Calyrex),
-    SPECIES_SPRITE(WYRDEER, gMonBackPic_CircledQuestionMark), //gMonBackPic_Wyrdeer),
+    SPECIES_SPRITE(WYRDEER, gMonBackPic_Wyrdeer),
     SPECIES_SPRITE(KLEAVOR, gMonBackPic_Kleavor),
     SPECIES_SPRITE(URSALUNA, gMonBackPic_Ursaluna),
     SPECIES_SPRITE(BASCULEGION, gMonBackPic_CircledQuestionMark), //gMonBackPic_Basculegion),
-    SPECIES_SPRITE(SNEASLER, gMonBackPic_CircledQuestionMark), //gMonBackPic_Sneasler),
+    SPECIES_SPRITE(SNEASLER, gMonBackPic_Sneasler),
     SPECIES_SPRITE(OVERQWIL, gMonBackPic_Overqwil),
     SPECIES_SPRITE(ENAMORUS, gMonBackPic_CircledQuestionMark), //gMonBackPic_Enamorus),
 #endif
@@ -1088,6 +1088,7 @@ const struct CompressedSpriteSheet gMonBackPicTable[] =
     SPECIES_SPRITE(CASTFORM_SUNNY, gMonBackPic_CastformSunny),
     SPECIES_SPRITE(CASTFORM_RAINY, gMonBackPic_CastformRainy),
     SPECIES_SPRITE(CASTFORM_SNOWY, gMonBackPic_CastformSnowy),
+    SPECIES_SPRITE(CASTFORM_SANDY, gMonBackPic_CastformSandy),
 
     SPECIES_SPRITE(DEOXYS_ATTACK, gMonBackPic_DeoxysAttack),
     SPECIES_SPRITE(DEOXYS_DEFENSE, gMonBackPic_DeoxysDefense),

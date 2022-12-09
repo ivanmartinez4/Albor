@@ -4139,6 +4139,11 @@ u8 TryWeatherFormChange(u8 battler)
             SET_BATTLER_TYPE(battler, TYPE_ICE);
             ret = CASTFORM_ICE + 1;
         }
+        else if (gBattleWeather & B_WEATHER_SANDSTORM && !IS_BATTLER_OF_TYPE(battler, TYPE_ROCK))
+        {
+            SET_BATTLER_TYPE(battler, TYPE_ICE);
+            ret = CASTFORM_SAND + 1;
+        }
         break;
     case SPECIES_CHERRIM:
 //  case SPECIES_CHERRIM_SUNSHINE:
@@ -5929,6 +5934,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
             case SPECIES_CASTFORM_RAINY:
             case SPECIES_CASTFORM_SNOWY:
             case SPECIES_CASTFORM_SUNNY:
+            case SPECIES_CASTFORM_SANDY:
             case SPECIES_CHERRIM_SUNSHINE:
 #endif
                 effect = TryWeatherFormChange(battler);

@@ -63,6 +63,7 @@ const struct MonCoords gCastformFrontSpriteCoords[NUM_CASTFORM_FORMS] =
     [CASTFORM_FIRE]   = { .size = MON_COORDS_SIZE(48, 48), .y_offset =  9 },
     [CASTFORM_WATER]  = { .size = MON_COORDS_SIZE(32, 48), .y_offset =  9 },
     [CASTFORM_ICE]    = { .size = MON_COORDS_SIZE(64, 48), .y_offset =  8 },
+    [CASTFORM_SAND]   = { .size = MON_COORDS_SIZE(64, 48), .y_offset =  8 },
 };
 
 #if P_ENABLE_DEBUG == TRUE
@@ -75,6 +76,7 @@ static const u8 sCastformElevations[NUM_CASTFORM_FORMS] =
     [CASTFORM_FIRE]   = 14,
     [CASTFORM_WATER]  = 13,
     [CASTFORM_ICE]    = 13,
+    [CASTFORM_SAND]    = 13,
 };
 
 // Y position of the backsprite for each of the four Castform forms.
@@ -84,6 +86,7 @@ static const u8 sCastformBackSpriteYCoords[NUM_CASTFORM_FORMS] =
     [CASTFORM_FIRE]   = 0,
     [CASTFORM_WATER]  = 0,
     [CASTFORM_ICE]    = 0,
+    [CASTFORM_SAND]   = 0,
 };
 
 // Placeholders for pokemon sprites to be created for a move animation effect (e.g. Role Play / Snatch)

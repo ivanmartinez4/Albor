@@ -7,6 +7,8 @@
 #include "sprite.h"
 #include "data.h"
 #include "decompress.h"
+#include "field_weather.h"
+#include "constants/weather.h"
 
 #define POKE_ICON_BASE_PAL_TAG 56000
 
@@ -1109,6 +1111,7 @@ const u8 *const gMonIconTable[] =
     [SPECIES_CASTFORM_SUNNY] = gMonIcon_CastformSunny,
     [SPECIES_CASTFORM_RAINY] = gMonIcon_CastformRainy,
     [SPECIES_CASTFORM_SNOWY] = gMonIcon_CastformSnowy,
+    [SPECIES_CASTFORM_SANDY] = gMonIcon_CastformSandy,
     [SPECIES_DEOXYS_ATTACK] = gMonIcon_DeoxysAttack,
     [SPECIES_DEOXYS_DEFENSE] = gMonIcon_DeoxysDefense,
     [SPECIES_DEOXYS_SPEED] = gMonIcon_DeoxysSpeed,
@@ -2882,7 +2885,6 @@ const u8 *GetMonIconTiles(u16 species, u32 personality)
     {
         iconSprite = gMonIconTableFemale[species];
     }
-    return iconSprite;
 }
 #if P_ENABLE_DEBUG == TRUE
 static const u8 *GetMonIconTilesCustom(u16 species, bool8 isFemale)
