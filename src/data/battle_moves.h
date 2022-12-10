@@ -10225,12 +10225,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_Z] =
 
     [MOVE_DISARMING_VOICE] =
     {
-        .effect = EFFECT_HIT,
-        .power = 40,
+        .effect = EFFECT_ATTACK_DOWN_HIT,
+        .power = 50,
         .type = TYPE_FAIRY,
-        .accuracy = 0,
+        .accuracy = 100,
         .pp = 15,
-        .secondaryEffectChance = 0,
+        .secondaryEffectChance = 100,
         .target = MOVE_TARGET_BOTH,
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_KINGS_ROCK_AFFECTED | FLAG_SOUND,
@@ -10392,18 +10392,22 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_Z] =
 
     [MOVE_FAIRY_WIND] =
     {
-        .effect = EFFECT_HIT,
-        .power = 40,
+        #if B_UPDATED_MOVE_DATA >= GEN_6
+            .pp = 15,
+        #else
+            .pp = 30,
+        #endif
+        .effect = EFFECT_TAILWIND,
+        .power = 0,
         .type = TYPE_FAIRY,
-        .accuracy = 100,
-        .pp = 30,
+        .accuracy = 0,
         .secondaryEffectChance = 0,
-        .target = MOVE_TARGET_SELECTED,
+        .target = MOVE_TARGET_USER,
         .priority = 0,
-        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_KINGS_ROCK_AFFECTED | FLAG_VIRAZON,
-        .split = SPLIT_SPECIAL,
-        .zMovePower = 100,
-        .zMoveEffect = Z_EFFECT_NONE,
+        .flags = FLAG_SNATCH_AFFECTED,
+        .split = SPLIT_STATUS,
+        .zMovePower = 0,
+        .zMoveEffect = Z_EFFECT_BOOST_CRITS,
     },
 
     [MOVE_MOONBLAST] =
@@ -10742,12 +10746,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_Z] =
 
     [MOVE_DAZZLING_GLEAM] =
     {
-        .effect = EFFECT_HIT,
+        .effect = EFFECT_ACCURACY_DOWN_HIT,
         .power = 80,
         .type = TYPE_FAIRY,
         .accuracy = 100,
         .pp = 10,
-        .secondaryEffectChance = 0,
+        .secondaryEffectChance = 10,
         .target = MOVE_TARGET_BOTH,
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_KINGS_ROCK_AFFECTED,

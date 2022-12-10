@@ -2233,8 +2233,8 @@ static const u8 sFreezeDryDescription[] = _(
     "types. May cause freezing.");
 
 static const u8 sDisarmingVoiceDescription[] = _(
-    "Lets out a charming cry\n"
-    "that cannot be evaded.");
+    "Un llanto que daña al rival\n"
+    "y baja su ataque.");
 
 static const u8 sPartingShotDescription[] = _(
     "Lowers the foe's Attack and\n"
@@ -2245,12 +2245,12 @@ static const u8 sTopsyTurvyDescription[] = _(
     "affect the target.");
 
 static const u8 sDrainingKissDescription[] = _(
-    "An attack that absorbs over\n"
-    "half the damage inflicted.");
+    "Beso que absorbe el 75%\n"
+    "del daño inflingido.");
 
 static const u8 sCraftyShieldDescription[] = _(
-    "Evades status moves for\n"
-    "one turn.");
+    "Protege equipo de movimientos\n"
+    "de estado por un turno.");
 
 static const u8 sFlowerShieldDescription[] = _(
     "Raises the Defense of\n"
@@ -2273,8 +2273,8 @@ static const u8 sPlayRoughDescription[] = _(
     "May lower Attack.");
 
 static const u8 sFairyWindDescription[] = _(
-    "Stirs up a fairy wind to\n"
-    "strike the foe.");
+    "Aumenta la velocidad\n"
+    "de su equipo.");
 
 static const u8 sMoonblastDescription[] = _(
     "Attacks with the power of\n"
@@ -2357,8 +2357,8 @@ static const u8 sElectricTerrainDescription[] = _(
     "5 turns. Prevents sleep.");
 
 static const u8 sDazzlingGleamDescription[] = _(
-    "Damages foes by emitting\n"
-    "a bright flash.");
+    "Daña rivales con una luz féerica.\n"
+    "10% de bajar precisión.");
 
 static const u8 sCelebrateDescription[] = _(
     "Congratulates you on your\n"
@@ -2565,8 +2565,8 @@ static const u8 sShellTrapDescription[] = _(
     "damages on contact.");
 
 static const u8 sFleurCannonDescription[] = _(
-    "A strong ray that harshly\n"
-    "lowers Sp. Attack.");
+    "Rayo de flores poderoso que\n"
+    "baja el at. esp. del usuario.");
 
 static const u8 sPsychicFangsDescription[] = _(
     "Chomps with psychic fangs.\n"
@@ -4756,17 +4756,17 @@ static const u8 sMoveFourLineDescription_ParabolicCharge[] = _("The user attacks
 static const u8 sMoveFourLineDescription_ForestsCurse[] = _("The user puts a\nforest curse on the\nfoe. The foe is now\nGrass-type as well.");
 static const u8 sMoveFourLineDescription_PetalBlizzard[] = _("A violent petal\nblizzard stirs up,\nhitting everything\naround it.");
 static const u8 sMoveFourLineDescription_FreezeDry[] = _("This move is super\neffective on Water-\ntype foes, and may\nleave them frozen.");
-static const u8 sMoveFourLineDescription_DisarmingVoice[] = _("The user cries out\nwith a disarmingly\ncute voice. This\nnever misses.");
+static const u8 sMoveFourLineDescription_DisarmingVoice[] = _("El usuario grita\ncon una descorazonadora\ny bella voz, \nque baja el ataque.");
 static const u8 sMoveFourLineDescription_PartingShot[] = _("The foe's Attack\nand Sp. Atk stats\nare lowered by a\nparting threat.");
 static const u8 sMoveFourLineDescription_TopsyTurvy[] = _("All stat changes\naffecting the foe\nturn topsy-turvy\nand are inverted.");
-static const u8 sMoveFourLineDescription_DrainingKiss[] = _("A kiss that absorbs\nhalf the damage it\ninflicted to\nrestore HP.");
-static const u8 sMoveFourLineDescription_CraftyShield[] = _("A mysterious power\nprotects the user\nand its allies from\nstatus moves.");
+static const u8 sMoveFourLineDescription_DrainingKiss[] = _("Un beso que\nabsorbe el 75%\ndel daño inflingido\npara restaurar PS.");
+static const u8 sMoveFourLineDescription_CraftyShield[] = _("Poder misterioso que\nproteje a usuario\ny a sus aliados de\nmovimientos de estado.");
 static const u8 sMoveFourLineDescription_FlowerShield[] = _("A mysterious power\nraises the Defense\nof all Grass-type\nPokémon in battle.");
 static const u8 sMoveFourLineDescription_GrassyTerrain[] = _("For 5 turns, the\nground turns grassy.\nThis ups Grass-type\nmoves, and heals.");
 static const u8 sMoveFourLineDescription_MistyTerrain[] = _("Weakens Dragon-type\nmoves for 5 turns,\nand prevents status\nconditions for all.");
 static const u8 sMoveFourLineDescription_Electrify[] = _("This move\nelectrifies the foe,\nmaking its next\nmove Electric-type.");
 static const u8 sMoveFourLineDescription_PlayRough[] = _("The user and foe\nplay rough, with a\nchance of the foe's\nAttack stat falling.");
-static const u8 sMoveFourLineDescription_FairyWind[] = _("The user stirs up a\nfairy wind and\nstrikes the foe\nwith it.");
+static const u8 sMoveFourLineDescription_FairyWind[] = _("Se levanta un\nviento mágico\nque aumenta la velocidad\ndel equipo.");
 static const u8 sMoveFourLineDescription_Moonblast[] = _("The power of the\nmoon strikes the\nfoe. This may lower\ntheir Sp. Atk stat.");
 static const u8 sMoveFourLineDescription_Boomburst[] = _("An explosively loud\nsound is let out,\nhitting all that\nsurrounds it.");
 static const u8 sMoveFourLineDescription_FairyLock[] = _("For 1 turn, the\nuser locks down\nthe battlefield and\nprevents fleeing.");
@@ -4787,7 +4787,7 @@ static const u8 sMoveFourLineDescription_Geomancy[] = _("On the 2nd turn,\nthe u
 static const u8 sMoveFourLineDescription_MagneticFlux[] = _("The user boosts the\ndefenses of allies\nwith the Plus or\nMinus Ability.");
 static const u8 sMoveFourLineDescription_HappyHour[] = _("This move doubles\nthe amount of prize\nmoney received\nafter battle.");
 static const u8 sMoveFourLineDescription_ElectricTerrain[] = _("For 5 turns, the\ncharged ground ups\nElectric-type moves\nand prevents sleep.");
-static const u8 sMoveFourLineDescription_DazzlingGleam[] = _("The user emits a\npowerful flash,\nhitting all foes.");
+static const u8 sMoveFourLineDescription_DazzlingGleam[] = _("Atacante brilla con luz\nque golpea todos los rivales,\ny baja precisión\nun 10% de las veces.");
 static const u8 sMoveFourLineDescription_Celebrate[] = _("The Pokémon\ncongratulates you\non your special\nday!");
 static const u8 sMoveFourLineDescription_HoldHands[] = _("The user and ally\nhold hands. This\nmakes them very\nhappy.");
 static const u8 sMoveFourLineDescription_BabyDollEyes[] = _("Con +1 de prioridad,\nel ataque del rival\nbaja -1 debido a\nuna adorable mirada.");
@@ -4839,7 +4839,7 @@ static const u8 sMoveFourLineDescription_DragonHammer[] = _("Using its body like
 static const u8 sMoveFourLineDescription_BrutalSwing[] = _("The user violently\nswings its body\naround, damaging\neveryone nearby.");
 static const u8 sMoveFourLineDescription_AuroraVeil[] = _("For 5 turns, damage\nfrom attacks are\nweakened. This\nfails without Hail.");
 static const u8 sMoveFourLineDescription_ShellTrap[] = _("The user sets a\nshell trap that is\nset off by physical\nattacks.");
-static const u8 sMoveFourLineDescription_FleurCannon[] = _("A strong beam\nattack that\nharshly lowers the\nuser's Sp. Atk.");
+static const u8 sMoveFourLineDescription_FleurCannon[] = _("Un poderoso rayo\nde flores que\nbaja drásticamente el\nat. esp. del usuario.");
 static const u8 sMoveFourLineDescription_PsychicFangs[] = _("A bite that also\nbreaks any barrier\nlike Light Screen\nand Reflect.");
 static const u8 sMoveFourLineDescription_StompingTantrum[] = _("A frustrated strike\nthat deals twice\nthe damage if the\nlast move failed.");
 static const u8 sMoveFourLineDescription_ShadowBone[] = _("The foe is hit by a\nbone that holds a\nspirit and that may\ndrop their Defense.");

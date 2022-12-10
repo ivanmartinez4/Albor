@@ -211,7 +211,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(HOPPIP,
-        MOVE_),
+        MOVE_FAIRY_WIND),
 
     egg_moves(AIPOM,
         MOVE_),
@@ -445,6 +445,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(CASTFORM,
+        MOVE_FAIRY_WIND,
         MOVE_BABY_DOLL_EYES),
 
     egg_moves(KECLEON,
@@ -536,7 +537,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(BONSLY,
-        MOVE_),
+        MOVE_FAIRY_WIND),
 
     egg_moves(MIME_JR,
         MOVE_),
@@ -836,13 +837,15 @@ const u16 gEggMoves[] = {
         MOVE_AROMATIC_MIST),
 
     egg_moves(HATENNA,
+        MOVE_FAIRY_WIND,
         MOVE_BABY_DOLL_EYES),
 
     egg_moves(IMPIDIMP,
+        MOVE_FAIRY_WIND,
         MOVE_BABY_DOLL_EYES),
 
     egg_moves(SNOM,
-        MOVE_),
+        MOVE_FAIRY_WIND),
 
     egg_moves(CUFANT,
         MOVE_),
@@ -855,12 +858,15 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(VULPIX_ALOLAN,
-        MOVE_),
+        MOVE_FAIRY_WIND),
 
     egg_moves(ZIGZAGOON_GALARIAN,
         MOVE_),
 
     egg_moves(DARUMAKA_GALARIAN,
+        MOVE_),
+
+    egg_moves(COSMOG,
         MOVE_),
 
     EGG_MOVES_TERMINATOR
