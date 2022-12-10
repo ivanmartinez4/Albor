@@ -821,8 +821,8 @@ static const u8 sEndureDescription[] = _(
     "1 turn, leaving at least 1HP.");
 
 static const u8 sCharmDescription[] = _(
-    "Charms the foe and sharply\n"
-    "reduces its Attack.");
+    "Encanta al rival y baja\n"
+    "drásticamente su ataque.");
 
 static const u8 sRolloutDescription[] = _(
     "An attack lasting 5 turns\n"
@@ -2325,8 +2325,8 @@ static const u8 sSpikyShieldDescription[] = _(
     "the foe if struck.");
 
 static const u8 sAromaticMistDescription[] = _(
-    "Raises the Sp. Def of a\n"
-    "partner Pokémon.");
+    "Sube +2 la def. esp.\n"
+    "de un compañero.");
 
 static const u8 sEerieImpulseDescription[] = _(
     "Exposes the foe to a pulse\n"
@@ -2369,8 +2369,8 @@ static const u8 sHoldHandsDescription[] = _(
     "making them happy.");
 
 static const u8 sBabyDollEyesDescription[] = _(
-    "Lowers the foe's Attack\n"
-    "before it can move.");
+    "Baja el ataque del rival\n"
+    "con prioridad.");
 
 static const u8 sNuzzleDescription[] = _(
     "Rubs its cheecks against\n"
@@ -4046,7 +4046,7 @@ static const u8 sMoveFourLineDescription_Outrage[] = _("The user thrashes\nabout
 static const u8 sMoveFourLineDescription_Sandstorm[] = _("A 5-turn sandstorm\nthat damages all\ntypes except Rock,\nGround, and Steel.");
 static const u8 sMoveFourLineDescription_GigaDrain[] = _("A harsh attack that\nabsorbs half the\ndamage it inflicted\nto restore HP.");
 static const u8 sMoveFourLineDescription_Endure[] = _("The user endures\nany hit with 1 HP\nleft. It may fail if\nused in succession.");
-static const u8 sMoveFourLineDescription_Charm[] = _("The foe is charmed\nby the user's cute\nappeals, sharply\ncutting its Attack.");
+static const u8 sMoveFourLineDescription_Charm[] = _("El rival es encantado\npor la belleza del\nusuario, y baja\n-2 su ataque.");
 static const u8 sMoveFourLineDescription_Rollout[] = _("A 5-turn rolling\nattack that becomes\nstronger each time\nit hits.");
 static const u8 sMoveFourLineDescription_FalseSwipe[] = _("A restrained attack\nthat always leaves\nthe foe with at\nleast 1 HP.");
 static const u8 sMoveFourLineDescription_Swagger[] = _("A move that makes\nthe foe confused,\nbut also sharply\nraises its Attack.");
@@ -4779,7 +4779,7 @@ static const u8 sMoveFourLineDescription_HyperspaceHole[] = _("Using a wormhole,
 static const u8 sMoveFourLineDescription_WaterShuriken[] = _("The user hits the\nfoe with 2 to 5\nthrowing stars that\nalways strike first.");
 static const u8 sMoveFourLineDescription_MysticalFire[] = _("The user breathes a\nspecial, hot fire.\nThis may lower the\nfoe's Sp. Atk stat.");
 static const u8 sMoveFourLineDescription_SpikyShield[] = _("This prickly shield\nprotects the user\nand harms any foe\nthat makes contact.");
-static const u8 sMoveFourLineDescription_AromaticMist[] = _("The user raises\nthe Sp. Def stat of\nits partner with a\nmysterious aroma.");
+static const u8 sMoveFourLineDescription_AromaticMist[] = _("El usuario\nsube +2 la def. esp.\nde su compañero con\nun misterioso aroma.");
 static const u8 sMoveFourLineDescription_EerieImpulse[] = _("The foe's Sp. Atk\nis harshly lowered\nby exposure to an\neerie impulse.");
 static const u8 sMoveFourLineDescription_VenomDrench[] = _("Poisoned foes\nsuffer lowered\nAttack, Sp. Atk and\nSpeed stats.");
 static const u8 sMoveFourLineDescription_Powder[] = _("If the foe uses a\nFire-type move, it\nwill be damaged by\nthis powder.");
@@ -4790,7 +4790,7 @@ static const u8 sMoveFourLineDescription_ElectricTerrain[] = _("For 5 turns, the
 static const u8 sMoveFourLineDescription_DazzlingGleam[] = _("The user emits a\npowerful flash,\nhitting all foes.");
 static const u8 sMoveFourLineDescription_Celebrate[] = _("The Pokémon\ncongratulates you\non your special\nday!");
 static const u8 sMoveFourLineDescription_HoldHands[] = _("The user and ally\nhold hands. This\nmakes them very\nhappy.");
-static const u8 sMoveFourLineDescription_BabyDollEyes[] = _("Before it can move,\nthe foe's Attack\nstat is lowered by\nan adorable stare.");
+static const u8 sMoveFourLineDescription_BabyDollEyes[] = _("Con +1 de prioridad,\nel ataque del rival\nbaja -1 debido a\nuna adorable mirada.");
 static const u8 sMoveFourLineDescription_Nuzzle[] = _("The user's\nelectrified cheeks\nnuzzle the foe,\nparalyzing the foe.");
 static const u8 sMoveFourLineDescription_Infestation[] = _("The foe is infested\nfor 4 or 5 turns.\nThe foe cannot flee\nduring this time.");
 static const u8 sMoveFourLineDescription_PowerUpPunch[] = _("The user strikes,\nstrengthening its\nfists. This raises\ntheir Attack stat.");
