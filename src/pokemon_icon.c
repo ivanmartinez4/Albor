@@ -2885,6 +2885,7 @@ const u8 *GetMonIconTiles(u16 species, u32 personality)
     {
         iconSprite = gMonIconTableFemale[species];
     }
+    return iconSprite;
 }
 #if P_ENABLE_DEBUG == TRUE
 static const u8 *GetMonIconTilesCustom(u16 species, bool8 isFemale)
