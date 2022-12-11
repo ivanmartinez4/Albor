@@ -21,6 +21,9 @@ const u16 gEggMoves[] = {
     egg_moves(RATTATA,
         MOVE_),
 
+    egg_moves(PORYGON,
+        MOVE_GEOMANCY),
+
     egg_moves(SPEAROW,
         MOVE_),
 
@@ -37,7 +40,8 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(VULPIX,
-        MOVE_),
+        MOVE_MOONBLAST,
+        MOVE_MOONLIGHT),
 
     egg_moves(ZUBAT,
         MOVE_),
@@ -361,7 +365,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(NOSEPASS,
-        MOVE_),
+        MOVE_GEOMANCY),
 
     egg_moves(SKITTY,
         MOVE_),
@@ -418,10 +422,10 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(CACNEA,
-        MOVE_),
+        MOVE_MOONLIGHT),
 
     egg_moves(SWABLU,
-        MOVE_),
+        MOVE_GEOMANCY),
 
     egg_moves(ZANGOOSE,
         MOVE_),
@@ -446,6 +450,7 @@ const u16 gEggMoves[] = {
 
     egg_moves(CASTFORM,
         MOVE_FAIRY_WIND,
+        MOVE_GEOMANCY,
         MOVE_BABY_DOLL_EYES),
 
     egg_moves(KECLEON,
@@ -638,7 +643,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(YAMASK,
-        MOVE_),
+        MOVE_MOONLIGHT),
 
     egg_moves(TIRTOUGA,
         MOVE_),
@@ -647,7 +652,8 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(ZORUA,
-        MOVE_),
+        MOVE_MOONBLAST,
+        MOVE_MOONLIGHT),
 
     egg_moves(MINCCINO,
         MOVE_),
@@ -703,10 +709,10 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(FENNEKIN,
-        MOVE_),
+        MOVE_GEOMANCY),
 
     egg_moves(FROAKIE,
-        MOVE_),
+        MOVE_MOONLIGHT),
 
     egg_moves(BUNNELBY,
         MOVE_),
@@ -745,7 +751,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(PHANTUMP,
-        MOVE_),
+        MOVE_MOONLIGHT),
 
     egg_moves(BERGMITE,
         MOVE_),
@@ -756,7 +762,7 @@ const u16 gEggMoves[] = {
 
 #if P_GEN_7_POKEMON == TRUE
     egg_moves(ROWLET,
-        MOVE_),
+        MOVE_MOONLIGHT),
 
     egg_moves(LITTEN,
         MOVE_),
@@ -838,10 +844,12 @@ const u16 gEggMoves[] = {
 
     egg_moves(HATENNA,
         MOVE_FAIRY_WIND,
+        MOVE_MOONLIGHT,
         MOVE_BABY_DOLL_EYES),
 
     egg_moves(IMPIDIMP,
         MOVE_FAIRY_WIND,
+        MOVE_MOONLIGHT,
         MOVE_BABY_DOLL_EYES),
 
     egg_moves(SNOM,
