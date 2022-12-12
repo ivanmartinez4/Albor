@@ -7517,18 +7517,6 @@ const struct PokedexEntry gPokedexEntries[] =
         .trainerOffset = 0,
     },
 
-    [NATIONAL_DEX_HOOPA] =
-    {
-        .categoryName = _("Genio"),
-        .height = 5,
-        .weight = 90,
-        .description = gHoopaPokedexText,
-        .pokemonScale = 356,
-        .pokemonOffset = 17,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
     [NATIONAL_DEX_VOLCANION] =
     {
         .categoryName = _("Volcán"),

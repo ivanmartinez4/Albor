@@ -36,6 +36,10 @@ const u16 gEggMoves[] = {
     egg_moves(NIDORAN_F,
         MOVE_),
 
+    egg_moves(BALTOY,
+        MOVE_MOONLIGHT,
+        MOVE_MOONBLAST),
+
     egg_moves(NIDORAN_M,
         MOVE_),
 
@@ -92,7 +96,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(SLOWPOKE,
-        MOVE_),
+        MOVE_MOONLIGHT),
 
     egg_moves(FARFETCHD,
         MOVE_),
@@ -104,13 +108,14 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(GRIMER,
-        MOVE_),
+        MOVE_SPIRIT_BREAK),
 
     egg_moves(SHELLDER,
         MOVE_),
 
     egg_moves(GASTLY,
-        MOVE_),
+        MOVE_STRANGE_STEAM,
+        MOVE_MOONLIGHT),
 
     egg_moves(ONIX,
         MOVE_),
@@ -131,7 +136,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(KOFFING,
-        MOVE_),
+        MOVE_STRANGE_STEAM),
 
     egg_moves(RHYHORN,
         MOVE_),
@@ -147,6 +152,9 @@ const u16 gEggMoves[] = {
 
     egg_moves(GOLDEEN,
         MOVE_),
+
+    egg_moves(GOLETT,
+        MOVE_SPIRIT_BREAK),
 
     egg_moves(SCYTHER,
         MOVE_),
@@ -173,13 +181,14 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(CHIKORITA,
+        MOVE_MOONLIGHT,
         MOVE_AROMATIC_MIST),
 
     egg_moves(CYNDAQUIL,
         MOVE_),
 
     egg_moves(TOTODILE,
-        MOVE_),
+        MOVE_SPIRIT_BREAK),
 
     egg_moves(SENTRET
         MOVE_),
@@ -197,19 +206,19 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(PICHU,
-        MOVE_),
+        MOVE_SWEET_KISS),
 
     egg_moves(CLEFFA,
         MOVE_),
 
     egg_moves(IGGLYBUFF,
-        MOVE_),
+        MOVE_SWEET_KISS),
 
     egg_moves(TOGEPI,
         MOVE_),
 
     egg_moves(NATU,
-        MOVE_),
+        MOVE_SPIRIT_BREAK),
 
     egg_moves(MAREEP,
         MOVE_),
@@ -230,7 +239,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(MURKROW,
-        MOVE_),
+        MOVE_STRANGE_STEAM),
 
     egg_moves(MISDREAVUS,
         MOVE_AROMATIC_MIST),
@@ -248,7 +257,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(SNUBBULL,
-        MOVE_),
+        MOVE_SWEET_KISS),
 
     egg_moves(QWILFISH,
         MOVE_),
@@ -284,13 +293,13 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(HOUNDOUR,
-        MOVE_),
+        MOVE_MOONLIGHT),
 
     egg_moves(PHANPY,
         MOVE_),
 
     egg_moves(STANTLER,
-        MOVE_),
+        MOVE_MOONLIGHT),
 
     egg_moves(TYROGUE,
         MOVE_),
@@ -302,13 +311,13 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(MAGBY,
-        MOVE_),
+        MOVE_STRANGE_STEAM),
 
     egg_moves(MILTANK,
         MOVE_),
 
     egg_moves(LARVITAR,
-        MOVE_),
+        MOVE_MOONLIGHT),
 
     egg_moves(TREECKO,
         MOVE_),
@@ -332,7 +341,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(SEEDOT,
-        MOVE_),
+        MOVE_SPIRIT_BREAK),
 
     egg_moves(TAILLOW,
         MOVE_),
@@ -341,7 +350,8 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(RALTS,
-        MOVE_),
+        MOVE_SPIRIT_BREAK,
+        MOVE_SWEET_KISS),
 
     egg_moves(SURSKIT,
         MOVE_),
@@ -368,7 +378,7 @@ const u16 gEggMoves[] = {
         MOVE_GEOMANCY),
 
     egg_moves(SKITTY,
-        MOVE_),
+        MOVE_SWEET_KISS),
 
     egg_moves(SABLEYE,
         MOVE_BABY_DOLL_EYES),
@@ -398,19 +408,22 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(GULPIN,
-        MOVE_),
+        MOVE_STRANGE_STEAM),
 
     egg_moves(CARVANHA,
         MOVE_),
+
+    egg_moves(CARBINK,
+        MOVE_SWEET_KISS),
 
     egg_moves(WAILMER,
         MOVE_),
 
     egg_moves(NUMEL,
-        MOVE_),
+        MOVE_STRANGE_STEAM),
 
     egg_moves(TORKOAL,
-        MOVE_),
+        MOVE_STRANGE_STEAM),
 
     egg_moves(SPOINK,
         MOVE_CRAFTY_SHIELD),
@@ -422,13 +435,14 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(CACNEA,
+        MOVE_SPIRIT_BREAK,
         MOVE_MOONLIGHT),
 
     egg_moves(SWABLU,
         MOVE_GEOMANCY),
 
     egg_moves(ZANGOOSE,
-        MOVE_),
+        MOVE_MOONLIGHT),
 
     egg_moves(SEVIPER,
         MOVE_),
@@ -437,7 +451,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(CORPHISH,
-        MOVE_),
+        MOVE_SPIRIT_BREAK),
 
     egg_moves(LILEEP,
         MOVE_),
@@ -451,16 +465,19 @@ const u16 gEggMoves[] = {
     egg_moves(CASTFORM,
         MOVE_FAIRY_WIND,
         MOVE_GEOMANCY,
+        MOVE_MOONBLAST,
+        MOVE_MOONLIGHT,
+        MOVE_STRANGE_STEAM,
         MOVE_BABY_DOLL_EYES),
 
     egg_moves(KECLEON,
-        MOVE_),
+        MOVE_SPIRIT_BREAK),
 
     egg_moves(SHUPPET,
-        MOVE_),
+        MOVE_MOONLIGHT),
 
     egg_moves(DUSKULL,
-        MOVE_),
+        MOVE_MOONLIGHT),
 
     egg_moves(TROPIUS,
         MOVE_),
@@ -506,7 +523,7 @@ const u16 gEggMoves[] = {
         MOVE_BABY_DOLL_EYES),
 
     egg_moves(BUDEW,
-        MOVE_),
+        MOVE_SWEET_KISS),
 
     egg_moves(CRANIDOS,
         MOVE_),
@@ -530,13 +547,13 @@ const u16 gEggMoves[] = {
         MOVE_AROMATIC_MIST),
 
     egg_moves(BUNEARY,
-        MOVE_),
+        MOVE_SWEET_KISS),
 
     egg_moves(GLAMEOW,
-        MOVE_),
+        MOVE_SWEET_KISS),
 
     egg_moves(CHINGLING,
-        MOVE_),
+        MOVE_MOONLIGHT),
 
     egg_moves(STUNKY,
         MOVE_),
@@ -545,7 +562,7 @@ const u16 gEggMoves[] = {
         MOVE_FAIRY_WIND),
 
     egg_moves(MIME_JR,
-        MOVE_),
+        MOVE_SWEET_KISS),
 
     egg_moves(HAPPINY,
         MOVE_),
@@ -563,10 +580,10 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(RIOLU,
-        MOVE_),
+        MOVE_SPIRIT_BREAK),
 
     egg_moves(HIPPOPOTAS,
-        MOVE_),
+        MOVE_SPIRIT_BREAK),
 
     egg_moves(SKORUPI,
         MOVE_),
@@ -584,7 +601,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(SNOVER,
-        MOVE_),
+        MOVE_SPIRIT_BREAK),
 #endif
 
 #if P_GEN_5_POKEMON == TRUE
@@ -595,13 +612,13 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(OSHAWOTT,
-        MOVE_),
+        MOVE_SPIRIT_BREAK),
 
     egg_moves(LILLIPUP,
         MOVE_),
 
     egg_moves(MUNNA,
-        MOVE_),
+        MOVE_SWEET_KISS),
 
     egg_moves(BLITZLE,
         MOVE_),
@@ -610,7 +627,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(WOOBAT,
-        MOVE_),
+        MOVE_SWEET_KISS),
 
     egg_moves(DRILBUR,
         MOVE_),
@@ -628,7 +645,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(COTTONEE,
-        MOVE_),
+        MOVE_SWEET_KISS),
 
     egg_moves(SANDILE,
         MOVE_),
@@ -640,9 +657,10 @@ const u16 gEggMoves[] = {
         MOVE_CRAFTY_SHIELD),
 
     egg_moves(SIGILYPH,
-        MOVE_),
+        MOVE_STRANGE_STEAM),
 
     egg_moves(YAMASK,
+        MOVE_STRANGE_STEAM,
         MOVE_MOONLIGHT),
 
     egg_moves(TIRTOUGA,
@@ -656,9 +674,10 @@ const u16 gEggMoves[] = {
         MOVE_MOONLIGHT),
 
     egg_moves(MINCCINO,
-        MOVE_),
+        MOVE_SWEET_KISS),
 
     egg_moves(GOTHITA,
+        MOVE_STRANGE_STEAM,
         MOVE_AROMATIC_MIST),
 
     egg_moves(SOLOSIS,
@@ -680,6 +699,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(ELGYEM,
+        MOVE_STRANGE_STEAM,
         MOVE_AROMATIC_MIST),
 
     egg_moves(LITWICK,
@@ -727,7 +747,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(PANCHAM,
-        MOVE_),
+        MOVE_SPIRIT_BREAK),
 
     egg_moves(HONEDGE,
         MOVE_),
@@ -776,6 +796,9 @@ const u16 gEggMoves[] = {
     egg_moves(ROCKRUFF,
         MOVE_),
 
+    egg_moves(RUFFLET,
+        MOVE_SPIRIT_BREAK),
+
     egg_moves(MAREANIE,
         MOVE_),
 
@@ -792,7 +815,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(BOUNSWEET,
-        MOVE_),
+        MOVE_SWEET_KISS),
     
     egg_moves(ORANGURU,
         MOVE_),
@@ -827,6 +850,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(BLIPBUG,
+        MOVE_MOONLIGHT,
         MOVE_BABY_DOLL_EYES),
 
     egg_moves(WOOLOO,
@@ -845,14 +869,18 @@ const u16 gEggMoves[] = {
     egg_moves(HATENNA,
         MOVE_FAIRY_WIND,
         MOVE_MOONLIGHT,
+        MOVE_MOONBLAST,
+        MOVE_SWEET_KISS,
         MOVE_BABY_DOLL_EYES),
 
     egg_moves(IMPIDIMP,
+        MOVE_STRANGE_STEAM,
         MOVE_FAIRY_WIND,
         MOVE_MOONLIGHT,
         MOVE_BABY_DOLL_EYES),
 
     egg_moves(SNOM,
+        MOVE_MOONLIGHT,
         MOVE_FAIRY_WIND),
 
     egg_moves(CUFANT,
@@ -869,7 +897,7 @@ const u16 gEggMoves[] = {
         MOVE_FAIRY_WIND),
 
     egg_moves(ZIGZAGOON_GALARIAN,
-        MOVE_),
+        MOVE_SPIRIT_BREAK),
 
     egg_moves(DARUMAKA_GALARIAN,
         MOVE_),
