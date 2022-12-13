@@ -3342,11 +3342,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_Z] =
 
     [MOVE_SWEET_KISS] =
     {
-        #if B_UPDATED_MOVE_TYPES >= GEN_6
-            .type = TYPE_FAIRY,
-        #else
-            .type = TYPE_NORMAL,
-        #endif
+        .type = TYPE_FAIRY,
         .effect = EFFECT_CONFUSE,
         .power = 0,
         .accuracy = 100,
@@ -3687,11 +3683,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_Z] =
 
     [MOVE_CHARM] =
     {
-        #if B_UPDATED_MOVE_TYPES >= GEN_6
-            .type = TYPE_FAIRY,
-        #else
-            .type = TYPE_NORMAL,
-        #endif
+        .type = TYPE_FAIRY,
         .effect = EFFECT_ATTACK_DOWN_2,
         .power = 0,
         .accuracy = 100,
@@ -4233,11 +4225,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_Z] =
 
     [MOVE_MOONLIGHT] =
     {
-        #if B_UPDATED_MOVE_TYPES >= GEN_6
-            .type = TYPE_FAIRY,
-        #else
-            .type = TYPE_NORMAL,
-        #endif
+        .type = TYPE_FAIRY,
         .effect = EFFECT_MOONLIGHT,
         .power = 0,
         .accuracy = 0,
@@ -6601,11 +6589,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_Z] =
 
     [MOVE_TAILWIND] =
     {
-        #if B_UPDATED_MOVE_DATA >= GEN_6
-            .pp = 15,
-        #else
-            .pp = 30,
-        #endif
+        .pp = 15,
         .effect = EFFECT_TAILWIND,
         .power = 0,
         .type = TYPE_FLYING,
@@ -10392,11 +10376,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_Z] =
 
     [MOVE_FAIRY_WIND] =
     {
-        #if B_UPDATED_MOVE_DATA >= GEN_6
-            .pp = 15,
-        #else
-            .pp = 30,
-        #endif
+        .pp = 15,
         .effect = EFFECT_TAILWIND,
         .power = 0,
         .type = TYPE_FAIRY,

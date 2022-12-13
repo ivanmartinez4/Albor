@@ -5209,9 +5209,9 @@ static int DoPokedexSearch(u8 dexMode, u8 order, u8 abcGroup, u8 bodyColor, u8 t
         tmMoveId = 0xFF;
         for (i = 0; i < NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES; i++)
         {
-            if (move == ItemIdToBattleMoveId(ITEM_TM01_FOCUS_PUNCH + i))
+            if (move == ItemIdToBattleMoveId(ITEM_TM01_CHARM + i))
             {
-                tmMoveId = (ITEM_TM01_FOCUS_PUNCH + i);
+                tmMoveId = (ITEM_TM01_CHARM + i);
                 break;
             }
         }
@@ -6549,9 +6549,9 @@ static bool8 CalculateMoves(void)
     {
         if (CanLearnTeachableMove(species, j))
         {
-            sStatsMoves[movesTotal] = ItemIdToBattleMoveId(ITEM_TM01_FOCUS_PUNCH + j);
+            sStatsMoves[movesTotal] = ItemIdToBattleMoveId(ITEM_TM01_CHARM + j);
             movesTotal++;
-            sStatsMovesTMHM_ID[numTMHMMoves] = (ITEM_TM01_FOCUS_PUNCH + j);
+            sStatsMovesTMHM_ID[numTMHMMoves] = (ITEM_TM01_CHARM + j);
             numTMHMMoves++;
         }
     }

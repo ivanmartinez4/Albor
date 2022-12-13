@@ -189,7 +189,7 @@ const u8 gNidoqueenPokedexText[] = _(
     "a sus crías con gran ferocidad.");
 
 const u8 gNidoranMPokedexText[] = _(
-    "El NIDORAN macho ha desarrollado músculos\n"
+    "El Nidoran macho ha desarrollado músculos\n"
     "para mover las orejas y orientarlas en\n"
     "cualquier dirección. De este modo, es capaz\n"
     "de captar hasta el sonido más leve.");
@@ -537,7 +537,7 @@ const u8 gMukPokedexText[] = _(
 const u8 gShellderPokedexText[] = _(
     "De noche, usa su ancha lengua para hacer\n"
     "un agujero en el fondo del mar donde\n"
-    "descansar. Cuando duerme, SHELLDER cierra\n"
+    "descansar. Cuando duerme, Shellder cierra\n"
     "la concha, pero deja la lengua fuera.");
 
 const u8 gCloysterPokedexText[] = _(

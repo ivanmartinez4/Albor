@@ -7750,10 +7750,10 @@ const struct Item gItems[] =
 
 // TMs/HMs
 
-    [ITEM_TM01_FOCUS_PUNCH] =
+    [ITEM_TM01_CHARM] =
     {
         .name = _("MT01"),
-        .itemId = ITEM_TM01_FOCUS_PUNCH,
+        .itemId = ITEM_TM01_CHARM,
         .price = 3000,
         .description = sTM01Desc,
         .importance = 1,
@@ -7762,10 +7762,10 @@ const struct Item gItems[] =
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
     },
 
-    [ITEM_TM02_DRAGON_CLAW] =
+    [ITEM_TM02_DAZZLING_GLEAM] =
     {
         .name = _("MT02"),
-        .itemId = ITEM_TM02_DRAGON_CLAW,
+        .itemId = ITEM_TM02_DAZZLING_GLEAM,
         .price = 3000,
         .description = sTM02Desc,
         .importance = 1,
@@ -7774,10 +7774,10 @@ const struct Item gItems[] =
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
     },
 
-    [ITEM_TM03_WATER_PULSE] =
+    [ITEM_TM03_DISARMING_VOICE] =
     {
         .name = _("MT03"),
-        .itemId = ITEM_TM03_WATER_PULSE,
+        .itemId = ITEM_TM03_DISARMING_VOICE,
         .price = 3000,
         .description = sTM03Desc,
         .importance = 1,
@@ -7786,10 +7786,10 @@ const struct Item gItems[] =
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
     },
 
-    [ITEM_TM04_CALM_MIND] =
+    [ITEM_TM04_DRAINING_KISS] =
     {
         .name = _("MT04"),
-        .itemId = ITEM_TM04_CALM_MIND,
+        .itemId = ITEM_TM04_DRAINING_KISS,
         .price = 3000,
         .description = sTM04Desc,
         .importance = 1,
@@ -7798,10 +7798,10 @@ const struct Item gItems[] =
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
     },
 
-    [ITEM_TM05_ROAR] =
+    [ITEM_TM05_PLAY_ROUGH] =
     {
         .name = _("MT05"),
-        .itemId = ITEM_TM05_ROAR,
+        .itemId = ITEM_TM05_PLAY_ROUGH,
         .price = 1000,
         .description = sTM05Desc,
         .importance = 1,

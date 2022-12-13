@@ -1,6 +1,6 @@
 
 #if B_BINDING_TURNS >= GEN_5
-#define BINDING_TURNS "4 or 5"
+#define BINDING_TURNS "4 o 5"
 #else
 #define BINDING_TURNS "2 to 5"
 #endif
@@ -749,8 +749,8 @@ static const u8 sFeintAttackDescription[] = _(
     "strikes without fail.");
 
 static const u8 sSweetKissDescription[] = _(
-    "Demands a kiss with a cute\n"
-    "look. May cause confusion.");
+    "El usuario da un beso\n"
+    "que confunde al rival.");
 
 static const u8 sBellyDrumDescription[] = _(
     "Maximizes Attack while\n"
@@ -949,8 +949,8 @@ static const u8 sSynthesisDescription[] = _(
     "varies with the weather.");
 
 static const u8 sMoonlightDescription[] = _(
-    "Restores HP. The amount\n"
-    "varies with the weather.");
+    "Restaura PS en función\n"
+    "del clima presente.");
 
 static const u8 sHiddenPowerDescription[] = _(
     "The effectiveness varies\n"
@@ -2269,16 +2269,16 @@ static const u8 sElectrifyDescription[] = _(
     "its next move Electric-type.");
 
 static const u8 sPlayRoughDescription[] = _(
-    "Plays rough with the foe.\n"
-    "May lower Attack.");
+    "Juega brusco con el rival.\n"
+    "Puede bajar el ataque.");
 
 static const u8 sFairyWindDescription[] = _(
     "Aumenta la velocidad\n"
     "de su equipo.");
 
 static const u8 sMoonblastDescription[] = _(
-    "Attacks with the power of\n"
-    "the moon. May lower Sp. Atk.");
+    "Ataque con la fuerza de\n"
+    "la Luna. Puede bajar el at. esp.");
 
 static const u8 sBoomburstDescription[] = _(
     "Attacks everything with a\n"
@@ -2341,8 +2341,8 @@ static const u8 sPowderDescription[] = _(
     "a Fire-type move.");
 
 static const u8 sGeomancyDescription[] = _(
-    "Raises Sp. Atk, Sp. Def and\n"
-    "Speed on the 2nd turn.");
+    "+2 at. esp., def. esp.\n"
+    "y vel. en 2 turnos.");
 
 static const u8 sMagneticFluxDescription[] = _(
     "Boosts the defenses of\n"
@@ -2802,12 +2802,12 @@ static const u8 sGravAppleDescription[] = _(
     "Lowers the foe's Defense.");
 
 static const u8 sSpiritBreakDescription[] = _(
-    "Attacks with spirit-breaking\n"
-    "force. Lowers Sp. Atk.");
+    "Ataque a la moral del rival.\n"
+    "Baja su ataque especial.");
 
 static const u8 sStrangeSteamDescription[] = _(
-    "Emits a strange steam to\n"
-    "potentially confuse the foe.");
+    "Emite un extraño polvo\n"
+    "que daña y puede confundir.");
 
 static const u8 sLifeDewDescription[] = _(
     "Scatters water to restore\n"
@@ -4076,9 +4076,9 @@ static const u8 sMoveFourLineDescription_SweetScent[] = _("Allures the foe to\nr
 static const u8 sMoveFourLineDescription_IronTail[] = _("An attack with a\nsteel-hard tail.\nIt may lower the\nfoe's Defense stat.");
 static const u8 sMoveFourLineDescription_MetalClaw[] = _("The foe is attacked\nwith steel claws.\nIt may also raise\nthe user's Attack.");
 static const u8 sMoveFourLineDescription_VitalThrow[] = _("Makes the user\nattack after the\nfoe. In return,\nit will not miss.");
-static const u8 sMoveFourLineDescription_MorningSun[] = _("Restores the user's\nHP. The amount of\nHP regained varies\nwith the weather.");
-static const u8 sMoveFourLineDescription_Synthesis[] = _("Restores the user's\nHP. The amount of\nHP regained varies\nwith the weather.");
-static const u8 sMoveFourLineDescription_Moonlight[] = _("Restores the user's\nHP. The amount of\nHP regained varies\nwith the weather.");
+static const u8 sMoveFourLineDescription_MorningSun[] = _("Recupera la salud.\nLa cantidad de PS\nrecuperados varía\nsegún el clima.");
+static const u8 sMoveFourLineDescription_Synthesis[] = _("Recupera la salud.\nLa cantidad de PS\nrecuperados varía\nsegún el clima.");
+static const u8 sMoveFourLineDescription_Moonlight[] = _("Recupera la salud.\nLa cantidad de PS\nrecuperados varía\nsegún el clima.");
 static const u8 sMoveFourLineDescription_HiddenPower[] = _("An attack that\nvaries in type and\nintensity depending\non the user.");
 static const u8 sMoveFourLineDescription_CrossChop[] = _("The foe is hit with\ndouble chops.\nIt has a high\ncritical-hit ratio.");
 static const u8 sMoveFourLineDescription_Twister[] = _("A vicious twister\nattacks the foe.\nIt may make the\nfoe flinch.");
@@ -4372,7 +4372,7 @@ static const u8 sMoveFourLineDescription_Protect[] = _("Enables the user to\neva
 static const u8 sMoveFourLineDescription_MachPunch[] = _("A punch thrown at\nblinding speed.\nIt is certain to\nstrike first.");
 static const u8 sMoveFourLineDescription_ScaryFace[] = _("Frightens the foe\nwith a scary face\nto sharply reduce\nits SPEED.");
 static const u8 sMoveFourLineDescription_FaintAttack[] = _("The user draws up\nclose to the foe\ndisarmingly, then\nhits without fail.");
-static const u8 sMoveFourLineDescription_SweetKiss[] = _("The user kisses\nthe foe with sweet\ncuteness that\ncauses confusion.");
+static const u8 sMoveFourLineDescription_SweetKiss[] = _("Besa al enemigo\ncon tanta dulzura\nque termina provocando\nsu confusión.");
 static const u8 sMoveFourLineDescription_BellyDrum[] = _("The user maximizes\nits ATTACK stat at\nthe cost of half\nits full HP.");
 static const u8 sMoveFourLineDescription_SludgeBomb[] = _("Filthy sludge is\nhurled at the foe.\nIt may poison the\ntarget.");
 static const u8 sMoveFourLineDescription_MudSlap[] = _("Mud is hurled in\nthe foe's face to\ninflict damage and\nlower its accuracy.");
@@ -4765,9 +4765,9 @@ static const u8 sMoveFourLineDescription_FlowerShield[] = _("A mysterious power\
 static const u8 sMoveFourLineDescription_GrassyTerrain[] = _("For 5 turns, the\nground turns grassy.\nThis ups Grass-type\nmoves, and heals.");
 static const u8 sMoveFourLineDescription_MistyTerrain[] = _("Weakens Dragon-type\nmoves for 5 turns,\nand prevents status\nconditions for all.");
 static const u8 sMoveFourLineDescription_Electrify[] = _("This move\nelectrifies the foe,\nmaking its next\nmove Electric-type.");
-static const u8 sMoveFourLineDescription_PlayRough[] = _("The user and foe\nplay rough, with a\nchance of the foe's\nAttack stat falling.");
+static const u8 sMoveFourLineDescription_PlayRough[] = _("El usuario y el rival\njuegan brusco, con la\nposibilidad de que\nbaje el ataque.");
 static const u8 sMoveFourLineDescription_FairyWind[] = _("Se levanta un\nviento mágico\nque aumenta la velocidad\ndel equipo.");
-static const u8 sMoveFourLineDescription_Moonblast[] = _("The power of the\nmoon strikes the\nfoe. This may lower\ntheir Sp. Atk stat.");
+static const u8 sMoveFourLineDescription_Moonblast[] = _("El poder de\nla Luna golpea al\nrival, y puede bajar\nsu ataque especial.");
 static const u8 sMoveFourLineDescription_Boomburst[] = _("An explosively loud\nsound is let out,\nhitting all that\nsurrounds it.");
 static const u8 sMoveFourLineDescription_FairyLock[] = _("For 1 turn, the\nuser locks down\nthe battlefield and\nprevents fleeing.");
 static const u8 sMoveFourLineDescription_KingsShield[] = _("A protective stance\nis assumed. Contact\nby the foe harshly\nlowers its Attack.");
@@ -4783,7 +4783,7 @@ static const u8 sMoveFourLineDescription_AromaticMist[] = _("El usuario\nsube +2
 static const u8 sMoveFourLineDescription_EerieImpulse[] = _("The foe's Sp. Atk\nis harshly lowered\nby exposure to an\neerie impulse.");
 static const u8 sMoveFourLineDescription_VenomDrench[] = _("Poisoned foes\nsuffer lowered\nAttack, Sp. Atk and\nSpeed stats.");
 static const u8 sMoveFourLineDescription_Powder[] = _("If the foe uses a\nFire-type move, it\nwill be damaged by\nthis powder.");
-static const u8 sMoveFourLineDescription_Geomancy[] = _("On the 2nd turn,\nthe user sharply\nups its Sp. Atk, Sp.\nDef and Speed stats.");
+static const u8 sMoveFourLineDescription_Geomancy[] = _("Movimiento de 2 turnos\nque sube drásticamente\nel at. esp., la def. esp.,\ny la velocidad del usuario.");
 static const u8 sMoveFourLineDescription_MagneticFlux[] = _("The user boosts the\ndefenses of allies\nwith the Plus or\nMinus Ability.");
 static const u8 sMoveFourLineDescription_HappyHour[] = _("This move doubles\nthe amount of prize\nmoney received\nafter battle.");
 static const u8 sMoveFourLineDescription_ElectricTerrain[] = _("For 5 turns, the\ncharged ground ups\nElectric-type moves\nand prevents sleep.");
@@ -4902,8 +4902,8 @@ static const u8 sMoveFourLineDescription_BranchPoke[] = _("The user attacks\nthe
 static const u8 sMoveFourLineDescription_Overdrive[] = _("The user twangs its\nguitar to attack\nboth foes with a\nhuge, echoing boom.");
 static const u8 sMoveFourLineDescription_AppleAcid[] = _("An acidic liquid\nattack created from\ntart apples. Lowers\nthe foe's Sp. Def.");
 static const u8 sMoveFourLineDescription_GravApple[] = _("The user drops an\napple from high on\nthe foe, lowering\nthe foe's Defense.");
-static const u8 sMoveFourLineDescription_SpiritBreak[] = _("A forceful, spirit-\nbreaking attack\nthat lowers the\nfoe's Sp. Atk stat.");
-static const u8 sMoveFourLineDescription_StrangeSteam[] = _("The user attacks by\nemitting steam.\nThis may also\nconfuse the foe.");
+static const u8 sMoveFourLineDescription_SpiritBreak[] = _("Ataque directo\na la moral del rival,\nque baja su\nAtaque especial.");
+static const u8 sMoveFourLineDescription_StrangeSteam[] = _("El usuario emite\nuna nube tóxica.\nAdemás de dañar,\npuede confundir al rival.");
 static const u8 sMoveFourLineDescription_LifeDew[] = _("The user restores\nthe HP of itself\nand its allies with\nmysterious water.");
 static const u8 sMoveFourLineDescription_Obstruct[] = _("Protects the user,\nand harshly lowers\nthe Defense of foes\nthat make contact.");
 static const u8 sMoveFourLineDescription_FalseSurrender[] = _("The user pretends\nto bow, then stabs\nits foe. This move\nnever misses.");
