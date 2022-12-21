@@ -368,7 +368,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(MAKUHITA,
-        MOVE_),
+        MOVE_GYRO_BALL),
 
     egg_moves(AZURILL,
         MOVE_),
@@ -581,6 +581,7 @@ const u16 gEggMoves[] = {
         MOVE_SPIRIT_BREAK),
 
     egg_moves(HIPPOPOTAS,
+        MOVE_GYRO_BALL,
         MOVE_SPIRIT_BREAK),
 
     egg_moves(SKORUPI,
@@ -607,7 +608,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(TEPIG,
-        MOVE_),
+        MOVE_GYRO_BALL),
 
     egg_moves(OSHAWOTT,
         MOVE_ANCHOR_SHOT,
@@ -725,7 +726,7 @@ const u16 gEggMoves[] = {
 
 #if P_GEN_6_POKEMON == TRUE
     egg_moves(CHESPIN,
-        MOVE_),
+        MOVE_GYRO_BALL),
 
     egg_moves(FENNEKIN,
         MOVE_GEOMANCY),
@@ -860,7 +861,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(SILICOBRA,
-        MOVE_),
+        MOVE_GYRO_BALL),
 
     egg_moves(TOXEL,
         MOVE_BABY_DOLL_EYES,
