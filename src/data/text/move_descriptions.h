@@ -1673,8 +1673,8 @@ static const u8 sNastyPlotDescription[] = _(
     "sharply boost Sp. Atk.");
 
 static const u8 sBulletPunchDescription[] = _(
-    "Punches as fast as a bul-\n"
-    "let. It always hits first.");
+    "Da un puñetazo rápido como\n"
+    "una bala, siempre va primero.");
 
 static const u8 sIceShardDescription[] = _(
     "Hurls a chunk of ice that\n"
@@ -1717,8 +1717,8 @@ static const u8 sMirrorShotDescription[] = _(
     "damage and cut accuracy.");
 
 static const u8 sFlashCannonDescription[] = _(
-    "Releases a blast of light\n"
-    "that may lower Sp. Def.");
+    "Lanza un haz de luz que puede\n"
+    "bajar la defensa especial.");
 
 static const u8 sRockClimbDescription[] = _(
     "A charging attack that may\n"
@@ -1877,8 +1877,8 @@ static const u8 sVenoshockDescription[] = _(
     "foe is poisoned.");
 
 static const u8 sAutotomizeDescription[] = _(
-    "Sheds additional weight to\n"
-    "sharply boost Speed.");
+    "Reduce a la mitad el peso,\n"
+    "+2 de velocidad.");
 
 static const u8 sRagePowderDescription[] = _(
     "Scatters powder to make\n"
@@ -2489,8 +2489,8 @@ static const u8 sPollenPuffDescription[] = _(
     "restores ally's HP.");
 
 static const u8 sAnchorShotDescription[] = _(
-    "Strangles the foe with a\n"
-    "chain. The foe can't escape.");
+    "Ancla al rival a sí mismo,\n"
+    "evitando que escape.");
 
 static const u8 sPsychicTerrainDescription[] = _(
     "The ground turns weird for\n"
@@ -2689,8 +2689,8 @@ static const u8 sVeeveeVolleyDescription[] = _(
     "power. It never misses.");
 
 static const u8 sDoubleIronBashDescription[] = _(
-    "The user spins and hits with\n"
-    "its arms. May cause flinch.");
+    "El usuario gira y golpea\n"
+    "doble. Puede hacer retroceder.");
 
 // GEN 8
 static const u8 sDynamaxCannonDescription[] = _(
@@ -4606,7 +4606,7 @@ static const u8 sMoveFourLineDescription_BraveBird[] = _("Wings tucked in,\nthe 
 static const u8 sMoveFourLineDescription_EarthPower[] = _("The ground erupts\nbelow the foe. This\nmay lower the foe's\nSp. Def stat.");
 static const u8 sMoveFourLineDescription_Switcheroo[] = _("The user trades\nheld items with the\nfoe faster than the\neye can follow.");
 static const u8 sMoveFourLineDescription_NastyPlot[] = _("The user stimulates\nits brain with bad\nthoughts, sharply\nraising its Sp. Atk.");
-static const u8 sMoveFourLineDescription_BulletPunch[] = _("Bullet-fast punches\nbarrage the target.\nThis move always\nstrikes first.");
+static const u8 sMoveFourLineDescription_BulletPunch[] = _("Da un puñetazo con\nla velocidad de una bala.\nEste ataque siempre\ntiene prioridad.");
 static const u8 sMoveFourLineDescription_IceShard[] = _("Flash-frozen ice\nchunks are hurled\nat the foe. This\nmove goes first.");
 static const u8 sMoveFourLineDescription_ShadowClaw[] = _("Claws made from\nshadows strike the\nfoe. Critical hits\nland more easily.");
 static const u8 sMoveFourLineDescription_ThunderFang[] = _("Electrified fangs\nbite the foe. This\nmay paralyse them,\nor make them flinch.");
@@ -4617,7 +4617,7 @@ static const u8 sMoveFourLineDescription_MudBomb[] = _("A hard-packed mud\nball 
 static const u8 sMoveFourLineDescription_PsychoCut[] = _("Psychic blades\nstrike the foe.\nCritical hits land\nmore easily.");
 static const u8 sMoveFourLineDescription_ZenHeadbutt[] = _("The user focuses,\nand strikes the\nfoe. This may also\nmake the foe flinch.");
 static const u8 sMoveFourLineDescription_MirrorShot[] = _("A flash of energy\nis loosed at the\nfoe. This may drop\ntheir accuracy.");
-static const u8 sMoveFourLineDescription_FlashCannon[] = _("Light energy is\nfired at the foe.\nThis may lower\ntheir Sp. Def stat.");
+static const u8 sMoveFourLineDescription_FlashCannon[] = _("Un haz de luz\nes lanzada al oponente.\nEste puede bajar\nsu defensa especial.");
 static const u8 sMoveFourLineDescription_RockClimb[] = _("A charging attack.\nIt may confuse the\nfoe. It is used to\nscale rocky walls.");
 static const u8 sMoveFourLineDescription_Defog[] = _("Wind blows across\nthe battlefield,\nclearing barriers,\nobstacles, etc.");
 static const u8 sMoveFourLineDescription_TrickRoom[] = _("A bizarre area is\nconstructed for 5\nturns where slower\nPokémon move first.");
@@ -4661,7 +4661,7 @@ static const u8 sMoveFourLineDescription_WonderRoom[] = _("For 5 turns, all\nPok
 static const u8 sMoveFourLineDescription_Psyshock[] = _("The user casts an\nodd psychic wave to\nattack the foe for\nphysical damage.");
 static const u8 sMoveFourLineDescription_TailSlap[] = _("The user attacks by\nstriking the foe\nwith its hard tail,\ntwo to five times.");
 static const u8 sMoveFourLineDescription_Venoshock[] = _("A special liquid\nthat damages for\ndouble the power on\npoisoned targets.");
-static const u8 sMoveFourLineDescription_Autotomize[] = _("The user sheds part\nof its body to be\nlighter, sharply\nraising its Speed.");
+static const u8 sMoveFourLineDescription_Autotomize[] = _("Se reduce a la mitad\nel peso para\nsubir drásticamente\nla velocidad.");
 static const u8 sMoveFourLineDescription_RagePowder[] = _("Foes aim only at\nthe user, enraged\nby a cloud of its\nirritating powder.");
 static const u8 sMoveFourLineDescription_Telekinesis[] = _("The user floats its\nfoe psychically for\n3 turns, making the\nfoe easier to hit.");
 static const u8 sMoveFourLineDescription_MagicRoom[] = _("For 5 turns, the\neffects of held\nitems are negated\nby a bizarre area.");
@@ -4820,7 +4820,7 @@ static const u8 sMoveFourLineDescription_LaserFocus[] = _("The user focuses\nint
 static const u8 sMoveFourLineDescription_GearUp[] = _("Allies with the\nPlus or Minus\nAbility have their\nattack stats upped.");
 static const u8 sMoveFourLineDescription_ThroatChop[] = _("For 2 turns after\nbeing hit, the foe\ncannot use moves\nthat emit sound.");
 static const u8 sMoveFourLineDescription_PollenPuff[] = _("A pollen puff that\nwill explode to\ndamage foes, but\nwill heal allies.");
-static const u8 sMoveFourLineDescription_AnchorShot[] = _("The user's anchor\nchain strikes and\nentangles the foe,\npreventing escape.");
+static const u8 sMoveFourLineDescription_AnchorShot[] = _("El Pokémon lanza\nuna cadena que\ngolpea al rival y\npreviene que escape.");
 static const u8 sMoveFourLineDescription_PsychicTerrain[] = _("For 5 turns, faster\nmoves will fail and\nPsychic-type moves\ndeal more damage.");
 static const u8 sMoveFourLineDescription_Lunge[] = _("The user lunges at\nthe foe with full\nforce, lowering the\nfoe's Attack stat.");
 static const u8 sMoveFourLineDescription_FireLash[] = _("The foe is struck\nwith a burning\nlash that lowers\nits Defense stat.");
@@ -4873,7 +4873,7 @@ static const u8 sMoveFourLineDescription_SappySeed[] = _("Grows a giant stalk,\n
 static const u8 sMoveFourLineDescription_FreezyFrost[] = _("Attack with crystal\nmade of cold frozen\nhaze. It eliminates\nall stat changes.");
 static const u8 sMoveFourLineDescription_SparklySwirl[] = _("Wraps foe with a\nwhirlwind of scent.\nIt heals all status\nof the user's party.");
 static const u8 sMoveFourLineDescription_VeeveeVolley[] = _("Eevee's love for\nits trainer raises\nthis move's power.\nIt never misses.");
-static const u8 sMoveFourLineDescription_DoubleIronBash[] = _("Spinning rapidly,\nthe user strikes\ntwice. This may\ncause flinching.");
+static const u8 sMoveFourLineDescription_DoubleIronBash[] = _("Gira rápidamente,\ngolpeando dos veces\ncon sus hierros.\nPuede hacer retroceder.");
 
 // GEN 8
 static const u8 sMoveFourLineDescription_DynamaxCannon[] = _("The user unleashes\na strong beam that\ndamages Dynamaxed\nfoes twice as hard.");
@@ -4902,7 +4902,7 @@ static const u8 sMoveFourLineDescription_BranchPoke[] = _("The user attacks\nthe
 static const u8 sMoveFourLineDescription_Overdrive[] = _("The user twangs its\nguitar to attack\nboth foes with a\nhuge, echoing boom.");
 static const u8 sMoveFourLineDescription_AppleAcid[] = _("An acidic liquid\nattack created from\ntart apples. Lowers\nthe foe's Sp. Def.");
 static const u8 sMoveFourLineDescription_GravApple[] = _("The user drops an\napple from high on\nthe foe, lowering\nthe foe's Defense.");
-static const u8 sMoveFourLineDescription_SpiritBreak[] = _("Ataque directo\na la moral del rival,\nque baja su\nAtaque especial.");
+static const u8 sMoveFourLineDescription_SpiritBreak[] = _("Ataque directo\na la moral del rival,\nque baja su\nataque especial.");
 static const u8 sMoveFourLineDescription_StrangeSteam[] = _("El usuario emite\nuna nube tóxica.\nAdemás de dañar,\npuede confundir al rival.");
 static const u8 sMoveFourLineDescription_LifeDew[] = _("The user restores\nthe HP of itself\nand its allies with\nmysterious water.");
 static const u8 sMoveFourLineDescription_Obstruct[] = _("Protects the user,\nand harshly lowers\nthe Defense of foes\nthat make contact.");

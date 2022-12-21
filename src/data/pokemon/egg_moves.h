@@ -69,7 +69,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(MANKEY,
-        MOVE_),
+        MOVE_BULLET_PUNCH),
 
     egg_moves(GROWLITHE,
         MOVE_),
@@ -81,7 +81,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(MACHOP,
-        MOVE_),
+        MOVE_BULLET_PUNCH),
 
     egg_moves(BELLSPROUT,
         MOVE_),
@@ -172,7 +172,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(KABUTO,
-        MOVE_),
+        MOVE_ANCHOR_SHOT),
 
     egg_moves(AERODACTYL,
         MOVE_),
@@ -226,7 +226,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(AIPOM,
-        MOVE_),
+        MOVE_BULLET_PUNCH),
 
     egg_moves(SUNKERN,
         MOVE_),
@@ -307,7 +307,7 @@ const u16 gEggMoves[] = {
         MOVE_AROMATIC_MIST),
 
     egg_moves(ELEKID,
-        MOVE_),
+        MOVE_BULLET_PUNCH),
 
     egg_moves(MAGBY,
         MOVE_STRANGE_STEAM),
@@ -610,6 +610,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(OSHAWOTT,
+        MOVE_ANCHOR_SHOT,
         MOVE_SPIRIT_BREAK),
 
     egg_moves(LILLIPUP,
@@ -637,7 +638,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(TYMPOLE,
-        MOVE_),
+        MOVE_ANCHOR_SHOT),
 
     egg_moves(VENIPEDE,
         MOVE_),
@@ -662,7 +663,7 @@ const u16 gEggMoves[] = {
         MOVE_MOONLIGHT),
 
     egg_moves(TIRTOUGA,
-        MOVE_),
+        MOVE_ANCHOR_SHOT),
 
     egg_moves(ARCHEN,
         MOVE_),
@@ -694,7 +695,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(FERROSEED,
-        MOVE_),
+        MOVE_ANCHOR_SHOT),
 
     egg_moves(ELGYEM,
         MOVE_STRANGE_STEAM,
@@ -745,6 +746,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(PANCHAM,
+        MOVE_BULLET_PUNCH,
         MOVE_SPIRIT_BREAK),
 
     egg_moves(HONEDGE,

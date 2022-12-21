@@ -8361,6 +8361,18 @@ const struct PokedexEntry gPokedexEntries[] =
         .trainerOffset = 0,
     },
 
+    [NATIONAL_DEX_EISCUE] =
+    {
+        .categoryName = _("Cara hielo"),
+        .height = 14,
+        .weight = 890,
+        .description = gEiscuePokedexText,
+        .pokemonScale = 356,
+        .pokemonOffset = 17,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+    },
+
     [NATIONAL_DEX_SILICOBRA] =
     {
         .categoryName = _("Cobra de arena"),
