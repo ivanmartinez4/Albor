@@ -130,7 +130,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(CUBONE,
-        MOVE_),
+        MOVE_IRON_HAMMER),
 
     egg_moves(LICKITUNG,
         MOVE_),
@@ -205,6 +205,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(PICHU,
+        MOVE_MAGNET_BOMB,
         MOVE_SWEET_KISS),
 
     egg_moves(CLEFFA,
@@ -307,6 +308,7 @@ const u16 gEggMoves[] = {
         MOVE_AROMATIC_MIST),
 
     egg_moves(ELEKID,
+        MOVE_IRON_HAMMER,
         MOVE_BULLET_PUNCH),
 
     egg_moves(MAGBY,
@@ -368,6 +370,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(MAKUHITA,
+        MOVE_IRON_HAMMER,
         MOVE_GYRO_BALL),
 
     egg_moves(AZURILL,
@@ -389,7 +392,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(MEDITITE,
-        MOVE_),
+        MOVE_MIRROR_SHOT),
 
     egg_moves(ELECTRIKE,
         MOVE_),
@@ -524,13 +527,13 @@ const u16 gEggMoves[] = {
         MOVE_SWEET_KISS),
 
     egg_moves(CRANIDOS,
-        MOVE_),
+        MOVE_IRON_HAMMER),
 
     egg_moves(SHIELDON,
         MOVE_),
 
     egg_moves(PACHIRISU,
-        MOVE_),
+        MOVE_MAGNET_BOMB),
 
     egg_moves(BUIZEL,
         MOVE_),
@@ -651,7 +654,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(DARUMAKA,
-        MOVE_),
+        MOVE_IRON_HAMMER),
 
     egg_moves(SCRAGGY,
         MOVE_CRAFTY_SHIELD),
@@ -678,6 +681,7 @@ const u16 gEggMoves[] = {
 
     egg_moves(GOTHITA,
         MOVE_STRANGE_STEAM,
+        MOVE_MIRROR_SHOT,
         MOVE_AROMATIC_MIST),
 
     egg_moves(SOLOSIS,
@@ -735,7 +739,7 @@ const u16 gEggMoves[] = {
         MOVE_MOONLIGHT),
 
     egg_moves(BUNNELBY,
-        MOVE_),
+        MOVE_IRON_HAMMER),
 
     egg_moves(FLETCHLING,
         MOVE_),
@@ -747,6 +751,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(PANCHAM,
+        MOVE_IRON_HAMMER,
         MOVE_BULLET_PUNCH,
         MOVE_SPIRIT_BREAK),
 
@@ -839,7 +844,7 @@ const u16 gEggMoves[] = {
 
 #if P_GEN_8_POKEMON == TRUE
     egg_moves(GROOKEY,
-        MOVE_),
+        MOVE_IRON_HAMMER),
 
     egg_moves(SCORBUNNY,
         MOVE_),
@@ -901,7 +906,7 @@ const u16 gEggMoves[] = {
         MOVE_SPIRIT_BREAK),
 
     egg_moves(DARUMAKA_GALARIAN,
-        MOVE_),
+        MOVE_IRON_HAMMER),
 
     egg_moves(COSMOG,
         MOVE_),

@@ -2502,7 +2502,7 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                                                              | MOVE_TARGET_BOTH
                                                              | MOVE_TARGET_FOES_AND_ALLY
                                                              | MOVE_TARGET_OPPONENTS_FIELD)
-                      && instructedMove != MOVE_MIND_BLOWN && instructedMove != MOVE_STEEL_BEAM)
+                      && instructedMove != MOVE_MIND_BLOWN)
                         score -= 10; //Don't force the enemy to attack you again unless it can kill itself with Mind Blown
                     else if (instructedMove != MOVE_MIND_BLOWN)
                         score -= 5; //Do something better

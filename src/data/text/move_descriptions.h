@@ -849,8 +849,8 @@ static const u8 sFuryCutterDescription[] = _(
     "on each successive hit.");
 
 static const u8 sSteelWingDescription[] = _(
-    "Strikes the foe with hard\n"
-    "wings spread wide.");
+    "Golpea al oponente con su\n"
+    "ala, y puede subir la def.");
 
 static const u8 sMeanLookDescription[] = _(
     "Fixes the foe with a mean\n"
@@ -929,12 +929,12 @@ static const u8 sSweetScentDescription[] = _(
     "evasiveness.");
 
 static const u8 sIronTailDescription[] = _(
-    "Attacks with a rock-hard\n"
-    "tail. May lower Defense.");
+    "Ataca con su dura cola.\n"
+    "Puede bajar la defensa.");
 
 static const u8 sMetalClawDescription[] = _(
-    "A claw attack that may\n"
-    "raise the user's Attack.");
+    "Ataca con una garra\n"
+    "de metal, suele subir at.");
 
 static const u8 sVitalThrowDescription[] = _(
     "Makes the user's move last,\n"
@@ -1285,8 +1285,8 @@ static const u8 sSilverWindDescription[] = _(
     "raise abilities.");
 
 static const u8 sMetalSoundDescription[] = _(
-    "Emits a horrible screech\n"
-    "that sharply lowers Sp. Def.");
+    "Horrible chirrido que\n"
+    "baja la defensa especial.");
 
 static const u8 sGrassWhistleDescription[] = _(
     "Lulls the foe into sleep\n"
@@ -1713,8 +1713,8 @@ static const u8 sZenHeadbuttDescription[] = _(
     "butt. May cause flinching.");
 
 static const u8 sMirrorShotDescription[] = _(
-    "Emits a flash of energy to\n"
-    "damage and cut accuracy.");
+    "Emite un rayo reflectante\n"
+    "que puede bajar la precisión.");
 
 static const u8 sFlashCannonDescription[] = _(
     "Lanza un haz de luz que puede\n"
@@ -1757,8 +1757,8 @@ static const u8 sIronHeadDescription[] = _(
     "Puede hacer retroceder.");
 
 static const u8 sMagnetBombDescription[] = _(
-    "Launches a magnet that\n"
-    "strikes without fail.");
+    "Usa el magnetismo para\n"
+    "golpear sin fallar.");
 
 static const u8 sStoneEdgeDescription[] = _(
     "Stabs the foe with stones.\n"
@@ -2444,6 +2444,10 @@ static const u8 sIceHammerDescription[] = _(
     "Swings the fist to strike.\n"
     "Lowers the user's Speed.");
 
+static const u8 sIronHammerDescription[] = _(
+    "Golpea como si fuese un\n"
+    "martillo. Baja la velocidad.");
+
 static const u8 sFloralHealingDescription[] = _(
     "Restores an ally's HP.\n"
     "Heals more on grass.");
@@ -2517,8 +2521,8 @@ static const u8 sSpeedSwapDescription[] = _(
     "the target's.");
 
 static const u8 sSmartStrikeDescription[] = _(
-    "Hits with an accurate\n"
-    "horn that never misses.");
+    "Golpea con un cuerno\n"
+    "que nunca falla.");
 
 static const u8 sPurifyDescription[] = _(
     "Cures the foe's status\n"
@@ -2830,8 +2834,8 @@ static const u8 sEternabeamDescription[] = _(
     "The user rests next turn.");
 
 static const u8 sSteelBeamDescription[] = _(
-    "Fires a beam of steel from\n"
-    "its body. It hurts the user.");
+    "Lanza un rayo láser usando\n"
+    "todo su poder. Baja ataque esp.");
 
 static const u8 sExpandingForceDescription[] = _(
     "Power goes up and damages\n"
@@ -3686,6 +3690,7 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT - 1] =
     [MOVE_DARKEST_LARIAT - 1] = sDarkestLariatDescription,
     [MOVE_SPARKLING_ARIA - 1] = sSparklingAriaDescription,
     [MOVE_ICE_HAMMER - 1] = sIceHammerDescription,
+    [MOVE_IRON_HAMMER - 1] = sIronHammerDescription,
     [MOVE_FLORAL_HEALING - 1] = sFloralHealingDescription,
     [MOVE_HIGH_HORSEPOWER - 1] = sHighHorsepowerDescription,
     [MOVE_STRENGTH_SAP - 1] = sStrengthSapDescription,
@@ -4161,7 +4166,7 @@ static const u8 sMoveFourLineDescription_Overheat[] = _("An intense attack\nthat
 static const u8 sMoveFourLineDescription_OdorSleuth[] = _("Completely negates\nthe foe's efforts to\nheighten its ability\nto evade.");
 static const u8 sMoveFourLineDescription_RockTomb[] = _("Boulders are hurled\nat the foe. It also\nlowers the foe's\nSpeed if it hits.");
 static const u8 sMoveFourLineDescription_SilverWind[] = _("The foe is attacked\nwith a silver dust.\nIt may raise all\nthe user's stats.");
-static const u8 sMoveFourLineDescription_MetalSound[] = _("A horrible metallic\nscreech is used to\nsharply lower the\nfoe's Sp. Def.");
+static const u8 sMoveFourLineDescription_MetalSound[] = _("Emite un chirrido\nestridente que\nbaja drásticamente\nla defensa especial.");
 static const u8 sMoveFourLineDescription_GrassWhistle[] = _("A pleasant melody\nis played to lull\nthe foe into a deep\nsleep.");
 static const u8 sMoveFourLineDescription_Tickle[] = _("The foe is made to\nlaugh, reducing its\nAttack and Defense\nstats.");
 static const u8 sMoveFourLineDescription_CosmicPower[] = _("The user absorbs a\nmystic power to\nraise its Defense\nand Sp. Def.");
@@ -4397,7 +4402,7 @@ static const u8 sMoveFourLineDescription_Swagger[] = _("A move that makes\nthe f
 static const u8 sMoveFourLineDescription_MilkDrink[] = _("Heals the user by\nup to half its full\nHP. It can be used\nto heal an ally.");
 static const u8 sMoveFourLineDescription_Spark[] = _("An electrically\ncharged tackle that\nmay also paralyze\nthe foe.");
 static const u8 sMoveFourLineDescription_FuryCutter[] = _("An attack that\ngrows stronger on\neach successive\nhit.");
-static const u8 sMoveFourLineDescription_SteelWing[] = _("The foe is hit with\nwings of steel.\nIt may also raise\nthe user's DEFENSE.");
+static const u8 sMoveFourLineDescription_SteelWing[] = _("El oponente es\ngolpeado con alas\nde hierro. Puede\nsubir la defensa.");
 static const u8 sMoveFourLineDescription_MeanLook[] = _("The foe is fixed\nwith a mean look\nthat prevents it\nfrom escaping.");
 static const u8 sMoveFourLineDescription_Attract[] = _("If it is the other\ngender, the foe is\nmade infatuated and\nunlikely to attack.");
 static const u8 sMoveFourLineDescription_SleepTalk[] = _("While asleep, the\nuser randomly uses\none of the moves it\nknows.");
@@ -4417,8 +4422,8 @@ static const u8 sMoveFourLineDescription_Encore[] = _("Makes the foe use\nthe mo
 static const u8 sMoveFourLineDescription_Pursuit[] = _("An attack move that\nworks especially\nwell on a foe that\nis switching out.");
 static const u8 sMoveFourLineDescription_RapidSpin[] = _("An attack that\nfrees the user from\nBIND, WRAP, LEECH\nSEED, and SPIKES.");
 static const u8 sMoveFourLineDescription_SweetScent[] = _("Allures the foe to\nreduce evasiveness.\nIt also attracts\nwild POKéMON.");
-static const u8 sMoveFourLineDescription_IronTail[] = _("An attack with a\nsteel-hard tail.\nIt may lower the\nfoe's DEFENSE stat.");
-static const u8 sMoveFourLineDescription_MetalClaw[] = _("The foe is attacked\nwith steel claws.\nIt may also raise\nthe user's ATTACK.");
+static const u8 sMoveFourLineDescription_IronTail[] = _("Un ataque usando\nuna dura cola.\nAlta probabilidad\nde bajar la defensa.");
+static const u8 sMoveFourLineDescription_MetalClaw[] = _("El oponente es\natacado con garras.\nmetálicas. Suele\nsubir el ataque.");
 static const u8 sMoveFourLineDescription_VitalThrow[] = _("Makes the user\nattack after the\nfoe. In return,\nit will not miss.");
 static const u8 sMoveFourLineDescription_MorningSun[] = _("Restores the user's\nHP. The amount of\nHP regained varies\nwith the weather.");
 static const u8 sMoveFourLineDescription_Synthesis[] = _("Restores the user's\nHP. The amount of\nHP regained varies\nwith the weather.");
@@ -4616,7 +4621,7 @@ static const u8 sMoveFourLineDescription_ShadowSneak[] = _("The user's shadow\ne
 static const u8 sMoveFourLineDescription_MudBomb[] = _("A hard-packed mud\nball is hurled at\nthe foe. This may\ndrop their accuracy.");
 static const u8 sMoveFourLineDescription_PsychoCut[] = _("Psychic blades\nstrike the foe.\nCritical hits land\nmore easily.");
 static const u8 sMoveFourLineDescription_ZenHeadbutt[] = _("The user focuses,\nand strikes the\nfoe. This may also\nmake the foe flinch.");
-static const u8 sMoveFourLineDescription_MirrorShot[] = _("A flash of energy\nis loosed at the\nfoe. This may drop\ntheir accuracy.");
+static const u8 sMoveFourLineDescription_MirrorShot[] = _("Un rayo de energía\nreflectante dirigida\nal oponente. Puede\nbajar la precisión.");
 static const u8 sMoveFourLineDescription_FlashCannon[] = _("Un haz de luz\nes lanzada al oponente.\nEste puede bajar\nsu defensa especial.");
 static const u8 sMoveFourLineDescription_RockClimb[] = _("A charging attack.\nIt may confuse the\nfoe. It is used to\nscale rocky walls.");
 static const u8 sMoveFourLineDescription_Defog[] = _("Wind blows across\nthe battlefield,\nclearing barriers,\nobstacles, etc.");
@@ -4629,7 +4634,7 @@ static const u8 sMoveFourLineDescription_PowerWhip[] = _("The user violently\nwh
 static const u8 sMoveFourLineDescription_CrossPoison[] = _("Critical hits land\nmore easily with\nthis slash. It may\npoison the foe.");
 static const u8 sMoveFourLineDescription_GunkShot[] = _("Filthy garbage is\nshot at the foe.\nThis may also\npoison the foe.");
 static const u8 sMoveFourLineDescription_IronHead[] = _("El atacante golpea\ncon su cabeza dura\ncomo el acero. Puede\nhacer retroceder.");
-static const u8 sMoveFourLineDescription_MagnetBomb[] = _("A steel bomb is\nlaunched at the\nfoe. This attack\nwill not miss.");
+static const u8 sMoveFourLineDescription_MagnetBomb[] = _("Una bomba magnética\nalcanza al rival.\nEste ataque no\npuede fallar.");
 static const u8 sMoveFourLineDescription_StoneEdge[] = _("Sharpened stones\nstab the foe from\nbelow. Critical hits\nland more easily.");
 static const u8 sMoveFourLineDescription_Captivate[] = _("Foes of a different\ngender are charmed,\nharshly lowering\ntheir Sp. Atk stat.");
 static const u8 sMoveFourLineDescription_StealthRock[] = _("Levitating stones\nsurround the foe.\nThis hurts foes\nthat switch in.");
@@ -4809,6 +4814,7 @@ static const u8 sMoveFourLineDescription_BanefulBunker[] = _("This move protects
 static const u8 sMoveFourLineDescription_SpiritShackle[] = _("The foe's shadow is\npinned down when it\nis hit, preventing\nit from escaping.");
 static const u8 sMoveFourLineDescription_DarkestLariat[] = _("The foe swings both\narms to hit its\nfoe, ignoring any\nstat changes.");
 static const u8 sMoveFourLineDescription_SparklingAria[] = _("Musical bubbles hit\nthose around the\nuser, healing the\nburn of those hit.");
+static const u8 sMoveFourLineDescription_IronHammer[] = _("Golpea como si\nfuese un martillo\nal rival, y\nbaja su velocidad.");
 static const u8 sMoveFourLineDescription_FloralHealing[] = _("Heals the target by\nup to half its max\nHP. It heals more\nin grassy terrain.");
 static const u8 sMoveFourLineDescription_HighHorsepower[] = _("The user fiercely\nattacks the foe\nusing its entire\nbody.");
 static const u8 sMoveFourLineDescription_StrengthSap[] = _("Restores HP by the\namount of the foe's\nAttack stat, and\ndrops their Attack.");
@@ -4827,7 +4833,7 @@ static const u8 sMoveFourLineDescription_FireLash[] = _("The foe is struck\nwith
 static const u8 sMoveFourLineDescription_PowerTrip[] = _("The more the user's\nstats are raised,\nthe greater this\nattack's power.");
 static const u8 sMoveFourLineDescription_BurnUp[] = _("To strike at full\nforce, the user\nburns out and loses\nits Fire-type.");
 static const u8 sMoveFourLineDescription_SpeedSwap[] = _("The user exchanges\nSpeed stats with\nthe target.");
-static const u8 sMoveFourLineDescription_SmartStrike[] = _("The user stabs the\nfoe with a sharp\nhorn. This attack\nnever misses.");
+static const u8 sMoveFourLineDescription_SmartStrike[] = _("Apuñala al rival\ncon un cuerno afilado.\nEste ataque no\npuede fallar.");
 static const u8 sMoveFourLineDescription_Purify[] = _("The user tries to\nheal the target's\nstatus condition to\nrestore its own HP.");
 static const u8 sMoveFourLineDescription_RevelationDance[] = _("The user attacks by\ndancing. The user's\ntype determines the\ntype of this move.");
 static const u8 sMoveFourLineDescription_CoreEnforcer[] = _("This attack will\nalso negate the\nfoe's Ability if it\nhas moved already.");
@@ -4909,7 +4915,7 @@ static const u8 sMoveFourLineDescription_Obstruct[] = _("Protects the user,\nand
 static const u8 sMoveFourLineDescription_FalseSurrender[] = _("The user pretends\nto bow, then stabs\nits foe. This move\nnever misses.");
 static const u8 sMoveFourLineDescription_MeteorAssault[] = _("Attacks wildly with\na thick leek. On\nthe next turn, the\nuser must rest.");
 static const u8 sMoveFourLineDescription_Eternabeam[] = _("Eternatus's most\npowerful move. On\nthe next turn, the\nuser must rest.");
-static const u8 sMoveFourLineDescription_SteelBeam[] = _("Fires a beam of\nsteel from the\nuser's body. It\nhurts the user.");
+static const u8 sMoveFourLineDescription_SteelBeam[] = _("Lanza un rayo\nláser usando\ntodo su poder.\nBaja -2 el at. esp.");
 
 static const u8 sMoveFourLineDescription_ExpandingForce[] = _("This move's power\ngoes up and damages\nall foes while on\nPsychic Terrain.");
 static const u8 sMoveFourLineDescription_SteelRoller[] = _("It destroys the\ncurrent terrain.\nFails if the ground\nisn't a terrain.");
@@ -5573,6 +5579,7 @@ const u8 *const gMoveFourLineDescriptionPointers[MOVES_COUNT - 1] = {
     [MOVE_DARKEST_LARIAT    - 1] = sMoveFourLineDescription_DarkestLariat,
     [MOVE_SPARKLING_ARIA    - 1] = sMoveFourLineDescription_SparklingAria,
     [MOVE_ICE_HAMMER        - 1] = sMoveFourLineDescription_HammerArm,
+    [MOVE_IRON_HAMMER       - 1] = sMoveFourLineDescription_IronHammer,
     [MOVE_FLORAL_HEALING    - 1] = sMoveFourLineDescription_FloralHealing,
     [MOVE_HIGH_HORSEPOWER   - 1] = sMoveFourLineDescription_HighHorsepower,
     [MOVE_STRENGTH_SAP      - 1] = sMoveFourLineDescription_StrengthSap,

@@ -389,11 +389,10 @@
 #define EFFECT_RISING_VOLTAGE               383
 #define EFFECT_BEAK_BLAST                   384
 #define EFFECT_COURT_CHANGE                 385
-#define EFFECT_STEEL_BEAM                   386
+#define EFFECT_DARK_VOID                    389
 #define EFFECT_EXTREME_EVOBOOST             387
 #define EFFECT_DAMAGE_SET_TERRAIN           388 // genesis supernova
-#define EFFECT_DARK_VOID                    389
 
-#define NUM_BATTLE_MOVE_EFFECTS             390
+#define NUM_BATTLE_MOVE_EFFECTS             389
 
 #endif  // GUARD_CONSTANTS_BATTLE_MOVE_EFFECTS_H
