@@ -1345,8 +1345,8 @@ static const u8 sIcicleSpearDescription[] = _(
     "2 to 5 icicles in a row.");
 
 static const u8 sIronDefenseDescription[] = _(
-    "Hardens the body's surface\n"
-    "to sharply raise Defense.");
+    "Endurece el cuerpo\n"
+    "y aumenta +2 la defensa.");
 
 static const u8 sBlockDescription[] = _(
     "Blocks the foe's way to\n"
@@ -1753,8 +1753,8 @@ static const u8 sGunkShotDescription[] = _(
     "the foe. May also poison.");
 
 static const u8 sIronHeadDescription[] = _(
-    "Slams the foe with a hard\n"
-    "head. May cause flinching.");
+    "Golpea con su dura cabeza.\n"
+    "Puede hacer retroceder.");
 
 static const u8 sMagnetBombDescription[] = _(
     "Launches a magnet that\n"
@@ -4176,7 +4176,7 @@ static const u8 sMoveFourLineDescription_MuddyWater[] = _("The user attacks\nwit
 static const u8 sMoveFourLineDescription_BulletSeed[] = _("The user shoots\nseeds at the foe.\nTwo to five seeds\nare shot at once.");
 static const u8 sMoveFourLineDescription_AerialAce[] = _("An extremely fast\nattack against one\ntarget. It can't be\nevaded.");
 static const u8 sMoveFourLineDescription_IcicleSpear[] = _("Sharp icicles are\nfired at the foe.\nIt strikes two to\nfive times.");
-static const u8 sMoveFourLineDescription_IronDefense[] = _("The user hardens\nits body's surface\nto sharply raise its\nDefense stat.");
+static const u8 sMoveFourLineDescription_IronDefense[] = _("El usuario fortaleza\nsu superficie corporal\npara subir drásticamente\nsu defensa física.");
 static const u8 sMoveFourLineDescription_Block[] = _("The user blocks the\nfoe's way with arms\nspread wide to\nprevent escape.");
 static const u8 sMoveFourLineDescription_Howl[] = _("The user howls to\nraise its spirit and\nboost its Attack\nstat.");
 static const u8 sMoveFourLineDescription_DragonClaw[] = _("Sharp, huge claws\nhook and slash the\nfoe quickly and\nwith great power.");
@@ -4628,7 +4628,7 @@ static const u8 sMoveFourLineDescription_LeafStorm[] = _("A storm of sharp\nleav
 static const u8 sMoveFourLineDescription_PowerWhip[] = _("The user violently\nwhirls its vines or\ntentacles to lash\nat the foe.");
 static const u8 sMoveFourLineDescription_CrossPoison[] = _("Critical hits land\nmore easily with\nthis slash. It may\npoison the foe.");
 static const u8 sMoveFourLineDescription_GunkShot[] = _("Filthy garbage is\nshot at the foe.\nThis may also\npoison the foe.");
-static const u8 sMoveFourLineDescription_IronHead[] = _("The user slams the\nfoe with its steel-\nhard head. The foe\nmay flinch.");
+static const u8 sMoveFourLineDescription_IronHead[] = _("El atacante golpea\ncon su cabeza dura\ncomo el acero. Puede\nhacer retroceder.");
 static const u8 sMoveFourLineDescription_MagnetBomb[] = _("A steel bomb is\nlaunched at the\nfoe. This attack\nwill not miss.");
 static const u8 sMoveFourLineDescription_StoneEdge[] = _("Sharpened stones\nstab the foe from\nbelow. Critical hits\nland more easily.");
 static const u8 sMoveFourLineDescription_Captivate[] = _("Foes of a different\ngender are charmed,\nharshly lowering\ntheir Sp. Atk stat.");
