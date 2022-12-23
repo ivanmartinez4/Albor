@@ -63,7 +63,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(MEOWTH,
-        MOVE_),
+        MOVE_METAL_SOUND),
 
     egg_moves(PSYDUCK,
         MOVE_),
@@ -290,7 +290,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(SKARMORY,
-        MOVE_),
+        MOVE_METAL_SOUND),
 
     egg_moves(HOUNDOUR,
         MOVE_MOONLIGHT),
@@ -377,6 +377,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(NOSEPASS,
+        MOVE_METAL_SOUND,
         MOVE_GEOMANCY),
 
     egg_moves(SKITTY,
@@ -415,6 +416,9 @@ const u16 gEggMoves[] = {
     egg_moves(CARVANHA,
         MOVE_),
 
+    egg_moves(CARKOL,
+        MOVE_METAL_SOUND),
+
     egg_moves(CARBINK,
         MOVE_),
 
@@ -444,6 +448,7 @@ const u16 gEggMoves[] = {
         MOVE_GEOMANCY),
 
     egg_moves(ZANGOOSE,
+        MOVE_METAL_SOUND,
         MOVE_MOONLIGHT),
 
     egg_moves(SEVIPER,
@@ -853,7 +858,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(ROOKIDEE,
-        MOVE_),
+        MOVE_METAL_SOUND),
 
     egg_moves(BLIPBUG,
         MOVE_MOONLIGHT,
@@ -890,14 +895,14 @@ const u16 gEggMoves[] = {
         MOVE_FAIRY_WIND),
 
     egg_moves(CUFANT,
-        MOVE_),
+        MOVE_METAL_SOUND),
 
     egg_moves(DREEPY,
         MOVE_),
 #endif
 
     egg_moves(SANDSHREW_ALOLAN,
-        MOVE_),
+        MOVE_METAL_SOUND),
 
     egg_moves(VULPIX_ALOLAN,
         MOVE_FAIRY_WIND),
