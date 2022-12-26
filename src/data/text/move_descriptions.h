@@ -1829,8 +1829,8 @@ static const u8 sMagmaStormDescription[] = _(
     "of fire for "BINDING_TURNS" turns.");
 
 static const u8 sDarkVoidDescription[] = _(
-    "Drags the foe into total\n"
-    "darkness, inducing Sleep.");
+    "Una sombra oscura se traga\n"
+    "al rival y lo duerme.");
 
 static const u8 sSeedFlareDescription[] = _(
     "Generates a shock wave that\n"
@@ -4304,7 +4304,7 @@ static const u8 sMoveFourLineDescription_RoarOfTime[] = _("A blast which\ndistor
 static const u8 sMoveFourLineDescription_SpacialRend[] = _("The foe, and the\nspace around it, is\ntorn. Critical hits\nland more easily.");
 static const u8 sMoveFourLineDescription_CrushGrip[] = _("The user crushes\nthe foe. The more\nHP the foe has, the\nstronger this move.");
 static const u8 sMoveFourLineDescription_MagmaStorm[] = _("The foe becomes\ntrapped within a\nmaelstrom of fire\nfor 4 or 5 turns.");
-static const u8 sMoveFourLineDescription_DarkVoid[] = _("The foe is dragged\ninto a world of\ntotal darkness that\nputs it to sleep.");
+static const u8 sMoveFourLineDescription_DarkVoid[] = _("Los rivales son\nengullidos por una\noscuridad total que\nlo obliga a dormir.");
 static const u8 sMoveFourLineDescription_SeedFlare[] = _("A shock wave is\nloosed at the foe.\nThis may lower the\nfoe's Sp. Def.");
 static const u8 sMoveFourLineDescription_OminousWind[] = _("A gust of repulsive\nwind is blasted at\nthe foe. This may\nup the user's stats.");
 static const u8 sMoveFourLineDescription_ShadowForce[] = _("The user vanishes.\nThe next turn, it\nstrikes the foe,\nignoring Protect.");
