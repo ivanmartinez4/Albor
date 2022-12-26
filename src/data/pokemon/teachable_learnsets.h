@@ -16,6 +16,7 @@ static const u16 sCharmanderTeachableLearnset[] = {
 
 static const u16 sCharmeleonTeachableLearnset[] = {
     MOVE_METAL_CLAW,
+    MOVE_SNARL,
     MOVE_UNAVAILABLE,
 };
 
@@ -35,6 +36,7 @@ static const u16 sWartortleTeachableLearnset[] = {
 static const u16 sBlastoiseTeachableLearnset[] = {
     MOVE_FLASH_CANNON,
     MOVE_IRON_DEFENSE,
+    MOVE_DARK_PULSE,
     MOVE_UNAVAILABLE,
 };
 
@@ -49,6 +51,7 @@ static const u16 sMetapodTeachableLearnset[] = {
 static const u16 sButterfreeTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_DAZZLING_GLEAM,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -61,6 +64,7 @@ static const u16 sKakunaTeachableLearnset[] = {
 };
 
 static const u16 sBeedrillTeachableLearnset[] = {
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 

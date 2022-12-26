@@ -3727,7 +3727,7 @@ static void Cmd_tryfaintmon(void)
         {
             gActiveBattler = gBattlerAttacker;
             battlerId = gBattlerTarget;
-            BS_ptr = BattleScript_FaintAttacker;
+            BS_ptr = BattleScript_FeintAttacker;
         }
         else
         {
@@ -12380,8 +12380,8 @@ static void Cmd_setembargo(void)
     else
     {
         gStatuses3[gBattlerTarget] |= STATUS3_EMBARGO;
-        gDisableStructs[gBattlerTarget].embargoTimer = 5;
-        gBattlescriptCurrInstr += 5;
+        gDisableStructs[gBattlerTarget].embargoTimer = 7;
+        gBattlescriptCurrInstr += 7;
     }
 }
 

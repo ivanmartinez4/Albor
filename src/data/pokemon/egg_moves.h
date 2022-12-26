@@ -7,7 +7,10 @@ const u16 gEggMoves[] = {
         MOVE_AROMATIC_MIST),
 
     egg_moves(CHARMANDER,
-        MOVE_),
+        MOVE_HONE_CLAWS),
+
+    egg_moves(WYNAUT,
+        MOVE_TOPSY_TURVY),
 
     egg_moves(SQUIRTLE,
         MOVE_),
@@ -72,7 +75,7 @@ const u16 gEggMoves[] = {
         MOVE_BULLET_PUNCH),
 
     egg_moves(GROWLITHE,
-        MOVE_),
+        MOVE_FIERY_WRATH),
 
     egg_moves(POLIWAG,
         MOVE_),
@@ -236,7 +239,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(WOOPER,
-        MOVE_),
+        MOVE_TOPSY_TURVY),
 
     egg_moves(MURKROW,
         MOVE_STRANGE_STEAM),
@@ -251,7 +254,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(DUNSPARCE,
-        MOVE_),
+        MOVE_TOPSY_TURVY),
 
     egg_moves(GLIGAR,
         MOVE_),
@@ -523,7 +526,7 @@ const u16 gEggMoves[] = {
         MOVE_),
 
     egg_moves(BIDOOF,
-        MOVE_),
+        MOVE_TOPSY_TURVY),
 
     egg_moves(SHINX,
         MOVE_BABY_DOLL_EYES),

@@ -8778,6 +8778,7 @@ static u32 CalcMoveBasePowerAfterModifiers(u16 move, u8 battlerAtk, u8 battlerDe
         if (gFieldStatuses & STATUS_FIELD_GRASSY_TERRAIN && !(gStatuses3[battlerDef] & STATUS3_SEMI_INVULNERABLE))
             MulModifier(&modifier, UQ_4_12(0.5));
         break;
+    case EFFECT_THIEF:
     case EFFECT_KNOCK_OFF:
         #if B_KNOCK_OFF_DMG >= GEN_6
         if (gBattleMons[battlerDef].item != ITEM_NONE
