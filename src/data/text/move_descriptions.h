@@ -2818,8 +2818,8 @@ static const u8 sLifeDewDescription[] = _(
     "the HP of itself and allies.");
 
 static const u8 sObstructDescription[] = _(
-    "Se protege y baja mucho\n"
-    "la defensa al contacto.");
+    "Se protege y baja la\n"
+    "defensa al contacto.");
 
 static const u8 sFalseSurrenderDescription[] = _(
     "Finge rendirse para\n"
@@ -4561,7 +4561,7 @@ static const u8 sMoveFourLineDescription_GravApple[] = _("The user drops an\napp
 static const u8 sMoveFourLineDescription_SpiritBreak[] = _("Ataque directo\na la moral del rival,\nque baja su\nataque especial.");
 static const u8 sMoveFourLineDescription_StrangeSteam[] = _("El usuario emite\nuna nube tóxica.\nAdemás de dañar,\npuede confundir al rival.");
 static const u8 sMoveFourLineDescription_LifeDew[] = _("The user restores\nthe HP of itself\nand its allies with\nmysterious water.");
-static const u8 sMoveFourLineDescription_Obstruct[] = _("Protege al usuario,\ny baja drásticamente\nla defensa del rival\nsi hace contacto.");
+static const u8 sMoveFourLineDescription_Obstruct[] = _("Protege al usuario\ny baja la defensa\ndel rival\nsi hace contacto.");
 static const u8 sMoveFourLineDescription_FalseSurrender[] = _("El usuario finge\nrendirse, para\ngolpear después.\nNunca falla.");
 static const u8 sMoveFourLineDescription_MeteorAssault[] = _("Attacks wildly with\na thick leek. On\nthe next turn, the\nuser must rest.");
 static const u8 sMoveFourLineDescription_Eternabeam[] = _("Eternatus's most\npowerful move. On\nthe next turn, the\nuser must rest.");

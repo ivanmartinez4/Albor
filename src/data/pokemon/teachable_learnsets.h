@@ -7,6 +7,7 @@ static const u16 sIvysaurTeachableLearnset[] = {
 };
 
 static const u16 sVenusaurTeachableLearnset[] = {
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -23,6 +24,7 @@ static const u16 sCharmeleonTeachableLearnset[] = {
 static const u16 sCharizardTeachableLearnset[] = {
     MOVE_METAL_CLAW,
     MOVE_SNARL,
+    MOVE_KNOCK_OFF,
     MOVE_UNAVAILABLE,
 };
 
@@ -66,6 +68,7 @@ static const u16 sKakunaTeachableLearnset[] = {
 
 static const u16 sBeedrillTeachableLearnset[] = {
     MOVE_TORMENT,
+    MOVE_KNOCK_OFF,
     MOVE_UNAVAILABLE,
 };
 
@@ -87,6 +90,8 @@ static const u16 sRattataTeachableLearnset[] = {
 };
 
 static const u16 sRaticateTeachableLearnset[] = {
+    MOVE_THIEF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -97,6 +102,7 @@ static const u16 sSpearowTeachableLearnset[] = {
 static const u16 sFearowTeachableLearnset[] = {
     MOVE_STEEL_WING,
     MOVE_NIGHT_SLASH,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -107,6 +113,9 @@ static const u16 sEkansTeachableLearnset[] = {
 
 static const u16 sArbokTeachableLearnset[] = {
     MOVE_IRON_TAIL,
+    MOVE_THIEF,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -125,6 +134,10 @@ static const u16 sRaichuTeachableLearnset[] = {
     MOVE_DISARMING_VOICE,
     MOVE_PLAY_ROUGH,
     MOVE_FLASH_CANNON,
+    MOVE_THIEF,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_NASTY_PLOT,
     MOVE_UNAVAILABLE,
 };
 
@@ -138,6 +151,9 @@ static const u16 sSandslashTeachableLearnset[] = {
     MOVE_IRON_DEFENSE,
     MOVE_METAL_CLAW,
     MOVE_NIGHT_SLASH,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -152,6 +168,8 @@ static const u16 sNidorinaTeachableLearnset[] = {
 static const u16 sNidoqueenTeachableLearnset[] = {
     MOVE_HEAVY_SLAM,
     MOVE_SMART_STRIKE,
+    MOVE_KNOCK_OFF,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -166,6 +184,8 @@ static const u16 sNidorinoTeachableLearnset[] = {
 static const u16 sNidokingTeachableLearnset[] = {
     MOVE_HEAVY_SLAM,
     MOVE_SMART_STRIKE,
+    MOVE_KNOCK_OFF,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -179,6 +199,8 @@ static const u16 sClefableTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_DAZZLING_GLEAM,
     MOVE_FLASH_CANNON,
+    MOVE_TAUNT,
+    MOVE_NASTY_PLOT,
     MOVE_UNAVAILABLE,
 };
 
@@ -192,6 +214,8 @@ static const u16 sNinetalesTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_DAZZLING_GLEAM,
     MOVE_DARK_PULSE,
+    MOVE_FLATTER,
+    MOVE_NASTY_PLOT,
     MOVE_UNAVAILABLE,
 };
 
@@ -209,6 +233,10 @@ static const u16 sWigglytuffTeachableLearnset[] = {
     MOVE_DISARMING_VOICE,
     MOVE_DRAINING_KISS,
     MOVE_FAKE_TEARS,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
+    MOVE_NASTY_PLOT,
     MOVE_UNAVAILABLE,
 };
 
@@ -233,6 +261,9 @@ static const u16 sGloomTeachableLearnset[] = {
 static const u16 sVileplumeTeachableLearnset[] = {
     MOVE_FLASH_CANNON,
     MOVE_FAKE_TEARS,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
+    MOVE_NASTY_PLOT,
     MOVE_UNAVAILABLE,
 };
 
@@ -242,6 +273,7 @@ static const u16 sParasTeachableLearnset[] = {
 
 static const u16 sParasectTeachableLearnset[] = {
     MOVE_NIGHT_SLASH,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -250,6 +282,10 @@ static const u16 sVenonatTeachableLearnset[] = {
 };
 
 static const u16 sVenomothTeachableLearnset[] = {
+    MOVE_FLATTER,
+    MOVE_TORMENT,
+    MOVE_DARK_PULSE,
+    MOVE_NASTY_PLOT,
     MOVE_UNAVAILABLE,
 };
 
@@ -258,6 +294,10 @@ static const u16 sDiglettTeachableLearnset[] = {
 };
 
 static const u16 sDugtrioTeachableLearnset[] = {
+    MOVE_THIEF,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -274,6 +314,11 @@ static const u16 sPersianTeachableLearnset[] = {
     MOVE_METAL_CLAW,
     MOVE_NIGHT_SLASH,
     MOVE_FAKE_TEARS,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -283,6 +328,7 @@ static const u16 sPsyduckTeachableLearnset[] = {
 
 static const u16 sGolduckTeachableLearnset[] = {
     MOVE_FLASH_CANNON,
+    MOVE_KNOCK_OFF,
     MOVE_UNAVAILABLE,
 };
 
@@ -293,6 +339,8 @@ static const u16 sMankeyTeachableLearnset[] = {
 
 static const u16 sPrimeapeTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
+    MOVE_KNOCK_OFF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -305,6 +353,8 @@ static const u16 sArcanineTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
     MOVE_METAL_CLAW,
     MOVE_SNARL,
+    MOVE_KNOCK_OFF,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -317,6 +367,8 @@ static const u16 sPoliwhirlTeachableLearnset[] = {
 };
 
 static const u16 sPoliwrathTeachableLearnset[] = {
+    MOVE_KNOCK_OFF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -333,6 +385,7 @@ static const u16 sKadabraTeachableLearnset[] = {
 static const u16 sAlakazamTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
     MOVE_DARK_PULSE,
+    MOVE_NASTY_PLOT,
     MOVE_UNAVAILABLE,
 };
 
@@ -346,6 +399,7 @@ static const u16 sMachokeTeachableLearnset[] = {
 
 static const u16 sMachampTeachableLearnset[] = {
     MOVE_HEAVY_SLAM,
+    MOVE_KNOCK_OFF,
     MOVE_UNAVAILABLE,
 };
 
@@ -358,6 +412,7 @@ static const u16 sWeepinbellTeachableLearnset[] = {
 };
 
 static const u16 sVictreebelTeachableLearnset[] = {
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -398,6 +453,7 @@ static const u16 sRapidashTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_PLAY_ROUGH,
     MOVE_SMART_STRIKE,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -406,6 +462,8 @@ static const u16 sSlowpokeTeachableLearnset[] = {
 };
 
 static const u16 sSlowbroTeachableLearnset[] = {
+    MOVE_TAUNT,
+    MOVE_NASTY_PLOT,
     MOVE_UNAVAILABLE,
 };
 
@@ -420,6 +478,8 @@ static const u16 sMagnetonTeachableLearnset[] = {
 };
 
 static const u16 sFarfetchdTeachableLearnset[] = {
+    MOVE_KNOCK_OFF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -440,6 +500,7 @@ static const u16 sSeelTeachableLearnset[] = {
 static const u16 sDewgongTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_DAZZLING_GLEAM,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -449,6 +510,8 @@ static const u16 sGrimerTeachableLearnset[] = {
 
 static const u16 sMukTeachableLearnset[] = {
     MOVE_SNARL,
+    MOVE_THIEF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -460,6 +523,7 @@ static const u16 sShellderTeachableLearnset[] = {
 static const u16 sCloysterTeachableLearnset[] = {
     MOVE_IRON_DEFENSE,
     MOVE_SMART_STRIKE,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -473,6 +537,9 @@ static const u16 sHaunterTeachableLearnset[] = {
 
 static const u16 sGengarTeachableLearnset[] = {
     MOVE_DARK_PULSE,
+    MOVE_TAUNT,
+    MOVE_TORMENT,
+    MOVE_NASTY_PLOT,
     MOVE_UNAVAILABLE,
 };
 
@@ -489,6 +556,10 @@ static const u16 sDrowzeeTeachableLearnset[] = {
 
 static const u16 sHypnoTeachableLearnset[] = {
     MOVE_DARK_PULSE,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
+    MOVE_NASTY_PLOT,
     MOVE_UNAVAILABLE,
 };
 
@@ -498,6 +569,8 @@ static const u16 sKrabbyTeachableLearnset[] = {
 
 static const u16 sKinglerTeachableLearnset[] = {
     MOVE_METAL_CLAW,
+    MOVE_KNOCK_OFF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -508,6 +581,8 @@ static const u16 sVoltorbTeachableLearnset[] = {
 
 static const u16 sElectrodeTeachableLearnset[] = {
     MOVE_FLASH_CANNON,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -518,6 +593,7 @@ static const u16 sExeggcuteTeachableLearnset[] = {
 static const u16 sExeggutorTeachableLearnset[] = {
     MOVE_HEAVY_SLAM,
     MOVE_IRON_HEAD,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -529,16 +605,20 @@ static const u16 sCuboneTeachableLearnset[] = {
 static const u16 sMarowakTeachableLearnset[] = {
     MOVE_IRON_DEFENSE,
     MOVE_IRON_HEAD,
+    MOVE_KNOCK_OFF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
 static const u16 sHitmonleeTeachableLearnset[] = {
     MOVE_IRON_DEFENSE,
+    MOVE_KNOCK_OFF,
     MOVE_UNAVAILABLE,
 };
 
 static const u16 sHitmonchanTeachableLearnset[] = {
     MOVE_IRON_DEFENSE,
+    MOVE_KNOCK_OFF,
     MOVE_UNAVAILABLE,
 };
 
@@ -553,6 +633,9 @@ static const u16 sKoffingTeachableLearnset[] = {
 };
 
 static const u16 sWeezingTeachableLearnset[] = {
+    MOVE_TAUNT,
+    MOVE_TORMENT,
+    MOVE_DARK_PULSE,
     MOVE_UNAVAILABLE,
 };
 
@@ -587,6 +670,8 @@ static const u16 sKangaskhanTeachableLearnset[] = {
     MOVE_HEAVY_SLAM,
     MOVE_IRON_HEAD,
     MOVE_IRON_TAIL,
+    MOVE_KNOCK_OFF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -607,6 +692,7 @@ static const u16 sGoldeenTeachableLearnset[] = {
 
 static const u16 sSeakingTeachableLearnset[] = {
     MOVE_SMART_STRIKE,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -617,6 +703,7 @@ static const u16 sStaryuTeachableLearnset[] = {
 
 static const u16 sStarmieTeachableLearnset[] = {
     MOVE_FLASH_CANNON,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -626,11 +713,15 @@ static const u16 sMrMimeTeachableLearnset[] = {
     MOVE_DISARMING_VOICE,
     MOVE_IRON_DEFENSE,
     MOVE_FAKE_TEARS,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
 static const u16 sScytherTeachableLearnset[] = {
     MOVE_METAL_CLAW,
+    MOVE_KNOCK_OFF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -640,6 +731,10 @@ static const u16 sJynxTeachableLearnset[] = {
     MOVE_DISARMING_VOICE,
     MOVE_DRAINING_KISS,
     MOVE_FAKE_TEARS,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
+    MOVE_NASTY_PLOT,
     MOVE_UNAVAILABLE,
 };
 
@@ -654,12 +749,16 @@ static const u16 sMagmarTeachableLearnset[] = {
 static const u16 sPinsirTeachableLearnset[] = {
     MOVE_METAL_CLAW,
     MOVE_NIGHT_SLASH,
+    MOVE_KNOCK_OFF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
 static const u16 sTaurosTeachableLearnset[] = {
     MOVE_HEAVY_SLAM,
     MOVE_IRON_HEAD,
+    MOVE_TORMENT,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -670,12 +769,14 @@ static const u16 sMagikarpTeachableLearnset[] = {
 static const u16 sGyaradosTeachableLearnset[] = {
     MOVE_HEAVY_SLAM,
     MOVE_IRON_TAIL,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
 static const u16 sLaprasTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_DISARMING_VOICE,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -687,6 +788,8 @@ static const u16 sEeveeTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_PLAY_ROUGH,
     MOVE_FAKE_TEARS,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -705,6 +808,7 @@ static const u16 sJolteonTeachableLearnset[] = {
 static const u16 sFlareonTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_PLAY_ROUGH,
+    MOVE_KNOCK_OFF,
     MOVE_UNAVAILABLE,
 };
 
@@ -720,6 +824,10 @@ static const u16 sOmanyteTeachableLearnset[] = {
 };
 
 static const u16 sOmastarTeachableLearnset[] = {
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
+    MOVE_DARK_PULSE,
     MOVE_UNAVAILABLE,
 };
 
@@ -731,6 +839,8 @@ static const u16 sKabutoTeachableLearnset[] = {
 static const u16 sKabutopsTeachableLearnset[] = {
     MOVE_METAL_CLAW,
     MOVE_NIGHT_SLASH,
+    MOVE_KNOCK_OFF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -738,12 +848,15 @@ static const u16 sAerodactylTeachableLearnset[] = {
     MOVE_IRON_HEAD,
     MOVE_METAL_CLAW,
     MOVE_STEEL_WING,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
 static const u16 sSnorlaxTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
     MOVE_HEAVY_SLAM,
+    MOVE_THIEF,
+    MOVE_TAUNT,
     MOVE_UNAVAILABLE,
 };
 
@@ -781,6 +894,8 @@ static const u16 sDragoniteTeachableLearnset[] = {
 
 static const u16 sMewtwoTeachableLearnset[] = {
     MOVE_DARK_PULSE,
+    MOVE_TORMENT,
+    MOVE_NASTY_PLOT,
     MOVE_UNAVAILABLE,
 };
 
@@ -789,6 +904,9 @@ static const u16 sMewTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
     MOVE_DISARMING_VOICE,
     MOVE_FAKE_TEARS,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -806,6 +924,7 @@ static const u16 sMeganiumTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_DAZZLING_GLEAM,
     MOVE_DRAINING_KISS,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -839,6 +958,10 @@ static const u16 sFeraligatrTeachableLearnset[] = {
     MOVE_NIGHT_SLASH,
     MOVE_FAKE_TEARS,
     MOVE_SNARL,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
+    MOVE_TAUNT,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -851,6 +974,10 @@ static const u16 sSentretTeachableLearnset[] = {
 static const u16 sFurretTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
     MOVE_METAL_CLAW,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
+    MOVE_TAUNT,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -861,6 +988,8 @@ static const u16 sHoothootTeachableLearnset[] = {
 static const u16 sNoctowlTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
     MOVE_DARK_PULSE,
+    MOVE_FLATTER,
+    MOVE_NASTY_PLOT,
     MOVE_UNAVAILABLE,
 };
 
@@ -869,6 +998,8 @@ static const u16 sLedybaTeachableLearnset[] = {
 };
 
 static const u16 sLedianTeachableLearnset[] = {
+    MOVE_KNOCK_OFF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -878,6 +1009,8 @@ static const u16 sSpinarakTeachableLearnset[] = {
 
 static const u16 sAriadosTeachableLearnset[] = {
     MOVE_SMART_STRIKE,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -885,6 +1018,7 @@ static const u16 sCrobatTeachableLearnset[] = {
     MOVE_DISARMING_VOICE,
     MOVE_NIGHT_SLASH,
     MOVE_DARK_PULSE,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -897,6 +1031,8 @@ static const u16 sChinchouTeachableLearnset[] = {
 static const u16 sLanturnTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
     MOVE_FLASH_CANNON,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -946,6 +1082,9 @@ static const u16 sXatuTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
     MOVE_FLASH_CANNON,
     MOVE_SMART_STRIKE,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
+    MOVE_NASTY_PLOT,
     MOVE_UNAVAILABLE,
 };
 
@@ -964,6 +1103,7 @@ static const u16 sFlaaffyTeachableLearnset[] = {
 static const u16 sAmpharosTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
     MOVE_FLASH_CANNON,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -972,6 +1112,7 @@ static const u16 sBellossomTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
     MOVE_DRAINING_KISS,
     MOVE_FLASH_CANNON,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -985,6 +1126,8 @@ static const u16 sAzumarillTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_PLAY_ROUGH,
     MOVE_FAKE_TEARS,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -993,6 +1136,9 @@ static const u16 sSudowoodoTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
     MOVE_IRON_HEAD,
     MOVE_FAKE_TEARS,
+    MOVE_KNOCK_OFF,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -1012,6 +1158,10 @@ static const u16 sSkiploomTeachableLearnset[] = {
 
 static const u16 sJumpluffTeachableLearnset[] = {
     MOVE_CHARM,
+    MOVE_DAZZLING_GLEAM,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1031,6 +1181,7 @@ static const u16 sSunfloraTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_DAZZLING_GLEAM,
     MOVE_FLASH_CANNON,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -1046,6 +1197,8 @@ static const u16 sWooperTeachableLearnset[] = {
 static const u16 sQuagsireTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
     MOVE_IRON_TAIL,
+    MOVE_TAUNT,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1061,6 +1214,8 @@ static const u16 sUmbreonTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
     MOVE_NIGHT_SLASH,
     MOVE_SNARL,
+    MOVE_KNOCK_OFF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1071,6 +1226,8 @@ static const u16 sMurkrowTeachableLearnset[] = {
 static const u16 sSlowkingTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
     MOVE_FLASH_CANNON,
+    MOVE_FLATTER,
+    MOVE_NASTY_PLOT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1087,6 +1244,8 @@ static const u16 sUnownTeachableLearnset[] = {
 static const u16 sWobbuffetTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
     MOVE_IRON_HEAD,
+    MOVE_TAUNT,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1094,6 +1253,9 @@ static const u16 sGirafarigTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_PLAY_ROUGH,
     MOVE_DARK_PULSE,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1114,6 +1276,7 @@ static const u16 sDunsparceTeachableLearnset[] = {
     MOVE_DRAINING_KISS,
     MOVE_PLAY_ROUGH,
     MOVE_SMART_STRIKE,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -1140,11 +1303,18 @@ static const u16 sGranbullTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
     MOVE_IRON_HEAD,
     MOVE_FAKE_TEARS,
+    MOVE_THIEF,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
 static const u16 sQwilfishTeachableLearnset[] = {
     MOVE_SMART_STRIKE,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1152,17 +1322,25 @@ static const u16 sScizorTeachableLearnset[] = {
     MOVE_IRON_DEFENSE,
     MOVE_IRON_HEAD,
     MOVE_METAL_CLAW,
+    MOVE_KNOCK_OFF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
 static const u16 sShuckleTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
+    MOVE_THIEF,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
 static const u16 sHeracrossTeachableLearnset[] = {
     MOVE_IRON_HEAD,
     MOVE_SMART_STRIKE,
+    MOVE_KNOCK_OFF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1183,6 +1361,9 @@ static const u16 sUrsaringTeachableLearnset[] = {
     MOVE_METAL_CLAW,
     MOVE_NIGHT_SLASH,
     MOVE_SNARL,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1191,6 +1372,7 @@ static const u16 sSlugmaTeachableLearnset[] = {
 };
 
 static const u16 sMagcargoTeachableLearnset[] = {
+    MOVE_TAUNT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1205,6 +1387,7 @@ static const u16 sPiloswineTeachableLearnset[] = {
 static const u16 sCorsolaTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_FAKE_TEARS,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -1214,17 +1397,24 @@ static const u16 sRemoraidTeachableLearnset[] = {
 
 static const u16 sOctilleryTeachableLearnset[] = {
     MOVE_DARK_PULSE,
+    MOVE_THIEF,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
 static const u16 sDelibirdTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_DAZZLING_GLEAM,
+    MOVE_FLATTER,
+    MOVE_NASTY_PLOT,
     MOVE_UNAVAILABLE,
 };
 
 static const u16 sMantineTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -1235,6 +1425,7 @@ static const u16 sSkarmoryTeachableLearnset[] = {
     MOVE_METAL_CLAW,
     MOVE_STEEL_WING,
     MOVE_NIGHT_SLASH,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1246,11 +1437,13 @@ static const u16 sHoundoomTeachableLearnset[] = {
     MOVE_NIGHT_SLASH,
     MOVE_SNARL,
     MOVE_DARK_PULSE,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
 static const u16 sKingdraTeachableLearnset[] = {
     MOVE_DRAINING_KISS,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1280,6 +1473,8 @@ static const u16 sStantlerTeachableLearnset[] = {
     MOVE_HEAVY_SLAM,
     MOVE_IRON_HEAD,
     MOVE_SNARL,
+    MOVE_KNOCK_OFF,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -1293,6 +1488,7 @@ static const u16 sTyrogueTeachableLearnset[] = {
 
 static const u16 sHitmontopTeachableLearnset[] = {
     MOVE_IRON_DEFENSE,
+    MOVE_KNOCK_OFF,
     MOVE_UNAVAILABLE,
 };
 
@@ -1316,6 +1512,8 @@ static const u16 sMiltankTeachableLearnset[] = {
     MOVE_HEAVY_SLAM,
     MOVE_IRON_HEAD,
     MOVE_FAKE_TEARS,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -1325,6 +1523,7 @@ static const u16 sBlisseyTeachableLearnset[] = {
     MOVE_DISARMING_VOICE,
     MOVE_DRAINING_KISS,
     MOVE_FAKE_TEARS,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -1333,6 +1532,7 @@ static const u16 sRaikouTeachableLearnset[] = {
     MOVE_IRON_HEAD,
     MOVE_METAL_CLAW,
     MOVE_SNARL,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1341,6 +1541,8 @@ static const u16 sEnteiTeachableLearnset[] = {
     MOVE_IRON_HEAD,
     MOVE_METAL_CLAW,
     MOVE_SNARL,
+    MOVE_KNOCK_OFF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1348,6 +1550,7 @@ static const u16 sSuicuneTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
     MOVE_FLASH_CANNON,
     MOVE_SNARL,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -1390,6 +1593,9 @@ static const u16 sCelebiTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_DAZZLING_GLEAM,
     MOVE_DISARMING_VOICE,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1403,6 +1609,10 @@ static const u16 sGrovyleTeachableLearnset[] = {
 
 static const u16 sSceptileTeachableLearnset[] = {
     MOVE_IRON_TAIL,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
+    MOVE_TAUNT,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1416,6 +1626,8 @@ static const u16 sCombuskenTeachableLearnset[] = {
 
 static const u16 sBlazikenTeachableLearnset[] = {
     MOVE_METAL_CLAW,
+    MOVE_KNOCK_OFF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1429,6 +1641,8 @@ static const u16 sMarshtompTeachableLearnset[] = {
 
 static const u16 sSwampertTeachableLearnset[] = {
     MOVE_HEAVY_SLAM,
+    MOVE_THIEF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1439,6 +1653,10 @@ static const u16 sPoochyenaTeachableLearnset[] = {
 static const u16 sMightyenaTeachableLearnset[] = {
     MOVE_METAL_CLAW,
     MOVE_NIGHT_SLASH,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
+    MOVE_TAUNT,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1451,6 +1669,11 @@ static const u16 sZigzagoonTeachableLearnset[] = {
 static const u16 sLinooneTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
     MOVE_METAL_CLAW,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1467,6 +1690,7 @@ static const u16 sBeautiflyTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
     MOVE_DRAINING_KISS,
     MOVE_FLASH_CANNON,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -1475,6 +1699,8 @@ static const u16 sCascoonTeachableLearnset[] = {
 };
 
 static const u16 sDustoxTeachableLearnset[] = {
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1487,6 +1713,9 @@ static const u16 sLombreTeachableLearnset[] = {
 };
 
 static const u16 sLudicoloTeachableLearnset[] = {
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1501,6 +1730,11 @@ static const u16 sNuzleafTeachableLearnset[] = {
 static const u16 sShiftryTeachableLearnset[] = {
     MOVE_NIGHT_SLASH,
     MOVE_DARK_PULSE,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
+    MOVE_TAUNT,
+    MOVE_TORMENT,
+    MOVE_NASTY_PLOT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1511,7 +1745,9 @@ static const u16 sTaillowTeachableLearnset[] = {
 
 static const u16 sSwellowTeachableLearnset[] = {
     MOVE_METAL_CLAW,
-    MOVE_STEEL_WING
+    MOVE_STEEL_WING,
+    MOVE_KNOCK_OFF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1544,6 +1780,7 @@ static const u16 sGardevoirTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
     MOVE_DISARMING_VOICE,
     MOVE_DRAINING_KISS,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -1554,6 +1791,7 @@ static const u16 sSurskitTeachableLearnset[] = {
 
 static const u16 sMasquerainTeachableLearnset[] = {
     MOVE_CHARM,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -1562,6 +1800,7 @@ static const u16 sShroomishTeachableLearnset[] = {
 };
 
 static const u16 sBreloomTeachableLearnset[] = {
+    MOVE_KNOCK_OFF,
     MOVE_UNAVAILABLE,
 };
 
@@ -1578,6 +1817,9 @@ static const u16 sVigorothTeachableLearnset[] = {
 static const u16 sSlakingTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
     MOVE_HEAVY_SLAM,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
+    MOVE_TAUNT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1588,6 +1830,8 @@ static const u16 sNincadaTeachableLearnset[] = {
 static const u16 sNinjaskTeachableLearnset[] = {
     MOVE_METAL_CLAW,
     MOVE_NIGHT_SLASH,
+    MOVE_THIEF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1611,6 +1855,7 @@ static const u16 sExploudTeachableLearnset[] = {
     MOVE_DISARMING_VOICE,
     MOVE_FAKE_TEARS,
     MOVE_SNARL,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1622,6 +1867,8 @@ static const u16 sMakuhitaTeachableLearnset[] = {
 static const u16 sHariyamaTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
     MOVE_HEAVY_SLAM,
+    MOVE_KNOCK_OFF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1647,6 +1894,8 @@ static const u16 sDelcattyTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
     MOVE_DISARMING_VOICE,
     MOVE_FAKE_TEARS,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -1655,6 +1904,10 @@ static const u16 sSableyeTeachableLearnset[] = {
     MOVE_FLASH_CANNON,
     MOVE_FAKE_TEARS,
     MOVE_DARK_PULSE,
+    MOVE_THIEF,
+    MOVE_TAUNT,
+    MOVE_TORMENT,
+    MOVE_NASTY_PLOT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1666,6 +1919,10 @@ static const u16 sMawileTeachableLearnset[] = {
     MOVE_METAL_CLAW,
     MOVE_NIGHT_SLASH,
     MOVE_FAKE_TEARS,
+    MOVE_KNOCK_OFF,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
+    MOVE_TAUNT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1690,6 +1947,7 @@ static const u16 sAggronTeachableLearnset[] = {
     MOVE_IRON_TAIL,
     MOVE_METAL_CLAW,
     MOVE_SMART_STRIKE,
+    MOVE_KNOCK_OFF,
     MOVE_UNAVAILABLE,
 };
 
@@ -1699,6 +1957,7 @@ static const u16 sMedititeTeachableLearnset[] = {
 
 static const u16 sMedichamTeachableLearnset[] = {
     MOVE_FAKE_TEARS,
+    MOVE_KNOCK_OFF,
     MOVE_UNAVAILABLE,
 };
 
@@ -1714,12 +1973,20 @@ static const u16 sManectricTeachableLearnset[] = {
 static const u16 sPlusleTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_DISARMING_VOICE,
+    MOVE_THIEF,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
 static const u16 sMinunTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_DISARMING_VOICE,
+    MOVE_THIEF,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1727,6 +1994,7 @@ static const u16 sVolbeatTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_DRAINING_KISS,
     MOVE_FLASH_CANNON,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -1735,6 +2003,7 @@ static const u16 sIllumiseTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
     MOVE_DRAINING_KISS,
     MOVE_FLASH_CANNON,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -1753,6 +2022,10 @@ static const u16 sSwalotTeachableLearnset[] = {
     MOVE_HEAVY_SLAM,
     MOVE_SNARL,
     MOVE_DARK_PULSE,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
+    MOVE_TAUNT,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1762,6 +2035,7 @@ static const u16 sCarvanhaTeachableLearnset[] = {
 
 static const u16 sSharpedoTeachableLearnset[] = {
     MOVE_NIGHT_SLASH,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1789,6 +2063,7 @@ static const u16 sNumelTeachableLearnset[] = {
 static const u16 sCameruptTeachableLearnset[] = {
     MOVE_HEAVY_SLAM,
     MOVE_SNARL,
+    MOVE_DARK_PULSE,
     MOVE_UNAVAILABLE,
 };
 
@@ -1810,11 +2085,16 @@ static const u16 sGrumpigTeachableLearnset[] = {
     MOVE_FLASH_CANNON,
     MOVE_HEAVY_SLAM,
     MOVE_DARK_PULSE,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
 static const u16 sSpindaTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1837,6 +2117,10 @@ static const u16 sCacneaTeachableLearnset[] = {
 };
 
 static const u16 sCacturneTeachableLearnset[] = {
+    MOVE_NIGHT_SLASH,
+    MOVE_KNOCK_OFF,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1859,6 +2143,8 @@ static const u16 sZangooseTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
     MOVE_METAL_CLAW,
     MOVE_NIGHT_SLASH,
+    MOVE_KNOCK_OFF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1866,6 +2152,8 @@ static const u16 sSeviperTeachableLearnset[] = {
     MOVE_HEAVY_SLAM,
     MOVE_IRON_TAIL,
     MOVE_SMART_STRIKE,
+    MOVE_THIEF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1875,12 +2163,16 @@ static const u16 sLunatoneTeachableLearnset[] = {
     MOVE_DISARMING_VOICE,
     MOVE_FLASH_CANNON,
     MOVE_DARK_PULSE,
+    MOVE_FLATTER,
+    MOVE_NASTY_PLOT,
     MOVE_UNAVAILABLE,
 };
 
 static const u16 sSolrockTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
     MOVE_FLASH_CANNON,
+    MOVE_FLATTER,
+    MOVE_NASTY_PLOT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1890,6 +2182,9 @@ static const u16 sBarboachTeachableLearnset[] = {
 
 static const u16 sWhiscashTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_NASTY_PLOT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1900,6 +2195,10 @@ static const u16 sCorphishTeachableLearnset[] = {
 static const u16 sCrawdauntTeachableLearnset[] = {
     MOVE_METAL_CLAW,
     MOVE_NIGHT_SLASH,
+    MOVE_KNOCK_OFF,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
+    MOVE_TAUNT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1911,6 +2210,9 @@ static const u16 sClaydolTeachableLearnset[] = {
     MOVE_FLASH_CANNON,
     MOVE_IRON_DEFENSE,
     MOVE_DARK_PULSE,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
+    MOVE_NASTY_PLOT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1919,6 +2221,11 @@ static const u16 sLileepTeachableLearnset[] = {
 };
 
 static const u16 sCradilyTeachableLearnset[] = {
+    MOVE_THIEF,
+    MOVE_DARK_PULSE,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1933,6 +2240,8 @@ static const u16 sArmaldoTeachableLearnset[] = {
     MOVE_IRON_HEAD,
     MOVE_IRON_TAIL,
     MOVE_METAL_CLAW,
+    MOVE_KNOCK_OFF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1945,6 +2254,7 @@ static const u16 sMiloticTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
     MOVE_DISARMING_VOICE,
     MOVE_FLASH_CANNON,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -1952,6 +2262,9 @@ static const u16 sCastformTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_DAZZLING_GLEAM,
     MOVE_FLASH_CANNON,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1959,6 +2272,10 @@ static const u16 sKecleonTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
     MOVE_IRON_DEFENSE,
     MOVE_METAL_CLAW,
+    MOVE_THIEF,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1974,6 +2291,10 @@ static const u16 sBanetteTeachableLearnset[] = {
     MOVE_METAL_CLAW,
     MOVE_NIGHT_SLASH,
     MOVE_FAKE_TEARS,
+    MOVE_THIEF,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1987,6 +2308,8 @@ static const u16 sDusclopsTeachableLearnset[] = {
 
 static const u16 sTropiusTeachableLearnset[] = {
     MOVE_HEAVY_SLAM,
+    MOVE_KNOCK_OFF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -1994,6 +2317,10 @@ static const u16 sChimechoTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_DAZZLING_GLEAM,
     MOVE_DISARMING_VOICE,
+    MOVE_FLASH_CANNON,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2003,6 +2330,11 @@ static const u16 sAbsolTeachableLearnset[] = {
     MOVE_SMART_STRIKE,
     MOVE_NIGHT_SLASH,
     MOVE_SNARL,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
+    MOVE_TAUNT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2053,6 +2385,7 @@ static const u16 sHuntailTeachableLearnset[] = {
 static const u16 sGorebyssTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_DRAINING_KISS,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -2064,6 +2397,9 @@ static const u16 sRelicanthTeachableLearnset[] = {
 static const u16 sLuvdiscTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_DRAINING_KISS,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2111,6 +2447,7 @@ static const u16 sRegirockTeachableLearnset[] = {
     MOVE_HEAVY_SLAM,
     MOVE_IRON_DEFENSE,
     MOVE_IRON_HEAD,
+    MOVE_KNOCK_OFF,
     MOVE_UNAVAILABLE,
 };
 
@@ -2148,6 +2485,7 @@ static const u16 sKyogreTeachableLearnset[] = {
     MOVE_IRON_HEAD,
     MOVE_IRON_TAIL,
     MOVE_SNARL,
+    MOVE_KNOCK_OFF,
     MOVE_UNAVAILABLE,
 };
 
@@ -2157,6 +2495,7 @@ static const u16 sGroudonTeachableLearnset[] = {
     MOVE_IRON_TAIL,
     MOVE_METAL_CLAW,
     MOVE_SNARL,
+    MOVE_KNOCK_OFF,
     MOVE_UNAVAILABLE,
 };
 
@@ -2165,6 +2504,7 @@ static const u16 sRayquazaTeachableLearnset[] = {
     MOVE_IRON_TAIL,
     MOVE_METAL_CLAW,
     MOVE_SNARL,
+    MOVE_KNOCK_OFF,
     MOVE_UNAVAILABLE,
 };
 
@@ -2173,6 +2513,9 @@ static const u16 sJirachiTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
     MOVE_DISARMING_VOICE,
     MOVE_FLASH_CANNON,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2205,6 +2548,9 @@ static const u16 sMonfernoTeachableLearnset[] = {
 };
 
 static const u16 sInfernapeTeachableLearnset[] = {
+    MOVE_KNOCK_OFF,
+    MOVE_TAUNT,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2236,6 +2582,8 @@ static const u16 sStaraviaTeachableLearnset[] = {
 static const u16 sStaraptorTeachableLearnset[] = {
     MOVE_METAL_CLAW,
     MOVE_STEEL_WING,
+    MOVE_KNOCK_OFF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2245,6 +2593,8 @@ static const u16 sBidoofTeachableLearnset[] = {
 
 static const u16 sBibarelTeachableLearnset[] = {
     MOVE_IRON_DEFENSE,
+    MOVE_THIEF,
+    MOVE_TAUNT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2258,6 +2608,9 @@ static const u16 sKricketuneTeachableLearnset[] = {
     MOVE_DISARMING_VOICE,
     MOVE_METAL_CLAW,
     MOVE_SMART_STRIKE,
+    MOVE_KNOCK_OFF,
+    MOVE_TAUNT,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2274,6 +2627,7 @@ static const u16 sLuxioTeachableLearnset[] = {
 static const u16 sLuxrayTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
     MOVE_NIGHT_SLASH,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2288,6 +2642,7 @@ static const u16 sRoseradeTeachableLearnset[] = {
     MOVE_DRAINING_KISS,
     MOVE_FLASH_CANNON,
     MOVE_FAKE_TEARS,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -2335,6 +2690,9 @@ static const u16 sCombeeTeachableLearnset[] = {
 
 static const u16 sVespiquenTeachableLearnset[] = {
     MOVE_CHARM,
+    MOVE_NASTY_PLOT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2342,6 +2700,10 @@ static const u16 sPachirisuTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_DISARMING_VOICE,
     MOVE_PLAY_ROUGH,
+    MOVE_THIEF,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2350,6 +2712,8 @@ static const u16 sBuizelTeachableLearnset[] = {
 };
 
 static const u16 sFloatzelTeachableLearnset[] = {
+    MOVE_THIEF,
+    MOVE_TAUNT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2375,6 +2739,9 @@ static const u16 sGastrodonTeachableLearnset[] = {
 static const u16 sAmbipomTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_PLAY_ROUGH,
+    MOVE_THIEF,
+    MOVE_TAUNT,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2383,6 +2750,8 @@ static const u16 sDrifloonTeachableLearnset[] = {
 };
 
 static const u16 sDrifblimTeachableLearnset[] = {
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2396,6 +2765,9 @@ static const u16 sLopunnyTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_PLAY_ROUGH,
     MOVE_FAKE_TEARS,
+    MOVE_KNOCK_OFF,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -2406,6 +2778,10 @@ static const u16 sMismagiusTeachableLearnset[] = {
     MOVE_FLASH_CANNON,
     MOVE_FAKE_TEARS,
     MOVE_DARK_PULSE,
+    MOVE_NASTY_PLOT,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2414,6 +2790,11 @@ static const u16 sHonchkrowTeachableLearnset[] = {
     MOVE_NIGHT_SLASH,
     MOVE_SNARL,
     MOVE_DARK_PULSE,
+    MOVE_THIEF,
+    MOVE_NASTY_PLOT,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2431,6 +2812,11 @@ static const u16 sPuruglyTeachableLearnset[] = {
     MOVE_METAL_CLAW,
     MOVE_NIGHT_SLASH,
     MOVE_FAKE_TEARS,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2447,6 +2833,10 @@ static const u16 sStunkyTeachableLearnset[] = {
 
 static const u16 sSkuntankTeachableLearnset[] = {
     MOVE_DARK_PULSE,
+    MOVE_NASTY_PLOT,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2485,6 +2875,9 @@ static const u16 sChatotTeachableLearnset[] = {
     MOVE_DISARMING_VOICE,
     MOVE_FAKE_TEARS,
     MOVE_SNARL,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2492,6 +2885,8 @@ static const u16 sSpiritombTeachableLearnset[] = {
     MOVE_NIGHT_SLASH,
     MOVE_FAKE_TEARS,
     MOVE_DARK_PULSE,
+    MOVE_NASTY_PLOT,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2512,6 +2907,7 @@ static const u16 sGarchompTeachableLearnset[] = {
     MOVE_IRON_TAIL,
     MOVE_METAL_CLAW,
     MOVE_NIGHT_SLASH,
+    MOVE_KNOCK_OFF,
     MOVE_UNAVAILABLE,
 };
 
@@ -2530,6 +2926,8 @@ static const u16 sLucarioTeachableLearnset[] = {
     MOVE_IRON_DEFENSE,
     MOVE_IRON_HEAD,
     MOVE_METAL_CLAW,
+    MOVE_KNOCK_OFF,
+    MOVE_NASTY_PLOT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2543,6 +2941,8 @@ static const u16 sHippowdonTeachableLearnset[] = {
     MOVE_HEAVY_SLAM,
     MOVE_IRON_HEAD,
     MOVE_SNARL,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
     MOVE_UNAVAILABLE,
 };
 
@@ -2556,6 +2956,8 @@ static const u16 sDrapionTeachableLearnset[] = {
     MOVE_METAL_CLAW,
     MOVE_NIGHT_SLASH,
     MOVE_SNARL,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
     MOVE_UNAVAILABLE,
 };
 
@@ -2568,10 +2970,17 @@ static const u16 sToxicroakTeachableLearnset[] = {
     MOVE_METAL_CLAW,
     MOVE_SMART_STRIKE,
     MOVE_NIGHT_SLASH,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
+    MOVE_FLATTER,
+    MOVE_TAUNT,
     MOVE_UNAVAILABLE,
 };
 
 static const u16 sCarnivineTeachableLearnset[] = {
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
+    MOVE_TAUNT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2582,6 +2991,8 @@ static const u16 sFinneonTeachableLearnset[] = {
 
 static const u16 sLumineonTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -2596,6 +3007,8 @@ static const u16 sSnoverTeachableLearnset[] = {
 static const u16 sAbomasnowTeachableLearnset[] = {
     MOVE_HEAVY_SLAM,
     MOVE_SNARL,
+    MOVE_KNOCK_OFF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2603,6 +3016,10 @@ static const u16 sWeavileTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
     MOVE_METAL_CLAW,
     MOVE_NIGHT_SLASH,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
+    MOVE_TAUNT,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2615,6 +3032,8 @@ static const u16 sMagnezoneTeachableLearnset[] = {
 static const u16 sLickilickyTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
     MOVE_IRON_TAIL,
+    MOVE_THIEF,
+    MOVE_TAUNT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2625,6 +3044,7 @@ static const u16 sRhyperiorTeachableLearnset[] = {
     MOVE_IRON_TAIL,
     MOVE_METAL_CLAW,
     MOVE_SMART_STRIKE,
+    MOVE_KNOCK_OFF,
     MOVE_UNAVAILABLE,
 };
 
@@ -2632,10 +3052,14 @@ static const u16 sTangrowthTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
     MOVE_HEAVY_SLAM,
     MOVE_IRON_DEFENSE,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
+    MOVE_TAUNT,
     MOVE_UNAVAILABLE,
 };
 
 static const u16 sElectivireTeachableLearnset[] = {
+    MOVE_KNOCK_OFF,
     MOVE_UNAVAILABLE,
 };
 
@@ -2649,10 +3073,14 @@ static const u16 sTogekissTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
     MOVE_DISARMING_VOICE,
     MOVE_DRAINING_KISS,
+    MOVE_NASTY_PLOT,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
 static const u16 sYanmegaTeachableLearnset[] = {
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2661,6 +3089,7 @@ static const u16 sLeafeonTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
     MOVE_IRON_TAIL,
     MOVE_SMART_STRIKE,
+    MOVE_KNOCK_OFF,
     MOVE_UNAVAILABLE,
 };
 
@@ -2675,6 +3104,10 @@ static const u16 sGliscorTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
     MOVE_SMART_STRIKE,
     MOVE_NIGHT_SLASH,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
+    MOVE_TAUNT,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2690,12 +3123,15 @@ static const u16 sPorygonZTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
     MOVE_SMART_STRIKE,
     MOVE_DARK_PULSE,
+    MOVE_NASTY_PLOT,
     MOVE_UNAVAILABLE,
 };
 
 static const u16 sGalladeTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
     MOVE_NIGHT_SLASH,
+    MOVE_KNOCK_OFF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2706,6 +3142,8 @@ static const u16 sProbopassTeachableLearnset[] = {
 
 static const u16 sDusknoirTeachableLearnset[] = {
     MOVE_NIGHT_SLASH,
+    MOVE_THIEF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2715,11 +3153,18 @@ static const u16 sFroslassTeachableLearnset[] = {
     MOVE_DRAINING_KISS,
     MOVE_IRON_DEFENSE,
     MOVE_DARK_PULSE,
+    MOVE_NASTY_PLOT,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
 static const u16 sRotomTeachableLearnset[] = {
     MOVE_DARK_PULSE,
+    MOVE_NASTY_PLOT,
+    MOVE_TAUNT,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2747,6 +3192,7 @@ static const u16 sHeatranTeachableLearnset[] = {
     MOVE_FLASH_CANNON,
     MOVE_IRON_DEFENSE,
     MOVE_DARK_PULSE,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2754,6 +3200,7 @@ static const u16 sRegigigasTeachableLearnset[] = {
     MOVE_HEAVY_SLAM,
     MOVE_IRON_DEFENSE,
     MOVE_IRON_HEAD,
+    MOVE_KNOCK_OFF,
     MOVE_UNAVAILABLE,
 };
 
@@ -2774,6 +3221,9 @@ static const u16 sManaphyTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
     MOVE_DISARMING_VOICE,
     MOVE_FAKE_TEARS,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2795,6 +3245,9 @@ static const u16 sVictiniTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_DAZZLING_GLEAM,
     MOVE_DISARMING_VOICE,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2813,6 +3266,8 @@ static const u16 sServineTeachableLearnset[] = {
 static const u16 sSerperiorTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_IRON_TAIL,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -2826,6 +3281,8 @@ static const u16 sPigniteTeachableLearnset[] = {
 
 static const u16 sEmboarTeachableLearnset[] = {
     MOVE_HEAVY_SLAM,
+    MOVE_KNOCK_OFF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2840,6 +3297,8 @@ static const u16 sDewottTeachableLearnset[] = {
 static const u16 sSamurottTeachableLearnset[] = {
     MOVE_IRON_TAIL,
     MOVE_SMART_STRIKE,
+    MOVE_KNOCK_OFF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2864,6 +3323,8 @@ static const u16 sHerdierTeachableLearnset[] = {
 static const u16 sStoutlandTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
     MOVE_SNARL,
+    MOVE_KNOCK_OFF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2908,6 +3369,7 @@ static const u16 sMunnaTeachableLearnset[] = {
 static const u16 sMusharnaTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_DRAINING_KISS,
+    MOVE_TAUNT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2961,6 +3423,10 @@ static const u16 sSwoobatTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
     MOVE_FAKE_TEARS,
     MOVE_DARK_PULSE,
+    MOVE_NASTY_PLOT,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2975,6 +3441,7 @@ static const u16 sExcadrillTeachableLearnset[] = {
     MOVE_METAL_CLAW,
     MOVE_SMART_STRIKE,
     MOVE_NIGHT_SLASH,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -2985,6 +3452,8 @@ static const u16 sAudinoTeachableLearnset[] = {
     MOVE_DRAINING_KISS,
     MOVE_FLASH_CANNON,
     MOVE_FAKE_TEARS,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -3000,6 +3469,8 @@ static const u16 sGurdurrTeachableLearnset[] = {
 
 static const u16 sConkeldurrTeachableLearnset[] = {
     MOVE_IRON_DEFENSE,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
     MOVE_UNAVAILABLE,
 };
 
@@ -3012,6 +3483,8 @@ static const u16 sPalpitoadTeachableLearnset[] = {
 };
 
 static const u16 sSeismitoadTeachableLearnset[] = {
+    MOVE_TAUNT,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -3048,6 +3521,8 @@ static const u16 sScolipedeTeachableLearnset[] = {
     MOVE_IRON_DEFENSE,
     MOVE_IRON_TAIL,
     MOVE_SMART_STRIKE,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -3061,6 +3536,10 @@ static const u16 sWhimsicottTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
     MOVE_FLASH_CANNON,
     MOVE_FAKE_TEARS,
+    MOVE_NASTY_PLOT,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -3096,6 +3575,10 @@ static const u16 sKrookodileTeachableLearnset[] = {
     MOVE_METAL_CLAW,
     MOVE_NIGHT_SLASH,
     MOVE_FAKE_TEARS,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
+    MOVE_TAUNT,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -3107,6 +3590,9 @@ static const u16 sDarumakaTeachableLearnset[] = {
 static const u16 sDarmanitanTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
     MOVE_IRON_DEFENSE,
+    MOVE_KNOCK_OFF,
+    MOVE_TAUNT,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -3132,6 +3618,11 @@ static const u16 sScraftyTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
     MOVE_IRON_HEAD,
     MOVE_FAKE_TEARS,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -3139,6 +3630,8 @@ static const u16 sSigilyphTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
     MOVE_FLASH_CANNON,
     MOVE_DARK_PULSE,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -3150,6 +3643,8 @@ static const u16 sYamaskTeachableLearnset[] = {
 static const u16 sCofagrigusTeachableLearnset[] = {
     MOVE_IRON_DEFENSE,
     MOVE_DARK_PULSE,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -3167,6 +3662,8 @@ static const u16 sArchenTeachableLearnset[] = {
 };
 
 static const u16 sArcheopsTeachableLearnset[] = {
+    MOVE_DARK_PULSE,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -3194,6 +3691,12 @@ static const u16 sZoroarkTeachableLearnset[] = {
     MOVE_FAKE_TEARS,
     MOVE_DARK_PULSE,
     MOVE_SNARL,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
+    MOVE_NASTY_PLOT,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -3207,6 +3710,9 @@ static const u16 sCinccinoTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_PLAY_ROUGH,
     MOVE_FAKE_TEARS,
+    MOVE_THIEF,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -3234,6 +3740,9 @@ static const u16 sGothitelleTeachableLearnset[] = {
     MOVE_FAKE_TEARS,
     MOVE_DARK_PULSE,
     MOVE_SNARL,
+    MOVE_NASTY_PLOT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -3252,6 +3761,9 @@ static const u16 sDuosionTeachableLearnset[] = {
 static const u16 sReuniclusTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_DAZZLING_GLEAM,
+    MOVE_NASTY_PLOT,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -3282,6 +3794,10 @@ static const u16 sVanilluxeTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
     MOVE_FLASH_CANNON,
     MOVE_FAKE_TEARS,
+    MOVE_NASTY_PLOT,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -3310,6 +3826,8 @@ static const u16 sFoongusTeachableLearnset[] = {
 };
 
 static const u16 sAmoongussTeachableLearnset[] = {
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -3319,6 +3837,8 @@ static const u16 sFrillishTeachableLearnset[] = {
 
 static const u16 sJellicentTeachableLearnset[] = {
     MOVE_DARK_PULSE,
+    MOVE_TAUNT,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -3334,6 +3854,7 @@ static const u16 sJoltikTeachableLearnset[] = {
 static const u16 sGalvantulaTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
     MOVE_FLASH_CANNON,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -3348,6 +3869,7 @@ static const u16 sFerrothornTeachableLearnset[] = {
     MOVE_IRON_DEFENSE,
     MOVE_IRON_HEAD,
     MOVE_METAL_CLAW,
+    MOVE_KNOCK_OFF,
     MOVE_UNAVAILABLE,
 };
 
@@ -3369,6 +3891,7 @@ static const u16 sKlinklangTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
     MOVE_FLASH_CANNON,
     MOVE_IRON_DEFENSE,
+    MOVE_NASTY_PLOT,
     MOVE_UNAVAILABLE,
 };
 
@@ -3388,6 +3911,7 @@ static const u16 sEelektrossTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
     MOVE_FLASH_CANNON,
     MOVE_METAL_CLAW,
+    MOVE_THIEF,
     MOVE_UNAVAILABLE,
 };
 
@@ -3401,6 +3925,7 @@ static const u16 sBeheeyemTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
     MOVE_FLASH_CANNON,
     MOVE_DARK_PULSE,
+    MOVE_NASTY_PLOT,
     MOVE_UNAVAILABLE,
 };
 
@@ -3420,6 +3945,7 @@ static const u16 sChandelureTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
     MOVE_FLASH_CANNON,
     MOVE_DARK_PULSE,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -3450,6 +3976,8 @@ static const u16 sBearticTeachableLearnset[] = {
     MOVE_METAL_CLAW,
     MOVE_NIGHT_SLASH,
     MOVE_SNARL,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
     MOVE_UNAVAILABLE,
 };
 
@@ -3498,6 +4026,8 @@ static const u16 sGolurkTeachableLearnset[] = {
     MOVE_HEAVY_SLAM,
     MOVE_IRON_DEFENSE,
     MOVE_IRON_HEAD,
+    MOVE_KNOCK_OFF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -3513,6 +4043,8 @@ static const u16 sBisharpTeachableLearnset[] = {
     MOVE_IRON_HEAD,
     MOVE_METAL_CLAW,
     MOVE_NIGHT_SLASH,
+    MOVE_KNOCK_OFF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -3530,6 +4062,9 @@ static const u16 sBraviaryTeachableLearnset[] = {
     MOVE_METAL_CLAW,
     MOVE_STEEL_WING,
     MOVE_NIGHT_SLASH,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -3543,6 +4078,12 @@ static const u16 sMandibuzzTeachableLearnset[] = {
     MOVE_NIGHT_SLASH,
     MOVE_FAKE_TEARS,
     MOVE_SNARL,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
+    MOVE_NASTY_PLOT,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -3568,6 +4109,8 @@ static const u16 sHydreigonTeachableLearnset[] = {
     MOVE_NIGHT_SLASH,
     MOVE_DARK_PULSE,
     MOVE_SNARL,
+    MOVE_NASTY_PLOT,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -3578,6 +4121,7 @@ static const u16 sLarvestaTeachableLearnset[] = {
 
 static const u16 sVolcaronaTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -3643,6 +4187,8 @@ static const u16 sChesnaughtTeachableLearnset[] = {
     MOVE_METAL_CLAW,
     MOVE_SMART_STRIKE,
     MOVE_NIGHT_SLASH,
+    MOVE_KNOCK_OFF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -3657,6 +4203,7 @@ static const u16 sBraixenTeachableLearnset[] = {
 static const u16 sDelphoxTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
     MOVE_DARK_PULSE,
+    MOVE_NASTY_PLOT,
     MOVE_UNAVAILABLE,
 };
 
@@ -3671,6 +4218,9 @@ static const u16 sFrogadierTeachableLearnset[] = {
 static const u16 sGreninjaTeachableLearnset[] = {
     MOVE_NIGHT_SLASH,
     MOVE_DARK_PULSE,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -3680,6 +4230,9 @@ static const u16 sBunnelbyTeachableLearnset[] = {
 
 static const u16 sDiggersbyTeachableLearnset[] = {
     MOVE_HEAVY_SLAM,
+    MOVE_THIEF,
+    MOVE_TAUNT,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -3756,6 +4309,10 @@ static const u16 sPangoroTeachableLearnset[] = {
     MOVE_IRON_HEAD,
     MOVE_METAL_CLAW,
     MOVE_SNARL,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
+    MOVE_TAUNT,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -3797,6 +4354,7 @@ static const u16 sAegislashTeachableLearnset[] = {
     MOVE_IRON_HEAD,
     MOVE_METAL_CLAW,
     MOVE_NIGHT_SLASH,
+    MOVE_KNOCK_OFF,
     MOVE_UNAVAILABLE,
 };
 
@@ -3822,6 +4380,12 @@ static const u16 sInkayTeachableLearnset[] = {
 
 static const u16 sMalamarTeachableLearnset[] = {
     MOVE_DARK_PULSE,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
+    MOVE_NASTY_PLOT,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -3904,6 +4468,8 @@ static const u16 sHawluchaTeachableLearnset[] = {
     MOVE_METAL_CLAW,
     MOVE_STEEL_WING,
     MOVE_SMART_STRIKE,
+    MOVE_KNOCK_OFF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -3929,6 +4495,8 @@ static const u16 sSliggooTeachableLearnset[] = {
 static const u16 sGoodraTeachableLearnset[] = {
     MOVE_IRON_TAIL,
     MOVE_FAKE_TEARS,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -3945,6 +4513,11 @@ static const u16 sTrevenantTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_HEAVY_SLAM,
     MOVE_METAL_CLAW,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -3974,6 +4547,8 @@ static const u16 sNoibatTeachableLearnset[] = {
 
 static const u16 sNoivernTeachableLearnset[] = {
     MOVE_DISARMING_VOICE,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -3993,6 +4568,7 @@ static const u16 sDiancieTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_DAZZLING_GLEAM,
     MOVE_FLASH_CANNON,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -4024,6 +4600,9 @@ static const u16 sDecidueyeTeachableLearnset[] = {
     MOVE_SMART_STRIKE,
     MOVE_STEEL_WING,
     MOVE_NIGHT_SLASH,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -4042,6 +4621,11 @@ static const u16 sIncineroarTeachableLearnset[] = {
     MOVE_METAL_CLAW,
     MOVE_NIGHT_SLASH,
     MOVE_SNARL,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -4067,6 +4651,7 @@ static const u16 sPrimarinaTeachableLearnset[] = {
     MOVE_DISARMING_VOICE,
     MOVE_DRAINING_KISS,
     MOVE_FAKE_TEARS,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -4082,6 +4667,9 @@ static const u16 sToucannonTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_PLAY_ROUGH,
     MOVE_SMART_STRIKE,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -4136,6 +4724,9 @@ static const u16 sLycanrocTeachableLearnset[] = {
     MOVE_METAL_CLAW,
     MOVE_NIGHT_SLASH,
     MOVE_SNARL,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -4151,6 +4742,9 @@ static const u16 sMareanieTeachableLearnset[] = {
 static const u16 sToxapexTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
     MOVE_IRON_DEFENSE,
+    MOVE_THIEF,
+    MOVE_TAUNT,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -4171,6 +4765,8 @@ static const u16 sDewpiderTeachableLearnset[] = {
 };
 
 static const u16 sAraquanidTeachableLearnset[] = {
+    MOVE_KNOCK_OFF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -4197,6 +4793,10 @@ static const u16 sSalanditTeachableLearnset[] = {
 static const u16 sSalazzleTeachableLearnset[] = {
     MOVE_FAKE_TEARS,
     MOVE_DARK_PULSE,
+    MOVE_NASTY_PLOT,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -4211,6 +4811,9 @@ static const u16 sBewearTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
     MOVE_HEAVY_SLAM,
     MOVE_FAKE_TEARS,
+    MOVE_THIEF,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -4230,6 +4833,10 @@ static const u16 sTsareenaTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_PLAY_ROUGH,
     MOVE_FAKE_TEARS,
+    MOVE_KNOCK_OFF,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -4238,12 +4845,17 @@ static const u16 sComfeyTeachableLearnset[] = {
 };
 
 static const u16 sOranguruTeachableLearnset[] = {
+    MOVE_NASTY_PLOT,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
 static const u16 sPassimianTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
     MOVE_IRON_HEAD,
+    MOVE_THIEF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -4297,6 +4909,10 @@ static const u16 sMimikyuTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_PLAY_ROUGH,
     MOVE_FAKE_TEARS,
+    MOVE_THIEF,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -4314,6 +4930,7 @@ static const u16 sDhelmiseTeachableLearnset[] = {
     MOVE_HEAVY_SLAM,
     MOVE_IRON_DEFENSE,
     MOVE_IRON_HEAD,
+    MOVE_KNOCK_OFF,
     MOVE_UNAVAILABLE,
 };
 
@@ -4338,6 +4955,8 @@ static const u16 sKommooTeachableLearnset[] = {
     MOVE_IRON_TAIL,
     MOVE_METAL_CLAW,
     MOVE_SNARL,
+    MOVE_KNOCK_OFF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -4379,6 +4998,8 @@ static const u16 sNihilegoTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
     MOVE_FLASH_CANNON,
     MOVE_DARK_PULSE,
+    MOVE_TAUNT,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -4407,6 +5028,9 @@ static const u16 sKartanaTeachableLearnset[] = {
     MOVE_IRON_DEFENSE,
     MOVE_METAL_CLAW,
     MOVE_SMART_STRIKE,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -4430,6 +5054,10 @@ static const u16 sMagearnaTeachableLearnset[] = {
 
 static const u16 sMarshadowTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
+    MOVE_TAUNT,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -4439,6 +5067,7 @@ static const u16 sPoipoleTeachableLearnset[] = {
 
 static const u16 sNaganadelTeachableLearnset[] = {
     MOVE_DARK_PULSE,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -4450,6 +5079,8 @@ static const u16 sBlacephalonTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
     MOVE_FLASH_CANNON,
     MOVE_DARK_PULSE,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -4466,6 +5097,7 @@ static const u16 sMelmetalTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
     MOVE_HEAVY_SLAM,
     MOVE_IRON_DEFENSE,
+    MOVE_KNOCK_OFF,
     MOVE_UNAVAILABLE,
 };
 #endif
@@ -4483,6 +5115,9 @@ static const u16 sThwackeyTeachableLearnset[] = {
 
 static const u16 sRillaboomTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
+    MOVE_KNOCK_OFF,
+    MOVE_TAUNT,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -4499,6 +5134,10 @@ static const u16 sRabootTeachableLearnset[] = {
 static const u16 sCinderaceTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
     MOVE_SMART_STRIKE,
+    MOVE_KNOCK_OFF,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -4513,6 +5152,7 @@ static const u16 sDrizzileTeachableLearnset[] = {
 static const u16 sInteleonTeachableLearnset[] = {
     MOVE_FLASH_CANNON,
     MOVE_DARK_PULSE,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -4539,6 +5179,7 @@ static const u16 sCorviknightTeachableLearnset[] = {
     MOVE_METAL_CLAW,
     MOVE_STEEL_WING,
     MOVE_NIGHT_SLASH,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -4553,6 +5194,10 @@ static const u16 sDottlerTeachableLearnset[] = {
 static const u16 sOrbeetleTeachableLearnset[] = {
     MOVE_FLASH_CANNON,
     MOVE_DARK_PULSE,
+    MOVE_NASTY_PLOT,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -4580,6 +5225,7 @@ static const u16 sDubwoolTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_PLAY_ROUGH,
     MOVE_SMART_STRIKE,
+    MOVE_TAUNT,
     MOVE_UNAVAILABLE,
 };
 
@@ -4610,6 +5256,7 @@ static const u16 sCarkolTeachableLearnset[] = {
 static const u16 sCoalossalTeachableLearnset[] = {
     MOVE_IRON_DEFENSE,
     MOVE_SNARL,
+    MOVE_DARK_PULSE,
     MOVE_UNAVAILABLE,
 };
 
@@ -4633,6 +5280,8 @@ static const u16 sSandacondaTeachableLearnset[] = {
     MOVE_HEAVY_SLAM,
     MOVE_IRON_DEFENSE,
     MOVE_IRON_TAIL,
+    MOVE_THIEF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -4657,6 +5306,9 @@ static const u16 sToxtricityTeachableLearnset[] = {
     MOVE_DISARMING_VOICE,
     MOVE_FLASH_CANNON,
     MOVE_SNARL,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -4707,6 +5359,10 @@ static const u16 sHattereneTeachableLearnset[] = {
     MOVE_DRAINING_KISS,
     MOVE_FAKE_TEARS,
     MOVE_DARK_PULSE,
+    MOVE_NASTY_PLOT,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -4733,6 +5389,12 @@ static const u16 sGrimmsnarlTeachableLearnset[] = {
     MOVE_FAKE_TEARS,
     MOVE_DARK_PULSE,
     MOVE_SNARL,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
+    MOVE_NASTY_PLOT,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -4744,6 +5406,11 @@ static const u16 sObstagoonTeachableLearnset[] = {
     MOVE_NIGHT_SLASH,
     MOVE_FAKE_TEARS,
     MOVE_SNARL,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -4791,6 +5458,7 @@ static const u16 sSnomTeachableLearnset[] = {
 static const u16 sFrosmothTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
     MOVE_FLASH_CANNON,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
@@ -4803,6 +5471,9 @@ static const u16 sEiscueTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
     MOVE_IRON_DEFENSE,
     MOVE_IRON_HEAD,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -4859,6 +5530,10 @@ static const u16 sDrakloakTeachableLearnset[] = {
 };
 
 static const u16 sDragapultTeachableLearnset[] = {
+    MOVE_NIGHT_SLASH,
+    MOVE_TAUNT,
+    MOVE_DARK_PULSE,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -4912,11 +5587,16 @@ static const u16 sCalyrexTeachableLearnset[] = {
 static const u16 sWyrdeerTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
     MOVE_SNARL,
+    MOVE_KNOCK_OFF,
+    MOVE_FLASH_CANNON,
+    MOVE_FLATTER,
     MOVE_UNAVAILABLE,
 };
 
 static const u16 sKleavorTeachableLearnset[] = {
     MOVE_METAL_CLAW,
+    MOVE_KNOCK_OFF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -4933,6 +5613,11 @@ static const u16 sSneaslerTeachableLearnset[] = {
     MOVE_METAL_CLAW,
     MOVE_NIGHT_SLASH,
     MOVE_FAKE_TEARS,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -4957,6 +5642,9 @@ static const u16 sRaichuAlolanTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
     MOVE_DISARMING_VOICE,
     MOVE_FLASH_CANNON,
+    MOVE_TAUNT,
+    MOVE_FLATTER,
+    MOVE_NASTY_PLOT,
     MOVE_UNAVAILABLE,
 };
 
@@ -4970,6 +5658,9 @@ static const u16 sSandslashAlolanTeachableLearnset[] = {
     MOVE_IRON_DEFENSE,
     MOVE_METAL_CLAW,
     MOVE_NIGHT_SLASH,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -4982,6 +5673,8 @@ static const u16 sVulpixAlolanTeachableLearnset[] = {
 static const u16 sNinetalesAlolanTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_DAZZLING_GLEAM,
+    MOVE_FLATTER,
+    MOVE_NASTY_PLOT,
     MOVE_UNAVAILABLE,
 };
 
@@ -5029,6 +5722,8 @@ static const u16 sMarowakAlolanTeachableLearnset[] = {
     MOVE_IRON_DEFENSE,
     MOVE_IRON_HEAD,
     MOVE_NIGHT_SLASH,
+    MOVE_KNOCK_OFF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -5057,6 +5752,9 @@ static const u16 sFarfetchdGalarianTeachableLearnset[] = {
 };
 
 static const u16 sWeezingGalarianTeachableLearnset[] = {
+    MOVE_TAUNT,
+    MOVE_TORMENT,
+    MOVE_DARK_PULSE,
     MOVE_UNAVAILABLE,
 };
 
@@ -5105,6 +5803,9 @@ static const u16 sDarumakaGalarianTeachableLearnset[] = {
 static const u16 sDarmanitanGalarianTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
     MOVE_IRON_DEFENSE,
+    MOVE_KNOCK_OFF,
+    MOVE_TAUNT,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -5188,16 +5889,19 @@ static const u16 sDecidueyeHisuianTeachableLearnset[] = {
 #endif
 
 static const u16 sDeoxysAttackTeachableLearnset[] = {
+    MOVE_KNOCK_OFF,
     MOVE_UNAVAILABLE,
 };
 
 static const u16 sDeoxysDefenseTeachableLearnset[] = {
     MOVE_IRON_DEFENSE,
+    MOVE_KNOCK_OFF,
     MOVE_UNAVAILABLE,
 };
 
 static const u16 sDeoxysSpeedTeachableLearnset[] = {
     MOVE_DARK_PULSE,
+    MOVE_KNOCK_OFF,
     MOVE_UNAVAILABLE,
 };
 
@@ -5247,6 +5951,7 @@ static const u16 sLycanrocMidnightTeachableLearnset[] = {
     MOVE_FLASH_CANNON,
     MOVE_DARK_PULSE,
     MOVE_SNARL,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 
@@ -5255,6 +5960,9 @@ static const u16 sLycanrocDuskTeachableLearnset[] = {
     MOVE_METAL_CLAW,
     MOVE_NIGHT_SLASH,
     MOVE_SNARL,
+    MOVE_KNOCK_OFF,
+    MOVE_THIEF,
+    MOVE_TORMENT,
     MOVE_UNAVAILABLE,
 };
 #endif
