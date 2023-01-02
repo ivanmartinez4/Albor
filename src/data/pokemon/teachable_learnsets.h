@@ -1468,6 +1468,7 @@ static const u16 sHoundoomTeachableLearnset[] = {
 static const u16 sKingdraTeachableLearnset[] = {
     MOVE_DRAINING_KISS,
     MOVE_TORMENT,
+    MOVE_DARK_PULSE,
     MOVE_UNAVAILABLE,
 };
 
@@ -2416,6 +2417,7 @@ static const u16 sGorebyssTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_DRAINING_KISS,
     MOVE_FLATTER,
+    MOVE_DARK_PULSE,
     MOVE_UNAVAILABLE,
 };
 
@@ -2516,6 +2518,7 @@ static const u16 sKyogreTeachableLearnset[] = {
     MOVE_IRON_TAIL,
     MOVE_SNARL,
     MOVE_KNOCK_OFF,
+    MOVE_DARK_PULSE,
     MOVE_UNAVAILABLE,
 };
 
@@ -2526,6 +2529,7 @@ static const u16 sGroudonTeachableLearnset[] = {
     MOVE_METAL_CLAW,
     MOVE_SNARL,
     MOVE_KNOCK_OFF,
+    MOVE_DARK_PULSE,
     MOVE_UNAVAILABLE,
 };
 
