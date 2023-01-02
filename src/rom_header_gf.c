@@ -66,7 +66,7 @@ struct GFRomHeader
     u32 playerNameOffset;
     u32 playerGenderOffset;
     u32 unk18;
-    const struct BaseStats * baseStats;
+    const struct SpeciesInfo * speciesInfo;
     const u8 (* abilityNames)[];
     const u8 *const * abilityDescriptions;
     const struct Item * items;
@@ -140,7 +140,7 @@ static const struct GFRomHeader sGFRomHeader = {
     .playerNameOffset = offsetof(struct SaveBlock2, playerName),
     .playerGenderOffset = offsetof(struct SaveBlock2, playerGender),
     .unk18 = 0x00000000,
-    .baseStats = gBaseStats,
+    .speciesInfo = gSpeciesInfo,
     .abilityNames = gAbilityNames,
     .abilityDescriptions = gAbilityDescriptionPointers,
     .items = gItems,

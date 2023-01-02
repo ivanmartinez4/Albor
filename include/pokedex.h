@@ -2,10 +2,7 @@
 #define GUARD_POKEDEX_H
 
 extern void (*gPokedexVBlankCB)(void);
-
-#if P_ENABLE_DEBUG == TRUE
 extern const u8 *const gMonFootprintTable[];
-#endif
 
 enum
 {
