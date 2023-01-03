@@ -1333,6 +1333,7 @@ const struct CompressedSpritePalette gMonPaletteTable[] =
     SPECIES_PAL(CALYREX_SHADOW_RIDER, gMonPalette_CalyrexShadowRider),
     SPECIES_PAL(ENAMORUS_THERIAN, gMonPalette_CircledQuestionMark), // gMonPalette_EnamorusTherian),
 #endif
+    SPECIES_PAL(GIMMIGHOUL_CHEST, gMonPalette_GimmighoulChest),
     SPECIES_PAL(EGG, gMonPalette_Egg),
 };
 

@@ -172,6 +172,7 @@ const u16 *const gFormSpeciesIdTables[NUM_SPECIES] =
     [SPECIES_CALYREX] = sCalyrexFormSpeciesIdTable,
     [SPECIES_ENAMORUS] = sEnamorusFormSpeciesIdTable,
 #endif
+    [SPECIES_GIMMIGHOUL] = sGimmighoulFormSpeciesIdTable,
     // Megas
     [SPECIES_VENUSAUR_MEGA] = sVenusaurFormSpeciesIdTable,
     [SPECIES_CHARIZARD_MEGA_X] = sCharizardFormSpeciesIdTable,
@@ -592,4 +593,6 @@ const u16 *const gFormSpeciesIdTables[NUM_SPECIES] =
     // Enamorus
     [SPECIES_ENAMORUS_THERIAN] = sEnamorusFormSpeciesIdTable,
 #endif
+    // Gimmighoul
+    [SPECIES_GIMMIGHOUL_CHEST] = sGimmighoulFormSpeciesIdTable,
 };

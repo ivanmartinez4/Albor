@@ -12908,5 +12908,6 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_CALYREX_SHADOW_RIDER] = sAnims_Calyrex,
     [SPECIES_ENAMORUS_THERIAN] = sAnims_EnamorusTherian,
 #endif
+    [SPECIES_GIMMIGHOUL_CHEST] = sAnims_GimmighoulChest,
     [SPECIES_EGG]         = sAnims_Egg,
 };

@@ -1147,3 +1147,9 @@ static const u16 sEnamorusFormSpeciesIdTable[] = {
 };
 
 #endif
+
+static const u16 sGimmighoulFormSpeciesIdTable[] = {
+    SPECIES_GIMMIGHOUL,
+    SPECIES_GIMMIGHOUL_CHEST,
+    FORM_SPECIES_END,
+};

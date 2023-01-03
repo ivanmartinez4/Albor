@@ -5227,5 +5227,7 @@ const struct MonCoords gMonBackPicCoords[] =
     // Enamorus
     [SPECIES_ENAMORUS_THERIAN]             = { .size = MON_COORDS_SIZE(64, 64), .y_offset =  0 },
 #endif
+    // Gimmighoul
+    [SPECIES_GIMMIGHOUL_CHEST]             = { .size = MON_COORDS_SIZE(56, 64), .y_offset =  3 },
     [SPECIES_EGG]                          = { .size = MON_COORDS_SIZE(24, 24), .y_offset = 20 },
 };

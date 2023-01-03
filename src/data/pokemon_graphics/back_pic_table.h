@@ -1334,6 +1334,7 @@ const struct CompressedSpriteSheet gMonBackPicTable[] =
 
     SPECIES_SPRITE(ENAMORUS_THERIAN, gMonBackPic_CircledQuestionMark), //gMonBackPic_EnamorusTherian),
 #endif
+    SPECIES_SPRITE(GIMMIGHOUL_CHEST, gMonBackPic_GimmighoulChest),
     SPECIES_SPRITE(EGG, gMonFrontPic_Egg),
 };
 

@@ -1333,6 +1333,7 @@ const struct CompressedSpriteSheet gMonFrontPicTable[] =
 
     SPECIES_SPRITE(ENAMORUS_THERIAN, gMonFrontPic_CircledQuestionMark), //gMonFrontPic_EnamorusTherian),
 #endif
+    SPECIES_SPRITE(GIMMIGHOUL_CHEST, gMonFrontPic_GimmighoulChest),
     SPECIES_SPRITE(EGG, gMonFrontPic_Egg),
 };
 
