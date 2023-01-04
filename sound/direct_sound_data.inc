@@ -4175,6 +4175,18 @@ Cry_Gholdengo::
 	.incbin "sound/direct_sound_samples/cries/gholdengo.bin"
 
 	.align 2
+Cry_Charcadet::
+	.incbin "sound/direct_sound_samples/cries/charcadet.bin"
+
+	.align 2
+Cry_Armarouge::
+	.incbin "sound/direct_sound_samples/cries/armarouge.bin"
+
+	.align 2
+Cry_Ceruledge::
+	.incbin "sound/direct_sound_samples/cries/ceruledge.bin"
+
+	.align 2
 Cry_VenusaurMega::
 	.incbin "sound/direct_sound_samples/cries/mega_venusaur.bin"
 

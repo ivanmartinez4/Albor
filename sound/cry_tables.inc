@@ -944,6 +944,9 @@ gCryTable::
 	cry Cry_Baxcalibur
 	cry Cry_Gimmighoul
 	cry Cry_Gholdengo
+	cry Cry_Charcadet
+	cry Cry_Armarouge
+	cry Cry_Ceruledge
 	@ Megas
 	cry Cry_VenusaurMega
 	cry Cry_CharizardMegaX
@@ -2288,6 +2291,9 @@ gCryTable_Reverse::
 	cry_reverse Cry_Baxcalibur
 	cry_reverse Cry_Gimmighoul
 	cry_reverse Cry_Gholdengo
+	cry_reverse Cry_Charcadet
+	cry_reverse Cry_Armarouge
+	cry_reverse Cry_Ceruledge
 	@ Megas
 	cry_reverse Cry_VenusaurMega
 	cry_reverse Cry_CharizardMegaX

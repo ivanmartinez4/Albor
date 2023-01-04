@@ -828,6 +828,9 @@ const u32 gObjectEventPic_Baxcalibur[] = INCBIN_U32("graphics/object_events/pics
 const u32 gObjectEventPic_Gimmighoul[] = INCBIN_U32("graphics/object_events/pics/pokemon/gimmighoul.4bpp");
 const u32 gObjectEventPic_GimmighoulChest[] = INCBIN_U32("graphics/object_events/pics/pokemon/gimmighoul_chest.4bpp");
 const u32 gObjectEventPic_Gholdengo[] = INCBIN_U32("graphics/object_events/pics/pokemon/gholdengo.4bpp");
+const u32 gObjectEventPic_Charcadet[] = INCBIN_U32("graphics/object_events/pics/pokemon/charcadet.4bpp");
+const u32 gObjectEventPic_Armarouge[] = INCBIN_U32("graphics/object_events/pics/pokemon/armarouge.4bpp");
+const u32 gObjectEventPic_Ceruledge[] = INCBIN_U32("graphics/object_events/pics/pokemon/ceruledge.4bpp");
 
 const u32 gObjectEventPic_DeoxysOld[] = INCBIN_U32("graphics/object_events/pics/pokemon/deoxys_old.4bpp");
 const u32 gObjectEventPic_MewOld[] = INCBIN_U32("graphics/object_events/pics/pokemon/mew_old.4bpp");
