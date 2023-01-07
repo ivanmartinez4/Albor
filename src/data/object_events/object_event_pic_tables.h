@@ -2200,6 +2200,14 @@ static const struct SpriteFrameImage sPicTable_Raichu[] = {
     overworld_frame(gObjectEventPic_Raichu, 4, 4, 4),
     overworld_frame(gObjectEventPic_Raichu, 4, 4, 5),
 };
+static const struct SpriteFrameImage sPicTable_AlolanRaichu[] = {
+    overworld_frame(gObjectEventPic_AlolanRaichu, 4, 4, 0),
+    overworld_frame(gObjectEventPic_AlolanRaichu, 4, 4, 1),
+    overworld_frame(gObjectEventPic_AlolanRaichu, 4, 4, 2),
+    overworld_frame(gObjectEventPic_AlolanRaichu, 4, 4, 3),
+    overworld_frame(gObjectEventPic_AlolanRaichu, 4, 4, 4),
+    overworld_frame(gObjectEventPic_AlolanRaichu, 4, 4, 5),
+};
 static const struct SpriteFrameImage sPicTable_Sandshrew[] = {
     overworld_frame(gObjectEventPic_Sandshrew, 4, 4, 0),
     overworld_frame(gObjectEventPic_Sandshrew, 4, 4, 1),
