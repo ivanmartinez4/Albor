@@ -8111,7 +8111,7 @@ const struct PokedexEntry gPokedexEntries[] =
     {
         .categoryName = _("Metal fundido"),
         .height = 25,
-        .weight = 800,
+        .weight = 8000,
         .description = gMelmetalPokedexText,
         .pokemonScale = 255,
         .pokemonOffset = 1,
@@ -9123,18 +9123,6 @@ const struct PokedexEntry gPokedexEntries[] =
         .height = 16,
         .weight = 620,
         .description = gCeruledgePokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-    
-    [NATIONAL_DEX_GIMMIGHOUL_CHEST] =
-    {
-        .categoryName = _("Cofre"),
-        .height = 3,
-        .weight = 50,
-        .description = gGimmighoulChestPokedexText,
         .pokemonScale = 346,
         .pokemonOffset = 11,
         .trainerScale = 256,

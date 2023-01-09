@@ -1,515 +1,210 @@
-    [NATIONAL_DEX_SPRIGATITO] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gSprigatitoPokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_FLORAGATO] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gFloragatoPokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_MEOWSCARADA] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gMeowscaradaPokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_FUECOCO] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gFuecocoPokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_CROCALOR] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gCrocalorPokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_SKELEDIRGE] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gSkeledirgePokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_QUAXLY] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gQuaxlyPokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_QUAXWELL] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gQuaxwellPokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_QUAQUAVAL] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gQuaquavalPokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_NYMBLE] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gNymblePokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_LOKIX] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gLokixPokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_SMOLIV] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gSmolivPokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_DOLLIV] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gDollivPokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_ARBOLIVA] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gArbolivaPokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_TADBULB] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gTadbulbPokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_BELLIBOLT] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gBelliboltPokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_SHROODLE] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gShroodlePokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_GRAFAIAI] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gGrafaiaiPokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_CAPSAKID] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gCapsakidPokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_SCOVILLAIN] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gScovillainPokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_FLITTLE] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gFlittlePokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_ESPATHRA] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gEspathraPokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_TINKATINK] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gTinkatinkPokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_TINKATUFF] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gTinkatuffPokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_TINKATON] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gTinkatonPokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_VAROOM] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gVaroomPokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_REVAVROOM] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gRevavroomPokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_ORTHWORM] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gOrthwormPokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_GREAVARD] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gGreavardPokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_HOUNDSTONE] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gHoundstonePokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_CETODDLE] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gCetoddlePokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_CETITAN] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gCetitanPokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_ANNIHILAPE] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gAnnihilapePokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_KLAWF] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gKlawfPokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_FRIGIBAX] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gFrigibaxPokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_ARCTIBAX] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gArctibaxPokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_BAXCALIBUR] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gBaxcaliburPokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_GIMMIGHOUL] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gGimmighoulPokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_GHOLDENGO] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gGholdengoPokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_CHARCADET] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gCharcadetPokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_ARMAROUGE] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gArmarougePokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-
-    [NATIONAL_DEX_CERULEDGE] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gCeruledgePokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
-    
-    [NATIONAL_DEX_GIMMIGHOUL_CHEST] =
-    {
-        .categoryName = _(""),
-        .height = ,
-        .weight = ,
-        .description = gGimmighoulChestPokedexText,
-        .pokemonScale = 346,
-        .pokemonOffset = 11,
-        .trainerScale = 256,
-        .trainerOffset = 0,
-    },
+    const u8 gSprigatitoPokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gFloragatoPokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gMeowscaradaPokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gFuecocoPokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gCrocalorPokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gSkeledirgePokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gQuaxlyPokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gQuaxwellPokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gQuaquavalPokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gNymblePokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gLokixPokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gSmolivPokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gDollivPokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gArbolivaPokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gTadbulbPokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gBelliboltPokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gShroodlePokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gGrafaiaiPokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gCapsakidPokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gScovillainPokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gFlittlePokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gEspathraPokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gTinkatinkPokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gTinkatuffPokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gTinkatonPokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gVaroomPokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gRevavroomPokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gOrthwormPokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gGreavardPokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gHoundstonePokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gCetoddlePokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gCetitanPokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gAnnihilapePokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gKlawfPokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gFrigibaxPokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gArctibaxPokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gBaxcaliburPokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gGimmighoulPokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gGholdengoPokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gCharcadetPokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gArmarougePokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
+    const u8 gCeruledgePokedexText[] = _(
+        "\n"
+        "\n"
+        "\n"
+        ".");
