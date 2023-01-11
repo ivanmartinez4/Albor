@@ -4173,72 +4173,76 @@ const u8 gToxtricityPokedexText[] = _(
     "generate electricity.");
 
 const u8 gHatennaPokedexText[] = _(
-    "Via the protrusion on its head, it senses\n"
-    "other creatures' emotions. If you don't\n"
-    "have a calm disposition, it will never\n"
-    "warm up to you.");
+    "La protuberancia de su cabeza\n"
+    "funciona como antena receptora\n"
+    "de sentimientos. Solo se acerca\n"
+    "a quienes tengan carácter sosegado.");
 
 const u8 gHattremPokedexText[] = _(
-    "No matter who you are, if you bring strong\n"
-    "emotions near this Pokémon, it will silence\n"
-    "you violently.");
+    "Si percibe a su alrededor emociones\n"
+    "intensas, golpea con sus mechones\n"
+    "al portador de estas, hasta conseguir\n"
+    "que se calle.");
 
 const u8 gHatterenePokedexText[] = _(
-    "It emits psychic power strong enough to\n"
-    "cause headaches as a deterrent to the\n"
-    "approach of others.");
+    "Con el fin de mantenerse alejada\n"
+    "de los demás, emana ondas psíquicas\n"
+    "que producen jaquecas. Es capaz de\n"
+    "percibir sentimientos a mucha distancia.");
 
 const u8 gImpidimpPokedexText[] = _(
-    "Through its nose, it sucks in the\n"
-    "emanations produced by people and Pokémon\n"
-    "when they feel annoyed. It thrives off\n"
-    "this negative energy.");
+    "Se infiltra en las casas para hurtar\n"
+    "a sus anchas. Además, es capaz de\n"
+    "alimentarse de la energía negativa\n"
+    "tanto de Pokémon como de personas.");
 
 const u8 gMorgremPokedexText[] = _(
-    "When it gets down on all fours as if to\n"
-    "beg for forgiveness, it's trying to lure\n"
-    "opponents in so that it can stab them\n"
-    "with its spear-like hair.");
+    "Su estrategia consiste en postrarse\n"
+    "ante su rival y fingir una disculpa,\n"
+    "para luego ensartarlo con el mechón\n"
+    "de su espalda, afilado como una lanza.");
 
 const u8 gGrimmsnarlPokedexText[] = _(
-    "With the hair wrapped around its body\n"
-    "helping to enhance its muscles, this\n"
-    "Pokémon can overwhelm even Machamp.");
+    "Su cabello funciona como fibras\n"
+    "musculares, y es capaz de controlarlo\n"
+    "a placer. Vive en lo más profundo\n"
+    "del bosque, y es un bromista.");
 
 const u8 gObstagoonPokedexText[] = _(
-    "Its voice is staggering in volume.\n"
-    "Obstagoon has a tendency to take on a\n"
-    "threatening posture and shout--this move\n"
-    "is known as Obstruct.");
+    "La potencia de su voz es realmente\n"
+    "intimidante. Ha forjado su carácter\n"
+    "después de numerosas peleas por los\n"
+    "callejones de la ciudad.");
 
 const u8 gSnomPokedexText[] = _(
-    "It spits out thread imbued with a frigid\n"
-    "sort of energy and uses it to tie its body\n"
-    "to branches, disguising itself as an\n"
-    "icicle while it sleeps.");
+    "Se nutre de la nieve acumulada en el\n"
+    "terreno. Para dormir, teje un hilo\n"
+    "gélido que le permite aferrarse a\n"
+    "las ramas, pasando por un carámbano.");
 
 const u8 gFrosmothPokedexText[] = _(
-    "Icy scales fall from its wings like snow\n"
-    "as it flies over fields and mountains.\n"
-    "The temperature of its wings is less than\n"
-    "-290 degrees Fahrenheit.");
+    "Sus alas están a temperaturas muy por\n"
+    "debajo de 0. Es capaz de lanzar sus\n"
+    "escamas como si fuese nieve. Le\n"
+    "encanta el agua del deshielo.");
 
 const u8 gEiscuePokedexText[] = _(
-    "It drifted in on the flow of ocean waters\n"
-    "from a frigid place. It keeps its head\n"
-    "iced constantly to make sure it stays\n"
-    "nice and cold.");
+    "Sufre mucho por el calor, ya que el\n"
+    "hielo que le cubre el rostro se\n"
+    "derrite, y pierde su función protectora.\n"
+    "Se deja llevar por la corriente.");
 
 const u8 gCufantPokedexText[] = _(
-    "It digs up the ground with its trunk.\n"
-    "It's also very strong, being able to\n"
-    "carry loads of over five tons without any\n"
-    "problem at all.");
+    "Con la lluvia, su cuerpo de cobre se\n"
+    "oxida y adquiere un tono verde intenso.\n"
+    "Utiliza su trompa para excavar en la\n"
+    "tierra en busca de minerales, su alimento.");
 
 const u8 gCopperajahPokedexText[] = _(
-    "They came over from another region long\n"
-    "ago and worked together with humans.\n"
-    "Their green skin is resistant to water.");
+    "Orgulloso y difícil de tratar. Con su\n"
+    "fuerza, es capaz de arrastrar mucho peso,\n"
+    "por eso se le usaba antiguamente en las\n"
+    "grandes construcciones.");
 
 const u8 gDreepyPokedexText[] = _(
     "En solitario es tan débil que no\n"
