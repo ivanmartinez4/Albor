@@ -2705,6 +2705,7 @@ static const struct LevelUpMove sGlameowLevelUpLearnset[] = {
 static const struct LevelUpMove sPuruglyLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_HONE_CLAWS),
     LEVEL_UP_MOVE( 1, MOVE_PURSUIT),
+    LEVEL_UP_MOVE( 1, MOVE_HYPNOSIS),
     LEVEL_UP_END
 };
 
