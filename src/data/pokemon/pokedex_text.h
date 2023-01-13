@@ -3946,94 +3946,94 @@ const u8 gDhelmisePokedexText[] = _(
     "seabed detritus and seaweed.");
 
 const u8 gJangmooPokedexText[] = _(
-    "It expresses its feelings by smacking its\n"
-    "scales. Metallic sounds echo through the\n"
-    "tall mountains where Jangmo-o live. They\n"
-    "grow little by little battling one another.");
+    "Expresa sus sentimientos haciendo\n"
+    "sonar sus escamas. Habita en montañas\n"
+    "despobladas, donde lucha con otros\n"
+    "Jangmo-o para fortalecerse.");
 
 const u8 gHakamooPokedexText[] = _(
-    "It sheds and regrows its scales on a\n"
-    "continuous basis. The scales become\n"
-    "harder each time they're regrown. Its\n"
-    "scaly punches tear its foes to shreds.");
+    "Muda constantemente sus escamas, que\n"
+    "cada vez se endurecen y se afilan más.\n"
+    "Se lanza sobre su enemigo entonando\n"
+    "un grito de guerra.");
 
 const u8 gKommooPokedexText[] = _(
-    "Its rigid scales function as offense and\n"
-    "defense. In the past, its scales were\n"
-    "processed and used to make weapons\n"
-    "and other valuable commodities.");
+    "Sus escamas le sirven tanto para atacar\n"
+    "como para defender. Antaño, se usaban\n"
+    "para fabricar armas. El tintineo de\n"
+    "estas hace temblar a sus enemigos.");
 
 const u8 gCosmogPokedexText[] = _(
-    "In ages past, it was called the child of\n"
-    "the stars. It's said to be a Pokémon from\n"
-    "another world, but no specific details\n"
-    "are known.");
+    "Su cuerpo es tan liviano que hasta\n"
+    "la brisa más ligera es capaz de\n"
+    "arrastrarlo. Si se siente en peligro,\n"
+    "se teletransporta a un lugar seguro.");
 
 const u8 gCosmoemPokedexText[] = _(
-    "Motionless as if dead, its body is faintly\n"
-    "warm to the touch. There's something\n"
-    "accumulating around the black core\n"
-    "within its hard shell.");
+    "Permanece inmóvil, como si estuviera\n"
+    "muerto, mientras crece continuamente\n"
+    "mediante la absorción de luz. Su\n"
+    "núcleo es el negro absoluto.");
 
 const u8 gNihilegoPokedexText[] = _(
-    "One of several mysterious Ultra Beasts.\n"
-    "It's unclear whether or not this Pokémon\n"
-    "is sentient, but sometimes it can be\n"
-    "observed behaving like a young girl.");
+    "Está en duda que este Ultraente tenga\n"
+    "consciencia propia, ya que se trata\n"
+    "de un parásito que se aprovecha tanto\n"
+    "de Pokémon como de personas.");
 
 const u8 gCelesteelaPokedexText[] = _(
-    "It appeared from the Ultra Wormhole.\n"
-    "One kind of Ultra Beast, witnesses saw\n"
-    "it flying across the sky by expelling gas\n"
-    "from its two arms.");
+    "Las lecturas energéticas que se han\n"
+    "realizado revelan unos picos de fuerza\n"
+    "jamás vistos hasta ahora. Alcanza\n"
+    "velocidades cercanas a la de la luz.");
 
 const u8 gKartanaPokedexText[] = _(
-    "This Ultra Beast came from the\n"
-    "Ultra Wormhole. It seems not to attack\n"
-    "enemies on its own, but its sharp body is\n"
-    "a dangerous weapon in itself.");
+    "Su reducido tamaño lleva a engaño:\n"
+    "es capaz de cortar una enorme torre\n"
+    "de acero por la mitad como si fuese\n"
+    "mantequilla, y sin desafilarse.");
 
 const u8 gGuzzlordPokedexText[] = _(
-    "A dangerous Ultra Beast, it has gobbled\n"
-    "mountains and swallowed whole buildings,\n"
-    "according to reports. But for some reason\n"
-    "its droppings have never been found.");
+    "Su hambre es gigantesca e insaciable.\n"
+    "Se le ha visto devorando montañas enteras,\n"
+    "sin, extrañamente, dejar ningún tipo de\n"
+    "excremento.");
 
 const u8 gMarshadowPokedexText[] = _(
-    "Able to conceal itself in the shadows of\n"
-    "others, it never appears before humans,\n"
-    "so its very existence is the stuff of myth.\n"
-    "This Pokémon is craven and cowering.");
+    "Se oculta en la sombra de su oponente,\n"
+    "y copia sus movimientos y su fuerza.\n"
+    "Por ello, la mayoría de la gente ha\n"
+    "creído que se trata de un mito.");
 
 const u8 gPoipolePokedexText[] = _(
-    "This Ultra Beast is well enough\n"
-    "liked to be chosen as a\n"
-    "first partner in its own world.");
+    "Se dice que provienen de otro mundo,\n"
+    "y que millones de ejemplares se han\n"
+    "esparcido por todo el universo con\n"
+    "el fin de polinizarlo.");
 
 const u8 gNaganadelPokedexText[] = _(
-    "It stores hundreds of liters of poisonous\n"
-    "liquid inside its body. It is one of the\n"
-    "organisms known as UBs.");
-
-const u8 gStakatakaPokedexText[] = _(
-    "It appeared from an Ultra Wormhole. Each\n"
-    "one appears to be made up of many life-\n"
-    "forms stacked one on top of each other.");
+    "En su cuerpo almacena cientos de\n"
+    "litros de veneno, que segrega por\n"
+    "su aguijón. Su viscosidad le da\n"
+    "una apariencia brillante.");
 
 const u8 gBlacephalonPokedexText[] = _(
-    "It slithers toward people and explode\n"
-    "its head without warning. It is\n"
-    "one kind of Ultra Beast.");
+    "Es capaz de hacer explotar su propia\n"
+    "cabeza, para luego regenerarla. Su\n"
+    "contoneo sorprende al oponente, del\n"
+    "que absorbe su energía vital.");
 
 const u8 gMeltanPokedexText[] = _(
-    "It melts particles of iron and other metals\n"
-    "found in the subsoil, so it can absorb them\n"
-    "into its body of molten steel.");
+    "Su cuerpo está compuesto de acero\n"
+    "líquido, que él mismo ha fundido\n"
+    "para ingerirlo. De la circulación\n"
+    "de este es capaz de generar energía.");
 
 const u8 gMelmetalPokedexText[] = _(
-    "Revered long ago for its capacity to create\n"
-    "iron from nothing, for some reason it has\n"
-    "come back to life after 3,000 years.");
+    "Reverenciado en la antigüedad por\n"
+    "su poder de crear hierro. Al final\n"
+    "de su vida, su cuerpo se oxida, y\n"
+    "de los pedazos nacen Meltan.");
 
 const u8 gGrookeyPokedexText[] = _(
     "El toqueteo de las baquetas de Grookey\n"
