@@ -3886,64 +3886,64 @@ const u8 gBewearPokedexText[] = _(
     "by its hug.");
 
 const u8 gBounsweetPokedexText[] = _(
-    "A delectable aroma pours from its body. \n"
-    "Bounsweet's sweat can be watered down\n"
-    "into a juice with just the right amount\n"
-    "of sweetness.");
+    "Debe de tener cuidado: su dulzura\n"
+    "y su olor llaman la atención de los\n"
+    "Toucannon, que las engullen sin\n"
+    "ni siquiera masticar.");
 
 const u8 gSteeneePokedexText[] = _(
-    "The sepals on its head developed to\n"
-    "protect its body. These are quite hard, so\n"
-    "even if pecked by bird Pokémon, this\n"
-    "Pokémon is totally fine.");
+    "Se pasa el día saltando rebosante\n"
+    "de felicidad, y  esto fortalece\n"
+    "sus piernas. El cáliz de su cabeza\n"
+    "se ha fortalecido, y la protege.");
 
 const u8 gTsareenaPokedexText[] = _(
-    "Its long, striking legs aren't just for\n"
-    "show but to be used to kick with skill.\n"
-    "In victory, it shows off by kicking the\n"
-    "defeated, laughing boisterously.");
+    "Sus largas y esbeltas piernas causan\n"
+    "furor entre los Pokémon. Sin embargo,\n"
+    "las apariencias engañan: la fuerza\n"
+    "de su patada es tremenda.");
 
 const u8 gOranguruPokedexText[] = _(
-    "Deep in the jungle, high in the lofty\n"
-    "canopy, this Pokémon abides. On rare\n"
-    "occasions, it shows up at the beach to\n"
-    "match wits with Slowking.");
+    "Su lugar es lo más alto de la jungla,\n"
+    "donde se dedica a la meditación.\n"
+    "Tiene conocimientos de medicina, y\n"
+    "usa bayas para curar a Passimian.");
 
 const u8 gPassimianPokedexText[] = _(
-    "They battle with hard berries for weapons.\n"
-    "They form groups of about 20 individuals.\n"
-    "Their techniques are passed from the boss\n"
-    "to the group, generation upon generation.");
+    "Vive en la jungla en pequeñas manadas\n"
+    "de individuos muy fuertes y entrenados\n"
+    "para la caza, liderados por un Oranguru,\n"
+    "al que protegen a toda costa.");
 
 const u8 gSandygastPokedexText[] = _(
-    "It takes control of anyone who puts a hand\n"
-    "in its mouth, to add to the accumulation\n"
-    "of its sand-mound body. This Pokémon\n"
-    "embodies the grudges of the departed.");
+    "Siente un gran aprecio por la pala de\n"
+    "su cabeza. Si un niño intenta quitársela,\n"
+    "se enfurece y pelea por ella. Su objetivo\n"
+    "es aumentar el tamaño de su cuerpo.");
 
 const u8 gPalossandPokedexText[] = _(
-    "Possessed people controlled by this\n"
-    "Pokémon transformed its sand mound into\n"
-    "a castle. As it evolved, its power to curse\n"
-    "grew ever stronger.");
+    "Atrapa a pequeños Pokémon dentro de su\n"
+    "cuerpo arenoso y les absorbe la vitalidad.\n"
+    "Es capaz de generar tormentas de arena\n"
+    "para apresar a sus víctimas.");
 
 const u8 gMimikyuPokedexText[] = _(
-    "A lonely Pokémon, it hides its terrifying\n"
-    "appearance beneath an old rag so it can\n"
-    "get closer to people and other Pokémon.\n"
-    "Its actual appearance is unknown.");
+    "Su verdadero aspecto es un misterio.\n"
+    "El saco andrajoso le permite ocultarse\n"
+    "y acercarse a otros para así vencer a\n"
+    "la soledad que lo atenaza.");
 
 const u8 gDrampaPokedexText[] = _(
-    "This Pokémon is friendly to people and\n"
-    "loves children most of all. It comes from\n"
-    "deep in the mountains to play with\n"
-    "children it likes in town.");
+    "Extremadamente manso, si entra en cólera\n"
+    "destruye todo lo que le rodea con su\n"
+    "aliento devastador. Habita en las altas\n"
+    "cimas de las montañas.");
 
 const u8 gDhelmisePokedexText[] = _(
-    "The soul of seaweed adrift in the waves\n"
-    "became reborn as this Pokémon.\n"
-    "It maintains itself with new infusions of\n"
-    "seabed detritus and seaweed.");
+    "El verdadero cuerpo de este fantasma\n"
+    "es el alga verde que ha tomado el\n"
+    "ancla como posesión. Es capaz de\n"
+    "noquear un Wailord de un solo golpe.");
 
 const u8 gJangmooPokedexText[] = _(
     "Expresa sus sentimientos haciendo\n"
