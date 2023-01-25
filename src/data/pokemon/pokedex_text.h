@@ -3327,6 +3327,18 @@ const u8 gEelektrossPokedexText[] = _(
     "immediately drag it into the ocean, with\n"
     "their sucker mouths.");
 
+const u8 gMienfooPokedexText[] = _(
+    "They crawl out of the ocean using their\n"
+    "arms. They will attack prey on shore and\n"
+    "immediately drag it into the ocean, with\n"
+    "their sucker mouths.");
+
+const u8 gMienshaoPokedexText[] = _(
+    "They crawl out of the ocean using their\n"
+    "arms. They will attack prey on shore and\n"
+    "immediately drag it into the ocean, with\n"
+    "their sucker mouths.");
+
 const u8 gElgyemPokedexText[] = _(
     "It psychically squeezes the brain of\n"
     "its foe, causing unendurable headaches.\n"

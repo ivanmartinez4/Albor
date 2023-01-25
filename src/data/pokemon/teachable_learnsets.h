@@ -3972,6 +3972,14 @@ static const u16 sEelektrossTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };
 
+static const u16 sMienfooTeachableLearnset[] = {
+    MOVE_UNAVAILABLE,
+};
+
+static const u16 sMienshaoTeachableLearnset[] = {
+    MOVE_UNAVAILABLE,
+};
+
 static const u16 sElgyemTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
     MOVE_FLASH_CANNON,
@@ -4056,14 +4064,6 @@ static const u16 sAccelgorTeachableLearnset[] = {
 };
 
 static const u16 sStunfiskTeachableLearnset[] = {
-    MOVE_UNAVAILABLE,
-};
-
-static const u16 sMienfooTeachableLearnset[] = {
-    MOVE_UNAVAILABLE,
-};
-
-static const u16 sMienshaoTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };
 

@@ -3501,6 +3501,17 @@ static const struct LevelUpMove sEelektrossLevelUpLearnset[] = {
     LEVEL_UP_END
 };
 
+static const struct LevelUpMove sMienfooLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_),
+    LEVEL_UP_END
+};
+
+
+static const struct LevelUpMove sMienshaoLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_),
+    LEVEL_UP_END
+};
+
 static const struct LevelUpMove sElgyemLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_GEOMANCY),
     LEVEL_UP_MOVE( 1, MOVE_MOONLIGHT),
@@ -5428,30 +5439,15 @@ static const struct LevelUpMove sShelmetLevelUpLearnset[] = {
     LEVEL_UP_END
 };
 
-
 static const struct LevelUpMove sAccelgorLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_10000000_VOLT_THUNDERBOLT),
     LEVEL_UP_END
 };
 
-
 static const struct LevelUpMove sStunfiskLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_10000000_VOLT_THUNDERBOLT),
     LEVEL_UP_END
 };
-
-
-static const struct LevelUpMove sMienfooLevelUpLearnset[] = {
-    LEVEL_UP_MOVE( 1, MOVE_10000000_VOLT_THUNDERBOLT),
-    LEVEL_UP_END
-};
-
-
-static const struct LevelUpMove sMienshaoLevelUpLearnset[] = {
-    LEVEL_UP_MOVE( 1, MOVE_10000000_VOLT_THUNDERBOLT),
-    LEVEL_UP_END
-};
-
 
 static const struct LevelUpMove sDruddigonLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_10000000_VOLT_THUNDERBOLT),

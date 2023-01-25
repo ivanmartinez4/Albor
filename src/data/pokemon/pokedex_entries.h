@@ -6699,6 +6699,32 @@ const struct PokedexEntry gPokedexEntries[] =
         .trainerOffset = 0,
     },
 
+
+    [NATIONAL_DEX_MIENFOO] =
+    {
+        .categoryName = _("Kung-fu"),
+        .height = 9,
+        .weight = 200,
+        .description = gMienfooPokedexText,
+        .pokemonScale = 356,
+        .pokemonOffset = 17,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+    },
+
+
+    [NATIONAL_DEX_MIENSHAO] =
+    {
+        .categoryName = _("Shaolin"),
+        .height = 14,
+        .weight = 355,
+        .description = gMienshaoPokedexText,
+        .pokemonScale = 356,
+        .pokemonOffset = 17,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+    },
+
     [NATIONAL_DEX_ELGYEM] =
     {
         .categoryName = _("Alien"),
