@@ -7570,8 +7570,8 @@ static bool8 ShouldSkipFriendshipChange(void)
 
 #define ALLOC_FAIL_BUFFER (1 << 0)
 #define ALLOC_FAIL_STRUCT (1 << 1)
-#define GFX_MANAGER_ACTIVE 0xA3 // Arbitrary value
-#define GFX_MANAGER_SPR_SIZE (MON_PIC_SIZE * 5) // Only Castform uses more than MON_PIC_SIZE, despite not displaying its forms.
+#define GFX_MANAGER_SPR_SIZE (MON_PIC_SIZE * NUM_CASTFORM_FORMS) // Only Castform uses more than MON_PIC_SIZE, despite not displaying its forms.
+#define GFX_MANAGER_NUM_SPRITES MAX_BATTLERS_COUNT
 #define GFX_MANAGER_NUM_FRAMES 2  // Only 2 frames are needed
 
 static void InitMonSpritesGfx_Battle(struct MonSpritesGfxManager* gfx)
@@ -7607,40 +7607,48 @@ struct MonSpritesGfxManager *CreateMonSpritesGfxManager(void)
     u32 i;
     u8 failureFlags;
     struct MonSpritesGfxManager *gfx;
- 
+
     failureFlags = 0;
     gfx = AllocZeroed(sizeof(*gfx));
     if (gfx == NULL)
         return NULL;
- 
-    gfx->numSprites = MAX_BATTLERS_COUNT;
-    gfx->numFrames = GFX_MANAGER_NUM_FRAMES;
-    gfx->spriteBuffer = AllocZeroed(GFX_MANAGER_SPR_SIZE * gfx->numSprites);
-    gfx->spritePointers = AllocZeroed(gfx->numSprites * 4);
+
+    // Set up sprite / sprite pointer buffers
+    gfx->spriteBuffer = AllocZeroed(GFX_MANAGER_SPR_SIZE * GFX_MANAGER_NUM_SPRITES);
+    gfx->spritePointers = AllocZeroed(GFX_MANAGER_NUM_SPRITES * 4);
     if (gfx->spriteBuffer == NULL || gfx->spritePointers == NULL)
     {
         failureFlags |= ALLOC_FAIL_BUFFER;
     }
     else
     {
-        for (i = 0; i < gfx->numSprites; i++)
+        for (i = 0; i < GFX_MANAGER_NUM_SPRITES; i++)
             gfx->spritePointers[i] = gfx->spriteBuffer + (GFX_MANAGER_SPR_SIZE * i);
     }
- 
+
     // Set up sprite structs
-    gfx->templates = AllocZeroed(sizeof(struct SpriteTemplate) * gfx->numSprites);
-    gfx->frameImages = AllocZeroed(sizeof(struct SpriteFrameImage) * gfx->numSprites * gfx->numFrames);
+    gfx->templates = AllocZeroed(sizeof(struct SpriteTemplate) * GFX_MANAGER_NUM_SPRITES);
+    gfx->frameImages = AllocZeroed(sizeof(struct SpriteFrameImage) * GFX_MANAGER_NUM_SPRITES * GFX_MANAGER_NUM_FRAMES);
     if (gfx->templates == NULL || gfx->frameImages == NULL)
     {
         failureFlags |= ALLOC_FAIL_STRUCT;
     }
     else
     {
-        for (i = 0; i < gfx->numFrames * gfx->numSprites; i++)
+        u32 j;
+        for (i = 0; i < GFX_MANAGER_NUM_FRAMES * GFX_MANAGER_NUM_SPRITES; i++)
             gfx->frameImages[i].size = MON_PIC_SIZE;
-        InitMonSpritesGfx_Battle(gfx);
+
+        for (i = 0; i < GFX_MANAGER_NUM_SPRITES; i++)
+        {
+            gfx->templates[i] = gBattlerSpriteTemplates[i];
+            for (j = 0; j < GFX_MANAGER_NUM_FRAMES; j++)
+                gfx->frameImages[i * GFX_MANAGER_NUM_FRAMES + j].data = &gfx->spritePointers[i][j * MON_PIC_SIZE];
+
+            gfx->templates[i].images = &gfx->frameImages[i * GFX_MANAGER_NUM_FRAMES];
+        }
     }
- 
+
     // If either of the allocations failed free their respective members
     if (failureFlags & ALLOC_FAIL_STRUCT)
     {
@@ -7652,7 +7660,7 @@ struct MonSpritesGfxManager *CreateMonSpritesGfxManager(void)
         TRY_FREE_AND_SET_NULL(gfx->spritePointers);
         TRY_FREE_AND_SET_NULL(gfx->spriteBuffer);
     }
- 
+
     if (failureFlags)
     {
         // Clear, something failed to allocate
@@ -7664,17 +7672,18 @@ struct MonSpritesGfxManager *CreateMonSpritesGfxManager(void)
         gfx->active = TRUE;
         sMonSpritesGfxManager = gfx;
     }
- 
+
     return sMonSpritesGfxManager;
 }
 
 void DestroyMonSpritesGfxManager(void)
 {
-    struct MonSpritesGfxManager *gfx = sMonSpritesGfxManager;
- 
+    struct MonSpritesGfxManager *gfx;
+
+    gfx = sMonSpritesGfxManager;
     if (gfx == NULL)
         return;
- 
+
     if (gfx->active)
     {
         TRY_FREE_AND_SET_NULL(gfx->frameImages);
@@ -7685,7 +7694,9 @@ void DestroyMonSpritesGfxManager(void)
         Free(gfx);
     }
     else
+    {
         memset(gfx, 0, sizeof(*gfx));
+    }
 }
 
 u8 *MonSpritesGfxManager_GetSpritePtr(u8 spriteNum)

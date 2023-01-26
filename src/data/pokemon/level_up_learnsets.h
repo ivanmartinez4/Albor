@@ -4022,7 +4022,7 @@ static const struct LevelUpMove sTrumbeakLevelUpLearnset[] = {
 };
 
 static const struct LevelUpMove sToucannonLevelUpLearnset[] = {
-    LEVEL_UP_MOVE( 0, MOVE_),
+    LEVEL_UP_MOVE( 0, MOVE_BULLET_SEED),
     LEVEL_UP_END
 };
 
