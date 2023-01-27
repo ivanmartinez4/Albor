@@ -198,3 +198,6 @@ const u16 gMetatileAttributes_BattleTent[] = INCBIN_U16("data/tilesets/secondary
 
 const u16 gMetatiles_UnionRoom[] = INCBIN_U16("data/tilesets/secondary/union_room/metatiles.bin");
 const u16 gMetatileAttributes_UnionRoom[] = INCBIN_U16("data/tilesets/secondary/union_room/metatile_attributes.bin");
+
+const u16 gMetatiles_AlborGeneral[] = INCBIN_U16("data/tilesets/primary/albor_general/metatiles.bin");
+const u16 gMetatileAttributes_AlborGeneral[] = INCBIN_U16("data/tilesets/primary/albor_general/metatile_attributes.bin");

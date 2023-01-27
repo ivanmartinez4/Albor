@@ -1034,3 +1034,5 @@ EventScript_CheckSavefileSizes::
 	.include "data/text/birch_speech.inc"
     .include "data/scripts/dexnav.inc"
 	.include "data/scripts/change_deoxys_form.inc"
+
+	.include "data/maps/TestTown/scripts.inc"
