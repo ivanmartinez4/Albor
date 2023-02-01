@@ -27,15 +27,7 @@ static void Task_HandleCopyReceivedLinkBuffersData(u8 taskId);
 
 void HandleLinkBattleSetup(void)
 {
-    if (gBattleTypeFlags & BATTLE_TYPE_LINK)
-    {
-        if (gWirelessCommType)
-            SetWirelessCommType1();
-        if (!gReceivedRemoteLinkPlayers)
-            OpenLink();
-        CreateTask(Task_WaitForLinkPlayerConnection, 0);
-        CreateTasksForSendRecvLinkBuffers();
-    }
+
 }
 
 void SetUpBattleVarsAndBirchZigzagoon(void)
@@ -79,10 +71,7 @@ void InitBattleControllers(void)
 
     if (!(gBattleTypeFlags & BATTLE_TYPE_RECORDED))
         RecordedBattle_SaveParties();
-
-    if (gBattleTypeFlags & BATTLE_TYPE_LINK)
-        InitLinkBtlControllers();
-    else
+    
         InitSinglePlayerBtlControllers();
 
     SetBattlePartyIds();
@@ -655,23 +644,16 @@ static void PrepareBufferDataTransfer(u8 bufferId, u8 *data, u16 size)
 {
     s32 i;
 
-    if (gBattleTypeFlags & BATTLE_TYPE_LINK)
+    switch (bufferId)
     {
-        PrepareBufferDataTransferLink(bufferId, size, data);
-    }
-    else
-    {
-        switch (bufferId)
-        {
-        case BUFFER_A:
-            for (i = 0; i < size; data++, i++)
-                gBattleResources->bufferA[gActiveBattler][i] = *data;
-            break;
-        case BUFFER_B:
-            for (i = 0; i < size; data++, i++)
-                gBattleResources->bufferB[gActiveBattler][i] = *data;
-            break;
-        }
+    case BUFFER_A:
+        for (i = 0; i < size; data++, i++)
+            gBattleResources->bufferA[gActiveBattler][i] = *data;
+        break;
+    case BUFFER_B:
+        for (i = 0; i < size; data++, i++)
+            gBattleResources->bufferB[gActiveBattler][i] = *data;
+        break;
     }
 }
 

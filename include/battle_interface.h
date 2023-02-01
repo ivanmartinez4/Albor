@@ -48,14 +48,10 @@ enum
 #define TAG_HEALTHBAR_PAL               TAG_HEALTHBAR_PLAYER1_TILE
 #define TAG_HEALTHBOX_PAL               TAG_HEALTHBOX_PLAYER1_TILE
 
-#define TAG_MEGA_TRIGGER_TILE           0xD777
-#define TAG_MEGA_INDICATOR_TILE         0xD778
 #define TAG_ALPHA_INDICATOR_TILE        0xD779
 #define TAG_OMEGA_INDICATOR_TILE        0xD77A
 #define TAG_ZMOVE_TRIGGER_TILE          0xD77B
 
-#define TAG_MEGA_TRIGGER_PAL            0xD777
-#define TAG_MEGA_INDICATOR_PAL          0xD778
 #define TAG_ALPHA_INDICATOR_PAL         0xD779
 #define TAG_OMEGA_INDICATOR_PAL         0xD77A
 #define TAG_ZMOVE_TRIGGER_PAL           0xD77B
@@ -77,7 +73,6 @@ enum
 };
 
 u32 WhichBattleCoords(u32 battlerId);
-u8 GetMegaIndicatorSpriteId(u32 healthboxSpriteId);
 u8 CreateBattlerHealthboxSprites(u8 battler);
 u8 CreateSafariPlayerHealthboxSprites(void);
 void SetBattleBarStruct(u8 battler, u8 healthboxSpriteId, s32 maxVal, s32 currVal, s32 receivedValue);
@@ -89,13 +84,6 @@ void UpdateOamPriorityInAllHealthboxes(u8 priority, bool32 hideHpBoxes);
 void InitBattlerHealthboxCoords(u8 battler);
 void UpdateHpTextInHealthbox(u32 healthboxSpriteId, u32 maxOrCurrent, s16 currHp, s16 maxHp);
 void SwapHpBarsWithHpText(void);
-void ChangeMegaTriggerSprite(u8 spriteId, u8 animId);
-void CreateMegaTriggerSprite(u8 battlerId, u8 palId);
-bool32 IsMegaTriggerSpriteActive(void);
-void HideMegaTriggerSprite(void);
-void DestroyMegaTriggerSprite(void);
-u32 CreateMegaIndicatorSprite(u32 battlerId, u32 which);
-void DestroyMegaIndicatorSprite(u32 healthboxSpriteId);
 u8 CreatePartyStatusSummarySprites(u8 battler, struct HpAndStatus *partyInfo, bool8 skipPlayer, bool8 isBattleStart);
 void Task_HidePartyStatusSummary(u8 taskId);
 void UpdateHealthboxAttribute(u8 healthboxSpriteId, struct Pokemon *mon, u8 elementId);

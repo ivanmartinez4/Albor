@@ -932,7 +932,6 @@ gBattleAnims_General::
 	.4byte General_FocusPunchSetUp          @ B_ANIM_FOCUS_PUNCH_SETUP
 	.4byte General_IngrainHeal              @ B_ANIM_INGRAIN_HEAL
 	.4byte General_WishHeal                 @ B_ANIM_WISH_HEAL
-	.4byte General_MegaEvolution            @ B_ANIM_MEGA_EVOLUTION
 	.4byte General_IllusionOff              @ B_ANIM_ILLUSION_OFF
 	.4byte General_FormChange               @ B_ANIM_FORM_CHANGE
 	.4byte General_SlideOffScreen           @ B_ANIM_SLIDE_OFFSCREEN
@@ -24814,50 +24813,6 @@ General_SlideOffScreen:
 	createvisualtask AnimTask_SetInvisible, 1, ANIM_TARGET, TRUE
 	waitforvisualfinish
 	end
-
-General_MegaEvolution:
-	loadspritegfx ANIM_TAG_MEGA_STONE
-	loadspritegfx ANIM_TAG_MEGA_PARTICLES
-	loadspritegfx ANIM_TAG_MEGA_SYMBOL
-	monbg ANIM_ATTACKER
-	setalpha 12, 8
-	loopsewithpan SE_M_MEGA_KICK, SOUND_PAN_ATTACKER, 13, 3
-	createvisualtask AnimTask_BlendColorCycle, 2, 2, 0, 6, 0, 11, RGB(31, 31, 11)
-	call MegaEvolutionParticles
-	call MegaEvolutionParticles
-	call MegaEvolutionParticles
-	waitforvisualfinish
-	playsewithpan SE_M_SOLAR_BEAM, SOUND_PAN_ATTACKER
-	createsprite gMegaStoneSpriteTemplate, ANIM_ATTACKER, 41, 0, 0, 0, 0
-	delay 20
-	createvisualtask AnimTask_BlendBattleAnimPalExclude, 5, 5, 2, 0, 16, RGB_WHITEALPHA
-	waitforvisualfinish
-	createvisualtask AnimTask_TransformMon, 2, 0, 1
-	createvisualtask AnimTask_BlendBattleAnimPalExclude, 5, 5, 2, 16, 0, RGB_WHITEALPHA
-	createvisualtask AnimTask_HorizontalShake, 5, 1, 5, 14
-	waitforvisualfinish
-	createsprite gMegaSymbolSpriteTemplate ANIM_ATTACKER, 2
-	waitforvisualfinish
-	clearmonbg ANIM_ATK_PARTNER
-	blendoff
-	end
-
-MegaEvolutionParticles:
-	createsprite gMegaParticlesSpriteTemplate, ANIM_ATTACKER, 2, 40, -10, 13
-	delay 3
-	createsprite gMegaParticlesSpriteTemplate, ANIM_ATTACKER, 2, -35, -10, 13
-	delay 3
-	createsprite gMegaParticlesSpriteTemplate, ANIM_ATTACKER, 2, 15, -40, 13
-	delay 3
-	createsprite gMegaParticlesSpriteTemplate, ANIM_ATTACKER, 2, -10, -32, 13
-	delay 3
-	createsprite gMegaParticlesSpriteTemplate, ANIM_ATTACKER, 2, 25, -20, 13
-	delay 3
-	createsprite gMegaParticlesSpriteTemplate, ANIM_ATTACKER, 2, -40, -20, 13
-	delay 3
-	createsprite gMegaParticlesSpriteTemplate, ANIM_ATTACKER, 2, 5, -40, 13
-	delay 3
-	return
 
 General_RestoreBg:
 	restorebg

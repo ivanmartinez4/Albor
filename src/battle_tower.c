@@ -1521,7 +1521,7 @@ u16 FacilityClassToGraphicsId(u8 facilityClass)
 
 void TrySetLinkBattleTowerEnemyPartyLevel(void)
 {
-    if (gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED_LINK))
+    if (gBattleTypeFlags & (BATTLE_TYPE_RECORDED_LINK))
     {
         s32 i;
         u8 enemyLevel = SetFacilityPtrsGetLevel();

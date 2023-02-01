@@ -573,17 +573,7 @@ static void SwitchIn_TryShinyAnim(void)
 static void PlayerPartnerBufferExecCompleted(void)
 {
     gBattlerControllerFuncs[gActiveBattler] = PlayerPartnerBufferRunCommand;
-    if (gBattleTypeFlags & BATTLE_TYPE_LINK)
-    {
-        u8 playerId = GetMultiplayerId();
-
-        PrepareBufferDataTransferLink(2, 4, &playerId);
-        gBattleResources->bufferA[gActiveBattler][0] = CONTROLLER_TERMINATOR_NOP;
-    }
-    else
-    {
-        gBattleControllerExecFlags &= ~gBitTable[gActiveBattler];
-    }
+    gBattleControllerExecFlags &= ~gBitTable[gActiveBattler];
 }
 
 static void CompleteOnFinishedStatusAnimation(void)

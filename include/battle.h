@@ -462,30 +462,6 @@ struct BattleTvMovePoints
     s16 points[2][PARTY_SIZE * 4];
 };
 
-struct LinkBattlerHeader
-{
-    u8 versionSignatureLo;
-    u8 versionSignatureHi;
-    u8 vsScreenHealthFlagsLo;
-    u8 vsScreenHealthFlagsHi;
-};
-
-struct MegaEvolutionData
-{
-    u8 toEvolve; // As flags using gBitTable.
-    u8 evolvedPartyIds[2]; // As flags using gBitTable;
-    bool8 alreadyEvolved[4]; // Array id is used for mon position.
-    u16 evolvedSpecies[MAX_BATTLERS_COUNT];
-    u16 playerEvolvedSpecies;
-    u8 primalRevertedPartyIds[2]; // As flags using gBitTable;
-    u16 primalRevertedSpecies[MAX_BATTLERS_COUNT];
-    u16 playerPrimalRevertedSpecies;
-    u8 battlerId;
-    bool8 playerSelect;
-    u8 triggerSpriteId;
-    bool8 isWishMegaEvo;
-};
-
 struct Illusion
 {
     u8 on;
@@ -588,10 +564,6 @@ struct BattleStruct
     u8 givenExpMons; // Bits for enemy party's pokemon that gave exp to player's party.
     u16 lastTakenMoveFrom[MAX_BATTLERS_COUNT][MAX_BATTLERS_COUNT]; // a 2-D array [target][attacker]
     u16 castformPalette[NUM_CASTFORM_FORMS][16];
-    union {
-        struct LinkBattlerHeader linkBattlerHeader;
-        u32 battleVideo[2];
-    } multiBuffer;
     u8 wishPerishSongState;
     u8 wishPerishSongBattlerId;
     bool8 overworldWeatherDone;

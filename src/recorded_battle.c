@@ -122,64 +122,7 @@ void RecordedBattle_Init(u8 mode)
 
 void RecordedBattle_SetTrainerInfo(void)
 {
-    s32 i, j;
 
-    if (sRecordMode == B_RECORD_MODE_RECORDING)
-    {
-        gRecordedBattleRngSeed = gRngValue;
-        sFrontierFacility = VarGet(VAR_FRONTIER_FACILITY);
-        sFrontierBrainSymbol = GetFronterBrainSymbol();
-    }
-    else if (sRecordMode == B_RECORD_MODE_PLAYBACK)
-    {
-        gRngValue = gRecordedBattleRngSeed;
-    }
-
-    if (gBattleTypeFlags & BATTLE_TYPE_LINK)
-    {
-        // Link recorded battle, record info for all trainers
-        u8 linkPlayersCount;
-        u8 text[30];
-
-        gRecordedBattleMultiplayerId = GetMultiplayerId();
-        linkPlayersCount = GetLinkPlayerCount();
-
-        for (i = 0; i < MAX_BATTLERS_COUNT; i++)
-        {
-            sPlayers[i].trainerId = gLinkPlayers[i].trainerId;
-            sPlayers[i].gender = gLinkPlayers[i].gender;
-            sPlayers[i].battlerId = gLinkPlayers[i].id;
-            sPlayers[i].language = gLinkPlayers[i].language;
-
-            // Record names
-            if (i < linkPlayersCount)
-            {
-                StringCopy(text, gLinkPlayers[i].name);
-                StripExtCtrlCodes(text);
-                StringCopy(sPlayers[i].name, text);
-            }
-            else
-            {
-                for (j = 0; j < PLAYER_NAME_LENGTH + 1; j++)
-                    sPlayers[i].name[j] = gLinkPlayers[i].name[j];
-            }
-        }
-    }
-    else
-    {
-        // Local battle, just record own info
-        sPlayers[0].trainerId = (gSaveBlock2Ptr->playerTrainerId[0])
-                              | (gSaveBlock2Ptr->playerTrainerId[1] << 8)
-                              | (gSaveBlock2Ptr->playerTrainerId[2] << 16)
-                              | (gSaveBlock2Ptr->playerTrainerId[3] << 24);
-
-        sPlayers[0].gender = gSaveBlock2Ptr->playerGender;
-        sPlayers[0].battlerId = 0;
-        sPlayers[0].language = gGameLanguage;
-
-        for (i = 0; i < PLAYER_NAME_LENGTH + 1; i++)
-            sPlayers[0].name[i] = gSaveBlock2Ptr->playerName[i];
-    }
 }
 
 void RecordedBattle_SetBattlerAction(u8 battlerId, u8 action)
@@ -242,30 +185,7 @@ u8 RecordedBattle_BufferNewBattlerData(u8 *dst)
 
 void RecordedBattle_RecordAllBattlerData(u8 *src)
 {
-    s32 i;
-    u8 idx = 2;
-    u8 size;
 
-    if (!(gBattleTypeFlags & BATTLE_TYPE_LINK))
-        return;
-
-    for (i = 0; i < GetLinkPlayerCount(); i++)
-    {
-        if ((gLinkPlayers[i].version & 0xFF) != VERSION_EMERALD)
-            return;
-    }
-
-    if (!(gBattleTypeFlags & BATTLE_TYPE_IS_MASTER))
-    {
-        for (size = *src; size != 0;)
-        {
-            u8 battlerId = GetNextRecordedDataByte(src, &idx, &size);
-            u8 numActions = GetNextRecordedDataByte(src, &idx, &size);
-
-            for (i = 0; i < numActions; i++)
-                sBattleRecords[battlerId][sBattlerSavedRecordSizes[battlerId]++] = GetNextRecordedDataByte(src, &idx, &size);
-        }
-    }
 }
 
 static u8 GetNextRecordedDataByte(u8 *data, u8 *idx, u8 *size)
@@ -444,7 +364,7 @@ void RecordedBattle_CopyBattlerMoves(void)
 
     if (GetBattlerSide(gActiveBattler) == B_SIDE_OPPONENT)
         return;
-    if (gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED_LINK))
+    if (gBattleTypeFlags & (BATTLE_TYPE_RECORDED_LINK))
         return;
     if (sRecordMode == B_RECORD_MODE_PLAYBACK)
         return;
@@ -461,7 +381,7 @@ void RecordedBattle_CheckMovesetChanges(u8 mode)
 {
     s32 battlerId, j, k;
 
-    if (gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED_LINK))
+    if (gBattleTypeFlags & (BATTLE_TYPE_RECORDED_LINK))
         return;
 
     for (battlerId = 0; battlerId < gBattlersCount; battlerId++)

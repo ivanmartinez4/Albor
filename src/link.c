@@ -1382,32 +1382,7 @@ static void LinkCB_ReadyCloseLinkWithJP(void)
 
 static void LinkCB_WaitCloseLinkWithJP(void)
 {
-    int i;
-    unsigned count;
-    u8 linkPlayerCount;
-
-    linkPlayerCount = GetLinkPlayerCount();
-    count = 0;
-
-    // Wait for all non-foreign players to be ready
-    for (i = 0; i < linkPlayerCount; i++)
-    {
-        // Rather than communicate with the foreign game
-        // just assume they're ready to disconnect
-        if (gLinkPlayers[i].language == LANGUAGE_JAPANESE)
-            count++;
-        else if (gReadyToCloseLink[i])
-            count++;
-    }
-
-    if (count == linkPlayerCount)
-    {
-        // All ready, close link
-        gBattleTypeFlags &= ~BATTLE_TYPE_LINK_IN_BATTLE;
-        gLinkVSyncDisabled = TRUE;
-        CloseLink();
-        gLinkCallback = NULL;
-    }
+    
 }
 
 void SetLinkStandbyCallback(void)

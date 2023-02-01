@@ -307,7 +307,7 @@ static void Intro_TryShinyAnimShowHealthbox(void)
     {
         if (!gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].bgmRestored)
         {
-            if ((gBattleTypeFlags & BATTLE_TYPE_LINK) && (gBattleTypeFlags & BATTLE_TYPE_MULTI))
+            if ((gBattleTypeFlags & BATTLE_TYPE_MULTI))
             {
                 if (GetBattlerPosition(gActiveBattler) == B_POSITION_PLAYER_LEFT)
                     m4aMPlayContinue(&gMPlayInfo_BGM);
@@ -469,17 +469,7 @@ static void SwitchIn_TryShinyAnim(void)
 static void RecordedPlayerBufferExecCompleted(void)
 {
     gBattlerControllerFuncs[gActiveBattler] = RecordedPlayerBufferRunCommand;
-    if (gBattleTypeFlags & BATTLE_TYPE_LINK)
-    {
-        u8 playerId = GetMultiplayerId();
-
-        PrepareBufferDataTransferLink(2, 4, &playerId);
-        gBattleResources->bufferA[gActiveBattler][0] = CONTROLLER_TERMINATOR_NOP;
-    }
-    else
-    {
-        gBattleControllerExecFlags &= ~gBitTable[gActiveBattler];
-    }
+    gBattleControllerExecFlags &= ~gBitTable[gActiveBattler];
 }
 
 static void CompleteOnFinishedStatusAnimation(void)

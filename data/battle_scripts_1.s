@@ -6199,7 +6199,6 @@ BattleScript_FaintedMonTryChoose:
 	openpartyscreen BS_FAINTED, BattleScript_FaintedMonEnd
 	switchhandleorder BS_FAINTED, 2
 	jumpifnotbattletype BATTLE_TYPE_TRAINER, BattleScript_FaintedMonSendOutNew
-	jumpifbattletype BATTLE_TYPE_LINK, BattleScript_FaintedMonSendOutNew
 	jumpifbattletype BATTLE_TYPE_RECORDED_LINK, BattleScript_FaintedMonSendOutNew
 	jumpifbattletype BATTLE_TYPE_FRONTIER, BattleScript_FaintedMonSendOutNew
 	jumpifbattletype BATTLE_TYPE_DOUBLE, BattleScript_FaintedMonSendOutNew
@@ -7540,34 +7539,6 @@ BattleScript_FocusPunchSetUp::
 	playanimation BS_ATTACKER, B_ANIM_FOCUS_PUNCH_SETUP
 	printstring STRINGID_PKMNTIGHTENINGFOCUS
 	waitmessage B_WAIT_TIME_LONG
-	end2
-
-BattleScript_MegaEvolution::
-	printstring STRINGID_MEGAEVOREACTING
-	waitmessage B_WAIT_TIME_LONG
-	setbyte gIsCriticalHit, 0
-	handlemegaevo BS_ATTACKER, 0
-	handlemegaevo BS_ATTACKER, 1
-	playanimation BS_ATTACKER, B_ANIM_MEGA_EVOLUTION
-	waitanimation
-	handlemegaevo BS_ATTACKER, 2
-	printstring STRINGID_MEGAEVOEVOLVED
-	waitmessage B_WAIT_TIME_LONG
-	switchinabilities BS_ATTACKER
-	end2
-
-BattleScript_WishMegaEvolution::
-	printstring STRINGID_FERVENTWISHREACHED
-	waitmessage B_WAIT_TIME_LONG
-	setbyte gIsCriticalHit, 0
-	handlemegaevo BS_ATTACKER, 0
-	handlemegaevo BS_ATTACKER, 1
-	playanimation BS_ATTACKER, B_ANIM_MEGA_EVOLUTION
-	waitanimation
-	handlemegaevo BS_ATTACKER, 2
-	printstring STRINGID_MEGAEVOEVOLVED
-	waitmessage B_WAIT_TIME_LONG
-	switchinabilities BS_ATTACKER
 	end2
 
 BattleScript_PrimalReversion::

@@ -335,7 +335,7 @@ static void Intro_TryShinyAnimShowHealthbox(void)
     {
         if (!gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].bgmRestored)
         {
-            if (gBattleTypeFlags & BATTLE_TYPE_MULTI && gBattleTypeFlags & BATTLE_TYPE_LINK)
+            if (gBattleTypeFlags & BATTLE_TYPE_MULTI)
             {
                 if (GetBattlerPosition(gActiveBattler) == 1)
                     m4aMPlayContinue(&gMPlayInfo_BGM);
@@ -529,17 +529,7 @@ static void CompleteOnFinishedBattleAnimation(void)
 static void OpponentBufferExecCompleted(void)
 {
     gBattlerControllerFuncs[gActiveBattler] = OpponentBufferRunCommand;
-    if (gBattleTypeFlags & BATTLE_TYPE_LINK)
-    {
-        u8 playerId = GetMultiplayerId();
-
-        PrepareBufferDataTransferLink(2, 4, &playerId);
-        gBattleResources->bufferA[gActiveBattler][0] = CONTROLLER_TERMINATOR_NOP;
-    }
-    else
-    {
-        gBattleControllerExecFlags &= ~gBitTable[gActiveBattler];
-    }
+    gBattleControllerExecFlags &= ~gBitTable[gActiveBattler];
 }
 
 static void OpponentHandleGetMonData(void)
@@ -2059,13 +2049,7 @@ static void OpponentHandleResetActionMoveSelection(void)
 
 static void OpponentHandleEndLinkBattle(void)
 {
-    if (gBattleTypeFlags & BATTLE_TYPE_LINK && !(gBattleTypeFlags & BATTLE_TYPE_IS_MASTER))
-    {
-        gMain.inBattle = 0;
-        gMain.callback1 = gPreBattleCallback1;
-        SetMainCallback2(gMain.savedCallback);
-    }
-    OpponentBufferExecCompleted();
+
 }
 
 static void OpponentHandleDebugMenu(void)

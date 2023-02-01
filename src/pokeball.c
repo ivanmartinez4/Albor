@@ -971,7 +971,7 @@ static void SpriteCB_ReleaseMonFromBall(struct Sprite *sprite)
         if ((battlerId == GetBattlerAtPosition(B_POSITION_PLAYER_LEFT) || battlerId == GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT))
          && IsDoubleBattle() && gBattleSpritesDataPtr->animationData->introAnimActive)
         {
-            if (gBattleTypeFlags & BATTLE_TYPE_MULTI && gBattleTypeFlags & BATTLE_TYPE_LINK)
+            if (gBattleTypeFlags & BATTLE_TYPE_MULTI)
             {
                 if (IsBGMPlaying())
                     m4aMPlayStop(&gMPlayInfo_BGM);

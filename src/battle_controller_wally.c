@@ -406,17 +406,7 @@ static void CompleteOnFinishedBattleAnimation(void)
 static void WallyBufferExecCompleted(void)
 {
     gBattlerControllerFuncs[gActiveBattler] = WallyBufferRunCommand;
-    if (gBattleTypeFlags & BATTLE_TYPE_LINK)
-    {
-        u8 playerId = GetMultiplayerId();
-
-        PrepareBufferDataTransferLink(2, 4, &playerId);
-        gBattleResources->bufferA[gActiveBattler][0] = CONTROLLER_TERMINATOR_NOP;
-    }
-    else
-    {
-        gBattleControllerExecFlags &= ~gBitTable[gActiveBattler];
-    }
+    gBattleControllerExecFlags &= ~gBitTable[gActiveBattler];
 }
 
 static void CompleteOnFinishedStatusAnimation(void)
@@ -1547,7 +1537,7 @@ static void WallyHandleEndLinkBattle(void)
     BeginFastPaletteFade(3);
     WallyBufferExecCompleted();
 
-    if (!(gBattleTypeFlags & BATTLE_TYPE_IS_MASTER) && gBattleTypeFlags & BATTLE_TYPE_LINK)
+    if (!(gBattleTypeFlags & BATTLE_TYPE_IS_MASTER))
         gBattlerControllerFuncs[gActiveBattler] = SetBattleEndCallbacks;
 }
 

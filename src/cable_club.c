@@ -738,17 +738,17 @@ static void SetLinkBattleTypeFlags(int linkService)
     switch (linkService)
     {
     case USING_SINGLE_BATTLE:
-        gBattleTypeFlags = BATTLE_TYPE_LINK | BATTLE_TYPE_TRAINER;
+        gBattleTypeFlags = BATTLE_TYPE_TRAINER;
         break;
     case USING_DOUBLE_BATTLE:
-        gBattleTypeFlags = BATTLE_TYPE_DOUBLE | BATTLE_TYPE_LINK | BATTLE_TYPE_TRAINER;
+        gBattleTypeFlags = BATTLE_TYPE_DOUBLE | BATTLE_TYPE_TRAINER;
         break;
     case USING_MULTI_BATTLE:
         ReducePlayerPartyToSelectedMons();
-        gBattleTypeFlags = BATTLE_TYPE_DOUBLE | BATTLE_TYPE_LINK | BATTLE_TYPE_TRAINER | BATTLE_TYPE_MULTI;
+        gBattleTypeFlags = BATTLE_TYPE_DOUBLE | BATTLE_TYPE_TRAINER | BATTLE_TYPE_MULTI;
         break;
     case USING_BATTLE_TOWER:
-        gBattleTypeFlags = BATTLE_TYPE_BATTLE_TOWER | BATTLE_TYPE_DOUBLE | BATTLE_TYPE_LINK | BATTLE_TYPE_TRAINER | BATTLE_TYPE_MULTI;
+        gBattleTypeFlags = BATTLE_TYPE_BATTLE_TOWER | BATTLE_TYPE_DOUBLE | BATTLE_TYPE_TRAINER | BATTLE_TYPE_MULTI;
         break;
     }
 }
