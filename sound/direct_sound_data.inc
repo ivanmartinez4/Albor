@@ -3478,14 +3478,6 @@ Cry_Pyukumuku::
 	.incbin "sound/direct_sound_samples/cries/pyukumuku.bin"
 
 	.align 2
-Cry_TypeNull::
-	.incbin "sound/direct_sound_samples/cries/type_null.bin"
-
-	.align 2
-Cry_Silvally::
-	.incbin "sound/direct_sound_samples/cries/silvally.bin"
-
-	.align 2
 Cry_Minior::
 	.incbin "sound/direct_sound_samples/cries/minior.bin"
 

@@ -771,8 +771,8 @@ gCryTable::
 	cry Cry_Sandygast
 	cry Cry_Palossand
 	cry Cry_Pyukumuku
-	cry Cry_TypeNull
-	cry Cry_Silvally
+	cry Cry_Armarouge
+	cry Cry_Ceruledge
 	cry Cry_Minior
 	cry Cry_Komala
 	cry Cry_Turtonator
@@ -945,8 +945,6 @@ gCryTable::
 	cry Cry_Gimmighoul
 	cry Cry_Gholdengo
 	cry Cry_Charcadet
-	cry Cry_Armarouge
-	cry Cry_Ceruledge
 	@ Megas
 	cry Cry_VenusaurMega
 	cry Cry_CharizardMegaX
@@ -2118,8 +2116,8 @@ gCryTable_Reverse::
 	cry_reverse Cry_Sandygast
 	cry_reverse Cry_Palossand
 	cry_reverse Cry_Pyukumuku
-	cry_reverse Cry_TypeNull
-	cry_reverse Cry_Silvally
+	cry_reverse Cry_Armarouge
+	cry_reverse Cry_Ceruledge
 	cry_reverse Cry_Minior
 	cry_reverse Cry_Komala
 	cry_reverse Cry_Turtonator
@@ -2292,8 +2290,6 @@ gCryTable_Reverse::
 	cry_reverse Cry_Gimmighoul
 	cry_reverse Cry_Gholdengo
 	cry_reverse Cry_Charcadet
-	cry_reverse Cry_Armarouge
-	cry_reverse Cry_Ceruledge
 	@ Megas
 	cry_reverse Cry_VenusaurMega
 	cry_reverse Cry_CharizardMegaX

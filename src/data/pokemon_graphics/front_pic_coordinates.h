@@ -3864,16 +3864,6 @@ const struct MonCoords gMonFrontPicCoords[] =
         .size = MON_COORDS_SIZE(40, 40),
         .y_offset = 15,
     },
-    [SPECIES_TYPE_NULL] =
-    {
-        .size = MON_COORDS_SIZE(64, 64),
-        .y_offset = 2,
-    },
-    [SPECIES_SILVALLY] =
-    {
-        .size = MON_COORDS_SIZE(64, 64),
-        .y_offset = 0,
-    },
     [SPECIES_MINIOR] =
     {
         .size = MON_COORDS_SIZE(48, 40),

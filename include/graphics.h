@@ -454,7 +454,6 @@ extern const u32 gMonFrontPic_Groudon[];
 extern const u32 gMonFrontPic_Rayquaza[];
 extern const u32 gMonFrontPic_Jirachi[];
 extern const u32 gMonFrontPic_Deoxys[];
-#if P_GEN_4_POKEMON == TRUE
 extern const u32 gMonFrontPic_Turtwig[];
 extern const u32 gMonFrontPic_Grotle[];
 extern const u32 gMonFrontPic_Torterra[];
@@ -571,8 +570,6 @@ extern const u32 gMonFrontPic_Manaphy[];
 extern const u32 gMonFrontPic_Darkrai[];
 extern const u32 gMonFrontPic_Shaymin[];
 extern const u32 gMonFrontPic_Arceus[];
-#endif
-#if P_GEN_5_POKEMON == TRUE
 extern const u32 gMonFrontPic_Victini[];
 extern const u32 gMonFrontPic_Snivy[];
 extern const u32 gMonFrontPic_Servine[];
@@ -732,8 +729,6 @@ extern const u32 gMonFrontPic_Kyurem[];
 extern const u32 gMonFrontPic_Keldeo[];
 extern const u32 gMonFrontPic_Meloetta[];
 extern const u32 gMonFrontPic_Genesect[];
-#endif
-#if P_GEN_6_POKEMON == TRUE
 extern const u32 gMonFrontPic_Chespin[];
 extern const u32 gMonFrontPic_Quilladin[];
 extern const u32 gMonFrontPic_Chesnaught[];
@@ -807,8 +802,6 @@ extern const u32 gMonFrontPic_Zygarde[];
 extern const u32 gMonFrontPic_Diancie[];
 extern const u32 gMonFrontPic_Hoopa[];
 extern const u32 gMonFrontPic_Volcanion[];
-#endif
-#if P_GEN_7_POKEMON == TRUE
 extern const u32 gMonFrontPic_Rowlet[];
 extern const u32 gMonFrontPic_Dartrix[];
 extern const u32 gMonFrontPic_Decidueye[];
@@ -859,8 +852,6 @@ extern const u32 gMonFrontPic_Golisopod[];
 extern const u32 gMonFrontPic_Sandygast[];
 extern const u32 gMonFrontPic_Palossand[];
 extern const u32 gMonFrontPic_Pyukumuku[];
-extern const u32 gMonFrontPic_TypeNull[];
-extern const u32 gMonFrontPic_Silvally[];
 extern const u32 gMonFrontPic_Minior[];
 extern const u32 gMonFrontPic_Komala[];
 extern const u32 gMonFrontPic_Turtonator[];
@@ -897,8 +888,6 @@ extern const u32 gMonFrontPic_Blacephalon[];
 extern const u32 gMonFrontPic_Zeraora[];
 extern const u32 gMonFrontPic_Meltan[];
 extern const u32 gMonFrontPic_Melmetal[];
-#endif
-#if P_GEN_8_POKEMON == TRUE
 extern const u32 gMonFrontPic_Grookey[];
 extern const u32 gMonFrontPic_Thwackey[];
 extern const u32 gMonFrontPic_Rillaboom[];
@@ -996,7 +985,6 @@ extern const u32 gMonFrontPic_Ursaluna[];
 extern const u32 gMonFrontPic_Sneasler[];
 extern const u32 gMonFrontPic_Overqwil[];
 //extern const u32 gMonFrontPic_Enamorus[];
-#endif
 extern const u32 gMonFrontPic_Sprigatito[];
 extern const u32 gMonFrontPic_Floragato[];
 extern const u32 gMonFrontPic_Meowscarada[];
@@ -2119,8 +2107,6 @@ extern const u32 gMonBackPic_Golisopod[];
 extern const u32 gMonBackPic_Sandygast[];
 extern const u32 gMonBackPic_Palossand[];
 extern const u32 gMonBackPic_Pyukumuku[];
-extern const u32 gMonBackPic_TypeNull[];
-extern const u32 gMonBackPic_Silvally[];
 extern const u32 gMonBackPic_Minior[];
 extern const u32 gMonBackPic_Komala[];
 extern const u32 gMonBackPic_Turtonator[];
@@ -3369,8 +3355,6 @@ extern const u32 gMonPalette_Golisopod[];
 extern const u32 gMonPalette_Sandygast[];
 extern const u32 gMonPalette_Palossand[];
 extern const u32 gMonPalette_Pyukumuku[];
-extern const u32 gMonPalette_TypeNull[];
-extern const u32 gMonPalette_Silvally[];
 extern const u32 gMonPalette_Minior[];
 extern const u32 gMonPalette_Komala[];
 extern const u32 gMonPalette_Turtonator[];
@@ -4647,8 +4631,6 @@ extern const u32 gMonShinyPalette_Golisopod[];
 extern const u32 gMonShinyPalette_Sandygast[];
 extern const u32 gMonShinyPalette_Palossand[];
 extern const u32 gMonShinyPalette_Pyukumuku[];
-extern const u32 gMonShinyPalette_TypeNull[];
-extern const u32 gMonShinyPalette_Silvally[];
 extern const u32 gMonShinyPalette_Minior[];
 extern const u32 gMonShinyPalette_Komala[];
 extern const u32 gMonShinyPalette_Turtonator[];
@@ -5914,8 +5896,6 @@ extern const u8 gMonIcon_Golisopod[];
 extern const u8 gMonIcon_Sandygast[];
 extern const u8 gMonIcon_Palossand[];
 extern const u8 gMonIcon_Pyukumuku[];
-extern const u8 gMonIcon_TypeNull[];
-extern const u8 gMonIcon_Silvally[];
 extern const u8 gMonIcon_Minior[];
 extern const u8 gMonIcon_Komala[];
 extern const u8 gMonIcon_Turtonator[];
@@ -7171,8 +7151,6 @@ extern const u8 gMonFootprint_Golisopod[];
 extern const u8 gMonFootprint_Sandygast[];
 extern const u8 gMonFootprint_Palossand[];
 extern const u8 gMonFootprint_Pyukumuku[];
-extern const u8 gMonFootprint_Type_Null[];
-extern const u8 gMonFootprint_Silvally[];
 extern const u8 gMonFootprint_Minior[];
 extern const u8 gMonFootprint_Komala[];
 extern const u8 gMonFootprint_Turtonator[];

@@ -4948,14 +4948,6 @@ static const u16 sPyukumukuTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };
 
-static const u16 sTypeNullTeachableLearnset[] = {
-    MOVE_UNAVAILABLE,
-};
-
-static const u16 sSilvallyTeachableLearnset[] = {
-    MOVE_UNAVAILABLE,
-};
-
 static const u16 sMiniorTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };

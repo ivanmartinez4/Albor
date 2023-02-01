@@ -5754,16 +5754,6 @@ static const struct LevelUpMove sPyukumukuLevelUpLearnset[] = {
     LEVEL_UP_END
 };
 
-static const struct LevelUpMove sTypeNullLevelUpLearnset[] = {
-    LEVEL_UP_MOVE( 1, MOVE_10000000_VOLT_THUNDERBOLT),
-    LEVEL_UP_END
-};
-
-static const struct LevelUpMove sSilvallyLevelUpLearnset[] = {
-    LEVEL_UP_MOVE( 1, MOVE_10000000_VOLT_THUNDERBOLT),
-    LEVEL_UP_END
-};
-
 static const struct LevelUpMove sMiniorLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_10000000_VOLT_THUNDERBOLT),
     LEVEL_UP_END

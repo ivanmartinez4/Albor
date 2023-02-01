@@ -8691,18 +8691,6 @@ static const union AnimCmd sAnim_Pyukumuku_1[] =
     ANIMCMD_END,
 };
 
-static const union AnimCmd sAnim_TypeNull_1[] =
-{
-    ANIMCMD_FRAME(0, 1),
-    ANIMCMD_END,
-};
-
-static const union AnimCmd sAnim_Silvally_1[] =
-{
-    ANIMCMD_FRAME(0, 1),
-    ANIMCMD_END,
-};
-
 static const union AnimCmd sAnim_Minior_1[] =
 {
     ANIMCMD_FRAME(0, 1),
@@ -11331,8 +11319,6 @@ SINGLE_ANIMATION(Golisopod);
 SINGLE_ANIMATION(Sandygast);
 SINGLE_ANIMATION(Palossand);
 SINGLE_ANIMATION(Pyukumuku);
-SINGLE_ANIMATION(TypeNull);
-SINGLE_ANIMATION(Silvally);
 SINGLE_ANIMATION(Minior);
 SINGLE_ANIMATION(Komala);
 SINGLE_ANIMATION(Turtonator);
@@ -12418,8 +12404,6 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_SANDYGAST] = sAnims_Sandygast,
     [SPECIES_PALOSSAND] = sAnims_Palossand,
     [SPECIES_PYUKUMUKU] = sAnims_Pyukumuku,
-    [SPECIES_TYPE_NULL] = sAnims_TypeNull,
-    [SPECIES_SILVALLY] = sAnims_Silvally,
     [SPECIES_MINIOR] = sAnims_Minior,
     [SPECIES_KOMALA] = sAnims_Komala,
     [SPECIES_TURTONATOR] = sAnims_Turtonator,

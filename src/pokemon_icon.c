@@ -812,8 +812,6 @@ const u8 *const gMonIconTable[] =
     [SPECIES_SANDYGAST] = gMonIcon_Sandygast,
     [SPECIES_PALOSSAND] = gMonIcon_Palossand,
     [SPECIES_PYUKUMUKU] = gMonIcon_Pyukumuku,
-    [SPECIES_TYPE_NULL] = gMonIcon_TypeNull,
-    [SPECIES_SILVALLY] = gMonIcon_Silvally,
     [SPECIES_MINIOR] = gMonIcon_Minior,
     [SPECIES_KOMALA] = gMonIcon_Komala,
     [SPECIES_TURTONATOR] = gMonIcon_Turtonator,
@@ -1078,12 +1076,10 @@ const u8 *const gMonIconTable[] =
     [SPECIES_CORSOLA_GALARIAN] = gMonIcon_CorsolaGalarian,
     [SPECIES_ZIGZAGOON_GALARIAN] = gMonIcon_ZigzagoonGalarian,
     [SPECIES_LINOONE_GALARIAN] = gMonIcon_LinooneGalarian,
-#if P_GEN_5_POKEMON == TRUE
     [SPECIES_DARUMAKA_GALARIAN] = gMonIcon_DarumakaGalarian,
     [SPECIES_DARMANITAN_GALARIAN] = gMonIcon_DarmanitanGalarian,
     [SPECIES_YAMASK_GALARIAN] = gMonIcon_YamaskGalarian,
     [SPECIES_STUNFISK_GALARIAN] = gMonIcon_StunfiskGalarian,
-#endif
     [SPECIES_GROWLITHE_HISUIAN] = gMonIcon_GrowlitheHisuian,
     [SPECIES_ARCANINE_HISUIAN] = gMonIcon_ArcanineHisuian,
     [SPECIES_VOLTORB_HISUIAN] = gMonIcon_VoltorbHisuian,
@@ -1091,21 +1087,15 @@ const u8 *const gMonIconTable[] =
     [SPECIES_TYPHLOSION_HISUIAN] = gMonIcon_TyphlosionHisuian,
     [SPECIES_QWILFISH_HISUIAN] = gMonIcon_QwilfishHisuian,
     [SPECIES_SNEASEL_HISUIAN] = gMonIcon_SneaselHisuian,
-#if P_GEN_5_POKEMON == TRUE
     [SPECIES_SAMUROTT_HISUIAN] = gMonIcon_SamurottHisuian,
     [SPECIES_LILLIGANT_HISUIAN] = gMonIcon_LilligantHisuian,
     [SPECIES_ZORUA_HISUIAN] = gMonIcon_ZoruaHisuian,
     [SPECIES_ZOROARK_HISUIAN] = gMonIcon_ZoroarkHisuian,
     [SPECIES_BRAVIARY_HISUIAN] = gMonIcon_BraviaryHisuian,
-#endif
-#if P_GEN_6_POKEMON == TRUE
     [SPECIES_SLIGGOO_HISUIAN] = gMonIcon_SliggooHisuian,
     [SPECIES_GOODRA_HISUIAN] = gMonIcon_GoodraHisuian,
     [SPECIES_AVALUGG_HISUIAN] = gMonIcon_AvaluggHisuian,
-#endif
-#if P_GEN_7_POKEMON == TRUE
     [SPECIES_DECIDUEYE_HISUIAN] = gMonIcon_DecidueyeHisuian,
-#endif
     [SPECIES_PIKACHU_COSPLAY] = gMonIcon_PikachuCosplay,
     [SPECIES_PIKACHU_ROCK_STAR] = gMonIcon_PikachuRockStar,
     [SPECIES_PIKACHU_BELLE] = gMonIcon_PikachuBelle,
@@ -2146,8 +2136,6 @@ const u8 gMonIconPaletteIndices[] =
     [SPECIES_SANDYGAST] = 1,
     [SPECIES_PALOSSAND] = 2,
     [SPECIES_PYUKUMUKU] = 0,
-    [SPECIES_TYPE_NULL] = 0,
-    [SPECIES_SILVALLY] = 0,
     [SPECIES_MINIOR] = 2,
     [SPECIES_KOMALA] = 2,
     [SPECIES_TURTONATOR] = 0,
