@@ -2558,7 +2558,6 @@ static const u16 sDeoxysTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };
 
-#if P_GEN_4_POKEMON == TRUE
 static const u16 sTurtwigTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };
@@ -3285,9 +3284,7 @@ static const u16 sShayminTeachableLearnset[] = {
 static const u16 sArceusTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };
-#endif
 
-#if P_GEN_5_POKEMON == TRUE
 static const u16 sVictiniTeachableLearnset[] = {
     MOVE_CHARM,
     MOVE_DAZZLING_GLEAM,
@@ -4230,9 +4227,7 @@ static const u16 sMeloettaTeachableLearnset[] = {
 static const u16 sGenesectTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };
-#endif
 
-#if P_GEN_6_POKEMON == TRUE
 static const u16 sChespinTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };
@@ -4644,9 +4639,7 @@ static const u16 sVolcanionTeachableLearnset[] = {
     MOVE_SNARL,
     MOVE_UNAVAILABLE,
 };
-#endif
 
-#if P_GEN_7_POKEMON == TRUE
 static const u16 sRowletTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
     MOVE_UNAVAILABLE,
@@ -5162,9 +5155,7 @@ static const u16 sMelmetalTeachableLearnset[] = {
     MOVE_KNOCK_OFF,
     MOVE_UNAVAILABLE,
 };
-#endif
 
-#if P_GEN_8_POKEMON == TRUE
 static const u16 sGrookeyTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
     MOVE_UNAVAILABLE,
@@ -5499,14 +5490,6 @@ static const u16 sRunerigusTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };
 
-static const u16 sMilceryTeachableLearnset[] = {
-    MOVE_UNAVAILABLE,
-};
-
-static const u16 sAlcremieTeachableLearnset[] = {
-    MOVE_UNAVAILABLE,
-};
-
 static const u16 sFalinksTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };
@@ -5694,7 +5677,6 @@ static const u16 sOverqwilTeachableLearnset[] = {
 static const u16 sEnamorusTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };
-#endif
 
 static const u16 sRattataAlolanTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
@@ -5861,7 +5843,6 @@ static const u16 sLinooneGalarianTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };
 
-#if P_GEN_5_POKEMON == TRUE
 static const u16 sDarumakaGalarianTeachableLearnset[] = {
     MOVE_PLAY_ROUGH,
     MOVE_UNAVAILABLE,
@@ -5883,7 +5864,6 @@ static const u16 sYamaskGalarianTeachableLearnset[] = {
 static const u16 sStunfiskGalarianTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };
-#endif
 
 static const u16 sGrowlitheHisuianTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
@@ -5913,7 +5893,6 @@ static const u16 sSneaselHisuianTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };
 
-#if P_GEN_5_POKEMON == TRUE
 static const u16 sSamurottHisuianTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };
@@ -5933,9 +5912,7 @@ static const u16 sZoroarkHisuianTeachableLearnset[] = {
 static const u16 sBraviaryHisuianTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };
-#endif
 
-#if P_GEN_6_POKEMON == TRUE
 static const u16 sSliggooHisuianTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };
@@ -5947,13 +5924,10 @@ static const u16 sGoodraHisuianTeachableLearnset[] = {
 static const u16 sAvaluggHisuianTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };
-#endif
 
-#if P_GEN_7_POKEMON == TRUE
 static const u16 sDecidueyeHisuianTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };
-#endif
 
 static const u16 sDeoxysAttackTeachableLearnset[] = {
     MOVE_KNOCK_OFF,
@@ -5972,7 +5946,6 @@ static const u16 sDeoxysSpeedTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };
 
-#if P_GEN_4_POKEMON == TRUE
 static const u16 sBurmySandyCloakTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };
@@ -5996,9 +5969,7 @@ static const u16 sGiratinaOriginTeachableLearnset[] = {
 static const u16 sShayminSkyTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };
-#endif
 
-#if P_GEN_6_POKEMON == TRUE
 static const u16 sFloetteEternalFlowerTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };
@@ -6010,9 +5981,7 @@ static const u16 sHoopaUnboundTeachableLearnset[] = {
 static const u16 sMeowsticFemaleTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };
-#endif
 
-#if P_GEN_7_POKEMON == TRUE
 static const u16 sLycanrocMidnightTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
     MOVE_FLASH_CANNON,
@@ -6034,9 +6003,7 @@ static const u16 sLycanrocDuskTeachableLearnset[] = {
     MOVE_FOUL_PLAY,
     MOVE_UNAVAILABLE,
 };
-#endif
 
-#if P_GEN_8_POKEMON == TRUE
 static const u16 sToxtricityLowKeyTeachableLearnset[] = {
     MOVE_DAZZLING_GLEAM,
     MOVE_DISARMING_VOICE,
@@ -6060,4 +6027,3 @@ static const u16 sCalyrexIceRiderTeachableLearnset[] = {
 static const u16 sCalyrexShadowRiderTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };
-#endif

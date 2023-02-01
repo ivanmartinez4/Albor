@@ -1240,41 +1240,6 @@ static const u8 sOvalStoneDesc[] = _(
     "Pokémon evolve. It's\n"
     "shaped like an egg.");
 
-static const u8 sStrawberrySweetDesc[] = _(
-    "Strawberry-shaped\n"
-    "sweet loved by\n"
-    "Milcery.");
-
-static const u8 sLoveSweetDesc[] = _(
-    "A heart-shaped\n"
-    "sweet loved by\n"
-    "Milcery.");
-
-static const u8 sBerrySweetDesc[] = _(
-    "A berry-shaped\n"
-    "sweet loved by\n"
-    "Milcery.");
-
-static const u8 sCloverSweetDesc[] = _(
-    "A clover-shaped\n"
-    "sweet loved by\n"
-    "Milcery.");
-
-static const u8 sFlowerSweetDesc[] = _(
-    "A flower-shaped\n"
-    "sweet loved by\n"
-    "Milcery.");
-
-static const u8 sStarSweetDesc[] = _(
-    "A star-shaped\n"
-    "sweet loved by\n"
-    "Milcery.");
-
-static const u8 sRibbonSweetDesc[] = _(
-    "A ribbon-shaped\n"
-    "sweet loved by\n"
-    "Milcery.");
-
 static const u8 sEverstoneDesc[] = _(
     "A wondrous hold\n"
     "item that prevents\n"
@@ -1407,92 +1372,6 @@ static const u8 sChillDriveDesc[] = _(
     "Changes Genesect's\n"
     "Techno Blast to\n"
     "Ice-type.");
-
-// Memories
-static const u8 sFireMemoryDesc[] = _(
-    "A disc with Fire\n"
-    "type data. It swaps\n"
-    "Silvally's type.");
-
-static const u8 sWaterMemoryDesc[] = _(
-    "A disc with Water\n"
-    "type data. It swaps\n"
-    "Silvally's type.");
-
-static const u8 sElectricMemoryDesc[] = _(
-    "A disc with Electric\n"
-    "type data. It swaps\n"
-    "Silvally's type.");
-
-static const u8 sGrassMemoryDesc[] = _(
-    "A disc with Grass\n"
-    "type data. It swaps\n"
-    "Silvally's type.");
-
-static const u8 sIceMemoryDesc[] = _(
-    "A disc with Ice\n"
-    "type data. It swaps\n"
-    "Silvally's type.");
-
-static const u8 sFightingMemoryDesc[] = _(
-    "A disc with Fighting\n"
-    "type data. It swaps\n"
-    "Silvally's type.");
-
-static const u8 sPoisonMemoryDesc[] = _(
-    "A disc with Poison\n"
-    "type data. It swaps\n"
-    "Silvally's type.");
-
-static const u8 sGroundMemoryDesc[] = _(
-    "A disc with Ground\n"
-    "type data. It swaps\n"
-    "Silvally's type.");
-
-static const u8 sFlyingMemoryDesc[] = _(
-    "A disc with Flying\n"
-    "type data. It swaps\n"
-    "Silvally's type.");
-
-static const u8 sPsychicMemoryDesc[] = _(
-    "A disc with Psychic\n"
-    "type data. It swaps\n"
-    "Silvally's type.");
-
-static const u8 sBugMemoryDesc[] = _(
-    "A disc with Bug\n"
-    "type data. It swaps\n"
-    "Silvally's type.");
-
-static const u8 sRockMemoryDesc[] = _(
-    "A disc with Rock\n"
-    "type data. It swaps\n"
-    "Silvally's type.");
-
-static const u8 sGhostMemoryDesc[] = _(
-    "A disc with Ghost\n"
-    "type data. It swaps\n"
-    "Silvally's type.");
-
-static const u8 sDragonMemoryDesc[] = _(
-    "A disc with Dragon\n"
-    "type data. It swaps\n"
-    "Silvally's type.");
-
-static const u8 sDarkMemoryDesc[] = _(
-    "A disc with Dark\n"
-    "type data. It swaps\n"
-    "Silvally's type.");
-
-static const u8 sSteelMemoryDesc[] = _(
-    "A disc with Steel\n"
-    "type data. It swaps\n"
-    "Silvally's type.");
-
-static const u8 sFairyMemoryDesc[] = _(
-    "A disc with Fairy\n"
-    "type data. It swaps\n"
-    "Silvally's type.");
 
 static const u8 sRustedSwordDesc[] = _(
     "A rusty sword. A\n"

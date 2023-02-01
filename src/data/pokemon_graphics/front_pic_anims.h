@@ -4743,7 +4743,6 @@ static const union AnimCmd sAnim_UnownQMark_1[] =
     ANIMCMD_END,
 };
 
-#if P_GEN_4_POKEMON == TRUE
 static const union AnimCmd sAnim_Turtwig_1[] =
 {
     ANIMCMD_FRAME(0, 15),
@@ -5957,8 +5956,7 @@ static const union AnimCmd sAnim_Arceus_1[] =
     ANIMCMD_FRAME(0, 15),
     ANIMCMD_END,
 };
-#endif
-#if P_GEN_5_POKEMON == TRUE
+
 static const union AnimCmd sAnim_Victini_1[] =
 {
     ANIMCMD_FRAME(0, 2),
@@ -7629,8 +7627,7 @@ static const union AnimCmd sAnim_Genesect_1[] =
     ANIMCMD_FRAME(0, 5),
     ANIMCMD_END,
 };
-#endif
-#if P_GEN_6_POKEMON == TRUE
+
 static const union AnimCmd sAnim_Chespin_1[] =
 {
     ANIMCMD_FRAME(0, 8),
@@ -8389,8 +8386,7 @@ static const union AnimCmd sAnim_Volcanion_1[] =
     ANIMCMD_FRAME(0, 10),
     ANIMCMD_END,
 };
-#endif
-#if P_GEN_7_POKEMON == TRUE
+
 static const union AnimCmd sAnim_Rowlet_1[] =
 {
     ANIMCMD_FRAME(0, 1),
@@ -8922,8 +8918,7 @@ static const union AnimCmd sAnim_Melmetal_1[] =
     ANIMCMD_FRAME(0, 1),
     ANIMCMD_END,
 };
-#endif
-#if P_GEN_8_POKEMON == TRUE
+
 static const union AnimCmd sAnim_Grookey_1[] =
 {
     ANIMCMD_FRAME(0, 1),
@@ -9272,18 +9267,6 @@ static const union AnimCmd sAnim_Runerigus_1[] =
     ANIMCMD_END,
 };
 
-static const union AnimCmd sAnim_Milcery_1[] =
-{
-    ANIMCMD_FRAME(0, 1),
-    ANIMCMD_END,
-};
-
-static const union AnimCmd sAnim_Alcremie_1[] =
-{
-    ANIMCMD_FRAME(0, 1),
-    ANIMCMD_END,
-};
-
 static const union AnimCmd sAnim_Falinks_1[] =
 {
     ANIMCMD_FRAME(0, 1),
@@ -9499,7 +9482,6 @@ static const union AnimCmd sAnim_Enamorus_1[] =
     ANIMCMD_FRAME(0, 1),
     ANIMCMD_END,
 };
-#endif
 
 static const union AnimCmd sAnim_VenusaurMega_1[] =
 {
@@ -9759,7 +9741,6 @@ static const union AnimCmd sAnim_RayquazaMega_1[] =
     ANIMCMD_END,
 };
 
-#if P_GEN_4_POKEMON == TRUE
 static const union AnimCmd sAnim_LopunnyMega_1[] =
 {
     ANIMCMD_FRAME(0, 1),
@@ -9789,21 +9770,18 @@ static const union AnimCmd sAnim_GalladeMega_1[] =
     ANIMCMD_FRAME(0, 1),
     ANIMCMD_END,
 };
-#endif
-#if P_GEN_5_POKEMON == TRUE
+
 static const union AnimCmd sAnim_AudinoMega_1[] =
 {
     ANIMCMD_FRAME(0, 1),
     ANIMCMD_END,
 };
-#endif
-#if P_GEN_6_POKEMON == TRUE
+
 static const union AnimCmd sAnim_DiancieMega_1[] =
 {
     ANIMCMD_FRAME(0, 1),
     ANIMCMD_END,
 };
-#endif
 
 static const union AnimCmd sAnim_RattataAlolan_1[] =
 {
@@ -10003,7 +9981,6 @@ static const union AnimCmd sAnim_LinooneGalarian_1[] =
     ANIMCMD_END,
 };
 
-#if P_GEN_5_POKEMON == TRUE
 static const union AnimCmd sAnim_DarumakaGalarian_1[] =
 {
     ANIMCMD_FRAME(0, 1),
@@ -10027,7 +10004,6 @@ static const union AnimCmd sAnim_StunfiskGalarian_1[] =
     ANIMCMD_FRAME(0, 1),
     ANIMCMD_END,
 };
-#endif
 
 static const union AnimCmd sAnim_GrowlitheHisuian_1[] =
 {
@@ -10071,7 +10047,6 @@ static const union AnimCmd sAnim_SneaselHisuian_1[] =
     ANIMCMD_END,
 };
 
-#if P_GEN_5_POKEMON == TRUE
 static const union AnimCmd sAnim_SamurottHisuian_1[] =
 {
     ANIMCMD_FRAME(0, 1),
@@ -10101,8 +10076,7 @@ static const union AnimCmd sAnim_BraviaryHisuian_1[] =
     ANIMCMD_FRAME(0, 1),
     ANIMCMD_END,
 };
-#endif
-#if P_GEN_6_POKEMON == TRUE
+
 static const union AnimCmd sAnim_SliggooHisuian_1[] =
 {
     ANIMCMD_FRAME(0, 1),
@@ -10120,14 +10094,12 @@ static const union AnimCmd sAnim_AvaluggHisuian_1[] =
     ANIMCMD_FRAME(0, 1),
     ANIMCMD_END,
 };
-#endif
-#if P_GEN_7_POKEMON == TRUE
+
 static const union AnimCmd sAnim_DecidueyeHisuian_1[] =
 {
     ANIMCMD_FRAME(0, 1),
     ANIMCMD_END,
 };
-#endif
 
 static const union AnimCmd sAnim_PikachuCosplay_1[] =
 {
@@ -10275,7 +10247,6 @@ static const union AnimCmd sAnim_DeoxysSpeed_2[] =
     ANIMCMD_END,
 };
 
-#if P_GEN_4_POKEMON == TRUE
 static const union AnimCmd sAnim_ShayminSky_1[] =
 {
     ANIMCMD_FRAME(0, 1),
@@ -10314,8 +10285,7 @@ static const union AnimCmd sAnim_GiratinaOrigin_2[] =
     ANIMCMD_FRAME(2, 20),
     ANIMCMD_END,
 };
-#endif
-#if P_GEN_5_POKEMON == TRUE
+
 static const union AnimCmd sAnim_DarmanitanZenMode_1[] =
 {
     ANIMCMD_FRAME(1, 15),
@@ -10402,8 +10372,7 @@ static const union AnimCmd sAnim_MeloettaPirouette_1[] =
     ANIMCMD_FRAME(0, 15),
     ANIMCMD_END,
 };
-#endif
-#if P_GEN_6_POKEMON == TRUE
+
 static const union AnimCmd sAnim_AegislashBlade_1[] =
 {
     ANIMCMD_FRAME(0, 18),
@@ -10436,8 +10405,7 @@ static const union AnimCmd sAnim_HoopaUnbound_1[] =
     ANIMCMD_FRAME(0, 10),
     ANIMCMD_END,
 };
-#endif
-#if P_GEN_7_POKEMON == TRUE
+
 static const union AnimCmd sAnim_MiniorCore_1[] =
 {
     ANIMCMD_FRAME(0, 1),
@@ -10467,14 +10435,12 @@ static const union AnimCmd sAnim_LycanrocDusk_1[] =
     ANIMCMD_FRAME(0, 1),
     ANIMCMD_END,
 };
-#endif
-#if P_GEN_8_POKEMON == TRUE
+
 static const union AnimCmd sAnim_EnamorusTherian_1[] =
 {
     ANIMCMD_FRAME(0, 1),
     ANIMCMD_END,
 };
-#endif
 
 #define SINGLE_ANIMATION(name)                      \
 static const union AnimCmd *const sAnims_##name[] = \
@@ -10920,7 +10886,6 @@ SINGLE_ANIMATION(UnownY);
 SINGLE_ANIMATION(UnownZ);
 SINGLE_ANIMATION(UnownEMark);
 SINGLE_ANIMATION(UnownQMark);
-#if P_GEN_4_POKEMON == TRUE
 SINGLE_ANIMATION(Turtwig);
 SINGLE_ANIMATION(Grotle);
 SINGLE_ANIMATION(Torterra);
@@ -11034,8 +10999,6 @@ SINGLE_ANIMATION(Manaphy);
 SINGLE_ANIMATION(Darkrai);
 SINGLE_ANIMATION(Shaymin);
 SINGLE_ANIMATION(Arceus);
-#endif
-#if P_GEN_5_POKEMON == TRUE
 SINGLE_ANIMATION(Victini);
 SINGLE_ANIMATION(Snivy);
 SINGLE_ANIMATION(Servine);
@@ -11192,8 +11155,7 @@ SINGLE_ANIMATION(Kyurem);
 SINGLE_ANIMATION(Keldeo);
 DOUBLE_ANIMATION(Meloetta);
 SINGLE_ANIMATION(Genesect);
-#endif
-#if P_GEN_6_POKEMON == TRUE
+
 SINGLE_ANIMATION(Chespin);
 DOUBLE_ANIMATION(Quilladin);
 SINGLE_ANIMATION(Chesnaught);
@@ -11267,8 +11229,6 @@ SINGLE_ANIMATION(Zygarde);
 SINGLE_ANIMATION(Diancie);
 SINGLE_ANIMATION(Hoopa);
 SINGLE_ANIMATION(Volcanion);
-#endif
-#if P_GEN_7_POKEMON == TRUE
 SINGLE_ANIMATION(Rowlet);
 SINGLE_ANIMATION(Dartrix);
 SINGLE_ANIMATION(Decidueye);
@@ -11355,8 +11315,6 @@ SINGLE_ANIMATION(Blacephalon);
 SINGLE_ANIMATION(Zeraora);
 SINGLE_ANIMATION(Meltan);
 SINGLE_ANIMATION(Melmetal);
-#endif
-#if P_GEN_8_POKEMON == TRUE
 SINGLE_ANIMATION(Grookey);
 SINGLE_ANIMATION(Thwackey);
 SINGLE_ANIMATION(Rillaboom);
@@ -11415,8 +11373,6 @@ SINGLE_ANIMATION(Cursola);
 SINGLE_ANIMATION(Sirfetchd);
 SINGLE_ANIMATION(MrRime);
 SINGLE_ANIMATION(Runerigus);
-SINGLE_ANIMATION(Milcery);
-SINGLE_ANIMATION(Alcremie);
 SINGLE_ANIMATION(Falinks);
 SINGLE_ANIMATION(Pincurchin);
 SINGLE_ANIMATION(Snom);
@@ -11453,7 +11409,6 @@ SINGLE_ANIMATION(Basculegion);
 SINGLE_ANIMATION(Sneasler);
 SINGLE_ANIMATION(Overqwil);
 SINGLE_ANIMATION(Enamorus);
-#endif
 SINGLE_ANIMATION(VenusaurMega);
 SINGLE_ANIMATION(CHARIZARD_MEGA_X);
 SINGLE_ANIMATION(CHARIZARD_MEGA_Y);
@@ -11497,19 +11452,13 @@ SINGLE_ANIMATION(LatiosMega);
 SINGLE_ANIMATION(KyogrePrimal);
 SINGLE_ANIMATION(GroudonPrimal);
 SINGLE_ANIMATION(RayquazaMega);
-#if P_GEN_4_POKEMON == TRUE
 SINGLE_ANIMATION(LopunnyMega);
 SINGLE_ANIMATION(GarchompMega);
 SINGLE_ANIMATION(LucarioMega);
 SINGLE_ANIMATION(AbomasnowMega);
 SINGLE_ANIMATION(GalladeMega);
-#endif
-#if P_GEN_5_POKEMON == TRUE
 SINGLE_ANIMATION(AudinoMega);
-#endif
-#if P_GEN_6_POKEMON == TRUE
 SINGLE_ANIMATION(DiancieMega);
-#endif
 SINGLE_ANIMATION(RattataAlolan);
 SINGLE_ANIMATION(RaticateAlolan);
 SINGLE_ANIMATION(RaichuAlolan);
@@ -11543,12 +11492,10 @@ SINGLE_ANIMATION(SlowkingGalarian);
 SINGLE_ANIMATION(CorsolaGalarian);
 SINGLE_ANIMATION(ZigzagoonGalarian);
 SINGLE_ANIMATION(LinooneGalarian);
-#if P_GEN_5_POKEMON == TRUE
 SINGLE_ANIMATION(DarumakaGalarian);
 SINGLE_ANIMATION(DarmanitanGalarian);
 SINGLE_ANIMATION(YamaskGalarian);
 SINGLE_ANIMATION(StunfiskGalarian);
-#endif
 SINGLE_ANIMATION(GrowlitheHisuian);
 SINGLE_ANIMATION(ArcanineHisuian);
 SINGLE_ANIMATION(VoltorbHisuian);
@@ -11556,21 +11503,15 @@ SINGLE_ANIMATION(ElectrodeHisuian);
 SINGLE_ANIMATION(TyphlosionHisuian);
 SINGLE_ANIMATION(QwilfishHisuian);
 SINGLE_ANIMATION(SneaselHisuian);
-#if P_GEN_5_POKEMON == TRUE
 SINGLE_ANIMATION(SamurottHisuian);
 SINGLE_ANIMATION(LilligantHisuian);
 SINGLE_ANIMATION(ZoruaHisuian);
 SINGLE_ANIMATION(ZoroarkHisuian);
 SINGLE_ANIMATION(BraviaryHisuian);
-#endif
-#if P_GEN_6_POKEMON == TRUE
 SINGLE_ANIMATION(SliggooHisuian);
 SINGLE_ANIMATION(GoodraHisuian);
 SINGLE_ANIMATION(AvaluggHisuian);
-#endif
-#if P_GEN_7_POKEMON == TRUE
 SINGLE_ANIMATION(DecidueyeHisuian);
-#endif
 SINGLE_ANIMATION(PikachuCosplay);
 SINGLE_ANIMATION(PikachuRockStar);
 SINGLE_ANIMATION(PikachuBelle);
@@ -11589,13 +11530,10 @@ SINGLE_ANIMATION(PichuSpikyEared);
 DOUBLE_ANIMATION(DeoxysAttack);
 DOUBLE_ANIMATION(DeoxysDefense);
 DOUBLE_ANIMATION(DeoxysSpeed);
-#if P_GEN_4_POKEMON == TRUE
 SINGLE_ANIMATION(DialgaOrigin);
 SINGLE_ANIMATION(PalkiaOrigin);
 DOUBLE_ANIMATION(GiratinaOrigin);
 SINGLE_ANIMATION(ShayminSky);
-#endif
-#if P_GEN_5_POKEMON == TRUE
 SINGLE_ANIMATION(DarmanitanZenMode);
 SINGLE_ANIMATION(DarmanitanZenModeGalarian);
 SINGLE_ANIMATION(TornadusTherian);
@@ -11605,23 +11543,16 @@ SINGLE_ANIMATION(KyuremBlack);
 SINGLE_ANIMATION(KyuremWhite);
 SINGLE_ANIMATION(KeldeoResolute);
 SINGLE_ANIMATION(MeloettaPirouette);
-#endif
-#if P_GEN_6_POKEMON == TRUE
 SINGLE_ANIMATION(AegislashBlade);
 SINGLE_ANIMATION(Zygarde10);
 SINGLE_ANIMATION(ZygardeComplete);
 SINGLE_ANIMATION(HoopaUnbound);
-#endif
-#if P_GEN_7_POKEMON == TRUE
 SINGLE_ANIMATION(MiniorCore);
 SINGLE_ANIMATION(WishiwashiSchool);
 SINGLE_ANIMATION(MimikyuBusted);
 SINGLE_ANIMATION(LycanrocMidnight);
 SINGLE_ANIMATION(LycanrocDusk);
-#endif
-#if P_GEN_8_POKEMON == TRUE
 SINGLE_ANIMATION(EnamorusTherian);
-#endif
 
 const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
 {
@@ -12012,7 +11943,6 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_JIRACHI]     = sAnims_Jirachi,
     [SPECIES_DEOXYS]      = sAnims_Deoxys,
     [SPECIES_CHIMECHO]    = sAnims_Chimecho,
-#if P_GEN_4_POKEMON == TRUE
     [SPECIES_TURTWIG] = sAnims_Turtwig,
     [SPECIES_GROTLE] = sAnims_Grotle,
     [SPECIES_TORTERRA] = sAnims_Torterra,
@@ -12120,8 +12050,6 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_DARKRAI] = sAnims_Darkrai,
     [SPECIES_SHAYMIN] = sAnims_Shaymin,
     [SPECIES_ARCEUS] = sAnims_Arceus,
-#endif
-#if P_GEN_5_POKEMON == TRUE
     [SPECIES_VICTINI] = sAnims_Victini,
     [SPECIES_SNIVY] = sAnims_Snivy,
     [SPECIES_SERVINE] = sAnims_Servine,
@@ -12278,8 +12206,6 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_KELDEO] = sAnims_Keldeo,
     [SPECIES_MELOETTA] = sAnims_Meloetta,
     [SPECIES_GENESECT] = sAnims_Genesect,
-#endif
-#if P_GEN_6_POKEMON == TRUE
     [SPECIES_CHESPIN] = sAnims_Chespin,
     [SPECIES_QUILLADIN] = sAnims_Quilladin,
     [SPECIES_CHESNAUGHT] = sAnims_Chesnaught,
@@ -12352,8 +12278,6 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_DIANCIE] = sAnims_Diancie,
     [SPECIES_HOOPA] = sAnims_Hoopa,
     [SPECIES_VOLCANION] = sAnims_Volcanion,
-#endif
-#if P_GEN_7_POKEMON == TRUE
     [SPECIES_ROWLET] = sAnims_Rowlet,
     [SPECIES_DARTRIX] = sAnims_Dartrix,
     [SPECIES_DECIDUEYE] = sAnims_Decidueye,
@@ -12440,8 +12364,6 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_ZERAORA] = sAnims_Zeraora,
     [SPECIES_MELTAN] = sAnims_Meltan,
     [SPECIES_MELMETAL] = sAnims_Melmetal,
-#endif
-#if P_GEN_8_POKEMON == TRUE
     [SPECIES_GROOKEY] = sAnims_Grookey,
     [SPECIES_THWACKEY] = sAnims_Thwackey,
     [SPECIES_RILLABOOM] = sAnims_Rillaboom,
@@ -12500,8 +12422,6 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_SIRFETCHD] = sAnims_Sirfetchd,
     [SPECIES_MR_RIME] = sAnims_MrRime,
     [SPECIES_RUNERIGUS] = sAnims_Runerigus,
-    [SPECIES_MILCERY] = sAnims_Milcery,
-    [SPECIES_ALCREMIE] = sAnims_Alcremie,
     [SPECIES_FALINKS] = sAnims_Falinks,
     [SPECIES_PINCURCHIN] = sAnims_Pincurchin,
     [SPECIES_SNOM] = sAnims_Snom,
@@ -12538,7 +12458,6 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_SNEASLER] = sAnims_Sneasler,
     [SPECIES_OVERQWIL] = sAnims_Overqwil,
     [SPECIES_ENAMORUS] = sAnims_Enamorus,
-#endif
     [SPECIES_VENUSAUR_MEGA] = sAnims_VenusaurMega,
     [SPECIES_CHARIZARD_MEGA_X] = sAnims_CHARIZARD_MEGA_X,
     [SPECIES_CHARIZARD_MEGA_Y] = sAnims_CHARIZARD_MEGA_Y,
@@ -12579,19 +12498,13 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_METAGROSS_MEGA] = sAnims_MetagrossMega,
     [SPECIES_LATIAS_MEGA] = sAnims_LatiasMega,
     [SPECIES_LATIOS_MEGA] = sAnims_LatiosMega,
-#if P_GEN_4_POKEMON == TRUE
     [SPECIES_LOPUNNY_MEGA] = sAnims_LopunnyMega,
     [SPECIES_GARCHOMP_MEGA] = sAnims_GarchompMega,
     [SPECIES_LUCARIO_MEGA] = sAnims_LucarioMega,
     [SPECIES_ABOMASNOW_MEGA] = sAnims_AbomasnowMega,
     [SPECIES_GALLADE_MEGA] = sAnims_GalladeMega,
-#endif
-#if P_GEN_5_POKEMON == TRUE
     [SPECIES_AUDINO_MEGA] = sAnims_AudinoMega,
-#endif
-#if P_GEN_6_POKEMON == TRUE
     [SPECIES_DIANCIE_MEGA] = sAnims_DiancieMega,
-#endif
     [SPECIES_RAYQUAZA_MEGA] = sAnims_RayquazaMega,
     [SPECIES_KYOGRE_PRIMAL] = sAnims_KyogrePrimal,
     [SPECIES_GROUDON_PRIMAL] = sAnims_GroudonPrimal,
@@ -12628,12 +12541,10 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_CORSOLA_GALARIAN] = sAnims_CorsolaGalarian,
     [SPECIES_ZIGZAGOON_GALARIAN] = sAnims_ZigzagoonGalarian,
     [SPECIES_LINOONE_GALARIAN] = sAnims_LinooneGalarian,
-#if P_GEN_5_POKEMON == TRUE
     [SPECIES_DARUMAKA_GALARIAN] = sAnims_DarumakaGalarian,
     [SPECIES_DARMANITAN_GALARIAN] = sAnims_DarmanitanGalarian,
     [SPECIES_YAMASK_GALARIAN] = sAnims_YamaskGalarian,
     [SPECIES_STUNFISK_GALARIAN] = sAnims_StunfiskGalarian,
-#endif
     [SPECIES_GROWLITHE_HISUIAN] = sAnims_GrowlitheHisuian,
     [SPECIES_ARCANINE_HISUIAN] = sAnims_ArcanineHisuian,
     [SPECIES_VOLTORB_HISUIAN] = sAnims_VoltorbHisuian,
@@ -12641,21 +12552,15 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_TYPHLOSION_HISUIAN] = sAnims_TyphlosionHisuian,
     [SPECIES_QWILFISH_HISUIAN] = sAnims_QwilfishHisuian,
     [SPECIES_SNEASEL_HISUIAN] = sAnims_SneaselHisuian,
-#if P_GEN_5_POKEMON == TRUE
     [SPECIES_SAMUROTT_HISUIAN] = sAnims_SamurottHisuian,
     [SPECIES_LILLIGANT_HISUIAN] = sAnims_LilligantHisuian,
     [SPECIES_ZORUA_HISUIAN] = sAnims_ZoruaHisuian,
     [SPECIES_ZOROARK_HISUIAN] = sAnims_ZoroarkHisuian,
     [SPECIES_BRAVIARY_HISUIAN] = sAnims_BraviaryHisuian,
-#endif
-#if P_GEN_6_POKEMON == TRUE
     [SPECIES_SLIGGOO_HISUIAN] = sAnims_SliggooHisuian,
     [SPECIES_GOODRA_HISUIAN] = sAnims_GoodraHisuian,
     [SPECIES_AVALUGG_HISUIAN] = sAnims_AvaluggHisuian,
-#endif
-#if P_GEN_7_POKEMON == TRUE
     [SPECIES_DECIDUEYE_HISUIAN] = sAnims_DecidueyeHisuian,
-#endif
     [SPECIES_PIKACHU_COSPLAY] = sAnims_PikachuCosplay,
     [SPECIES_PIKACHU_ROCK_STAR] = sAnims_PikachuRockStar,
     [SPECIES_PIKACHU_BELLE] = sAnims_PikachuBelle,
@@ -12705,7 +12610,6 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_DEOXYS_ATTACK] = sAnims_DeoxysAttack,
     [SPECIES_DEOXYS_DEFENSE] = sAnims_DeoxysDefense,
     [SPECIES_DEOXYS_SPEED] = sAnims_DeoxysSpeed,
-#if P_GEN_4_POKEMON == TRUE
     [SPECIES_BURMY_SANDY_CLOAK] = sAnims_Burmy,
     [SPECIES_BURMY_TRASH_CLOAK] = sAnims_Burmy,
     [SPECIES_WORMADAM_SANDY_CLOAK] = sAnims_Wormadam,
@@ -12739,8 +12643,6 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_ARCEUS_DRAGON] = sAnims_Arceus,
     [SPECIES_ARCEUS_DARK] = sAnims_Arceus,
     [SPECIES_ARCEUS_FAIRY] = sAnims_Arceus,
-#endif
-#if P_GEN_5_POKEMON == TRUE
     [SPECIES_BASCULIN_BLUE_STRIPED] = sAnims_Basculin,
     [SPECIES_BASCULIN_WHITE_STRIPED] = sAnims_Basculin,
     [SPECIES_DARMANITAN_ZEN_MODE] = sAnims_DarmanitanZenMode,
@@ -12762,8 +12664,6 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_GENESECT_SHOCK_DRIVE] = sAnims_Genesect,
     [SPECIES_GENESECT_BURN_DRIVE] = sAnims_Genesect,
     [SPECIES_GENESECT_CHILL_DRIVE] = sAnims_Genesect,
-#endif
-#if P_GEN_6_POKEMON == TRUE
     [SPECIES_GRENINJA_BATTLE_BOND] = sAnims_Greninja,
     [SPECIES_GRENINJA_ASH] = sAnims_GreninjaAsh,
     [SPECIES_VIVILLON_POLAR] = sAnims_Vivillon,
@@ -12821,8 +12721,6 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_ZYGARDE_50_POWER_CONSTRUCT] = sAnims_Zygarde,
     [SPECIES_ZYGARDE_COMPLETE] = sAnims_ZygardeComplete,
     [SPECIES_HOOPA_UNBOUND] = sAnims_HoopaUnbound,
-#endif
-#if P_GEN_7_POKEMON == TRUE
     [SPECIES_ORICORIO_POM_POM] = sAnims_Oricorio,
     [SPECIES_ORICORIO_PAU] = sAnims_Oricorio,
     [SPECIES_ORICORIO_SENSU] = sAnims_Oricorio,
@@ -12830,23 +12728,6 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_LYCANROC_MIDNIGHT] = sAnims_LycanrocMidnight,
     [SPECIES_LYCANROC_DUSK] = sAnims_LycanrocDusk,
     [SPECIES_WISHIWASHI_SCHOOL] = sAnims_WishiwashiSchool,
-    [SPECIES_SILVALLY_FIGHTING] = sAnims_Silvally,
-    [SPECIES_SILVALLY_FLYING] = sAnims_Silvally,
-    [SPECIES_SILVALLY_POISON] = sAnims_Silvally,
-    [SPECIES_SILVALLY_GROUND] = sAnims_Silvally,
-    [SPECIES_SILVALLY_ROCK] = sAnims_Silvally,
-    [SPECIES_SILVALLY_BUG] = sAnims_Silvally,
-    [SPECIES_SILVALLY_GHOST] = sAnims_Silvally,
-    [SPECIES_SILVALLY_STEEL] = sAnims_Silvally,
-    [SPECIES_SILVALLY_FIRE] = sAnims_Silvally,
-    [SPECIES_SILVALLY_WATER] = sAnims_Silvally,
-    [SPECIES_SILVALLY_GRASS] = sAnims_Silvally,
-    [SPECIES_SILVALLY_ELECTRIC] = sAnims_Silvally,
-    [SPECIES_SILVALLY_PSYCHIC] = sAnims_Silvally,
-    [SPECIES_SILVALLY_ICE] = sAnims_Silvally,
-    [SPECIES_SILVALLY_DRAGON] = sAnims_Silvally,
-    [SPECIES_SILVALLY_DARK] = sAnims_Silvally,
-    [SPECIES_SILVALLY_FAIRY] = sAnims_Silvally,
     [SPECIES_MINIOR_METEOR_ORANGE] = sAnims_Minior,
     [SPECIES_MINIOR_METEOR_YELLOW] = sAnims_Minior,
     [SPECIES_MINIOR_METEOR_GREEN] = sAnims_Minior,
@@ -12865,21 +12746,11 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_NECROZMA_DAWN_WINGS] = sAnims_Necrozma,
     [SPECIES_NECROZMA_ULTRA] = sAnims_Necrozma,
     [SPECIES_MAGEARNA_ORIGINAL_COLOR] = sAnims_Magearna,
-#endif
-#if P_GEN_8_POKEMON == TRUE
     [SPECIES_CRAMORANT_GULPING] = sAnims_Cramorant,
     [SPECIES_CRAMORANT_GORGING] = sAnims_Cramorant,
     [SPECIES_TOXTRICITY_LOW_KEY] = sAnims_Toxtricity,
     [SPECIES_SINISTEA_ANTIQUE] = sAnims_Sinistea,
     [SPECIES_POLTEAGEIST_ANTIQUE] = sAnims_Polteageist,
-    [SPECIES_ALCREMIE_RUBY_CREAM] = sAnims_Alcremie,
-    [SPECIES_ALCREMIE_MATCHA_CREAM] = sAnims_Alcremie,
-    [SPECIES_ALCREMIE_MINT_CREAM] = sAnims_Alcremie,
-    [SPECIES_ALCREMIE_LEMON_CREAM] = sAnims_Alcremie,
-    [SPECIES_ALCREMIE_SALTED_CREAM] = sAnims_Alcremie,
-    [SPECIES_ALCREMIE_RUBY_SWIRL] = sAnims_Alcremie,
-    [SPECIES_ALCREMIE_CARAMEL_SWIRL] = sAnims_Alcremie,
-    [SPECIES_ALCREMIE_RAINBOW_SWIRL] = sAnims_Alcremie,
     [SPECIES_EISCUE_NOICE_FACE] = sAnims_Eiscue,
     [SPECIES_INDEEDEE_FEMALE] = sAnims_Indeedee,
     [SPECIES_MORPEKO_HANGRY] = sAnims_Morpeko,
@@ -12891,7 +12762,6 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_CALYREX_ICE_RIDER] = sAnims_Calyrex,
     [SPECIES_CALYREX_SHADOW_RIDER] = sAnims_Calyrex,
     [SPECIES_ENAMORUS_THERIAN] = sAnims_EnamorusTherian,
-#endif
     [SPECIES_GIMMIGHOUL_CHEST] = sAnims_GimmighoulChest,
     [SPECIES_EGG]         = sAnims_Egg,
 };

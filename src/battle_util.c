@@ -9860,8 +9860,6 @@ bool32 CanBattlerGetOrLoseItem(u8 battlerId, u16 itemId)
         return FALSE;
     else if (GET_BASE_SPECIES_ID(species) == SPECIES_GENESECT && holdEffect == HOLD_EFFECT_DRIVE)
         return FALSE;
-    else if (GET_BASE_SPECIES_ID(species) == SPECIES_SILVALLY && holdEffect == HOLD_EFFECT_MEMORY)
-        return FALSE;
     else if (GET_BASE_SPECIES_ID(species) == SPECIES_ARCEUS && holdEffect == HOLD_EFFECT_PLATE)
         return FALSE;
 #ifdef HOLD_EFFECT_Z_CRYSTAL

@@ -2,7 +2,6 @@
 #define GUARD_CONSTANTS_POKEDEX_H
 
 // National Pokedex order.
-// These constants are NOT disabled by P_GEN_X_POKEMON to keep pokedex_orders.h clean.
 enum {
     NATIONAL_DEX_NONE,
     NATIONAL_DEX_BULBASAUR,

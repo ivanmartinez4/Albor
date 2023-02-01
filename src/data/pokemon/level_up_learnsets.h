@@ -2460,7 +2460,6 @@ static const struct LevelUpMove sChimechoLevelUpLearnset[] = {
     LEVEL_UP_END
 };
 
-#if P_GEN_4_POKEMON == TRUE
 static const struct LevelUpMove sTurtwigLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_),
     LEVEL_UP_END
@@ -3022,9 +3021,7 @@ static const struct LevelUpMove sManaphyLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_MIRROR_SHOT),
     LEVEL_UP_END
 };
-#endif
 
-#if P_GEN_5_POKEMON == TRUE
 static const struct LevelUpMove sVictiniLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_),
     LEVEL_UP_END
@@ -3674,9 +3671,7 @@ static const struct LevelUpMove sVolcaronaLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 0, MOVE_),
     LEVEL_UP_END
 };
-#endif
 
-#if P_GEN_6_POKEMON == TRUE
 static const struct LevelUpMove sChespinLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_),
     LEVEL_UP_END
@@ -3948,9 +3943,7 @@ static const struct LevelUpMove sVolcanionLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_GEOMANCY),
     LEVEL_UP_END
 };
-#endif
 
-#if P_GEN_7_POKEMON == TRUE
 static const struct LevelUpMove sRowletLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_),
     LEVEL_UP_END
@@ -4254,7 +4247,6 @@ static const struct LevelUpMove sMelmetalLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_DARKEST_LARIAT),
     LEVEL_UP_END
 };
-#endif
 
 static const struct LevelUpMove sLycanrocMidnightLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 0, MOVE_MOONBLAST),
@@ -4279,7 +4271,6 @@ static const struct LevelUpMove sToxtricityLowKeyLevelUpLearnset[] = {
     LEVEL_UP_END
 };
 
-#if P_GEN_8_POKEMON == TRUE
 static const struct LevelUpMove sGrookeyLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_),
     LEVEL_UP_END
@@ -4781,16 +4772,6 @@ static const struct LevelUpMove sRunerigusLevelUpLearnset[] = {
     LEVEL_UP_END
 };
 
-static const struct LevelUpMove sMilceryLevelUpLearnset[] = {
-    LEVEL_UP_MOVE( 1, MOVE_10000000_VOLT_THUNDERBOLT),
-    LEVEL_UP_END
-};
-
-static const struct LevelUpMove sAlcremieLevelUpLearnset[] = {
-    LEVEL_UP_MOVE( 1, MOVE_10000000_VOLT_THUNDERBOLT),
-    LEVEL_UP_END
-};
-
 static const struct LevelUpMove sFalinksLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_10000000_VOLT_THUNDERBOLT),
     LEVEL_UP_END
@@ -4879,7 +4860,6 @@ static const struct LevelUpMove sEnamorusLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_10000000_VOLT_THUNDERBOLT),
     LEVEL_UP_END
 };
-#endif
 
 static const struct LevelUpMove sRattataAlolanLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_10000000_VOLT_THUNDERBOLT),

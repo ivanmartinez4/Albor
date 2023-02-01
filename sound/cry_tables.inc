@@ -867,8 +867,8 @@ gCryTable::
 	cry Cry_Sirfetchd
 	cry Cry_MrRime
 	cry Cry_Runerigus
-	cry Cry_Milcery
-	cry Cry_Alcremie
+	cry Cry_Gholdengo
+	cry Cry_Charcadet
 	cry Cry_Falinks
 	cry Cry_Pincurchin
 	cry Cry_Snom
@@ -943,8 +943,6 @@ gCryTable::
 	cry Cry_Arctibax
 	cry Cry_Baxcalibur
 	cry Cry_Gimmighoul
-	cry Cry_Gholdengo
-	cry Cry_Charcadet
 	@ Megas
 	cry Cry_VenusaurMega
 	cry Cry_CharizardMegaX
@@ -1263,24 +1261,6 @@ gCryTable::
 	cry Cry_LycanrocDusk
 	@ Wishiwashi
 	cry Cry_WishiwashiSchool
-	@ Silvally
-	cry Cry_Silvally
-	cry Cry_Silvally
-	cry Cry_Silvally
-	cry Cry_Silvally
-	cry Cry_Silvally
-	cry Cry_Silvally
-	cry Cry_Silvally
-	cry Cry_Silvally
-	cry Cry_Silvally
-	cry Cry_Silvally
-	cry Cry_Silvally
-	cry Cry_Silvally
-	cry Cry_Silvally
-	cry Cry_Silvally
-	cry Cry_Silvally
-	cry Cry_Silvally
-	cry Cry_Silvally
 	@ Minior
 	cry Cry_Minior
 	cry Cry_Minior
@@ -1312,15 +1292,6 @@ gCryTable::
 	cry Cry_Sinistea
 	@ Polteageist
 	cry Cry_Polteageist
-	@ Alcremie
-	cry Cry_Alcremie
-	cry Cry_Alcremie
-	cry Cry_Alcremie
-	cry Cry_Alcremie
-	cry Cry_Alcremie
-	cry Cry_Alcremie
-	cry Cry_Alcremie
-	cry Cry_Alcremie
 	@ Eiscue
 	cry Cry_EiscueNoiceFace
 	@ Indeedee
@@ -2212,8 +2183,8 @@ gCryTable_Reverse::
 	cry_reverse Cry_Sirfetchd
 	cry_reverse Cry_MrRime
 	cry_reverse Cry_Runerigus
-	cry_reverse Cry_Milcery
-	cry_reverse Cry_Alcremie
+	cry_reverse Cry_Gholdengo
+	cry_reverse Cry_Charcadet
 	cry_reverse Cry_Falinks
 	cry_reverse Cry_Pincurchin
 	cry_reverse Cry_Snom
@@ -2288,8 +2259,6 @@ gCryTable_Reverse::
 	cry_reverse Cry_Arctibax
 	cry_reverse Cry_Baxcalibur
 	cry_reverse Cry_Gimmighoul
-	cry_reverse Cry_Gholdengo
-	cry_reverse Cry_Charcadet
 	@ Megas
 	cry_reverse Cry_VenusaurMega
 	cry_reverse Cry_CharizardMegaX
@@ -2608,24 +2577,6 @@ gCryTable_Reverse::
 	cry_reverse Cry_LycanrocDusk
 	@ Wishiwashi
 	cry_reverse Cry_WishiwashiSchool
-	@ Silvally
-	cry_reverse Cry_Silvally
-	cry_reverse Cry_Silvally
-	cry_reverse Cry_Silvally
-	cry_reverse Cry_Silvally
-	cry_reverse Cry_Silvally
-	cry_reverse Cry_Silvally
-	cry_reverse Cry_Silvally
-	cry_reverse Cry_Silvally
-	cry_reverse Cry_Silvally
-	cry_reverse Cry_Silvally
-	cry_reverse Cry_Silvally
-	cry_reverse Cry_Silvally
-	cry_reverse Cry_Silvally
-	cry_reverse Cry_Silvally
-	cry_reverse Cry_Silvally
-	cry_reverse Cry_Silvally
-	cry_reverse Cry_Silvally
 	@ Minior
 	cry_reverse Cry_Minior
 	cry_reverse Cry_Minior
@@ -2657,15 +2608,6 @@ gCryTable_Reverse::
 	cry_reverse Cry_Sinistea
 	@ Polteageist
 	cry_reverse Cry_Polteageist
-	@ Alcremie
-	cry_reverse Cry_Alcremie
-	cry_reverse Cry_Alcremie
-	cry_reverse Cry_Alcremie
-	cry_reverse Cry_Alcremie
-	cry_reverse Cry_Alcremie
-	cry_reverse Cry_Alcremie
-	cry_reverse Cry_Alcremie
-	cry_reverse Cry_Alcremie
 	@ Eiscue
 	cry_reverse Cry_EiscueNoiceFace
 	@ Indeedee

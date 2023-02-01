@@ -550,7 +550,6 @@ static const u16 sDeoxysFormSpeciesIdTable[] = {
     FORM_SPECIES_END,
 };
 
-#if P_GEN_4_POKEMON == TRUE
 static const u16 sBurmyFormSpeciesIdTable[] = {
     SPECIES_BURMY,
     SPECIES_BURMY_SANDY_CLOAK,
@@ -668,9 +667,7 @@ static const u16 sArceusFormSpeciesIdTable[] = {
     SPECIES_ARCEUS_FAIRY,
     FORM_SPECIES_END,
 };
-#endif
 
-#if P_GEN_5_POKEMON == TRUE
 static const u16 sSamurottFormSpeciesIdTable[] = {
     SPECIES_SAMUROTT,
     SPECIES_SAMUROTT_HISUIAN,
@@ -801,9 +798,7 @@ static const u16 sGenesectFormSpeciesIdTable[] = {
     SPECIES_GENESECT_CHILL_DRIVE,
     FORM_SPECIES_END,
 };
-#endif
 
-#if P_GEN_6_POKEMON == TRUE
 static const u16 sGreninjaFormSpeciesIdTable[] = {
     SPECIES_GRENINJA,
     SPECIES_GRENINJA_BATTLE_BOND,
@@ -949,9 +944,7 @@ static const u16 sHoopaFormSpeciesIdTable[] = {
     SPECIES_HOOPA_UNBOUND,
     FORM_SPECIES_END,
 };
-#endif
 
-#if P_GEN_7_POKEMON == TRUE
 static const u16 sDecidueyeFormSpeciesIdTable[] = {
     SPECIES_DECIDUEYE,
     SPECIES_DECIDUEYE_HISUIAN,
@@ -982,28 +975,6 @@ static const u16 sLycanrocFormSpeciesIdTable[] = {
 static const u16 sWishiwashiFormSpeciesIdTable[] = {
     SPECIES_WISHIWASHI,
     SPECIES_WISHIWASHI_SCHOOL,
-    FORM_SPECIES_END,
-};
-
-static const u16 sSilvallyFormSpeciesIdTable[] = {
-    SPECIES_SILVALLY,
-    SPECIES_SILVALLY_FIGHTING,
-    SPECIES_SILVALLY_FLYING,
-    SPECIES_SILVALLY_POISON,
-    SPECIES_SILVALLY_GROUND,
-    SPECIES_SILVALLY_ROCK,
-    SPECIES_SILVALLY_BUG,
-    SPECIES_SILVALLY_GHOST,
-    SPECIES_SILVALLY_STEEL,
-    SPECIES_SILVALLY_FIRE,
-    SPECIES_SILVALLY_WATER,
-    SPECIES_SILVALLY_GRASS,
-    SPECIES_SILVALLY_ELECTRIC,
-    SPECIES_SILVALLY_PSYCHIC,
-    SPECIES_SILVALLY_ICE,
-    SPECIES_SILVALLY_DRAGON,
-    SPECIES_SILVALLY_DARK,
-    SPECIES_SILVALLY_FAIRY,
     FORM_SPECIES_END,
 };
 
@@ -1044,9 +1015,7 @@ static const u16 sMagearnaFormSpeciesIdTable[] = {
     SPECIES_MAGEARNA_ORIGINAL_COLOR,
     FORM_SPECIES_END,
 };
-#endif
 
-#if P_GEN_8_POKEMON == TRUE
 static const u16 sCramorantFormSpeciesIdTable[] = {
     SPECIES_CRAMORANT,
     SPECIES_CRAMORANT_GULPING,
@@ -1069,19 +1038,6 @@ static const u16 sSinisteaFormSpeciesIdTable[] = {
 static const u16 sPolteageistFormSpeciesIdTable[] = {
     SPECIES_POLTEAGEIST,
     SPECIES_POLTEAGEIST_ANTIQUE,
-    FORM_SPECIES_END,
-};
-
-static const u16 sAlcremieFormSpeciesIdTable[] = {
-    SPECIES_ALCREMIE,
-    SPECIES_ALCREMIE_RUBY_CREAM,
-    SPECIES_ALCREMIE_MATCHA_CREAM,
-    SPECIES_ALCREMIE_MINT_CREAM,
-    SPECIES_ALCREMIE_LEMON_CREAM,
-    SPECIES_ALCREMIE_SALTED_CREAM,
-    SPECIES_ALCREMIE_RUBY_SWIRL,
-    SPECIES_ALCREMIE_CARAMEL_SWIRL,
-    SPECIES_ALCREMIE_RAINBOW_SWIRL,
     FORM_SPECIES_END,
 };
 

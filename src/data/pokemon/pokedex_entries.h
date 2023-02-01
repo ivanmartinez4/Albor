@@ -4656,7 +4656,6 @@ const struct PokedexEntry gPokedexEntries[] =
         .trainerOffset = 2,
     },
 
-#if P_GEN_4_POKEMON == TRUE
     [NATIONAL_DEX_TURTWIG] =
     {
         .categoryName = _("Ramita"),
@@ -5772,9 +5771,7 @@ const struct PokedexEntry gPokedexEntries[] =
         .trainerScale = 256,
         .trainerOffset = 0,
     },
-#endif
 
-#if P_GEN_5_POKEMON == TRUE
     [NATIONAL_DEX_VICTINI] =
     {
         .categoryName = _("Victoria"),
@@ -7012,9 +7009,7 @@ const struct PokedexEntry gPokedexEntries[] =
         .trainerScale = 256,
         .trainerOffset = 0,
     },
-#endif
 
-#if P_GEN_6_POKEMON == TRUE
     [NATIONAL_DEX_CHESPIN] =
     {
         .categoryName = _("Puercoespín"),
@@ -7554,9 +7549,7 @@ const struct PokedexEntry gPokedexEntries[] =
         .trainerScale = 256,
         .trainerOffset = 0,
     },
-#endif
 
-#if P_GEN_7_POKEMON == TRUE
     [NATIONAL_DEX_ROWLET] =
     {
         .categoryName = _("Serbal"),
@@ -8144,9 +8137,7 @@ const struct PokedexEntry gPokedexEntries[] =
         .trainerScale = 387,
         .trainerOffset = 2,
     },
-#endif
 
-#if P_GEN_8_POKEMON == TRUE
     [NATIONAL_DEX_GROOKEY] =
     {
         .categoryName = _("Macaco"),
@@ -8650,7 +8641,7 @@ const struct PokedexEntry gPokedexEntries[] =
         .trainerScale = 256,
         .trainerOffset = 0,
     },
-#endif
+
     [NATIONAL_DEX_SPRIGATITO] =
     {
         .categoryName = _("Gato planta"),

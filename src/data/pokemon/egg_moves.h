@@ -512,7 +512,6 @@ const u16 gEggMoves[] = {
     egg_moves(BAGON,
         MOVE_),
 
-#if P_GEN_4_POKEMON == TRUE
     egg_moves(TURTWIG,
         MOVE_),
 
@@ -612,9 +611,7 @@ const u16 gEggMoves[] = {
 
     egg_moves(SNOVER,
         MOVE_SPIRIT_BREAK),
-#endif
 
-#if P_GEN_5_POKEMON == TRUE
     egg_moves(SNIVY,
         MOVE_),
 
@@ -734,9 +731,7 @@ const u16 gEggMoves[] = {
 
     egg_moves(LARVESTA,
         MOVE_),
-#endif
 
-#if P_GEN_6_POKEMON == TRUE
     egg_moves(CHESPIN,
         MOVE_GYRO_BALL),
 
@@ -792,9 +787,7 @@ const u16 gEggMoves[] = {
 
     egg_moves(NOIBAT,
         MOVE_),
-#endif
 
-#if P_GEN_7_POKEMON == TRUE
     egg_moves(ROWLET,
         MOVE_MOONLIGHT),
 
@@ -848,9 +841,7 @@ const u16 gEggMoves[] = {
 
     egg_moves(JANGMO_O,
         MOVE_),
-#endif
 
-#if P_GEN_8_POKEMON == TRUE
     egg_moves(GROOKEY,
         MOVE_IRON_HAMMER),
 
@@ -902,7 +893,6 @@ const u16 gEggMoves[] = {
 
     egg_moves(DREEPY,
         MOVE_),
-#endif
 
     egg_moves(SANDSHREW_ALOLAN,
         MOVE_METAL_SOUND),

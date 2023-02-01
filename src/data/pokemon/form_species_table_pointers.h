@@ -84,7 +84,6 @@ const u16 *const gFormSpeciesIdTables[NUM_SPECIES] =
     [SPECIES_GROUDON] = sGroudonFormSpeciesIdTable,
     [SPECIES_RAYQUAZA] = sRayquazaFormSpeciesIdTable,
     [SPECIES_DEOXYS] = sDeoxysFormSpeciesIdTable,
-#if P_GEN_4_POKEMON == TRUE
     [SPECIES_BURMY] = sBurmyFormSpeciesIdTable,
     [SPECIES_WORMADAM] = sWormadamFormSpeciesIdTable,
     [SPECIES_CHERRIM] = sCherrimFormSpeciesIdTable,
@@ -101,8 +100,6 @@ const u16 *const gFormSpeciesIdTables[NUM_SPECIES] =
     [SPECIES_GIRATINA] = sGiratinaFormSpeciesIdTable,
     [SPECIES_SHAYMIN] = sShayminFormSpeciesIdTable,
     [SPECIES_ARCEUS] = sArceusFormSpeciesIdTable,
-#endif
-#if P_GEN_5_POKEMON == TRUE
     [SPECIES_SAMUROTT] = sSamurottFormSpeciesIdTable,
     [SPECIES_AUDINO] = sAudinoFormSpeciesIdTable,
     [SPECIES_BASCULIN] = sBasculinFormSpeciesIdTable,
@@ -123,8 +120,6 @@ const u16 *const gFormSpeciesIdTables[NUM_SPECIES] =
     [SPECIES_KELDEO] = sKeldeoFormSpeciesIdTable,
     [SPECIES_MELOETTA] = sMeloettaFormSpeciesIdTable,
     [SPECIES_GENESECT] = sGenesectFormSpeciesIdTable,
-#endif
-#if P_GEN_6_POKEMON == TRUE
     [SPECIES_GRENINJA] = sGreninjaFormSpeciesIdTable,
     [SPECIES_VIVILLON] = sVivillonFormSpeciesIdTable,
     [SPECIES_FLABEBE] = sFlabebeFormSpeciesIdTable,
@@ -142,25 +137,19 @@ const u16 *const gFormSpeciesIdTables[NUM_SPECIES] =
     [SPECIES_ZYGARDE] = sZygardeFormSpeciesIdTable,
     [SPECIES_DIANCIE] = sDiancieFormSpeciesIdTable,
     [SPECIES_HOOPA] = sHoopaFormSpeciesIdTable,
-#endif
-#if P_GEN_7_POKEMON == TRUE
     [SPECIES_DECIDUEYE] = sDecidueyeFormSpeciesIdTable,
     [SPECIES_ORICORIO] = sOricorioFormSpeciesIdTable,
     [SPECIES_ROCKRUFF] = sRockruffFormSpeciesIdTable,
     [SPECIES_LYCANROC] = sLycanrocFormSpeciesIdTable,
     [SPECIES_WISHIWASHI] = sWishiwashiFormSpeciesIdTable,
-    [SPECIES_SILVALLY] = sSilvallyFormSpeciesIdTable,
     [SPECIES_MINIOR] = sMiniorFormSpeciesIdTable,
     [SPECIES_MIMIKYU] = sMimikyuFormSpeciesIdTable,
     [SPECIES_NECROZMA] = sNecrozmaFormSpeciesIdTable,
     [SPECIES_MAGEARNA] = sMagearnaFormSpeciesIdTable,
-#endif
-#if P_GEN_8_POKEMON == TRUE
     [SPECIES_CRAMORANT] = sCramorantFormSpeciesIdTable,
     [SPECIES_TOXTRICITY] = sToxtricityFormSpeciesIdTable,
     [SPECIES_SINISTEA] = sSinisteaFormSpeciesIdTable,
     [SPECIES_POLTEAGEIST] = sPolteageistFormSpeciesIdTable,
-    [SPECIES_ALCREMIE] = sAlcremieFormSpeciesIdTable,
     [SPECIES_EISCUE] = sEiscueFormSpeciesIdTable,
     [SPECIES_INDEEDEE] = sIndeedeeFormSpeciesIdTable,
     [SPECIES_MORPEKO] = sMorpekoFormSpeciesIdTable,
@@ -171,7 +160,6 @@ const u16 *const gFormSpeciesIdTables[NUM_SPECIES] =
     [SPECIES_ZARUDE] = sZarudeFormSpeciesIdTable,
     [SPECIES_CALYREX] = sCalyrexFormSpeciesIdTable,
     [SPECIES_ENAMORUS] = sEnamorusFormSpeciesIdTable,
-#endif
     [SPECIES_GIMMIGHOUL] = sGimmighoulFormSpeciesIdTable,
     // Megas
     [SPECIES_VENUSAUR_MEGA] = sVenusaurFormSpeciesIdTable,
@@ -214,19 +202,13 @@ const u16 *const gFormSpeciesIdTables[NUM_SPECIES] =
     [SPECIES_METAGROSS_MEGA] = sMetagrossFormSpeciesIdTable,
     [SPECIES_LATIAS_MEGA] = sLatiasFormSpeciesIdTable,
     [SPECIES_LATIOS_MEGA] = sLatiosFormSpeciesIdTable,
-#if P_GEN_4_POKEMON == TRUE
     [SPECIES_LOPUNNY_MEGA] = sLopunnyFormSpeciesIdTable,
     [SPECIES_GARCHOMP_MEGA] = sGarchompFormSpeciesIdTable,
     [SPECIES_LUCARIO_MEGA] = sLucarioFormSpeciesIdTable,
     [SPECIES_ABOMASNOW_MEGA] = sAbomasnowFormSpeciesIdTable,
     [SPECIES_GALLADE_MEGA] = sGalladeFormSpeciesIdTable,
-#endif
-#if P_GEN_5_POKEMON == TRUE
     [SPECIES_AUDINO_MEGA] = sAudinoFormSpeciesIdTable,
-#endif
-#if P_GEN_6_POKEMON == TRUE
     [SPECIES_DIANCIE_MEGA] = sDiancieFormSpeciesIdTable,
-#endif
     // Special Mega + Primals
     [SPECIES_RAYQUAZA_MEGA] = sRayquazaFormSpeciesIdTable,
     [SPECIES_KYOGRE_PRIMAL] = sKyogreFormSpeciesIdTable,
@@ -266,12 +248,10 @@ const u16 *const gFormSpeciesIdTables[NUM_SPECIES] =
     [SPECIES_CORSOLA_GALARIAN] = sCorsolaFormSpeciesIdTable,
     [SPECIES_ZIGZAGOON_GALARIAN] = sZigzagoonFormSpeciesIdTable,
     [SPECIES_LINOONE_GALARIAN] = sLinooneFormSpeciesIdTable,
-#if P_GEN_5_POKEMON == TRUE
     [SPECIES_DARUMAKA_GALARIAN] = sDarumakaFormSpeciesIdTable,
     [SPECIES_DARMANITAN_GALARIAN] = sDarmanitanFormSpeciesIdTable,
     [SPECIES_YAMASK_GALARIAN] = sYamaskFormSpeciesIdTable,
     [SPECIES_STUNFISK_GALARIAN] = sStunfiskFormSpeciesIdTable,
-#endif
     //Hisuian Forms
     [SPECIES_GROWLITHE_HISUIAN] = sGrowlitheFormSpeciesIdTable,
     [SPECIES_ARCANINE_HISUIAN] = sArcanineFormSpeciesIdTable,
@@ -280,21 +260,15 @@ const u16 *const gFormSpeciesIdTables[NUM_SPECIES] =
     [SPECIES_TYPHLOSION_HISUIAN] = sTyphlosionFormSpeciesIdTable,
     [SPECIES_QWILFISH_HISUIAN] = sQwilfishFormSpeciesIdTable,
     [SPECIES_SNEASEL_HISUIAN] = sSneaselFormSpeciesIdTable,
-#if P_GEN_5_POKEMON == TRUE
     [SPECIES_SAMUROTT_HISUIAN] = sSamurottFormSpeciesIdTable,
     [SPECIES_LILLIGANT_HISUIAN] = sLilligantFormSpeciesIdTable,
     [SPECIES_ZORUA_HISUIAN] = sZoruaFormSpeciesIdTable,
     [SPECIES_ZOROARK_HISUIAN] = sZoroarkFormSpeciesIdTable,
     [SPECIES_BRAVIARY_HISUIAN] = sBraviaryFormSpeciesIdTable,
-#endif
-#if P_GEN_6_POKEMON == TRUE
     [SPECIES_SLIGGOO_HISUIAN] = sSliggooFormSpeciesIdTable,
     [SPECIES_GOODRA_HISUIAN] = sGoodraFormSpeciesIdTable,
     [SPECIES_AVALUGG_HISUIAN] = sAvaluggFormSpeciesIdTable,
-#endif
-#if P_GEN_7_POKEMON == TRUE
     [SPECIES_DECIDUEYE_HISUIAN] = sDecidueyeFormSpeciesIdTable,
-#endif
     // Misc Forms
     // Cosplay Pikachu
     [SPECIES_PIKACHU_COSPLAY] = sPikachuFormSpeciesIdTable,
@@ -351,7 +325,6 @@ const u16 *const gFormSpeciesIdTables[NUM_SPECIES] =
     [SPECIES_DEOXYS_ATTACK] = sDeoxysFormSpeciesIdTable,
     [SPECIES_DEOXYS_DEFENSE] = sDeoxysFormSpeciesIdTable,
     [SPECIES_DEOXYS_SPEED] = sDeoxysFormSpeciesIdTable,
-#if P_GEN_4_POKEMON == TRUE
     // Burmy
     [SPECIES_BURMY_SANDY_CLOAK] = sBurmyFormSpeciesIdTable,
     [SPECIES_BURMY_TRASH_CLOAK] = sBurmyFormSpeciesIdTable,
@@ -394,8 +367,6 @@ const u16 *const gFormSpeciesIdTables[NUM_SPECIES] =
     [SPECIES_ARCEUS_DRAGON] = sArceusFormSpeciesIdTable,
     [SPECIES_ARCEUS_DARK] = sArceusFormSpeciesIdTable,
     [SPECIES_ARCEUS_FAIRY] = sArceusFormSpeciesIdTable,
-#endif
-#if P_GEN_5_POKEMON == TRUE
     // Basculin
     [SPECIES_BASCULIN_BLUE_STRIPED] = sBasculinFormSpeciesIdTable,
     [SPECIES_BASCULIN_WHITE_STRIPED] = sBasculinFormSpeciesIdTable,
@@ -426,8 +397,6 @@ const u16 *const gFormSpeciesIdTables[NUM_SPECIES] =
     [SPECIES_GENESECT_SHOCK_DRIVE] = sGenesectFormSpeciesIdTable,
     [SPECIES_GENESECT_BURN_DRIVE] = sGenesectFormSpeciesIdTable,
     [SPECIES_GENESECT_CHILL_DRIVE] = sGenesectFormSpeciesIdTable,
-#endif
-#if P_GEN_6_POKEMON == TRUE
     // Greninja
     [SPECIES_GRENINJA_BATTLE_BOND] = sGreninjaFormSpeciesIdTable,
     [SPECIES_GRENINJA_ASH] = sGreninjaFormSpeciesIdTable,
@@ -498,8 +467,6 @@ const u16 *const gFormSpeciesIdTables[NUM_SPECIES] =
     [SPECIES_ZYGARDE_COMPLETE] = sZygardeFormSpeciesIdTable,
     // Hoopa
     [SPECIES_HOOPA_UNBOUND] = sHoopaFormSpeciesIdTable,
-#endif
-#if P_GEN_7_POKEMON == TRUE
     // Oricorio
     [SPECIES_ORICORIO_POM_POM] = sOricorioFormSpeciesIdTable,
     [SPECIES_ORICORIO_PAU] = sOricorioFormSpeciesIdTable,
@@ -511,24 +478,6 @@ const u16 *const gFormSpeciesIdTables[NUM_SPECIES] =
     [SPECIES_LYCANROC_DUSK] = sLycanrocFormSpeciesIdTable,
     // Wishiwashi
     [SPECIES_WISHIWASHI_SCHOOL] = sWishiwashiFormSpeciesIdTable,
-    // Silvally
-    [SPECIES_SILVALLY_FIGHTING] = sSilvallyFormSpeciesIdTable,
-    [SPECIES_SILVALLY_FLYING] = sSilvallyFormSpeciesIdTable,
-    [SPECIES_SILVALLY_POISON] = sSilvallyFormSpeciesIdTable,
-    [SPECIES_SILVALLY_GROUND] = sSilvallyFormSpeciesIdTable,
-    [SPECIES_SILVALLY_ROCK] = sSilvallyFormSpeciesIdTable,
-    [SPECIES_SILVALLY_BUG] = sSilvallyFormSpeciesIdTable,
-    [SPECIES_SILVALLY_GHOST] = sSilvallyFormSpeciesIdTable,
-    [SPECIES_SILVALLY_STEEL] = sSilvallyFormSpeciesIdTable,
-    [SPECIES_SILVALLY_FIRE] = sSilvallyFormSpeciesIdTable,
-    [SPECIES_SILVALLY_WATER] = sSilvallyFormSpeciesIdTable,
-    [SPECIES_SILVALLY_GRASS] = sSilvallyFormSpeciesIdTable,
-    [SPECIES_SILVALLY_ELECTRIC] = sSilvallyFormSpeciesIdTable,
-    [SPECIES_SILVALLY_PSYCHIC] = sSilvallyFormSpeciesIdTable,
-    [SPECIES_SILVALLY_ICE] = sSilvallyFormSpeciesIdTable,
-    [SPECIES_SILVALLY_DRAGON] = sSilvallyFormSpeciesIdTable,
-    [SPECIES_SILVALLY_DARK] = sSilvallyFormSpeciesIdTable,
-    [SPECIES_SILVALLY_FAIRY] = sSilvallyFormSpeciesIdTable,
     // Minior
     [SPECIES_MINIOR_METEOR_ORANGE] = sMiniorFormSpeciesIdTable,
     [SPECIES_MINIOR_METEOR_YELLOW] = sMiniorFormSpeciesIdTable,
@@ -551,8 +500,6 @@ const u16 *const gFormSpeciesIdTables[NUM_SPECIES] =
     [SPECIES_NECROZMA_ULTRA] = sNecrozmaFormSpeciesIdTable,
     // Magearna
     [SPECIES_MAGEARNA_ORIGINAL_COLOR] = sMagearnaFormSpeciesIdTable,
-#endif
-#if P_GEN_8_POKEMON == TRUE
     // Cramorant
     [SPECIES_CRAMORANT_GULPING] = sCramorantFormSpeciesIdTable,
     [SPECIES_CRAMORANT_GORGING] = sCramorantFormSpeciesIdTable,
@@ -562,15 +509,6 @@ const u16 *const gFormSpeciesIdTables[NUM_SPECIES] =
     [SPECIES_SINISTEA_ANTIQUE] = sSinisteaFormSpeciesIdTable,
     // Polteageist
     [SPECIES_POLTEAGEIST_ANTIQUE] = sPolteageistFormSpeciesIdTable,
-    // Alcremie
-    [SPECIES_ALCREMIE_RUBY_CREAM] = sAlcremieFormSpeciesIdTable,
-    [SPECIES_ALCREMIE_MATCHA_CREAM] = sAlcremieFormSpeciesIdTable,
-    [SPECIES_ALCREMIE_MINT_CREAM] = sAlcremieFormSpeciesIdTable,
-    [SPECIES_ALCREMIE_LEMON_CREAM] = sAlcremieFormSpeciesIdTable,
-    [SPECIES_ALCREMIE_SALTED_CREAM] = sAlcremieFormSpeciesIdTable,
-    [SPECIES_ALCREMIE_RUBY_SWIRL] = sAlcremieFormSpeciesIdTable,
-    [SPECIES_ALCREMIE_CARAMEL_SWIRL] = sAlcremieFormSpeciesIdTable,
-    [SPECIES_ALCREMIE_RAINBOW_SWIRL] = sAlcremieFormSpeciesIdTable,
     // Eiscue
     [SPECIES_EISCUE_NOICE_FACE] = sEiscueFormSpeciesIdTable,
     // Indeedee
@@ -592,7 +530,6 @@ const u16 *const gFormSpeciesIdTables[NUM_SPECIES] =
     [SPECIES_CALYREX_SHADOW_RIDER] = sCalyrexFormSpeciesIdTable,
     // Enamorus
     [SPECIES_ENAMORUS_THERIAN] = sEnamorusFormSpeciesIdTable,
-#endif
     // Gimmighoul
     [SPECIES_GIMMIGHOUL_CHEST] = sGimmighoulFormSpeciesIdTable,
 };

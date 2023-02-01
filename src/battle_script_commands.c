@@ -8913,7 +8913,7 @@ static void Cmd_various(void)
         }
         return;
     case VARIOUS_TRY_REFLECT_TYPE:
-        if (gBattleMons[gBattlerTarget].species == SPECIES_ARCEUS || gBattleMons[gBattlerTarget].species == SPECIES_SILVALLY)
+        if (gBattleMons[gBattlerTarget].species == SPECIES_ARCEUS)
         {
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 3);
         }
