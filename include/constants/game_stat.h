@@ -54,7 +54,7 @@
 #define GAME_STAT_UNUSED_50                 50
 #define GAME_STAT_DEXNAV_SCANNED            51
 
-#define NUM_USED_GAME_STATS                 52
-#define NUM_GAME_STATS                      64
+#define NUM_USED_GAME_STATS                   52
+#define NUM_GAME_STATS                        64
 
 #endif // GUARD_CONSTANTS_GAME_STAT_H

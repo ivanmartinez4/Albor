@@ -401,5 +401,6 @@
 
 #define NUM_BATTLE_MOVE_EFFECTS             395
 
+#define NUM_BATTLE_MOVE_EFFECTS             394
 
 #endif  // GUARD_CONSTANTS_BATTLE_MOVE_EFFECTS_H

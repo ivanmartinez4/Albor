@@ -264,7 +264,7 @@ enum {
 
 // The maximum number of Pokémon icons that can appear on-screen.
 // By default the limit is 40 (though in practice only 37 can be).
-#define MAX_MON_ICONS (IN_BOX_COUNT + PARTY_SIZE + 1 >= 40 ? IN_BOX_COUNT + PARTY_SIZE + 1 : 40)
+#define MAX_MON_ICONS max(IN_BOX_COUNT + PARTY_SIZE + 1, 40)
 
 // The maximum number of item icons that can appear on-screen while
 // moving held items. 1 in the cursor, and 2 more while switching
@@ -912,24 +912,24 @@ static const union AffineAnimCmd sAffineAnim_ChooseBoxMenu[] =
 static const u8 sChooseBoxMenu_TextColors[] = {TEXT_COLOR_RED, TEXT_DYNAMIC_COLOR_6, TEXT_DYNAMIC_COLOR_5};
 static const u8 sText_OutOf30[] = _("/30");
 
-static const u16 sChooseBoxMenu_Pal[]       = INCBIN_U16("graphics/pokemon_storage/box_selection_popup.gbapal");
-static const u8 sChooseBoxMenuCenter_Gfx[]  = INCBIN_U8("graphics/pokemon_storage/box_selection_popup_center.4bpp");
-static const u8 sChooseBoxMenuSides_Gfx[]   = INCBIN_U8("graphics/pokemon_storage/box_selection_popup_sides.4bpp");
-static const u32 sScrollingBg_Gfx[]         = INCBIN_U32("graphics/pokemon_storage/scrolling_bg.4bpp.lz");
-static const u32 sScrollingBg_Tilemap[]     = INCBIN_U32("graphics/pokemon_storage/scrolling_bg.bin.lz");
-static const u32 sDisplayMenu_Tilemap[]     = INCBIN_U32("graphics/pokemon_storage/display_menu.bin.lz");
-static const u16 sPkmnData_Tilemap[]        = INCBIN_U16("graphics/pokemon_storage/pkmn_data.bin");
+static const u16 sChooseBoxMenu_Pal[]        = INCBIN_U16("graphics/pokemon_storage/box_selection_popup.gbapal");
+static const u8 sChooseBoxMenuCenter_Gfx[]   = INCBIN_U8("graphics/pokemon_storage/box_selection_popup_center.4bpp");
+static const u8 sChooseBoxMenuSides_Gfx[]    = INCBIN_U8("graphics/pokemon_storage/box_selection_popup_sides.4bpp");
+static const u32 sScrollingBg_Gfx[]          = INCBIN_U32("graphics/pokemon_storage/scrolling_bg.4bpp.lz");
+static const u32 sScrollingBg_Tilemap[]      = INCBIN_U32("graphics/pokemon_storage/scrolling_bg.bin.lz");
+static const u32 sDisplayMenu_Tilemap[]      = INCBIN_U32("graphics/pokemon_storage/display_menu.bin.lz");
+static const u16 sPkmnData_Tilemap[]         = INCBIN_U16("graphics/pokemon_storage/pkmn_data.bin");
 // sInterface_Pal - parts of the display frame, "PkmnData"'s normal color, Close Box
-static const u16 sInterface_Pal[]           = INCBIN_U16("graphics/pokemon_storage/interface.gbapal");
-static const u16 sPkmnDataGray_Pal[]        = INCBIN_U16("graphics/pokemon_storage/pkmn_data_gray.gbapal");
-static const u16 sBg_Pal[]                  = INCBIN_U16("graphics/pokemon_storage/bg.gbapal");
-static const u16 sBgMoveItems_Pal[]         = INCBIN_U16("graphics/pokemon_storage/bg_move_items.gbapal");
-static const u16 sCloseBoxButton_Tilemap[]  = INCBIN_U16("graphics/pokemon_storage/close_box_button.bin");
-static const u16 sPartySlotFilled_Tilemap[] = INCBIN_U16("graphics/pokemon_storage/party_slot_filled.bin");
-static const u16 sPartySlotEmpty_Tilemap[]  = INCBIN_U16("graphics/pokemon_storage/party_slot_empty.bin");
-static const u16 sWaveform_Pal[]            = INCBIN_U16("graphics/pokemon_storage/waveform.gbapal");
-static const u32 sWaveform_Gfx[]            = INCBIN_U32("graphics/pokemon_storage/waveform.4bpp");
-static const u16 sTextWindows_Pal[]         = INCBIN_U16("graphics/pokemon_storage/text_windows.gbapal");
+static const u16 sInterface_Pal[]            = INCBIN_U16("graphics/pokemon_storage/interface.gbapal");
+static const u16 sPkmnDataGray_Pal[]         = INCBIN_U16("graphics/pokemon_storage/pkmn_data_gray.gbapal");
+static const u16 sScrollingBg_Pal[]          = INCBIN_U16("graphics/pokemon_storage/scrolling_bg.gbapal");
+static const u16 sScrollingBgMoveItems_Pal[] = INCBIN_U16("graphics/pokemon_storage/scrolling_bg_move_items.gbapal");
+static const u16 sCloseBoxButton_Tilemap[]   = INCBIN_U16("graphics/pokemon_storage/close_box_button.bin");
+static const u16 sPartySlotFilled_Tilemap[]  = INCBIN_U16("graphics/pokemon_storage/party_slot_filled.bin");
+static const u16 sPartySlotEmpty_Tilemap[]   = INCBIN_U16("graphics/pokemon_storage/party_slot_empty.bin");
+static const u16 sWaveform_Pal[]             = INCBIN_U16("graphics/pokemon_storage/waveform.gbapal");
+static const u32 sWaveform_Gfx[]             = INCBIN_U32("graphics/pokemon_storage/waveform.4bpp");
+static const u16 sTextWindows_Pal[]          = INCBIN_U16("graphics/pokemon_storage/text_windows.gbapal");
 
 static const struct WindowTemplate sWindowTemplates[] =
 {
@@ -1202,7 +1202,7 @@ static const union AffineAnimCmd *const sAffineAnims_ReleaseMon[] =
 
 #include "data/wallpapers.h"
 
-static const struct SpriteSheet sSpriteSheet_Arrow = {sArrow_Gfx, 0x80, GFXTAG_ARROW};
+static const struct SpriteSheet sSpriteSheet_Arrow = {sArrow_Gfx, sizeof(sArrow_Gfx), GFXTAG_ARROW};
 
 static const struct OamData sOamData_BoxTitle =
 {
@@ -1638,6 +1638,8 @@ void ResetPokemonStorageSystem(void)
 
 static void LoadChooseBoxMenuGfx(struct ChooseBoxMenu *menu, u16 tileTag, u16 palTag, u8 subpriority, bool32 loadPal)
 {
+    // Because loadPal is always false, the below palette is never used.
+    // The Choose Box menu instead uses the palette indicated by palTag, which is always PALTAG_MISC_1 (sHandCursor_Pal)
     struct SpritePalette palette =
     {
         sChooseBoxMenu_Pal, palTag
@@ -2073,7 +2075,7 @@ static void Task_InitPokeStorage(u8 taskId)
         PutWindowTilemap(WIN_DISPLAY_INFO);
         ClearWindowTilemap(WIN_MESSAGE);
         CpuFill32(0, (void *)VRAM, 0x200);
-        LoadUserWindowBorderGfx(WIN_MESSAGE, 0xB, 0xE0);
+        LoadUserWindowBorderGfx(WIN_MESSAGE, 0xB, BG_PLTT_ID(14));
         break;
     case 3:
         ResetAllBgCoords();
@@ -3779,13 +3781,13 @@ static void LoadWaveformSpritePalette(void)
 
 static void InitPalettesAndSprites(void)
 {
-    LoadPalette(sInterface_Pal, 0, sizeof(sInterface_Pal));
-    LoadPalette(sPkmnDataGray_Pal, 0x20, sizeof(sPkmnDataGray_Pal));
-    LoadPalette(sTextWindows_Pal, 0xF0, sizeof(sTextWindows_Pal));
+    LoadPalette(sInterface_Pal, BG_PLTT_ID(0), sizeof(sInterface_Pal));
+    LoadPalette(sPkmnDataGray_Pal, BG_PLTT_ID(2), sizeof(sPkmnDataGray_Pal));
+    LoadPalette(sTextWindows_Pal, BG_PLTT_ID(15), sizeof(sTextWindows_Pal));
     if (sStorage->boxOption != OPTION_MOVE_ITEMS)
-        LoadPalette(sBg_Pal, 0x30, sizeof(sBg_Pal));
+        LoadPalette(sScrollingBg_Pal, BG_PLTT_ID(3), sizeof(sScrollingBg_Pal));
     else
-        LoadPalette(sBgMoveItems_Pal, 0x30, sizeof(sBgMoveItems_Pal));
+        LoadPalette(sScrollingBgMoveItems_Pal, BG_PLTT_ID(3), sizeof(sScrollingBgMoveItems_Pal));
 
     SetGpuReg(REG_OFFSET_BG1CNT, BGCNT_PRIORITY(1) | BGCNT_CHARBASE(1) | BGCNT_16COLOR | BGCNT_SCREENBASE(30));
     CreateDisplayMonSprite();
@@ -3877,7 +3879,7 @@ static void CreateDisplayMonSprite(void)
             break;
 
         sStorage->displayMonSprite = &gSprites[spriteId];
-        sStorage->displayMonPalOffset = palSlot * 16 + 0x100;
+        sStorage->displayMonPalOffset = OBJ_PLTT_ID(palSlot);
         sStorage->displayMonTilePtr = (void *) OBJ_VRAM0 + tileStart * TILE_SIZE_4BPP;
     } while (0);
 
@@ -3971,7 +3973,7 @@ static void UpdateWaveformAnimation(void)
 static void InitSupplementalTilemaps(void)
 {
     LZ77UnCompWram(gStorageSystemPartyMenu_Tilemap, sStorage->partyMenuTilemapBuffer);
-    LoadPalette(gStorageSystemPartyMenu_Pal, 0x10, 0x20);
+    LoadPalette(gStorageSystemPartyMenu_Pal, BG_PLTT_ID(1), PLTT_SIZE_4BPP);
     TilemapUtil_SetMap(TILEMAPID_PARTY_MENU, 1, sStorage->partyMenuTilemapBuffer, 12, 22);
     TilemapUtil_SetMap(TILEMAPID_CLOSE_BUTTON, 1, sCloseBoxButton_Tilemap, 9, 4);
     TilemapUtil_SetPos(TILEMAPID_PARTY_MENU, 10, 0);
@@ -4213,7 +4215,7 @@ static void UpdateBoxToSendMons(void)
 static void InitPokeStorageBg0(void)
 {
     SetGpuReg(REG_OFFSET_BG0CNT, BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(29));
-    LoadUserWindowBorderGfx(WIN_MESSAGE, 2, 208);
+    LoadUserWindowBorderGfx(WIN_MESSAGE, 2, BG_PLTT_ID(13));
     FillBgTilemapBufferRect(0, 0, 0, 0, 32, 20, 17);
     CopyBgTilemapBufferToVram(0);
 }
@@ -5452,7 +5454,7 @@ static void DrawWallpaper(const void *tilemap, s8 direction, u8 offset)
     else
         x -= 4;
 
-    FillBgTilemapBufferRect(2, 0, x, 2, 4, 0x12, 0x11);
+    FillBgTilemapBufferRect(2, 0, x, 2, 4, 0x12, 17);
 }
 
 static void TrimOldWallpaper(void *tilemap)
@@ -5503,7 +5505,7 @@ static void InitBoxTitle(u8 boxId)
     sStorage->wallpaperPalBits = 0x3f0;
 
     tagIndex = IndexOfSpritePaletteTag(PALTAG_BOX_TITLE);
-    sStorage->boxTitlePalOffset = 0x10e + 16 * tagIndex;
+    sStorage->boxTitlePalOffset = OBJ_PLTT_ID(tagIndex) + 14;
     sStorage->wallpaperPalBits |= 0x10000 << tagIndex;
 
     // The below seems intended to have separately tracked
@@ -5511,7 +5513,7 @@ static void InitBoxTitle(u8 boxId)
     // share a palette tag, all colors (and fields in some cases)
     // this is redundant along with the use of boxTitleAltPalOffset
     tagIndex = IndexOfSpritePaletteTag(PALTAG_BOX_TITLE);
-    sStorage->boxTitleAltPalOffset = 0x10e + 16 * tagIndex;
+    sStorage->boxTitleAltPalOffset = OBJ_PLTT_ID(tagIndex) + 14;
     sStorage->wallpaperPalBits |= 0x10000 << tagIndex;
 
     StringCopyPadded(sStorage->boxTitleText, GetBoxNamePtr(boxId), 0, BOX_NAME_LENGTH);
@@ -9308,7 +9310,7 @@ static bool8 UpdateItemInfoWindowSlideOut(void)
     if (pos >= 0)
         DrawItemInfoWindow(pos);
 
-    FillBgTilemapBufferRect(0, 0, pos + 1, 12, 1, 9, 0x11);
+    FillBgTilemapBufferRect(0, 0, pos + 1, 12, 1, 9, 17);
     ScheduleBgCopyTilemapToVram(0);
     return TRUE;
 }
@@ -9317,12 +9319,12 @@ static void DrawItemInfoWindow(u32 x)
 {
     if (x != 0)
     {
-        FillBgTilemapBufferRect(0, 0x13A, 0, 0xC, x, 1, 0xFu);
-        FillBgTilemapBufferRect(0, 0x93A, 0, 0x14, x, 1, 0xFu);
+        FillBgTilemapBufferRect(0, 0x13A, 0, 0xC, x, 1, 15);
+        FillBgTilemapBufferRect(0, 0x93A, 0, 0x14, x, 1, 15);
     }
-    FillBgTilemapBufferRect(0, 0x13B, x, 0xD, 1, 7, 0xFu);
-    FillBgTilemapBufferRect(0, 0x13C, x, 0xC, 1, 1, 0xFu);
-    FillBgTilemapBufferRect(0, 0x13D, x, 0x14, 1, 1, 0xFu);
+    FillBgTilemapBufferRect(0, 0x13B, x, 0xD, 1, 7, 15);
+    FillBgTilemapBufferRect(0, 0x13C, x, 0xC, 1, 1, 15);
+    FillBgTilemapBufferRect(0, 0x13D, x, 0x14, 1, 1, 15);
     ScheduleBgCopyTilemapToVram(0);
 }
 

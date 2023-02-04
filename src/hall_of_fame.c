@@ -1140,7 +1140,7 @@ static void ClearVramOamPltt_LoadHofPal(void)
     DmaFill16(3, 0, plttOffset, plttSize);
 
     ResetPaletteFade();
-    LoadPalette(sHallOfFame_Pal, 0, 0x20);
+    LoadPalette(sHallOfFame_Pal, BG_PLTT_ID(0), PLTT_SIZE_4BPP);
 }
 
 static void LoadHofGfx(void)

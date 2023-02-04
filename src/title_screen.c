@@ -658,6 +658,6 @@ static void UpdateLegendaryMarkingColor(u8 frameNum)
         s32 b = 12;
 
         u16 color = RGB(r, g, b);
-        LoadPalette(&color, 0xEF, sizeof(color));
+        LoadPalette(&color, BG_PLTT_ID(14) + 15, sizeof(color));
    }
 }

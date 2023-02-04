@@ -2,77 +2,70 @@
 #include "random.h"
 #include "event_data.h"
 #include "wonder_news.h"
+#include "constants/items.h"
 
-/*
-    Wonder News related functions.
-    Because this feature is largely unused, the names in here are
-    mostly nebulous and without a real indication of purpose.
-*/
+// Every 4th reward for sending Wonder News to a link partner is a "big" reward.
+#define MAX_SENT_REWARD 4
 
-enum {
-    NEWS_VAL_INVALID,
-    NEWS_VAL_RECV_FRIEND,
-    NEWS_VAL_RECV_WIRELESS,
-    NEWS_VAL_NONE,
-    NEWS_VAL_SENT,
-    NEWS_VAL_SENT_MAX,
-    NEWS_VAL_GET_MAX,
-};
+// Only up to 5 rewards can be received in a short period. After this the player
+// must take 500 steps before any more rewards can be received.
+#define MAX_REWARD 5
 
-static u32 GetNewsId(struct WonderNewsMetadata *);
-static void IncrementGetNewsCounter(struct WonderNewsMetadata *);
-static u32 GetNewsValByNewsType(struct WonderNewsMetadata *);
-static void IncrementSentNewsCounter(struct WonderNewsMetadata *);
-static void ResetSentNewsCounter(struct WonderNewsMetadata *);
+static u32 GetRewardItem(struct WonderNewsMetadata *);
+static u32 GetRewardType(struct WonderNewsMetadata *);
+static void IncrementRewardCounter(struct WonderNewsMetadata *);
+static void IncrementSentRewardCounter(struct WonderNewsMetadata *);
+static void ResetSentRewardCounter(struct WonderNewsMetadata *);
 
 static u32 GetNewsId(struct WonderNewsMetadata *data)
 {
-    u32 id;
+    u32 itemId;
     data->newsType = WONDER_NEWS_NONE;
-    id = data->rand + 132;
-    data->rand = 0;
-    IncrementGetNewsCounter(data);
-    return id;
+    itemId = data->berry + FIRST_BERRY_INDEX - 1;
+    data->berry = 0;
+    IncrementRewardCounter(data);
+    return itemId;
 }
 
-static void ResetSentNewsCounter(struct WonderNewsMetadata *data)
+static void ResetSentRewardCounter(struct WonderNewsMetadata *data)
 {
-    data->sentCounter = 0;
+    data->sentRewardCounter = 0;
 }
 
-static void IncrementSentNewsCounter(struct WonderNewsMetadata *data)
+// Track number of times a reward was received (or attmepted to receive) for sending Wonder News to a link partner.
+static void IncrementSentRewardCounter(struct WonderNewsMetadata *data)
 {
-    data->sentCounter++;
-    if (data->sentCounter > 4)
-        data->sentCounter = 4;
+    data->sentRewardCounter++;
+    if (data->sentRewardCounter > MAX_SENT_REWARD)
+        data->sentRewardCounter = MAX_SENT_REWARD;
 }
 
-static void IncrementGetNewsCounter(struct WonderNewsMetadata *data)
+static void IncrementRewardCounter(struct WonderNewsMetadata *data)
 {
-    data->getCounter++;
-    if (data->getCounter > 5)
-        data->getCounter = 5;
+    data->rewardCounter++;
+    if (data->rewardCounter > MAX_REWARD)
+        data->rewardCounter = MAX_REWARD;
 }
 
-static u32 GetNewsValByNewsType(struct WonderNewsMetadata *data)
+static u32 GetRewardType(struct WonderNewsMetadata *data)
 {
-    if (data->getCounter == 5)
-        return NEWS_VAL_GET_MAX;
+    if (data->rewardCounter == MAX_REWARD)
+        return NEWS_REWARD_AT_MAX;
 
     switch (data->newsType)
     {
     case WONDER_NEWS_NONE:
-        return NEWS_VAL_NONE;
+        return NEWS_REWARD_WAITING;
     case WONDER_NEWS_RECV_FRIEND:
-        return NEWS_VAL_RECV_FRIEND;
+        return NEWS_REWARD_RECV_SMALL;
     case WONDER_NEWS_RECV_WIRELESS:
-        return NEWS_VAL_RECV_WIRELESS;
+        return NEWS_REWARD_RECV_BIG;
     case WONDER_NEWS_SENT:
-        if (data->sentCounter < 3)
-            return NEWS_VAL_SENT;
-        return NEWS_VAL_SENT_MAX;
+        if (data->sentRewardCounter < MAX_SENT_REWARD - 1)
+            return NEWS_REWARD_SENT_SMALL;
+        return NEWS_REWARD_SENT_BIG;
     default:
         AGB_ASSERT(0);
-        return NEWS_VAL_INVALID;
+        return NEWS_REWARD_NONE;
     }
 }

@@ -237,7 +237,7 @@ static void LoadTrainerHillRecordsWindowGfx(u8 bgId)
 {
     LoadBgTiles(bgId, sTrainerHillWindowTileset, sizeof(sTrainerHillWindowTileset), 0);
     CopyToBgTilemapBufferRect(bgId, sTrainerHillWindowTilemap, 0, 0, 0x20, 0x20);
-    LoadPalette(sTrainerHillWindowPalette, 0, 0x20);
+    LoadPalette(sTrainerHillWindowPalette, BG_PLTT_ID(0), PLTT_SIZE_4BPP);
 }
 
 static void VblankCB_TrainerHillRecords(void)

@@ -89,7 +89,7 @@ static u8 EReader_Transfer(struct EReaderData *eReader)
 static void OpenEReaderLink(void)
 {
     memset(gDecompressionBuffer, 0, 0x2000);
-    gLinkType = LINKTYPE_EREADER;
+    gLinkType = LINKTYPE_EREADER_EM;
     OpenLink();
     SetSuppressLinkErrorMessage(TRUE);
 }

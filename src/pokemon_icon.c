@@ -1287,17 +1287,17 @@ const u8 *const gMonIconTable[] =
 
 const u8 *const gMonIconTableFemale[] =
 {
-    [SPECIES_EEVEE] = gMonIcon_Eevee,
-    [SPECIES_STARLY] = gMonIcon_Starly,
-    [SPECIES_STARAVIA] = gMonIcon_Staravia,
-    [SPECIES_STARAPTOR] = gMonIcon_Staraptor,
-    [SPECIES_BIDOOF] = gMonIcon_Bidoof,
-    [SPECIES_KRICKETOT] = gMonIcon_Kricketot,
-    [SPECIES_KRICKETUNE] = gMonIcon_Kricketune,
-    [SPECIES_SHINX] = gMonIcon_Shinx,
-    [SPECIES_COMBEE] = gMonIcon_Combee,
-    [SPECIES_HIPPOPOTAS] = gMonIcon_Hippopotas,
-    [SPECIES_HIPPOWDON] = gMonIcon_Hippowdon,
+    [SPECIES_EEVEE] = gMonIcon_EeveeF,
+    [SPECIES_STARLY] = gMonIcon_StarlyF,
+    [SPECIES_STARAVIA] = gMonIcon_StaraviaF,
+    [SPECIES_STARAPTOR] = gMonIcon_StaraptorF,
+    [SPECIES_BIDOOF] = gMonIcon_BidoofF,
+    [SPECIES_KRICKETOT] = gMonIcon_KricketotF,
+    [SPECIES_KRICKETUNE] = gMonIcon_KricketuneF,
+    [SPECIES_SHINX] = gMonIcon_ShinxF,
+    [SPECIES_COMBEE] = gMonIcon_CombeeF,
+    [SPECIES_HIPPOPOTAS] = gMonIcon_HippopotasF,
+    [SPECIES_HIPPOWDON] = gMonIcon_HippowdonF,
     [SPECIES_UNFEZANT] = gMonIcon_UnfezantF,
     [SPECIES_FRILLISH] = gMonIcon_FrillishF,
     [SPECIES_JELLICENT] = gMonIcon_JellicentF,
@@ -2874,13 +2874,13 @@ void TryLoadAllMonIconPalettesAtOffset(u16 offset)
     s32 i;
     const struct SpritePalette* monIconPalettePtr;
 
-    if (offset <= 0xA0)
+    if (offset <= BG_PLTT_ID(10))
     {
         u16 whitePalette[16];
         for (i = 0; i < 16; i++)
           whitePalette[i] = 0xFFFF;
         monIconPalettePtr = gMonIconPaletteTable;
-        for(i = ARRAY_COUNT(gMonIconPaletteTable) - 1; i >= 0; i--)
+        for (i = ARRAY_COUNT(gMonIconPaletteTable) - 1; i >= 0; i--)
         {
             LoadPalette(&whitePalette[0], offset, 0x20);
             offset += 0x10;

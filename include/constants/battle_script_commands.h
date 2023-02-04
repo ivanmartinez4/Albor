@@ -253,6 +253,16 @@
 #define VARIOUS_TEATIME_INVUL                       162
 #define VARIOUS_TEATIME_TARGETS                     163
 #define VARIOUS_SWAP_STATS                          164
+#define VARIOUS_JUMP_IF_ROD                         165
+#define VARIOUS_JUMP_IF_ABSORB                      166
+#define VARIOUS_JUMP_IF_MOTOR                       167
+#define VARIOUS_TEATIME_INVUL                       168
+#define VARIOUS_TEATIME_TARGETS                     169
+#define VARIOUS_TRY_WIND_RIDER_POWER                170
+#define VARIOUS_ACTIVATE_WEATHER_CHANGE_ABILITIES   171
+#define VARIOUS_ACTIVATE_TERRAIN_CHANGE_ABILITIES   172
+#define VARIOUS_JUMP_IF_NO_VALID_TARGETS            173
+#define VARIOUS_JUMP_IF_EMERGENCY_EXITED            174
 
 // Cmd_manipulatedamage
 #define DMG_CHANGE_SIGN            0

@@ -150,6 +150,14 @@
 #define HOLD_EFFECT_BLUNDER_POLICY      162
 #define HOLD_EFFECT_HEAVY_DUTY_BOOTS    163
 
+// Gen9 hold effects
+#define HOLD_EFFECT_ABILITY_SHIELD      175
+#define HOLD_EFFECT_CLEAR_AMULET        176
+#define HOLD_EFFECT_MIRROR_HERB         177 // Not implemented.
+#define HOLD_EFFECT_PUNCHING_GLOVE      178
+#define HOLD_EFFECT_COVERT_CLOAK        179
+#define HOLD_EFFECT_LOADED_DICE         180
+
 #define HOLD_EFFECT_CHOICE(holdEffect)((holdEffect == HOLD_EFFECT_CHOICE_BAND || holdEffect == HOLD_EFFECT_CHOICE_SCARF || holdEffect == HOLD_EFFECT_CHOICE_SPECS))
 
 // Terrain seed params
